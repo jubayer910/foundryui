@@ -1,0 +1,24 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "empty-state",
+  "type": "registry:component",
+  "title": "Empty state",
+  "description": "Empty state with icon tile, title, description and one primary action.",
+  "dependencies": [],
+  "registryDependencies": [
+    "https://foundry-ui.mitaly-website.workers.dev/r/icons.json"
+  ],
+  "files": [
+    {
+      "path": "registry/foundry/components/empty-state.tsx",
+      "type": "registry:component",
+      "target": "components/foundry/empty-state.tsx",
+      "content": "import type { ReactNode } from \"react\";\nimport { Icon, type IconName } from \"./icons\";\n\nexport interface EmptyStateProps {\n  icon?: IconName;\n  title: string;\n  description: string;\n  action?: ReactNode;\n}\n\n/** Empty state: duo-tone icon tile, one-line title, helpful description, one primary action. */\nexport function EmptyState({ icon = \"folder\", title, description, action }: EmptyStateProps) {\n  return (\n    <div className=\"flex w-full flex-col items-center rounded-fu-lg border border-dashed border-fu-line-strong bg-fu-sunken px-6 py-10 text-center\">\n      <span className=\"relative mb-4 flex size-12 items-center justify-center rounded-fu-md border border-fu-line bg-fu-surface text-fu-ink shadow-fu-card\">\n        <Icon name={icon} size={22} />\n      </span>\n      <h3 className=\"text-[15px] font-medium tracking-[-0.01em] text-fu-ink\">{title}</h3>\n      <p className=\"mt-1 max-w-72 text-[13px] leading-relaxed text-fu-muted\">{description}</p>\n      {action && <div className=\"mt-5\">{action}</div>}\n    </div>\n  );\n}\n"
+    }
+  ],
+  "meta": {
+    "system": "loopo",
+    "category": "dashboard-blocks",
+    "tier": "free"
+  }
+}

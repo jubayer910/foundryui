@@ -1,0 +1,24 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "tooltip",
+  "type": "registry:component",
+  "title": "Tooltip",
+  "description": "Hover tooltip with delay, scale-in motion and the system overlay shadow.",
+  "dependencies": [
+    "@base-ui/react"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/foundry/components/tooltip.tsx",
+      "type": "registry:component",
+      "target": "components/foundry/tooltip.tsx",
+      "content": "\"use client\";\nimport { Tooltip as T } from \"@base-ui/react/tooltip\";\nimport type { ReactElement, ReactNode } from \"react\";\n\nexport interface TooltipProps { content: ReactNode; children: ReactElement; side?: \"top\" | \"bottom\" | \"left\" | \"right\" }\n\nexport function Tooltip({ content, children, side = \"top\" }: TooltipProps) {\n  return (\n    <T.Provider delay={250}>\n      <T.Root>\n        <T.Trigger render={children} />\n        <T.Portal>\n          <T.Positioner side={side} sideOffset={8} className=\"z-50\">\n            <T.Popup className=\"origin-[var(--transform-origin)] rounded-fu-sm border border-fu-line bg-fu-surface px-2.5 py-1.5 text-xs font-medium text-fu-ink shadow-fu-overlay transition-[opacity,transform] duration-150 data-[ending-style]:opacity-0 data-[starting-style]:scale-95 data-[starting-style]:opacity-0\">\n              {content}\n            </T.Popup>\n          </T.Positioner>\n        </T.Portal>\n      </T.Root>\n    </T.Provider>\n  );\n}\n"
+    }
+  ],
+  "meta": {
+    "system": "loopo",
+    "category": "overlays",
+    "tier": "free"
+  }
+}

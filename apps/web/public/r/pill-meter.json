@@ -1,0 +1,24 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pill-meter",
+  "type": "registry:component",
+  "title": "Pill meter",
+  "description": "Capacity or quota as tall gradient pills with a tint remainder.",
+  "dependencies": [],
+  "registryDependencies": [
+    "https://foundry-ui.mitaly-website.workers.dev/r/chart-kit.json"
+  ],
+  "files": [
+    {
+      "path": "registry/foundry/components/pill-meter.tsx",
+      "type": "registry:component",
+      "target": "components/foundry/pill-meter.tsx",
+      "content": "import { mix } from \"./chart-kit\";\n\nexport interface PillMeterProps {\n  value: number;\n  max?: number;\n  pills?: number;\n  color?: string;\n  label?: string;\n}\n\n/** Capacity / quota as tall pills: filled pills carry the gradient, the remainder is a 16% tint. */\nexport function PillMeter({ value, max = 100, pills = 24, color = \"#fd4b23\", label = \"Execution capacity\" }: PillMeterProps) {\n  const on = Math.round((value / max) * pills);\n  return (\n    <div className=\"w-full\">\n      <div className=\"mb-2 flex items-baseline justify-between\">\n        <span className=\"text-[13px] text-fu-muted\">{label}</span>\n        <span className=\"text-sm font-medium tabular-nums text-fu-ink\">\n          {value}\n          <span className=\"text-fu-faint\"> / {max}</span>\n        </span>\n      </div>\n      <div className=\"flex h-7 gap-[3px]\" role=\"meter\" aria-valuenow={value} aria-valuemin={0} aria-valuemax={max} aria-label={label}>\n        {Array.from({ length: pills }, (_, i) => (\n          <span\n            key={i}\n            className=\"flex-1 rounded-full\"\n            style={\n              i < on\n                ? { background: \"linear-gradient(\" + mix(color, 0.13) + \",\" + color + \")\", boxShadow: \"inset 0 0 0 1px \" + mix(color, 0.22, \"#000000\") + \"55, inset 0 1px 0 #ffffff4d\" }\n                : { background: mix(color, 0.84) }\n            }\n          />\n        ))}\n      </div>\n    </div>\n  );\n}\n"
+    }
+  ],
+  "meta": {
+    "system": "loopo",
+    "category": "charts",
+    "tier": "free"
+  }
+}

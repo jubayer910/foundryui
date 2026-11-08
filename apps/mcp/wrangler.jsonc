@@ -1,0 +1,12 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "foundry-ui-mcp",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-11-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "d1_databases": [
+    { "binding": "DB", "database_name": "foundry-ui-db", "database_id": "94a18a8e-7d72-45e3-9b45-733f8d74c02b" }
+  ],
+  "vars": { "SITE_URL": "https://foundry-ui.mitaly-website.workers.dev" },
+  "observability": { "enabled": true }
+}

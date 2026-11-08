@@ -1,0 +1,13 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "foundry-ui",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2026-11-01",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "assets": { "directory": ".open-next/assets", "binding": "ASSETS" },
+  "d1_databases": [
+    { "binding": "DB", "database_name": "foundry-ui-db", "database_id": "94a18a8e-7d72-45e3-9b45-733f8d74c02b", "migrations_dir": "migrations" }
+  ],
+  "kv_namespaces": [{ "binding": "KV", "id": "ab8eb3c162664234b4a575838334214a" }],
+  "observability": { "enabled": true }
+}

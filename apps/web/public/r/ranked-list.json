@@ -1,0 +1,24 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "ranked-list",
+  "type": "registry:component",
+  "title": "Ranked list",
+  "description": "Row-background bars: each row is its own bar, for top countries, pages or products.",
+  "dependencies": [],
+  "registryDependencies": [
+    "https://foundry-ui.mitaly-website.workers.dev/r/chart-kit.json"
+  ],
+  "files": [
+    {
+      "path": "registry/foundry/components/ranked-list.tsx",
+      "type": "registry:component",
+      "target": "components/foundry/ranked-list.tsx",
+      "content": "import { mix } from \"./chart-kit\";\n\nexport interface RankedRow {\n  label: string;\n  value: number;\n  code?: string;\n}\n\nconst DEFAULT: RankedRow[] = [\n  { label: \"United States\", code: \"US\", value: 18420 },\n  { label: \"Germany\", code: \"DE\", value: 9310 },\n  { label: \"United Kingdom\", code: \"GB\", value: 7860 },\n  { label: \"Canada\", code: \"CA\", value: 5120 },\n  { label: \"Bangladesh\", code: \"BD\", value: 3940 },\n];\n\n/** Row-background bars: the row itself is the bar (pale fill = share), label inside, value at the end. */\nexport function RankedList({ rows = DEFAULT, color = \"#fd4b23\", title = \"Top countries\" }: { rows?: RankedRow[]; color?: string; title?: string }) {\n  const max = Math.max(...rows.map((r) => r.value));\n  return (\n    <div className=\"w-full\">\n      <div className=\"mb-2 flex justify-between px-1 text-[11px] font-medium uppercase tracking-[0.04em] text-fu-faint\">\n        <span>{title}</span>\n        <span>Visitors</span>\n      </div>\n      <ul className=\"flex flex-col gap-1\">\n        {rows.map((r, i) => (\n          <li key={r.label} className=\"relative flex h-9 items-center overflow-hidden rounded-fu-sm px-2.5 text-[13px]\">\n            <span\n              className=\"absolute inset-y-0 left-0 rounded-fu-sm\"\n              style={{ width: (r.value / max) * 100 + \"%\", background: i === 0 ? mix(color, 0.86) : mix(color, 0.93), boxShadow: \"inset 0 0 0 1px \" + mix(color, 0.8) }}\n            />\n            {r.code && <span className=\"relative mr-2 w-6 font-fu-mono text-[11px] text-fu-muted\">{r.code}</span>}\n            <span className=\"relative flex-1 text-fu-body\">{r.label}</span>\n            <span className=\"relative font-medium tabular-nums text-fu-ink\">{r.value.toLocaleString()}</span>\n          </li>\n        ))}\n      </ul>\n    </div>\n  );\n}\n"
+    }
+  ],
+  "meta": {
+    "system": "loopo",
+    "category": "dashboard-blocks",
+    "tier": "free"
+  }
+}

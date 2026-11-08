@@ -1,0 +1,24 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "capsule-bars",
+  "type": "registry:component",
+  "title": "Capsule bars",
+  "description": "Values as capsules in full-height pale tracks; the focused period is saturated, the rest tint with hatch.",
+  "dependencies": [],
+  "registryDependencies": [
+    "https://foundry-ui.mitaly-website.workers.dev/r/chart-kit.json"
+  ],
+  "files": [
+    {
+      "path": "registry/foundry/components/capsule-bars.tsx",
+      "type": "registry:component",
+      "target": "components/foundry/capsule-bars.tsx",
+      "content": "\"use client\";\nimport { useState } from \"react\";\nimport { Bar, ChartDefs, TipCard, useChartIds } from \"./chart-kit\";\n\nconst MONTHS = [\"Jan\", \"Feb\", \"Mar\", \"Apr\", \"May\", \"Jun\", \"Jul\", \"Aug\", \"Sep\", \"Oct\", \"Nov\", \"Dec\"];\nconst DEFAULT = [42, 55, 48, 63, 58, 71, 66, 79, 74, 88, 82, 94];\n\nexport interface CapsuleBarsProps {\n  data?: number[];\n  labels?: string[];\n  color?: string;\n  title?: string;\n  unit?: string;\n}\n\n/** Capsules in full-height pale tracks; the focused period is saturated, the rest tint + hatch. */\nexport function CapsuleBars({ data = DEFAULT, labels = MONTHS, color = \"#fd4b23\", title = \"Revenue\", unit = \"k\" }: CapsuleBarsProps) {\n  const ids = useChartIds();\n  const [focus, setFocus] = useState(data.length - 1);\n  const W = 560;\n  const H = 200;\n  const gap = 14;\n  const w = (W - gap * (data.length - 1)) / data.length;\n  const max = Math.max(...data) * 1.08;\n  return (\n    <div className=\"relative w-full pt-16\">\n      <TipCard className=\"absolute left-0 top-0\" title={labels[focus] + \" 2026\"} rows={[{ label: title, value: \"$\" + data[focus] + unit, color }]} />\n      <svg viewBox={\"0 0 \" + W + \" \" + (H + 24)} className=\"w-full overflow-visible\" role=\"img\" aria-label={title + \" by month\"}>\n        <ChartDefs ids={ids} colors={{ a: color }} />\n        {data.map((v, i) => {\n          const x = i * (w + gap);\n          const h = (v / max) * H;\n          const on = i === focus;\n          return (\n            <g key={i} onMouseEnter={() => setFocus(i)} className=\"cursor-pointer\">\n              <rect x={x} y={0} width={w} height={H} rx={w / 2} fill=\"#f6f6f4\" />\n              <Bar x={x} y={H - h} w={w} h={h} r={w / 2} color={color} ids={ids} gradKey=\"a\" tint={!on} hatch={!on} />\n              <text x={x + w / 2} y={H + 18} textAnchor=\"middle\" fontSize=\"11\" fill={on ? \"#202020\" : \"#8b8b91\"} fontWeight={on ? 500 : 400}>\n                {labels[i]}\n              </text>\n            </g>\n          );\n        })}\n      </svg>\n    </div>\n  );\n}\n"
+    }
+  ],
+  "meta": {
+    "system": "loopo",
+    "category": "charts",
+    "tier": "free"
+  }
+}

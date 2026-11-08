@@ -1,0 +1,24 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "button",
+  "type": "registry:component",
+  "title": "Button",
+  "description": "Pill button in primary (graphite gradient), accent, secondary, ghost and danger variants, three sizes.",
+  "dependencies": [],
+  "registryDependencies": [
+    "https://foundry-ui.mitaly-website.workers.dev/r/cx.json"
+  ],
+  "files": [
+    {
+      "path": "registry/foundry/components/button.tsx",
+      "type": "registry:component",
+      "target": "components/foundry/button.tsx",
+      "content": "import type { ButtonHTMLAttributes, ReactNode } from \"react\";\nimport { cx } from \"./cx\";\n\ntype Variant = \"primary\" | \"accent\" | \"secondary\" | \"ghost\" | \"danger\";\ntype Size = \"sm\" | \"md\" | \"lg\";\n\nexport interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {\n  variant?: Variant;\n  size?: Size;\n  leading?: ReactNode;\n  trailing?: ReactNode;\n}\n\nconst base =\n  \"inline-flex items-center justify-center gap-1.5 whitespace-nowrap rounded-full font-medium tracking-[-0.01em] transition-[background,box-shadow,transform,color] duration-150 ease-out active:scale-[0.98] disabled:pointer-events-none disabled:opacity-45 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-fu-accent\";\n\nconst variants: Record<Variant, string> = {\n  primary: \"text-white shadow-fu-button [background:var(--fu-primary-grad)] hover:brightness-110\",\n  accent: \"text-fu-accent-ink shadow-fu-button [background:var(--fu-accent-grad)] hover:brightness-105\",\n  secondary: \"border border-fu-line-strong bg-fu-surface text-fu-ink hover:bg-fu-hover\",\n  ghost: \"text-fu-body hover:bg-fu-hover\",\n  danger: \"bg-fu-negative text-white hover:brightness-105\",\n};\n\nconst sizes: Record<Size, string> = {\n  sm: \"h-8 px-3 text-[13px]\",\n  md: \"h-9 px-4 text-sm\",\n  lg: \"h-11 px-5 text-[15px]\",\n};\n\nexport function Button({ variant = \"primary\", size = \"md\", leading, trailing, className, children, ...rest }: ButtonProps) {\n  return (\n    <button className={cx(base, variants[variant], sizes[size], className)} {...rest}>\n      {leading}\n      {children}\n      {trailing}\n    </button>\n  );\n}\n"
+    }
+  ],
+  "meta": {
+    "system": "loopo",
+    "category": "primitives",
+    "tier": "free"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "dialog",
+  "type": "registry:component",
+  "title": "Dialog",
+  "description": "Modal dialog with backdrop, title, description, body and footer actions.",
+  "dependencies": [
+    "@base-ui/react"
+  ],
+  "registryDependencies": [
+    "https://foundry-ui.mitaly-website.workers.dev/r/icons.json"
+  ],
+  "files": [
+    {
+      "path": "registry/foundry/components/dialog.tsx",
+      "type": "registry:component",
+      "target": "components/foundry/dialog.tsx",
+      "content": "\"use client\";\nimport { Dialog as D } from \"@base-ui/react/dialog\";\nimport type { ReactElement, ReactNode } from \"react\";\nimport { Icon } from \"./icons\";\n\nexport interface DialogProps { trigger: ReactElement; title: string; description?: string; children?: ReactNode; footer?: ReactNode }\n\nexport function Dialog({ trigger, title, description, children, footer }: DialogProps) {\n  return (\n    <D.Root>\n      <D.Trigger render={trigger} />\n      <D.Portal>\n        <D.Backdrop className=\"fixed inset-0 z-40 bg-[rgb(13_13_18/0.32)] transition-opacity duration-200 data-[ending-style]:opacity-0 data-[starting-style]:opacity-0\" />\n        <D.Popup className=\"fixed left-1/2 top-1/2 z-50 w-[min(440px,calc(100vw-32px))] -translate-x-1/2 -translate-y-1/2 rounded-fu-lg border border-fu-line bg-fu-surface p-5 shadow-fu-overlay outline-none transition-[opacity,transform] duration-200 data-[ending-style]:scale-[0.97] data-[ending-style]:opacity-0 data-[starting-style]:scale-[0.97] data-[starting-style]:opacity-0\">\n          <div className=\"flex items-start justify-between gap-4\">\n            <div>\n              <D.Title className=\"text-base font-medium tracking-[-0.01em] text-fu-ink\">{title}</D.Title>\n              {description && <D.Description className=\"mt-1 text-[13px] leading-relaxed text-fu-muted\">{description}</D.Description>}\n            </div>\n            <D.Close aria-label=\"Close\" className=\"-mr-1 -mt-1 rounded-fu-xs p-1 text-fu-muted hover:bg-fu-hover hover:text-fu-ink\">\n              <Icon name=\"x\" size={16} />\n            </D.Close>\n          </div>\n          {children && <div className=\"mt-4\">{children}</div>}\n          {footer && <div className=\"mt-5 flex justify-end gap-2\">{footer}</div>}\n        </D.Popup>\n      </D.Portal>\n    </D.Root>\n  );\n}\n"
+    }
+  ],
+  "meta": {
+    "system": "loopo",
+    "category": "overlays",
+    "tier": "free"
+  }
+}

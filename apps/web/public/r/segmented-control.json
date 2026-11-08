@@ -1,0 +1,24 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "segmented-control",
+  "type": "registry:component",
+  "title": "Segmented control",
+  "description": "Sliding segmented control for period switches (Daily / Weekly / Monthly).",
+  "dependencies": [],
+  "registryDependencies": [
+    "https://foundry-ui.mitaly-website.workers.dev/r/cx.json"
+  ],
+  "files": [
+    {
+      "path": "registry/foundry/components/segmented-control.tsx",
+      "type": "registry:component",
+      "target": "components/foundry/segmented-control.tsx",
+      "content": "\"use client\";\nimport { useState } from \"react\";\nimport { cx } from \"./cx\";\n\nexport interface SegmentedControlProps {\n  options: string[];\n  defaultValue?: string;\n  onChange?: (value: string) => void;\n  className?: string;\n}\n\nexport function SegmentedControl({ options, defaultValue, onChange, className }: SegmentedControlProps) {\n  const [value, setValue] = useState(defaultValue ?? options[0]);\n  const index = Math.max(0, options.indexOf(value));\n  return (\n    <div role=\"radiogroup\" className={cx(\"relative inline-grid h-8 rounded-fu-sm bg-fu-hover p-0.5\", className)} style={{ gridTemplateColumns: `repeat(${options.length}, minmax(0, 1fr))` }}>\n      <span\n        aria-hidden=\"true\"\n        className=\"absolute inset-y-0.5 left-0.5 rounded-[calc(var(--fu-radius-sm)-2px)] border border-fu-line bg-fu-surface shadow-fu-card transition-transform duration-200 ease-out\"\n        style={{ width: `calc((100% - 4px) / ${options.length})`, transform: `translateX(${index * 100}%)` }}\n      />\n      {options.map((o) => (\n        <button\n          key={o}\n          role=\"radio\"\n          aria-checked={o === value}\n          onClick={() => { setValue(o); onChange?.(o); }}\n          className={cx(\"relative z-10 px-3 text-[13px] font-medium transition-colors\", o === value ? \"text-fu-ink\" : \"text-fu-muted hover:text-fu-body\")}\n        >\n          {o}\n        </button>\n      ))}\n    </div>\n  );\n}\n"
+    }
+  ],
+  "meta": {
+    "system": "loopo",
+    "category": "primitives",
+    "tier": "free"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "sidebar-nav",
+  "type": "registry:component",
+  "title": "Sidebar navigation",
+  "description": "Grouped sidebar with brand, active surface, count badges and the system icon set.",
+  "dependencies": [],
+  "registryDependencies": [
+    "https://foundry-ui.mitaly-website.workers.dev/r/icons.json",
+    "https://foundry-ui.mitaly-website.workers.dev/r/cx.json"
+  ],
+  "files": [
+    {
+      "path": "registry/foundry/components/sidebar-nav.tsx",
+      "type": "registry:component",
+      "target": "components/foundry/sidebar-nav.tsx",
+      "content": "\"use client\";\nimport { useState } from \"react\";\nimport { Icon, type IconName } from \"./icons\";\nimport { cx } from \"./cx\";\n\nexport interface NavItem {\n  label: string;\n  icon: IconName;\n  badge?: number;\n}\n\nconst DEFAULT: { group: string; items: NavItem[] }[] = [\n  { group: \"Workspace\", items: [{ label: \"Overview\", icon: \"home\" }, { label: \"Analytics\", icon: \"chart-capsule\" }, { label: \"Invoices\", icon: \"invoice\", badge: 4 }, { label: \"Customers\", icon: \"user\" }] },\n  { group: \"Finance\", items: [{ label: \"Wallet\", icon: \"wallet\" }, { label: \"Cards\", icon: \"credit-card\" }, { label: \"Schedule\", icon: \"calendar\" }] },\n];\n\n/** Sidebar navigation: grouped items, active surface with hairline, count badges, collapsible width. */\nexport function SidebarNav({ groups = DEFAULT, brand = \"Loopo\" }: { groups?: typeof DEFAULT; brand?: string }) {\n  const [active, setActive] = useState(\"Overview\");\n  return (\n    <nav className=\"flex w-60 flex-col gap-5 rounded-fu-lg border border-fu-line bg-fu-page p-3\" aria-label=\"Main\">\n      <div className=\"flex items-center gap-2 px-2 pt-1\">\n        <span className=\"flex size-7 items-center justify-center rounded-fu-sm text-white shadow-fu-button [background:var(--fu-accent-grad)]\">\n          <Icon name=\"layers\" size={15} />\n        </span>\n        <span className=\"text-[15px] font-medium tracking-[-0.02em] text-fu-ink\">{brand}</span>\n      </div>\n      {groups.map((g) => (\n        <div key={g.group} className=\"flex flex-col gap-0.5\">\n          <p className=\"px-2.5 pb-1 text-[11px] font-medium uppercase tracking-[0.05em] text-fu-faint\">{g.group}</p>\n          {g.items.map((it) => {\n            const on = it.label === active;\n            return (\n              <button\n                key={it.label}\n                onClick={() => setActive(it.label)}\n                aria-current={on ? \"page\" : undefined}\n                className={cx(\n                  \"flex h-9 items-center gap-2.5 rounded-fu-md border px-2.5 text-[13px] font-medium transition-colors\",\n                  on ? \"border-fu-line-strong bg-[#ececed] text-fu-ink\" : \"border-transparent text-fu-muted hover:bg-fu-hover hover:text-fu-body\",\n                )}\n              >\n                <Icon name={it.icon} size={17} />\n                <span className=\"flex-1 text-left\">{it.label}</span>\n                {it.badge !== undefined && <span className=\"rounded-full bg-fu-surface px-1.5 text-[11px] tabular-nums text-fu-muted ring-1 ring-fu-line\">{it.badge}</span>}\n              </button>\n            );\n          })}\n        </div>\n      ))}\n    </nav>\n  );\n}\n"
+    }
+  ],
+  "meta": {
+    "system": "loopo",
+    "category": "navigation",
+    "tier": "free"
+  }
+}

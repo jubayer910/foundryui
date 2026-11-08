@@ -1,0 +1,34 @@
+@import "tailwindcss";
+@import "../registry/tokens/theme.css";
+@import "../registry/tokens/loopo.css";
+
+@source "../registry";
+
+@theme inline {
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+html {
+  color-scheme: light;
+}
+
+body {
+  background: var(--fu-page);
+  color: var(--fu-ink);
+  font-family: var(--fu-font);
+  font-feature-settings: "ss01", "cv11";
+}
+
+::selection {
+  background: color-mix(in srgb, var(--fu-accent) 18%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}

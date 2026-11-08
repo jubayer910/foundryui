@@ -1,0 +1,24 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "donut",
+  "type": "registry:component",
+  "title": "Donut",
+  "description": "Thick ring with rounded ends and gaps, centre value, interactive legend with shares.",
+  "dependencies": [],
+  "registryDependencies": [
+    "https://foundry-ui.mitaly-website.workers.dev/r/chart-kit.json"
+  ],
+  "files": [
+    {
+      "path": "registry/foundry/components/donut.tsx",
+      "type": "registry:component",
+      "target": "components/foundry/donut.tsx",
+      "content": "\"use client\";\nimport { useState } from \"react\";\nimport { mix } from \"./chart-kit\";\n\nexport interface DonutSlice {\n  label: string;\n  value: number;\n  color: string;\n}\n\nconst DEFAULT: DonutSlice[] = [\n  { label: \"Direct\", value: 4820, color: \"#fd4b23\" },\n  { label: \"Organic search\", value: 3140, color: \"#4d98fe\" },\n  { label: \"Referral\", value: 1760, color: \"#ff72ab\" },\n  { label: \"Social\", value: 980, color: \"#f3c83d\" },\n];\n\n/** Thick ring with rounded ends and 6° gaps, centre value, legend list with values and shares. */\nexport function Donut({ data = DEFAULT, caption = \"Total visits\" }: { data?: DonutSlice[]; caption?: string }) {\n  const [active, setActive] = useState<number | null>(null);\n  const total = data.reduce((s, d) => s + d.value, 0);\n  const R = 70;\n  const T = 18;\n  const gapDeg = 6;\n  let start = -90;\n  const arcs = data.map((d, i) => {\n    const sweep = (d.value / total) * 360 - gapDeg;\n    const a0 = ((start + gapDeg / 2) * Math.PI) / 180;\n    const a1 = ((start + gapDeg / 2 + sweep) * Math.PI) / 180;\n    start += (d.value / total) * 360;\n    const p = (a: number) => (90 + R * Math.cos(a)).toFixed(2) + \" \" + (90 + R * Math.sin(a)).toFixed(2);\n    return { d: \"M\" + p(a0) + \" A\" + R + \" \" + R + \" 0 \" + (sweep > 180 ? 1 : 0) + \" 1 \" + p(a1), color: d.color, i };\n  });\n  const shown = active === null ? null : data[active];\n  return (\n    <div className=\"flex w-full flex-wrap items-center gap-6\">\n      <svg viewBox=\"0 0 180 180\" className=\"w-40 shrink-0\" role=\"img\" aria-label={caption}>\n        <circle cx=\"90\" cy=\"90\" r={R} fill=\"none\" stroke=\"#f4f4f5\" strokeWidth={T} />\n        {arcs.map((a) => (\n          <path\n            key={a.i}\n            d={a.d}\n            fill=\"none\"\n            stroke={a.color}\n            strokeWidth={active === a.i ? T + 4 : T}\n            strokeLinecap=\"round\"\n            opacity={active === null || active === a.i ? 1 : 0.35}\n            className=\"cursor-pointer transition-[opacity,stroke-width] duration-150\"\n            onMouseEnter={() => setActive(a.i)}\n            onMouseLeave={() => setActive(null)}\n          />\n        ))}\n        <text x=\"90\" y=\"86\" textAnchor=\"middle\" fontSize=\"22\" fontWeight=\"500\" fill=\"#202020\">\n          {(shown ? shown.value : total).toLocaleString()}\n        </text>\n        <text x=\"90\" y=\"106\" textAnchor=\"middle\" fontSize=\"11\" fill=\"#747474\">\n          {shown ? shown.label : caption}\n        </text>\n      </svg>\n      <ul className=\"flex min-w-48 flex-1 flex-col gap-2.5\">\n        {data.map((d, i) => (\n          <li key={d.label} className=\"flex items-center gap-2.5 text-[13px]\" onMouseEnter={() => setActive(i)} onMouseLeave={() => setActive(null)}>\n            <span className=\"size-2.5 rounded-[3px]\" style={{ background: \"linear-gradient(\" + mix(d.color, 0.13) + \",\" + d.color + \")\" }} />\n            <span className=\"flex-1 text-fu-body\">{d.label}</span>\n            <span className=\"tabular-nums text-fu-muted\">{Math.round((d.value / total) * 100)}%</span>\n            <span className=\"w-14 text-right font-medium tabular-nums text-fu-ink\">{d.value.toLocaleString()}</span>\n          </li>\n        ))}\n      </ul>\n    </div>\n  );\n}\n"
+    }
+  ],
+  "meta": {
+    "system": "loopo",
+    "category": "charts",
+    "tier": "free"
+  }
+}

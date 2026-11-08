@@ -1,0 +1,217 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "foundry-ui",
+  "homepage": "https://foundry-ui.mitaly-website.workers.dev",
+  "items": [
+    {
+      "name": "tokens",
+      "type": "registry:style",
+      "title": "Design tokens",
+      "description": "Loopo token CSS (--fu-*) plus the Tailwind v4 theme bridge that turns them into utilities.",
+      "category": "foundations"
+    },
+    {
+      "name": "cx",
+      "type": "registry:component",
+      "title": "cx utility",
+      "description": "Tiny className joiner used by every component.",
+      "category": "foundations"
+    },
+    {
+      "name": "icons",
+      "type": "registry:component",
+      "title": "Foundry Icons",
+      "description": "Original 24px line icons on a keyline grid: 1.5px stroke, round caps, badge zone with a 1.5px gap.",
+      "category": "foundations"
+    },
+    {
+      "name": "chart-kit",
+      "type": "registry:component",
+      "title": "Chart kit",
+      "description": "Shared bar finish (gradient, inside stroke, highlight, hatch), grid lines, tooltip card and seeded data.",
+      "category": "foundations"
+    },
+    {
+      "name": "button",
+      "type": "registry:component",
+      "title": "Button",
+      "description": "Pill button in primary (graphite gradient), accent, secondary, ghost and danger variants, three sizes.",
+      "category": "primitives"
+    },
+    {
+      "name": "icon-button",
+      "type": "registry:component",
+      "title": "Icon button",
+      "description": "Square icon button with an optional notification indicator.",
+      "category": "primitives"
+    },
+    {
+      "name": "badge",
+      "type": "registry:component",
+      "title": "Badge",
+      "description": "Status pill in neutral, accent, positive, negative and warning tones. No decorative dots.",
+      "category": "primitives"
+    },
+    {
+      "name": "delta-chip",
+      "type": "registry:component",
+      "title": "Delta chip",
+      "description": "Soft trend pill with a filled triangle for KPI changes.",
+      "category": "primitives"
+    },
+    {
+      "name": "input",
+      "type": "registry:component",
+      "title": "Input",
+      "description": "Text field with label, hint, error state, leading icon and accent focus ring.",
+      "category": "primitives"
+    },
+    {
+      "name": "search-field",
+      "type": "registry:component",
+      "title": "Search field",
+      "description": "Top-bar search with icon and keyboard shortcut hint.",
+      "category": "primitives"
+    },
+    {
+      "name": "select",
+      "type": "registry:component",
+      "title": "Select",
+      "description": "Accessible select built on Base UI with animated popup and check indicator.",
+      "category": "primitives"
+    },
+    {
+      "name": "segmented-control",
+      "type": "registry:component",
+      "title": "Segmented control",
+      "description": "Sliding segmented control for period switches (Daily / Weekly / Monthly).",
+      "category": "primitives"
+    },
+    {
+      "name": "tabs",
+      "type": "registry:component",
+      "title": "Tabs",
+      "description": "Underline tabs with an animated indicator, built on Base UI.",
+      "category": "primitives"
+    },
+    {
+      "name": "switch",
+      "type": "registry:component",
+      "title": "Switch",
+      "description": "Toggle switch with spring-like thumb travel.",
+      "category": "primitives"
+    },
+    {
+      "name": "checkbox",
+      "type": "registry:component",
+      "title": "Checkbox",
+      "description": "Checkbox with an ink fill and crisp check glyph.",
+      "category": "primitives"
+    },
+    {
+      "name": "avatar-group",
+      "type": "registry:component",
+      "title": "Avatar group",
+      "description": "Overlapping initials avatars with soft tints and an overflow count.",
+      "category": "primitives"
+    },
+    {
+      "name": "tooltip",
+      "type": "registry:component",
+      "title": "Tooltip",
+      "description": "Hover tooltip with delay, scale-in motion and the system overlay shadow.",
+      "category": "overlays"
+    },
+    {
+      "name": "dropdown-menu",
+      "type": "registry:component",
+      "title": "Dropdown menu",
+      "description": "Action menu with icons, shortcuts, separators and a danger item.",
+      "category": "overlays"
+    },
+    {
+      "name": "dialog",
+      "type": "registry:component",
+      "title": "Dialog",
+      "description": "Modal dialog with backdrop, title, description, body and footer actions.",
+      "category": "overlays"
+    },
+    {
+      "name": "capsule-bars",
+      "type": "registry:component",
+      "title": "Capsule bars",
+      "description": "Values as capsules in full-height pale tracks; the focused period is saturated, the rest tint with hatch.",
+      "category": "charts"
+    },
+    {
+      "name": "stacked-blocks",
+      "type": "registry:component",
+      "title": "Stacked blocks",
+      "description": "Parts of a total over time as separate rounded blocks with a selected-slot band and tooltip.",
+      "category": "charts"
+    },
+    {
+      "name": "line-highlight",
+      "type": "registry:component",
+      "title": "Line with highlight band",
+      "description": "Dense 52-week trend, soft area, dashed last-year comparison, dotted highlight band, annotation and hover tooltip.",
+      "category": "charts"
+    },
+    {
+      "name": "donut",
+      "type": "registry:component",
+      "title": "Donut",
+      "description": "Thick ring with rounded ends and gaps, centre value, interactive legend with shares.",
+      "category": "charts"
+    },
+    {
+      "name": "pill-meter",
+      "type": "registry:component",
+      "title": "Pill meter",
+      "description": "Capacity or quota as tall gradient pills with a tint remainder.",
+      "category": "charts"
+    },
+    {
+      "name": "hatch-track-list",
+      "type": "registry:component",
+      "title": "Hatch track list",
+      "description": "Share-of-total rows: gradient fill over a hatched pale track.",
+      "category": "charts"
+    },
+    {
+      "name": "kpi-card",
+      "type": "registry:component",
+      "title": "KPI card",
+      "description": "Metric card with icon, value, delta pill and an area sparkline in an inner well.",
+      "category": "dashboard-blocks"
+    },
+    {
+      "name": "ranked-list",
+      "type": "registry:component",
+      "title": "Ranked list",
+      "description": "Row-background bars: each row is its own bar, for top countries, pages or products.",
+      "category": "dashboard-blocks"
+    },
+    {
+      "name": "data-table",
+      "type": "registry:component",
+      "title": "Data table",
+      "description": "Transactions table with sortable amount, row selection, bulk bar and status pills.",
+      "category": "dashboard-blocks"
+    },
+    {
+      "name": "empty-state",
+      "type": "registry:component",
+      "title": "Empty state",
+      "description": "Empty state with icon tile, title, description and one primary action.",
+      "category": "dashboard-blocks"
+    },
+    {
+      "name": "sidebar-nav",
+      "type": "registry:component",
+      "title": "Sidebar navigation",
+      "description": "Grouped sidebar with brand, active surface, count badges and the system icon set.",
+      "category": "navigation"
+    }
+  ]
+}

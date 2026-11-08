@@ -1,0 +1,27 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "data-table",
+  "type": "registry:component",
+  "title": "Data table",
+  "description": "Transactions table with sortable amount, row selection, bulk bar and status pills.",
+  "dependencies": [],
+  "registryDependencies": [
+    "https://foundry-ui.mitaly-website.workers.dev/r/badge.json",
+    "https://foundry-ui.mitaly-website.workers.dev/r/checkbox.json",
+    "https://foundry-ui.mitaly-website.workers.dev/r/icons.json",
+    "https://foundry-ui.mitaly-website.workers.dev/r/cx.json"
+  ],
+  "files": [
+    {
+      "path": "registry/foundry/components/data-table.tsx",
+      "type": "registry:component",
+      "target": "components/foundry/data-table.tsx",
+      "content": "\"use client\";\nimport { useMemo, useState } from \"react\";\nimport { Badge } from \"./badge\";\nimport { Checkbox } from \"./checkbox\";\nimport { Icon } from \"./icons\";\nimport { cx } from \"./cx\";\n\nexport interface Txn {\n  id: string;\n  customer: string;\n  date: string;\n  amount: number;\n  status: \"Paid\" | \"Pending\" | \"Failed\" | \"Refunded\";\n}\n\nconst DEFAULT: Txn[] = [\n  { id: \"INV-2041\", customer: \"Northwind Labs\", date: \"Nov 06, 2026\", amount: 4280.0, status: \"Paid\" },\n  { id: \"INV-2040\", customer: \"Acme Robotics\", date: \"Nov 05, 2026\", amount: 1199.5, status: \"Pending\" },\n  { id: \"INV-2039\", customer: \"Lumen Health\", date: \"Nov 05, 2026\", amount: 860.0, status: \"Paid\" },\n  { id: \"INV-2038\", customer: \"Orbit Freight\", date: \"Nov 04, 2026\", amount: 2310.75, status: \"Failed\" },\n  { id: \"INV-2037\", customer: \"Kestrel Studio\", date: \"Nov 03, 2026\", amount: 640.0, status: \"Refunded\" },\n  { id: \"INV-2036\", customer: \"Halcyon Bank\", date: \"Nov 02, 2026\", amount: 9875.0, status: \"Paid\" },\n];\n\nconst TONE = { Paid: \"positive\", Pending: \"warning\", Failed: \"negative\", Refunded: \"neutral\" } as const;\n\n/** Transactions table: sortable amount, row selection with bulk bar, status pills, tabular numbers. */\nexport function DataTable({ rows = DEFAULT }: { rows?: Txn[] }) {\n  const [desc, setDesc] = useState(true);\n  const [sel, setSel] = useState<string[]>([]);\n  const sorted = useMemo(() => [...rows].sort((a, b) => (desc ? b.amount - a.amount : a.amount - b.amount)), [rows, desc]);\n  const toggle = (id: string) => setSel((s) => (s.includes(id) ? s.filter((x) => x !== id) : [...s, id]));\n  return (\n    <div className=\"w-full overflow-hidden rounded-fu-lg border border-fu-line bg-fu-surface\">\n      {sel.length > 0 && (\n        <div className=\"flex items-center justify-between border-b border-fu-line bg-fu-sunken px-4 py-2 text-[13px]\">\n          <span className=\"text-fu-body\">{sel.length} selected</span>\n          <button className=\"font-medium text-fu-accent\" onClick={() => setSel([])}>\n            Clear\n          </button>\n        </div>\n      )}\n      <div className=\"overflow-x-auto\">\n        <table className=\"w-full min-w-[560px] text-left text-[13px]\">\n          <thead className=\"bg-fu-sunken text-[11px] font-medium uppercase tracking-[0.04em] text-fu-muted\">\n            <tr>\n              <th className=\"w-10 py-2.5 pl-4\" />\n              <th className=\"py-2.5 font-medium\">Invoice</th>\n              <th className=\"py-2.5 font-medium\">Customer</th>\n              <th className=\"py-2.5 font-medium\">Date</th>\n              <th className=\"py-2.5 pr-4 text-right font-medium\">\n                <button className=\"inline-flex items-center gap-1 uppercase hover:text-fu-ink\" onClick={() => setDesc((d) => !d)}>\n                  Amount\n                  <Icon name=\"chevron-down\" size={12} className={cx(\"transition-transform\", !desc && \"rotate-180\")} />\n                </button>\n              </th>\n              <th className=\"py-2.5 pr-4 font-medium\">Status</th>\n            </tr>\n          </thead>\n          <tbody>\n            {sorted.map((r) => (\n              <tr key={r.id} className={cx(\"border-t border-fu-line transition-colors hover:bg-fu-sunken\", sel.includes(r.id) && \"bg-fu-accent-soft/50\")}>\n                <td className=\"py-3 pl-4\">\n                  <Checkbox defaultChecked={sel.includes(r.id)} onCheckedChange={() => toggle(r.id)} />\n                </td>\n                <td className=\"py-3 font-fu-mono text-xs text-fu-muted\">{r.id}</td>\n                <td className=\"py-3 font-medium text-fu-ink\">{r.customer}</td>\n                <td className=\"py-3 text-fu-muted\">{r.date}</td>\n                <td className=\"py-3 pr-4 text-right font-medium tabular-nums text-fu-ink\">${r.amount.toLocaleString(undefined, { minimumFractionDigits: 2 })}</td>\n                <td className=\"py-3 pr-4\">\n                  <Badge tone={TONE[r.status]}>{r.status}</Badge>\n                </td>\n              </tr>\n            ))}\n          </tbody>\n        </table>\n      </div>\n    </div>\n  );\n}\n"
+    }
+  ],
+  "meta": {
+    "system": "loopo",
+    "category": "dashboard-blocks",
+    "tier": "free"
+  }
+}

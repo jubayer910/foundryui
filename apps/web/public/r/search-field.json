@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "search-field",
+  "type": "registry:component",
+  "title": "Search field",
+  "description": "Top-bar search with icon and keyboard shortcut hint.",
+  "dependencies": [],
+  "registryDependencies": [
+    "https://foundry-ui.mitaly-website.workers.dev/r/cx.json",
+    "https://foundry-ui.mitaly-website.workers.dev/r/icons.json"
+  ],
+  "files": [
+    {
+      "path": "registry/foundry/components/search-field.tsx",
+      "type": "registry:component",
+      "target": "components/foundry/search-field.tsx",
+      "content": "import type { InputHTMLAttributes } from \"react\";\nimport { Icon } from \"./icons\";\nimport { cx } from \"./cx\";\n\nexport interface SearchFieldProps extends InputHTMLAttributes<HTMLInputElement> {\n  shortcut?: string;\n}\n\nexport function SearchField({ shortcut = \"⌘K\", className, placeholder = \"Search\", ...rest }: SearchFieldProps) {\n  return (\n    <label\n      className={cx(\n        \"flex h-9 w-full max-w-72 items-center gap-2 rounded-fu-sm border border-fu-line-strong bg-fu-surface pl-2.5 pr-1.5 text-sm transition-[border-color] focus-within:border-fu-accent\",\n        className,\n      )}\n    >\n      <Icon name=\"search\" size={16} className=\"shrink-0 text-fu-muted\" />\n      <input type=\"search\" placeholder={placeholder} className=\"w-full min-w-0 bg-transparent text-fu-ink outline-none placeholder:text-fu-faint\" {...rest} />\n      {shortcut && (\n        <kbd className=\"rounded-fu-xs border border-fu-line bg-fu-sunken px-1.5 py-0.5 font-fu-mono text-[11px] text-fu-muted\">{shortcut}</kbd>\n      )}\n    </label>\n  );\n}\n"
+    }
+  ],
+  "meta": {
+    "system": "loopo",
+    "category": "primitives",
+    "tier": "free"
+  }
+}

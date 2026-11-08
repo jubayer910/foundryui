@@ -1,0 +1,24 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "badge",
+  "type": "registry:component",
+  "title": "Badge",
+  "description": "Status pill in neutral, accent, positive, negative and warning tones. No decorative dots.",
+  "dependencies": [],
+  "registryDependencies": [
+    "https://foundry-ui.mitaly-website.workers.dev/r/cx.json"
+  ],
+  "files": [
+    {
+      "path": "registry/foundry/components/badge.tsx",
+      "type": "registry:component",
+      "target": "components/foundry/badge.tsx",
+      "content": "import type { HTMLAttributes } from \"react\";\nimport { cx } from \"./cx\";\n\ntype Tone = \"neutral\" | \"accent\" | \"positive\" | \"negative\" | \"warning\";\n\nconst tones: Record<Tone, string> = {\n  neutral: \"bg-fu-hover text-fu-body border-fu-line\",\n  accent: \"bg-fu-accent-soft text-fu-accent border-[color-mix(in_srgb,var(--fu-accent)_18%,transparent)]\",\n  positive: \"bg-fu-positive-soft text-fu-positive border-[color-mix(in_srgb,var(--fu-positive)_18%,transparent)]\",\n  negative: \"bg-fu-negative-soft text-fu-negative border-[color-mix(in_srgb,var(--fu-negative)_18%,transparent)]\",\n  warning: \"bg-fu-warning-soft text-fu-warning border-[color-mix(in_srgb,var(--fu-warning)_20%,transparent)]\",\n};\n\nexport interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {\n  tone?: Tone;\n}\n\n/** Status pill. No leading dot by design — use an icon if a glyph is needed. */\nexport function Badge({ tone = \"neutral\", className, ...rest }: BadgeProps) {\n  return (\n    <span\n      className={cx(\"inline-flex h-6 items-center gap-1 rounded-full border px-2.5 text-xs font-medium\", tones[tone], className)}\n      {...rest}\n    />\n  );\n}\n"
+    }
+  ],
+  "meta": {
+    "system": "loopo",
+    "category": "primitives",
+    "tier": "free"
+  }
+}

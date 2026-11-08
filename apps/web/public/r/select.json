@@ -1,0 +1,27 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "select",
+  "type": "registry:component",
+  "title": "Select",
+  "description": "Accessible select built on Base UI with animated popup and check indicator.",
+  "dependencies": [
+    "@base-ui/react"
+  ],
+  "registryDependencies": [
+    "https://foundry-ui.mitaly-website.workers.dev/r/cx.json",
+    "https://foundry-ui.mitaly-website.workers.dev/r/icons.json"
+  ],
+  "files": [
+    {
+      "path": "registry/foundry/components/select.tsx",
+      "type": "registry:component",
+      "target": "components/foundry/select.tsx",
+      "content": "\"use client\";\nimport { Select as S } from \"@base-ui/react/select\";\nimport { Icon } from \"./icons\";\nimport { cx } from \"./cx\";\n\nexport interface SelectOption { value: string; label: string }\nexport interface SelectProps {\n  options: SelectOption[];\n  defaultValue?: string;\n  value?: string;\n  onValueChange?: (value: string) => void;\n  className?: string;\n  ariaLabel?: string;\n}\n\nexport function Select({ options, defaultValue, value, onValueChange, className, ariaLabel }: SelectProps) {\n  return (\n    <S.Root\n      items={options}\n      defaultValue={defaultValue ?? options[0]?.value}\n      value={value}\n      onValueChange={(v) => onValueChange?.(v as string)}\n    >\n      <S.Trigger\n        aria-label={ariaLabel}\n        className={cx(\n          \"inline-flex h-8 items-center gap-1.5 rounded-fu-sm border border-fu-line-strong bg-fu-surface pl-2.5 pr-2 text-[13px] font-medium text-fu-ink transition-colors hover:bg-fu-hover data-[popup-open]:bg-fu-hover focus-visible:outline-2 focus-visible:outline-fu-accent\",\n          className,\n        )}\n      >\n        <S.Value />\n        <S.Icon className=\"text-fu-muted transition-transform duration-150 data-[popup-open]:rotate-180\">\n          <Icon name=\"chevron-down\" size={14} />\n        </S.Icon>\n      </S.Trigger>\n      <S.Portal>\n        <S.Positioner sideOffset={6} alignItemWithTrigger={false} className=\"z-50\">\n          <S.Popup className=\"min-w-[var(--anchor-width)] origin-[var(--transform-origin)] rounded-fu-md border border-fu-line bg-fu-surface p-1 shadow-fu-overlay outline-none transition-[opacity,transform] duration-150 data-[ending-style]:opacity-0 data-[starting-style]:scale-[0.97] data-[starting-style]:opacity-0\">\n            {options.map((o) => (\n              <S.Item\n                key={o.value}\n                value={o.value}\n                className=\"flex cursor-default select-none items-center justify-between gap-6 rounded-fu-xs px-2.5 py-2 text-[13px] text-fu-body outline-none data-[highlighted]:bg-fu-hover data-[highlighted]:text-fu-ink\"\n              >\n                <S.ItemText>{o.label}</S.ItemText>\n                <S.ItemIndicator className=\"text-fu-accent\">\n                  <Icon name=\"check\" size={14} />\n                </S.ItemIndicator>\n              </S.Item>\n            ))}\n          </S.Popup>\n        </S.Positioner>\n      </S.Portal>\n    </S.Root>\n  );\n}\n"
+    }
+  ],
+  "meta": {
+    "system": "loopo",
+    "category": "primitives",
+    "tier": "free"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "delta-chip",
+  "type": "registry:component",
+  "title": "Delta chip",
+  "description": "Soft trend pill with a filled triangle for KPI changes.",
+  "dependencies": [],
+  "registryDependencies": [
+    "https://foundry-ui.mitaly-website.workers.dev/r/cx.json"
+  ],
+  "files": [
+    {
+      "path": "registry/foundry/components/delta-chip.tsx",
+      "type": "registry:component",
+      "target": "components/foundry/delta-chip.tsx",
+      "content": "import { cx } from \"./cx\";\n\nexport interface DeltaChipProps {\n  value: number;\n  suffix?: string;\n  className?: string;\n}\n\n/** Soft 10% pill with a filled triangle. Positive = up/green, negative = down/red. */\nexport function DeltaChip({ value, suffix = \"%\", className }: DeltaChipProps) {\n  const up = value >= 0;\n  return (\n    <span\n      className={cx(\n        \"inline-flex h-5 items-center gap-1 rounded-full px-1.5 text-[11px] font-medium tabular-nums\",\n        up ? \"bg-fu-positive-soft text-fu-positive\" : \"bg-fu-negative-soft text-fu-negative\",\n        className,\n      )}\n    >\n      <svg width=\"8\" height=\"8\" viewBox=\"0 0 8 8\" aria-hidden=\"true\" className={up ? \"\" : \"rotate-180\"}>\n        <path d=\"M4 1.2 L7.2 6.4 H0.8 Z\" fill=\"currentColor\" />\n      </svg>\n      {Math.abs(value).toFixed(1)}\n      {suffix}\n    </span>\n  );\n}\n"
+    }
+  ],
+  "meta": {
+    "system": "loopo",
+    "category": "primitives",
+    "tier": "free"
+  }
+}

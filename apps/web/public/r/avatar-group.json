@@ -1,0 +1,24 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "avatar-group",
+  "type": "registry:component",
+  "title": "Avatar group",
+  "description": "Overlapping initials avatars with soft tints and an overflow count.",
+  "dependencies": [],
+  "registryDependencies": [
+    "https://foundry-ui.mitaly-website.workers.dev/r/cx.json"
+  ],
+  "files": [
+    {
+      "path": "registry/foundry/components/avatar-group.tsx",
+      "type": "registry:component",
+      "target": "components/foundry/avatar-group.tsx",
+      "content": "import { cx } from \"./cx\";\n\nconst TINTS = [\"#ffe3d9\", \"#dce9ff\", \"#ffe1ee\", \"#fdf1c9\", \"#dff5ea\"];\n\nexport interface AvatarGroupProps { names: string[]; max?: number; size?: number; className?: string }\n\nfunction initials(n: string) {\n  return n.split(\" \").map((p) => p[0]).slice(0, 2).join(\"\").toUpperCase();\n}\n\nexport function AvatarGroup({ names, max = 4, size = 28, className }: AvatarGroupProps) {\n  const shown = names.slice(0, max);\n  const rest = names.length - shown.length;\n  return (\n    <div className={cx(\"flex items-center\", className)}>\n      {shown.map((n, i) => (\n        <span\n          key={n}\n          title={n}\n          className=\"-ml-2 flex items-center justify-center rounded-full font-medium text-fu-body ring-2 ring-fu-surface first:ml-0\"\n          style={{ width: size, height: size, fontSize: size * 0.38, background: TINTS[i % TINTS.length] }}\n        >\n          {initials(n)}\n        </span>\n      ))}\n      {rest > 0 && (\n        <span className=\"-ml-2 flex items-center justify-center rounded-full bg-fu-hover font-medium text-fu-muted ring-2 ring-fu-surface\" style={{ width: size, height: size, fontSize: size * 0.36 }}>\n          +{rest}\n        </span>\n      )}\n    </div>\n  );\n}\n"
+    }
+  ],
+  "meta": {
+    "system": "loopo",
+    "category": "primitives",
+    "tier": "free"
+  }
+}

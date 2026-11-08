@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "cx",
+  "type": "registry:component",
+  "title": "cx utility",
+  "description": "Tiny className joiner used by every component.",
+  "dependencies": [],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/foundry/components/cx.ts",
+      "type": "registry:component",
+      "target": "components/foundry/cx.ts",
+      "content": "/** Tiny className joiner used by every Foundry component. */\nexport function cx(...parts: Array<string | false | null | undefined>) {\n  return parts.filter(Boolean).join(\" \");\n}\n"
+    }
+  ],
+  "meta": {
+    "system": "loopo",
+    "category": "foundations",
+    "tier": "free"
+  }
+}

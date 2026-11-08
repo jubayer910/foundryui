@@ -1,0 +1,24 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "tabs",
+  "type": "registry:component",
+  "title": "Tabs",
+  "description": "Underline tabs with an animated indicator, built on Base UI.",
+  "dependencies": [
+    "@base-ui/react"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/foundry/components/tabs.tsx",
+      "type": "registry:component",
+      "target": "components/foundry/tabs.tsx",
+      "content": "\"use client\";\nimport { Tabs as T } from \"@base-ui/react/tabs\";\nimport type { ReactNode } from \"react\";\n\nexport interface TabsProps { items: { value: string; label: string; content: ReactNode }[]; defaultValue?: string }\n\nexport function Tabs({ items, defaultValue }: TabsProps) {\n  return (\n    <T.Root defaultValue={defaultValue ?? items[0]?.value}>\n      <T.List className=\"relative flex gap-5 border-b border-fu-line\">\n        {items.map((i) => (\n          <T.Tab key={i.value} value={i.value} className=\"h-9 text-[13px] font-medium text-fu-muted outline-none transition-colors hover:text-fu-body data-[selected]:text-fu-ink focus-visible:text-fu-ink\">\n            {i.label}\n          </T.Tab>\n        ))}\n        <T.Indicator className=\"absolute bottom-[-1px] left-[var(--active-tab-left)] h-0.5 w-[var(--active-tab-width)] rounded-full bg-fu-ink transition-[left,width] duration-200 ease-out\" />\n      </T.List>\n      {items.map((i) => (\n        <T.Panel key={i.value} value={i.value} className=\"pt-4 text-sm text-fu-body outline-none\">\n          {i.content}\n        </T.Panel>\n      ))}\n    </T.Root>\n  );\n}\n"
+    }
+  ],
+  "meta": {
+    "system": "loopo",
+    "category": "primitives",
+    "tier": "free"
+  }
+}

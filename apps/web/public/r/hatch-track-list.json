@@ -1,0 +1,24 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "hatch-track-list",
+  "type": "registry:component",
+  "title": "Hatch track list",
+  "description": "Share-of-total rows: gradient fill over a hatched pale track.",
+  "dependencies": [],
+  "registryDependencies": [
+    "https://foundry-ui.mitaly-website.workers.dev/r/chart-kit.json"
+  ],
+  "files": [
+    {
+      "path": "registry/foundry/components/hatch-track-list.tsx",
+      "type": "registry:component",
+      "target": "components/foundry/hatch-track-list.tsx",
+      "content": "import { mix } from \"./chart-kit\";\n\nexport interface HatchTrackRow {\n  label: string;\n  value: number;\n  meta?: string;\n}\n\nconst DEFAULT: HatchTrackRow[] = [\n  { label: \"Stripe\", value: 64, meta: \"$42,180\" },\n  { label: \"PayPal\", value: 21, meta: \"$13,840\" },\n  { label: \"Bank transfer\", value: 11, meta: \"$7,260\" },\n  { label: \"Crypto\", value: 4, meta: \"$2,640\" },\n];\n\n/** Share of total in a list: gradient fill on a hatched pale track, value at the end. */\nexport function HatchTrackList({ rows = DEFAULT, color = \"#fd4b23\" }: { rows?: HatchTrackRow[]; color?: string }) {\n  const hatch = \"repeating-linear-gradient(135deg, \" + mix(color, 0.86) + \" 0 1.3px, \" + mix(color, 0.94) + \" 1.3px 5px)\";\n  return (\n    <ul className=\"flex w-full flex-col gap-4\">\n      {rows.map((r) => (\n        <li key={r.label} className=\"flex flex-col gap-1.5\">\n          <div className=\"flex items-baseline justify-between text-[13px]\">\n            <span className=\"text-fu-body\">{r.label}</span>\n            <span className=\"tabular-nums text-fu-muted\">\n              {r.meta && <span className=\"mr-2 font-medium text-fu-ink\">{r.meta}</span>}\n              {r.value}%\n            </span>\n          </div>\n          <div className=\"h-2 rounded-full\" style={{ background: hatch }}>\n            <div\n              className=\"h-full rounded-full\"\n              style={{ width: r.value + \"%\", background: \"linear-gradient(90deg,\" + mix(color, 0.13) + \",\" + color + \")\", boxShadow: \"inset 0 0 0 1px \" + mix(color, 0.22, \"#000000\") + \"40\" }}\n            />\n          </div>\n        </li>\n      ))}\n    </ul>\n  );\n}\n"
+    }
+  ],
+  "meta": {
+    "system": "loopo",
+    "category": "charts",
+    "tier": "free"
+  }
+}
