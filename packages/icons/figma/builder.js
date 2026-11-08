@@ -100,14 +100,15 @@ function bind(node, v) {
       const r = role(n.fills);
       const ops = n.fills.map((p) => p.opacity ?? 1);
       n.fills = n.fills.map((p) => figma.variables.setBoundVariableForPaint(p, "color", v[r]));
-      n.fills = n.fills.map((p, i) => ({ ...p, opacity: ops[i] })); // binding resets opacity: re-apply
+      // Instances drop paint opacity on variable-bound colours, so secondary strength lives on the layer.
+      if (r === "secondary") n.opacity = Math.min(...ops);
       if (n.name === "Vector") n.name = r === "secondary" ? "Secondary" : "Shape";
     }
     if (n.strokes && n.strokes.length) {
       const r = role(n.strokes);
       const sops = n.strokes.map((p) => p.opacity ?? 1);
       n.strokes = n.strokes.map((p) => figma.variables.setBoundVariableForPaint(p, "color", v[r]));
-      n.strokes = n.strokes.map((p, i) => ({ ...p, opacity: sops[i] }));
+      if (r === "secondary") n.opacity = Math.min(...sops);
       if (Math.abs(n.strokeWeight - 1.5) < 0.01) n.setBoundVariable("strokeWeight", v.stroke);
       if (n.name === "Vector") n.name = r === "secondary" ? "Secondary" : "Stroke";
     }
@@ -142,7 +143,7 @@ async function variant(name, key, label, v) {
 if (!g.index) g.index = await (await fetch(API + "index.json")).json();
 if (args.category) {
   const list = g.index.filter((i) => i.c === args.category);
-  args.names = list.slice(args.offset || 0, (args.offset || 0) + (args.limit || 60)).map((i) => i.n);
+  args.names = list.slice(args.offset || 0, (args.offset || 0) + Math.min(args.limit || 250, 250)).map((i) => i.n);
   args.page = args.page || "Icons · " + args.category;
   args.meta = Object.fromEntries(list.map((i) => [i.n, i.t.join(", ")]));
 }

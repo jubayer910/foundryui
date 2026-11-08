@@ -12,6 +12,6 @@ colours bound to `icon/primary` and `icon/secondary`, stroke weight bound to `ic
    ```js
    const { code } = await (await fetch("http://localhost:9230/?f=tool/builder.js")).json();
    const run = new Function("args", "return (async () => {\n" + code + "\n})()");
-   return await run({ category: "Arrows", offset: 0, limit: 300 });
+   return await run({ category: "Arrows", offset: 0, limit: 150 });
    ```
    Existing icons are skipped, so batches can be re-run safely.
