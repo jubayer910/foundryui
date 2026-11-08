@@ -26,7 +26,7 @@ export function AuthForm({ mode, next = "/account" }: { mode: "sign-in" | "sign-
     window.location.href = next;
   }
 
-  const field = "h-10 w-full rounded-fu-sm border border-fu-line-strong bg-fu-surface px-3 text-sm text-fu-ink outline-none transition-[border-color,box-shadow] placeholder:text-fu-faint focus:border-fu-accent focus:shadow-[0_0_0_3px_color-mix(in_srgb,var(--fu-accent)_14%,transparent)]";
+  const field = "h-10 w-full rounded-fu-sm border border-hair-2 bg-fu-surface px-3 text-sm text-fu-ink outline-none transition-[border-color,box-shadow] placeholder:text-fu-faint focus:border-fu-accent focus:shadow-[0_0_0_3px_color-mix(in_srgb,var(--fu-accent)_14%,transparent)]";
   return (
     <form onSubmit={onSubmit} className="flex flex-col gap-4">
       {mode === "sign-up" && (
@@ -44,7 +44,7 @@ export function AuthForm({ mode, next = "/account" }: { mode: "sign-in" | "sign-
         <input name="password" type="password" required minLength={8} autoComplete={mode === "sign-up" ? "new-password" : "current-password"} className={field} placeholder="At least 8 characters" />
       </label>
       {error && <p role="alert" className="rounded-fu-sm bg-fu-negative-soft px-3 py-2 text-[13px] text-fu-negative">{error}</p>}
-      <button disabled={pending} className="mt-1 flex h-10 items-center justify-center rounded-full text-sm font-medium text-white shadow-fu-button [background:var(--fu-primary-grad)] disabled:opacity-60">
+      <button disabled={pending} className="mt-1 flex h-10 items-center justify-center rounded-[10px] text-sm font-medium text-white bg-ink hover:bg-[#23262c] disabled:opacity-60">
         {pending ? "Please wait…" : mode === "sign-up" ? "Create free account" : "Sign in"}
       </button>
       <p className="text-center text-[13px] text-fu-muted">

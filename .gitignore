@@ -7,3 +7,7 @@ node_modules
 *.log
 .DS_Store
 tsconfig.tsbuildinfo
+
+# generated icon outputs (rebuild: npm --prefix packages/icons run build)
+packages/icons/svg/
+packages/icons/react/

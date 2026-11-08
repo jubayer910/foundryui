@@ -32,7 +32,7 @@ export async function anonUsage() {
 }
 
 export async function checkAndRecord(slug: string, action: Action, client = "web"): Promise<GateResult> {
-  const item = getItem(slug);
+  const item = slug.startsWith("icon:") ? { tier: "free" as const } : getItem(slug);
   if (!item) return { ok: false, reason: "not_found", remaining: 0 };
   const user = await getSessionUser();
   const db = await getDb();

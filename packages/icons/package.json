@@ -1,0 +1,38 @@
+{
+  "name": "foundryui-icons",
+  "version": "0.1.0",
+  "description": "Foundry UI icons: 6,000+ line icons on one 24px grid with a 1.5px live stroke.",
+  "type": "module",
+  "files": [
+    "svg",
+    "react",
+    "LICENSE",
+    "THIRD_PARTY_LICENSES.md"
+  ],
+  "scripts": {
+    "build": "node scripts/build.mjs"
+  },
+  "devDependencies": {
+    "@tabler/icons": "3.51.0",
+    "lucide-static": "1.70.0",
+    "iconoir": "7.12.2",
+    "@hugeicons/core-free-icons": "4.4.0"
+  },
+  "license": "MIT",
+  "sideEffects": false,
+  "exports": {
+    "./react": {
+      "types": "./react/index.d.ts",
+      "default": "./react/index.js"
+    },
+    "./svg/*": "./svg/*"
+  },
+  "peerDependencies": {
+    "react": ">=18"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    }
+  }
+}

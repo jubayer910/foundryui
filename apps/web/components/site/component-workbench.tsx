@@ -74,7 +74,7 @@ export function ComponentWorkbench({ slug, name, files, installCmd, signedIn }: 
     }
   }
 
-  const btn = "inline-flex h-8 items-center gap-1.5 rounded-full border border-fu-line-strong bg-fu-surface px-3 text-[13px] font-medium text-fu-ink transition-colors hover:bg-fu-hover disabled:opacity-50";
+  const btn = "inline-flex h-8 items-center gap-1.5 rounded-full border border-hair-2 bg-fu-surface px-3 text-[13px] font-medium text-fu-ink transition-colors hover:bg-fu-hover disabled:opacity-50";
   const A = ({ a, icon, label }: { a: Action; icon: IconName; label: string }) => (
     <button className={btn} onClick={() => run(a)} disabled={busy !== null}>
       <Icon name={icon} size={15} />
@@ -87,7 +87,7 @@ export function ComponentWorkbench({ slug, name, files, installCmd, signedIn }: 
       <div className="flex flex-wrap items-center gap-2">
         <div className="mr-auto inline-flex rounded-full bg-fu-hover p-0.5">
           {(["preview", "code"] as const).map((t) => (
-            <button key={t} onClick={() => setTab(t)} className={"h-7 rounded-full px-3.5 text-[13px] font-medium capitalize transition-colors " + (tab === t ? "bg-fu-surface text-fu-ink shadow-fu-card" : "text-fu-muted")}>
+            <button key={t} onClick={() => setTab(t)} className={"h-7 rounded-full px-3.5 text-[13px] font-medium capitalize transition-colors " + (tab === t ? "bg-fu-surface text-fu-ink" : "text-fu-muted")}>
               {t}
             </button>
           ))}
@@ -99,15 +99,15 @@ export function ComponentWorkbench({ slug, name, files, installCmd, signedIn }: 
         <A a="download_jpeg" icon="download" label="JPEG" />
       </div>
 
-      <div className="overflow-hidden rounded-fu-xl border border-fu-line bg-fu-surface shadow-fu-card">
+      <div className="overflow-hidden rounded-[14px] border border-hair bg-fu-surface">
         <div className={tab === "preview" ? "" : "hidden"}>
           <Preview ref={ref} slug={slug} />
         </div>
         {tab === "code" && (
           <div>
-            <div className="flex gap-1 overflow-x-auto border-b border-fu-line bg-fu-sunken px-2 py-1.5">
+            <div className="flex gap-1 overflow-x-auto border-b border-hair bg-fu-sunken px-2 py-1.5">
               {files.map((f, i) => (
-                <button key={f.path} onClick={() => setFile(i)} className={"shrink-0 rounded-fu-xs px-2.5 py-1 font-fu-mono text-xs " + (i === file ? "bg-fu-surface text-fu-ink shadow-fu-card" : "text-fu-muted hover:text-fu-ink")}>
+                <button key={f.path} onClick={() => setFile(i)} className={"shrink-0 rounded-fu-xs px-2.5 py-1 font-fu-mono text-xs " + (i === file ? "bg-fu-surface text-fu-ink" : "text-fu-muted hover:text-fu-ink")}>
                   {f.path.split("/").pop()}
                 </button>
               ))}
@@ -119,7 +119,7 @@ export function ComponentWorkbench({ slug, name, files, installCmd, signedIn }: 
         )}
       </div>
 
-      <div className="flex flex-wrap items-center gap-2 rounded-fu-lg border border-fu-line bg-fu-surface p-2 pl-3">
+      <div className="flex flex-wrap items-center gap-2 rounded-fu-lg border border-hair bg-fu-surface p-2 pl-3">
         <code className="min-w-0 flex-1 truncate font-fu-mono text-xs text-fu-body">{installCmd}</code>
         <button className={btn} onClick={() => run("install")}>
           <Icon name="copy" size={15} /> Copy
@@ -143,7 +143,7 @@ export function ComponentWorkbench({ slug, name, files, installCmd, signedIn }: 
       <D.Root open={gate !== null} onOpenChange={(o) => !o && setGate(null)}>
         <D.Portal>
           <D.Backdrop className="fixed inset-0 z-40 bg-[rgb(13_13_18/0.32)]" />
-          <D.Popup className="fixed left-1/2 top-1/2 z-50 w-[min(420px,calc(100vw-32px))] -translate-x-1/2 -translate-y-1/2 rounded-fu-lg border border-fu-line bg-fu-surface p-6 shadow-fu-overlay">
+          <D.Popup className="fixed left-1/2 top-1/2 z-50 w-[min(420px,calc(100vw-32px))] -translate-x-1/2 -translate-y-1/2 rounded-fu-lg border border-hair bg-fu-surface p-6 shadow-fu-overlay">
             <D.Title className="text-lg font-medium tracking-[-0.02em] text-fu-ink">{gate === "upgrade_required" ? "This is a Pro component" : "Keep going with a free account"}</D.Title>
             <D.Description className="mt-2 text-sm leading-relaxed text-fu-muted">
               {gate === "upgrade_required"
@@ -151,8 +151,8 @@ export function ComponentWorkbench({ slug, name, files, installCmd, signedIn }: 
                 : "You've used the 5 free actions. Sign up free for unlimited copies of free components, plus MCP access for your AI agent. It takes 20 seconds."}
             </D.Description>
             <div className="mt-6 flex justify-end gap-2">
-              <D.Close className="h-9 rounded-full px-4 text-sm font-medium text-fu-body hover:bg-fu-hover">Not now</D.Close>
-              <Link href={gate === "upgrade_required" ? "/pricing" : "/sign-up?next=/components/" + slug} className="flex h-9 items-center rounded-full px-4 text-sm font-medium text-white shadow-fu-button [background:var(--fu-primary-grad)]">
+              <D.Close className="h-9 rounded-[10px] px-4 text-sm font-medium text-fu-body hover:bg-fu-hover">Not now</D.Close>
+              <Link href={gate === "upgrade_required" ? "/pricing" : "/sign-up?next=/components/" + slug} className="flex h-9 items-center rounded-[10px] px-4 text-sm font-medium text-white bg-ink hover:bg-[#23262c]">
                 {gate === "upgrade_required" ? "See plans" : "Create free account"}
               </Link>
             </div>

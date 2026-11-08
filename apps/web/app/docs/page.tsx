@@ -6,11 +6,11 @@ export const metadata: Metadata = { title: "Docs", description: "Install Foundry
 
 const H = "mt-12 text-lg font-medium tracking-[-0.02em] text-fu-ink scroll-mt-20";
 const P = "mt-2 text-sm leading-relaxed text-fu-muted";
-const C = "mt-3 overflow-x-auto rounded-fu-lg border border-fu-line bg-fu-surface p-4 font-fu-mono text-xs leading-relaxed text-fu-body";
+const C = "mt-3 overflow-x-auto rounded-fu-lg border border-hair bg-fu-surface p-4 font-fu-mono text-xs leading-relaxed text-fu-body";
 
 export default function DocsPage() {
   return (
-    <div className="mx-auto grid max-w-6xl gap-10 px-4 pt-12 sm:px-6 lg:grid-cols-[200px_1fr]">
+    <div className="mx-auto grid max-w-[1180px] gap-10 px-4 pt-12 sm:px-6 lg:grid-cols-[200px_1fr]">
       <aside className="hidden lg:block">
         <nav className="sticky top-24 flex flex-col gap-1 text-[13px]">
           {[["install", "Install"], ["tokens", "Tokens & theming"], ["figma", "Figma"], ["agents", "AI agents"], ["license", "License"]].map(([id, l]) => (
@@ -19,12 +19,12 @@ export default function DocsPage() {
         </nav>
       </aside>
       <article className="max-w-2xl">
-        <h1 className="text-3xl font-medium tracking-[-0.03em] text-fu-ink">Docs</h1>
+        <h1 className="display text-[40px] sm:text-[52px] text-ink">Docs</h1>
         <p className={P}>Foundry UI components are plain React 19 + Tailwind CSS v4 files you own. Interactive parts use Base UI for accessibility.</p>
 
         <h2 id="install" className={H}>Install</h2>
         <p className={P}>In a Next.js, Vite or Remix project with Tailwind v4:</p>
-        <pre className={C}>{"npx foundry-ui init\nnpx foundry-ui add button kpi-card capsule-bars"}</pre>
+        <pre className={C}>{"npx foundryui init\nnpx foundryui add button kpi-card capsule-bars"}</pre>
         <p className={P}>Prefer shadcn? Every free component is a shadcn registry item:</p>
         <pre className={C}>{"npx shadcn add " + SITE_URL + "/r/button.json"}</pre>
 

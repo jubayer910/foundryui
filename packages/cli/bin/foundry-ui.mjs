@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 /**
  * foundry-ui CLI — add Foundry UI components to your project.
- *   npx foundry-ui init                 tokens + theme bridge + cx + icons
- *   npx foundry-ui add kpi-card donut   components and their dependencies
- *   npx foundry-ui list                 everything available
+ *   npx foundryui init                 tokens + theme bridge + cx + icons
+ *   npx foundryui add kpi-card donut   components and their dependencies
+ *   npx foundryui list                 everything available
  * Env: FOUNDRY_URL (default https://foundry-ui.mitaly-website.workers.dev), FOUNDRY_DIR (default ".")
  */
 import { mkdir, writeFile, access } from "node:fs/promises";

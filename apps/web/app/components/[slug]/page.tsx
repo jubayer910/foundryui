@@ -27,10 +27,10 @@ export default async function ComponentPage({ params }: PageProps<"/components/[
   if (!it) notFound();
   const cat = categories.find((c) => c.slug === it.category);
   const files = it.tier === "free" ? resolveFiles(slug).map(({ path, content }) => ({ path, content })) : [{ path: it.files[0], content: "// Pro component — upgrade to view the source." }];
-  const installCmd = "npx foundry-ui add " + slug;
+  const installCmd = "npx foundryui add " + slug;
   const related = items.filter((i) => i.category === it.category && i.slug !== slug).slice(0, 3);
   return (
-    <div className="mx-auto max-w-6xl px-4 pt-10 sm:px-6">
+    <div className="mx-auto max-w-[1180px] px-4 pt-10 sm:px-6">
       <nav className="mb-4 flex items-center gap-1.5 text-[13px] text-fu-muted" aria-label="Breadcrumb">
         <Link href="/components" className="hover:text-fu-ink">Components</Link>
         <span aria-hidden="true">/</span>
@@ -38,7 +38,7 @@ export default async function ComponentPage({ params }: PageProps<"/components/[
       </nav>
       <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
         <div className="max-w-2xl">
-          <h1 className="text-3xl font-medium tracking-[-0.03em] text-fu-ink">{it.name}</h1>
+          <h1 className="display text-[40px] sm:text-[52px] text-ink">{it.name}</h1>
           <p className="mt-2 text-sm leading-relaxed text-fu-muted">{it.description}</p>
         </div>
         <div className="flex flex-wrap gap-1.5 text-[11px] font-medium">
@@ -47,12 +47,12 @@ export default async function ComponentPage({ params }: PageProps<"/components/[
         </div>
       </div>
 
-      <Suspense fallback={<div className="h-96 rounded-fu-xl border border-fu-line bg-fu-surface" />}>
+      <Suspense fallback={<div className="h-96 rounded-[14px] border border-hair bg-fu-surface" />}>
         <Workbench slug={slug} name={it.name} files={files} installCmd={installCmd} />
       </Suspense>
 
       <div className="mt-10 grid gap-6 lg:grid-cols-3">
-        <section className="rounded-fu-lg border border-fu-line bg-fu-surface p-5 lg:col-span-2">
+        <section className="rounded-fu-lg border border-hair bg-fu-surface p-5 lg:col-span-2">
           <h2 className="text-sm font-medium text-fu-ink">Use it with your AI agent</h2>
           <p className="mt-1 text-[13px] leading-relaxed text-fu-muted">With the Foundry MCP connected, paste this prompt into Claude Code, Cursor or Codex:</p>
           <pre className="mt-3 whitespace-pre-wrap rounded-fu-sm bg-fu-sunken p-3 font-fu-mono text-xs text-fu-body">
@@ -62,7 +62,7 @@ export default async function ComponentPage({ params }: PageProps<"/components/[
             Or with the shadcn CLI: <code className="font-fu-mono text-xs text-fu-body">{"npx shadcn add " + SITE_URL + "/r/" + slug + ".json"}</code>
           </p>
         </section>
-        <section className="rounded-fu-lg border border-fu-line bg-fu-surface p-5">
+        <section className="rounded-fu-lg border border-hair bg-fu-surface p-5">
           <h2 className="text-sm font-medium text-fu-ink">Details</h2>
           <dl className="mt-3 flex flex-col gap-2 text-[13px]">
             <div className="flex justify-between gap-4"><dt className="text-fu-muted">Files</dt><dd className="text-right text-fu-ink">{files.length}</dd></div>

@@ -9,19 +9,122 @@
   --font-mono: var(--font-geist-mono);
 }
 
+/* Site chrome: paper, ink and hairlines. Component previews re-scope to their
+   own system tokens through data-system, so this layer never leaks into them. */
+@theme {
+  --color-paper: #fafaf9;
+  --color-card: #ffffff;
+  --color-tile: #f6f6f4;
+  --color-ink: #0e1014;
+  --color-ink-2: #3a3d43;
+  --color-mute: #6b6e74;
+  --color-faint: #9a9ca0;
+  --color-hair: rgb(14 16 20 / 0.08);
+  --color-hair-2: rgb(14 16 20 / 0.14);
+  --color-wash: rgb(14 16 20 / 0.04);
+  --radius-btn: 10px;
+  --radius-card: 14px;
+}
+
 html {
   color-scheme: light;
 }
 
 body {
-  background: var(--fu-page);
-  color: var(--fu-ink);
+  background: var(--color-paper);
+  color: var(--color-ink);
   font-family: var(--fu-font);
   font-feature-settings: "ss01", "cv11";
 }
 
 ::selection {
-  background: color-mix(in srgb, var(--fu-accent) 18%, transparent);
+  background: rgb(14 16 20 / 0.12);
+}
+
+@layer components {
+/* Small mono label above headings: "01 — WHY FOUNDRY" */
+.eyebrow {
+  font-family: var(--fu-font-mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-mute);
+}
+
+.display {
+  font-weight: 500;
+  letter-spacing: -0.035em;
+  line-height: 1.02;
+}
+
+.btn-ink,
+.btn-line {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 40px;
+  padding: 0 14px;
+  border-radius: var(--radius-btn);
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+  transition:
+    background-color 0.15s ease,
+    transform 0.15s ease;
+}
+.btn-ink {
+  background: var(--color-ink);
+  color: #fff;
+}
+.btn-ink:hover {
+  background: #23262c;
+}
+.btn-line {
+  background: var(--color-card);
+  color: var(--color-ink);
+  box-shadow: inset 0 0 0 1px var(--color-hair-2);
+}
+.btn-line:hover {
+  background: var(--color-paper);
+}
+.btn-ink:active,
+.btn-line:active {
+  transform: scale(0.98);
+}
+
+/* Hairline gallery: cells share one 1px line, like a contact sheet. */
+.hairgrid {
+  display: grid;
+  border-top: 1px solid var(--color-hair);
+  border-left: 1px solid var(--color-hair);
+}
+.hairgrid > * {
+  background: var(--color-paper);
+  border-right: 1px solid var(--color-hair);
+  border-bottom: 1px solid var(--color-hair);
+}
+
+/* Faint isometric-paper backdrop for preview tiles */
+.paper-grid {
+  background-image:
+    linear-gradient(var(--color-hair) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-hair) 1px, transparent 1px);
+  background-size: 24px 24px;
+  background-position: -1px -1px;
+}
+}
+
+@keyframes ticker {
+  to {
+    transform: translateX(-50%);
+  }
+}
+.ticker {
+  animation: ticker 60s linear infinite;
+}
+.ticker:hover {
+  animation-play-state: paused;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -30,5 +133,8 @@ body {
   *::after {
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
+  }
+  .ticker {
+    animation: none;
   }
 }

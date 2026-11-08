@@ -18,14 +18,14 @@ export default async function SystemPage({ params }: PageProps<"/systems/[slug]"
   if (!s) notFound();
   const live = s.status === "live";
   return (
-    <div className="mx-auto max-w-6xl px-4 pt-12 sm:px-6">
+    <div className="mx-auto max-w-[1180px] px-4 pt-12 sm:px-6">
       <div className="flex flex-wrap items-start justify-between gap-6">
         <div className="max-w-2xl">
           <p className="text-[13px] font-medium" style={{ color: s.accent }}>{s.tagline}</p>
           <h1 className="mt-1 text-4xl font-medium tracking-[-0.035em] text-fu-ink">{s.name}</h1>
           <p className="mt-3 text-sm leading-relaxed text-fu-muted">{s.description}</p>
         </div>
-        <div className="rounded-fu-lg border border-fu-line bg-fu-surface p-4 text-[13px]">
+        <div className="rounded-fu-lg border border-hair bg-fu-surface p-4 text-[13px]">
           <p className="text-fu-muted">Use with your agent</p>
           <code className="mt-1 block font-fu-mono text-xs text-fu-ink">{"“Build with the " + s.name + " system”"}</code>
         </div>
@@ -35,7 +35,7 @@ export default async function SystemPage({ params }: PageProps<"/systems/[slug]"
         <>
           <section className="mt-10">
             <h2 className="mb-3 text-lg font-medium tracking-[-0.02em] text-fu-ink">Foundations</h2>
-            <div className="overflow-hidden rounded-fu-xl border border-fu-line">
+            <div className="overflow-hidden rounded-[14px] border border-hair">
               <Preview slug="tokens" />
             </div>
           </section>
@@ -56,7 +56,7 @@ export default async function SystemPage({ params }: PageProps<"/systems/[slug]"
             ))}
         </>
       ) : (
-        <div className="mt-10 rounded-fu-xl border border-dashed border-fu-line-strong bg-fu-surface p-10 text-center">
+        <div className="mt-10 rounded-[14px] border border-dashed border-hair-2 bg-fu-surface p-10 text-center">
           <p className="text-base font-medium text-fu-ink">{s.name} is being built</p>
           <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-fu-muted">
             Tokens, components and screens are being extracted from the {s.name} source design. Every Loopo component will be available in {s.name} through the same token system.

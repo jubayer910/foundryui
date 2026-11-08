@@ -28,7 +28,7 @@ export default async function AccountPage() {
     <div className="mx-auto max-w-4xl px-4 pt-12 sm:px-6">
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-medium tracking-[-0.03em] text-fu-ink">Account</h1>
+          <h1 className="display text-[40px] sm:text-[52px] text-ink">Account</h1>
           <p className="mt-1 text-sm text-fu-muted">{user.email}</p>
         </div>
         <SignOut />
@@ -39,7 +39,7 @@ export default async function AccountPage() {
           ["Copies & downloads", String(total - mcp)],
           ["MCP calls", String(mcp)],
         ].map(([k, v]) => (
-          <div key={k} className="rounded-fu-lg border border-fu-line bg-fu-surface p-4">
+          <div key={k} className="rounded-fu-lg border border-hair bg-fu-surface p-4">
             <p className="text-[13px] text-fu-muted">{k}</p>
             <p className="mt-1 text-2xl font-medium tracking-[-0.02em] tabular-nums text-fu-ink">{v}</p>
           </div>

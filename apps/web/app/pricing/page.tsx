@@ -12,14 +12,14 @@ const PLANS = [
 
 export default function PricingPage() {
   return (
-    <div className="mx-auto max-w-6xl px-4 pt-12 sm:px-6">
+    <div className="mx-auto max-w-[1180px] px-4 pt-12 sm:px-6">
       <div className="mx-auto max-w-2xl text-center">
-        <h1 className="text-3xl font-medium tracking-[-0.03em] text-fu-ink sm:text-4xl">Simple pricing</h1>
+        <h1 className="display text-[40px] sm:text-[52px] text-ink">Simple pricing</h1>
         <p className="mt-3 text-sm leading-relaxed text-fu-muted">Start free with the Loopo system. Upgrade when you want every system. Regional pricing applies automatically at checkout.</p>
       </div>
       <div className="mt-10 grid gap-4 md:grid-cols-3">
         {PLANS.map((p) => (
-          <div key={p.name} className={"flex flex-col rounded-fu-xl border p-6 " + (p.featured ? "border-fu-ink bg-fu-surface shadow-fu-overlay" : "border-fu-line bg-fu-surface")}>
+          <div key={p.name} className={"flex flex-col rounded-[14px] border p-6 " + (p.featured ? "border-fu-ink bg-fu-surface shadow-fu-overlay" : "border-hair bg-fu-surface")}>
             <div className="flex items-center justify-between">
               <p className="text-sm font-medium text-fu-ink">{p.name}</p>
               {p.featured && <span className="rounded-full bg-fu-accent-soft px-2 py-0.5 text-[11px] font-medium text-fu-accent">Most popular</span>}
@@ -34,7 +34,7 @@ export default function PricingPage() {
                 </li>
               ))}
             </ul>
-            <Link href={p.href} className={"mt-8 flex h-10 items-center justify-center rounded-full text-sm font-medium " + (p.featured ? "text-white shadow-fu-button [background:var(--fu-primary-grad)]" : "border border-fu-line-strong text-fu-ink hover:bg-fu-hover")}>
+            <Link href={p.href} className={"mt-8 flex h-10 items-center justify-center rounded-[10px] text-sm font-medium " + (p.featured ? "text-white bg-ink hover:bg-[#23262c]" : "border border-hair-2 text-fu-ink hover:bg-fu-hover")}>
               {p.cta}
             </Link>
           </div>
