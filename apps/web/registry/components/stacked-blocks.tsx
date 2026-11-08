@@ -48,7 +48,7 @@ export function StackedBlocks({ a = A, b = B, labels = LABELS, color = "#fd4b23"
       </svg>
       <TipCard
         className="absolute left-2 top-2"
-        title={labels[sel] + " · total " + (a[sel] + b[sel])}
+        title={labels[sel] + ", total " + (a[sel] + b[sel])}
         rows={[
           { label: nameA, value: String(a[sel]), color },
           { label: nameB, value: String(b[sel]), color: mix(color, 0.7) },

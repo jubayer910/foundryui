@@ -13,7 +13,7 @@ export interface LineHighlightProps {
 }
 
 /** Dense, almost-straight trend line + soft area, a dashed comparison, a dotted highlight band and one annotation. */
-export function LineHighlight({ data, compare, color = "#fd4b23", title = "Active users", event = 33, eventLabel = "Launch week · +1,015" }: LineHighlightProps) {
+export function LineHighlight({ data, compare, color = "#fd4b23", title = "Active users", event = 33, eventLabel = "Launch week +1,015" }: LineHighlightProps) {
   const ids = useChartIds();
   const series = useMemo(() => data ?? seededSeries(7, 52, 4200, 120, 900), [data]);
   const prev = useMemo(() => compare ?? seededSeries(19, 52, 3900, 70, 700), [compare]);

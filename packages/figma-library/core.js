@@ -194,7 +194,8 @@ async function section(p, title, note) {
 function makeSet(components, name, sectionFrame, cols, description) {
   for (const c of components) sectionFrame.appendChild(c);
   const set =figma.combineAsVariants(components, sectionFrame);
-  set.name = (G.category ? G.category + "/" : "") + name;
+  const cat = sectionFrame.parent && sectionFrame.parent.type === "PAGE" ? sectionFrame.parent.name : G.category;
+  set.name = (cat ? cat + "/" : "") + name;
   set.layoutMode = "HORIZONTAL"; set.layoutWrap = "WRAP";
   set.itemSpacing = 24; set.counterAxisSpacing = 24;
   set.paddingTop = set.paddingBottom = set.paddingLeft = set.paddingRight = 32;

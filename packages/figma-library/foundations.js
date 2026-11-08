@@ -20,11 +20,11 @@ const rrow = box({ name: "Radii", gap: 16, align: "MIN" }); rad.appendChild(rrow
 for (const k of ["xs", "sm", "md", "lg", "xl", "full"]) {
   const c = box({ name: k, dir: "v", gap: 8, align: "MIN" }); rrow.appendChild(c);
   const r = figma.createRectangle(); r.resize(96, 64); fill(r, "accent-soft"); stroke(r, "accent"); radius(r, k); c.appendChild(r);
-  await txt(c, "radius/" + k + " · " + (k === "full" ? "999" : RADIUS[k]), "Mono/11 Regular", "muted");
+  await txt(c, "radius/" + k + " = " + (k === "full" ? "999" : RADIUS[k]), "Mono/11 Regular", "muted");
 }
 
 const type = box({ name: "Type", dir: "v", gap: 10, align: "MIN" }); sec.appendChild(type);
-await txt(type, "Type · Geist", "Title/16 Medium");
+await txt(type, "Type: Geist", "Title/16 Medium");
 for (const name of Object.keys(TEXT_STYLES)) {
   const row = box({ name, gap: 24, align: "CENTER" }); type.appendChild(row);
   const l = await txt(row, name, "Mono/11 Regular", "muted"); l.textAutoResize = "NONE"; l.resize(180, 14);
