@@ -245,31 +245,27 @@ function buildServer(env: Env, user: User) {
   server.registerTool(
     "search_icons",
     {
-      description: "Search the Foundry icon library (7,000+ line icons on a 24px grid, 1.5px stroke; 1,000+ also in Fill) by name or meaning. Returns names, JSX from foundryui-icons/react, and the SVG.",
-      inputSchema: { query: z.string(), style: z.enum(["line", "fill"]).optional(), limit: z.number().int().min(1).max(50).optional() },
+      description: "Search the Foundry icon library (7,000+ icons on a 24px grid, each in six styles: stroke-rounded, stroke-sharp, solid, duotone, twotone, bulk) by name or meaning. Returns names, JSX from foundryui-icons/react/<style>, and the SVG.",
+      inputSchema: { query: z.string(), style: z.enum(["stroke-rounded", "stroke-sharp", "solid", "duotone", "twotone", "bulk"]).optional(), limit: z.number().int().min(1).max(50).optional() },
     },
-    guard("search_icons", async ({ query, style = "line", limit = 12 }: { query: string; style?: "line" | "fill"; limit?: number }) => {
+    guard("search_icons", async ({ query, style = "stroke-rounded", limit = 12 }: { query: string; style?: string; limit?: number }) => {
       const [index, bodies] = (await Promise.all([env.SITE.fetch(site + "/icons/index.json").then((r) => r.json()), env.SITE.fetch(site + "/icons/" + style + ".json").then((r) => r.json())])) as [
-        { n: string; c: string; t: string[]; s: number }[],
+        { n: string; c: string; t: string[] }[],
         Record<string, string>,
       ];
       const words = query.toLowerCase().split(/\W+/).filter(Boolean);
       const score = (i: { n: string; t: string[] }) =>
         words.reduce((s, w) => s + (i.n === w ? 5 : i.n.split("-").includes(w) ? 3 : w.length > 3 && i.n.includes(w) ? 2 : i.t.some((t) => t === w || (w.length > 3 && t.includes(w))) ? 1 : 0), 0);
       const hits = index
-        .filter((i) => style === "line" || i.s === 2)
         .map((i) => ({ i, s: score(i) }))
         .filter((x) => x.s > 0)
         .sort((a, b) => b.s - a.s || a.i.n.length - b.i.n.length)
         .slice(0, limit);
-      const pascal = (n: string) => (/^\d/.test(n) ? "I" : "") + n.replace(/(^|-)([a-z0-9])/g, (_m, _d, c: string) => c.toUpperCase()) + (style === "fill" ? "Fill" : "");
-      const root =
-        style === "line"
-          ? '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">'
-          : '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">';
+      const pascal = (n: string) => (/^\d/.test(n) ? "I" : "") + n.replace(/(^|-)([a-z0-9])/g, (_m, _d, c: string) => c.toUpperCase());
+      const root = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">';
       return json({
         install: "npm i foundryui-icons",
-        matches: hits.map(({ i }) => ({ name: i.n, category: i.c, jsx: `import { ${pascal(i.n)} } from "foundryui-icons/react";  <${pascal(i.n)} size={20} />`, svg: root + bodies[i.n] + "</svg>" })),
+        matches: hits.map(({ i }) => ({ name: i.n, category: i.c, jsx: `import { ${pascal(i.n)} } from "foundryui-icons/react/${style}";  <${pascal(i.n)} size={20} />`, svg: root + bodies[i.n] + "</svg>" })),
         total: index.length,
         note: hits.length ? undefined : "No match. Try a simpler word (e.g. 'invoice', 'upload', 'chart').",
       });

@@ -4,7 +4,7 @@ import { Icon } from "@/registry/components/icons";
 export const metadata: Metadata = { title: "Changelog" };
 
 const LOG = [
-  { date: "Nov 09, 2026", title: "Icon library and a new look", body: ["Foundry Icons: 7,165 line icons and 1,015 filled, on one 24px grid with a 1.5px live stroke", "Icons page: search, 41 categories, stroke control, copy SVG or JSX, download", "foundryui-icons package with a tree-shakeable React entry", "MCP search_icons now searches the whole library and returns JSX and SVG", "New site design: paper, ink and hairlines, with a gallery-style library browser"] },
+  { date: "Nov 09, 2026", title: "Icon library and a new look", body: ["Foundry Icons: 7,165 icons in six styles (Stroke, Sharp, Solid, Duotone, Twotone, Bulk) on one 24px grid", "Icons page: search, 41 categories, stroke control, copy SVG or JSX, download", "foundryui-icons package with a tree-shakeable React entry", "MCP search_icons now searches the whole library and returns JSX and SVG", "New site design: paper, ink and hairlines, with a gallery-style library browser"] },
   { date: "Nov 08, 2026", title: "Foundry UI preview", body: ["Loopo design system live: tokens, 30 components incl. 7 charts", "Foundry Icons: first 30 original icons (Line style in code; Line, Fill, Duo in Figma)", "MCP server with 14 tools, CLI and shadcn-compatible registry", "Free accounts, API keys and the 5-action guest limit"] },
 ];
 

@@ -19,6 +19,7 @@ import { readFileSync, readdirSync, writeFileSync, mkdirSync, rmSync, existsSync
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { createHash } from "node:crypto";
+import { STYLES, deriveStyles } from "./styles.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const nm = join(root, "node_modules");
@@ -88,20 +89,30 @@ for (const f of readdirSync(join(nm, "@tabler/icons/icons/filled"))) {
   if (line.has(name)) fill.set(name, inner(read(join(nm, "@tabler/icons/icons/filled", f)), { keepFill: true }));
 }
 
-// Write per-icon SVG files
-const LINE_ROOT = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">';
-const FILL_ROOT = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">';
-for (const d of ["svg/line", "svg/fill"]) { rmSync(join(root, d), { recursive: true, force: true }); mkdirSync(join(root, d), { recursive: true }); }
-for (const [n, v] of line) writeFileSync(join(root, "svg/line", n + ".svg"), LINE_ROOT + v.svg + "</svg>\n");
-for (const [n, s] of fill) writeFileSync(join(root, "svg/fill", n + ".svg"), FILL_ROOT + s + "</svg>\n");
+// Six styles per icon (see scripts/styles.mjs). Solid prefers Tabler's hand-drawn filled version.
+const styled = Object.fromEntries(STYLES.map((st) => [st, new Map()]));
+let containers = 0;
+for (const [n, v] of line) {
+  const r = deriveStyles(n, v.svg);
+  if (r.analysis.container) containers++;
+  for (const st of STYLES) styled[st].set(n, r.svg[st]);
+  if (fill.has(n)) styled.solid.set(n, `<g fill="currentColor">${fill.get(n)}</g>`);
+}
+const ROOT = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">';
+rmSync(join(root, "svg"), { recursive: true, force: true });
+for (const st of STYLES) {
+  mkdirSync(join(root, "svg", st), { recursive: true });
+  for (const [n, body] of styled[st]) writeFileSync(join(root, "svg", st, n + ".svg"), ROOT + body + "</svg>\n");
+}
 
 // Site / MCP data
 mkdirSync(webOut, { recursive: true });
-writeFileSync(join(root, "../../apps/web/lib/icon-stats.json"), JSON.stringify({ line: line.size, fill: fill.size }));
-const index = [...line].map(([n, v]) => ({ n, c: v.c, t: v.t.slice(0, 8), s: fill.has(n) ? 2 : 1 }));
+writeFileSync(join(root, "../../apps/web/lib/icon-stats.json"), JSON.stringify({ line: line.size, styles: STYLES.length, total: line.size * STYLES.length, handSolid: fill.size }));
+const index = [...line].map(([n, v]) => ({ n, c: v.c, t: v.t.slice(0, 8) }));
 writeFileSync(join(webOut, "index.json"), JSON.stringify(index));
-writeFileSync(join(webOut, "line.json"), JSON.stringify(Object.fromEntries([...line].map(([n, v]) => [n, v.svg]))));
-writeFileSync(join(webOut, "fill.json"), JSON.stringify(Object.fromEntries(fill)));
+for (const st of STYLES) writeFileSync(join(webOut, st + ".json"), JSON.stringify(Object.fromEntries(styled[st])));
+for (const old of ["line.json", "fill.json"]) rmSync(join(webOut, old), { force: true });
+console.log(`styles ${STYLES.join(", ")} · ${containers} icons with a container shape`);
 
 // Coverage against the Hugeicons free name list (concepts only)
 const hugeNames = readdirSync(join(nm, "@hugeicons/core-free-icons/dist/esm"))
@@ -118,31 +129,32 @@ const cats = [...new Set(index.map((i) => i.c))];
 console.log(`line ${line.size} (tabler ${nTabler}, lucide ${nLucide}, iconoir ${nIconoir}) · fill ${fill.size} · ${cats.length} categories`);
 console.log(`hugeicons concepts ${concepts.length}: exact ${exact.length}, by parts ${byWords.length}, missing ${missing.length}`);
 
-// React entry: one tree-shakeable module (sideEffects: false), Line by default, Fill as <Name>Fill.
+// React entries: foundryui-icons/react/<style> (tree-shakeable), and /react = stroke-rounded.
 const pascal = (n) => n.replace(/(^|-)([a-z0-9])/g, (_, __, c) => c.toUpperCase());
 const esc = (s) => JSON.stringify(s);
-const lines = [
+const head = [
   'import { createElement as h, forwardRef } from "react";',
-  "const mk = (body, fill, name) => { const C = forwardRef(function Icon({ size = 24, strokeWidth = 1.5, ...p }, ref) {",
-  '  return h("svg", Object.assign({ ref, xmlns: "http://www.w3.org/2000/svg", width: size, height: size, viewBox: "0 0 24 24", "aria-hidden": p["aria-label"] ? undefined : true },',
-  '    fill ? { fill: "currentColor" } : { fill: "none", stroke: "currentColor", strokeWidth, strokeLinecap: "round", strokeLinejoin: "round" }, p, { dangerouslySetInnerHTML: { __html: body } }));',
+  "const mk = (body, name) => { const C = forwardRef(function Icon({ size = 24, strokeWidth = 1.5, ...p }, ref) {",
+  '  const html = strokeWidth == 1.5 ? body : body.replace(/stroke-width="([\\d.]+)"/g, (_, w) => `stroke-width="${(Number(w) * Number(strokeWidth)) / 1.5}"`);',
+  '  return h("svg", Object.assign({ ref, xmlns: "http://www.w3.org/2000/svg", width: size, height: size, viewBox: "0 0 24 24", fill: "none", "aria-hidden": p["aria-label"] ? undefined : true }, p, { dangerouslySetInnerHTML: { __html: html } }));',
   "}); C.displayName = name; return C; };",
 ];
-const dts = ['import type { ForwardRefExoticComponent, SVGProps, RefAttributes } from "react";', "type P = Omit<SVGProps<SVGSVGElement>, 'ref'> & { size?: number | string; strokeWidth?: number | string };", "type I = ForwardRefExoticComponent<P & RefAttributes<SVGSVGElement>>;"];
-const used = new Set();
-for (const [n, v] of line) {
-  let id = pascal(n);
-  if (/^\d/.test(id)) id = "I" + id;
-  if (used.has(id)) continue;
-  used.add(id);
-  lines.push(`export const ${id} = /*#__PURE__*/ mk(${esc(v.svg)}, false, ${esc(id)});`);
-  dts.push(`export declare const ${id}: I;`);
-  if (fill.has(n)) {
-    lines.push(`export const ${id}Fill = /*#__PURE__*/ mk(${esc(fill.get(n))}, true, ${esc(id + "Fill")});`);
-    dts.push(`export declare const ${id}Fill: I;`);
-  }
-}
+const dtsHead = ['import type { ForwardRefExoticComponent, SVGProps, RefAttributes } from "react";', "type P = Omit<SVGProps<SVGSVGElement>, 'ref'> & { size?: number | string; strokeWidth?: number | string };", "type I = ForwardRefExoticComponent<P & RefAttributes<SVGSVGElement>>;"];
+rmSync(join(root, "react"), { recursive: true, force: true });
 mkdirSync(join(root, "react"), { recursive: true });
-writeFileSync(join(root, "react/index.js"), lines.join("\n") + "\n");
-writeFileSync(join(root, "react/index.d.ts"), dts.join("\n") + "\n");
-console.log("react exports " + used.size);
+for (const st of STYLES) {
+  const js = [...head], dts = [...dtsHead], used = new Set();
+  for (const [n, body] of styled[st]) {
+    let id = pascal(n);
+    if (/^\d/.test(id)) id = "I" + id;
+    if (used.has(id)) continue;
+    used.add(id);
+    js.push(`export const ${id} = /*#__PURE__*/ mk(${esc(body)}, ${esc(id)});`);
+    dts.push(`export declare const ${id}: I;`);
+  }
+  writeFileSync(join(root, "react", st + ".js"), js.join("\n") + "\n");
+  writeFileSync(join(root, "react", st + ".d.ts"), dts.join("\n") + "\n");
+}
+writeFileSync(join(root, "react/index.js"), 'export * from "./stroke-rounded.js";\n');
+writeFileSync(join(root, "react/index.d.ts"), 'export * from "./stroke-rounded.js";\n');
+console.log("react: " + STYLES.length + " style entries");

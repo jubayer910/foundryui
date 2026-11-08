@@ -15,7 +15,7 @@ const NAV = [
 ];
 
 const NEWS = [
-  { k: "Icons", v: iconStats.line.toLocaleString("en-US") + " line icons on one 24px grid, 1.5px live stroke.", href: "/icons", cta: "Browse them" },
+  { k: "Icons", v: iconStats.line.toLocaleString("en-US") + " icons in six styles on one 24px grid.", href: "/icons", cta: "Browse them" },
   { k: "Charts", v: "Seven charts with gradient fills, inside strokes and hatch tracks.", href: "/charts", cta: "See them" },
   { k: "MCP", v: "14 tools for Claude Code, Cursor and Codex. Your agent builds with the system.", href: "/mcp", cta: "Connect" },
   { k: "Loopo", v: "The first full design system is live: tokens, components and charts.", href: "/systems/loopo", cta: "Open it" },

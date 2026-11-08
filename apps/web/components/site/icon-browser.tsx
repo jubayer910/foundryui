@@ -3,37 +3,36 @@ import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { Icon } from "@/registry/components/icons";
 
-type Meta = { n: string; c: string; t: string[]; s: 1 | 2 };
-type Style = "line" | "fill";
+type Meta = { n: string; c: string; t: string[] };
+const STYLES = ["stroke-rounded", "stroke-sharp", "solid", "duotone", "twotone", "bulk"] as const;
+type Style = (typeof STYLES)[number];
+const LABEL: Record<Style, string> = { "stroke-rounded": "Stroke", "stroke-sharp": "Sharp", solid: "Solid", duotone: "Duotone", twotone: "Twotone", bulk: "Bulk" };
 const PAGE = 240;
 
-function svgOf(name: string, body: string, style: Style, stroke: number) {
-  return style === "line"
-    ? `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="${stroke}" stroke-linecap="round" stroke-linejoin="round">${body}</svg>`
-    : `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">${body}</svg>`;
+function svgOf(body: string, stroke: number) {
+  const b = stroke === 1.5 ? body : body.replace(/stroke-width="([\d.]+)"/g, (_, w: string) => `stroke-width="${+((Number(w) * stroke) / 1.5).toFixed(3)}"`);
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">${b}</svg>`;
 }
 const jsxName = (n: string) => n.replace(/(^|-)([a-z0-9])/g, (_, __, c: string) => c.toUpperCase());
 
 export function IconBrowser({ initialQuery = "" }: { initialQuery?: string }) {
   const [meta, setMeta] = useState<Meta[] | null>(null);
-  const [bodies, setBodies] = useState<Record<Style, Record<string, string>>>({ line: {}, fill: {} });
+  const [bodies, setBodies] = useState<Partial<Record<Style, Record<string, string>>>>({});
   const [q, setQ] = useState(initialQuery);
   const [cat, setCat] = useState("All");
-  const [style, setStyle] = useState<Style>("line");
+  const [style, setStyle] = useState<Style>("stroke-rounded");
   const [stroke, setStroke] = useState(1.5);
   const [limit, setLimit] = useState(PAGE);
   const [sel, setSel] = useState<string | null>(null);
   const [note, setNote] = useState<{ text: string; login?: boolean } | null>(null);
 
   useEffect(() => {
-    Promise.all([fetch("/icons/index.json").then((r) => r.json()), fetch("/icons/line.json").then((r) => r.json())]).then(([m, l]) => {
-      setMeta(m);
-      setBodies((b) => ({ ...b, line: l }));
-    });
+    fetch("/icons/index.json").then((r) => r.json()).then(setMeta);
   }, []);
   useEffect(() => {
-    if (style === "fill" && !Object.keys(bodies.fill).length) fetch("/icons/fill.json").then((r) => r.json()).then((f) => setBodies((b) => ({ ...b, fill: f })));
-  }, [style, bodies.fill]);
+    if (!bodies[style]) fetch("/icons/" + style + ".json").then((r) => r.json()).then((f) => setBodies((b) => ({ ...b, [style]: f })));
+  }, [style, bodies]);
+  const cur = bodies[style] ?? {};
   useEffect(() => setLimit(PAGE), [q, cat, style]);
 
   const cats = useMemo(() => {
@@ -45,29 +44,29 @@ export function IconBrowser({ initialQuery = "" }: { initialQuery?: string }) {
   const shown = useMemo(() => {
     if (!meta) return [];
     const words = q.trim().toLowerCase().split(/\s+/).filter(Boolean);
-    return meta.filter((i) => (style === "line" || i.s === 2) && (cat === "All" || i.c === cat) && words.every((w) => i.n.includes(w) || i.t.some((t) => t.includes(w))));
-  }, [meta, q, cat, style]);
+    return meta.filter((i) => (cat === "All" || i.c === cat) && words.every((w) => i.n.includes(w) || i.t.some((t) => t.includes(w))));
+  }, [meta, q, cat]);
 
   const current = sel ? meta?.find((i) => i.n === sel) : null;
 
   async function act(action: "copy_code" | "download_svg", kind: "svg" | "jsx") {
     if (!current) return;
-    const body = bodies[style][current.n];
+    const body = cur[current.n];
     if (!body) return;
     const r = await fetch("/api/actions", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ slug: "icon:" + current.n, action }) });
     const res = await r.json().catch(() => ({}));
     if (r.status === 403) return setNote({ text: "You've used your 5 free actions. Create a free account to keep copying.", login: true });
     if (!r.ok) return setNote({ text: "Something went wrong. Try again." });
-    const svg = svgOf(current.n, body, style, stroke);
+    const svg = svgOf(body, stroke);
     if (action === "download_svg") {
       const a = document.createElement("a");
       a.href = URL.createObjectURL(new Blob([svg], { type: "image/svg+xml" }));
-      a.download = current.n + (style === "fill" ? "-fill" : "") + ".svg";
+      a.download = current.n + (style === "stroke-rounded" ? "" : "-" + style) + ".svg";
       a.click();
       setNote({ text: "Downloaded " + a.download + (res.remaining != null ? ` · ${res.remaining} free actions left` : "") });
       return;
     }
-    const text = kind === "jsx" ? `import { ${jsxName(current.n)} } from "foundryui-icons/react";\n\n<${jsxName(current.n)} size={20} strokeWidth={${stroke}} />` : svg;
+    const text = kind === "jsx" ? `import { ${jsxName(current.n)} } from "foundryui-icons/react/${style}";\n\n<${jsxName(current.n)} size={20} strokeWidth={${stroke}} />` : svg;
     await navigator.clipboard.writeText(text).catch(() => {});
     setNote({ text: (kind === "jsx" ? "JSX" : "SVG") + " copied" + (res.remaining != null ? ` · ${res.remaining} free actions left` : "") });
   }
@@ -89,19 +88,19 @@ export function IconBrowser({ initialQuery = "" }: { initialQuery?: string }) {
       </aside>
 
       <div className="min-w-0">
-        <div className="sticky top-14 z-10 -mx-1 mb-4 flex flex-col gap-3 bg-paper/90 px-1 py-2 backdrop-blur sm:flex-row sm:items-center">
-          <label className="flex h-11 flex-1 items-center gap-2.5 rounded-[12px] bg-card px-3.5 shadow-[inset_0_0_0_1px_var(--color-hair-2)] focus-within:shadow-[inset_0_0_0_1.5px_var(--color-ink)]">
+        <div className="sticky top-14 z-10 -mx-1 mb-4 flex flex-wrap items-center gap-3 bg-paper/90 px-1 py-2 backdrop-blur">
+          <label className="flex h-11 min-w-[240px] flex-1 basis-full items-center gap-2.5 rounded-[12px] bg-card px-3.5 shadow-[inset_0_0_0_1px_var(--color-hair-2)] focus-within:shadow-[inset_0_0_0_1.5px_var(--color-ink)] xl:basis-0">
             <Icon name="search" size={16} className="text-mute" />
             <input value={q} onChange={(e) => setQ(e.target.value)} placeholder={`Search ${meta ? meta.length.toLocaleString("en-US") : "7,000+"} icons, e.g. invoice, upload, chart`} className="w-full bg-transparent text-[14px] outline-none placeholder:text-faint" />
           </label>
-          <div className="flex h-11 items-center gap-0.5 rounded-[12px] bg-card p-1 shadow-[inset_0_0_0_1px_var(--color-hair-2)]">
-            {(["line", "fill"] as const).map((s) => (
-              <button key={s} onClick={() => setStyle(s)} className={"h-9 rounded-[9px] px-3 text-[13px] capitalize " + (style === s ? "bg-ink text-white" : "text-ink-2 hover:bg-wash")}>
-                {s}
+          <div className="flex h-11 max-w-full items-center gap-0.5 overflow-x-auto rounded-[12px] bg-card p-1 shadow-[inset_0_0_0_1px_var(--color-hair-2)]">
+            {STYLES.map((s) => (
+              <button key={s} onClick={() => setStyle(s)} className={"h-9 shrink-0 rounded-[9px] px-2.5 text-[13px] " + (style === s ? "bg-ink text-white" : "text-ink-2 hover:bg-wash")}>
+                {LABEL[s]}
               </button>
             ))}
           </div>
-          {style === "line" && (
+          {style !== "solid" && (
             <label className="flex h-11 items-center gap-2 rounded-[12px] bg-card px-3 shadow-[inset_0_0_0_1px_var(--color-hair-2)]">
               <span className="font-fu-mono text-[11px] text-mute">Stroke</span>
               <input type="range" min={1} max={2.5} step={0.25} value={stroke} onChange={(e) => setStroke(Number(e.target.value))} className="w-20 accent-[var(--color-ink)]" aria-label="Stroke width" />
@@ -114,10 +113,10 @@ export function IconBrowser({ initialQuery = "" }: { initialQuery?: string }) {
 
         <div className="hairgrid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 xl:grid-cols-10">
           {shown.slice(0, limit).map((i) => {
-            const body = bodies[style][i.n];
+            const body = cur[i.n];
             return (
               <button key={i.n} title={i.n} onClick={() => setSel(i.n)} className={"group flex aspect-square flex-col items-center justify-center gap-2 text-ink transition-colors hover:bg-card " + (sel === i.n ? "!bg-card shadow-[inset_0_0_0_1.5px_var(--color-ink)]" : "")}>
-                {body ? <span className="size-6" dangerouslySetInnerHTML={{ __html: svgOf(i.n, body, style, stroke) }} /> : <span className="size-6" />}
+                {body ? <span className="size-6" dangerouslySetInnerHTML={{ __html: svgOf(body, stroke) }} /> : <span className="size-6" />}
                 <span className="w-full truncate px-1.5 text-center font-fu-mono text-[9.5px] text-faint group-hover:text-ink-2">{i.n}</span>
               </button>
             );
@@ -141,7 +140,7 @@ export function IconBrowser({ initialQuery = "" }: { initialQuery?: string }) {
             <div>
               <p className="font-fu-mono text-[12px] text-ink">{current.n}</p>
               <p className="mt-0.5 text-[12px] text-mute">
-                {current.c} · {current.s === 2 ? "Line + Fill" : "Line"}
+                {current.c} · {LABEL[style]}
               </p>
             </div>
             <button onClick={() => (setSel(null), setNote(null))} aria-label="Close" className="flex size-7 items-center justify-center rounded-[8px] text-mute hover:bg-wash hover:text-ink">
@@ -149,7 +148,7 @@ export function IconBrowser({ initialQuery = "" }: { initialQuery?: string }) {
             </button>
           </div>
           <div className="paper-grid my-4 flex h-36 items-center justify-center rounded-[12px] bg-paper shadow-[inset_0_0_0_1px_var(--color-hair)]">
-            {bodies[style][current.n] && <span className="size-16 text-ink [&>svg]:size-16" dangerouslySetInnerHTML={{ __html: svgOf(current.n, bodies[style][current.n], style, stroke) }} />}
+            {cur[current.n] && <span className="size-16 text-ink [&>svg]:size-16" dangerouslySetInnerHTML={{ __html: svgOf(cur[current.n], stroke) }} />}
           </div>
           <div className="grid grid-cols-3 gap-2">
             <button onClick={() => act("copy_code", "svg")} className="btn-ink !h-9 !px-2 !text-[13px]">

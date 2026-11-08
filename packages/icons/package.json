@@ -13,10 +13,12 @@
     "build": "node scripts/build.mjs"
   },
   "devDependencies": {
+    "@hugeicons/core-free-icons": "4.4.0",
     "@tabler/icons": "3.51.0",
-    "lucide-static": "1.70.0",
     "iconoir": "7.12.2",
-    "@hugeicons/core-free-icons": "4.4.0"
+    "lucide-static": "1.70.0",
+    "svg-path-bbox": "^2.1.0",
+    "svgpath": "^2.6.0"
   },
   "license": "MIT",
   "sideEffects": false,
