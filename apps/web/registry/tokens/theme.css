@@ -24,6 +24,10 @@
   --color-fu-negative-soft: var(--fu-negative-soft);
   --color-fu-warning: var(--fu-warning);
   --color-fu-warning-soft: var(--fu-warning-soft);
+  --color-fu-positive-text: var(--fu-positive-text);
+  --color-fu-negative-text: var(--fu-negative-text);
+  --color-fu-warning-text: var(--fu-warning-text);
+  --color-fu-accent-text: var(--fu-accent-text);
   --radius-fu-xs: var(--fu-radius-xs);
   --radius-fu-sm: var(--fu-radius-sm);
   --radius-fu-md: var(--fu-radius-md);

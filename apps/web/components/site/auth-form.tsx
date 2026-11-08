@@ -43,7 +43,7 @@ export function AuthForm({ mode, next = "/account" }: { mode: "sign-in" | "sign-
         Password
         <input name="password" type="password" required minLength={8} autoComplete={mode === "sign-up" ? "new-password" : "current-password"} className={field} placeholder="At least 8 characters" />
       </label>
-      {error && <p role="alert" className="rounded-fu-sm bg-fu-negative-soft px-3 py-2 text-[13px] text-fu-negative">{error}</p>}
+      {error && <p role="alert" className="rounded-fu-sm bg-fu-negative-soft px-3 py-2 text-[13px] text-fu-negative-text">{error}</p>}
       <button disabled={pending} className="mt-1 flex h-10 items-center justify-center rounded-[10px] text-sm font-medium text-white bg-ink hover:bg-[#23262c] disabled:opacity-60">
         {pending ? "Please wait…" : mode === "sign-up" ? "Create free account" : "Sign in"}
       </button>

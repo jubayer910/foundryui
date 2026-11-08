@@ -28,6 +28,11 @@
   --fu-negative-soft: #fdeeee;
   --fu-warning: #d99a06;
   --fu-warning-soft: #fdf6e3;
+  /* Text tones: pass WCAG AA (4.5:1+) on their soft backgrounds and on white. Fills keep the bright tones. */
+  --fu-positive-text: #0f7d4f;
+  --fu-negative-text: #c4282e;
+  --fu-warning-text: #8a6000;
+  --fu-accent-text: #c2361a;
   --fu-primary-grad: linear-gradient(180deg, #838383 0%, #2d2d2d 100%);
   --fu-radius-xs: 6px;
   --fu-radius-sm: 8px;

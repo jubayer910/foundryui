@@ -13,7 +13,7 @@ export function DeltaChip({ value, suffix = "%", className }: DeltaChipProps) {
     <span
       className={cx(
         "inline-flex h-5 items-center gap-1 rounded-full px-1.5 text-[11px] font-medium tabular-nums",
-        up ? "bg-fu-positive-soft text-fu-positive" : "bg-fu-negative-soft text-fu-negative",
+        up ? "bg-fu-positive-soft text-fu-positive-text" : "bg-fu-negative-soft text-fu-negative-text",
         className,
       )}
     >

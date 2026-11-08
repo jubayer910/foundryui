@@ -22,14 +22,14 @@ export default function PricingPage() {
           <div key={p.name} className={"flex flex-col rounded-[14px] border p-6 " + (p.featured ? "border-fu-ink bg-fu-surface shadow-fu-overlay" : "border-hair bg-fu-surface")}>
             <div className="flex items-center justify-between">
               <p className="text-sm font-medium text-fu-ink">{p.name}</p>
-              {p.featured && <span className="rounded-full bg-fu-accent-soft px-2 py-0.5 text-[11px] font-medium text-fu-accent">Most popular</span>}
+              {p.featured && <span className="rounded-full bg-fu-accent-soft px-2 py-0.5 text-[11px] font-medium text-fu-accent-text">Most popular</span>}
             </div>
             <p className="mt-4 text-4xl font-medium tracking-[-0.03em] text-fu-ink">{p.price}</p>
             <p className="mt-1 text-[13px] text-fu-muted">{p.per}</p>
             <ul className="mt-6 flex flex-1 flex-col gap-2.5">
               {p.points.map((pt) => (
                 <li key={pt} className="flex items-start gap-2 text-[13px] text-fu-body">
-                  <Icon name="check" size={16} className="mt-0.5 shrink-0 text-fu-positive" />
+                  <Icon name="check" size={16} className="mt-0.5 shrink-0 text-fu-positive-text" />
                   {pt}
                 </li>
               ))}

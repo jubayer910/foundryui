@@ -24,7 +24,7 @@ export function DropdownMenu({ trigger, items, align = "end" }: DropdownMenuProp
                   onClick={it.onSelect}
                   className={cx(
                     "flex cursor-default select-none items-center gap-2 rounded-fu-xs px-2.5 py-2 text-[13px] outline-none data-[highlighted]:bg-fu-hover",
-                    it.danger ? "text-fu-negative" : "text-fu-body data-[highlighted]:text-fu-ink",
+                    it.danger ? "text-fu-negative-text" : "text-fu-body data-[highlighted]:text-fu-ink",
                   )}
                 >
                   {it.icon && <Icon name={it.icon} size={16} className={it.danger ? "" : "text-fu-muted"} />}

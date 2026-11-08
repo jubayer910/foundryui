@@ -43,7 +43,7 @@ export default async function ComponentPage({ params }: PageProps<"/components/[
         </div>
         <div className="flex flex-wrap gap-1.5 text-[11px] font-medium">
           <span className="rounded-full bg-fu-surface px-2.5 py-1 text-fu-body ring-1 ring-fu-line">System: Loopo</span>
-          <span className={"rounded-full px-2.5 py-1 " + (it.tier === "free" ? "bg-fu-positive-soft text-fu-positive" : "bg-fu-accent-soft text-fu-accent")}>{it.tier === "free" ? "Free" : "Pro"}</span>
+          <span className={"rounded-full px-2.5 py-1 " + (it.tier === "free" ? "bg-fu-positive-soft text-fu-positive-text" : "bg-fu-accent-soft text-fu-accent-text")}>{it.tier === "free" ? "Free" : "Pro"}</span>
         </div>
       </div>
 

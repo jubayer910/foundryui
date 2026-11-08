@@ -35,7 +35,7 @@ export function DataTable({ rows = DEFAULT }: { rows?: Txn[] }) {
       {sel.length > 0 && (
         <div className="flex items-center justify-between border-b border-fu-line bg-fu-sunken px-4 py-2 text-[13px]">
           <span className="text-fu-body">{sel.length} selected</span>
-          <button className="font-medium text-fu-accent" onClick={() => setSel([])}>
+          <button className="font-medium text-fu-accent-text" onClick={() => setSel([])}>
             Clear
           </button>
         </div>

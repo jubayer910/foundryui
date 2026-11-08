@@ -5,10 +5,10 @@ type Tone = "neutral" | "accent" | "positive" | "negative" | "warning";
 
 const tones: Record<Tone, string> = {
   neutral: "bg-fu-hover text-fu-body border-fu-line",
-  accent: "bg-fu-accent-soft text-fu-accent border-[color-mix(in_srgb,var(--fu-accent)_18%,transparent)]",
-  positive: "bg-fu-positive-soft text-fu-positive border-[color-mix(in_srgb,var(--fu-positive)_18%,transparent)]",
-  negative: "bg-fu-negative-soft text-fu-negative border-[color-mix(in_srgb,var(--fu-negative)_18%,transparent)]",
-  warning: "bg-fu-warning-soft text-fu-warning border-[color-mix(in_srgb,var(--fu-warning)_20%,transparent)]",
+  accent: "bg-fu-accent-soft text-fu-accent-text border-[color-mix(in_srgb,var(--fu-accent)_18%,transparent)]",
+  positive: "bg-fu-positive-soft text-fu-positive-text border-[color-mix(in_srgb,var(--fu-positive)_18%,transparent)]",
+  negative: "bg-fu-negative-soft text-fu-negative-text border-[color-mix(in_srgb,var(--fu-negative)_18%,transparent)]",
+  warning: "bg-fu-warning-soft text-fu-warning-text border-[color-mix(in_srgb,var(--fu-warning)_20%,transparent)]",
 };
 
 export interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {

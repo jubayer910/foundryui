@@ -53,7 +53,7 @@ export function ApiKeys({ initial }: { initial: Key[] }) {
               <p className="font-fu-mono text-xs text-fu-muted">{k.prefix}…</p>
             </div>
             <p className="hidden text-xs text-fu-muted sm:block">{k.lastUsedAt ? "Used " + new Date(k.lastUsedAt).toLocaleDateString() : "Never used"}</p>
-            <button onClick={() => revoke(k.id)} className="rounded-full px-3 py-1 text-[13px] font-medium text-fu-negative hover:bg-fu-negative-soft">
+            <button onClick={() => revoke(k.id)} className="rounded-full px-3 py-1 text-[13px] font-medium text-fu-negative-text hover:bg-fu-negative-soft">
               Revoke
             </button>
           </div>

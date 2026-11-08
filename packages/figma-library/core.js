@@ -9,6 +9,8 @@ const HEX = {
   accent: "#fd4b23", "accent-soft": "#fff1ed", "accent-ink": "#ffffff",
   "series-2": "#4d98fe", "series-3": "#ff72ab", "series-4": "#f3c83d",
   positive: "#18b170", "positive-soft": "#ebf8f2", negative: "#e5484d", "negative-soft": "#fdeeee", warning: "#d99a06", "warning-soft": "#fdf6e3",
+  // text tones: pass WCAG AA on their soft backgrounds and on white
+  "positive-text": "#0f7d4f", "negative-text": "#c4282e", "warning-text": "#8a6000", "accent-text": "#c2361a",
 };
 const RADIUS = { xs: 6, sm: 8, md: 10, lg: 14, xl: 22, full: 999 };
 const rgb = (h) => ({ r: parseInt(h.slice(1, 3), 16) / 255, g: parseInt(h.slice(3, 5), 16) / 255, b: parseInt(h.slice(5, 7), 16) / 255 });
@@ -117,7 +119,8 @@ async function txt(parent, chars, style, color = "ink", name) {
   const t = figma.createText();
   await t.setTextStyleIdAsync(G.ts[style].id);
   t.characters = chars;
-  fill(t, color);
+  // status colours on text always use their accessible text tone
+  fill(t, ["positive", "negative", "warning", "accent"].includes(color) ? color + "-text" : color);
   t.name = name || chars;
   if (parent) parent.appendChild(t);
   return t;

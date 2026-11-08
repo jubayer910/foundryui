@@ -43,7 +43,7 @@ export function Select({ options, defaultValue, value, onValueChange, className,
                 className="flex cursor-default select-none items-center justify-between gap-6 rounded-fu-xs px-2.5 py-2 text-[13px] text-fu-body outline-none data-[highlighted]:bg-fu-hover data-[highlighted]:text-fu-ink"
               >
                 <S.ItemText>{o.label}</S.ItemText>
-                <S.ItemIndicator className="text-fu-accent">
+                <S.ItemIndicator className="text-fu-accent-text">
                   <Icon name="check" size={14} />
                 </S.ItemIndicator>
               </S.Item>

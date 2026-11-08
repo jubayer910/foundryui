@@ -34,7 +34,7 @@ export function Input({ label, hint, error, leadingIcon, trailing, className, id
         />
         {trailing}
       </div>
-      {(error || hint) && <p className={cx("text-xs", error ? "text-fu-negative" : "text-fu-muted")}>{error ?? hint}</p>}
+      {(error || hint) && <p className={cx("text-xs", error ? "text-fu-negative-text" : "text-fu-muted")}>{error ?? hint}</p>}
     </div>
   );
 }

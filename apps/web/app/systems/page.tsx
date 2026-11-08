@@ -24,7 +24,7 @@ export default function SystemsPage() {
                 <p className="mt-3 font-fu-mono text-[11px] text-fu-faint">{s.font} · {s.accent}</p>
               </div>
               <div className="flex shrink-0 flex-col items-end gap-1.5">
-                <span className={"rounded-full px-2 py-0.5 text-[11px] font-medium " + (s.status === "live" ? "bg-fu-positive-soft text-fu-positive" : "bg-fu-hover text-fu-muted")}>{s.status === "live" ? "Live" : "In progress"}</span>
+                <span className={"rounded-full px-2 py-0.5 text-[11px] font-medium " + (s.status === "live" ? "bg-fu-positive-soft text-fu-positive-text" : "bg-fu-hover text-fu-muted")}>{s.status === "live" ? "Live" : "In progress"}</span>
                 <span className="text-[11px] font-medium text-fu-muted">{s.tier === "free" ? "Free" : "Pro"}</span>
               </div>
             </div>
