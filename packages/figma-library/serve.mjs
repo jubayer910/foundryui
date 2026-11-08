@@ -14,11 +14,11 @@ const handler = async (req, res) => {
   res.setHeader("Access-Control-Allow-Private-Network", "true");
   if (req.method === "OPTIONS") return res.writeHead(204).end();
   // Only one writable file: the icon component-set keys exported from the icon library.
-  if (req.method === "POST" && new URL(req.url, "http://x").searchParams.get("save") === "icon-keys.json") {
+  if (req.method === "POST" && new URL(req.url, "http://x").searchParams.get("save") && ["icon-keys.json", "component-keys.json"].includes(new URL(req.url, "http://x").searchParams.get("save"))) {
     let body = ""; for await (const ch of req) body += ch;
     try { JSON.parse(body); } catch { return res.writeHead(400).end(); }
     const { writeFile } = await import("node:fs/promises");
-    await writeFile(join(TOOL, "icon-keys.json"), body);
+    await writeFile(join(TOOL, new URL(req.url, "http://x").searchParams.get("save")), body);
     return res.end("saved");
   }
   const u = new URL(req.url, "http://x");
@@ -29,7 +29,7 @@ const handler = async (req, res) => {
     if (p.startsWith("tool/")) {
       const f = p.slice(5);
       if (f === "builder.js") return res.end(JSON.stringify({ code: await readFile(join(ICON_TOOL, f), "utf8") }));
-      if (f === "icon-keys.json") return res.end(await readFile(join(TOOL, f)));
+      if (f === "icon-keys.json" || f === "component-keys.json") return res.end(await readFile(join(TOOL, f)));
       const core = await readFile(join(TOOL, "core.js"), "utf8");
       return res.end(JSON.stringify({ code: core + "\n" + (await readFile(join(TOOL, f), "utf8")) }));
     }
