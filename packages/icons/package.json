@@ -27,7 +27,11 @@
       "types": "./react/index.d.ts",
       "default": "./react/index.js"
     },
-    "./svg/*": "./svg/*"
+    "./svg/*": "./svg/*",
+    "./react/*": {
+      "types": "./react/*.d.ts",
+      "default": "./react/*.js"
+    }
   },
   "peerDependencies": {
     "react": ">=18"

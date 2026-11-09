@@ -12,3 +12,4 @@ tsconfig.tsbuildinfo
 packages/icons/svg/
 packages/icons/react/
 apps/web/public/library/
+packages/figma-library/export/data/
