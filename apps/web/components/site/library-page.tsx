@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { categories, items, systems, FIGMA_LIBRARY_COUNT } from "@/lib/catalog";
+import { items, systems, FIGMA_LIBRARY_COUNT } from "@/lib/catalog";
+import { CATEGORIES, entries } from "@/lib/library";
 import { railSystems } from "./rail";
 import { Browser } from "./browser";
 import { CIcon } from "./chrome-icon";
@@ -12,7 +13,7 @@ const EXITS = [
 ];
 
 /** The home page is the library: one short intro row, then the components. */
-export function LibraryPage({ q = "", c = "all", intro = true }: { q?: string; c?: string; intro?: boolean }) {
+export function LibraryPage({ q = "", c = "all", s = "all", intro = true }: { q?: string; c?: string; s?: string; intro?: boolean }) {
   const live = systems.filter((s) => s.status === "live").length;
   return (
     <div>
@@ -26,7 +27,7 @@ export function LibraryPage({ q = "", c = "all", intro = true }: { q?: string; c
           <div className="card p-4">
             <p className="text-[13px] font-medium">Built for founders who ship</p>
             <p className="mt-1 text-[13px] leading-snug text-mute">
-              {items.length} components live here, {FIGMA_LIBRARY_COUNT.toLocaleString("en-US")} more in the Figma library, {iconStats.line.toLocaleString("en-US")} icons and {systems.length} systems ({live} live). Copy as React code, a Figma layer or through your AI agent. Five copies free, no account needed.
+              {(items.length + FIGMA_LIBRARY_COUNT).toLocaleString("en-US")} components: {items.length} with live code, {FIGMA_LIBRARY_COUNT.toLocaleString("en-US")} in the Figma libraries, {iconStats.line.toLocaleString("en-US")} icons and {systems.length} systems ({live} live). Copy as React code, a Figma layer or through your AI agent. Five copies free, no account needed.
             </p>
           </div>
           {EXITS.map((e) => (
@@ -44,7 +45,7 @@ export function LibraryPage({ q = "", c = "all", intro = true }: { q?: string; c
       )}
 
       <div className="mt-5">
-        <Browser items={items} categories={categories} systems={railSystems} initialQuery={q} initialCategory={c} />
+        <Browser entries={entries} categories={CATEGORIES} systems={railSystems} initialQuery={q} initialCategory={c} initialSystem={s} />
       </div>
 
       {intro && (

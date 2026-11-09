@@ -1,24 +1,27 @@
 "use client";
 import { useEffect, useMemo, useRef, useState } from "react";
-import type { Item } from "@/lib/catalog";
+import type { Entry } from "@/lib/library";
 import { ItemCard } from "./item-card";
 import { Icon } from "@/registry/components/icons";
 
 type Sys = { slug: string; name: string; accent: string; live: boolean };
-type Sort = "featured" | "az" | "free";
+type Sort = "featured" | "az" | "code";
+const PAGE = 48;
 
-export function Browser({ items, categories, systems, initialCategory = "all", initialQuery = "" }: { items: Item[]; categories: { slug: string; name: string }[]; systems: Sys[]; initialCategory?: string; initialQuery?: string }) {
+export function Browser({ entries, categories, systems, initialCategory = "all", initialQuery = "", initialSystem = "all" }: { entries: Entry[]; categories: string[]; systems: Sys[]; initialCategory?: string; initialQuery?: string; initialSystem?: string }) {
   const [q, setQ] = useState(initialQuery);
   const [cat, setCat] = useState(initialCategory);
+  const [sys, setSys] = useState(initialSystem);
+  const [kind, setKind] = useState<"all" | "code" | "figma">("all");
   const [sort, setSort] = useState<Sort>("featured");
-  const [sys, setSys] = useState(systems.find((s) => s.live)?.slug ?? "loopo");
+  const [limit, setLimit] = useState(PAGE);
   const input = useRef<HTMLInputElement>(null);
+  const more = useRef<HTMLDivElement>(null);
 
   // "/" and Cmd/Ctrl+K focus search from anywhere on the page
   useEffect(() => {
     const k = (e: KeyboardEvent) => {
-      const t = e.target as HTMLElement;
-      if (t.closest("input,textarea,[contenteditable]")) return;
+      if ((e.target as HTMLElement).closest("input,textarea,select,[contenteditable]")) return;
       if (e.key === "/" || ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k")) {
         e.preventDefault();
         input.current?.focus();
@@ -28,73 +31,97 @@ export function Browser({ items, categories, systems, initialCategory = "all", i
     return () => window.removeEventListener("keydown", k);
   }, []);
 
-  const matches = (i: Item, s: string) => !s || (i.name + " " + i.description + " " + i.tags.join(" ") + " " + i.category).toLowerCase().includes(s);
+  const words = q.trim().toLowerCase().split(/\s+/).filter(Boolean);
+  const base = useMemo(
+    () => entries.filter((e) => (sys === "all" || e.system === sys) && (kind === "all" || e.kind === kind) && words.every((w) => e.text.includes(w) || e.category.toLowerCase().includes(w))),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [entries, sys, kind, q],
+  );
   const shown = useMemo(() => {
-    const s = q.trim().toLowerCase();
-    const list = items.filter((i) => (cat === "all" || i.category === cat) && matches(i, s));
+    const list = base.filter((e) => cat === "all" || e.category === cat);
     if (sort === "az") return [...list].sort((a, b) => a.name.localeCompare(b.name));
-    if (sort === "free") return [...list].sort((a, b) => (a.tier === b.tier ? 0 : a.tier === "free" ? -1 : 1));
-    // Featured: lead with what sells (finished blocks and charts), utilities last
-    const rank = ["dashboard-blocks", "charts", "navigation", "overlays", "primitives", "foundations"];
-    return [...list].sort((a, b) => rank.indexOf(a.category) - rank.indexOf(b.category));
-  }, [items, q, cat, sort]);
-  const count = (c: string) => items.filter((i) => (c === "all" || i.category === c) && matches(i, q.trim().toLowerCase())).length;
-  const cats = [{ slug: "all", name: "All" }, ...categories].filter((c) => c.slug === "all" || items.some((i) => i.category === c.slug));
-  const sysName = systems.find((s) => s.slug === sys)?.name ?? "Loopo";
+    if (sort === "code") return [...list].sort((a, b) => (a.kind === b.kind ? 0 : a.kind === "code" ? -1 : 1));
+    // Featured: lead with finished blocks, utilities last
+    const rank = (e: Entry) => (e.category === "Foundations" ? 3 : e.category === "Atoms" ? 2 : e.kind === "code" ? 0 : 1);
+    return [...list].sort((a, b) => rank(a) - rank(b));
+  }, [base, cat, sort]);
+  const count = (c: string) => (c === "all" ? base.length : base.filter((e) => e.category === c).length);
+  const cats = ["all", ...categories.filter((c) => base.some((e) => e.category === c))];
+
+  // load the next page when the sentinel scrolls into view
+  useEffect(() => {
+    const el = more.current;
+    if (!el) return;
+    const io = new IntersectionObserver((xs) => xs[0].isIntersecting && setLimit((l) => l + PAGE), { rootMargin: "800px" });
+    io.observe(el);
+    return () => io.disconnect();
+  }, [shown.length]);
+
+  const reset = (fn: () => void) => () => {
+    fn();
+    setLimit(PAGE);
+  };
 
   return (
     <div>
       <div className="flex flex-col gap-3 lg:flex-row lg:items-center">
         <label className="flex h-9 items-center gap-2 rounded-full bg-chip px-3.5 focus-within:bg-white focus-within:shadow-[inset_0_0_0_1.5px_var(--color-ink)] lg:w-[340px]">
           <Icon name="search" size={15} className="text-mute" />
-          <input ref={input} value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search, e.g. revenue chart, invoice table" className="w-full bg-transparent text-[13px] outline-none placeholder:text-mute" aria-label="Search components" />
+          <input ref={input} value={q} onChange={(e) => { setQ(e.target.value); setLimit(PAGE); }} placeholder="Search, e.g. invoice table, add funds" className="w-full bg-transparent text-[13px] outline-none placeholder:text-mute" aria-label="Search components" />
           <kbd className="rounded-[4px] bg-white px-1.5 text-[11px] text-mute">/</kbd>
         </label>
         <div className="flex items-center gap-1.5 overflow-x-auto" role="group" aria-label="Design system">
+          <button onClick={reset(() => setSys("all"))} data-on={sys === "all"} className="pill shrink-0">All systems</button>
           {systems.map((s) => (
-            <button
-              key={s.slug}
-              disabled={!s.live}
-              onClick={() => setSys(s.slug)}
-              data-on={sys === s.slug}
-              title={s.live ? "Show previews in " + s.name : s.name + " is coming soon"}
-              className="pill shrink-0 disabled:cursor-not-allowed disabled:opacity-45"
-            >
+            <button key={s.slug} onClick={reset(() => setSys(s.slug))} data-on={sys === s.slug} className="pill shrink-0">
               <span className="size-2.5 rounded-[3px]" style={{ background: s.accent }} />
               {s.name}
             </button>
           ))}
         </div>
-        <label className="flex items-center gap-1.5 text-[13px] text-mute lg:ml-auto">
-          Sort
-          <select value={sort} onChange={(e) => setSort(e.target.value as Sort)} className="h-7 rounded-full bg-chip px-2.5 text-[13px] text-ink outline-none">
+        <div className="flex items-center gap-1.5 lg:ml-auto">
+          <select value={kind} onChange={(e) => { setKind(e.target.value as typeof kind); setLimit(PAGE); }} aria-label="Format" className="h-7 rounded-full bg-chip px-2.5 text-[13px] outline-none">
+            <option value="all">Code and Figma</option>
+            <option value="code">Code only</option>
+            <option value="figma">Figma only</option>
+          </select>
+          <select value={sort} onChange={(e) => setSort(e.target.value as Sort)} aria-label="Sort" className="h-7 rounded-full bg-chip px-2.5 text-[13px] outline-none">
             <option value="featured">Featured</option>
-            <option value="free">Free first</option>
+            <option value="code">Code first</option>
             <option value="az">A to Z</option>
           </select>
-        </label>
+        </div>
       </div>
 
       <div className="mt-3 flex gap-1.5 overflow-x-auto pb-1" role="tablist" aria-label="Category">
         {cats.map((c) => (
-          <button key={c.slug} role="tab" aria-selected={cat === c.slug} data-on={cat === c.slug} onClick={() => setCat(c.slug)} className="pill shrink-0">
-            {c.name}
-            <span className="text-[11px] opacity-55">{count(c.slug)}</span>
+          <button key={c} role="tab" aria-selected={cat === c} data-on={cat === c} onClick={reset(() => setCat(c))} className="pill shrink-0">
+            {c === "all" ? "All" : c}
+            <span className="text-[11px] opacity-55">{count(c).toLocaleString("en-US")}</span>
           </button>
         ))}
       </div>
 
       {shown.length ? (
-        <div className="mt-4 grid grid-cols-1 gap-x-3 gap-y-5 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
-          {shown.map((i) => (
-            <ItemCard key={i.slug} item={i} system={sysName} />
-          ))}
-        </div>
+        <>
+          <div className="mt-4 grid grid-cols-1 gap-x-3 gap-y-5 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
+            {shown.slice(0, limit).map((e) => (
+              <ItemCard key={e.slug} item={e} />
+            ))}
+          </div>
+          {limit < shown.length && (
+            <div ref={more} className="mt-6 flex justify-center">
+              <button onClick={() => setLimit((l) => l + PAGE)} className="btn-line">
+                Show more <span className="text-mute">{(shown.length - limit).toLocaleString("en-US")} left</span>
+              </button>
+            </div>
+          )}
+        </>
       ) : (
         <div className="mt-4 rounded-[8px] bg-tile px-6 py-16 text-center">
           <p className="text-[14px] font-medium">Nothing matches “{q}” yet</p>
-          <p className="mt-1 text-[13px] text-mute">Try a broader word such as chart, table or card. Searches are logged so we know what to build next.</p>
-          <button onClick={() => { setQ(""); setCat("all"); }} className="btn-line mt-4">
+          <p className="mt-1 text-[13px] text-mute">Try a broader word such as chart, table or modal, or switch to all systems.</p>
+          <button onClick={() => { setQ(""); setCat("all"); setSys("all"); setKind("all"); setLimit(PAGE); }} className="btn-line mt-4">
             Clear search and filters
           </button>
         </div>

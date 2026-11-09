@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { categories, getSystem, items, systems } from "@/lib/catalog";
+import { getSystem, items, systems } from "@/lib/catalog";
 import { FIGMA_LIBRARY, figmaCount } from "@/lib/figma-library";
-import { ItemCard } from "@/components/site/item-card";
+import { Browser } from "@/components/site/browser";
+import { railSystems } from "@/components/site/rail";
+import { CATEGORIES, entries } from "@/lib/library";
 import { Preview } from "@/components/site/preview";
 
 export function generateStaticParams() {
@@ -90,26 +92,10 @@ export default async function SystemPage({ params }: PageProps<"/systems/[slug]"
           </div>
         </section>
 
-        {live &&
-          categories
-            .filter((c) => c.slug !== "foundations")
-            .map((c) => {
-              const list = items.filter((i) => i.category === c.slug);
-              if (!list.length) return null;
-              return (
-                <section key={c.slug} className="mt-10">
-                  <h2 className="text-[13px] font-medium">
-                    {c.name} <span className="text-mute">{list.length}</span>
-                  </h2>
-                  <p className="mt-1 text-[13px] text-mute">{c.blurb}</p>
-                  <div className="mt-3 grid grid-cols-1 gap-x-3 gap-y-5 sm:grid-cols-2 xl:grid-cols-3">
-                    {list.map((i) => (
-                      <ItemCard key={i.slug} item={i} system={s.name} />
-                    ))}
-                  </div>
-                </section>
-              );
-            })}
+        <section className="mt-10">
+          <h2 className="mb-3 text-[13px] font-medium">Browse {s.name}</h2>
+          <Browser entries={entries} categories={CATEGORIES} systems={railSystems} initialSystem={s.slug} />
+        </section>
 
         {!live && (
           <div className="mt-10 rounded-[8px] bg-tile px-6 py-10 text-center">

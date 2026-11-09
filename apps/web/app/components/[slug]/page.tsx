@@ -2,18 +2,23 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
-import { categories, getItem, items, resolveFiles } from "@/lib/catalog";
+import { getItem, resolveFiles } from "@/lib/catalog";
 import { getSessionUser } from "@/lib/auth";
 import { ComponentWorkbench } from "@/components/site/component-workbench";
 import { ItemCard } from "@/components/site/item-card";
+import { FigmaItemPage } from "@/components/site/figma-item-page";
+import { entries, getFigmaItem } from "@/lib/library";
 
 export function generateStaticParams() {
-  return items.map((i) => ({ slug: i.slug }));
+  return entries.map((e) => ({ slug: e.slug }));
 }
 
 export async function generateMetadata({ params }: PageProps<"/components/[slug]">): Promise<Metadata> {
-  const it = getItem((await params).slug);
-  return it ? { title: it.name + " component", description: it.description + " React + Tailwind code, Figma copy and PNG/SVG export." } : {};
+  const slug = (await params).slug;
+  const it = getItem(slug);
+  if (it) return { title: it.name + " component", description: it.description + " React + Tailwind code, Figma copy and PNG/SVG export." };
+  const f = getFigmaItem(slug);
+  return f ? { title: f.name + ", " + f.category + " component", description: f.name + " from the " + f.system + " design system: a " + f.category.toLowerCase() + " component for dashboards, in Figma." } : {};
 }
 
 async function Workbench(props: Omit<Parameters<typeof ComponentWorkbench>[0], "signedIn">) {
@@ -24,13 +29,17 @@ async function Workbench(props: Omit<Parameters<typeof ComponentWorkbench>[0], "
 export default async function ComponentPage({ params }: PageProps<"/components/[slug]">) {
   const { slug } = await params;
   const it = getItem(slug);
-  if (!it) notFound();
-  const cat = categories.find((c) => c.slug === it.category);
+  if (!it) {
+    const f = getFigmaItem(slug);
+    if (!f) notFound();
+    return <FigmaItemPage item={f} />;
+  }
+  const entry = entries.find((e) => e.slug === slug)!;
   const files = it.tier === "free" ? resolveFiles(slug).map(({ path, content }) => ({ path, content })) : [{ path: it.files[0], content: "// Pro component. Upgrade to view and copy the source." }];
-  const related = items.filter((i) => i.category === it.category && i.slug !== slug).slice(0, 4);
+  const related = entries.filter((e) => e.category === entry.category && e.slug !== slug).slice(0, 4);
   const rows: [string, string][] = [
     ["System", "Loopo"],
-    ["Category", cat?.name ?? ""],
+    ["Category", entry.category],
     ["Plan", it.tier === "free" ? "Free" : "Pro"],
     ["Includes", "React, Figma, PNG, SVG, JPEG"],
     ["npm", it.dependencies.join(", ") || "None"],
@@ -42,7 +51,7 @@ export default async function ComponentPage({ params }: PageProps<"/components/[
       <nav className="flex items-center gap-1 text-[12px] text-mute" aria-label="Breadcrumb">
         <Link href="/" className="hover:text-ink">Components</Link>
         <span aria-hidden="true">/</span>
-        <Link href={"/?c=" + it.category} className="hover:text-ink">{cat?.name}</Link>
+        <Link href={"/?c=" + encodeURIComponent(entry.category)} className="hover:text-ink">{entry.category}</Link>
       </nav>
       <h1 className="mt-2 text-[20px] font-medium tracking-[-0.02em]">{it.name}</h1>
       <p className="mt-1 text-[13px] leading-snug text-mute">{it.description}</p>
@@ -66,7 +75,7 @@ export default async function ComponentPage({ params }: PageProps<"/components/[
       {related.length > 0 && (
         <section className="mt-14">
           <h2 className="text-[13px] font-medium">
-            More {cat?.name.toLowerCase()} <span className="text-mute">{related.length}</span>
+            More {entry.category.toLowerCase()}
           </h2>
           <div className="mt-3 grid grid-cols-1 gap-x-3 gap-y-5 sm:grid-cols-2 xl:grid-cols-4">
             {related.map((r) => (

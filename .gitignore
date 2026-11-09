@@ -11,3 +11,4 @@ tsconfig.tsbuildinfo
 # generated icon outputs (rebuild: npm --prefix packages/icons run build)
 packages/icons/svg/
 packages/icons/react/
+apps/web/public/library/

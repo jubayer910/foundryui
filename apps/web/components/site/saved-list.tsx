@@ -1,13 +1,13 @@
 "use client";
 import Link from "next/link";
-import type { Item } from "@/lib/catalog";
+import type { Entry } from "@/lib/library";
 import { useLibrary } from "@/lib/local-library";
 import { ItemCard } from "./item-card";
 
-export function SavedList({ items }: { items: Item[] }) {
+export function SavedList({ items }: { items: Entry[] }) {
   const lists = { saved: useLibrary("saved"), recent: useLibrary("recent") };
-  const pick = (slugs: string[]) => slugs.map((s) => items.find((i) => i.slug === s)).filter((i): i is Item => !!i);
-  const block = (h: string, list: Item[], empty: string) => (
+  const pick = (slugs: string[]) => slugs.map((s) => items.find((i) => i.slug === s)).filter((i): i is Entry => !!i);
+  const block = (h: string, list: Entry[], empty: string) => (
     <section className="mt-6">
       <h2 className="text-[13px] font-medium">
         {h} <span className="text-mute">{list.length}</span>
