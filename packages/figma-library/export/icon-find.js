@@ -16,7 +16,21 @@ async function findIcons(roots) {
         if (/^Foundry\//.test(mc.name)) { n.findAll(() => true).forEach((x) => skipInside.add(x.id)); continue; }
         const m = mc.name.match(/Style=([A-Za-z]+)(?:, Type=([A-Za-z]+))?/);
         const setName = mc.parent && mc.parent.type === "COMPONENT_SET" ? mc.parent.name : mc.name;
-        if (m || /^icon\//i.test(n.name)) info = { set: m ? setName : n.name.replace(/^icon\//i, "").replace(/ · \d+$/, ""), style: m ? m[1] : "Stroke", type: m && m[2] ? m[2] : "Rounded", kind: "instance" };
+        // third-party icon sets use kebab-case names; product slots like "Company logo" are left alone
+        if ((m && KEBAB.test(setName)) || /^icon\//i.test(n.name)) info = { set: m && KEBAB.test(setName) ? setName : n.name.replace(/^icon\//i, "").replace(/ · \d+$/, ""), style: m ? m[1] : "Stroke", type: m && m[2] ? m[2] : "Rounded", kind: "instance" };
+        else {
+          // other icon sets (Iconly, keyword-named glyphs): small, square, vector-only instances that are not logos or avatars
+          const io = mc.name.match(/^Iconly\/([A-Za-z]+)\/(.+)$/);
+          const plain = !/=/.test(mc.name) && n.width <= 32 && Math.abs(n.width - n.height) < 1.5 && !/logo|avatar|flag|photo|image|brand/i.test(n.name + " " + mc.name)
+            && n.findAll((x) => x.type === "TEXT" || x.type === "INSTANCE").length === 0 && n.findAll((x) => VEC_.test(x.type)).length > 0;
+          if (io || plain) {
+            const STY = { Bulk: "Bulk", Bold: "Solid", Light: "Stroke", Broken: "Stroke", Curved: "Stroke", TwoTone: "Duotone" };
+            const vs = n.findAll((x) => VEC_.test(x.type));
+            const filled = vs.filter((x) => Array.isArray(x.fills) && x.fills.some((p) => p.visible !== false)).length, stroked = vs.filter((x) => Array.isArray(x.strokes) && x.strokes.some((p) => p.visible !== false)).length;
+            const duo = vs.some((x) => x.opacity < 1 || (Array.isArray(x.fills) && x.fills.some((p) => p.visible !== false && (p.opacity ?? 1) < 1)));
+            info = { set: io ? io[2] : mc.name.split(",")[0].replace(/^.*\//, ""), style: io ? STY[io[1]] || "Stroke" : filled > stroked ? (duo ? "Bulk" : "Solid") : "Stroke", type: "Rounded", kind: "instance" };
+          }
+        }
       } else if (KEBAB.test(n.name) && !inInstance(n) && Math.abs(n.width - n.height) < 1.5 && n.findAll((x) => x.type === "TEXT").length === 0) {
         const vs = n.findAll((x) => VEC_.test(x.type));
         if (vs.length && n.findAll((x) => x.type === "FRAME" || x.type === "RECTANGLE").length <= 1) {

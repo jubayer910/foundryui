@@ -25,6 +25,7 @@ const VEC = /^(VECTOR|BOOLEAN_OPERATION|STAR|POLYGON|LINE|ELLIPSE)$/;
 // args.templates: false = components, true = the Templates section (whole screens)
 const secs = LIB.children.filter((sec) => sec.type === "SECTION" && (args.templates ? /\/ Templates$/.test(sec.name) : !/\/ Templates$/.test(sec.name)));
 const t0 = Date.now(); let done = 0, skipped = 0; const err = [];
+globalThis.__fuProg = { phase: "find" };
 const found = await findIcons(secs);
 const jobs = [];
 for (const [n, i] of found) {
@@ -80,7 +81,10 @@ for (const [n, entry, kind] of jobs) {
     if (color) recolor(target, color, main);
     done++;
   } catch (e) { err.push(n.id + ":" + String(e).slice(0, 80)); done++; }
-  if (done % 25 === 0) await new Promise((r) => setTimeout(r, 0));
+  globalThis.__fuProg = { phase: "swap", done, of: jobs.length };
+  if (globalThis.__fuStop) break;
+  // background plugins get throttled timers: yield rarely
+  if (done % (args.yieldEvery || 250) === 0) await new Promise((r) => setTimeout(r, 0));
 }
 globalThis.__fuSwap = { sys: args.sys, templates: !!args.templates, jobs: jobs.length, swapped: done, err: err.slice(0, 6), ms: Date.now() - t0, finished: true };
 globalThis.__fuSwap = { sys: args.sys, templates: !!args.templates, jobs: jobs.length, swapped: done, err: err.slice(0, 6), ms: Date.now() - t0 };

@@ -25,7 +25,11 @@ const ALIAS = {
   "money-bag": "moneybag", "wallet-add": "wallet", bank: "building-bank", "mail-block": "mail-x", flowchart: "hierarchy", layers: "stack-2",
   "web-design": "layout", "mail-secure": "mail-check", "license-draft": "license", "minus-sign": "minus", "mail-add": "mail-plus", "workflow-circle": "git-merge",
   unavailable: "ban", audit: "clipboard-list", "alert-diamond": "alert-octagon", "database-sync": "database-export", record: "player-record",
-  energy: "bolt", blocked: "ban", "server-stack": "server-2", "sort-by-down": "sort-descending", "sort-by-up": "sort-ascending", "image-upload": "photo-up", loading: "loader-2", "dashboard-circle": "layout-dashboard", invoice: "file-invoice", "user-group": "users", "user-multiple": "users", "user-add": "user-plus", "user-circle": "user-circle",
+  energy: "bolt", blocked: "ban", "server-stack": "server-2", "mail-validation": "mail-check", "quote-down": "quote", "quote-up": "quote",
+  "ai-brain": "brain", "checkmark-badge": "rosette-discount-check", "toggle-on": "toggle-right", "toggle-off": "toggle-left", "folder-view": "folder-search", connect: "plug-connected", "notification-off": "bell-off", "volume-mute": "volume-off", "2-user": "users", "3-user": "users", paper: "file", category: "category", graph: "chart-bar", danger: "alert-triangle",
+  setting: "settings", profile: "user", "dots-horizontal": "dots", "dots-vertical": "dots-vertical", "share-square": "share", "filter-2": "filter",
+  "arrow-right-2": "chevron-right", "arrow-left-2": "chevron-left", "arrow-down-2": "chevron-down", "arrow-up-2": "chevron-up", "time-circle": "clock",
+  "tick-square": "square-check", "close-square": "square-x", "more-circle": "dots-circle-horizontal", document: "file-text", "add-user": "user-plus", "folder-library": "folders", "ai-scan": "scan", danger: "alert-triangle", microsoft: "layout-grid", "square-arrow-up-right": "external-link", "text-underline": "underline", "bubble-chat": "message-circle", "text-font": "typography", "sort-by-down": "sort-descending", "sort-by-up": "sort-ascending", "image-upload": "photo-up", loading: "loader-2", "dashboard-circle": "layout-dashboard", invoice: "file-invoice", "user-group": "users", "user-multiple": "users", "user-add": "user-plus", "user-circle": "user-circle",
   message: "message", "message-multiple": "messages", chatting: "message-circle", send: "send", "sent": "send", share: "share", bookmark: "bookmark",
   tag: "tag", folder: "folder", file: "file", image: "photo", play: "player-play", pause: "player-pause", flash: "bolt", zap: "bolt",
   shield: "shield", "security-check": "shield-check", key: "key", plug: "plug", cloud: "cloud", database: "database", "source-code": "code",
@@ -47,7 +51,7 @@ const ALIAS = {
 const mapCache = new Map();
 export function mapIcon(raw) {
   if (mapCache.has(raw)) return mapCache.get(raw);
-  const base = raw.toLowerCase().replace(/\s.*$/, "").replace(/-(\d+|duotone|stroke|solid|bulk|twotone|rounded|sharp)$/g, "").replace(/-\d+$/, "");
+  const base = raw.toLowerCase().split(",")[0].replace(/\s*·\s*\d+$/, "").trim().replace(/\s+-\s+/g, "-").replace(/\s+/g, "-").replace(/-(\d+|duotone|stroke|solid|bulk|twotone|rounded|sharp)$/g, "").replace(/-\d+$/, "");
   let hit = ALIAS[base] && NAMES.has(ALIAS[base]) ? ALIAS[base] : NAMES.has(base) ? base : null;
   if (!hit) {
     const words = base.split("-").filter((w) => w.length > 2);
