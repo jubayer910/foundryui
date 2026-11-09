@@ -8,7 +8,7 @@ export function SignOut() {
         await authClient.signOut();
         window.location.href = "/";
       }}
-      className="h-9 rounded-full border border-fu-line-strong bg-fu-surface px-4 text-sm font-medium text-fu-ink hover:bg-fu-hover"
+      className="btn-line"
     >
       Sign out
     </button>

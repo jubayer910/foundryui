@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { IconBrowser } from "@/components/site/icon-browser";
 import iconStats from "@/lib/icon-stats.json";
+import { PageHead } from "@/components/site/page-head";
 
 export const metadata: Metadata = { title: "Icons", description: "7,000+ icons in six styles on one 24px grid with a 1.5px live stroke, plus 1,000+ filled. Copy SVG or JSX, or download." };
 
@@ -8,10 +9,8 @@ export default async function IconsPage({ searchParams }: PageProps<"/icons">) {
   const sp = await searchParams;
   return (
     <div className="max-w-[1400px]">
-      <p className="eyebrow">Library · Icons</p>
-      <h1 className="page-title">{iconStats.line.toLocaleString("en-US")} icons. Six styles.</h1>
-      <p className="mt-3 max-w-xl text-[15px] leading-relaxed text-mute">Every icon sits on the same 24px grid in six styles: Stroke, Sharp, Solid, Duotone, Twotone and Bulk. Change the stroke, copy SVG or JSX, or download.</p>
-      <div className="mt-10">
+      <PageHead title="Icons" sub={iconStats.line.toLocaleString("en-US") + " icons in six styles on one 24px grid. Copy SVG or JSX, or download."} />
+      <div className="mt-5">
         <IconBrowser initialQuery={typeof sp.q === "string" ? sp.q : ""} />
       </div>
     </div>
