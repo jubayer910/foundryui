@@ -38,12 +38,23 @@ export function ItemCard({ item }: { item: Entry }) {
   return (
     <div className="group relative">
       <Link href={href} className="block overflow-hidden rounded-[8px] bg-tile shadow-[inset_0_0_0_1px_var(--color-hair)]">
-        <div className="flex h-56 items-center justify-center">
+        <div className={"flex h-56 items-center overflow-hidden " + (item.kind === "figma" && (item.w ?? 1) / (item.h ?? 1) > 3.2 ? "justify-start" : "justify-center")}>
           {item.kind === "code" ? (
             <Preview slug={item.slug} size="card" />
           ) : (
             // eslint-disable-next-line @next/next/no-img-element
-            <img src={item.thumb} alt={item.name + " component preview"} loading="lazy" decoding="async" className="max-h-[calc(100%-24px)] max-w-[calc(100%-24px)] rounded-[4px] object-contain shadow-[0_1px_3px_rgb(0_0_0/0.08)]" />
+            <img
+              src={item.thumb}
+              alt={item.name + " component preview"}
+              loading="lazy"
+              decoding="async"
+              className={
+                (item.w ?? 1) / (item.h ?? 1) > 3.2
+                  ? // very wide strips (headers, KPI rows): show the left part at a readable size
+                    "ml-3 h-auto max-h-[96px] w-[180%] max-w-none self-center rounded-[4px] object-cover object-left shadow-[0_1px_3px_rgb(0_0_0/0.08)]"
+                  : "max-h-[calc(100%-24px)] max-w-[calc(100%-24px)] rounded-[4px] object-contain shadow-[0_1px_3px_rgb(0_0_0/0.08)]"
+              }
+            />
           )}
         </div>
       </Link>

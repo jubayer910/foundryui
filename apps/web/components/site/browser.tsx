@@ -42,7 +42,10 @@ export function Browser({ entries, categories, systems, initialCategory = "all",
     if (sort === "az") return [...list].sort((a, b) => a.name.localeCompare(b.name));
     if (sort === "code") return [...list].sort((a, b) => (a.kind === b.kind ? 0 : a.kind === "code" ? -1 : 1));
     // Featured: lead with finished blocks, utilities last
-    const rank = (e: Entry) => (e.category === "Foundations" ? 3 : e.category === "Atoms" ? 2 : e.kind === "code" ? 0 : 1);
+    // Featured: what sells first (charts, KPIs, tables, overlays), parts and utilities last
+    const part = /^(header|body|footer) (modal|drawer|card)\b/i;
+    const W: Record<string, number> = { Charts: 0, "KPI and stats": 1, "Tables and lists": 2, Modals: 3, Drawers: 4, "Cards and panels": 5, Templates: 6, Menus: 7, Popovers: 8, Editors: 9, Navigation: 10, Forms: 11, Headers: 12, Feedback: 13, Atoms: 14, Foundations: 15 };
+    const rank = (e: Entry) => (part.test(e.name) ? 100 : 0) + (W[e.category] ?? 9) - (e.kind === "code" ? 0.5 : 0);
     return [...list].sort((a, b) => rank(a) - rank(b));
   }, [base, cat, sort]);
   const count = (c: string) => (c === "all" ? base.length : base.filter((e) => e.category === c).length);
@@ -70,15 +73,6 @@ export function Browser({ entries, categories, systems, initialCategory = "all",
           <input ref={input} value={q} onChange={(e) => { setQ(e.target.value); setLimit(PAGE); }} placeholder="Search, e.g. invoice table, add funds" className="w-full bg-transparent text-[13px] outline-none placeholder:text-mute" aria-label="Search components" />
           <kbd className="rounded-[4px] bg-white px-1.5 text-[11px] text-mute">/</kbd>
         </label>
-        <div className="flex items-center gap-1.5 overflow-x-auto" role="group" aria-label="Design system">
-          <button onClick={reset(() => setSys("all"))} data-on={sys === "all"} className="pill shrink-0">All systems</button>
-          {systems.map((s) => (
-            <button key={s.slug} onClick={reset(() => setSys(s.slug))} data-on={sys === s.slug} className="pill shrink-0">
-              <span className="size-2.5 rounded-[3px]" style={{ background: s.accent }} />
-              {s.name}
-            </button>
-          ))}
-        </div>
         <div className="flex items-center gap-1.5 lg:ml-auto">
           <select value={kind} onChange={(e) => { setKind(e.target.value as typeof kind); setLimit(PAGE); }} aria-label="Format" className="h-7 rounded-full bg-chip px-2.5 text-[13px] outline-none">
             <option value="all">Code and Figma</option>
@@ -93,7 +87,17 @@ export function Browser({ entries, categories, systems, initialCategory = "all",
         </div>
       </div>
 
-      <div className="mt-3 flex gap-1.5 overflow-x-auto pb-1" role="tablist" aria-label="Category">
+      <div className="mt-3 flex items-center gap-1.5 overflow-x-auto" role="group" aria-label="Design system">
+          <button onClick={reset(() => setSys("all"))} data-on={sys === "all"} className="pill shrink-0">All systems</button>
+          {systems.map((s) => (
+            <button key={s.slug} onClick={reset(() => setSys(s.slug))} data-on={sys === s.slug} className="pill shrink-0">
+              <span className="size-2.5 rounded-[3px]" style={{ background: s.accent }} />
+              {s.name}
+            </button>
+          ))}
+      </div>
+
+      <div className="mt-2 flex gap-1.5 overflow-x-auto pb-1" role="tablist" aria-label="Category">
         {cats.map((c) => (
           <button key={c} role="tab" aria-selected={cat === c} data-on={cat === c} onClick={reset(() => setCat(c))} className="pill shrink-0">
             {c === "all" ? "All" : c}
