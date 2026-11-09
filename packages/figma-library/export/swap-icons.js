@@ -22,20 +22,16 @@ async function comp(entry) {
 const LIB = figma.root.children.find((p) => p.name === "Foundry Library");
 await figma.setCurrentPageAsync(LIB);
 const VEC = /^(VECTOR|BOOLEAN_OPERATION|STAR|POLYGON|LINE|ELLIPSE)$/;
-// components only: the Templates section holds whole dashboard screens, which stay as designed for now
-const all = [];
-for (const sec of LIB.children) if (sec.type === "SECTION" && !/\/ Templates$/.test(sec.name)) all.push(...sec.findAll((n) => n.type === "INSTANCE" && /^icon\//i.test(n.name)));
+// args.templates: false = components, true = the Templates section (whole screens)
+const secs = LIB.children.filter((sec) => sec.type === "SECTION" && (args.templates ? /\/ Templates$/.test(sec.name) : !/\/ Templates$/.test(sec.name)));
 const t0 = Date.now(); let done = 0, skipped = 0; const err = [];
-// 1) read what each instance is
+const found = await findIcons(secs);
 const jobs = [];
-for (const n of all.slice(args.off, args.off + args.lim)) {
-  const mc = await n.getMainComponentAsync();
-  if (mc && /^Foundry\//.test(mc.name)) { skipped++; continue; }
-  const set = mc && mc.parent && mc.parent.type === "COMPONENT_SET" ? mc.parent.name : n.name.replace(/^icon\//i, "");
-  const m = ((mc && mc.name) || "").match(/Style=([A-Za-z]+)(?:, Type=([A-Za-z]+))?/);
-  const key = set + "|" + (m ? m[1] : "Stroke") + "|" + (m && m[2] ? m[2] : "Rounded");
+for (const [n, i] of found) {
+  if (jobs.length >= (args.max || 220)) break;
+  const key = i.set + "|" + i.style + "|" + i.type;
   if (!MAP[key]) { err.push("nomap " + key); continue; }
-  jobs.push([n, MAP[key]]);
+  jobs.push([n, MAP[key], i.kind]);
 }
 // 2) make the Foundry components we need (one page switch)
 await figma.setCurrentPageAsync(IP);
@@ -53,8 +49,8 @@ function recolor(inst, color, main) {
   });
 }
 // 3) swap, keep size and colour
-for (const [n, entry] of jobs) {
-  if (Date.now() - t0 > 25000) break;
+for (const [n, entry, kind] of jobs) {
+  if (Date.now() - t0 > (args.budget || 25000)) break;
   try {
     let color = null;
     const vs = n.findAll((x) => VEC.test(x.type));
@@ -63,13 +59,29 @@ for (const [n, entry] of jobs) {
       if (color) break;
     }
     const w = n.width, h = n.height, vis = n.visible, op = n.opacity;
-    n.swapComponent(comps.get(entry.ours + entry.style));
-    n.resize(w, h);
-    n.visible = vis; n.opacity = op;
-    n.name = "Icon/" + entry.ours;
-    if (color) recolor(n, color, comps.get(entry.ours + entry.style));
+    const main = comps.get(entry.ours + entry.style);
+    let target = n;
+    if (kind === "frame") {
+      const inst = main.createInstance();
+      const parent = n.parent, idx = parent.children.indexOf(n);
+      parent.insertChild(idx, inst);
+      if ("layoutPositioning" in n) inst.layoutPositioning = n.layoutPositioning;
+      inst.x = n.x; inst.y = n.y;
+      if ("constraints" in n) inst.constraints = n.constraints;
+      if ("layoutAlign" in n) inst.layoutAlign = n.layoutAlign;
+      if ("layoutGrow" in n) inst.layoutGrow = n.layoutGrow;
+      n.remove();
+      target = inst;
+    } else n.swapComponent(main);
+    target.resize(w, h);
+    target.visible = vis; target.opacity = op;
+    target.name = "Icon/" + entry.ours;
+    target.setPluginData("fu-icon", "1");
+    if (color) recolor(target, color, main);
     done++;
   } catch (e) { err.push(n.id + ":" + String(e).slice(0, 80)); done++; }
   if (done % 25 === 0) await new Promise((r) => setTimeout(r, 0));
 }
-return { total: all.length, from: args.off, jobs: jobs.length, swapped: done, made, skipped, err: err.slice(0, 6), ms: Date.now() - t0 };
+globalThis.__fuSwap = { sys: args.sys, templates: !!args.templates, jobs: jobs.length, swapped: done, err: err.slice(0, 6), ms: Date.now() - t0, finished: true };
+globalThis.__fuSwap = { sys: args.sys, templates: !!args.templates, jobs: jobs.length, swapped: done, err: err.slice(0, 6), ms: Date.now() - t0 };
+return { total: found.length, from: args.off, jobs: jobs.length, swapped: done, made, skipped, err: err.slice(0, 6), ms: Date.now() - t0 };

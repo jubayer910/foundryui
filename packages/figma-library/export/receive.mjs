@@ -24,7 +24,9 @@ const handler = async (req, res) => {
   // GET /tool/<name>.js -> {code} for new Function() inside the bridge
   if (req.method === "GET" && /^\/tool\/[a-z-]+\.js$/.test(u.pathname)) {
     res.setHeader("Content-Type", "application/json");
-    return res.end(JSON.stringify({ code: await readFile(new URL("./" + u.pathname.slice(6), import.meta.url), "utf8") }));
+    const name = u.pathname.slice(6);
+    const pre = /^(swap|collect)-icons\.js$/.test(name) ? (await readFile(new URL("./icon-find.js", import.meta.url), "utf8")) + "\n" : "";
+    return res.end(JSON.stringify({ code: pre + (await readFile(new URL("./" + name, import.meta.url), "utf8")) }));
   }
   const system = u.searchParams.get("system") || "";
   if (req.method !== "POST" || !SYS.test(system)) return res.writeHead(400).end();
