@@ -2,7 +2,11 @@
 // Nothing on the source pages is edited. After all batches, run cleanup.js (QA removals, naming, atoms, relayout). Run in batches: ARGS = {system, offset, limit, roles}.
 const ARGS = typeof args !== "undefined" ? args : {};
 const SYSTEM = ARGS.system || "Loopo";
-const SRC = figma.root.children[0];
+// ARGS.page: name of the screens page (default: first page). ARGS.minW: smallest screen width (default 1280).
+const SRC = (ARGS.page && figma.root.children.find((p) => p.name === ARGS.page)) || figma.root.children[0];
+const MINW = ARGS.minW || 1280;
+const CONTAINER = /^(Content card|Content|Body|Main|Page body)$/;
+const TEMPLATE = /^\d+\.0\b| — page\b/i;
 await figma.setCurrentPageAsync(SRC);
 let LIB = figma.root.children.find((p) => p.name === "Foundry Library");
 if (!LIB) { LIB = figma.createPage(); LIB.name = "Foundry Library"; }
@@ -26,11 +30,11 @@ function candidates() {
     out.push({ id: n.id, role, sec: sec.name, scr: scr.name });
   };
   for (const sec of secs) for (const scr of sec.children) {
-    if (scr.type !== "FRAME" || scr.width < 1400) continue;
-    if (/^\d+\.0 · /.test(scr.name)) add(scr, "template", sec, scr);
+    if (scr.type !== "FRAME" || scr.width < MINW || /^Notes\b/.test(scr.name)) continue;
+    if (TEMPLATE.test(scr.name)) add(scr, "template", sec, scr);
     const tops = [];
     for (const c of scr.children) {
-      if (c.name === "Content card" && "children" in c) for (const b of c.children) tops.push([b, "block"]);
+      if (CONTAINER.test(c.name) && "children" in c) for (const b of c.children) tops.push([b, "block"]);
       else if (/^Shell\//.test(c.name)) tops.push([c, "shell"]);
       else if (c.type === "FRAME" || c.type === "INSTANCE" || c.type === "GROUP") tops.push([c, "overlay"]);
     }
@@ -97,6 +101,7 @@ function fitSections() {
 }
 
 const all = candidates();
+if (ARGS.dry) { const by = {}; for (const c of all) by[c.role] = (by[c.role] || 0) + 1; return { total: all.length, by, screens: new Set(all.map((c) => c.scr)).size }; }
 const off = ARGS.offset || 0, lim = ARGS.limit || 20;
 const done = [], errors = [];
 for (const c of all.slice(off, off + lim)) {
@@ -109,12 +114,13 @@ for (const c of all.slice(off, off + lim)) {
     const sec = sectionFor(cat);
     sec.appendChild(cl);
     const comp = figma.createComponentFromNode(cl);
-    const nm = src.name.replace(/ \/ (Hover|Selected|Active|Open)$/i, "").replace(/^(Panel|Modal|Drawer|Menu|Popover|Integration) · /, "$1 ").replace(/\//g, " ");
+    const nm = src.name.replace(/ \/ (Hover|Selected|Active|Open)$/i, "").replace(/^(Panel|Modal|Drawer|Menu|Popover|Integration) (·|\/) /, "$1 ").replace(/ ?\/ ?/g, " ");
     comp.name = SYSTEM + "/" + cat.replace("Overlays/", "") + "/" + nm;
     comp.description = cat.replace("/", ", ") + ". From the " + SYSTEM + " " + c.sec.replace(/^\d\d · /, "") + " screen \"" + c.scr + "\". Content: " + keywords(src);
     place(sec, comp);
-    done.push({ src: c.id, id: comp.id, name: comp.name, cat, role: c.role, w: Math.round(comp.width), h: Math.round(comp.height) });
+    done.push(cat);
   } catch (e) { errors.push({ src: c.id, e: String(e).slice(0, 120) }); }
 }
 fitSections();
-return { total: all.length, offset: off, created: done.length, next: off + lim < all.length ? off + lim : null, done, errors };
+const by = {}; for (const k of done) by[k] = (by[k] || 0) + 1;
+return { total: all.length, offset: off, created: done.length, next: off + lim < all.length ? off + lim : null, by, errors };

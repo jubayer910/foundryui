@@ -3,11 +3,16 @@ const S = typeof args !== "undefined" && args.system ? args.system : "Loopo";
 const LIB = figma.root.children.find((p) => p.name === "Foundry Library");
 await figma.setCurrentPageAsync(LIB);
 // 1. remove low-value pieces (plain buttons, text-only headings, repeated list items); atoms cover them
-const REMOVE = /^(Tab|Button Primary|Button Secondary|View all|Back link|Change|Nav group label|H2 · .*|TOC · .*)$/;
-for (const c of LIB.findAll((n) => n.type === "COMPONENT")) if (REMOVE.test(c.name.split("/").pop())) c.remove();
+const REMOVE = /^(Tab|Button Primary|Button Secondary|View all|Back link|Change|Nav group label|H2 · .*|TOC · .*|Title block|Block header|Segmented|Legend|Labels?|Meta|Section head)$/;
+let removed = 0;
+for (const c of LIB.findAll((n) => n.type === "COMPONENT" && n.parent.type === "SECTION")) {
+  const trivial = c.findAll(() => true).length < 4 || c.findAll((x) => x.type !== "TEXT" && x.type !== "FRAME").length === 0 && c.findAll((x) => x.type === "TEXT").length <= 2;
+  if (REMOVE.test(c.name.split("/").pop()) || trivial) { c.remove(); removed++; }
+}
 // 2. names: "Panel X" -> "X card", "Modal X" -> "X modal", duplicates get their first text
 const nice = (short) => {
-  let s = short.replace(/ — UX Improved/, "").replace(/^(\d+)\.0 · (.+)$/, "$2 page");
+  let s = short.replace(/ — UX Improved/, "");
+  if (/^\d+\.0\b| — page\b/i.test(s)) s = s.replace(/^\d+\.0 ?·? ?/, "").replace(/ — page\b.*$/i, "").replace(/ — /g, ", ") + " page";
   s = s.replace(/^Panel (.+)$/, "$1 card").replace(/^Modal (.+)$/, "$1 modal").replace(/^Drawer (.+)$/, "$1 drawer").replace(/^Menu (.+)$/, "$1 menu").replace(/^Popover (.+)$/, "$1 popover").replace(/^Integration (.+)$/, "$1 integration card").replace(/^Shell /, "").replace(/ · /g, ", ");
   return s.charAt(0).toUpperCase() + s.slice(1);
 };
@@ -16,6 +21,9 @@ const seen = new Set();
 for (const c of LIB.findAll((n) => (n.type === "COMPONENT" && n.parent.type === "SECTION") || n.type === "COMPONENT_SET")) {
   const cat = c.parent.name.split(" / ").slice(1).join(" / ");
   let nm = cat === "Atoms" ? c.name.split("/").pop() : nice(c.name.split("/").pop());
+  // bare type names ("Modal", "Chart") take their own heading: "Invite members modal"
+  const bare = nm.match(/^(Modal|Drawer|Menu|Popover|Chart|Widget|Card|Form|Table|Toolbar|Submenu|Tooltip card)$/);
+  if (bare && firstText(c)) nm = firstText(c) + " " + bare[1].toLowerCase();
   if (seen.has(cat + "|" + nm)) nm += ", " + (firstText(c) || Math.round(c.width));
   seen.add(cat + "|" + nm);
   c.name = S + "/" + cat.replace("Overlays/", "Overlays - ") + "/" + nm;
@@ -32,4 +40,4 @@ for (const s of secs) {
   s.resizeWithoutConstraints(Math.max(...kids.map((k) => k.x + k.width)) + 80, y + rowH + 80); s.x = 0; s.y = Y; Y += s.height + 240;
   counts[s.name] = kids.length;
 }
-return counts;
+return { removed, counts };
