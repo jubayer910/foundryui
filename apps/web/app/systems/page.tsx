@@ -6,8 +6,8 @@ export const metadata: Metadata = { title: "Design systems", description: "Six c
 
 export default function SystemsPage() {
   return (
-    <div className="mx-auto max-w-[1180px] px-4 pt-12 sm:px-6">
-      <h1 className="display text-[40px] sm:text-[52px] text-ink">Design systems</h1>
+    <div className="max-w-[1400px]">
+      <h1 className="page-title">Design systems</h1>
       <p className="mt-2 max-w-xl text-sm leading-relaxed text-fu-muted">Each system is extracted from a real product dashboard: foundations, components and screens that belong together. Loopo is live and free; the other five are being built now.</p>
       <div className="mt-8 grid gap-4 md:grid-cols-2">
         {systems.map((s) => (

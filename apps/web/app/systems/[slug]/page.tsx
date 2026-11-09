@@ -18,11 +18,11 @@ export default async function SystemPage({ params }: PageProps<"/systems/[slug]"
   if (!s) notFound();
   const live = s.status === "live";
   return (
-    <div className="mx-auto max-w-[1180px] px-4 pt-12 sm:px-6">
+    <div className="max-w-[1400px]">
       <div className="flex flex-wrap items-start justify-between gap-6">
         <div className="max-w-2xl">
           <p className="text-[13px] font-medium" style={{ color: s.accent }}>{s.tagline}</p>
-          <h1 className="mt-1 text-4xl font-medium tracking-[-0.035em] text-fu-ink">{s.name}</h1>
+          <h1 className="mt-1 page-title text-fu-ink">{s.name}</h1>
           <p className="mt-3 text-sm leading-relaxed text-fu-muted">{s.description}</p>
         </div>
         <div className="rounded-fu-lg border border-hair bg-fu-surface p-4 text-[13px]">
@@ -49,7 +49,7 @@ export default async function SystemPage({ params }: PageProps<"/systems/[slug]"
                   {items
                     .filter((i) => i.category === c.slug)
                     .map((i) => (
-                      <ItemCard key={i.slug} item={i} />
+                      <ItemCard key={i.slug} item={i} system={s.name} />
                     ))}
                 </div>
               </section>

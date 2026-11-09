@@ -10,8 +10,8 @@ const LOG = [
 
 export default function ChangelogPage() {
   return (
-    <div className="mx-auto max-w-3xl px-4 pt-12 sm:px-6">
-      <h1 className="display text-[40px] sm:text-[52px] text-ink">Changelog</h1>
+    <div className="max-w-3xl">
+      <h1 className="page-title">Changelog</h1>
       {LOG.map((e) => (
         <section key={e.date} className="mt-8 rounded-[14px] border border-hair bg-fu-surface p-6">
           <p className="font-fu-mono text-xs text-fu-faint">{e.date}</p>

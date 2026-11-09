@@ -10,7 +10,7 @@ const C = "mt-3 overflow-x-auto rounded-fu-lg border border-hair bg-fu-surface p
 
 export default function DocsPage() {
   return (
-    <div className="mx-auto grid max-w-[1180px] gap-10 px-4 pt-12 sm:px-6 lg:grid-cols-[200px_1fr]">
+    <div className="grid max-w-[1400px] gap-10 lg:grid-cols-[200px_1fr]">
       <aside className="hidden lg:block">
         <nav className="sticky top-24 flex flex-col gap-1 text-[13px]">
           {[["install", "Install"], ["tokens", "Tokens & theming"], ["figma", "Figma"], ["agents", "AI agents"], ["license", "License"]].map(([id, l]) => (
@@ -19,7 +19,7 @@ export default function DocsPage() {
         </nav>
       </aside>
       <article className="max-w-2xl">
-        <h1 className="display text-[40px] sm:text-[52px] text-ink">Docs</h1>
+        <h1 className="page-title">Docs</h1>
         <p className={P}>Foundry UI components are plain React 19 + Tailwind CSS v4 files you own. Interactive parts use Base UI for accessibility.</p>
 
         <h2 id="install" className={H}>Install</h2>

@@ -12,9 +12,9 @@ const PLANS = [
 
 export default function PricingPage() {
   return (
-    <div className="mx-auto max-w-[1180px] px-4 pt-12 sm:px-6">
+    <div className="max-w-[1400px]">
       <div className="mx-auto max-w-2xl text-center">
-        <h1 className="display text-[40px] sm:text-[52px] text-ink">Simple pricing</h1>
+        <h1 className="page-title">Simple pricing</h1>
         <p className="mt-3 text-sm leading-relaxed text-fu-muted">Start free with the Loopo system. Upgrade when you want every system. Regional pricing applies automatically at checkout.</p>
       </div>
       <div className="mt-10 grid gap-4 md:grid-cols-3">

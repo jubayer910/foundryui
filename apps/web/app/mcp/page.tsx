@@ -32,8 +32,8 @@ const TOOLS: [string, string][] = [
 
 export default function McpPage() {
   return (
-    <div className="mx-auto max-w-4xl px-4 pt-12 sm:px-6">
-      <h1 className="display text-[40px] sm:text-[52px] text-ink">MCP &amp; CLI</h1>
+    <div className="max-w-4xl">
+      <h1 className="page-title">MCP &amp; CLI</h1>
       <p className="mt-2 max-w-2xl text-sm leading-relaxed text-fu-muted">
         Connect your AI agent to the library. It can read the systems, pick components, write the code into your project and keep using the right tokens. Requires a free account and an API key.
       </p>

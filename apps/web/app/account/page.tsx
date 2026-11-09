@@ -25,10 +25,10 @@ export default async function AccountPage() {
   const total = usage.reduce((s, u) => s + Number(u.n), 0);
   const mcp = usage.filter((u) => u.client === "mcp").reduce((s, u) => s + Number(u.n), 0);
   return (
-    <div className="mx-auto max-w-4xl px-4 pt-12 sm:px-6">
+    <div className="max-w-4xl">
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
-          <h1 className="display text-[40px] sm:text-[52px] text-ink">Account</h1>
+          <h1 className="page-title">Account</h1>
           <p className="mt-1 text-sm text-fu-muted">{user.email}</p>
         </div>
         <SignOut />
