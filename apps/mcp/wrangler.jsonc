@@ -9,6 +9,7 @@
   ],
   "services": [{ "binding": "SITE", "service": "foundry-ui" }],
   "vars": { "SITE_URL": "https://ingotui.com" },
+  "workers_dev": true,
   "routes": [{ "pattern": "mcp.ingotui.com", "custom_domain": true }],
   "observability": { "enabled": true }
 }
