@@ -20,9 +20,11 @@ const paint = (p) => {
 };
 const paints = (ps) => (Array.isArray(ps) ? ps.map(paint).filter(Boolean) : []);
 const VEC = /^(VECTOR|BOOLEAN_OPERATION|STAR|POLYGON|LINE|ELLIPSE)$/;
+// inside a drawing group, rectangles are shapes too (chart bars, masks)
+const SHAPE = /^(VECTOR|BOOLEAN_OPERATION|STAR|POLYGON|LINE|ELLIPSE|RECTANGLE)$/;
 const paintsOn = (n) => ["fills", "strokes"].some((k) => Array.isArray(n[k]) && n[k].some((p) => p.visible !== false)) || (n.effects && n.effects.length);
 // a pure drawing: only vectors inside, no own paint, and no icon instances (those map to Foundry Icons)
-const allVec = (n) => "children" in n && n.children.length > 0 && !/^icon\//i.test(n.name) && n.children.every((c) => (VEC.test(c.type) && !/^icon\//i.test(c.name)) || (!paintsOn(c) && allVec(c)));
+const allVec = (n) => "children" in n && n.children.length > 0 && !/^icon\//i.test(n.name) && n.children.every((c) => (SHAPE.test(c.type) && !/^icon\//i.test(c.name)) || (!paintsOn(c) && allVec(c))) && n.findAll((x) => VEC.test(x.type) || x.isMask).length > 0;
 
 // ---- vector geometry -> SVG ----
 const inv = (m) => { const [[a, c, e], [b, d, f]] = m; const det = a * d - b * c || 1; return [[d / det, -c / det, (c * f - d * e) / det], [-b / det, a / det, (b * e - a * f) / det]]; };
@@ -55,7 +57,7 @@ function paintAttr(ps, w, h, defs) {
 }
 function shapes(n, rootInv, out, defs) {
   if (n.visible === false) return;
-  if ("fillGeometry" in n && VEC.test(n.type)) {
+  if ("fillGeometry" in n && SHAPE.test(n.type)) {
     const m = mul(rootInv, n.absoluteTransform);
     const tr = `matrix(${[m[0][0], m[1][0], m[0][1], m[1][1], m[0][2], m[1][2]].map((v) => Math.round(v * 1000) / 1000).join(" ")})`;
     const op = n.opacity !== undefined && n.opacity < 1 ? ` opacity="${Math.round(n.opacity * 100) / 100}"` : "";
@@ -73,14 +75,31 @@ function shapes(n, rootInv, out, defs) {
     } else if (k && n.strokeGeometry) put(n.strokeGeometry, k);
     return;
   }
-  if ("children" in n) for (const c of n.children) shapes(c, rootInv, out, defs);
+  if ("children" in n) {
+    // Figma masks: a child with isMask clips every later sibling in the same parent
+    let clipId = null, group = null;
+    for (const c of n.children) {
+      if (c.visible === false) continue;
+      if (c.isMask && "fillGeometry" in c) {
+        const m = mul(rootInv, c.absoluteTransform);
+        const tr = `matrix(${[m[0][0], m[1][0], m[0][1], m[1][1], m[0][2], m[1][2]].map((v) => Math.round(v * 1000) / 1000).join(" ")})`;
+        clipId = "m" + (++GID) + "_" + Date.now().toString(36).slice(-4);
+        defs.push(`<clipPath id="${clipId}">${c.fillGeometry.map((g) => `<path transform="${tr}" d="${g.data}"${g.windingRule === "EVENODD" ? ' clip-rule="evenodd"' : ""}/>`).join("")}</clipPath>`);
+        group = [];
+        out.push({ clip: clipId, items: group });
+        continue;
+      }
+      shapes(c, rootInv, group || out, defs);
+    }
+  }
 }
+const flat = (arr) => arr.map((x) => (typeof x === "string" ? x : `<g clip-path="url(#${x.clip})">${flat(x.items)}</g>`)).join("");
 function svgOf(n) {
   const out = [], defs = [];
   shapes(n, inv(n.absoluteTransform), out, defs);
   if (!out.length) return null;
   const w = Math.max(n.width, 0.01), h = Math.max(n.height, 0.01);
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${Math.round(w * 100) / 100}" height="${Math.round(h * 100) / 100}" viewBox="0 0 ${Math.round(w * 100) / 100} ${Math.round(h * 100) / 100}" fill="none" overflow="visible">${defs.length ? "<defs>" + defs.join("") + "</defs>" : ""}${out.join("")}</svg>`;
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${Math.round(w * 100) / 100}" height="${Math.round(h * 100) / 100}" viewBox="0 0 ${Math.round(w * 100) / 100} ${Math.round(h * 100) / 100}" fill="none" overflow="visible">${defs.length ? "<defs>" + defs.join("") + "</defs>" : ""}${flat(out)}</svg>`;
 }
 async function ser(n, parent) {
   if (n.visible === false) return null;
