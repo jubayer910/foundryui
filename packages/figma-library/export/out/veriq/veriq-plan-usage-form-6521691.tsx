@@ -121,7 +121,7 @@ export function PlanUsageForm() {
             </div>
           </div>
           <div style={{ width: "144px", height: "8px", flexShrink: 0, borderRadius: "4px", background: "rgba(37, 191, 109, 0.14)", overflow: "hidden", position: "relative" }}>
-            <div style={{ position: "absolute", left: "0px", top: "0px", width: "67.9px", height: "8px", borderRadius: "4px", background: "linear-gradient(180deg, #3fc77f 0%, #25bf6d 100%)" }} />
+            <div style={{ position: "absolute", left: "0px", top: "0px", width: "67.86px", height: "8px", borderRadius: "4px", background: "linear-gradient(180deg, #3fc77f 0%, #25bf6d 100%)" }} />
           </div>
           <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "16px", fontFamily: "'Geist'", fontSize: "12px", fontWeight: 500, color: "#989898" }}>1 Mar 2027 · auto-renew on</p>
         </div>

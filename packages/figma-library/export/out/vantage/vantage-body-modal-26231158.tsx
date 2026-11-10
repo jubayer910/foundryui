@@ -37,7 +37,7 @@ export function BodyModal() {
           <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "16px", fontFamily: "'Geist'", fontSize: "12px", fontWeight: 400, color: "#8a8a8a" }}>By current MRR share; each leg sees its own line.</p>
         </div>
         <div style={{ width: "30px", height: "18px", flexShrink: 0, borderRadius: "9px", background: "#7b5bff", position: "relative" }}>
-          <svg style={{ position: "absolute", left: "14px", top: "2px", width: "14px", height: "14px", display: "block", lineHeight: 0 }} xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M14 7 C14 10.866 10.866 14 7 14 C3.13401 14 0 10.866 0 7 C0 3.13401 3.13401 0 7 0 C10.866 0 14 3.13401 14 7 Z" fill="#ffffff"/></svg>
+          <svg style={{ position: "absolute", left: "14px", top: "2px", width: "14px", height: "14px", display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M14 7 C14 10.866 10.866 14 7 14 C3.13401 14 0 10.866 0 7 C0 3.13401 3.13401 0 7 0 C10.866 0 14 3.13401 14 7 Z" fill="#ffffff"/></svg>
         </div>
       </div>
       <div style={{ alignSelf: "stretch", flexShrink: 0, borderRadius: "8px", background: "#191919", boxShadow: "inset 0 0 0 1px #2e2e2e", display: "flex", flexDirection: "column", padding: "13px 13px 13px 13px", gap: "8px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
@@ -56,7 +56,7 @@ export function BodyModal() {
         <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
           <p style={{ flex: "1 1 0", minWidth: 0, flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre-wrap", lineHeight: "17px", fontFamily: "'Geist'", fontSize: "13px", fontWeight: 400, color: "#dadada" }}>Oscar & Nayrobi Griñán</p>
           <div style={{ width: "120px", height: "6px", flexShrink: 0, borderRadius: "3px", background: "rgba(123, 91, 255, 0.1)", overflow: "hidden", position: "relative" }}>
-            <div style={{ position: "absolute", left: "0px", top: "0px", width: "102.4px", height: "6px", borderRadius: "3px", background: "#7b5bff" }} />
+            <div style={{ position: "absolute", left: "0px", top: "0px", width: "102.35px", height: "6px", borderRadius: "3px", background: "#7b5bff" }} />
           </div>
           <div style={{ width: "40px", flexShrink: 0, display: "flex", flexDirection: "row", justifyContent: "flex-end", alignItems: "flex-start", boxSizing: "border-box" }}>
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "16px", fontFamily: "'Geist'", fontSize: "12px", fontWeight: 400, color: "#a0a0a0" }}>29%</p>
@@ -68,7 +68,7 @@ export function BodyModal() {
         <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
           <p style={{ flex: "1 1 0", minWidth: 0, flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre-wrap", lineHeight: "17px", fontFamily: "'Geist'", fontSize: "13px", fontWeight: 400, color: "#dadada" }}>Edwin & Wiliannys</p>
           <div style={{ width: "120px", height: "6px", flexShrink: 0, borderRadius: "3px", background: "rgba(123, 91, 255, 0.1)", overflow: "hidden", position: "relative" }}>
-            <div style={{ position: "absolute", left: "0px", top: "0px", width: "56.5px", height: "6px", borderRadius: "3px", background: "#7b5bff" }} />
+            <div style={{ position: "absolute", left: "0px", top: "0px", width: "56.47px", height: "6px", borderRadius: "3px", background: "#7b5bff" }} />
           </div>
           <div style={{ width: "40px", flexShrink: 0, display: "flex", flexDirection: "row", justifyContent: "flex-end", alignItems: "flex-start", boxSizing: "border-box" }}>
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "16px", fontFamily: "'Geist'", fontSize: "12px", fontWeight: 400, color: "#a0a0a0" }}>16%</p>
@@ -80,7 +80,7 @@ export function BodyModal() {
         <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
           <p style={{ flex: "1 1 0", minWidth: 0, flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre-wrap", lineHeight: "17px", fontFamily: "'Geist'", fontSize: "13px", fontWeight: 400, color: "#dadada" }}>10 other legs</p>
           <div style={{ width: "120px", height: "6px", flexShrink: 0, borderRadius: "3px", background: "rgba(123, 91, 255, 0.1)", overflow: "hidden", position: "relative" }}>
-            <div style={{ position: "absolute", left: "0px", top: "0px", width: "74.1px", height: "6px", borderRadius: "3px", background: "#7b5bff" }} />
+            <div style={{ position: "absolute", left: "0px", top: "0px", width: "74.12px", height: "6px", borderRadius: "3px", background: "#7b5bff" }} />
           </div>
           <div style={{ width: "40px", flexShrink: 0, display: "flex", flexDirection: "row", justifyContent: "flex-end", alignItems: "flex-start", boxSizing: "border-box" }}>
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "16px", fontFamily: "'Geist'", fontSize: "12px", fontWeight: 400, color: "#a0a0a0" }}>21%</p>

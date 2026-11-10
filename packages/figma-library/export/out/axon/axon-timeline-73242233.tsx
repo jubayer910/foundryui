@@ -11,7 +11,7 @@ export function Timeline() {
           <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#747474", lineHeight: "20px" }}>Passed with 1 warning · 6.8s total · Sandbox</p>
         </div>
         <div style={{ flexShrink: 0, borderRadius: "4.58px", background: "#fffbf0", display: "flex", flexDirection: "row", padding: "2px 8px 2px 8px", gap: "3px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-          <Clock size={12} style={{ width: "12px", height: "12px", flexShrink: 0, color: "#d99a00", display: "block" }} />
+          <Clock size={12} strokeWidth={3} style={{ width: "12px", height: "12px", flexShrink: 0, color: "#d99a00", display: "block" }} />
           <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#d99a00", lineHeight: "20px" }}>Passed · 1 warning</p>
         </div>
       </div>
@@ -48,7 +48,7 @@ export function Timeline() {
       <div style={{ alignSelf: "stretch", flexShrink: 0, boxShadow: "inset 0 -1px 0 0 #e9e9e9", display: "flex", flexDirection: "row", padding: "10px 4px 11px 4px", gap: "12px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
         <CircleCheck size={18} style={{ width: "18px", height: "18px", flexShrink: 0, color: "#17a673", display: "block" }} />
         <div style={{ width: "28px", height: "28px", flexShrink: 0, borderRadius: "8px", background: "#eff8ff", display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
-          <Sparkles size={14} style={{ width: "14px", height: "14px", flexShrink: 0, color: "#1b8ce8", display: "block" }} />
+          <Sparkles size={14} strokeWidth={2.57} style={{ width: "14px", height: "14px", flexShrink: 0, color: "#1b8ce8", display: "block" }} />
         </div>
         <div style={{ flex: "1 1 0", minWidth: 0, flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
           <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#15171c", lineHeight: "20px" }}>Extract invoice fields</p>
@@ -62,7 +62,7 @@ export function Timeline() {
       <div style={{ alignSelf: "stretch", flexShrink: 0, boxShadow: "inset 0 -1px 0 0 #e9e9e9", display: "flex", flexDirection: "row", padding: "10px 4px 11px 4px", gap: "12px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
         <AlertTriangle size={18} style={{ width: "18px", height: "18px", flexShrink: 0, color: "#d99a00", display: "block" }} />
         <div style={{ width: "28px", height: "28px", flexShrink: 0, borderRadius: "8px", background: "#fef5f0", display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
-          <GitBranch size={14} style={{ width: "14px", height: "14px", flexShrink: 0, color: "#ff5601", display: "block" }} />
+          <GitBranch size={14} strokeWidth={2.57} style={{ width: "14px", height: "14px", flexShrink: 0, color: "#ff5601", display: "block" }} />
         </div>
         <div style={{ flex: "1 1 0", minWidth: 0, flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
           <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#15171c", lineHeight: "20px" }}>PO found and confidence ≥ 92%?</p>
@@ -80,7 +80,7 @@ export function Timeline() {
       <div style={{ alignSelf: "stretch", flexShrink: 0, boxShadow: "inset 0 -1px 0 0 #e9e9e9", display: "flex", flexDirection: "row", padding: "10px 4px 11px 4px", gap: "12px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
         <CircleCheck size={18} style={{ width: "18px", height: "18px", flexShrink: 0, color: "#17a673", display: "block" }} />
         <div style={{ width: "28px", height: "28px", flexShrink: 0, borderRadius: "8px", background: "#fdf0f7", display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
-          <Checklist size={14} style={{ width: "14px", height: "14px", flexShrink: 0, color: "#ef0c78", display: "block" }} />
+          <Checklist size={14} strokeWidth={2.57} style={{ width: "14px", height: "14px", flexShrink: 0, color: "#ef0c78", display: "block" }} />
         </div>
         <div style={{ flex: "1 1 0", minWidth: 0, flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
           <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#15171c", lineHeight: "20px" }}>Send to Review Queue</p>

@@ -5,7 +5,8 @@ import { join } from "node:path";
 import puppeteer from "puppeteer-core";
 import { PNG } from "pngjs";
 import pixelmatch from "pixelmatch";
-import { build, toHTML, toTSX } from "./convert.mjs";
+import { build, toHTML, toTSX, setAbsStroke } from "./convert.mjs";
+const ABS = new Set(JSON.parse(await readFile(new URL("./data/abs-stroke.json", import.meta.url), "utf8").catch(() => "[]")));
 import { createRequire } from "node:module";
 const sharp = createRequire(new URL("../../../apps/web/package.json", import.meta.url))("sharp");
 
@@ -98,6 +99,7 @@ for (const id of ids) {
     const tree = JSON.parse(await readFile(join(DATA, id + ".json"), "utf8"));
     const fonts = [...new Set((JSON.stringify(tree).match(/"ff":"[^"]+"/g) || []).map((s) => s.slice(6, -1)))];
     const links = fonts.filter((f) => FONTS[f]).map((f) => `<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=${FONTS[f]}&display=block">`).join("");
+    setAbsStroke(ABS.has(sys + ":" + id));
     const bl = expectedBleed(tree);
     PAD = Math.max(bl[0], bl[1]) + 16;
     EXP = [PAD - bl[0], PAD - bl[1]];

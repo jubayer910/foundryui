@@ -27,7 +27,7 @@ export function QueueList() {
           <div style={{ flex: "1 1 0", minWidth: 0, height: "1px", flexShrink: 0, display: "flex", flexDirection: "row", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }} />
           <div style={{ flexShrink: 0, borderRadius: "100px", background: "#ffffff", display: "flex", flexDirection: "row", padding: "2px 6px 2px 6px", gap: "3px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#1b8ce8", lineHeight: "20px" }}>4h 51m</p>
-            <ArrowUpRight size={12} style={{ width: "12px", height: "12px", flexShrink: 0, color: "#1b8ce8", display: "block" }} />
+            <ArrowUpRight size={12} strokeWidth={3} style={{ width: "12px", height: "12px", flexShrink: 0, color: "#1b8ce8", display: "block" }} />
           </div>
         </div>
         <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#15171c", lineHeight: "20px" }}>INV-20931 · Acme Supplies</p>
@@ -41,7 +41,7 @@ export function QueueList() {
           <div style={{ flex: "1 1 0", minWidth: 0, height: "1px", flexShrink: 0, display: "flex", flexDirection: "row", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }} />
           <div style={{ flexShrink: 0, borderRadius: "100px", background: "#ffffff", display: "flex", flexDirection: "row", padding: "2px 6px 2px 6px", gap: "3px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#1b8ce8", lineHeight: "20px" }}>5h 10m</p>
-            <ArrowUpRight size={12} style={{ width: "12px", height: "12px", flexShrink: 0, color: "#1b8ce8", display: "block" }} />
+            <ArrowUpRight size={12} strokeWidth={3} style={{ width: "12px", height: "12px", flexShrink: 0, color: "#1b8ce8", display: "block" }} />
           </div>
         </div>
         <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#15171c", lineHeight: "20px" }}>INV-20877 · Globex</p>
@@ -55,7 +55,7 @@ export function QueueList() {
           <div style={{ flex: "1 1 0", minWidth: 0, height: "1px", flexShrink: 0, display: "flex", flexDirection: "row", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }} />
           <div style={{ flexShrink: 0, borderRadius: "100px", background: "#ffffff", display: "flex", flexDirection: "row", padding: "2px 6px 2px 6px", gap: "3px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#ff5601", lineHeight: "20px" }}>2 hrs</p>
-            <ArrowUpRight size={12} style={{ width: "12px", height: "12px", flexShrink: 0, color: "#ff5601", display: "block" }} />
+            <ArrowUpRight size={12} strokeWidth={3} style={{ width: "12px", height: "12px", flexShrink: 0, color: "#ff5601", display: "block" }} />
           </div>
         </div>
         <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#15171c", lineHeight: "20px" }}>Refund #88213 · $640</p>
@@ -69,7 +69,7 @@ export function QueueList() {
           <div style={{ flex: "1 1 0", minWidth: 0, height: "1px", flexShrink: 0, display: "flex", flexDirection: "row", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }} />
           <div style={{ flexShrink: 0, borderRadius: "100px", background: "#ffffff", display: "flex", flexDirection: "row", padding: "2px 6px 2px 6px", gap: "3px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#ff5601", lineHeight: "20px" }}>6 hrs</p>
-            <ArrowUpRight size={12} style={{ width: "12px", height: "12px", flexShrink: 0, color: "#ff5601", display: "block" }} />
+            <ArrowUpRight size={12} strokeWidth={3} style={{ width: "12px", height: "12px", flexShrink: 0, color: "#ff5601", display: "block" }} />
           </div>
         </div>
         <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#15171c", lineHeight: "20px" }}>Renewal · Initech</p>
@@ -83,7 +83,7 @@ export function QueueList() {
           <div style={{ flex: "1 1 0", minWidth: 0, height: "1px", flexShrink: 0, display: "flex", flexDirection: "row", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }} />
           <div style={{ flexShrink: 0, borderRadius: "100px", background: "#ffffff", display: "flex", flexDirection: "row", padding: "2px 6px 2px 6px", gap: "3px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#ef0c78", lineHeight: "20px" }}>1 day</p>
-            <ArrowUpRight size={12} style={{ width: "12px", height: "12px", flexShrink: 0, color: "#ef0c78", display: "block" }} />
+            <ArrowUpRight size={12} strokeWidth={3} style={{ width: "12px", height: "12px", flexShrink: 0, color: "#ef0c78", display: "block" }} />
           </div>
         </div>
         <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#15171c", lineHeight: "20px" }}>Lead · Northwind Traders</p>
@@ -97,7 +97,7 @@ export function QueueList() {
           <div style={{ flex: "1 1 0", minWidth: 0, height: "1px", flexShrink: 0, display: "flex", flexDirection: "row", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }} />
           <div style={{ flexShrink: 0, borderRadius: "100px", background: "#ffffff", display: "flex", flexDirection: "row", padding: "2px 6px 2px 6px", gap: "3px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#ef0c78", lineHeight: "20px" }}>2 days</p>
-            <ArrowUpRight size={12} style={{ width: "12px", height: "12px", flexShrink: 0, color: "#ef0c78", display: "block" }} />
+            <ArrowUpRight size={12} strokeWidth={3} style={{ width: "12px", height: "12px", flexShrink: 0, color: "#ef0c78", display: "block" }} />
           </div>
         </div>
         <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#15171c", lineHeight: "20px" }}>INV-20850 · Umbrella Co.</p>

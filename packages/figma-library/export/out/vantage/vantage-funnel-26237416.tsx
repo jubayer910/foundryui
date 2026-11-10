@@ -32,7 +32,7 @@ export function Funnel() {
           </div>
         </div>
         <div style={{ width: "408px", height: "7px", flexShrink: 0, background: "rgba(123, 91, 255, 0.1)", overflow: "hidden", position: "relative" }}>
-          <div style={{ position: "absolute", left: "0px", top: "0px", width: "97.7px", height: "7px", background: "#7b5bff" }} />
+          <div style={{ position: "absolute", left: "0px", top: "0px", width: "97.69px", height: "7px", background: "#7b5bff" }} />
         </div>
       </div>
       <div style={{ width: "408px", flexShrink: 0, display: "flex", flexDirection: "column", gap: "6px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
@@ -47,7 +47,7 @@ export function Funnel() {
           </div>
         </div>
         <div style={{ width: "408px", height: "7px", flexShrink: 0, background: "rgba(123, 91, 255, 0.1)", overflow: "hidden", position: "relative" }}>
-          <div style={{ position: "absolute", left: "0px", top: "0px", width: "28.7px", height: "7px", background: "#7b5bff" }} />
+          <div style={{ position: "absolute", left: "0px", top: "0px", width: "28.73px", height: "7px", background: "#7b5bff" }} />
         </div>
       </div>
       <div style={{ width: "408px", flexShrink: 0, display: "flex", flexDirection: "column", gap: "6px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
@@ -62,7 +62,7 @@ export function Funnel() {
           </div>
         </div>
         <div style={{ width: "408px", height: "7px", flexShrink: 0, background: "rgba(123, 91, 255, 0.1)", overflow: "hidden", position: "relative" }}>
-          <div style={{ position: "absolute", left: "0px", top: "0px", width: "11.5px", height: "7px", background: "#7b5bff" }} />
+          <div style={{ position: "absolute", left: "0px", top: "0px", width: "11.49px", height: "7px", background: "#7b5bff" }} />
         </div>
       </div>
       <div style={{ width: "408px", flexShrink: 0, borderRadius: "6px", background: "#2a2316", boxShadow: "inset 0 0 0 1px #3a301c", display: "flex", flexDirection: "row", padding: "9px 11px 9px 11px", gap: "8px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>

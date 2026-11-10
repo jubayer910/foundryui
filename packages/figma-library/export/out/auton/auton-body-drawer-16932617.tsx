@@ -76,7 +76,7 @@ export function BodyDrawer() {
             </div>
           </div>
           <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "4px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-            <Timer size={14} style={{ width: "14px", height: "14px", flexShrink: 0, color: "#777777", display: "block" }} />
+            <Timer size={14} strokeWidth={2.57} style={{ width: "14px", height: "14px", flexShrink: 0, color: "#777777", display: "block" }} />
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#555555", lineHeight: "1.100000023841858", textBox: "trim-both cap alphabetic", height: "10px" }}>12 min</p>
           </div>
         </div>
@@ -97,7 +97,7 @@ export function BodyDrawer() {
             </div>
           </div>
           <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "4px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-            <Timer size={14} style={{ width: "14px", height: "14px", flexShrink: 0, color: "#777777", display: "block" }} />
+            <Timer size={14} strokeWidth={2.57} style={{ width: "14px", height: "14px", flexShrink: 0, color: "#777777", display: "block" }} />
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#555555", lineHeight: "1.100000023841858", textBox: "trim-both cap alphabetic", height: "10px" }}>15 min</p>
           </div>
         </div>
@@ -115,7 +115,7 @@ export function BodyDrawer() {
             </div>
           </div>
           <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "4px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-            <Timer size={14} style={{ width: "14px", height: "14px", flexShrink: 0, color: "#777777", display: "block" }} />
+            <Timer size={14} strokeWidth={2.57} style={{ width: "14px", height: "14px", flexShrink: 0, color: "#777777", display: "block" }} />
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#555555", lineHeight: "1.100000023841858", textBox: "trim-both cap alphabetic", height: "10px" }}>30 min</p>
           </div>
         </div>

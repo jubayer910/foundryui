@@ -7,7 +7,7 @@ export function VERIQWidget() {
     <div style={{ width: "236px", height: "1060px", borderRadius: "14px", background: "#fafafa", overflow: "hidden", position: "relative" }}>
       <div style={{ position: "absolute", left: "12px", top: "12px", width: "212px", height: "16px", display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center", boxSizing: "border-box" }}>
         <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "15px", fontWeight: 700, color: "#000000", lineHeight: "16px", letterSpacing: "0.02em" }}>VERIQ</p>
-        <ChevronRight size={16} style={{ width: "16px", height: "16px", flexShrink: 0, transform: "rotate(90deg)", transformOrigin: "top left", color: "#b3b3b3", display: "block" }} />
+        <ChevronRight size={16} style={{ width: "16px", height: "16px", flexShrink: 0, transform: "rotate(90deg)", transformOrigin: "center", color: "#b3b3b3", display: "block" }} />
       </div>
       <div style={{ position: "absolute", left: "12px", top: "48.76px", width: "212px", height: "588px", display: "flex", flexDirection: "column", gap: "6px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
         <div style={{ width: "212px", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
@@ -89,7 +89,7 @@ export function VERIQWidget() {
               <div style={{ alignSelf: "stretch", height: "36px", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
                 <div style={{ alignSelf: "stretch", height: "36px", flexShrink: 0, borderRadius: "10px", display: "flex", flexDirection: "column", padding: "10px 10px 10px 10px", justifyContent: "center", alignItems: "flex-start", boxSizing: "border-box" }}>
                   <p style={{ flexShrink: 0, margin: 0, textAlign: "center", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#a6a6a6", lineHeight: "20px" }}>WORKSPACE</p>
-                  <ChevronRight size={16} style={{ width: "16px", height: "16px", flexShrink: 0, transform: "rotate(90deg)", transformOrigin: "top left", color: "#b3b3b3", display: "block" }} />
+                  <ChevronRight size={16} style={{ width: "16px", height: "16px", flexShrink: 0, transform: "rotate(90deg)", transformOrigin: "center", color: "#b3b3b3", display: "block" }} />
                 </div>
               </div>
               <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>

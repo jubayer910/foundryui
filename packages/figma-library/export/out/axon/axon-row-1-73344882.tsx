@@ -25,19 +25,19 @@ export function Row1() {
         </div>
         <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", gap: "6px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
           <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "8px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-            <Check size={14} style={{ width: "14px", height: "14px", flexShrink: 0, color: "#17a673", display: "block" }} />
+            <Check size={14} strokeWidth={2.57} style={{ width: "14px", height: "14px", flexShrink: 0, color: "#17a673", display: "block" }} />
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#384152", lineHeight: "20px" }}>250k workflow runs</p>
           </div>
           <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "8px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-            <Check size={14} style={{ width: "14px", height: "14px", flexShrink: 0, color: "#17a673", display: "block" }} />
+            <Check size={14} strokeWidth={2.57} style={{ width: "14px", height: "14px", flexShrink: 0, color: "#17a673", display: "block" }} />
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#384152", lineHeight: "20px" }}>25 seats · reviewers free</p>
           </div>
           <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "8px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-            <Check size={14} style={{ width: "14px", height: "14px", flexShrink: 0, color: "#17a673", display: "block" }} />
+            <Check size={14} strokeWidth={2.57} style={{ width: "14px", height: "14px", flexShrink: 0, color: "#17a673", display: "block" }} />
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#384152", lineHeight: "20px" }}>$1,500 AI credits</p>
           </div>
           <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "8px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-            <Check size={14} style={{ width: "14px", height: "14px", flexShrink: 0, color: "#17a673", display: "block" }} />
+            <Check size={14} strokeWidth={2.57} style={{ width: "14px", height: "14px", flexShrink: 0, color: "#17a673", display: "block" }} />
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#384152", lineHeight: "20px" }}>SSO, audit log, 90-day retention</p>
           </div>
         </div>
@@ -73,7 +73,7 @@ export function Row1() {
               <Bell size={16} style={{ width: "16px", height: "16px", flexShrink: 0, color: "#6c6c6c", display: "block" }} />
             </div>
           </div>
-          <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "1.1px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+          <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "1.15px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
             <div style={{ width: "2px", height: "13px", flexShrink: 0, borderRadius: "1px", background: "#ff5601" }} />
             <div style={{ width: "2px", height: "13px", flexShrink: 0, borderRadius: "1px", background: "#ff5601" }} />
             <div style={{ width: "2px", height: "13px", flexShrink: 0, borderRadius: "1px", background: "#ff5601" }} />
@@ -327,7 +327,7 @@ export function Row1() {
               <Bell size={16} style={{ width: "16px", height: "16px", flexShrink: 0, color: "#6c6c6c", display: "block" }} />
             </div>
           </div>
-          <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "1.1px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+          <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "1.15px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
             <div style={{ width: "2px", height: "13px", flexShrink: 0, borderRadius: "1px", background: "#ef0c78" }} />
             <div style={{ width: "2px", height: "13px", flexShrink: 0, borderRadius: "1px", background: "#ef0c78" }} />
             <div style={{ width: "2px", height: "13px", flexShrink: 0, borderRadius: "1px", background: "#ef0c78" }} />
@@ -579,7 +579,7 @@ export function Row1() {
               <Bell size={16} style={{ width: "16px", height: "16px", flexShrink: 0, color: "#6c6c6c", display: "block" }} />
             </div>
           </div>
-          <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "1.1px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+          <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "1.15px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
             <div style={{ width: "2px", height: "13px", flexShrink: 0, borderRadius: "1px", background: "#1b8ce8" }} />
             <div style={{ width: "2px", height: "13px", flexShrink: 0, borderRadius: "1px", background: "#1b8ce8" }} />
             <div style={{ width: "2px", height: "13px", flexShrink: 0, borderRadius: "1px", background: "#1b8ce8" }} />
@@ -831,7 +831,7 @@ export function Row1() {
               <Bell size={16} style={{ width: "16px", height: "16px", flexShrink: 0, color: "#6c6c6c", display: "block" }} />
             </div>
           </div>
-          <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "1.1px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+          <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "1.15px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
             <div style={{ width: "2px", height: "13px", flexShrink: 0, borderRadius: "1px", background: "#17a673" }} />
             <div style={{ width: "2px", height: "13px", flexShrink: 0, borderRadius: "1px", background: "#17a673" }} />
             <div style={{ width: "2px", height: "13px", flexShrink: 0, borderRadius: "1px", background: "#17a673" }} />

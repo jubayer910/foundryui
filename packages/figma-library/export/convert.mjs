@@ -10,6 +10,7 @@ const NAMES = new Set(INDEX.map((i) => i.n));
 const BODIES = {};
 const brandPath = (name) => { const slug = name.replace(/^brand-/, ""); const k = Object.keys(SI).find((x) => SI[x] && SI[x].slug === slug); return k ? SI[k].path : ""; };
 const body = (style, name) => (style === "brand" ? `<path d="${brandPath(name)}" fill="currentColor"/>` : (BODIES[style] ||= JSON.parse(readFileSync(new URL(style + ".json", ICON_DIR), "utf8")))[name] || "");
+const swBody = (b, sw) => (sw ? b.replace(/stroke-width="([\d.]+)"/g, (_, w) => `stroke-width="${Math.round((Number(w) * sw) / 1.5 * 100) / 100}"`) : b);
 // common dashboard icon names -> Foundry names
 const ALIAS = {
   "arrow-right": "chevron-right", "arrow-left": "chevron-left", "arrow-down": "chevron-down", "arrow-up": "chevron-up",
@@ -144,6 +145,9 @@ function textStyle(seg) {
 }
 
 /** Build the intermediate tree. parentLm: "H" | "V" | null */
+// files whose small icons keep a 1.5px stroke (measured by QA): set per component with setAbsStroke()
+let ABS_STROKE = false;
+export const setAbsStroke = (v) => { ABS_STROKE = !!v; };
 export function build(n, parentLm = null, root = true) {
   const st = {};
   const el = { tag: "div", st, name: n.n, kids: [] };
@@ -160,12 +164,22 @@ export function build(n, parentLm = null, root = true) {
   if (hugH && n.lm) delete st.height;
   if (inFlow) st.flexShrink = 0;
   if (n.op !== undefined) st.opacity = n.op;
-  if (n.rot) st.transform = `rotate(${-n.rot}deg)`, (st.transformOrigin = "top left");
+  if (n.rot) {
+    st.transform = `rotate(${-n.rot}deg)`;
+    if (inFlow) {
+      // in auto layout Figma lays out the rotated bounding box: spin in place, and for quarter turns swap the box with margins
+      st.transformOrigin = "center";
+      const q = Math.abs(((n.rot % 180) + 180) % 180 - 90) < 1;
+      if (q && n.w !== n.h) { const dx = (n.h - n.w) / 2, dy = (n.w - n.h) / 2; st.margin = `${px(dy)} ${px(dx)}`; }
+    } else st.transformOrigin = "top left";
+  }
 
   if (n.icon) {
     // match the source glyph style: filled + soft layer = bulk, filled = solid, outline + soft fill = duotone, outline = stroke
     const style = n.istyle || (n.fill ? (n.duo ? "bulk" : "solid") : n.duo ? "duotone" : "stroke-rounded");
     el.icon = { name: n.istyle ? n.icon : mapIcon(n.icon), style, size: Math.round(Math.min(n.w, n.h) * 10) / 10 };
+    // some files keep a resized icon's 1.5px stroke; below 16px scale the 24-grid stroke so the drawn line stays 1.5px
+    if (ABS_STROKE && el.icon.size < 16 && /stroke|duotone/.test(style)) el.icon.sw = Math.round((1.5 * 24 / el.icon.size) * 100) / 100;
     if (n.ic) st.color = n.ic;
     st.display = "block"; st.flexShrink = 0;
     return el;
@@ -230,7 +244,7 @@ const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, 
 const cssText = (st) => Object.entries(st).map(([k, v]) => kebab(k) + ":" + (typeof v === "number" && !/^(opacity|fontWeight|flexShrink|minWidth|minHeight|lineHeight)$/.test(k) ? v + "px" : v)).join(";");
 
 export function toHTML(el, icons = {}) {
-  if (el.icon) return `<svg data-fu-icon="1" xmlns="http://www.w3.org/2000/svg" width="${el.icon.size}" height="${el.icon.size}" viewBox="0 0 24 24" style="${cssText(el.st).replace(/"/g, "'")}">${body(el.icon.style, el.icon.name)}</svg>`;
+  if (el.icon) return `<svg data-fu-icon="1" xmlns="http://www.w3.org/2000/svg" width="${el.icon.size}" height="${el.icon.size}" viewBox="0 0 24 24" style="${cssText(el.st).replace(/"/g, "'")}">${swBody(body(el.icon.style, el.icon.name), el.icon.sw)}</svg>`;
   const svg = el.svg ? (el.svg.startsWith("@") ? icons[el.svg.slice(1)] || "" : el.svg) : "";
   const inner = el.svg ? svg : el.text !== undefined ? esc(el.text) : el.kids.map((k) => toHTML(k, icons)).join("");
   return `<${el.tag} style="${cssText(el.st).replace(/"/g, "'")}">${inner}</${el.tag}>`;
@@ -255,7 +269,7 @@ export function toJSX(el, icons = {}, depth = 2, used = new Map()) {
   if (el.icon) {
     const C = pascal(el.icon.name) + ({ duotone: "Duo", bulk: "Bulk", solid: "Solid" }[el.icon.style] || "");
     used.set(C, el.icon);
-    return `${pad}<${C} size={${el.icon.size}} style=${jsStyle(el.st)} />`;
+    return `${pad}<${C} size={${el.icon.size}}${el.icon.sw ? ` strokeWidth={${el.icon.sw}}` : ""} style=${jsStyle(el.st)} />`;
   }
   if (el.svg) {
     const raw = el.svg.startsWith("@") ? icons[el.svg.slice(1)] || "" : el.svg;

@@ -13,7 +13,7 @@ export function FollowUp2Drawer() {
           <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "8px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "21px", fontFamily: "'Geist'", fontSize: "16px", fontWeight: 500, color: "#ededed", letterSpacing: "-0.01em" }}>Follow up 2+</p>
             <div style={{ height: "18px", flexShrink: 0, borderRadius: "6px", background: "#2d1a1c", boxShadow: "inset 0 0 0 1px #3d2326, 0px 0px 4.6px 0px rgba(0, 0, 0, 0.5)", display: "flex", flexDirection: "row", padding: "1px 7px 1px 7px", gap: "4px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-              <svg style={{ width: "5px", height: "5px", flexShrink: 0, display: "block", lineHeight: 0 }} xmlns="http://www.w3.org/2000/svg" width="5" height="5" viewBox="0 0 5 5" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M5 2.5 C5 3.88071 3.88071 5 2.5 5 C1.11929 5 0 3.88071 0 2.5 C0 1.11929 1.11929 0 2.5 0 C3.88071 0 5 1.11929 5 2.5 Z" fill="#f07178"/></svg>
+              <svg style={{ width: "5px", height: "5px", flexShrink: 0, display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="5" height="5" viewBox="0 0 5 5" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M5 2.5 C5 3.88071 3.88071 5 2.5 5 C1.11929 5 0 3.88071 0 2.5 C0 1.11929 1.11929 0 2.5 0 C3.88071 0 5 1.11929 5 2.5 Z" fill="#f07178"/></svg>
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "13px", fontFamily: "'Geist'", fontSize: "10px", fontWeight: 500, color: "#f07178", letterSpacing: "-0.01em", textTransform: "uppercase" }}>Bottleneck</p>
             </div>
           </div>
@@ -54,30 +54,30 @@ export function FollowUp2Drawer() {
           <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "16px", fontFamily: "'Geist'", fontSize: "12px", fontWeight: 400, color: "#8a8a8a" }}>Overdue after 7 days</p>
         </div>
         <div style={{ width: "384px", height: "150px", flexShrink: 0, position: "relative" }}>
-          <svg style={{ position: "absolute", left: "26px", top: "8px", width: "358px", height: "0px", display: "block", lineHeight: 0 }} xmlns="http://www.w3.org/2000/svg" width="358" height="0.01" viewBox="0 0 358 0.01" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M0 0L358 0" fill="none" stroke="#2c2c2c" strokeWidth="1" strokeDasharray="3 3" strokeLinecap="butt"/></svg>
+          <svg style={{ position: "absolute", left: "26px", top: "8px", width: "358px", height: "0px", display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="358" height="1" viewBox="0 0 358 1" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M0 0L358 0" fill="none" stroke="#2c2c2c" strokeWidth="1" strokeDasharray="3 3" strokeLinecap="butt"/></svg>
           <p style={{ position: "absolute", left: "2px", top: "0px", margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "16px", fontFamily: "'Geist'", fontSize: "12px", fontWeight: 400, color: "#7c7c7c" }}>80</p>
-          <svg style={{ position: "absolute", left: "26px", top: "66px", width: "358px", height: "0px", display: "block", lineHeight: 0 }} xmlns="http://www.w3.org/2000/svg" width="358" height="0.01" viewBox="0 0 358 0.01" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M0 0L358 0" fill="none" stroke="#2c2c2c" strokeWidth="1" strokeDasharray="3 3" strokeLinecap="butt"/></svg>
+          <svg style={{ position: "absolute", left: "26px", top: "66px", width: "358px", height: "0px", display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="358" height="1" viewBox="0 0 358 1" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M0 0L358 0" fill="none" stroke="#2c2c2c" strokeWidth="1" strokeDasharray="3 3" strokeLinecap="butt"/></svg>
           <p style={{ position: "absolute", left: "2px", top: "58px", margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "16px", fontFamily: "'Geist'", fontSize: "12px", fontWeight: 400, color: "#7c7c7c" }}>40</p>
           <div style={{ position: "absolute", left: "26px", top: "123.5px", width: "358px", height: "1px", background: "#333333" }} />
           <p style={{ position: "absolute", left: "10px", top: "116px", margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "16px", fontFamily: "'Geist'", fontSize: "12px", fontWeight: 400, color: "#7c7c7c" }}>0</p>
-          <div style={{ position: "absolute", left: "41.8px", top: "35.6px", width: "40px", height: "88.5px", borderRadius: "4px", background: "linear-gradient(180deg, #8c70ff 0%, #7b5bff 100%)", boxShadow: "inset 0 0 0 1px rgba(96, 71, 199, 0.38), inset 0px 1px 0px 0px rgba(255, 255, 255, 0.22), inset 0px 0px 6px 0px rgba(255, 255, 255, 0.1), 0px 1px 1.5px 0px rgba(0, 0, 0, 0.35)", overflow: "hidden" }} />
+          <div style={{ position: "absolute", left: "41.8px", top: "35.55px", width: "40px", height: "88.45px", borderRadius: "4px", background: "linear-gradient(180deg, #8c70ff 0%, #7b5bff 100%)", boxShadow: "inset 0 0 0 1px rgba(96, 71, 199, 0.38), inset 0px 1px 0px 0px rgba(255, 255, 255, 0.22), inset 0px 0px 6px 0px rgba(255, 255, 255, 0.1), 0px 1px 1.5px 0px rgba(0, 0, 0, 0.35)", overflow: "hidden" }} />
           <div style={{ position: "absolute", left: "113.4px", top: "48.6px", width: "40px", height: "75.4px", borderRadius: "4px", background: "linear-gradient(180deg, #8c70ff 0%, #7b5bff 100%)", boxShadow: "inset 0 0 0 1px rgba(96, 71, 199, 0.38), inset 0px 1px 0px 0px rgba(255, 255, 255, 0.22), inset 0px 0px 6px 0px rgba(255, 255, 255, 0.1), 0px 1px 1.5px 0px rgba(0, 0, 0, 0.35)", overflow: "hidden" }} />
           <div style={{ position: "absolute", left: "185px", top: "19.6px", width: "40px", height: "104.4px", borderRadius: "4px", background: "linear-gradient(180deg, #8c70ff 0%, #7b5bff 100%)", boxShadow: "inset 0 0 0 1px rgba(96, 71, 199, 0.38), inset 0px 1px 0px 0px rgba(255, 255, 255, 0.22), inset 0px 0px 6px 0px rgba(255, 255, 255, 0.1), 0px 1px 1.5px 0px rgba(0, 0, 0, 0.35)", overflow: "hidden" }} />
-          <div style={{ position: "absolute", left: "256.6px", top: "79.1px", width: "40px", height: "45px", borderRadius: "4px", background: "linear-gradient(180deg, #e86064 0%, #e5484d 100%)", boxShadow: "inset 0 0 0 1px rgba(179, 56, 60, 0.38), inset 0px 1px 0px 0px rgba(255, 255, 255, 0.22), inset 0px 0px 6px 0px rgba(255, 255, 255, 0.1), 0px 1px 1.5px 0px rgba(0, 0, 0, 0.35)", overflow: "hidden" }} />
+          <div style={{ position: "absolute", left: "256.6px", top: "79.05px", width: "40px", height: "44.95px", borderRadius: "4px", background: "linear-gradient(180deg, #e86064 0%, #e5484d 100%)", boxShadow: "inset 0 0 0 1px rgba(179, 56, 60, 0.38), inset 0px 1px 0px 0px rgba(255, 255, 255, 0.22), inset 0px 0px 6px 0px rgba(255, 255, 255, 0.1), 0px 1px 1.5px 0px rgba(0, 0, 0, 0.35)", overflow: "hidden" }} />
           <div style={{ position: "absolute", left: "328.2px", top: "100.8px", width: "40px", height: "23.2px", borderRadius: "4px", background: "linear-gradient(180deg, #e86064 0%, #e5484d 100%)", boxShadow: "inset 0 0 0 1px rgba(179, 56, 60, 0.38), inset 0px 1px 0px 0px rgba(255, 255, 255, 0.22), inset 0px 0px 6px 0px rgba(255, 255, 255, 0.1), 0px 1px 1.5px 0px rgba(0, 0, 0, 0.35)", overflow: "hidden" }} />
           <p style={{ position: "absolute", left: "46.8px", top: "134px", margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "16px", fontFamily: "'Geist'", fontSize: "12px", fontWeight: 400, color: "#7c7c7c" }}>0–2d</p>
           <p style={{ position: "absolute", left: "118.9px", top: "134px", margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "16px", fontFamily: "'Geist'", fontSize: "12px", fontWeight: 400, color: "#7c7c7c" }}>3–4d</p>
           <p style={{ position: "absolute", left: "190.5px", top: "134px", margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "16px", fontFamily: "'Geist'", fontSize: "12px", fontWeight: 400, color: "#7c7c7c" }}>5–7d</p>
           <p style={{ position: "absolute", left: "259.6px", top: "134px", margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "16px", fontFamily: "'Geist'", fontSize: "12px", fontWeight: 400, color: "#7c7c7c" }}>8–14d</p>
           <p style={{ position: "absolute", left: "335.2px", top: "134px", margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "16px", fontFamily: "'Geist'", fontSize: "12px", fontWeight: 400, color: "#7c7c7c" }}>15d+</p>
-          <svg style={{ position: "absolute", left: "240.8px", top: "18px", width: "0px", height: "102px", display: "block", lineHeight: 0 }} xmlns="http://www.w3.org/2000/svg" width="0.01" height="102" viewBox="0 0 0.01 102" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M 0 0 L 0 102" fill="none" stroke="#f07178" strokeOpacity="0.7" strokeWidth="1" strokeDasharray="3 3" strokeLinecap="round"/></svg>
+          <svg style={{ position: "absolute", left: "240.8px", top: "18px", width: "0px", height: "102px", display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="1" height="102" viewBox="0 0 1 102" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M 0 0 L 0 102" fill="none" stroke="#f07178" strokeOpacity="0.7" strokeWidth="1" strokeDasharray="3 3" strokeLinecap="round"/></svg>
           <div style={{ position: "absolute", left: "245.8px", top: "18px", width: "51px", height: "20px", borderRadius: "5px", background: "rgba(229, 72, 77, 0.12)", boxShadow: "inset 0 0 0 1px rgba(229, 72, 77, 0.3)", display: "flex", flexDirection: "row", padding: "3px 7px 3px 7px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "14px", fontFamily: "'Geist'", fontSize: "11px", fontWeight: 500, color: "#f07178" }}>SLA 7d</p>
           </div>
-          <p style={{ position: "absolute", left: "55.8px", top: "18.6px", margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "14px", fontFamily: "'Geist'", fontSize: "11px", fontWeight: 500, color: "#dadada" }}>61</p>
+          <p style={{ position: "absolute", left: "55.8px", top: "18.55px", margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "14px", fontFamily: "'Geist'", fontSize: "11px", fontWeight: 500, color: "#dadada" }}>61</p>
           <p style={{ position: "absolute", left: "126.4px", top: "31.6px", margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "14px", fontFamily: "'Geist'", fontSize: "11px", fontWeight: 500, color: "#dadada" }}>52</p>
           <p style={{ position: "absolute", left: "198.5px", top: "2.6px", margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "14px", fontFamily: "'Geist'", fontSize: "11px", fontWeight: 500, color: "#dadada" }}>72</p>
-          <p style={{ position: "absolute", left: "270.6px", top: "62.1px", margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "14px", fontFamily: "'Geist'", fontSize: "11px", fontWeight: 500, color: "#f07178" }}>31</p>
+          <p style={{ position: "absolute", left: "270.6px", top: "62.05px", margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "14px", fontFamily: "'Geist'", fontSize: "11px", fontWeight: 500, color: "#f07178" }}>31</p>
           <p style={{ position: "absolute", left: "342.2px", top: "83.8px", margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "14px", fontFamily: "'Geist'", fontSize: "11px", fontWeight: 500, color: "#f07178" }}>16</p>
         </div>
       </div>
@@ -121,7 +121,7 @@ export function FollowUp2Drawer() {
               </div>
             </div>
             <div style={{ width: "150px", height: "4px", flexShrink: 0, borderRadius: "2px", background: "rgba(123, 91, 255, 0.1)", overflow: "hidden", position: "relative" }}>
-              <div style={{ position: "absolute", left: "0px", top: "0px", width: "123.1px", height: "4px", borderRadius: "2px", background: "#7b5bff" }} />
+              <div style={{ position: "absolute", left: "0px", top: "0px", width: "123.08px", height: "4px", borderRadius: "2px", background: "#7b5bff" }} />
             </div>
           </div>
           <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "6px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
@@ -143,7 +143,7 @@ export function FollowUp2Drawer() {
               </div>
             </div>
             <div style={{ width: "150px", height: "4px", flexShrink: 0, borderRadius: "2px", background: "rgba(123, 91, 255, 0.1)", overflow: "hidden", position: "relative" }}>
-              <div style={{ position: "absolute", left: "0px", top: "0px", width: "69.2px", height: "4px", borderRadius: "2px", background: "#7b5bff" }} />
+              <div style={{ position: "absolute", left: "0px", top: "0px", width: "69.23px", height: "4px", borderRadius: "2px", background: "#7b5bff" }} />
             </div>
           </div>
           <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "6px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
@@ -165,7 +165,7 @@ export function FollowUp2Drawer() {
               </div>
             </div>
             <div style={{ width: "150px", height: "4px", flexShrink: 0, borderRadius: "2px", background: "rgba(123, 91, 255, 0.1)", overflow: "hidden", position: "relative" }}>
-              <div style={{ position: "absolute", left: "0px", top: "0px", width: "40.4px", height: "4px", borderRadius: "2px", background: "#7b5bff" }} />
+              <div style={{ position: "absolute", left: "0px", top: "0px", width: "40.38px", height: "4px", borderRadius: "2px", background: "#7b5bff" }} />
             </div>
           </div>
           <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "6px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
@@ -187,7 +187,7 @@ export function FollowUp2Drawer() {
               </div>
             </div>
             <div style={{ width: "150px", height: "4px", flexShrink: 0, borderRadius: "2px", background: "rgba(123, 91, 255, 0.1)", overflow: "hidden", position: "relative" }}>
-              <div style={{ position: "absolute", left: "0px", top: "0px", width: "21.2px", height: "4px", borderRadius: "2px", background: "#7b5bff" }} />
+              <div style={{ position: "absolute", left: "0px", top: "0px", width: "21.15px", height: "4px", borderRadius: "2px", background: "#7b5bff" }} />
             </div>
           </div>
           <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "6px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
@@ -206,7 +206,7 @@ export function FollowUp2Drawer() {
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "17px", fontFamily: "'Geist'", fontSize: "13px", fontWeight: 500, color: "#ededed" }}>8 other legs</p>
             </div>
             <div style={{ width: "150px", height: "4px", flexShrink: 0, borderRadius: "2px", background: "rgba(123, 91, 255, 0.1)", overflow: "hidden", position: "relative" }}>
-              <div style={{ position: "absolute", left: "0px", top: "0px", width: "42.3px", height: "4px", borderRadius: "2px", background: "#7b5bff" }} />
+              <div style={{ position: "absolute", left: "0px", top: "0px", width: "42.31px", height: "4px", borderRadius: "2px", background: "#7b5bff" }} />
             </div>
           </div>
           <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "6px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
@@ -220,7 +220,7 @@ export function FollowUp2Drawer() {
       <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", padding: "14px 18px 14px 18px", gap: "10px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
         <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "18px", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 500, color: "#ededed" }}>Oldest waiting</p>
         <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-          <svg style={{ width: "6px", height: "6px", flexShrink: 0, display: "block", lineHeight: 0 }} xmlns="http://www.w3.org/2000/svg" width="6" height="6" viewBox="0 0 6 6" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M6 3 C6 4.65685 4.65685 6 3 6 C1.34315 6 0 4.65685 0 3 C0 1.34315 1.34315 0 3 0 C4.65685 0 6 1.34315 6 3 Z" fill="#f07178"/></svg>
+          <svg style={{ width: "6px", height: "6px", flexShrink: 0, display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="6" height="6" viewBox="0 0 6 6" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M6 3 C6 4.65685 4.65685 6 3 6 C1.34315 6 0 4.65685 0 3 C0 1.34315 1.34315 0 3 0 C4.65685 0 6 1.34315 6 3 Z" fill="#f07178"/></svg>
           <div style={{ flex: "1 1 0", minWidth: 0, flexShrink: 0, display: "flex", flexDirection: "column", gap: "2px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "17px", fontFamily: "'Geist'", fontSize: "13px", fontWeight: 500, color: "#ededed" }}>Rosa Almonte</p>
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "16px", fontFamily: "'Geist'", fontSize: "12px", fontWeight: 400, color: "#8a8a8a" }}>Oscar & Nayrobi · MG1 Jul 9</p>
@@ -230,7 +230,7 @@ export function FollowUp2Drawer() {
           </div>
         </div>
         <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-          <svg style={{ width: "6px", height: "6px", flexShrink: 0, display: "block", lineHeight: 0 }} xmlns="http://www.w3.org/2000/svg" width="6" height="6" viewBox="0 0 6 6" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M6 3 C6 4.65685 4.65685 6 3 6 C1.34315 6 0 4.65685 0 3 C0 1.34315 1.34315 0 3 0 C4.65685 0 6 1.34315 6 3 Z" fill="#f07178"/></svg>
+          <svg style={{ width: "6px", height: "6px", flexShrink: 0, display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="6" height="6" viewBox="0 0 6 6" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M6 3 C6 4.65685 4.65685 6 3 6 C1.34315 6 0 4.65685 0 3 C0 1.34315 1.34315 0 3 0 C4.65685 0 6 1.34315 6 3 Z" fill="#f07178"/></svg>
           <div style={{ flex: "1 1 0", minWidth: 0, flexShrink: 0, display: "flex", flexDirection: "column", gap: "2px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "17px", fontFamily: "'Geist'", fontSize: "13px", fontWeight: 500, color: "#ededed" }}>Miguel Taveras</p>
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "16px", fontFamily: "'Geist'", fontSize: "12px", fontWeight: 400, color: "#8a8a8a" }}>Julio & Liz · MG1 Jul 13</p>
@@ -240,7 +240,7 @@ export function FollowUp2Drawer() {
           </div>
         </div>
         <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-          <svg style={{ width: "6px", height: "6px", flexShrink: 0, display: "block", lineHeight: 0 }} xmlns="http://www.w3.org/2000/svg" width="6" height="6" viewBox="0 0 6 6" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M6 3 C6 4.65685 4.65685 6 3 6 C1.34315 6 0 4.65685 0 3 C0 1.34315 1.34315 0 3 0 C4.65685 0 6 1.34315 6 3 Z" fill="#f07178"/></svg>
+          <svg style={{ width: "6px", height: "6px", flexShrink: 0, display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="6" height="6" viewBox="0 0 6 6" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M6 3 C6 4.65685 4.65685 6 3 6 C1.34315 6 0 4.65685 0 3 C0 1.34315 1.34315 0 3 0 C4.65685 0 6 1.34315 6 3 Z" fill="#f07178"/></svg>
           <div style={{ flex: "1 1 0", minWidth: 0, flexShrink: 0, display: "flex", flexDirection: "column", gap: "2px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "17px", fontFamily: "'Geist'", fontSize: "13px", fontWeight: 500, color: "#ededed" }}>Familia Ortiz</p>
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "16px", fontFamily: "'Geist'", fontSize: "12px", fontWeight: 400, color: "#8a8a8a" }}>Edwin & Wiliannys · MG1 Jul 15</p>

@@ -138,21 +138,21 @@ export function BodyModalNewSubscriptionsInAugust() {
           <div style={{ alignSelf: "stretch", height: "1px", flexShrink: 0, background: "#2e2e2e" }} />
           <div style={{ width: "266px", flexShrink: 0, display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center", boxSizing: "border-box" }}>
             <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "6px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-              <div style={{ width: "6.1px", height: "6.1px", flexShrink: 0, borderRadius: "3px", background: "#7b5bff" }} />
+              <div style={{ width: "6.11px", height: "6.11px", flexShrink: 0, borderRadius: "3.05px", background: "#7b5bff" }} />
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "18px", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 500, color: "#ededed" }}>Matching · 5%</p>
             </div>
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "16px", fontFamily: "'Geist'", fontSize: "12px", fontWeight: 500, color: "#9a9a9a" }}>$4,114</p>
           </div>
           <div style={{ width: "266px", flexShrink: 0, display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center", boxSizing: "border-box" }}>
             <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "6px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-              <div style={{ width: "6.1px", height: "6.1px", flexShrink: 0, borderRadius: "3px", background: "#7aa2f7" }} />
+              <div style={{ width: "6.11px", height: "6.11px", flexShrink: 0, borderRadius: "3.05px", background: "#7aa2f7" }} />
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "18px", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 500, color: "#ededed" }}>Leadership · 4%</p>
             </div>
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "16px", fontFamily: "'Geist'", fontSize: "12px", fontWeight: 500, color: "#9a9a9a" }}>$3,291</p>
           </div>
           <div style={{ width: "266px", flexShrink: 0, display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center", boxSizing: "border-box" }}>
             <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "6px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-              <div style={{ width: "6.1px", height: "6.1px", flexShrink: 0, borderRadius: "3px", background: "#e5559b" }} />
+              <div style={{ width: "6.11px", height: "6.11px", flexShrink: 0, borderRadius: "3.05px", background: "#e5559b" }} />
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "18px", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 500, color: "#ededed" }}>Fast start · 3%</p>
             </div>
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "16px", fontFamily: "'Geist'", fontSize: "12px", fontWeight: 500, color: "#9a9a9a" }}>$2,468</p>

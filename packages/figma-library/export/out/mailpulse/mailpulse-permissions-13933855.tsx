@@ -4,108 +4,108 @@ import { CircleCheck as CircleCheckBulk } from "foundryui-icons/react/bulk";
 
 export function Permissions() {
   return (
-    <div style={{ width: "814.3px", height: "222.1px", borderRadius: "11px", boxShadow: "inset 0 0 0 0.9px #ededed", overflow: "hidden", display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
-      <div style={{ width: "814.3px", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
-        <div style={{ width: "814.3px", flexShrink: 0, background: "#fafafa", boxShadow: "inset 0 -0.9px 0 0 #ededed", display: "flex", flexDirection: "row", padding: "0px 0px 0.9px 0px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-          <div style={{ width: "330px", height: "43.9px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 16.5px 0px 16.5px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-            <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "17px", fontFamily: "'Geist'", fontSize: "12.8px", fontWeight: 500, color: "#818892" }}>Permission</p>
+    <div style={{ width: "814.28px", height: "222.07px", borderRadius: "10.97px", boxShadow: "inset 0 0 0 0.91px #ededed", overflow: "hidden", display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+      <div style={{ width: "814.28px", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+        <div style={{ width: "814.28px", flexShrink: 0, background: "#fafafa", boxShadow: "inset 0 -0.91px 0 0 #ededed", display: "flex", flexDirection: "row", padding: "0px 0px 0.91px 0px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+          <div style={{ width: "330px", height: "43.87px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 16.45px 0px 16.45px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "17px", fontFamily: "'Geist'", fontSize: "12.79px", fontWeight: 500, color: "#818892" }}>Permission</p>
           </div>
-          <div style={{ width: "121.1px", height: "43.9px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 11px 0px 11px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-            <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "17px", fontFamily: "'Geist'", fontSize: "12.8px", fontWeight: 500, color: "#818892" }}>Admin</p>
+          <div style={{ width: "121.07px", height: "43.87px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 10.97px 0px 10.97px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "17px", fontFamily: "'Geist'", fontSize: "12.79px", fontWeight: 500, color: "#818892" }}>Admin</p>
           </div>
-          <div style={{ width: "121.1px", height: "43.9px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 11px 0px 11px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-            <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "17px", fontFamily: "'Geist'", fontSize: "12.8px", fontWeight: 500, color: "#818892" }}>Editor</p>
+          <div style={{ width: "121.07px", height: "43.87px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 10.97px 0px 10.97px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "17px", fontFamily: "'Geist'", fontSize: "12.79px", fontWeight: 500, color: "#818892" }}>Editor</p>
           </div>
-          <div style={{ width: "121.1px", height: "43.9px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 11px 0px 11px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-            <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "17px", fontFamily: "'Geist'", fontSize: "12.8px", fontWeight: 500, color: "#818892" }}>Analyst</p>
+          <div style={{ width: "121.07px", height: "43.87px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 10.97px 0px 10.97px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "17px", fontFamily: "'Geist'", fontSize: "12.79px", fontWeight: 500, color: "#818892" }}>Analyst</p>
           </div>
-          <div style={{ width: "121.1px", height: "43.9px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 16.5px 0px 11px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-            <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "17px", fontFamily: "'Geist'", fontSize: "12.8px", fontWeight: 500, color: "#818892" }}>Billing</p>
-          </div>
-        </div>
-        <div style={{ width: "814.3px", flexShrink: 0, boxShadow: "inset 0 -0.9px 0 0 #ededed", display: "flex", flexDirection: "row", padding: "0px 0px 0.9px 0px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-          <div style={{ width: "330px", height: "34.7px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 16.5px 0px 16.5px", gap: "7.3px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-            <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "11px", fontWeight: 500, color: "#222222", lineHeight: "1.5" }}>Write and send campaigns</p>
-          </div>
-          <div style={{ width: "121.1px", height: "34.7px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 11px 0px 11px", gap: "7.3px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-            <CircleCheckBulk size={14.6} style={{ width: "14.6px", height: "14.6px", flexShrink: 0, color: "#15b392", display: "block" }} />
-          </div>
-          <div style={{ width: "121.1px", height: "34.7px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 11px 0px 11px", gap: "7.3px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-            <CircleCheckBulk size={14.6} style={{ width: "14.6px", height: "14.6px", flexShrink: 0, color: "#15b392", display: "block" }} />
-          </div>
-          <div style={{ width: "121.1px", height: "34.7px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 11px 0px 11px", gap: "7.3px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-            <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "14px", fontFamily: "'Geist'", fontSize: "11px", fontWeight: 400, color: "#c4c4c4" }}>—</p>
-          </div>
-          <div style={{ width: "121.1px", height: "34.7px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 16.5px 0px 11px", gap: "7.3px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-            <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "14px", fontFamily: "'Geist'", fontSize: "11px", fontWeight: 400, color: "#c4c4c4" }}>—</p>
+          <div style={{ width: "121.07px", height: "43.87px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 16.45px 0px 10.97px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "17px", fontFamily: "'Geist'", fontSize: "12.79px", fontWeight: 500, color: "#818892" }}>Billing</p>
           </div>
         </div>
-        <div style={{ width: "814.3px", flexShrink: 0, boxShadow: "inset 0 -0.9px 0 0 #ededed", display: "flex", flexDirection: "row", padding: "0px 0px 0.9px 0px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-          <div style={{ width: "330px", height: "34.7px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 16.5px 0px 16.5px", gap: "7.3px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-            <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "11px", fontWeight: 500, color: "#222222", lineHeight: "1.5" }}>Manage subscribers and imports</p>
+        <div style={{ width: "814.28px", flexShrink: 0, boxShadow: "inset 0 -0.91px 0 0 #ededed", display: "flex", flexDirection: "row", padding: "0px 0px 0.91px 0px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+          <div style={{ width: "330px", height: "34.73px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 16.45px 0px 16.45px", gap: "7.31px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "10.97px", fontWeight: 500, color: "#222222", lineHeight: "1.5" }}>Write and send campaigns</p>
           </div>
-          <div style={{ width: "121.1px", height: "34.7px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 11px 0px 11px", gap: "7.3px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-            <CircleCheckBulk size={14.6} style={{ width: "14.6px", height: "14.6px", flexShrink: 0, color: "#15b392", display: "block" }} />
+          <div style={{ width: "121.07px", height: "34.73px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 10.97px 0px 10.97px", gap: "7.31px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <CircleCheckBulk size={14.6} style={{ width: "14.62px", height: "14.62px", flexShrink: 0, color: "#15b392", display: "block" }} />
           </div>
-          <div style={{ width: "121.1px", height: "34.7px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 11px 0px 11px", gap: "7.3px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-            <CircleCheckBulk size={14.6} style={{ width: "14.6px", height: "14.6px", flexShrink: 0, color: "#15b392", display: "block" }} />
+          <div style={{ width: "121.07px", height: "34.73px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 10.97px 0px 10.97px", gap: "7.31px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <CircleCheckBulk size={14.6} style={{ width: "14.62px", height: "14.62px", flexShrink: 0, color: "#15b392", display: "block" }} />
           </div>
-          <div style={{ width: "121.1px", height: "34.7px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 11px 0px 11px", gap: "7.3px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-            <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "14px", fontFamily: "'Geist'", fontSize: "11px", fontWeight: 400, color: "#c4c4c4" }}>—</p>
+          <div style={{ width: "121.07px", height: "34.73px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 10.97px 0px 10.97px", gap: "7.31px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "14px", fontFamily: "'Geist'", fontSize: "10.97px", fontWeight: 400, color: "#c4c4c4" }}>—</p>
           </div>
-          <div style={{ width: "121.1px", height: "34.7px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 16.5px 0px 11px", gap: "7.3px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-            <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "14px", fontFamily: "'Geist'", fontSize: "11px", fontWeight: 400, color: "#c4c4c4" }}>—</p>
-          </div>
-        </div>
-        <div style={{ width: "814.3px", flexShrink: 0, boxShadow: "inset 0 -0.9px 0 0 #ededed", display: "flex", flexDirection: "row", padding: "0px 0px 0.9px 0px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-          <div style={{ width: "330px", height: "34.7px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 16.5px 0px 16.5px", gap: "7.3px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-            <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "11px", fontWeight: 500, color: "#222222", lineHeight: "1.5" }}>View reports and analytics</p>
-          </div>
-          <div style={{ width: "121.1px", height: "34.7px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 11px 0px 11px", gap: "7.3px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-            <CircleCheckBulk size={14.6} style={{ width: "14.6px", height: "14.6px", flexShrink: 0, color: "#15b392", display: "block" }} />
-          </div>
-          <div style={{ width: "121.1px", height: "34.7px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 11px 0px 11px", gap: "7.3px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-            <CircleCheckBulk size={14.6} style={{ width: "14.6px", height: "14.6px", flexShrink: 0, color: "#15b392", display: "block" }} />
-          </div>
-          <div style={{ width: "121.1px", height: "34.7px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 11px 0px 11px", gap: "7.3px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-            <CircleCheckBulk size={14.6} style={{ width: "14.6px", height: "14.6px", flexShrink: 0, color: "#15b392", display: "block" }} />
-          </div>
-          <div style={{ width: "121.1px", height: "34.7px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 16.5px 0px 11px", gap: "7.3px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-            <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "14px", fontFamily: "'Geist'", fontSize: "11px", fontWeight: 400, color: "#c4c4c4" }}>—</p>
+          <div style={{ width: "121.07px", height: "34.73px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 16.45px 0px 10.97px", gap: "7.31px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "14px", fontFamily: "'Geist'", fontSize: "10.97px", fontWeight: 400, color: "#c4c4c4" }}>—</p>
           </div>
         </div>
-        <div style={{ width: "814.3px", flexShrink: 0, boxShadow: "inset 0 -0.9px 0 0 #ededed", display: "flex", flexDirection: "row", padding: "0px 0px 0.9px 0px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-          <div style={{ width: "330px", height: "34.7px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 16.5px 0px 16.5px", gap: "7.3px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-            <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "11px", fontWeight: 500, color: "#222222", lineHeight: "1.5" }}>Manage team and sending domain</p>
+        <div style={{ width: "814.28px", flexShrink: 0, boxShadow: "inset 0 -0.91px 0 0 #ededed", display: "flex", flexDirection: "row", padding: "0px 0px 0.91px 0px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+          <div style={{ width: "330px", height: "34.73px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 16.45px 0px 16.45px", gap: "7.31px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "10.97px", fontWeight: 500, color: "#222222", lineHeight: "1.5" }}>Manage subscribers and imports</p>
           </div>
-          <div style={{ width: "121.1px", height: "34.7px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 11px 0px 11px", gap: "7.3px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-            <CircleCheckBulk size={14.6} style={{ width: "14.6px", height: "14.6px", flexShrink: 0, color: "#15b392", display: "block" }} />
+          <div style={{ width: "121.07px", height: "34.73px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 10.97px 0px 10.97px", gap: "7.31px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <CircleCheckBulk size={14.6} style={{ width: "14.62px", height: "14.62px", flexShrink: 0, color: "#15b392", display: "block" }} />
           </div>
-          <div style={{ width: "121.1px", height: "34.7px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 11px 0px 11px", gap: "7.3px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-            <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "14px", fontFamily: "'Geist'", fontSize: "11px", fontWeight: 400, color: "#c4c4c4" }}>—</p>
+          <div style={{ width: "121.07px", height: "34.73px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 10.97px 0px 10.97px", gap: "7.31px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <CircleCheckBulk size={14.6} style={{ width: "14.62px", height: "14.62px", flexShrink: 0, color: "#15b392", display: "block" }} />
           </div>
-          <div style={{ width: "121.1px", height: "34.7px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 11px 0px 11px", gap: "7.3px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-            <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "14px", fontFamily: "'Geist'", fontSize: "11px", fontWeight: 400, color: "#c4c4c4" }}>—</p>
+          <div style={{ width: "121.07px", height: "34.73px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 10.97px 0px 10.97px", gap: "7.31px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "14px", fontFamily: "'Geist'", fontSize: "10.97px", fontWeight: 400, color: "#c4c4c4" }}>—</p>
           </div>
-          <div style={{ width: "121.1px", height: "34.7px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 16.5px 0px 11px", gap: "7.3px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-            <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "14px", fontFamily: "'Geist'", fontSize: "11px", fontWeight: 400, color: "#c4c4c4" }}>—</p>
+          <div style={{ width: "121.07px", height: "34.73px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 16.45px 0px 10.97px", gap: "7.31px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "14px", fontFamily: "'Geist'", fontSize: "10.97px", fontWeight: 400, color: "#c4c4c4" }}>—</p>
           </div>
         </div>
-        <div style={{ width: "814.3px", flexShrink: 0, boxShadow: "inset 0 0 0 0px #ededed", display: "flex", flexDirection: "row", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-          <div style={{ width: "330px", height: "34.7px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 16.5px 0px 16.5px", gap: "7.3px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-            <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "11px", fontWeight: 500, color: "#222222", lineHeight: "1.5" }}>Invoices and plan</p>
+        <div style={{ width: "814.28px", flexShrink: 0, boxShadow: "inset 0 -0.91px 0 0 #ededed", display: "flex", flexDirection: "row", padding: "0px 0px 0.91px 0px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+          <div style={{ width: "330px", height: "34.73px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 16.45px 0px 16.45px", gap: "7.31px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "10.97px", fontWeight: 500, color: "#222222", lineHeight: "1.5" }}>View reports and analytics</p>
           </div>
-          <div style={{ width: "121.1px", height: "34.7px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 11px 0px 11px", gap: "7.3px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-            <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "14px", fontFamily: "'Geist'", fontSize: "11px", fontWeight: 400, color: "#c4c4c4" }}>—</p>
+          <div style={{ width: "121.07px", height: "34.73px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 10.97px 0px 10.97px", gap: "7.31px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <CircleCheckBulk size={14.6} style={{ width: "14.62px", height: "14.62px", flexShrink: 0, color: "#15b392", display: "block" }} />
           </div>
-          <div style={{ width: "121.1px", height: "34.7px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 11px 0px 11px", gap: "7.3px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-            <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "14px", fontFamily: "'Geist'", fontSize: "11px", fontWeight: 400, color: "#c4c4c4" }}>—</p>
+          <div style={{ width: "121.07px", height: "34.73px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 10.97px 0px 10.97px", gap: "7.31px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <CircleCheckBulk size={14.6} style={{ width: "14.62px", height: "14.62px", flexShrink: 0, color: "#15b392", display: "block" }} />
           </div>
-          <div style={{ width: "121.1px", height: "34.7px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 11px 0px 11px", gap: "7.3px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-            <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "14px", fontFamily: "'Geist'", fontSize: "11px", fontWeight: 400, color: "#c4c4c4" }}>—</p>
+          <div style={{ width: "121.07px", height: "34.73px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 10.97px 0px 10.97px", gap: "7.31px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <CircleCheckBulk size={14.6} style={{ width: "14.62px", height: "14.62px", flexShrink: 0, color: "#15b392", display: "block" }} />
           </div>
-          <div style={{ width: "121.1px", height: "34.7px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 16.5px 0px 11px", gap: "7.3px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-            <CircleCheckBulk size={14.6} style={{ width: "14.6px", height: "14.6px", flexShrink: 0, color: "#15b392", display: "block" }} />
+          <div style={{ width: "121.07px", height: "34.73px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 16.45px 0px 10.97px", gap: "7.31px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "14px", fontFamily: "'Geist'", fontSize: "10.97px", fontWeight: 400, color: "#c4c4c4" }}>—</p>
+          </div>
+        </div>
+        <div style={{ width: "814.28px", flexShrink: 0, boxShadow: "inset 0 -0.91px 0 0 #ededed", display: "flex", flexDirection: "row", padding: "0px 0px 0.91px 0px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+          <div style={{ width: "330px", height: "34.73px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 16.45px 0px 16.45px", gap: "7.31px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "10.97px", fontWeight: 500, color: "#222222", lineHeight: "1.5" }}>Manage team and sending domain</p>
+          </div>
+          <div style={{ width: "121.07px", height: "34.73px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 10.97px 0px 10.97px", gap: "7.31px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <CircleCheckBulk size={14.6} style={{ width: "14.62px", height: "14.62px", flexShrink: 0, color: "#15b392", display: "block" }} />
+          </div>
+          <div style={{ width: "121.07px", height: "34.73px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 10.97px 0px 10.97px", gap: "7.31px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "14px", fontFamily: "'Geist'", fontSize: "10.97px", fontWeight: 400, color: "#c4c4c4" }}>—</p>
+          </div>
+          <div style={{ width: "121.07px", height: "34.73px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 10.97px 0px 10.97px", gap: "7.31px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "14px", fontFamily: "'Geist'", fontSize: "10.97px", fontWeight: 400, color: "#c4c4c4" }}>—</p>
+          </div>
+          <div style={{ width: "121.07px", height: "34.73px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 16.45px 0px 10.97px", gap: "7.31px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "14px", fontFamily: "'Geist'", fontSize: "10.97px", fontWeight: 400, color: "#c4c4c4" }}>—</p>
+          </div>
+        </div>
+        <div style={{ width: "814.28px", flexShrink: 0, boxShadow: "inset 0 0 0 0px #ededed", display: "flex", flexDirection: "row", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+          <div style={{ width: "330px", height: "34.73px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 16.45px 0px 16.45px", gap: "7.31px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "10.97px", fontWeight: 500, color: "#222222", lineHeight: "1.5" }}>Invoices and plan</p>
+          </div>
+          <div style={{ width: "121.07px", height: "34.73px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 10.97px 0px 10.97px", gap: "7.31px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "14px", fontFamily: "'Geist'", fontSize: "10.97px", fontWeight: 400, color: "#c4c4c4" }}>—</p>
+          </div>
+          <div style={{ width: "121.07px", height: "34.73px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 10.97px 0px 10.97px", gap: "7.31px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "14px", fontFamily: "'Geist'", fontSize: "10.97px", fontWeight: 400, color: "#c4c4c4" }}>—</p>
+          </div>
+          <div style={{ width: "121.07px", height: "34.73px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 10.97px 0px 10.97px", gap: "7.31px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "14px", fontFamily: "'Geist'", fontSize: "10.97px", fontWeight: 400, color: "#c4c4c4" }}>—</p>
+          </div>
+          <div style={{ width: "121.07px", height: "34.73px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 16.45px 0px 10.97px", gap: "7.31px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <CircleCheckBulk size={14.6} style={{ width: "14.62px", height: "14.62px", flexShrink: 0, color: "#15b392", display: "block" }} />
           </div>
         </div>
       </div>

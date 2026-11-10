@@ -13,13 +13,13 @@ export function TopBar() {
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#555555", lineHeight: "1.100000023841858", textBox: "trim-both cap alphabetic", height: "10px" }}>Search</p>
           </div>
           <div style={{ position: "absolute", left: "349px", top: "8px", width: "42px", height: "20px", borderRadius: "6px", background: "#fafafa", boxShadow: "inset 0 0 0 1px #d7d9db", overflow: "hidden", display: "flex", flexDirection: "row", padding: "1px 5px 1px 5px", gap: "1px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
-            <Command size={12} style={{ width: "12px", height: "12px", flexShrink: 0, color: "#555555", display: "block" }} />
-            <Plus size={10} style={{ width: "10px", height: "10px", flexShrink: 0, color: "#555555", display: "block" }} />
+            <Command size={12} strokeWidth={3} style={{ width: "12px", height: "12px", flexShrink: 0, color: "#555555", display: "block" }} />
+            <Plus size={10} strokeWidth={3.6} style={{ width: "10px", height: "10px", flexShrink: 0, color: "#555555", display: "block" }} />
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "12px", fontWeight: 400, color: "#555555", textBox: "trim-both cap alphabetic", height: "9px" }}>K</p>
           </div>
           <div style={{ position: "absolute", left: "113px", top: "8px", width: "42px", height: "20px", borderRadius: "6px", background: "#fcfeff", boxShadow: "inset 0 0 0 1px #fafafa", overflow: "hidden", display: "flex", flexDirection: "row", padding: "1px 5px 1px 5px", gap: "1px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
-            <Command size={12} style={{ width: "12px", height: "12px", flexShrink: 0, color: "#888888", display: "block" }} />
-            <Plus size={10} style={{ width: "10px", height: "10px", flexShrink: 0, color: "#888888", display: "block" }} />
+            <Command size={12} strokeWidth={3} style={{ width: "12px", height: "12px", flexShrink: 0, color: "#888888", display: "block" }} />
+            <Plus size={10} strokeWidth={3.6} style={{ width: "10px", height: "10px", flexShrink: 0, color: "#888888", display: "block" }} />
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "12px", fontWeight: 400, color: "#888888", textBox: "trim-both cap alphabetic", height: "9px" }}>K</p>
           </div>
         </div>

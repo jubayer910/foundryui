@@ -102,7 +102,7 @@ export function CredentialsTable() {
         <div style={{ width: "150px", height: "40px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 12px 0px 12px", gap: "4px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
           <div style={{ flexShrink: 0, display: "flex", flexDirection: "column", gap: "8px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
             <div style={{ width: "96px", height: "6px", flexShrink: 0, borderRadius: "10px", background: "#fafafa", overflow: "hidden", position: "relative" }}>
-              <div style={{ position: "absolute", left: "0px", top: "0px", width: "70.1px", height: "6px", borderRadius: "10px", background: "#328ff9" }} />
+              <div style={{ position: "absolute", left: "0px", top: "0px", width: "70.08px", height: "6px", borderRadius: "10px", background: "#328ff9" }} />
             </div>
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "12px", fontWeight: 400, color: "#666666", lineHeight: "1.100000023841858", textBox: "trim-both cap alphabetic", height: "9px" }}>11 of 15 min</p>
           </div>
@@ -135,7 +135,7 @@ export function CredentialsTable() {
         <div style={{ width: "140px", height: "40px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 12px 0px 12px", gap: "4px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
           <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "8px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
             <div style={{ width: "24px", height: "24px", flexShrink: 0, borderRadius: "6px", background: "#f4f6f8", boxShadow: "inset 0 0 0 1px #eff1f2", display: "flex", flexDirection: "row", padding: "1px 1px 1px 1px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
-              <Mail size={14} style={{ width: "14px", height: "14px", flexShrink: 0, color: "#ea4335", display: "block" }} />
+              <Mail size={14} strokeWidth={2.57} style={{ width: "14px", height: "14px", flexShrink: 0, color: "#ea4335", display: "block" }} />
             </div>
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#333333", lineHeight: "1.100000023841858", textBox: "trim-both cap alphabetic", height: "10px" }}>Gmail</p>
           </div>
@@ -146,7 +146,7 @@ export function CredentialsTable() {
         <div style={{ width: "150px", height: "40px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 12px 0px 12px", gap: "4px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
           <div style={{ flexShrink: 0, display: "flex", flexDirection: "column", gap: "8px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
             <div style={{ width: "96px", height: "6px", flexShrink: 0, borderRadius: "10px", background: "#fafafa", overflow: "hidden", position: "relative" }}>
-              <div style={{ position: "absolute", left: "0px", top: "0px", width: "7.7px", height: "6px", borderRadius: "10px", background: "#f14c43" }} />
+              <div style={{ position: "absolute", left: "0px", top: "0px", width: "7.68px", height: "6px", borderRadius: "10px", background: "#f14c43" }} />
             </div>
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "12px", fontWeight: 400, color: "#666666", lineHeight: "1.100000023841858", textBox: "trim-both cap alphabetic", height: "9px" }}>2 of 24 min</p>
           </div>
@@ -179,7 +179,7 @@ export function CredentialsTable() {
         <div style={{ width: "140px", height: "40px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 12px 0px 12px", gap: "4px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
           <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "8px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
             <div style={{ width: "24px", height: "24px", flexShrink: 0, borderRadius: "6px", background: "#f4f6f8", boxShadow: "inset 0 0 0 1px #eff1f2", display: "flex", flexDirection: "row", padding: "1px 1px 1px 1px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
-              <Snow size={14} style={{ width: "14px", height: "14px", flexShrink: 0, color: "#29b5e8", display: "block" }} />
+              <Snow size={14} strokeWidth={2.57} style={{ width: "14px", height: "14px", flexShrink: 0, color: "#29b5e8", display: "block" }} />
             </div>
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#333333", lineHeight: "1.100000023841858", textBox: "trim-both cap alphabetic", height: "10px" }}>Snowflake</p>
           </div>
@@ -190,7 +190,7 @@ export function CredentialsTable() {
         <div style={{ width: "150px", height: "40px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 12px 0px 12px", gap: "4px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
           <div style={{ flexShrink: 0, display: "flex", flexDirection: "column", gap: "8px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
             <div style={{ width: "96px", height: "6px", flexShrink: 0, borderRadius: "10px", background: "#fafafa", overflow: "hidden", position: "relative" }}>
-              <div style={{ position: "absolute", left: "0px", top: "0px", width: "83.5px", height: "6px", borderRadius: "10px", background: "#328ff9" }} />
+              <div style={{ position: "absolute", left: "0px", top: "0px", width: "83.52px", height: "6px", borderRadius: "10px", background: "#328ff9" }} />
             </div>
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "12px", fontWeight: 400, color: "#666666", lineHeight: "1.100000023841858", textBox: "trim-both cap alphabetic", height: "9px" }}>7 of 8 min</p>
           </div>
@@ -223,7 +223,7 @@ export function CredentialsTable() {
         <div style={{ width: "140px", height: "40px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 12px 0px 12px", gap: "4px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
           <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "8px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
             <div style={{ width: "24px", height: "24px", flexShrink: 0, borderRadius: "6px", background: "#f4f6f8", boxShadow: "inset 0 0 0 1px #eff1f2", display: "flex", flexDirection: "row", padding: "1px 1px 1px 1px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
-              <Database size={14} style={{ width: "14px", height: "14px", flexShrink: 0, color: "#4285f4", display: "block" }} />
+              <Database size={14} strokeWidth={2.57} style={{ width: "14px", height: "14px", flexShrink: 0, color: "#4285f4", display: "block" }} />
             </div>
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#333333", lineHeight: "1.100000023841858", textBox: "trim-both cap alphabetic", height: "10px" }}>BigQuery</p>
           </div>
@@ -233,7 +233,7 @@ export function CredentialsTable() {
         </div>
         <div style={{ width: "150px", height: "40px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 12px 0px 12px", gap: "4px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
           <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "6px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-            <Hourglass size={14} style={{ width: "14px", height: "14px", flexShrink: 0, color: "#777777", display: "block" }} />
+            <Hourglass size={14} strokeWidth={2.57} style={{ width: "14px", height: "14px", flexShrink: 0, color: "#777777", display: "block" }} />
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#666666", lineHeight: "1.100000023841858", textBox: "trim-both cap alphabetic", height: "10px" }}>90-day key</p>
           </div>
         </div>
@@ -275,7 +275,7 @@ export function CredentialsTable() {
         </div>
         <div style={{ width: "150px", height: "40px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 12px 0px 12px", gap: "4px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
           <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "6px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-            <Hourglass size={14} style={{ width: "14px", height: "14px", flexShrink: 0, color: "#777777", display: "block" }} />
+            <Hourglass size={14} strokeWidth={2.57} style={{ width: "14px", height: "14px", flexShrink: 0, color: "#777777", display: "block" }} />
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#666666", lineHeight: "1.100000023841858", textBox: "trim-both cap alphabetic", height: "10px" }}>No expiry</p>
           </div>
         </div>

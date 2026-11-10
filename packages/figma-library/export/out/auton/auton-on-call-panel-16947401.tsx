@@ -18,7 +18,7 @@ export function OnCallPanel() {
           <ArrowUpRight size={16} style={{ width: "16px", height: "16px", flexShrink: 0, color: "#222222", display: "block" }} />
         </div>
       </div>
-      <svg style={{ width: "312px", height: "0px", flexShrink: 0, display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="312" height="1" viewBox="0 0 312 1" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M0 0L312 0" fill="none" stroke="#e2e4e5" strokeWidth="1.5" strokeDasharray="3 3" strokeLinecap="butt"/></svg>
+      <svg style={{ width: "312px", height: "1px", flexShrink: 0, display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="312" height="1" viewBox="0 0 312 1" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M0 0L312 0" fill="none" stroke="#e2e4e5" strokeWidth="1.5" strokeDasharray="3 3" strokeLinecap="butt"/></svg>
       <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", gap: "12px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
         <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "12px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
           <Circle size={40} style={{ width: "40px", height: "40px", flexShrink: 0, color: "#333333", display: "block" }} />

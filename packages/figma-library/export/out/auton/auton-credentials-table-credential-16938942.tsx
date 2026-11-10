@@ -102,7 +102,7 @@ export function CredentialsTableCredential() {
         <div style={{ width: "150px", height: "40px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 12px 0px 12px", gap: "4px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
           <div style={{ flexShrink: 0, display: "flex", flexDirection: "column", gap: "8px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
             <div style={{ width: "96px", height: "6px", flexShrink: 0, borderRadius: "10px", background: "#fafafa", overflow: "hidden", position: "relative" }}>
-              <div style={{ position: "absolute", left: "0px", top: "0px", width: "70.1px", height: "6px", borderRadius: "10px", background: "#328ff9" }} />
+              <div style={{ position: "absolute", left: "0px", top: "0px", width: "70.08px", height: "6px", borderRadius: "10px", background: "#328ff9" }} />
             </div>
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "12px", fontWeight: 400, color: "#666666", lineHeight: "1.100000023841858", textBox: "trim-both cap alphabetic", height: "9px" }}>11 of 15 min</p>
           </div>
@@ -146,7 +146,7 @@ export function CredentialsTableCredential() {
         <div style={{ width: "150px", height: "40px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 12px 0px 12px", gap: "4px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
           <div style={{ flexShrink: 0, display: "flex", flexDirection: "column", gap: "8px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
             <div style={{ width: "96px", height: "6px", flexShrink: 0, borderRadius: "10px", background: "#fafafa", overflow: "hidden", position: "relative" }}>
-              <div style={{ position: "absolute", left: "0px", top: "0px", width: "7.7px", height: "6px", borderRadius: "10px", background: "#f14c43" }} />
+              <div style={{ position: "absolute", left: "0px", top: "0px", width: "7.68px", height: "6px", borderRadius: "10px", background: "#f14c43" }} />
             </div>
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "12px", fontWeight: 400, color: "#666666", lineHeight: "1.100000023841858", textBox: "trim-both cap alphabetic", height: "9px" }}>2 of 24 min</p>
           </div>
@@ -190,7 +190,7 @@ export function CredentialsTableCredential() {
         <div style={{ width: "150px", height: "40px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 12px 0px 12px", gap: "4px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
           <div style={{ flexShrink: 0, display: "flex", flexDirection: "column", gap: "8px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
             <div style={{ width: "96px", height: "6px", flexShrink: 0, borderRadius: "10px", background: "#fafafa", overflow: "hidden", position: "relative" }}>
-              <div style={{ position: "absolute", left: "0px", top: "0px", width: "83.5px", height: "6px", borderRadius: "10px", background: "#328ff9" }} />
+              <div style={{ position: "absolute", left: "0px", top: "0px", width: "83.52px", height: "6px", borderRadius: "10px", background: "#328ff9" }} />
             </div>
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "12px", fontWeight: 400, color: "#666666", lineHeight: "1.100000023841858", textBox: "trim-both cap alphabetic", height: "9px" }}>7 of 8 min</p>
           </div>

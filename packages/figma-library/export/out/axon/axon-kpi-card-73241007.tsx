@@ -99,7 +99,7 @@ export function KPICard() {
             </div>
           </div>
           <div style={{ width: "33px", flexShrink: 0, borderRadius: "7px", background: "#ffffff", boxShadow: "inset 0 0 0 0.6px #e8e8e8", overflow: "hidden", display: "flex", flexDirection: "row", padding: "7px 8px 7px 8px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
-            <Dots size={18} style={{ width: "18px", height: "18px", flexShrink: 0, transform: "rotate(90deg)", transformOrigin: "top left", color: "#c4c4c4", display: "block" }} />
+            <Dots size={18} style={{ width: "18px", height: "18px", flexShrink: 0, transform: "rotate(90deg)", transformOrigin: "center", color: "#c4c4c4", display: "block" }} />
           </div>
         </div>
         <p style={{ alignSelf: "stretch", flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre-wrap", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#697386", lineHeight: "20px" }}>Last 30 days</p>
