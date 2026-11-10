@@ -68,7 +68,7 @@ export function mapIcon(raw) {
 }
 const pascal = (n) => n.split("-").map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join("");
 
-const px = (v) => (Math.round(v * 10) / 10) + "px";
+const px = (v) => (Math.round(v * 100) / 100) + "px";
 const rgba = (hex, a = 1) => {
   if (a >= 0.999) return hex;
   const n = parseInt(hex.slice(1), 16);
@@ -170,7 +170,15 @@ export function build(n, parentLm = null, root = true) {
     st.display = "block"; st.flexShrink = 0;
     return el;
   }
-  if (n.svg) { el.svg = n.svg; st.display = "block"; st.lineHeight = 0; return el; }
+  if (n.svg) {
+    // hairlines (0px tall or wide) must keep a 1px box or Chrome paints nothing
+    el.svg = n.svg.replace(/^<svg([^>]*?) width="([\d.]+)" height="([\d.]+)" viewBox="0 0 ([\d.]+) ([\d.]+)"/, (m, a, w, h, vw, vh) => {
+      const W = Math.max(Number(w), 1), H = Math.max(Number(h), 1);
+      return `<svg${a} width="${W}" height="${H}" viewBox="0 0 ${Math.max(Number(vw), Number(vw) < 1 ? 1 : 0)} ${Math.max(Number(vh), Number(vh) < 1 ? 1 : 0)}"`;
+    });
+    st.display = "block"; st.lineHeight = 0; st.overflow = "visible";
+    return el;
+  }
 
   if (n.r) st.borderRadius = Array.isArray(n.r) ? n.r.map(px).join(" ") : px(n.r);
   background(n.f, st, n.w, n.h);

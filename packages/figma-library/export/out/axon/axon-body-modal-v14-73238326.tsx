@@ -9,13 +9,13 @@ export function BodyModalV14() {
         <div style={{ width: "325px", flexShrink: 0, borderRadius: "10px", background: "#f4fcf7", boxShadow: "inset 0 0 0 1px #17a673", display: "flex", flexDirection: "row", padding: "11px 11px 11px 11px", justifyContent: "space-between", alignItems: "flex-start", boxSizing: "border-box" }}>
           <div style={{ width: "304px", flexShrink: 0, display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center", boxSizing: "border-box" }}>
             <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "4px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-              <svg style={{ width: "9px", height: "9px", flexShrink: 0, display: "block", lineHeight: 0 }} xmlns="http://www.w3.org/2000/svg" width="9" height="9" viewBox="0 0 9 9" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M9 4.5 C9 6.98528 6.98528 9 4.5 9 C2.01472 9 0 6.98528 0 4.5 C0 2.01472 2.01472 0 4.5 0 C6.98528 0 9 2.01472 9 4.5 Z" fill="#1a9f53"/></svg>
+              <svg style={{ width: "9px", height: "9px", flexShrink: 0, display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="9" height="9" viewBox="0 0 9 9" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M9 4.5 C9 6.98528 6.98528 9 4.5 9 C2.01472 9 0 6.98528 0 4.5 C0 2.01472 2.01472 0 4.5 0 C6.98528 0 9 2.01472 9 4.5 Z" fill="#1a9f53"/></svg>
               <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "6px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
                 <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#15171c", lineHeight: "20px" }}>V14</p>
                 <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#697386", lineHeight: "20px" }}>Production - 2h ago</p>
               </div>
             </div>
-            <div style={{ flexShrink: 0, borderRadius: "100px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #f5f5f5", display: "flex", flexDirection: "row", padding: "2px 8px 2px 8px", gap: "3.1px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
+            <div style={{ flexShrink: 0, borderRadius: "100px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #f5f5f5", display: "flex", flexDirection: "row", padding: "2px 8px 2px 8px", gap: "3.06px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#17a673", lineHeight: "20px" }}>Live</p>
             </div>
           </div>

@@ -36,10 +36,10 @@ export function TopPaths() {
           <span style={{ fontFamily: "'Geist'", fontSize: "12px", fontWeight: 500, color: "#737373", letterSpacing: "0.02em" }}>{" · 3 hops · A-07"}</span>
         </p>
         <div style={{ width: "261px", height: "18px", flexShrink: 0, position: "relative" }}>
-          <div style={{ position: "absolute", left: "0px", top: "0px", width: "234.3px", height: "16px", borderRadius: "6px", background: "rgba(251, 48, 52, 0.1)", display: "flex", flexDirection: "row", padding: "0px 9px 0px 9px", justifyContent: "flex-end", alignItems: "center", boxSizing: "border-box" }}>
+          <div style={{ position: "absolute", left: "0px", top: "0px", width: "234.34px", height: "16px", borderRadius: "6px", background: "rgba(251, 48, 52, 0.1)", display: "flex", flexDirection: "row", padding: "0px 9px 0px 9px", justifyContent: "flex-end", alignItems: "center", boxSizing: "border-box" }}>
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "16px", fontFamily: "'Geist'", fontSize: "12px", fontWeight: 500, color: "#dd2a2e" }}>88</p>
           </div>
-          <div style={{ position: "absolute", left: "0px", top: "0px", width: "188.3px", height: "16px", borderRadius: "6px", background: "linear-gradient(180deg, #fc4b4e 0%, #fb3034 100%)", boxShadow: "inset 0 0 0 1px rgba(196, 37, 41, 0.38), inset 0px 1px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 6px 0px rgba(255, 255, 255, 0.18), 0px 1px 1.5px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+          <div style={{ position: "absolute", left: "0px", top: "0px", width: "188.34px", height: "16px", borderRadius: "6px", background: "linear-gradient(180deg, #fc4b4e 0%, #fb3034 100%)", boxShadow: "inset 0 0 0 1px rgba(196, 37, 41, 0.38), inset 0px 1px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 6px 0px rgba(255, 255, 255, 0.18), 0px 1px 1.5px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
         </div>
       </div>
       <div style={{ position: "absolute", left: "20px", top: "222px", width: "261px", height: "1px", background: "#ebebeb" }} />
@@ -53,10 +53,10 @@ export function TopPaths() {
           <span style={{ fontFamily: "'Geist'", fontSize: "12px", fontWeight: 500, color: "#737373", letterSpacing: "0.02em" }}>{" · 3 hops · A-19"}</span>
         </p>
         <div style={{ width: "261px", height: "18px", flexShrink: 0, position: "relative" }}>
-          <div style={{ position: "absolute", left: "0px", top: "0px", width: "219.4px", height: "16px", borderRadius: "6px", background: "rgba(251, 48, 52, 0.1)", display: "flex", flexDirection: "row", padding: "0px 9px 0px 9px", justifyContent: "flex-end", alignItems: "center", boxSizing: "border-box" }}>
+          <div style={{ position: "absolute", left: "0px", top: "0px", width: "219.36px", height: "16px", borderRadius: "6px", background: "rgba(251, 48, 52, 0.1)", display: "flex", flexDirection: "row", padding: "0px 9px 0px 9px", justifyContent: "flex-end", alignItems: "center", boxSizing: "border-box" }}>
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "16px", fontFamily: "'Geist'", fontSize: "12px", fontWeight: 500, color: "#dd2a2e" }}>81</p>
           </div>
-          <div style={{ position: "absolute", left: "0px", top: "0px", width: "173.4px", height: "16px", borderRadius: "6px", background: "linear-gradient(180deg, #fc4b4e 0%, #fb3034 100%)", boxShadow: "inset 0 0 0 1px rgba(196, 37, 41, 0.38), inset 0px 1px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 6px 0px rgba(255, 255, 255, 0.18), 0px 1px 1.5px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+          <div style={{ position: "absolute", left: "0px", top: "0px", width: "173.36px", height: "16px", borderRadius: "6px", background: "linear-gradient(180deg, #fc4b4e 0%, #fb3034 100%)", boxShadow: "inset 0 0 0 1px rgba(196, 37, 41, 0.38), inset 0px 1px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 6px 0px rgba(255, 255, 255, 0.18), 0px 1px 1.5px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
         </div>
       </div>
       <div style={{ position: "absolute", left: "20px", top: "302px", width: "261px", height: "1px", background: "#ebebeb" }} />
@@ -70,10 +70,10 @@ export function TopPaths() {
           <span style={{ fontFamily: "'Geist'", fontSize: "12px", fontWeight: 500, color: "#737373", letterSpacing: "0.02em" }}>{" · 4 hops · A-03"}</span>
         </p>
         <div style={{ width: "261px", height: "18px", flexShrink: 0, position: "relative" }}>
-          <div style={{ position: "absolute", left: "0px", top: "0px", width: "204.4px", height: "16px", borderRadius: "6px", background: "rgba(246, 139, 46, 0.1)", display: "flex", flexDirection: "row", padding: "0px 9px 0px 9px", justifyContent: "flex-end", alignItems: "center", boxSizing: "border-box" }}>
+          <div style={{ position: "absolute", left: "0px", top: "0px", width: "204.37px", height: "16px", borderRadius: "6px", background: "rgba(246, 139, 46, 0.1)", display: "flex", flexDirection: "row", padding: "0px 9px 0px 9px", justifyContent: "flex-end", alignItems: "center", boxSizing: "border-box" }}>
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "16px", fontFamily: "'Geist'", fontSize: "12px", fontWeight: 500, color: "#d87a28" }}>74</p>
           </div>
-          <div style={{ position: "absolute", left: "0px", top: "0px", width: "158.4px", height: "16px", borderRadius: "6px", background: "linear-gradient(180deg, #f79a49 0%, #f68b2e 100%)", boxShadow: "inset 0 0 0 1px rgba(192, 108, 36, 0.38), inset 0px 1px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 6px 0px rgba(255, 255, 255, 0.18), 0px 1px 1.5px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+          <div style={{ position: "absolute", left: "0px", top: "0px", width: "158.37px", height: "16px", borderRadius: "6px", background: "linear-gradient(180deg, #f79a49 0%, #f68b2e 100%)", boxShadow: "inset 0 0 0 1px rgba(192, 108, 36, 0.38), inset 0px 1px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 6px 0px rgba(255, 255, 255, 0.18), 0px 1px 1.5px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
         </div>
       </div>
       <div style={{ position: "absolute", left: "20px", top: "382px", width: "261px", height: "1px", background: "#ebebeb" }} />
@@ -87,10 +87,10 @@ export function TopPaths() {
           <span style={{ fontFamily: "'Geist'", fontSize: "12px", fontWeight: 500, color: "#737373", letterSpacing: "0.02em" }}>{" · 3 hops · A-15"}</span>
         </p>
         <div style={{ width: "261px", height: "18px", flexShrink: 0, position: "relative" }}>
-          <div style={{ position: "absolute", left: "0px", top: "0px", width: "187.3px", height: "16px", borderRadius: "6px", background: "rgba(246, 139, 46, 0.1)", display: "flex", flexDirection: "row", padding: "0px 9px 0px 9px", justifyContent: "flex-end", alignItems: "center", boxSizing: "border-box" }}>
+          <div style={{ position: "absolute", left: "0px", top: "0px", width: "187.25px", height: "16px", borderRadius: "6px", background: "rgba(246, 139, 46, 0.1)", display: "flex", flexDirection: "row", padding: "0px 9px 0px 9px", justifyContent: "flex-end", alignItems: "center", boxSizing: "border-box" }}>
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "16px", fontFamily: "'Geist'", fontSize: "12px", fontWeight: 500, color: "#d87a28" }}>66</p>
           </div>
-          <div style={{ position: "absolute", left: "0px", top: "0px", width: "141.3px", height: "16px", borderRadius: "6px", background: "linear-gradient(180deg, #f79a49 0%, #f68b2e 100%)", boxShadow: "inset 0 0 0 1px rgba(192, 108, 36, 0.38), inset 0px 1px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 6px 0px rgba(255, 255, 255, 0.18), 0px 1px 1.5px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+          <div style={{ position: "absolute", left: "0px", top: "0px", width: "141.25px", height: "16px", borderRadius: "6px", background: "linear-gradient(180deg, #f79a49 0%, #f68b2e 100%)", boxShadow: "inset 0 0 0 1px rgba(192, 108, 36, 0.38), inset 0px 1px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 6px 0px rgba(255, 255, 255, 0.18), 0px 1px 1.5px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
         </div>
       </div>
     </div>

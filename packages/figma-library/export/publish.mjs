@@ -6,6 +6,8 @@ const TH = Number(process.argv[2] || 99);
 const WEB = new URL("../../../apps/web/", import.meta.url).pathname;
 const out = {};
 let pass = 0, total = 0, held = 0;
+// reviewed by eye and approved although the perceptual score is 98-99 (layout score >= 99)
+const approved = new Set(JSON.parse(await readFile(new URL("./data/approved-extra.json", import.meta.url), "utf8").catch(() => "[]")));
 await rm(WEB + "public/library-code", { recursive: true, force: true });
 for (const sys of ["loopo", "auton", "mailpulse", "axon", "veriq", "vantage"]) {
   const qa = JSON.parse(await readFile(new URL(`./data/${sys}/qa.json`, import.meta.url), "utf8").catch(() => "[]"));
@@ -13,7 +15,8 @@ for (const sys of ["loopo", "auton", "mailpulse", "axon", "veriq", "vantage"]) {
   await mkdir(WEB + `public/library-code/${sys}`, { recursive: true });
   for (const r of qa) {
     total++;
-    if (r.score === undefined || r.score < TH || rejected.has(r.slug)) continue;
+    if (r.score === undefined || rejected.has(r.slug)) continue;
+    if (r.score < TH && !approved.has(sys + ":" + r.id)) continue;
     // image fills are placeholders in generated code for now: hold those back (visual review found avatars rendering grey)
     const tree = await readFile(new URL(`./data/${sys}/${r.id}.json`, import.meta.url), "utf8");
     if (tree.includes('"k":"i"')) { held++; continue; }

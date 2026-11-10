@@ -41,7 +41,7 @@ export function Owners() {
             </div>
           </div>
           <div style={{ width: "150px", height: "4px", flexShrink: 0, borderRadius: "2px", background: "rgba(123, 91, 255, 0.1)", overflow: "hidden", position: "relative" }}>
-            <div style={{ position: "absolute", left: "0px", top: "0px", width: "123.1px", height: "4px", borderRadius: "2px", background: "#7b5bff" }} />
+            <div style={{ position: "absolute", left: "0px", top: "0px", width: "123.08px", height: "4px", borderRadius: "2px", background: "#7b5bff" }} />
           </div>
         </div>
         <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "6px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
@@ -63,7 +63,7 @@ export function Owners() {
             </div>
           </div>
           <div style={{ width: "150px", height: "4px", flexShrink: 0, borderRadius: "2px", background: "rgba(123, 91, 255, 0.1)", overflow: "hidden", position: "relative" }}>
-            <div style={{ position: "absolute", left: "0px", top: "0px", width: "69.2px", height: "4px", borderRadius: "2px", background: "#7b5bff" }} />
+            <div style={{ position: "absolute", left: "0px", top: "0px", width: "69.23px", height: "4px", borderRadius: "2px", background: "#7b5bff" }} />
           </div>
         </div>
         <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "6px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
@@ -85,7 +85,7 @@ export function Owners() {
             </div>
           </div>
           <div style={{ width: "150px", height: "4px", flexShrink: 0, borderRadius: "2px", background: "rgba(123, 91, 255, 0.1)", overflow: "hidden", position: "relative" }}>
-            <div style={{ position: "absolute", left: "0px", top: "0px", width: "40.4px", height: "4px", borderRadius: "2px", background: "#7b5bff" }} />
+            <div style={{ position: "absolute", left: "0px", top: "0px", width: "40.38px", height: "4px", borderRadius: "2px", background: "#7b5bff" }} />
           </div>
         </div>
         <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "6px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
@@ -107,7 +107,7 @@ export function Owners() {
             </div>
           </div>
           <div style={{ width: "150px", height: "4px", flexShrink: 0, borderRadius: "2px", background: "rgba(123, 91, 255, 0.1)", overflow: "hidden", position: "relative" }}>
-            <div style={{ position: "absolute", left: "0px", top: "0px", width: "21.2px", height: "4px", borderRadius: "2px", background: "#7b5bff" }} />
+            <div style={{ position: "absolute", left: "0px", top: "0px", width: "21.15px", height: "4px", borderRadius: "2px", background: "#7b5bff" }} />
           </div>
         </div>
         <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "6px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
@@ -126,7 +126,7 @@ export function Owners() {
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "17px", fontFamily: "'Geist'", fontSize: "13px", fontWeight: 500, color: "#ededed" }}>8 other legs</p>
           </div>
           <div style={{ width: "150px", height: "4px", flexShrink: 0, borderRadius: "2px", background: "rgba(123, 91, 255, 0.1)", overflow: "hidden", position: "relative" }}>
-            <div style={{ position: "absolute", left: "0px", top: "0px", width: "42.3px", height: "4px", borderRadius: "2px", background: "#7b5bff" }} />
+            <div style={{ position: "absolute", left: "0px", top: "0px", width: "42.31px", height: "4px", borderRadius: "2px", background: "#7b5bff" }} />
           </div>
         </div>
         <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "6px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>

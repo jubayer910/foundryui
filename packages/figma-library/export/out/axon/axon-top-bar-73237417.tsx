@@ -24,7 +24,7 @@ export function TopBar() {
         <div style={{ flexShrink: 0, borderRadius: "10px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #e8e8e8", overflow: "hidden", display: "flex", flexDirection: "row", padding: "7px 8px 7px 8px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
           <p style={{ flexShrink: 0, margin: 0, textAlign: "center", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#686765", lineHeight: "20px" }}>Help</p>
         </div>
-        <div style={{ width: "32px", height: "32px", flexShrink: 0, borderRadius: "10px", background: "linear-gradient(#e5e7eb, #e5e7eb), linear-gradient(#ffffff, #ffffff)", boxShadow: "inset 0 0 0 0.6px #e8e8e8", overflow: "hidden" }} />
+        <div style={{ width: "32px", height: "32px", flexShrink: 0, borderRadius: "10px", background: "linear-gradient(#e5e7eb, #e5e7eb), linear-gradient(#ffffff, #ffffff)", boxShadow: "inset 0 0 0 0.63px #e8e8e8", overflow: "hidden" }} />
       </div>
     </div>
   );
