@@ -1,0 +1,48 @@
+import type { Post } from "../types";
+
+export const post: Post = {
+  slug: "tailwind-dashboard-components",
+  title: "Tailwind dashboard components: 8 sources for Tailwind CSS v4 projects",
+  metaTitle: "Tailwind dashboard components for Tailwind v4 (8 sources)",
+  description: "Where to get Tailwind CSS dashboard components in 2027: Ingot UI, Tailwind Plus, shadcn/ui, Flowbite, Preline, daisyUI, Tremor and TailAdmin, with what each covers and how they handle tokens.",
+  date: "2026-11-10",
+  category: "Lists",
+  keyword: "tailwind dashboard components",
+  intent: "commercial",
+  lede: "For Tailwind v4 dashboards, use Ingot UI for finished dashboard components with Figma parity and tokens, Tailwind Plus for the official paid application UI, shadcn/ui for open-source React primitives, Flowbite or Preline for broad free component sets, daisyUI for framework-agnostic classes, Tremor for chart blocks, and TailAdmin for a full free admin template.",
+  body: [
+    { t: "p", x: "We are Wolfpixel; Ingot UI is ours and every other source here is someone else’s. All of them work with Tailwind; they differ in what they include and how they handle theming." },
+    { t: "h2", x: "The 8 sources" },
+    { t: "table", head: ["Source", "What it is", "Theming", "Price", "Best for"], rows: [
+      ["[Ingot UI](/)", "{components} dashboard components in {systems} systems, React + Figma", "`--fu-*` tokens mapped with `@theme inline`", "Free (Loopo) and Pro", "Finished dashboards, AI agents via MCP"],
+      ["[Tailwind Plus](https://tailwindcss.com/plus)", "Official paid UI blocks incl. application UI", "Tailwind defaults", "Paid", "Official, well-crafted generic blocks"],
+      ["[shadcn/ui](https://ui.shadcn.com)", "Open-source React primitives", "CSS variables", "Free", "Owning every component"],
+      ["[Flowbite](https://flowbite.com)", "Tailwind components and Figma", "Tailwind config", "Free and paid", "Broad coverage"],
+      ["[Preline UI](https://preline.co)", "Free Tailwind components and examples", "Tailwind config", "Free and paid", "Plain HTML or any framework"],
+      ["[daisyUI](https://daisyui.com)", "Tailwind plugin of component classes", "Themes via CSS variables", "Free", "Framework-agnostic projects"],
+      ["[Tremor](https://tremor.so)", "Dashboard and chart components", "Tailwind", "Open source", "Chart-heavy dashboards"],
+      ["[TailAdmin](https://tailadmin.com)", "Admin templates", "Tailwind", "Free and paid", "Forkable internal tools"],
+    ], caption: "Pricing changes; check each site." },
+    { t: "takeaway", x: "In Tailwind v4, the theme lives in CSS. Pick components that read CSS variables, or you will re-theme by hand." },
+    { t: "h2", x: "What makes a Tailwind component dashboard-ready" },
+    { t: "ul", items: [
+      "Reads colours and radii from tokens, not hard-coded utility colours like `bg-blue-600`.",
+      "Has dense variants for tables and toolbars.",
+      "Covers states: hover, focus, disabled, empty, loading.",
+      "Uses tabular numbers for values.",
+      "Comes with the overlays (modal, drawer, popover) that make tables usable.",
+    ] },
+    { t: "components", slugs: ["kpi-card", "data-table", "capsule-bars", "dialog"], caption: "Free Loopo components on Tailwind v4 tokens." },
+    { t: "h2", x: "Tokens in Tailwind v4 in two files" },
+    { t: "code", label: "app/globals.css", x: "@import \"tailwindcss\";\n@import \"./styles/ingot/theme.css\";   /* maps --fu-* to utilities */\n@import \"./styles/ingot/loopo.css\";   /* the system’s values */" },
+    { t: "p", x: "Full walkthrough in [dashboard design system with Tailwind v4 tokens](/blog/dashboard-design-system-tailwind-tokens)." },
+    { t: "cta", h: "Tailwind v4 dashboard components", x: "Browse by category: KPI cards, tables, charts, modals, drawers and more.", href: "/categories", label: "Browse categories" },
+  ],
+  faq: [
+    { q: "What are the best Tailwind dashboard components?", a: "It depends on what you need: Ingot UI for finished dashboard components with Figma parity, Tailwind Plus for official blocks, shadcn/ui for primitives, Tremor for charts, TailAdmin for a free template." },
+    { q: "Do Ingot UI components support Tailwind v4?", a: "Yes. They are built on Tailwind CSS v4 with tokens mapped through @theme inline." },
+    { q: "Are there free Tailwind dashboard components?", a: "Yes: the Loopo system in Ingot UI, shadcn/ui, Preline, daisyUI, Flowbite’s free set and TailAdmin’s free version." },
+  ],
+  related: ["kpi-card", "data-table", "capsule-bars", "tokens"],
+  systems: ["loopo"],
+};

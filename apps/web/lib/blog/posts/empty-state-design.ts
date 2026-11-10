@@ -1,0 +1,51 @@
+import type { Post } from "../types";
+
+export const post: Post = {
+  slug: "empty-state-design",
+  title: "Empty state design for dashboards: 5 kinds and how to write each",
+  metaTitle: "Empty state design: 5 types, examples and copy for dashboards",
+  description: "Empty states decide whether new users activate. The five kinds (first use, no results, cleared, error, no permission), what each should say, and examples from real dashboards.",
+  date: "2026-11-10",
+  category: "Guides",
+  keyword: "empty state design",
+  intent: "informational",
+  lede: "An empty state should say why the screen is empty and what to do next, with the action as a button. Design five kinds separately: first use (explain and offer the first action), no results (name the filters and offer to clear them), cleared (confirm success), error (say what failed and offer a retry) and no permission (say who can grant access).",
+  body: [
+    { t: "p", x: "We are Wolfpixel. On onboarding projects the empty state is often the first screen a new user sees after sign-up, which makes it one of the most important screens in the product and one of the least designed." },
+    { t: "h2", x: "The five kinds" },
+    { t: "table", head: ["Kind", "When", "What it says", "Action"], rows: [
+      ["First use", "Nothing has been created yet", "What will appear here and why it is useful", "Create the first item, or import"],
+      ["No results", "Search or filters match nothing", "Which filters caused it", "Clear filters"],
+      ["Cleared", "The user finished everything", "Confirms success", "Optional next step"],
+      ["Error", "Data failed to load", "What failed, in plain words", "Retry, status page"],
+      ["No permission", "The user can’t see this", "Who can grant access", "Request access"],
+    ] },
+    { t: "takeaway", x: "Every empty state answers two questions: why is this empty, and what do I do now?" },
+    { t: "h2", x: "Writing the copy" },
+    { t: "ul", items: [
+      "**Title:** the situation in a few words (“No agents yet”).",
+      "**Body:** one sentence on value (“Agents you register appear here with their status and policies.”).",
+      "**Button:** a verb and the object (“Register an agent”), not “Get started”.",
+      "**Secondary link:** docs or an SDK for developers.",
+      "Skip illustrations unless they add meaning; a relevant icon is enough.",
+    ] },
+    { t: "components", slugs: ["auton-empty-state-16933505", "auton-empty-state-build-it-with-the-sdk-16946416", "empty-state", "loopo-callout-next-payout-18964467"], caption: "Empty states and callouts from Auton and Loopo." },
+    { t: "h2", x: "No results is not the same as empty" },
+    { t: "p", x: "A no-results state must name the cause (“No campaigns match ‘Paused’ and ‘Last 7 days’”) and offer to clear filters. Showing the first-use message here tells people their data is gone." },
+    { t: "cta", h: "Empty states and feedback components", x: "Empty states, toasts, banners and callouts in each system’s look.", href: "/categories/feedback", label: "Browse feedback" },
+    { t: "h2", x: "Mistakes" },
+    { t: "ul", items: [
+      "A blank table with headers and nothing else.",
+      "“No data” as the only text.",
+      "Showing the empty state for a second before data loads; show a skeleton until you know.",
+      "A first-use state that never goes away for teams who don’t need that feature; let people dismiss it.",
+    ] },
+  ],
+  faq: [
+    { q: "What is an empty state in UI design?", a: "The screen or area shown when there is nothing to display yet, because nothing was created, filters match nothing, data failed to load or the user lacks access." },
+    { q: "What should an empty state include?", a: "A short title, one sentence explaining what will appear and why it matters, and a primary action that fixes the empty state." },
+    { q: "Is there a free React empty state component?", a: "Yes. The Loopo empty state in Ingot UI is free React and Tailwind code." },
+  ],
+  related: ["empty-state", "auton-empty-state-16933505", "data-table", "loopo-toast-18953120"],
+  systems: ["auton", "loopo"],
+};

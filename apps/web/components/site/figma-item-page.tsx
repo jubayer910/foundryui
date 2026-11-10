@@ -4,6 +4,7 @@ import { entries, figmaQA, type FigmaItem } from "@/lib/library";
 import { FigmaCodePanel } from "./figma-code-panel";
 import { ItemCard } from "./item-card";
 import { SaveButton } from "./save-button";
+import { categoryHref } from "@/lib/hubs";
 
 /** Page for a component that lives in a system's Figma library (code still in progress). */
 export function FigmaItemPage({ item }: { item: FigmaItem }) {
@@ -30,7 +31,7 @@ export function FigmaItemPage({ item }: { item: FigmaItem }) {
               <span aria-hidden="true">/</span>
               <Link href={"/systems/" + item.system} className="hover:text-ink">{sys?.name ?? item.system}</Link>
               <span aria-hidden="true">/</span>
-              <span>{item.category}</span>
+              {categoryHref(item.category) ? <Link href={categoryHref(item.category)!} className="hover:text-ink">{item.category}</Link> : <span>{item.category}</span>}
             </nav>
             <h1 className="mt-2 text-[20px] font-medium tracking-[-0.02em]">{item.name}</h1>
             <p className="mt-1 text-[13px] leading-snug text-mute">

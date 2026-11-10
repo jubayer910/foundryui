@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { Suspense } from "react";
 import { systems } from "@/lib/catalog";
 import { codeCount } from "@/lib/library";
 import { AccountLink } from "./account-link";
@@ -16,9 +15,7 @@ export function Rail() {
         <Link href="/" aria-label="Ingot UI home">
           <Logo />
         </Link>
-        <Suspense fallback={<span className="h-7 w-16" />}>
-          <AccountLink />
-        </Suspense>
+        <AccountLink />
       </div>
       <div className="min-h-0 flex-1 overflow-y-auto">
         <RailNav systems={railSystems} />

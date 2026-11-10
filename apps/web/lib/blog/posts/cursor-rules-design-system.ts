@@ -1,0 +1,47 @@
+import type { Post } from "../types";
+
+export const post: Post = {
+  slug: "cursor-rules-design-system",
+  title: "Cursor rules for a design system: keep AI-written UI on brand",
+  metaTitle: "Cursor rules for UI: a design-system rules file you can copy",
+  description: "A copyable Cursor rules file for UI work, where to put it (.cursor/rules or AGENTS.md), what each rule prevents, and how to pair it with a design-system MCP server.",
+  date: "2026-11-10",
+  category: "AI agents",
+  keyword: "cursor rules design system",
+  intent: "informational",
+  lede: "Put your UI rules in a project rules file Cursor always loads (a file in `.cursor/rules/`, or an `AGENTS.md` at the repo root), keep them short and testable: use tokens not hex values, import from your component folder first, one icon set, every list has its states, charts follow fixed rules. Then connect a design-system MCP server so the agent can fetch the components the rules point to.",
+  body: [
+    { t: "p", x: "We are Wolfpixel. Rules files are the cheapest way to raise the quality of AI-written UI. These are the ones we use, and why each one exists." },
+    { t: "h2", x: "Where the rules live" },
+    { t: "ul", items: [
+      "**`.cursor/rules/*.mdc`:** Cursor project rules. Set them to always apply for UI rules, or scope them to `app/**` and `components/**`.",
+      "**`AGENTS.md` at the repo root:** read by Cursor and by other agents (Codex and more), so one file serves the whole team.",
+      "Check the current Cursor docs for the exact rule options; the format has changed over time.",
+    ] },
+    { t: "h2", x: "A rules file you can copy" },
+    { t: "code", label: ".cursor/rules/ui.mdc (or a UI section in AGENTS.md)", x: "---\ndescription: UI rules for every screen\nalwaysApply: true\n---\n- Build UI from components in components/ingot first. Search the Ingot UI MCP (search_components) before writing a new component.\n- Colours, radii and shadows come from --fu-* tokens via Tailwind utilities (bg-fu-surface, text-fu-ink). Never write hex values.\n- One icon set: <Icon name=… /> from components/ingot/icons. Every icon must depict its label.\n- Every table and list ships with empty, loading, error and no-results states.\n- Charts: bars start at zero, one accent series, labelled axes, hover tooltip with value and comparison.\n- Modals for decisions (confirm, create, delete); drawers for record detail.\n- Numbers use tabular figures. Dates over 7 days old show the full date.\n- After each screen, run audit_ui and fix what it reports." },
+    { t: "takeaway", x: "A rule is only useful if you can check it. “Make it look nice” is not a rule." },
+    { t: "h2", x: "What each rule prevents" },
+    { t: "table", head: ["Rule", "Prevents"], rows: [
+      ["Components first", "A new card or table on every screen, each slightly different"],
+      ["Tokens, no hex", "Colour drift and a dark mode that can never ship"],
+      ["One icon set", "Mixed stroke weights and styles"],
+      ["Every state", "Blank tables and confusing first-run screens"],
+      ["Chart rules", "Smooth fake curves and rainbow series"],
+      ["Modal vs drawer", "Record detail trapped in modals"],
+      ["Audit step", "Gradual drift across sessions"],
+    ] },
+    { t: "h2", x: "Pair the rules with an MCP server" },
+    { t: "p", x: "Rules say what to use; an MCP server lets the agent fetch it. In Cursor, add the Ingot UI server to `.cursor/mcp.json` (setup on the [MCP page](/mcp)) and ask the agent to run `init_project` once. It writes tokens and an `INGOT.md` you can reference from your rules." },
+    { t: "code", label: ".cursor/mcp.json", x: "{\n  \"mcpServers\": {\n    \"ingot-ui\": {\n      \"url\": \"https://mcp.ingotui.com/mcp\",\n      \"headers\": { \"Authorization\": \"Bearer YOUR_API_KEY\" }\n    }\n  }\n}" },
+    { t: "cta", h: "Rules plus real components", x: "Connect the MCP server and your agent builds with checked components from the first prompt.", href: "/mcp", label: "Set up MCP" },
+    { t: "p", x: "More on why AI UI drifts in [why AI-built dashboards look generic](/blog/ai-generated-dashboard-design)." },
+  ],
+  faq: [
+    { q: "Where do Cursor rules go?", a: "Project rules live in the .cursor/rules folder. Many teams also keep an AGENTS.md at the repo root, which Cursor and other agents read." },
+    { q: "How long should a rules file be?", a: "Short enough to read in a minute: ten or so concrete, checkable rules. Long rule files get ignored by people and diluted for the model." },
+    { q: "Does Ingot UI provide a rules file?", a: "Yes. The MCP init_project tool writes an INGOT.md with the system’s rules into your project." },
+  ],
+  related: ["kpi-card", "data-table", "empty-state", "capsule-bars"],
+  systems: ["loopo"],
+};

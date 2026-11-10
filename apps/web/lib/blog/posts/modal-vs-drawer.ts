@@ -1,0 +1,58 @@
+import type { Post } from "../types";
+
+export const post: Post = {
+  slug: "modal-vs-drawer",
+  title: "Modal vs drawer: when to use each in a dashboard",
+  metaTitle: "Modal vs drawer (side panel): when to use each in dashboards",
+  description: "A clear rule for modals, drawers, popovers and full pages in dashboards, with examples from real products: create and confirm in modals, inspect and edit records in drawers.",
+  date: "2026-11-10",
+  category: "Guides",
+  keyword: "modal vs drawer",
+  intent: "informational",
+  lede: "Use a modal when the user must make a decision before continuing: confirm, create, connect or delete. Use a drawer (side panel) to inspect or edit one record while keeping the list in view. Use a popover for small optional controls tied to one element, and a full page when the task is long or needs its own URL.",
+  body: [
+    { t: "p", x: "We are Wolfpixel. The six Ingot UI systems contain {cat:all:Modals} modals and {cat:all:Drawers} drawers, which gave us a lot of real cases to test this rule against. It holds up." },
+    { t: "h2", x: "The rule in one table" },
+    { t: "table", head: ["Pattern", "Use it for", "Blocks the page?", "Example"], rows: [
+      ["Modal", "A decision: confirm, create, connect, destroy", "Yes", "[Pause Customer Refunds?](/components/axon-pause-customer-refunds-modal-73237727)"],
+      ["Drawer", "Inspect or edit one record from a list", "No, list stays visible", "[Subscriber profile drawer](/components/mailpulse-subscriber-profile-drawer-13930010)"],
+      ["Popover", "Small optional controls on one element", "No", "[Filter popover](/components/auton-filter-popover-16933319)"],
+      ["Full page", "Long tasks, things people link to", "Not an overlay", "Settings, builders, reports"],
+    ] },
+    { t: "takeaway", x: "Modals are for decisions. Drawers are for records." },
+    { t: "h2", x: "When a modal is right" },
+    { t: "ul", items: [
+      "The action is destructive or hard to undo.",
+      "The form is short (one to five fields) and creates something.",
+      "Connecting an integration needs consent before continuing.",
+      "Name the object in the title and the button: “Delete 3 segments”, not “Are you sure?” and “OK”.",
+    ] },
+    { t: "components", slugs: ["axon-pause-customer-refunds-modal-73237727", "veriq-run-a-scan-modal-6519291", "mailpulse-connect-stripe-modal-13833181", "loopo-add-funds-modal-18843352"] },
+    { t: "h2", x: "When a drawer is right" },
+    { t: "ul", items: [
+      "People open records one after another from a list and need to keep their place.",
+      "The content is long enough to scroll but doesn’t need its own page.",
+      "Light editing happens in context (status, owner, tags).",
+      "Give the drawer a URL (`?id=`) so it can be shared and survives a refresh.",
+    ] },
+    { t: "components", slugs: ["mailpulse-subscriber-profile-drawer-13930010", "auton-deploy-agent-drawer-16932511", "veriq-pr-open-drawer-6523471", "vantage-am-drawer-26235779"] },
+    { t: "h2", x: "Mistakes we see most" },
+    { t: "ul", items: [
+      "Record detail in a modal, so people close it, scroll and open the next one.",
+      "Modals that open modals.",
+      "Long multi-step forms in a modal; make it a page.",
+      "Drawers with no close on Escape or no focus management. Base UI handles both.",
+      "Confirm dialogs for every action, which teaches people to click through them.",
+    ] },
+    { t: "cta", h: "{cat:all:Modals} modals and {cat:all:Drawers} drawers", x: "Real create, confirm and detail flows, in React and Figma.", href: "/categories/modals", label: "Browse modals" },
+    { t: "h2", x: "Mobile" },
+    { t: "p", x: "On phones, a drawer becomes a full-screen sheet and a modal becomes a bottom sheet or a full-screen step. Keep the same rule: decisions block, records don’t." },
+  ],
+  faq: [
+    { q: "What is the difference between a modal and a drawer?", a: "A modal blocks the page until the user makes a decision. A drawer slides in from the side to show or edit one record while the page behind stays visible." },
+    { q: "Is a side panel better than a modal for forms?", a: "For short create forms a modal is fine. For editing existing records from a list, a drawer keeps context and is usually better." },
+    { q: "Are modal and drawer components accessible?", a: "They should trap focus, close on Escape and return focus to the trigger. Ingot UI uses Base UI for these behaviours." },
+  ],
+  related: ["dialog", "axon-pause-customer-refunds-modal-73237727", "mailpulse-subscriber-profile-drawer-13930010", "auton-filter-popover-16933319"],
+  systems: ["axon", "mailpulse", "auton", "veriq"],
+};

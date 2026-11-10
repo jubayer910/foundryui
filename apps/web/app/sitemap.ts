@@ -2,7 +2,8 @@ import type { MetadataRoute } from "next";
 import { systems } from "@/lib/catalog";
 import { entries } from "@/lib/library";
 import { posts } from "@/lib/blog";
-import { CATALOG_UPDATED, abs } from "@/lib/seo";
+import { CATALOG_UPDATED, abs, isPart } from "@/lib/seo";
+import { HUBS } from "@/lib/hubs";
 
 /**
  * One sitemap: about 1,900 URLs, far below the 50,000 URL / 50 MB limit per file,
@@ -15,6 +16,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const lastPost = posts.reduce((d, p) => ((p.updated ?? p.date) > d ? p.updated ?? p.date : d), CATALOG_UPDATED);
   const core: MetadataRoute.Sitemap = [
     { url: abs("/"), lastModified: CATALOG_UPDATED, changeFrequency: "weekly", priority: 1 },
+    { url: abs("/categories"), lastModified: CATALOG_UPDATED, changeFrequency: "weekly", priority: 0.9 },
     { url: abs("/systems"), lastModified: CATALOG_UPDATED, changeFrequency: "weekly", priority: 0.9 },
     { url: abs("/charts"), lastModified: CATALOG_UPDATED, changeFrequency: "weekly", priority: 0.8 },
     { url: abs("/icons"), lastModified: CATALOG_UPDATED, changeFrequency: "monthly", priority: 0.7 },
@@ -28,6 +30,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...core,
     ...systems.map((s) => ({ url: abs("/systems/" + s.slug), lastModified: CATALOG_UPDATED, changeFrequency: "weekly" as const, priority: 0.9 })),
     ...posts.map((p) => ({ url: abs("/blog/" + p.slug), lastModified: p.updated ?? p.date, changeFrequency: "monthly" as const, priority: 0.7 })),
-    ...entries.map((e) => ({ url: abs("/components/" + e.slug), lastModified: CATALOG_UPDATED, changeFrequency: "monthly" as const, priority: e.kind === "code" || e.qa ? 0.6 : 0.5 })),
+    ...HUBS.map((h) => ({ url: abs("/categories/" + h.slug), lastModified: CATALOG_UPDATED, changeFrequency: "weekly" as const, priority: 0.8 })),
+    // Sub-parts (a modal's header, a table's header row) are noindex, so they stay out.
+    ...entries.filter((e) => !isPart(e.name)).map((e) => ({ url: abs("/components/" + e.slug), lastModified: CATALOG_UPDATED, changeFrequency: "monthly" as const, priority: e.kind === "code" || e.qa ? 0.6 : 0.5 })),
   ];
 }

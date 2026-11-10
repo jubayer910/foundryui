@@ -1,8 +1,22 @@
+"use client";
 import Link from "next/link";
-import { getSessionUser } from "@/lib/auth";
+import { useEffect, useState } from "react";
 
-export async function AccountLink() {
-  const user = await getSessionUser().catch(() => null);
+type State = { name: string } | null | undefined;
+
+/**
+ * Account button in the rail. Reads the session in the browser so the shared layout
+ * never touches cookies on the server, which keeps public pages static and cacheable.
+ */
+export function AccountLink() {
+  const [user, setUser] = useState<State>(undefined);
+  useEffect(() => {
+    fetch("/api/auth/get-session", { credentials: "include" })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d: { user?: { name?: string } } | null) => setUser(d?.user ? { name: d.user.name || "?" } : null))
+      .catch(() => setUser(null));
+  }, []);
+  if (user === undefined) return <span className="h-7 w-16" aria-hidden="true" />;
   if (user)
     return (
       <Link href="/account" aria-label="Your account" className="flex size-7 items-center justify-center rounded-full bg-ink text-[12px] font-medium text-white">

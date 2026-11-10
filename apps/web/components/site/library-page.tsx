@@ -7,6 +7,7 @@ import { CIcon } from "./chrome-icon";
 import iconStats from "@/lib/icon-stats.json";
 import { posts, readingTime } from "@/lib/blog";
 import { clientEntries } from "@/lib/seo-entries";
+import { HUBS } from "@/lib/hubs";
 
 const EXITS = [
   { icon: "terminal" as const, h: "React code", b: "Plain TSX on Tailwind v4, one command to add." },
@@ -65,6 +66,17 @@ export function LibraryPage({ q = "", c = "all", s = "all", intro = true, home =
             <p className="mt-1 text-[13px] text-mute">Start free with Loopo. Pay once for everything, including future systems.</p>
           </Link>
         </section>
+      )}
+
+      {intro && (
+        <nav className="mt-10" aria-labelledby="home-categories">
+          <h2 id="home-categories" className="text-[13px] font-medium">Browse by category</h2>
+          <ul className="mt-3 flex flex-wrap gap-1.5">
+            {[...HUBS.map((h) => ({ href: "/categories/" + h.slug, name: h.h1 })), { href: "/charts", name: "Charts" }].map((l) => (
+              <li key={l.href}><Link href={l.href} className="pill">{l.name}</Link></li>
+            ))}
+          </ul>
+        </nav>
       )}
 
       {intro && posts.length > 0 && (

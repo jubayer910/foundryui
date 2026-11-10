@@ -1,0 +1,53 @@
+import type { Post } from "../types";
+
+export const post: Post = {
+  slug: "untitled-ui-alternatives",
+  title: "Untitled UI alternatives in 2027: 7 options and when each fits better",
+  metaTitle: "Untitled UI alternatives (2027): 7 honest options",
+  description: "Looking for an Untitled UI alternative? Seven options compared honestly (Ingot UI, shadcn/ui, Tailwind Plus, Flowbite, Ant Design, Material 3, Mantine) by Figma and code parity, dashboard depth and price.",
+  date: "2026-11-10",
+  category: "Comparisons",
+  keyword: "untitled ui alternatives",
+  intent: "commercial",
+  lede: "Untitled UI is a strong general-purpose Figma kit with a React library. Choose an alternative when you need something it is not built for: Ingot UI for dashboard-specific components with React code checked against Figma and an MCP server, shadcn/ui for free open-source primitives, Tailwind Plus for official Tailwind blocks, Ant Design or Material 3 for enterprise design languages with Figma and React, Flowbite or Mantine for broad free sets.",
+  body: [
+    { t: "p", x: "We are Wolfpixel and Ingot UI is ours. Untitled UI is a well-made product and the right choice for many teams; this post is for the cases where it is not." },
+    { t: "h2", x: "Why teams look for an alternative" },
+    { t: "ul", items: [
+      "They build a dashboard-heavy product and need domain screens (agents, campaigns, security findings, subscriptions), not general app UI.",
+      "They want code checked against the Figma design, not just a matching style.",
+      "They want an AI agent to build with the system through MCP.",
+      "Budget: they need a free starting point.",
+      "Their stack is Ant Design or Material, and they want the matching kit.",
+    ] },
+    { t: "h2", x: "The alternatives" },
+    { t: "table", head: ["Option", "Figma", "Code", "Best for"], rows: [
+      ["[Ingot UI](/)", "{figma} components in {systems} systems", "{coded} React components checked against Figma, MCP server", "Dashboard products, AI-built UI"],
+      ["[shadcn/ui](https://ui.shadcn.com)", "Community kits", "Open-source React primitives", "Owning your components"],
+      ["[Tailwind Plus](https://tailwindcss.com/plus)", "Not the focus", "Official Tailwind blocks", "Tailwind-first teams"],
+      ["[Ant Design](https://ant.design)", "Official design resources", "React library", "Enterprise admin in Ant’s language"],
+      ["[Material 3](https://m3.material.io)", "Official Figma kit", "Material Web; MUI implements Material Design", "Material products"],
+      ["[Flowbite](https://flowbite.com)", "Figma kit", "Tailwind components", "Broad Tailwind coverage"],
+      ["[Mantine](https://mantine.dev)", "Not official", "React library with hooks", "Batteries-included React, no Tailwind"],
+    ] },
+    { t: "takeaway", x: "Choose by your product’s screens. A general kit and a dashboard system solve different problems." },
+    { t: "h2", x: "Where Ingot UI is different" },
+    { t: "ul", items: [
+      "**Built from six real products:** {screens} source screens across email, analytics, AI agents, workflows, security and business admin.",
+      "**Checked code:** generated React components are compared with their Figma originals and only published when they pass ({pct:all}% so far).",
+      "**For AI agents:** an MCP server with 14 tools, so Claude Code, Cursor or Codex build with the real components.",
+      "**Free start:** the Loopo system is free in code and Figma.",
+    ] },
+    { t: "components", slugs: ["vantage-retention-grid-26234875", "auton-agents-table-16931973", "mailpulse-best-time-to-send-13935062", "veriq-secrets-table-6526326"] },
+    { t: "cta", h: "Compare for yourself", x: "Every component is browsable free, with its Figma original and code status.", href: "/systems", label: "See the six systems" },
+    { t: "h2", x: "When to stay with Untitled UI" },
+    { t: "p", x: "Stay if you need one kit across marketing site, product and dashboards in a single neutral style, and your team designs the domain screens in-house. Its breadth is the point." },
+  ],
+  faq: [
+    { q: "What is the best Untitled UI alternative for dashboards?", a: "For dashboard-specific components with Figma and checked React code, Ingot UI. For free primitives, shadcn/ui." },
+    { q: "Is there a free alternative to Untitled UI?", a: "Yes: the Loopo system in Ingot UI, shadcn/ui, Flowbite’s free set and Material 3’s Figma kit." },
+    { q: "Can I use Ingot UI and Untitled UI together?", a: "You can, but mixing two kits on one screen usually looks unfinished. Pick one for the product and use the other for reference." },
+  ],
+  related: ["vantage-retention-grid-26234875", "auton-agents-table-16931973", "kpi-card", "data-table"],
+  systems: ["vantage", "auton", "mailpulse", "veriq"],
+};

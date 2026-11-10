@@ -10,7 +10,8 @@ import { FigmaItemPage } from "@/components/site/figma-item-page";
 import { entries, figmaQA, getFigmaItem } from "@/lib/library";
 import { getSystem } from "@/lib/catalog";
 import { postsFor } from "@/lib/blog";
-import { JsonLd, ORG_ID, abs, breadcrumbLd, clip, pageMeta } from "@/lib/seo";
+import { categoryHref } from "@/lib/hubs";
+import { JsonLd, ORG_ID, abs, breadcrumbLd, clip, isPart, pageMeta } from "@/lib/seo";
 
 export function generateStaticParams() {
   return entries.map((e) => ({ slug: e.slug }));
@@ -43,6 +44,7 @@ export async function generateMetadata({ params }: PageProps<"/components/[slug]
     description: clip(`${n} from the ${sys} dashboard design system, taken from the ${f.source.replace(/^[\d.]+ · /, "").replace(/ — .*/, "") || "product"} screen. ${coded ? "React + Tailwind code checked against Figma, plus the Figma layer." : "In Figma now; React code in progress."}${f.keywords ? " Includes " + f.keywords.split(", ").slice(0, 4).join(", ").toLowerCase() + "." : ""}`),
     path,
     image: path + "/opengraph-image",
+    noindex: isPart(f.name),
   });
 }
 
@@ -124,7 +126,7 @@ export default async function ComponentPage({ params }: PageProps<"/components/[
         <span aria-hidden="true">/</span>
         <Link href="/systems/loopo" className="hover:text-ink">Loopo</Link>
         <span aria-hidden="true">/</span>
-        <span>{entry.category}</span>
+        {categoryHref(entry.category) ? <Link href={categoryHref(entry.category)!} className="hover:text-ink">{entry.category}</Link> : <span>{entry.category}</span>}
       </nav>
       <h1 className="mt-2 text-[20px] font-medium tracking-[-0.02em]">{it.name}</h1>
       <p className="mt-1 text-[13px] leading-snug text-mute">{it.description}</p>

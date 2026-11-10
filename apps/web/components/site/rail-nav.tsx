@@ -9,6 +9,7 @@ const GROUPS: { h: string; links: L[] }[] = [
     h: "Browse",
     links: [
       { href: "/", label: "Components", icon: "grid" },
+      { href: "/categories", label: "Categories", icon: "template" },
       { href: "/charts", label: "Charts", icon: "chart" },
       { href: "/icons", label: "Icons", icon: "shapes" },
     ],

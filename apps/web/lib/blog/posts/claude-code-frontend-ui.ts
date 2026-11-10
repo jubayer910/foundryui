@@ -1,0 +1,52 @@
+import type { Post } from "../types";
+
+export const post: Post = {
+  slug: "claude-code-frontend-ui",
+  title: "Building frontend UI with Claude Code: a workflow that produces a real product look",
+  metaTitle: "Claude Code for frontend UI: workflow, rules and MCP (2027)",
+  description: "How to use Claude Code for dashboard and frontend UI without the generic AI look: set up tokens and a rules file, connect a design-system MCP server, prompt screen by screen, and review with screenshots.",
+  date: "2026-11-10",
+  category: "AI agents",
+  keyword: "claude code frontend",
+  intent: "informational",
+  lede: "To get good frontend UI from Claude Code, give it a design system before the first screen: tokens in the repo, a CLAUDE.md rules file that points to your components, and an MCP server it can query for real components. Then ask for one screen at a time with the user, the decision and the data named, and review each screen against a screenshot before moving on.",
+  body: [
+    { t: "p", x: "We are Wolfpixel. Much of our build work now runs through Claude Code. The quality of the UI it writes depends far more on the context it has than on the prompt, so this guide is mostly about setting up context." },
+    { t: "h2", x: "The setup (once per project)" },
+    { t: "ol", items: [
+      "**Tokens in the repo.** CSS variables for colour, radius, type, mapped to Tailwind v4 utilities.",
+      "**A CLAUDE.md** that names the rules: use components from `components/ingot`, no hex values, one icon set, every table has empty and loading states.",
+      "**A design-system MCP server** so Claude Code can search and fetch components instead of inventing them.",
+      "**A screenshot loop.** Run the dev server and let Claude Code look at what it built (a browser tool or Playwright), so it can see spacing and alignment, not just code.",
+    ] },
+    { t: "code", label: "Connect the Ingot UI MCP server", x: "claude mcp add --transport http ingot-ui https://mcp.ingotui.com/mcp --header \"Authorization: Bearer YOUR_API_KEY\"" },
+    { t: "p", x: "Then ask it to run `init_project`. That writes the tokens, the theme bridge and an `INGOT.md` rules file; reference it from `CLAUDE.md` so every new session reads it. Details in [MCP for UI components](/blog/mcp-server-ui-components-ai-agents)." },
+    { t: "takeaway", x: "Claude Code follows the repo. Put the design system in the repo before the first prompt." },
+    { t: "h2", x: "Prompting screen by screen" },
+    { t: "p", x: "Name the user, the decision, the data shape and the system. One screen per prompt, reviewed before the next." },
+    { t: "code", label: "Prompt", x: "Using the Vantage system, build app/(app)/customers/page.tsx: a KPI strip (MRR, net retention, churn, at-risk accounts) with comparisons vs last month, a customers table with status chips, filters and row actions, and a customer drawer opened from the row. Data comes from lib/data/customers.ts (shape in the file). Include empty, loading and no-results states. Run audit_ui at the end." },
+    { t: "components", slugs: ["vantage-kpi-strip-26230470", "vantage-customers-table-26332895", "vantage-am-drawer-26235779", "vantage-at-risk-table-26235081"], caption: "The Vantage components that prompt assembles." },
+    { t: "h2", x: "Reviewing what it built" },
+    { t: "ul", items: [
+      "Look at the screenshot first, the code second.",
+      "Check the states by forcing them (empty data, slow network).",
+      "Check that no hex values or one-off spacings crept in (`audit_ui` does this).",
+      "Ask for fixes as a list, one message, then re-screenshot.",
+    ] },
+    { t: "cta", h: "Give Claude Code a design system", x: "Free account, one command, 14 tools.", href: "/mcp", label: "Set up MCP" },
+    { t: "h2", x: "What Claude Code is great at, and what still needs you" },
+    { t: "table", head: ["Great at", "Still needs a human"], rows: [
+      ["Assembling screens from existing components", "Deciding what the screen should emphasise"],
+      ["Wiring data, states and routing", "Information architecture across the product"],
+      ["Refactors across many files", "Visual judgement on new patterns"],
+      ["Following written rules consistently", "Writing the rules in the first place"],
+    ] },
+  ],
+  faq: [
+    { q: "Can Claude Code build a whole frontend?", a: "It can assemble and wire a full frontend quickly when it has tokens, components and rules to follow. Product decisions and visual judgement on new patterns still need a person." },
+    { q: "How do I make Claude Code use my design system?", a: "Keep tokens and components in the repo, describe the rules in CLAUDE.md, and connect a design-system MCP server so it can fetch components." },
+    { q: "Does Ingot UI work with Claude Code?", a: "Yes. Connect the MCP server at mcp.ingotui.com with an API key from a free account." },
+  ],
+  related: ["vantage-kpi-strip-26230470", "vantage-customers-table-26332895", "kpi-card", "data-table"],
+  systems: ["vantage", "auton"],
+};

@@ -105,3 +105,11 @@ export function pageMeta({ title, description, path, absoluteTitle, noindex, typ
     twitter: { card: "summary_large_image" as const, title: full, description, images: [image] },
   };
 }
+
+/**
+ * Sub-parts of a larger component (a modal's header or body, a table's header row).
+ * Their pages stay live for people who need them, but they are thin on their own,
+ * so they are noindex and left out of the sitemap.
+ */
+const PART_RE = /^(header|body|footer)( (modal|drawer|card)\b| row\b|,|$)/i;
+export const isPart = (name: string) => PART_RE.test(name);
