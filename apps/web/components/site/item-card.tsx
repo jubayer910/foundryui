@@ -23,11 +23,12 @@ export function ItemCard({ item }: { item: Entry }) {
 
   async function copy() {
     const res = await fetch("/api/actions", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ slug: item.slug, action: "copy_code" }) });
-    const data = (await res.json().catch(() => ({}))) as { error?: string; files?: { path: string; content: string }[] };
+    const data = (await res.json().catch(() => ({}))) as { error?: string; files?: { path: string; content: string }[]; codeUrl?: string };
     if (data.error === "login_required") return router.push("/sign-up?next=/components/" + item.slug);
     if (data.error === "upgrade_required") return router.push("/pricing?from=" + item.slug);
-    if (!res.ok || !data.files) return setNote("Couldn’t copy");
-    await navigator.clipboard.writeText(data.files.map((f) => "// " + f.path + "\n" + f.content).join("\n\n")).catch(() => {});
+    if (!res.ok || (!data.files && !data.codeUrl)) return setNote("Couldn’t copy");
+    const text = data.codeUrl ? await (await fetch(data.codeUrl)).text() : data.files!.map((f) => "// " + f.path + "\n" + f.content).join("\n\n");
+    await navigator.clipboard.writeText(text).catch(() => {});
     pushRecent(item.slug);
     window.dispatchEvent(new Event("fu-usage"));
     setNote("Code copied");
@@ -59,7 +60,7 @@ export function ItemCard({ item }: { item: Entry }) {
         </div>
       </Link>
       <div className="pointer-events-none absolute inset-x-0 top-0 flex justify-end gap-1.5 p-2 opacity-0 transition-opacity group-focus-within:pointer-events-auto group-focus-within:opacity-100 group-hover:pointer-events-auto group-hover:opacity-100 max-lg:pointer-events-auto max-lg:opacity-100">
-        {item.kind === "code" && (
+        {(item.kind === "code" || item.qa) && (
           <button onClick={copy} className={qa} aria-label={"Copy code for " + item.name}>
             {item.tier === "pro" ? <Icon name="lock" size={13} /> : <Icon name="code" size={13} />} Copy code
           </button>
@@ -75,7 +76,7 @@ export function ItemCard({ item }: { item: Entry }) {
         </Link>
         <span className="shrink-0 text-[12px] text-mute">{SYSTEM_NAMES[item.system] ?? item.system}</span>
         <span className="ml-auto inline-flex shrink-0 items-center gap-1 text-[12px] text-mute">
-          <span className={"rounded-[4px] px-1.5 text-[11px] " + (item.kind === "code" ? "bg-ink text-white" : "bg-chip text-ink")}>{item.kind === "code" ? "Code" : "Figma"}</span>
+          <span className={"rounded-[4px] px-1.5 text-[11px] " + (item.kind === "code" || item.qa ? "bg-ink text-white" : "bg-chip text-ink")}>{item.kind === "code" || item.qa ? "Code" : "Figma"}</span>
           {item.tier === "pro" ? (
             <>
               <Icon name="lock" size={11} /> Pro

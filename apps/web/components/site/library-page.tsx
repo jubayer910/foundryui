@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { items, systems, FIGMA_LIBRARY_COUNT } from "@/lib/catalog";
-import { CATEGORIES, entries } from "@/lib/library";
+import { CATEGORIES, CODED_TOTAL, entries } from "@/lib/library";
 import { railSystems } from "./rail";
 import { Browser } from "./browser";
 import { CIcon } from "./chrome-icon";
@@ -27,7 +27,7 @@ export function LibraryPage({ q = "", c = "all", s = "all", intro = true }: { q?
           <div className="card p-4">
             <p className="text-[13px] font-medium">Built for founders who ship</p>
             <p className="mt-1 text-[13px] leading-snug text-mute">
-              {(items.length + FIGMA_LIBRARY_COUNT).toLocaleString("en-US")} components: {items.length} with live code, {FIGMA_LIBRARY_COUNT.toLocaleString("en-US")} in the Figma libraries, {iconStats.line.toLocaleString("en-US")} icons and {systems.length} systems ({live} live). Copy as React code, a Figma layer or through your AI agent. Five copies free, no account needed.
+              {(items.length + FIGMA_LIBRARY_COUNT).toLocaleString("en-US")} components, {CODED_TOTAL.toLocaleString("en-US")} of them with React code checked against Figma, {iconStats.line.toLocaleString("en-US")} icons and {systems.length} systems ({live} live). Copy as React code, a Figma layer or through your AI agent. Five copies free, no account needed.
             </p>
           </div>
           {EXITS.map((e) => (

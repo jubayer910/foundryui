@@ -133,7 +133,8 @@ const LIST = args.ids ? await Promise.all(args.ids.map((i) => figma.getNodeByIdA
 const timing = [];
 for (const c of LIST) {
   const tc = Date.now();
-  if (Date.now() - t0 > 30000) break;
+  if (Date.now() - t0 > (args.budget || 30000)) break;
+  globalThis.__fuSer = { sys: args.sys, done: ok + err.length, of: LIST.length };
   try {
     const id = c.id.replace(/[:;]/g, "-");
     if (c.findAll(() => true).length > 1200) { err.push(id + ":too-large"); continue; }
@@ -147,7 +148,8 @@ for (const c of LIST) {
     if (r1.ok && r2_.ok) ok++; else err.push(id);
     timing.push(c.name.split("/").pop() + ":" + (Date.now() - tc));
   } catch (e) { err.push(c.id + ":" + String(e).slice(0, 80)); }
-  await new Promise((r) => setTimeout(r, 0));
+  if ((ok + err.length) % (args.yieldEvery || 50) === 0) await new Promise((r) => setTimeout(r, 0));
   args.done = (args.done || 0) + 1;
 }
+globalThis.__fuSer = { sys: args.sys, done: ok + err.length, of: LIST.length, finished: true, ok, err: err.slice(0, 8) };
 return { total: L.length, from: args.off, done: args.done || 0, ok, err: err.slice(0, 5), ms: Date.now() - t0, timing: timing.slice(0, 12) };

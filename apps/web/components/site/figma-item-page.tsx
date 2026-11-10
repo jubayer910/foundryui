@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getSystem } from "@/lib/catalog";
-import { entries, type FigmaItem } from "@/lib/library";
+import { entries, figmaQA, type FigmaItem } from "@/lib/library";
+import { FigmaCodePanel } from "./figma-code-panel";
 import { ItemCard } from "./item-card";
 import { SaveButton } from "./save-button";
 
@@ -8,6 +9,7 @@ import { SaveButton } from "./save-button";
 export function FigmaItemPage({ item }: { item: FigmaItem }) {
   const sys = getSystem(item.system);
   const free = sys?.tier === "free";
+  const qa = figmaQA(item.slug);
   const rows: [string, string][] = [
     ["System", sys?.name ?? item.system],
     ["Category", item.category],
@@ -15,7 +17,7 @@ export function FigmaItemPage({ item }: { item: FigmaItem }) {
     ["Size", item.w + " × " + item.h],
     ["From screen", item.source.replace(/^\d+\.\d+ · /, "") || "Product screens"],
     ["Figma", "In the " + (sys?.name ?? "") + " Figma kit"],
-    ["Code", "In progress"],
+    ["Code", qa ? "React (TSX), checked" : "In progress"],
   ];
   const related = entries.filter((e) => e.slug !== item.slug && e.system === item.system && e.category === item.category).slice(0, 4);
   return (
@@ -41,13 +43,16 @@ export function FigmaItemPage({ item }: { item: FigmaItem }) {
               </div>
             ))}
           </dl>
+          {qa && <FigmaCodePanel slug={item.slug} codeUrl={`/library-code/${item.system}/${item.slug}.txt`} score={qa.score} />}
           <div className="flex flex-col gap-1.5">
-            <SaveButton slug={item.slug} />
+            <SaveButton slug={item.slug} quiet={!!qa} />
             <Link href={free ? "/sign-up?next=/components/" + item.slug : "/pricing?from=" + item.slug} className="btn-line w-full">
               {free ? "Get the free Loopo Figma kit" : "Unlock with Pro"}
             </Link>
           </div>
-          <p className="text-[12px] leading-snug text-mute">Figma kit downloads open at launch. React code for this component is being converted and checked against the Figma original; save it to see it first when it lands.</p>
+          <p className="text-[12px] leading-snug text-mute">
+            {qa ? "Figma kit downloads open at launch." : "Figma kit downloads open at launch. React code for this component is being converted and checked against the Figma original; save it to see it first when it lands."}
+          </p>
           {item.keywords && (
             <div>
               <p className="text-[12px] text-mute">What’s inside</p>

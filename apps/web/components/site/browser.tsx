@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { Entry } from "@/lib/library";
+const coded = (e: Entry) => e.kind === "code" || !!e.qa;
 import { ItemCard } from "./item-card";
 import { Icon } from "@/registry/components/icons";
 
@@ -33,19 +34,19 @@ export function Browser({ entries, categories, systems, initialCategory = "all",
 
   const words = q.trim().toLowerCase().split(/\s+/).filter(Boolean);
   const base = useMemo(
-    () => entries.filter((e) => (sys === "all" || e.system === sys) && (kind === "all" || e.kind === kind) && words.every((w) => e.text.includes(w) || e.category.toLowerCase().includes(w))),
+    () => entries.filter((e) => (sys === "all" || e.system === sys) && (kind === "all" || (kind === "code" ? coded(e) : !coded(e))) && words.every((w) => e.text.includes(w) || e.category.toLowerCase().includes(w))),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [entries, sys, kind, q],
   );
   const shown = useMemo(() => {
     const list = base.filter((e) => cat === "all" || e.category === cat);
     if (sort === "az") return [...list].sort((a, b) => a.name.localeCompare(b.name));
-    if (sort === "code") return [...list].sort((a, b) => (a.kind === b.kind ? 0 : a.kind === "code" ? -1 : 1));
+    if (sort === "code") return [...list].sort((a, b) => Number(coded(b)) - Number(coded(a)));
     // Featured: lead with finished blocks, utilities last
     // Featured: what sells first (charts, KPIs, tables, overlays), parts and utilities last
     const part = /^(header|body|footer) (modal|drawer|card)\b/i;
     const W: Record<string, number> = { Charts: 0, "KPI and stats": 1, "Tables and lists": 2, Modals: 3, Drawers: 4, "Cards and panels": 5, Templates: 6, Menus: 7, Popovers: 8, Editors: 9, Navigation: 10, Forms: 11, Headers: 12, Feedback: 13, Atoms: 14, Foundations: 15 };
-    const rank = (e: Entry) => (part.test(e.name) ? 100 : 0) + (W[e.category] ?? 9) - (e.kind === "code" ? 0.5 : 0);
+    const rank = (e: Entry) => (part.test(e.name) ? 100 : 0) + (W[e.category] ?? 9) - (coded(e) ? 0.5 : 0);
     return [...list].sort((a, b) => rank(a) - rank(b));
   }, [base, cat, sort]);
   const count = (c: string) => (c === "all" ? base.length : base.filter((e) => e.category === c).length);
@@ -76,8 +77,8 @@ export function Browser({ entries, categories, systems, initialCategory = "all",
         <div className="flex items-center gap-1.5 lg:ml-auto">
           <select value={kind} onChange={(e) => { setKind(e.target.value as typeof kind); setLimit(PAGE); }} aria-label="Format" className="h-7 rounded-full bg-chip px-2.5 text-[13px] outline-none">
             <option value="all">Code and Figma</option>
-            <option value="code">Code only</option>
-            <option value="figma">Figma only</option>
+            <option value="code">With code</option>
+            <option value="figma">Figma only (code coming)</option>
           </select>
           <select value={sort} onChange={(e) => setSort(e.target.value as Sort)} aria-label="Sort" className="h-7 rounded-full bg-chip px-2.5 text-[13px] outline-none">
             <option value="featured">Featured</option>

@@ -5,7 +5,7 @@ import { getSystem, items, systems } from "@/lib/catalog";
 import { FIGMA_LIBRARY, figmaCount } from "@/lib/figma-library";
 import { Browser } from "@/components/site/browser";
 import { railSystems } from "@/components/site/rail";
-import { CATEGORIES, entries } from "@/lib/library";
+import { CATEGORIES, codeCount, entries } from "@/lib/library";
 import { Preview } from "@/components/site/preview";
 
 export function generateStaticParams() {
@@ -20,13 +20,14 @@ export async function generateMetadata({ params }: PageProps<"/systems/[slug]">)
 export default async function SystemPage({ params }: PageProps<"/systems/[slug]">) {
   const s = getSystem((await params).slug);
   if (!s) notFound();
-  const live = s.status === "live";
+  const coded = (s.status === "live" ? items.length : 0) + codeCount(s.slug);
+  const live = coded > 0;
   const lib = Object.entries(FIGMA_LIBRARY[s.slug] ?? {}).sort((a, b) => b[1] - a[1]);
   const rows: [string, string][] = [
-    ["Status", live ? "Live in code and Figma" : "Figma library ready, code in progress"],
+    ["Status", live ? "Code and Figma" : "Figma library ready, code in progress"],
     ["Plan", s.tier === "free" ? "Free" : "Pro"],
     ["Components in Figma", String(figmaCount(s.slug))],
-    ["Components in code", String(live ? items.length : 0)],
+    ["Components with code", String(coded)],
     ["Typeface", s.font],
     ["Accent", s.accent],
   ];
@@ -57,7 +58,7 @@ export default async function SystemPage({ params }: PageProps<"/systems/[slug]"
           ))}
         </dl>
         {live ? (
-          <Link href="/" className="btn-ink w-full">Browse {s.name} components</Link>
+          <Link href={"/?s=" + s.slug} className="btn-ink w-full">Browse {s.name} components</Link>
         ) : (
           <Link href="/systems/loopo" className="btn-line w-full">Start with Loopo, it’s live now</Link>
         )}
@@ -68,7 +69,7 @@ export default async function SystemPage({ params }: PageProps<"/systems/[slug]"
       </aside>
 
       <div className="min-w-0">
-        {live && (
+        {s.status === "live" && (
           <section>
             <h2 className="text-[13px] font-medium">Foundations</h2>
             <div className="mt-3 overflow-hidden rounded-[8px] shadow-[inset_0_0_0_1px_var(--color-hair)]">
@@ -77,7 +78,7 @@ export default async function SystemPage({ params }: PageProps<"/systems/[slug]"
           </section>
         )}
 
-        <section className={live ? "mt-10" : ""}>
+        <section className={s.status === "live" ? "mt-10" : ""}>
           <h2 className="text-[13px] font-medium">
             In the Figma library <span className="text-mute">{figmaCount(s.slug)}</span>
           </h2>

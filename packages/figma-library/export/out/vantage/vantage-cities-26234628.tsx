@@ -1,0 +1,68 @@
+// Cities (vantage, Charts) from Foundry UI.
+// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Foundry Icons.
+export function Cities() {
+  return (
+    <div style={{ width: "375px", height: "255px", display: "flex", flexDirection: "column", gap: "10px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+      <div style={{ width: "375px", flexShrink: 0, display: "flex", flexDirection: "column", gap: "6px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+        <div style={{ width: "375px", flexShrink: 0, display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center", boxSizing: "border-box" }}>
+          <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "17px", fontFamily: "'Geist'", fontSize: "13px", fontWeight: 500, color: "#ededed" }}>Santo Domingo</p>
+          <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "16px", fontFamily: "'Geist'", fontSize: "12px", fontWeight: 400, color: "#8a8a8a" }}>735 customers</p>
+        </div>
+        <div style={{ width: "375px", height: "20px", flexShrink: 0, position: "relative" }}>
+          <div style={{ position: "absolute", left: "0px", top: "0px", width: "359px", height: "18px", borderRadius: "6px", background: "rgba(123, 91, 255, 0.12)", display: "flex", flexDirection: "row", padding: "0px 9px 0px 9px", justifyContent: "flex-end", alignItems: "center", boxSizing: "border-box" }}>
+            <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "16px", fontFamily: "'Geist'", fontSize: "12px", fontWeight: 500, color: "#9c84ff" }}>42%</p>
+          </div>
+          <div style={{ position: "absolute", left: "0px", top: "0px", width: "315px", height: "18px", borderRadius: "6px", background: "linear-gradient(180deg, #8c70ff 0%, #7b5bff 100%)", boxShadow: "inset 0 0 0 1px rgba(96, 71, 199, 0.38), inset 0px 1px 0px 0px rgba(255, 255, 255, 0.22), inset 0px 0px 6px 0px rgba(255, 255, 255, 0.1), 0px 1px 1.5px 0px rgba(0, 0, 0, 0.35)", overflow: "hidden" }} />
+        </div>
+      </div>
+      <div style={{ width: "375px", flexShrink: 0, display: "flex", flexDirection: "column", gap: "6px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+        <div style={{ width: "375px", flexShrink: 0, display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center", boxSizing: "border-box" }}>
+          <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "17px", fontFamily: "'Geist'", fontSize: "13px", fontWeight: 500, color: "#ededed" }}>Santiago</p>
+          <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "16px", fontFamily: "'Geist'", fontSize: "12px", fontWeight: 400, color: "#8a8a8a" }}>368 customers</p>
+        </div>
+        <div style={{ width: "375px", height: "20px", flexShrink: 0, position: "relative" }}>
+          <div style={{ position: "absolute", left: "0px", top: "0px", width: "201.5px", height: "18px", borderRadius: "6px", background: "rgba(106, 75, 240, 0.12)", display: "flex", flexDirection: "row", padding: "0px 9px 0px 9px", justifyContent: "flex-end", alignItems: "center", boxSizing: "border-box" }}>
+            <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "16px", fontFamily: "'Geist'", fontSize: "12px", fontWeight: 500, color: "#8f78f4" }}>21%</p>
+          </div>
+          <div style={{ position: "absolute", left: "0px", top: "0px", width: "157.5px", height: "18px", borderRadius: "6px", background: "linear-gradient(180deg, #7d62f2 0%, #6a4bf0 100%)", boxShadow: "inset 0 0 0 1px rgba(83, 59, 187, 0.38), inset 0px 1px 0px 0px rgba(255, 255, 255, 0.22), inset 0px 0px 6px 0px rgba(255, 255, 255, 0.1), 0px 1px 1.5px 0px rgba(0, 0, 0, 0.35)", overflow: "hidden" }} />
+        </div>
+      </div>
+      <div style={{ width: "375px", flexShrink: 0, display: "flex", flexDirection: "column", gap: "6px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+        <div style={{ width: "375px", flexShrink: 0, display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center", boxSizing: "border-box" }}>
+          <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "17px", fontFamily: "'Geist'", fontSize: "13px", fontWeight: 500, color: "#ededed" }}>La Romana</p>
+          <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "16px", fontFamily: "'Geist'", fontSize: "12px", fontWeight: 400, color: "#8a8a8a" }}>193 customers</p>
+        </div>
+        <div style={{ width: "375px", height: "20px", flexShrink: 0, position: "relative" }}>
+          <div style={{ position: "absolute", left: "0px", top: "0px", width: "126.5px", height: "18px", borderRadius: "6px", background: "rgba(106, 75, 240, 0.12)", display: "flex", flexDirection: "row", padding: "0px 9px 0px 9px", justifyContent: "flex-end", alignItems: "center", boxSizing: "border-box" }}>
+            <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "16px", fontFamily: "'Geist'", fontSize: "12px", fontWeight: 500, color: "#8f78f4" }}>11%</p>
+          </div>
+          <div style={{ position: "absolute", left: "0px", top: "0px", width: "82.5px", height: "18px", borderRadius: "6px", background: "linear-gradient(180deg, #7d62f2 0%, #6a4bf0 100%)", boxShadow: "inset 0 0 0 1px rgba(83, 59, 187, 0.38), inset 0px 1px 0px 0px rgba(255, 255, 255, 0.22), inset 0px 0px 6px 0px rgba(255, 255, 255, 0.1), 0px 1px 1.5px 0px rgba(0, 0, 0, 0.35)", overflow: "hidden" }} />
+        </div>
+      </div>
+      <div style={{ width: "375px", flexShrink: 0, display: "flex", flexDirection: "column", gap: "6px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+        <div style={{ width: "375px", flexShrink: 0, display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center", boxSizing: "border-box" }}>
+          <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "17px", fontFamily: "'Geist'", fontSize: "13px", fontWeight: 500, color: "#ededed" }}>Punta Cana</p>
+          <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "16px", fontFamily: "'Geist'", fontSize: "12px", fontWeight: 400, color: "#8a8a8a" }}>158 customers</p>
+        </div>
+        <div style={{ width: "375px", height: "20px", flexShrink: 0, position: "relative" }}>
+          <div style={{ position: "absolute", left: "0px", top: "0px", width: "111.5px", height: "18px", borderRadius: "6px", background: "rgba(106, 75, 240, 0.12)", display: "flex", flexDirection: "row", padding: "0px 9px 0px 9px", justifyContent: "flex-end", alignItems: "center", boxSizing: "border-box" }}>
+            <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "16px", fontFamily: "'Geist'", fontSize: "12px", fontWeight: 500, color: "#8f78f4" }}>9%</p>
+          </div>
+          <div style={{ position: "absolute", left: "0px", top: "0px", width: "67.5px", height: "18px", borderRadius: "6px", background: "linear-gradient(180deg, #7d62f2 0%, #6a4bf0 100%)", boxShadow: "inset 0 0 0 1px rgba(83, 59, 187, 0.38), inset 0px 1px 0px 0px rgba(255, 255, 255, 0.22), inset 0px 0px 6px 0px rgba(255, 255, 255, 0.1), 0px 1px 1.5px 0px rgba(0, 0, 0, 0.35)", overflow: "hidden" }} />
+        </div>
+      </div>
+      <div style={{ width: "375px", flexShrink: 0, display: "flex", flexDirection: "column", gap: "6px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+        <div style={{ width: "375px", flexShrink: 0, display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center", boxSizing: "border-box" }}>
+          <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "17px", fontFamily: "'Geist'", fontSize: "13px", fontWeight: 500, color: "#ededed" }}>San Pedro de Macorís</p>
+          <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "16px", fontFamily: "'Geist'", fontSize: "12px", fontWeight: 400, color: "#8a8a8a" }}>123 customers</p>
+        </div>
+        <div style={{ width: "375px", height: "20px", flexShrink: 0, position: "relative" }}>
+          <div style={{ position: "absolute", left: "0px", top: "0px", width: "96.5px", height: "18px", borderRadius: "6px", background: "rgba(106, 75, 240, 0.12)", display: "flex", flexDirection: "row", padding: "0px 9px 0px 9px", justifyContent: "flex-end", alignItems: "center", boxSizing: "border-box" }}>
+            <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "16px", fontFamily: "'Geist'", fontSize: "12px", fontWeight: 500, color: "#8f78f4" }}>7%</p>
+          </div>
+          <div style={{ position: "absolute", left: "0px", top: "0px", width: "52.5px", height: "18px", borderRadius: "6px", background: "linear-gradient(180deg, #7d62f2 0%, #6a4bf0 100%)", boxShadow: "inset 0 0 0 1px rgba(83, 59, 187, 0.38), inset 0px 1px 0px 0px rgba(255, 255, 255, 0.22), inset 0px 0px 6px 0px rgba(255, 255, 255, 0.1), 0px 1px 1.5px 0px rgba(0, 0, 0, 0.35)", overflow: "hidden" }} />
+        </div>
+      </div>
+    </div>
+  );
+}

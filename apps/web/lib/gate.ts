@@ -2,7 +2,8 @@ import "server-only";
 import { cookies, headers } from "next/headers";
 import { getEnv, getDb, schema } from "./db";
 import { getSessionUser, type SessionUser } from "./auth";
-import { getItem } from "./catalog";
+import { getItem, systems } from "./catalog";
+import { getFigmaItem, figmaQA } from "./library";
 
 export const ANON_LIMIT = 5;
 export const ACTIONS = ["copy_code", "copy_figma", "download_png", "download_svg", "download_jpeg", "install"] as const;
@@ -32,7 +33,8 @@ export async function anonUsage() {
 }
 
 export async function checkAndRecord(slug: string, action: Action, client = "web"): Promise<GateResult> {
-  const item = slug.startsWith("icon:") ? { tier: "free" as const } : getItem(slug);
+  const fig = getFigmaItem(slug);
+  const item = slug.startsWith("icon:") ? { tier: "free" as const } : getItem(slug) ?? (fig && (action !== "copy_code" || figmaQA(slug)) ? { tier: (systems.find((s) => s.slug === fig.system)?.tier ?? "pro") as "free" | "pro" } : undefined);
   if (!item) return { ok: false, reason: "not_found", remaining: 0 };
   const user = await getSessionUser();
   const db = await getDb();

@@ -1,0 +1,60 @@
+// Credits (veriq, Cards and panels) from Foundry UI.
+// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Foundry Icons.
+export function Credits() {
+  return (
+    <div style={{ width: "261px", height: "252.8px", display: "flex", flexDirection: "column", gap: "10px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+      <div style={{ width: "261px", flexShrink: 0, display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center", boxSizing: "border-box" }}>
+        <div style={{ flexShrink: 0, display: "flex", flexDirection: "column", gap: "2px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+          <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "18px", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 600, color: "#1c1b20", letterSpacing: "-0.02em" }}>Credits this month</p>
+        </div>
+        <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "18px", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 500, color: "#989898" }}>Resets 1 Sep</p>
+      </div>
+      <div style={{ width: "261px", flexShrink: 0, display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "flex-start", boxSizing: "border-box" }}>
+        <div style={{ width: "196px", height: "134.8px", flexShrink: 0, position: "relative" }}>
+          <svg style={{ position: "absolute", left: "12.8px", top: "12.8px", width: "170.4px", height: "85.2px", display: "block", lineHeight: 0 }} xmlns="http://www.w3.org/2000/svg" width="170.36" height="85.18" viewBox="0 0 170.36 85.18" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M-8.82 85.18 C-8.82 90.0512 -4.87115 94 0 94 C4.87115 94 8.82 90.0512 8.82 85.18 L0 85.18 L-8.82 85.18 Z M161.54 85.18 C161.54 90.0512 165.489 94 170.36 94 C175.231 94 179.18 90.0512 179.18 85.18 L170.36 85.18 L161.54 85.18 Z M0 85.18 L8.82 85.18 C8.82 43.0112 43.0112 8.82 85.18 8.82 L85.18 0 L85.18 -8.82 C33.2688 -8.82 -8.82 33.2688 -8.82 85.18 L0 85.18 Z M85.18 0 L85.18 8.82 C127.349 8.82 161.54 43.0112 161.54 85.18 L170.36 85.18 L179.18 85.18 C179.18 33.2688 137.091 -8.82 85.18 -8.82 L85.18 0 Z" fill="#ffebde"/></svg>
+          <svg style={{ position: "absolute", left: "12.8px", top: "12.8px", width: "135.3px", height: "85.2px", display: "block", lineHeight: 0 }} xmlns="http://www.w3.org/2000/svg" width="135.25" height="85.18" viewBox="0 0 135.25 85.18" fill="none" overflow="visible"><defs><linearGradient id="g17_5oiu" gradientUnits="userSpaceOnUse" x1="0.00" y1="42.59" x2="135.25" y2="42.59"><stop offset="0" stopColor="#fea368"/><stop offset="1" stopColor="#fd7116"/></linearGradient></defs><path transform="matrix(1 0 0 1 0 0)" d="M-8.82 85.1829 C-8.82 90.0541 -4.87115 94.0029 0 94.0029 C4.87115 94.0029 8.82 90.0541 8.82 85.1829 L0 85.1829 L-8.82 85.1829 Z M130.068 23.4 C134.01 26.262 139.525 25.3867 142.387 21.445 C145.249 17.5033 144.374 11.9878 140.432 9.1258 L135.25 16.2629 L130.068 23.4 Z M0 85.1829 L8.82 85.1829 C8.82 56.4595 24.9294 30.176 50.5138 17.1418 L46.51 9.2829 L42.5062 1.42402 C11.0106 17.4698 -8.82 49.8263 -8.82 85.1829 L0 85.1829 Z M46.51 9.2829 L50.5138 17.1418 C76.0982 4.10755 106.83 6.52712 130.068 23.4 L135.25 16.2629 L140.432 9.1258 C111.83 -11.6413 74.0018 -14.6217 42.5062 1.42402 L46.51 9.2829 Z" fill="url(#g17_5oiu)"/></svg>
+          <svg style={{ position: "absolute", left: "30.6px", top: "30.6px", width: "134.7px", height: "67.4px", display: "block", lineHeight: 0 }} xmlns="http://www.w3.org/2000/svg" width="134.72" height="67.36" viewBox="0 0 134.72 67.36" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M 0 67.36000061035156 C 0 30.15999984741211 30.15999984741211 0 67.36000061035156 0 C 104.56000137329102 0 134.72000122070312 30.15999984741211 134.72000122070312 67.36000061035156" fill="none" stroke="#feb17f" strokeWidth="2" strokeDasharray="0.10000000149011612 6" strokeLinecap="round"/></svg>
+          <svg style={{ position: "absolute", left: "140.1px", top: "21.2px", width: "15.9px", height: "15.9px", display: "block", lineHeight: 0 }} xmlns="http://www.w3.org/2000/svg" width="15.88" height="15.88" viewBox="0 0 15.88 15.88" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M15.876 7.938 C15.876 12.322 12.322 15.876 7.938 15.876 C3.55396 15.876 0 12.322 0 7.938 C0 3.55396 3.55396 0 7.938 0 C12.322 0 15.876 3.55396 15.876 7.938 Z" fill="#ffffff"/><path transform="matrix(1 0 0 1 0 0)" d="M15.876 7.938 L13.376 7.938 C13.376 10.9413 10.9413 13.376 7.938 13.376 L7.938 15.876 L7.938 18.376 C13.7027 18.376 18.376 13.7027 18.376 7.938 L15.876 7.938 Z M7.938 15.876 L7.938 13.376 C4.93468 13.376 2.5 10.9413 2.5 7.938 L0 7.938 L-2.5 7.938 C-2.5 13.7027 2.17325 18.376 7.938 18.376 L7.938 15.876 Z M0 7.938 L2.5 7.938 C2.5 4.93468 4.93468 2.5 7.938 2.5 L7.938 0 L7.938 -2.5 C2.17325 -2.5 -2.5 2.17325 -2.5 7.938 L0 7.938 Z M7.938 0 L7.938 2.5 C10.9413 2.5 13.376 4.93468 13.376 7.938 L15.876 7.938 L18.376 7.938 C18.376 2.17325 13.7027 -2.5 7.938 -2.5 L7.938 0 Z" fill="#fd7116"/></svg>
+          <div style={{ position: "absolute", left: "61px", top: "49px", width: "74px", height: "47px", display: "flex", flexDirection: "column", gap: "2px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "14px", fontFamily: "'Geist'", fontSize: "11px", fontWeight: 400, color: "#747474" }}>credits used</p>
+            <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "31px", fontFamily: "'Geist'", fontSize: "24px", fontWeight: 500, color: "#1f1f22" }}>7 of 10</p>
+          </div>
+        </div>
+      </div>
+      <div style={{ width: "261px", height: "10px", flexShrink: 0, display: "flex", flexDirection: "row", gap: "3px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+        <div style={{ width: "71.1px", height: "10px", flexShrink: 0, borderRadius: "5px", background: "linear-gradient(180deg, #f79a49 0%, #f68b2e 100%)", boxShadow: "inset 0 0 0 1px rgba(192, 108, 36, 0.38), inset 0px 1px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 6px 0px rgba(255, 255, 255, 0.18), 0px 1px 1.5px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+        <div style={{ width: "71.1px", height: "10px", flexShrink: 0, borderRadius: "5px", background: "linear-gradient(180deg, #906ef6 0%, #7f58f5 100%)", boxShadow: "inset 0 0 0 1px rgba(99, 69, 191, 0.38), inset 0px 1px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 6px 0px rgba(255, 255, 255, 0.18), 0px 1px 1.5px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+        <div style={{ width: "35.6px", height: "10px", flexShrink: 0, borderRadius: "5px", background: "linear-gradient(180deg, #6cbcf0 0%, #56b2ee 100%)", boxShadow: "inset 0 0 0 1px rgba(67, 139, 186, 0.38), inset 0px 1px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 6px 0px rgba(255, 255, 255, 0.18), 0px 1px 1.5px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+        <div style={{ width: "35.6px", height: "10px", flexShrink: 0, borderRadius: "5px", background: "linear-gradient(180deg, #41c780 0%, #25bf6d 100%)", boxShadow: "inset 0 0 0 1px rgba(29, 149, 85, 0.38), inset 0px 1px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 6px 0px rgba(255, 255, 255, 0.18), 0px 1px 1.5px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+        <div style={{ width: "35.6px", height: "10px", flexShrink: 0, borderRadius: "5px", background: "linear-gradient(180deg, #dadadd 0%, #d4d4d8 100%)", boxShadow: "inset 0 0 0 1px rgba(165, 165, 168, 0.38), inset 0px 1px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 6px 0px rgba(255, 255, 255, 0.18), 0px 1px 1.5px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+      </div>
+      <div style={{ width: "261px", flexShrink: 0, display: "flex", flexDirection: "row", flexWrap: "wrap", rowGap: "6px", columnGap: "10px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+        <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "6px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+          <div style={{ width: "10px", height: "10px", flexShrink: 0, borderRadius: "2px", background: "#f68b2e", boxShadow: "inset 0px 4px 4px 0px rgba(255, 255, 255, 0.29)" }} />
+          <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "16px", fontFamily: "'Geist'", fontSize: "12px", fontWeight: 500, color: "#747474", letterSpacing: "-0.01em" }}>Customer web app</p>
+          <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "16px", fontFamily: "'Geist'", fontSize: "12px", fontWeight: 500, color: "#222222" }}>2</p>
+        </div>
+        <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "6px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+          <div style={{ width: "10px", height: "10px", flexShrink: 0, borderRadius: "2px", background: "#7f58f5", boxShadow: "inset 0px 4px 4px 0px rgba(255, 255, 255, 0.29)" }} />
+          <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "16px", fontFamily: "'Geist'", fontSize: "12px", fontWeight: 500, color: "#747474", letterSpacing: "-0.01em" }}>Partner API</p>
+          <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "16px", fontFamily: "'Geist'", fontSize: "12px", fontWeight: 500, color: "#222222" }}>2</p>
+        </div>
+        <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "6px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+          <div style={{ width: "10px", height: "10px", flexShrink: 0, borderRadius: "2px", background: "#56b2ee", boxShadow: "inset 0px 4px 4px 0px rgba(255, 255, 255, 0.29)" }} />
+          <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "16px", fontFamily: "'Geist'", fontSize: "12px", fontWeight: 500, color: "#747474", letterSpacing: "-0.01em" }}>Admin portal</p>
+          <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "16px", fontFamily: "'Geist'", fontSize: "12px", fontWeight: 500, color: "#222222" }}>1</p>
+        </div>
+        <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "6px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+          <div style={{ width: "10px", height: "10px", flexShrink: 0, borderRadius: "2px", background: "#25bf6d", boxShadow: "inset 0px 4px 4px 0px rgba(255, 255, 255, 0.29)" }} />
+          <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "16px", fontFamily: "'Geist'", fontSize: "12px", fontWeight: 500, color: "#747474", letterSpacing: "-0.01em" }}>iOS app</p>
+          <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "16px", fontFamily: "'Geist'", fontSize: "12px", fontWeight: 500, color: "#222222" }}>1</p>
+        </div>
+        <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "6px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+          <div style={{ width: "10px", height: "10px", flexShrink: 0, borderRadius: "2px", background: "#d4d4d8", boxShadow: "inset 0px 4px 4px 0px rgba(255, 255, 255, 0.29)" }} />
+          <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "16px", fontFamily: "'Geist'", fontSize: "12px", fontWeight: 500, color: "#747474", letterSpacing: "-0.01em" }}>Android app</p>
+          <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "16px", fontFamily: "'Geist'", fontSize: "12px", fontWeight: 500, color: "#222222" }}>1</p>
+        </div>
+      </div>
+    </div>
+  );
+}

@@ -1,0 +1,142 @@
+// SR drawer (auton, Drawers) from Foundry UI.
+// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Foundry Icons.
+import { ArrowUpRight, ChartLine, DatabaseExport, File, FingerprintScan, Plus, UserMinus, X } from "foundryui-icons/react/stroke-rounded";
+
+export function SRDrawer() {
+  return (
+    <div style={{ width: "560px", height: "1026px", background: "#ffffff", boxShadow: "inset 1px 0 0 0 #e2e4e5, -12px 0px 40px -8px rgba(10, 36, 71, 0.1)", overflow: "hidden", display: "flex", flexDirection: "column", padding: "0px 0px 0px 1px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+      <div style={{ alignSelf: "stretch", height: "60px", flexShrink: 0, boxShadow: "inset 0 -1px 0 0 #e2e4e5", display: "flex", flexDirection: "row", padding: "0px 16px 1px 20px", gap: "12px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+        <div style={{ width: "40px", height: "40px", flexShrink: 0, borderRadius: "999px", background: "#f4f1fe", boxShadow: "inset 0 0 0 1px #e7e9eb, inset 0px 4px 7px 0px rgba(255, 255, 255, 0.5)", display: "flex", flexDirection: "row", padding: "1px 1px 1px 1px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
+          <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "16px", fontWeight: 400, color: "#24165e", lineHeight: "1.100000023841858", textBox: "trim-both cap alphabetic", height: "11px" }}>SR</p>
+        </div>
+        <div style={{ flex: "1 1 0", minWidth: 0, flexShrink: 0, display: "flex", flexDirection: "column", gap: "8px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+          <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "18px", fontWeight: 400, color: "#111111", lineHeight: "1.100000023841858", textBox: "trim-both cap alphabetic", height: "13px" }}>Sofia Ramos</p>
+          <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#777777", lineHeight: "1.100000023841858", textBox: "trim-both cap alphabetic", height: "10px" }}>sofia@acme.com · Data team · joined Mar 2026</p>
+        </div>
+        <div style={{ height: "24px", flexShrink: 0, borderRadius: "9999px", background: "#edfbf3", boxShadow: "inset 0 0 0 1px rgba(95, 211, 154, 0.2)", display: "flex", flexDirection: "row", padding: "11px 11px 11px 11px", gap: "10px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
+          <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#073b22", lineHeight: "1.100000023841858", textBox: "trim-both cap alphabetic", height: "10px" }}>Approver</p>
+        </div>
+        <div style={{ width: "32px", height: "32px", flexShrink: 0, borderRadius: "9999px", background: "#fafafa", overflow: "hidden", position: "relative" }}>
+          <X size={16} style={{ position: "absolute", left: "8px", top: "8px", width: "16px", height: "16px", color: "#444444", display: "block", flexShrink: 0 }} />
+        </div>
+      </div>
+      <div style={{ alignSelf: "stretch", flex: "1 1 0", minHeight: 0, flexShrink: 0, display: "flex", flexDirection: "column", padding: "20px 20px 20px 20px", gap: "20px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+        <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", gap: "10px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+          <div style={{ flex: "1 1 0", minWidth: 0, flexShrink: 0, borderRadius: "12px", background: "#fafafa", boxShadow: "inset 0 0 0 1px #f2f4f5", display: "flex", flexDirection: "column", padding: "15px 15px 15px 15px", gap: "12px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+            <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#666666", lineHeight: "1.100000023841858", textBox: "trim-both cap alphabetic", height: "10px" }}>Approvals · 30 d</p>
+            <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "22px", fontWeight: 400, color: "#111111", lineHeight: "1.100000023841858", textBox: "trim-both cap alphabetic", height: "16px" }}>46</p>
+            <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "12px", fontWeight: 400, color: "#888888", lineHeight: "1.100000023841858", textBox: "trim-both cap alphabetic", height: "9px" }}>median 3m 10s</p>
+          </div>
+          <div style={{ flex: "1 1 0", minWidth: 0, flexShrink: 0, borderRadius: "12px", background: "#fafafa", boxShadow: "inset 0 0 0 1px #f2f4f5", display: "flex", flexDirection: "column", padding: "15px 15px 15px 15px", gap: "12px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+            <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#666666", lineHeight: "1.100000023841858", textBox: "trim-both cap alphabetic", height: "10px" }}>Denied</p>
+            <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "22px", fontWeight: 400, color: "#111111", lineHeight: "1.100000023841858", textBox: "trim-both cap alphabetic", height: "16px" }}>5</p>
+            <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "12px", fontWeight: 400, color: "#888888", lineHeight: "1.100000023841858", textBox: "trim-both cap alphabetic", height: "9px" }}>11%</p>
+          </div>
+          <div style={{ flex: "1 1 0", minWidth: 0, flexShrink: 0, borderRadius: "12px", background: "#fafafa", boxShadow: "inset 0 0 0 1px #f2f4f5", display: "flex", flexDirection: "column", padding: "15px 15px 15px 15px", gap: "12px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+            <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#666666", lineHeight: "1.100000023841858", textBox: "trim-both cap alphabetic", height: "10px" }}>Agents owned</p>
+            <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "22px", fontWeight: 400, color: "#111111", lineHeight: "1.100000023841858", textBox: "trim-both cap alphabetic", height: "16px" }}>4</p>
+            <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "12px", fontWeight: 400, color: "#888888", lineHeight: "1.100000023841858", textBox: "trim-both cap alphabetic", height: "9px" }}>2 need review</p>
+          </div>
+        </div>
+        <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center", boxSizing: "border-box" }}>
+          <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "12px", fontWeight: 400, color: "#777777", lineHeight: "1.100000023841858", letterSpacing: "0.13em", textTransform: "uppercase", textBox: "trim-both cap alphabetic", height: "9px" }}>Agents owned</p>
+          <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "4px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#222222", lineHeight: "1.100000023841858", textBox: "trim-both cap alphabetic", height: "10px" }}>Open in Agents</p>
+            <ArrowUpRight size={16} style={{ width: "16px", height: "16px", flexShrink: 0, color: "#222222", display: "block" }} />
+          </div>
+        </div>
+        <div style={{ alignSelf: "stretch", flexShrink: 0, borderRadius: "12px", boxShadow: "inset 0 0 0 1px #e2e4e5", overflow: "hidden", display: "flex", flexDirection: "column", padding: "1px 1px 1px 1px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+          <div style={{ alignSelf: "stretch", flexShrink: 0, boxShadow: "inset 0 -1px 0 0 #e2e4e5", display: "flex", flexDirection: "row", padding: "10px 14px 11px 14px", gap: "12px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <DatabaseExport size={18} style={{ width: "18px", height: "18px", flexShrink: 0, color: "#333840", display: "block" }} />
+            <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#333333", lineHeight: "1.100000023841858", textBox: "trim-both cap alphabetic", height: "10px" }}>data-sync</p>
+            <div style={{ flexShrink: 0, borderRadius: "4px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #f1f1f1", display: "flex", flexDirection: "row", padding: "6px 6px 6px 6px", gap: "10px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
+              <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#444444", lineHeight: "1.100000023841858", textBox: "trim-both cap alphabetic", height: "10px" }}>Production</p>
+            </div>
+            <div style={{ flex: "1 1 0", minWidth: 0, height: "1px", flexShrink: 0, overflow: "hidden" }} />
+            <div style={{ height: "24px", flexShrink: 0, borderRadius: "9999px", background: "#fffaeb", boxShadow: "inset 0 0 0 1px rgba(255, 206, 125, 0.2)", display: "flex", flexDirection: "row", padding: "11px 11px 11px 11px", gap: "10px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
+              <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#472c09", lineHeight: "1.100000023841858", textBox: "trim-both cap alphabetic", height: "10px" }}>Needs review</p>
+            </div>
+          </div>
+          <div style={{ alignSelf: "stretch", flexShrink: 0, boxShadow: "inset 0 -1px 0 0 #e2e4e5", display: "flex", flexDirection: "row", padding: "10px 14px 11px 14px", gap: "12px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <DatabaseExport size={18} style={{ width: "18px", height: "18px", flexShrink: 0, color: "#333840", display: "block" }} />
+            <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#333333", lineHeight: "1.100000023841858", textBox: "trim-both cap alphabetic", height: "10px" }}>data-sync-eu</p>
+            <div style={{ flexShrink: 0, borderRadius: "4px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #f1f1f1", display: "flex", flexDirection: "row", padding: "6px 6px 6px 6px", gap: "10px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
+              <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#444444", lineHeight: "1.100000023841858", textBox: "trim-both cap alphabetic", height: "10px" }}>Staging</p>
+            </div>
+            <div style={{ flex: "1 1 0", minWidth: 0, height: "1px", flexShrink: 0, overflow: "hidden" }} />
+            <div style={{ height: "24px", flexShrink: 0, borderRadius: "9999px", background: "#fffaeb", boxShadow: "inset 0 0 0 1px rgba(255, 206, 125, 0.2)", display: "flex", flexDirection: "row", padding: "11px 11px 11px 11px", gap: "10px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
+              <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#472c09", lineHeight: "1.100000023841858", textBox: "trim-both cap alphabetic", height: "10px" }}>Needs review</p>
+            </div>
+          </div>
+          <div style={{ alignSelf: "stretch", flexShrink: 0, boxShadow: "inset 0 -1px 0 0 #e2e4e5", display: "flex", flexDirection: "row", padding: "10px 14px 11px 14px", gap: "12px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <ChartLine size={18} style={{ width: "18px", height: "18px", flexShrink: 0, color: "#333840", display: "block" }} />
+            <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#333333", lineHeight: "1.100000023841858", textBox: "trim-both cap alphabetic", height: "10px" }}>metrics-digest</p>
+            <div style={{ flexShrink: 0, borderRadius: "4px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #f1f1f1", display: "flex", flexDirection: "row", padding: "6px 6px 6px 6px", gap: "10px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
+              <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#444444", lineHeight: "1.100000023841858", textBox: "trim-both cap alphabetic", height: "10px" }}>Production</p>
+            </div>
+            <div style={{ flex: "1 1 0", minWidth: 0, height: "1px", flexShrink: 0, overflow: "hidden" }} />
+            <div style={{ height: "24px", flexShrink: 0, borderRadius: "9999px", background: "#ebf6ff", boxShadow: "inset 0 0 0 1px rgba(125, 181, 255, 0.2)", display: "flex", flexDirection: "row", padding: "11px 11px 11px 11px", gap: "10px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
+              <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#0a2447", lineHeight: "1.100000023841858", textBox: "trim-both cap alphabetic", height: "10px" }}>Active</p>
+            </div>
+          </div>
+          <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", padding: "10px 14px 10px 14px", gap: "12px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <File size={18} style={{ width: "18px", height: "18px", flexShrink: 0, color: "#333840", display: "block" }} />
+            <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#333333", lineHeight: "1.100000023841858", textBox: "trim-both cap alphabetic", height: "10px" }}>contract-reader</p>
+            <div style={{ flexShrink: 0, borderRadius: "4px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #f1f1f1", display: "flex", flexDirection: "row", padding: "6px 6px 6px 6px", gap: "10px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
+              <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#444444", lineHeight: "1.100000023841858", textBox: "trim-both cap alphabetic", height: "10px" }}>Production</p>
+            </div>
+            <div style={{ flex: "1 1 0", minWidth: 0, height: "1px", flexShrink: 0, overflow: "hidden" }} />
+            <div style={{ height: "24px", flexShrink: 0, borderRadius: "9999px", background: "#ebf6ff", boxShadow: "inset 0 0 0 1px rgba(125, 181, 255, 0.2)", display: "flex", flexDirection: "row", padding: "11px 11px 11px 11px", gap: "10px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
+              <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#0a2447", lineHeight: "1.100000023841858", textBox: "trim-both cap alphabetic", height: "10px" }}>Active</p>
+            </div>
+          </div>
+        </div>
+        <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center", boxSizing: "border-box" }}>
+          <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "12px", fontWeight: 400, color: "#777777", lineHeight: "1.100000023841858", letterSpacing: "0.13em", textTransform: "uppercase", textBox: "trim-both cap alphabetic", height: "9px" }}>Security</p>
+        </div>
+        <div style={{ alignSelf: "stretch", flexShrink: 0, borderRadius: "12px", background: "#fafafa", boxShadow: "inset 0 0 0 1px #f2f4f5", display: "flex", flexDirection: "column", padding: "15px 15px 15px 15px", gap: "12px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+          <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "12px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <p style={{ width: "110px", flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#777777", lineHeight: "1.100000023841858", textBox: "trim-both cap alphabetic", height: "10px" }}>2FA</p>
+            <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#222222", lineHeight: "1.100000023841858", textBox: "trim-both cap alphabetic", height: "10px" }}>Passkey · MacBook Pro, iPhone</p>
+          </div>
+          <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "12px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <p style={{ width: "110px", flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#777777", lineHeight: "1.100000023841858", textBox: "trim-both cap alphabetic", height: "10px" }}>SSO</p>
+            <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#222222", lineHeight: "1.100000023841858", textBox: "trim-both cap alphabetic", height: "10px" }}>Okta · acme.okta.com</p>
+          </div>
+          <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "12px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <p style={{ width: "110px", flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#777777", lineHeight: "1.100000023841858", textBox: "trim-both cap alphabetic", height: "10px" }}>Sessions</p>
+            <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#222222", lineHeight: "1.100000023841858", textBox: "trim-both cap alphabetic", height: "10px" }}>2 active · last from Berlin, 1 h ago</p>
+          </div>
+        </div>
+        <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center", boxSizing: "border-box" }}>
+          <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "12px", fontWeight: 400, color: "#777777", lineHeight: "1.100000023841858", letterSpacing: "0.13em", textTransform: "uppercase", textBox: "trim-both cap alphabetic", height: "9px" }}>Approves for</p>
+        </div>
+        <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "6px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+          <div style={{ flexShrink: 0, borderRadius: "4px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #f1f1f1", display: "flex", flexDirection: "row", padding: "6px 6px 6px 6px", gap: "10px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
+            <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#444444", lineHeight: "1.100000023841858", textBox: "trim-both cap alphabetic", height: "10px" }}>Data</p>
+          </div>
+          <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "4px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#328ff9", lineHeight: "1.100000023841858", textBox: "trim-both cap alphabetic", height: "10px" }}>Add group</p>
+            <Plus size={16} style={{ width: "16px", height: "16px", flexShrink: 0, color: "#328ff9", display: "block" }} />
+          </div>
+        </div>
+      </div>
+      <div style={{ alignSelf: "stretch", flexShrink: 0, background: "#fafafa", boxShadow: "inset 0 1px 0 0 #e2e4e5", display: "flex", flexDirection: "row", padding: "15px 20px 14px 20px", justifyContent: "space-between", alignItems: "center", boxSizing: "border-box" }}>
+        <div style={{ height: "36px", flexShrink: 0, borderRadius: "10px", display: "flex", flexDirection: "row", padding: "0px 14px 0px 12px", gap: "6px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+          <svg style={{ width: "16px", height: "16px", flexShrink: 0, display: "block", lineHeight: 0 }} xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 2 2)" d="M5.82077e-11 6.55817 L0.75 6.55817 L5.82077e-11 6.55817 Z M5.21075e-08 5.44183 L-0.75 5.44183 L5.21075e-08 5.44183 Z M0.0730371 3.81231 L0.809015 3.95665 L0.809015 3.95665 L0.0730371 3.81231 Z M0.0730369 8.18769 L0.809015 8.04335 L0.809015 8.04335 L0.0730369 8.18769 Z M4.03408 11.656 L4.23769 10.9341 L4.23769 10.9341 L4.03408 11.656 Z M5.54376 11.9992 L5.52542 12.749 L5.52542 12.749 L5.54376 11.9992 Z M4.03408 0.344017 L4.23769 1.06585 L4.23769 1.06585 L4.03408 0.344017 Z M5.54376 0.000791478 L5.52542 -0.748984 L5.54376 0.000791478 Z M8.74941 9.77977 C8.76586 9.36588 8.44367 9.01703 8.02978 9.00058 C7.6159 8.98413 7.26704 9.30632 7.25059 9.72021 L8 9.74999 L8.74941 9.77977 Z M7.25059 2.27979 C7.26704 2.69368 7.6159 3.01586 8.02978 2.99941 C8.44367 2.98296 8.76586 2.63411 8.74941 2.22022 L8 2.25 L7.25059 2.27979 Z M5.82077e-11 6.55817 L0.75 6.55817 L0.75 5.44183 L5.21075e-08 5.44183 L-0.75 5.44183 L-0.75 6.55817 L5.82077e-11 6.55817 Z M5.21075e-08 5.44183 L0.75 5.44183 C0.75 4.57139 0.753404 4.2402 0.809015 3.95665 L0.0730371 3.81231 L-0.662941 3.66796 C-0.753404 4.1292 -0.75 4.6361 -0.75 5.44183 L5.21075e-08 5.44183 Z M5.82077e-11 6.55817 L-0.75 6.55817 C-0.75 7.3639 -0.753404 7.8708 -0.662941 8.33204 L0.0730369 8.18769 L0.809015 8.04335 C0.753404 7.7598 0.75 7.42861 0.75 6.55817 L5.82077e-11 6.55817 Z M4.03408 11.656 L3.83047 12.3778 C4.57388 12.5875 5.08554 12.7382 5.52542 12.749 L5.54376 11.9992 L5.5621 11.2494 C5.36065 11.2445 5.07962 11.1716 4.23769 10.9341 L4.03408 11.656 Z M4.03408 0.344017 L4.23769 1.06585 C5.07963 0.828369 5.36065 0.755495 5.5621 0.750567 L5.54376 0.000791478 L5.52542 -0.748984 C5.08554 -0.738223 4.57389 -0.587509 3.83048 -0.377817 L4.03408 0.344017 Z M4.03408 0.344017 L3.83048 -0.377817 C1.86058 0.177824 -0.179151 1.20125 -0.662941 3.66796 L0.0730371 3.81231 L0.809015 3.95665 C1.11989 2.37162 2.39224 1.58639 4.23769 1.06585 L4.03408 0.344017 Z M4.03408 11.656 L4.23769 10.9341 C2.39224 10.4136 1.11989 9.62838 0.809015 8.04335 L0.0730369 8.18769 L-0.662942 8.33204 C-0.179151 10.7987 1.86058 11.8222 3.83048 12.3778 L4.03408 11.656 Z M8 9.74999 L7.25059 9.72021 C7.21755 10.5516 6.52456 11.273 5.5621 11.2494 L5.54376 11.9992 L5.52542 12.749 C7.31957 12.7929 8.68432 11.4176 8.74941 9.77977 L8 9.74999 Z M8 2.25 L8.74941 2.22022 C8.68432 0.582411 7.31956 -0.792876 5.52542 -0.748984 L5.54376 0.000791478 L5.5621 0.750567 C6.52456 0.727022 7.21755 1.44835 7.25059 2.27979 L8 2.25 Z" fill="#555555"/><path transform="matrix(1 0 0 1 6.667 6.334)" d="M0 0.916666 C-0.414214 0.916666 -0.75 1.25245 -0.75 1.66667 C-0.75 2.08088 -0.414214 2.41667 0 2.41667 L0 1.66667 L0 0.916666 Z M6.18941 -0.537811 C5.89238 -0.826514 5.41756 -0.819767 5.12886 -0.522742 C4.84015 -0.225717 4.8469 0.249109 5.14392 0.537811 L5.66667 0 L6.18941 -0.537811 Z M5.14392 2.79552 C4.8469 3.08422 4.84015 3.55905 5.12886 3.85608 C5.41756 4.1531 5.89238 4.15985 6.18941 3.87114 L5.66667 3.33333 L5.14392 2.79552 Z M7.33333 1.66667 L7.33333 0.916666 L0 0.916666 L0 1.66667 L0 2.41667 L7.33333 2.41667 L7.33333 1.66667 Z M7.33333 1.66667 L8.08333 1.66667 C8.08333 1.43756 8.0047 1.24745 7.93681 1.12059 C7.86574 0.987782 7.7764 0.869006 7.6913 0.769091 C7.52163 0.569883 7.30821 0.375821 7.11128 0.208956 C6.91108 0.039319 6.70095 -0.124552 6.53258 -0.2568 C6.34718 -0.402422 6.23853 -0.49007 6.18941 -0.537811 L5.66667 0 L5.14392 0.537811 C5.26337 0.653913 5.44733 0.798168 5.60604 0.922826 C5.78177 1.06086 5.96724 1.20564 6.14157 1.35336 C6.31917 1.50385 6.45919 1.63584 6.54935 1.74169 C6.59417 1.79431 6.61133 1.82282 6.61428 1.82834 C6.62042 1.83981 6.58333 1.77907 6.58333 1.66667 L7.33333 1.66667 Z M5.66667 3.33333 L6.18941 3.87114 C6.23853 3.8234 6.34718 3.73576 6.53258 3.59013 C6.70095 3.45788 6.91108 3.29401 7.11128 3.12438 C7.30821 2.95751 7.52164 2.76345 7.6913 2.56424 C7.7764 2.46433 7.86574 2.34555 7.93681 2.21274 C8.0047 2.08588 8.08333 1.89578 8.08333 1.66667 L7.33333 1.66667 L6.58333 1.66667 C6.58333 1.55426 6.62042 1.49352 6.61428 1.50499 C6.61133 1.51051 6.59417 1.53902 6.54935 1.59164 C6.45919 1.6975 6.31917 1.82948 6.14157 1.97997 C5.96724 2.12769 5.78177 2.27248 5.60604 2.41051 C5.44733 2.53517 5.26337 2.67942 5.14392 2.79552 L5.66667 3.33333 Z" fill="#555555"/></svg>
+          <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#555555", lineHeight: "1.100000023841858", textBox: "trim-both cap alphabetic", height: "10px" }}>Sign out everywhere</p>
+        </div>
+        <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "8px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+          <div style={{ height: "36px", flexShrink: 0, borderRadius: "10px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #e7e9eb, 0px 2px 4px 0px rgba(0, 0, 0, 0.02)", display: "flex", flexDirection: "row", padding: "1px 15px 1px 13px", gap: "6px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <FingerprintScan size={16} style={{ width: "16px", height: "16px", flexShrink: 0, color: "#222222", display: "block" }} />
+            <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#222222", lineHeight: "1.100000023841858", textBox: "trim-both cap alphabetic", height: "10px" }}>Reset 2FA</p>
+          </div>
+          <div style={{ height: "36px", flexShrink: 0, borderRadius: "10px", background: "#f14c43", boxShadow: "inset 0px 4px 7px 0px rgba(255, 255, 255, 0.5)", display: "flex", flexDirection: "row", padding: "0px 14px 0px 12px", gap: "6px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <UserMinus size={16} style={{ width: "16px", height: "16px", flexShrink: 0, color: "#ffffff", display: "block" }} />
+            <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#ffffff", lineHeight: "1.100000023841858", textBox: "trim-both cap alphabetic", height: "10px" }}>Remove</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

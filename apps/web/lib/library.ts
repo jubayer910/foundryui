@@ -1,5 +1,6 @@
 import { items, systems } from "./catalog";
 import figmaItems from "./figma-items.json";
+import figmaCode from "./figma-code.json";
 
 /** One browsable entry: a coded component (live preview + code) or a Figma library component (image preview). */
 export type Entry = {
@@ -14,6 +15,8 @@ export type Entry = {
   h?: number;
   text: string; // search text
   source?: string;
+  /** set when generated React code passed visual QA against the Figma original */
+  qa?: { score: number; strict: number };
 };
 
 export type FigmaItem = { id: string; system: string; category: string; name: string; slug: string; w: number; h: number; keywords: string; source: string; thumb: string };
@@ -54,8 +57,16 @@ const figmaEntries: Entry[] = figma.map((f) => ({
   h: f.h,
   text: [f.name, f.category, f.keywords].join(" ").toLowerCase().slice(0, 180),
   source: f.source,
+  qa: (figmaCode as Record<string, { score: number; strict: number }>)[f.slug],
 }));
 
 /** Code first inside each category (they are fully usable), then Figma components. */
 export const entries: Entry[] = [...codeEntries, ...figmaEntries];
 export const getFigmaItem = (slug: string) => figma.find((f) => f.slug === slug);
+export const figmaQA = (slug: string) => (figmaCode as Record<string, { score: number; strict: number }>)[slug];
+/** true when the entry can be copied as code (hand-built code or QA-passed generated code) */
+export const hasCode = (e: Entry) => e.kind === "code" || !!e.qa;
+
+/** components with QA-passed generated code, per system */
+export const codeCount = (system: string) => figmaEntries.filter((e) => e.system === system && e.qa).length;
+export const CODED_TOTAL = entries.filter((e) => e.kind === "code" || e.qa).length;

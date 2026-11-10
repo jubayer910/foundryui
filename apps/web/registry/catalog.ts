@@ -35,10 +35,10 @@ export interface DesignSystem {
 export const SYSTEMS: DesignSystem[] = [
   { slug: "loopo", name: "Loopo", status: "live", tier: "free", tagline: "Warm analytics, soft surfaces", description: "A light analytics system with warm orange data, pill buttons, soft hairline cards and Geist type. Extracted from the Loopo finance dashboard.", accent: "#fd4b23", font: "Geist", figmaKey: "lBBGdEStjKRYnwrTdJs1T3" },
   { slug: "mailpulse", name: "MailPulse", status: "in-progress", tier: "pro", tagline: "Violet newsletter growth", description: "A newsletter and audience-growth system with violet accents, square heat cells and dual-tone icons.", accent: "#7c53f9", font: "Geist", figmaKey: "HO8FIKAQjZlHdfM65hYYis" },
-  { slug: "auton", name: "Auton", status: "in-progress", tier: "pro", tagline: "Automation control room", description: "An operations and automation dashboard system.", accent: "#2563eb", font: "Inter", figmaKey: "Q7K7Ix4KwJryX5XvLhaCZg" },
-  { slug: "axon", name: "Axon", status: "in-progress", tier: "pro", tagline: "Dense data, calm chrome", description: "A data-dense product system with a full brand book already in Figma.", accent: "#0f766e", font: "Inter", figmaKey: "s8dzTyDpYzwDoDkqPekxXk" },
-  { slug: "veriq", name: "Veriq", status: "in-progress", tier: "pro", tagline: "Trust and verification", description: "A verification and compliance dashboard system.", accent: "#4f46e5", font: "Inter", figmaKey: "PB3XpCt9pnD9EiJfqXAiN3" },
-  { slug: "vantage", name: "Vantage", status: "in-progress", tier: "pro", tagline: "Admin at a glance", description: "An admin dashboard system built from the Vantage Admin screens.", accent: "#e11d48", font: "Inter", figmaKey: "nG9LOj0Kw0l4iD7sSXFmc9" },
+  { slug: "auton", name: "Auton", status: "in-progress", tier: "pro", tagline: "Automation control room", description: "An operations and automation dashboard system.", accent: "#2563eb", font: "Geist", figmaKey: "Q7K7Ix4KwJryX5XvLhaCZg" },
+  { slug: "axon", name: "Axon", status: "in-progress", tier: "pro", tagline: "Dense data, calm chrome", description: "A data-dense product system with a full brand book already in Figma.", accent: "#0f766e", font: "Geist", figmaKey: "s8dzTyDpYzwDoDkqPekxXk" },
+  { slug: "veriq", name: "Veriq", status: "in-progress", tier: "pro", tagline: "Trust and verification", description: "A verification and compliance dashboard system.", accent: "#4f46e5", font: "Geist + Inter", figmaKey: "PB3XpCt9pnD9EiJfqXAiN3" },
+  { slug: "vantage", name: "Vantage", status: "in-progress", tier: "pro", tagline: "Admin at a glance", description: "An admin dashboard system built from the Vantage Admin screens.", accent: "#e11d48", font: "Geist", figmaKey: "nG9LOj0Kw0l4iD7sSXFmc9" },
 ];
 
 export const CATEGORIES: { slug: Category; name: string; blurb: string }[] = [

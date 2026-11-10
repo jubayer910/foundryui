@@ -1,0 +1,40 @@
+// Connector Slack (axon, Tables and lists) from Foundry UI.
+// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Foundry Icons.
+import { Activity, CircleCheck, Dots, GitMerge } from "foundryui-icons/react/stroke-rounded";
+
+export function ConnectorSlack() {
+  return (
+    <div style={{ width: "276.8px", height: "153px", borderRadius: "12px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #ededed", display: "flex", flexDirection: "column", padding: "17px 17px 17px 17px", gap: "12px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+      <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+        <div style={{ width: "40px", height: "40px", flexShrink: 0, borderRadius: "11px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #ededed, 0px 1px 2px 0px rgba(13, 13, 18, 0.06)", display: "flex", flexDirection: "row", padding: "1px 1px 1px 1px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
+          <svg style={{ width: "22px", height: "22px", flexShrink: 0, display: "block", lineHeight: 0 }} xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M4.62183 13.9012 C4.62063 14.5138 4.37695 15.1009 3.94408 15.5343 C3.51121 15.9677 2.92436 16.2121 2.31183 16.214 C1.69899 16.2125 1.11167 15.9684 0.678402 15.535 C0.245137 15.1015 0.0012104 14.5141 1.52656e-16 13.9012 C0.00169534 13.2888 0.245865 12.702 0.679104 12.2691 C1.11234 11.8362 1.69939 11.5925 2.31183 11.5913 L4.62183 11.5913 L4.62183 13.9012 Z M5.78692 13.9012 C5.78861 13.289 6.03266 12.7023 6.4657 12.2694 C6.89874 11.8365 7.48554 11.5927 8.09783 11.5913 C8.71012 11.5927 9.29693 11.8365 9.72997 12.2694 C10.163 12.7023 10.4071 13.289 10.4087 13.9012 L10.4087 19.6882 C10.4073 20.3007 10.1634 20.8877 9.73035 21.321 C9.29731 21.7542 8.71036 21.9983 8.09783 22 C7.4853 21.9983 6.89836 21.7542 6.46532 21.321 C6.03228 20.8877 5.78837 20.3007 5.78692 19.6882 L5.78692 13.9012 Z M8.09783 4.62183 C7.48562 4.62014 6.89895 4.37625 6.46596 3.94344 C6.03297 3.51062 5.78885 2.92405 5.78692 2.31183 C5.78837 1.6993 6.03228 1.11226 6.46532 0.679047 C6.89836 0.245835 7.4853 0.00169438 8.09783 0 C8.71036 0.00169438 9.29731 0.245835 9.73035 0.679047 C10.1634 1.11226 10.4073 1.6993 10.4087 2.31183 L10.4087 4.62183 L8.09783 4.62183 Z M8.09783 5.78692 C8.71021 5.78861 9.29701 6.03262 9.73003 6.46564 C10.163 6.89865 10.4071 7.48546 10.4087 8.09783 C10.4071 8.71021 10.163 9.29701 9.73003 9.73003 C9.29701 10.163 8.71021 10.4071 8.09783 10.4087 L2.31183 10.4087 C1.6993 10.4073 1.11226 10.1634 0.679047 9.73035 C0.245835 9.29731 0.00169438 8.71036 0 8.09783 C0.00169438 7.4853 0.245835 6.89836 0.679047 6.46532 C1.11226 6.03228 1.6993 5.78837 2.31183 5.78692 L8.09783 5.78692 Z M17.3763 8.09783 C17.378 7.4853 17.6222 6.89836 18.0554 6.46532 C18.4886 6.03228 19.0756 5.78837 19.6882 5.78692 C20.3007 5.78837 20.8877 6.03228 21.321 6.46532 C21.7542 6.89836 21.9983 7.4853 22 8.09783 C21.9983 8.71036 21.7542 9.29731 21.321 9.73035 C20.8877 10.1634 20.3007 10.4073 19.6882 10.4087 L17.3763 10.4087 L17.3763 8.09783 Z M16.214 8.09783 C16.2123 8.71052 15.968 9.29761 15.5346 9.73067 C15.1012 10.1637 14.5139 10.4075 13.9012 10.4087 C13.289 10.4071 12.7023 10.163 12.2694 9.72997 C11.8365 9.29693 11.5927 8.71012 11.5913 8.09783 L11.5913 2.31183 C11.5925 1.69939 11.8362 1.11234 12.2691 0.679104 C12.702 0.245865 13.2888 0.00169534 13.9012 4.57967e-16 C14.5141 0.0012104 15.1015 0.245137 15.535 0.678402 C15.9684 1.11167 16.2125 1.69899 16.214 2.31183 L16.214 8.09783 Z M13.9012 17.3763 C14.5141 17.3775 15.1015 17.6215 15.535 18.0547 C15.9684 18.488 16.2125 19.0753 16.214 19.6882 C16.2125 20.301 15.9684 20.8883 15.535 21.3216 C15.1015 21.7549 14.5141 21.9988 13.9012 22 C13.2888 21.9983 12.702 21.7541 12.2691 21.3209 C11.8362 20.8877 11.5925 20.3006 11.5913 19.6882 L11.5913 17.3763 L13.9012 17.3763 Z M13.9012 16.214 C13.2886 16.2123 12.7017 15.968 12.2687 15.5346 C11.8358 15.1011 11.5922 14.5139 11.5913 13.9012 C11.5927 13.289 11.8365 12.7023 12.2694 12.2694 C12.7023 11.8365 13.289 11.5927 13.9012 11.5913 L19.6882 11.5913 C20.3006 11.5925 20.8877 11.8362 21.3209 12.2691 C21.7541 12.702 21.9983 13.2888 22 13.9012 C21.9988 14.5141 21.7549 15.1015 21.3216 15.535 C20.8883 15.9684 20.301 16.2125 19.6882 16.214 L13.9012 16.214 Z" fill="#4a154b"/></svg>
+        </div>
+        <div style={{ flex: "1 1 0", minWidth: 0, flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+          <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#15171c", lineHeight: "20px" }}>Slack</p>
+          <p style={{ width: "103px", flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#747474", lineHeight: "20px" }}>acme.slack.com</p>
+        </div>
+        <div style={{ width: "28px", height: "28px", flexShrink: 0, borderRadius: "7px", display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
+          <Dots size={16} style={{ width: "16px", height: "16px", flexShrink: 0, color: "#6c6c6c", display: "block" }} />
+        </div>
+      </div>
+      <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", gap: "8px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+        <div style={{ flexShrink: 0, borderRadius: "4.6px", background: "#f6fffb", display: "flex", flexDirection: "row", padding: "2px 8px 2px 8px", gap: "3px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+          <CircleCheck size={12} style={{ width: "12px", height: "12px", flexShrink: 0, color: "#17a673", display: "block" }} />
+          <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#17a673", lineHeight: "20px" }}>Connected</p>
+        </div>
+        <div style={{ flex: "1 1 0", minWidth: 0, height: "1px", flexShrink: 0, display: "flex", flexDirection: "row", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }} />
+        <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#b3b3b3", lineHeight: "20px" }}>just now</p>
+      </div>
+      <div style={{ alignSelf: "stretch", flexShrink: 0, boxShadow: "inset 0 1px 0 0 #e9e9e9", display: "flex", flexDirection: "row", padding: "11px 0px 0px 0px", gap: "12px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+        <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "4px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+          <GitMerge size={14} style={{ width: "14px", height: "14px", flexShrink: 0, color: "#929292", display: "block" }} />
+          <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#747474", lineHeight: "20px" }}>7 workflows</p>
+        </div>
+        <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "4px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+          <Activity size={14} style={{ width: "14px", height: "14px", flexShrink: 0, color: "#929292", display: "block" }} />
+          <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#747474", lineHeight: "20px" }}>1.2k calls</p>
+        </div>
+      </div>
+    </div>
+  );
+}

@@ -183,14 +183,18 @@ export function build(n, parentLm = null, root = true) {
     if (n.ar === "WIDTH_AND_HEIGHT") { st.whiteSpace = "pre"; delete st.width; }
     else st.whiteSpace = "pre-wrap";
     if (n.trunc) { st.overflow = "hidden"; st.textOverflow = "ellipsis"; st.whiteSpace = "nowrap"; }
-    const segs = n.seg || [];
+    const segs = (n.seg || []).filter((g) => g && g.ff);
+    if (!segs.length) { el.text = ""; return el; }
     // "auto" line height differs between Figma and browsers: pin it to Figma's box height per line
     const maxFs = Math.max(...segs.map((g) => g.fs), 1);
     const lines = Math.max(1, Math.round(n.h / (maxFs * 1.22)));
-    const autoLh = segs.every((g) => g.lh === undefined) ? px(n.h / lines) : null;
+    // Figma "leading trim" (cap height): the text box is shorter than the font size; CSS text-box does the same trim
+    const trimmed = !segs.some((g) => g.c.includes("\n")) && n.h < maxFs * 0.98;
+    const autoLh = !trimmed && segs.every((g) => g.lh === undefined) ? px(n.h / lines) : null;
     if (autoLh) st.lineHeight = autoLh;
     if (segs.length === 1) { Object.assign(st, textStyle(segs[0])); if (autoLh) st.lineHeight = autoLh; el.text = segs[0].c; }
     else { Object.assign(st, textStyle(segs[0])); if (autoLh) st.lineHeight = autoLh; el.kids = segs.map((s) => ({ tag: "span", st: textStyle(s), text: s.c, kids: [] })); }
+    if (trimmed) { st.textBox = "trim-both cap alphabetic"; st.height = px(n.h); }
     return el;
   }
 

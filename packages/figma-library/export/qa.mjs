@@ -79,3 +79,4 @@ const ok = results.filter((r) => r.score !== undefined);
 const avg = ok.reduce((a, r) => a + r.score, 0) / Math.max(ok.length, 1);
 console.log(JSON.stringify({ sys, n: results.length, avg: Math.round(avg * 10) / 10, pass90: ok.filter((r) => r.score >= 90).length, pass80: ok.filter((r) => r.score >= 80).length, errors: results.filter((r) => r.error).length }));
 for (const r of results.slice(0, 40)) console.log((r.score ?? "ERR") + "\t" + (r.strict ?? "") + "\t" + r.name + (r.error ? "\t" + r.error : ""));
+process.exit(0);
