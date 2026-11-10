@@ -57,7 +57,7 @@ export default async function PostPage({ params }: PageProps<"/blog/[slug]">) {
 
   return (
     <div className="max-w-[1100px]">
-      <JsonLd data={[article, breadcrumbLd([["Foundry UI", "/"], ["Resources", "/blog"], [p.title, "/blog/" + p.slug]]), ...(p.faq.length ? [faqLd(p.faq.map((f) => ({ q: plain(f.q), a: plain(f.a) })))] : [])]} />
+      <JsonLd data={[article, breadcrumbLd([["Ingot UI", "/"], ["Resources", "/blog"], [p.title, "/blog/" + p.slug]]), ...(p.faq.length ? [faqLd(p.faq.map((f) => ({ q: plain(f.q), a: plain(f.a) })))] : [])]} />
       <div className="grid gap-10 lg:grid-cols-[200px_minmax(0,680px)]">
         <aside className="hidden lg:block">
           <nav className="sticky top-5 flex flex-col text-[13px]" aria-label="On this page">
@@ -126,7 +126,7 @@ export default async function PostPage({ params }: PageProps<"/blog/[slug]">) {
           <section className="mt-14 rounded-[8px] bg-tile p-5">
             <p className="text-[13px] font-medium">About the author</p>
             <p className="mt-1 text-[14px] leading-relaxed text-ink-2">
-              Wolfpixel is the product design studio that designed the six Foundry UI systems from real dashboard projects, and checks every generated React component against its Figma original before it ships. Read more on <a href="https://www.wolfpixel.agency" rel="noopener" target="_blank" className="font-medium text-ink underline underline-offset-2">wolfpixel.agency</a>.
+              Wolfpixel is the product design studio that designed the six Ingot UI systems from real dashboard projects, and checks every generated React component against its Figma original before it ships. Read more on <a href="https://www.wolfpixel.agency" rel="noopener" target="_blank" className="font-medium text-ink underline underline-offset-2">wolfpixel.agency</a>.
             </p>
           </section>
         </article>

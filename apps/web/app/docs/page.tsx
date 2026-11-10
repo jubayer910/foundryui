@@ -4,7 +4,7 @@ import Link from "next/link";
 import { SITE_URL } from "@/lib/catalog";
 import { PageHead } from "@/components/site/page-head";
 
-export const metadata: Metadata = pageMeta({ title: "Docs: install, tokens, Figma and AI agents", description: "Install Foundry UI with the CLI or shadcn, wire the Tailwind v4 tokens, theme a system, copy to Figma and use the library with AI agents. Licence included.", path: "/docs" });
+export const metadata: Metadata = pageMeta({ title: "Docs: install, tokens, Figma and AI agents", description: "Install Ingot UI with the CLI or shadcn, wire the Tailwind v4 tokens, theme a system, copy to Figma and use the library with AI agents. Licence included.", path: "/docs" });
 
 const H = "mt-10 text-[14px] font-medium scroll-mt-6";
 const P = "mt-2 text-[13px] leading-relaxed text-mute";
@@ -13,7 +13,7 @@ const C = "card mt-3 overflow-x-auto p-3 font-fu-mono text-[12px] leading-relaxe
 export default function DocsPage() {
   return (
     <div className="max-w-[1100px]">
-      <PageHead title="CLI and docs" sub="Install, theme and use Foundry UI in your project." />
+      <PageHead title="CLI and docs" sub="Install, theme and use Ingot UI in your project." />
       <div className="mt-6 grid gap-10 lg:grid-cols-[180px_1fr]">
       <aside className="hidden lg:block">
         <nav className="sticky top-5 flex flex-col text-[13px]" aria-label="On this page">
@@ -23,17 +23,17 @@ export default function DocsPage() {
         </nav>
       </aside>
       <article className="min-w-0 max-w-2xl">
-        <p className={P + " !mt-0"}>Foundry UI components are plain React 19 + Tailwind CSS v4 files you own. Interactive parts use Base UI for accessibility.</p>
+        <p className={P + " !mt-0"}>Ingot UI components are plain React 19 + Tailwind CSS v4 files you own. Interactive parts use Base UI for accessibility.</p>
 
         <h2 id="install" className={H}>Install</h2>
         <p className={P}>In a Next.js, Vite or Remix project with Tailwind v4:</p>
-        <pre className={C}>{"npx foundryui init\nnpx foundryui add button kpi-card capsule-bars"}</pre>
+        <pre className={C}>{"npx ingotui init\nnpx ingotui add button kpi-card capsule-bars"}</pre>
         <p className={P}>Prefer shadcn? Every free component is a shadcn registry item:</p>
         <pre className={C}>{"npx shadcn add " + SITE_URL + "/r/button.json"}</pre>
 
         <h2 id="tokens" className={H}>Tokens &amp; theming</h2>
         <p className={P}>Each system is a set of <code className="font-fu-mono text-xs">--fu-*</code> CSS variables. The theme bridge maps them to Tailwind utilities like <code className="font-fu-mono text-xs">bg-fu-surface</code> and <code className="font-fu-mono text-xs">text-fu-ink</code>. Import both in your global CSS:</p>
-        <pre className={C}>{'@import "tailwindcss";\n@import "./styles/foundry/theme.css";\n@import "./styles/foundry/loopo.css";'}</pre>
+        <pre className={C}>{'@import "tailwindcss";\n@import "./styles/ingot/theme.css";\n@import "./styles/ingot/loopo.css";'}</pre>
         <p className={P}>Switch systems by swapping the token file, or scope one per area with <code className="font-fu-mono text-xs">data-system=&quot;loopo&quot;</code>. Light mode ships at launch; dark mode is the first update.</p>
 
         <h2 id="figma" className={H}>Figma</h2>

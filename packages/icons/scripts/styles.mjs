@@ -1,5 +1,5 @@
 /**
- * Derives the six Foundry icon styles from one Stroke Rounded drawing.
+ * Derives the six Ingot icon styles from one Stroke Rounded drawing.
  *
  *   stroke-rounded  the source drawing: 1.5 stroke, round caps and joins
  *   stroke-sharp    square caps, mitred joins, square rect corners

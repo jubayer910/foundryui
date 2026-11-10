@@ -49,7 +49,7 @@ export default async function SystemPage({ params }: PageProps<"/systems/[slug]"
   const guides = postsFor({ system: s.slug }, 4);
   const byCat = CATEGORIES.map((c) => [c, own.filter((e) => e.category === c).sort((a, b) => a.name.localeCompare(b.name))] as const).filter(([, l]) => l.length);
   const ld = [
-    breadcrumbLd([["Foundry UI", "/"], ["Systems", "/systems"], [s.name, "/systems/" + s.slug]]),
+    breadcrumbLd([["Ingot UI", "/"], ["Systems", "/systems"], [s.name, "/systems/" + s.slug]]),
     {
       "@context": "https://schema.org",
       "@type": "CollectionPage",
@@ -103,7 +103,7 @@ export default async function SystemPage({ params }: PageProps<"/systems/[slug]"
         )}
         <div className="card p-3">
           <p className="text-[13px] font-medium">Use it with your AI agent</p>
-          <p className="mt-1 rounded-[6px] bg-tile p-2 font-fu-mono text-[11.5px]">{"Build with the " + s.name + " system from Foundry UI."}</p>
+          <p className="mt-1 rounded-[6px] bg-tile p-2 font-fu-mono text-[11.5px]">{"Build with the " + s.name + " system from Ingot UI."}</p>
         </div>
       </aside>
 

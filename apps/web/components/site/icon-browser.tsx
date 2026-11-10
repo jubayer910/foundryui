@@ -66,7 +66,7 @@ export function IconBrowser({ initialQuery = "" }: { initialQuery?: string }) {
       setNote({ text: "Downloaded " + a.download + (res.remaining != null ? ` · ${res.remaining} free actions left` : "") });
       return;
     }
-    const text = kind === "jsx" ? `import { ${jsxName(current.n)} } from "foundryui-icons/react/${style}";\n\n<${jsxName(current.n)} size={20} strokeWidth={${stroke}} />` : svg;
+    const text = kind === "jsx" ? `import { ${jsxName(current.n)} } from "ingotui-icons/react/${style}";\n\n<${jsxName(current.n)} size={20} strokeWidth={${stroke}} />` : svg;
     await navigator.clipboard.writeText(text).catch(() => {});
     setNote({ text: (kind === "jsx" ? "JSX" : "SVG") + " copied" + (res.remaining != null ? ` · ${res.remaining} free actions left` : "") });
   }

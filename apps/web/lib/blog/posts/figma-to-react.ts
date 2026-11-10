@@ -11,7 +11,7 @@ export const post: Post = {
   intent: "informational",
   lede: "To turn Figma into React code you can ship, export structure from Figma (Dev Mode, a plugin or the Figma MCP server), generate code against your own tokens and components, then compare a screenshot of the rendered code with the Figma frame and fix what differs. The last step is the one most teams skip, and it is the one that decides quality: in our library {gen} of {figma} generated components ({pct:all}%) passed that check and are published; the rest are still being fixed.",
   body: [
-    { t: "p", x: "We are Wolfpixel. For Foundry UI we converted every component in six Figma libraries to React and Tailwind, then measured each result against its Figma original. That gave us a rare thing in this topic: real pass rates instead of demo GIFs. This guide shares the workflow and the numbers." },
+    { t: "p", x: "We are Wolfpixel. For Ingot UI we converted every component in six Figma libraries to React and Tailwind, then measured each result against its Figma original. That gave us a rare thing in this topic: real pass rates instead of demo GIFs. This guide shares the workflow and the numbers." },
     { t: "h2", x: "The three kinds of Figma to React tools" },
     { t: "table", head: ["Approach", "Examples", "Good at", "Weak at"], rows: [
       ["Inspect and hand-build", "Figma Dev Mode", "Exact values, full control, clean code", "Slow; every component is manual work"],
@@ -30,7 +30,7 @@ export const post: Post = {
       "**Fix and repeat** until it passes. Then, and only then, publish it to the library.",
     ] },
     { t: "h2", x: "What our visual QA found across {figma} components" },
-    { t: "p", x: "Every Foundry UI component with generated code went through steps 4 to 6. Here is where each system stands today:" },
+    { t: "p", x: "Every Ingot UI component with generated code went through steps 4 to 6. Here is where each system stands today:" },
     { t: "table", head: ["System", "Figma components", "Passed visual QA", "Pass rate"], rows: [
       ["[Loopo](/systems/loopo)", "{figma:loopo}", "{gen:loopo}", "{pct:loopo}%"],
       ["[MailPulse](/systems/mailpulse)", "{figma:mailpulse}", "{gen:mailpulse}", "{pct:mailpulse}%"],
@@ -54,13 +54,13 @@ export const post: Post = {
     { t: "cta", h: "Skip the conversion for standard pieces", x: "{coded} components already have React code checked against Figma. Copy the code, or paste the Figma layer and keep designing.", href: "/", label: "Browse components with code" },
     { t: "h2", x: "Using an AI agent for Figma to React" },
     { t: "p", x: "AI agents are now the fastest route, with one condition: they need two kinds of context. Design context (the Figma frame, through the Figma MCP server or an export) and system context (your tokens and components). Without the second, the agent writes generic Tailwind that looks almost right." },
-    { t: "p", x: "Foundry UI provides the system context through its own [MCP server](/mcp): the agent can fetch tokens with `get_tokens`, pull checked components with `get_component_code`, and run `audit_ui` to catch hard-coded colours. We walk through it in [MCP for UI components](/blog/mcp-server-ui-components-ai-agents)." },
+    { t: "p", x: "Ingot UI provides the system context through its own [MCP server](/mcp): the agent can fetch tokens with `get_tokens`, pull checked components with `get_component_code`, and run `audit_ui` to catch hard-coded colours. We walk through it in [MCP for UI components](/blog/mcp-server-ui-components-ai-agents)." },
   ],
   faq: [
     { q: "What is the best Figma to React tool?", a: "It depends on the job. Figma Dev Mode for exact hand-built components, converters such as Anima or Locofy for fast drafts, and AI agents with the Figma MCP server when you want code that follows your repo. Whatever you pick, add a screenshot comparison before you ship." },
-    { q: "Can AI convert Figma to React accurately?", a: "Often close, rarely exact on the first pass. In Foundry UI, {pct:all}% of generated components have passed visual QA after iteration; the rest are still being fixed. Text metrics, icon strokes and chart details needed the most work." },
+    { q: "Can AI convert Figma to React accurately?", a: "Often close, rarely exact on the first pass. In Ingot UI, {pct:all}% of generated components have passed visual QA after iteration; the rest are still being fixed. Text metrics, icon strokes and chart details needed the most work." },
     { q: "How do I check that React code matches Figma?", a: "Render the component at the Figma frame’s size, take a screenshot, and diff it against a Figma export. Review spacing, type, colour and icons, then fix and repeat." },
-    { q: "Does Foundry UI give me the Figma file too?", a: "Yes. Every component is in its system’s Figma library; Pro plans include the full Figma kit per system, and Loopo is free." },
+    { q: "Does Ingot UI give me the Figma file too?", a: "Yes. Every component is in its system’s Figma library; Pro plans include the full Figma kit per system, and Loopo is free." },
   ],
   related: ["vantage-retention-grid-26234875", "mailpulse-engagement-funnel-13935201", "auton-agents-table-16931973", "kpi-card"],
   systems: ["loopo", "mailpulse", "auton", "axon", "veriq", "vantage"],

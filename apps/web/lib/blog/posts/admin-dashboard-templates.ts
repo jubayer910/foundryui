@@ -9,10 +9,10 @@ export const post: Post = {
   category: "Lists",
   keyword: "admin dashboard template nextjs",
   intent: "commercial",
-  lede: "A good Next.js admin dashboard template gives you the screens your users open daily (overview, tables, detail drawers, settings and create flows) in one consistent look, on React 19 and Tailwind v4. If you want a free starting point, fork TailAdmin or the shadcn/ui dashboard example. If you want a finished, domain-specific admin, use a Foundry UI system: Vantage for business admin, Auton for AI agent operations, Axon for workflow automation, Veriq for security and MailPulse for newsletters.",
+  lede: "A good Next.js admin dashboard template gives you the screens your users open daily (overview, tables, detail drawers, settings and create flows) in one consistent look, on React 19 and Tailwind v4. If you want a free starting point, fork TailAdmin or the shadcn/ui dashboard example. If you want a finished, domain-specific admin, use a Ingot UI system: Vantage for business admin, Auton for AI agent operations, Axon for workflow automation, Veriq for security and MailPulse for newsletters.",
   body: [
     { t: "p", x: "We are Wolfpixel, and admin dashboards are most of what we design. The pattern we see in almost every project is the same: the team forks a template on day one, ships fast for two weeks, then spends two months fighting it. The template had a sales chart and a user table; the product needed a review queue, a credential rotation drawer and a policy editor." },
-    { t: "p", x: "So this list is ranked by one question: how many of your real screens does the template already contain? Foundry UI systems are ours, and we say where a free template is the better call." },
+    { t: "p", x: "So this list is ranked by one question: how many of your real screens does the template already contain? Ingot UI systems are ours, and we say where a free template is the better call." },
     { t: "h2", x: "What a Next.js admin template should include in 2027" },
     { t: "ul", items: [
       "**Current stack.** React 19, Next.js App Router, Tailwind CSS v4 and accessible primitives (Base UI or Radix). Anything older will cost you an upgrade before launch.",
@@ -62,10 +62,10 @@ export const post: Post = {
     { t: "p", x: "**Best for:** teams committed to Material UI. [MUI](https://mui.com) offers official dashboard templates on its component library. You get breadth and stability, with the Material look unless you invest in theming." },
     { t: "h3", x: "10. Refine" },
     { t: "p", x: "**Best for:** data-heavy CRUD admins where the plumbing matters more than the look. [Refine](https://refine.dev) is a React framework for admin panels with data providers and auth built in, and it pairs with several UI libraries, including Tailwind-based ones." },
-    { t: "cta", h: "Open a template, not a demo", x: "Every Foundry page template links to the components inside it, so you can copy the table or the drawer on its own.", href: "/systems", label: "See the six systems" },
+    { t: "cta", h: "Open a template, not a demo", x: "Every Ingot page template links to the components inside it, so you can copy the table or the drawer on its own.", href: "/systems", label: "See the six systems" },
     { t: "h2", x: "Template or design system: which do you need?" },
     { t: "p", x: "A **template** is a finished app you fork. It is fastest on day one and slowest on day ninety, because every change means editing someone else’s pages. A **design system** is a set of tokens and components you assemble. It is slower on day one and faster for the life of the product." },
-    { t: "p", x: "Foundry systems sit in between: page templates in Figma for the overview, plus every block inside them as its own component, with {coded} of them available as React code. Fork the layout, keep the parts." },
+    { t: "p", x: "Ingot systems sit in between: page templates in Figma for the overview, plus every block inside them as its own component, with {coded} of them available as React code. Fork the layout, keep the parts." },
     { t: "h2", x: "How to adapt an admin template in a week" },
     { t: "ol", items: [
       "**Day 1:** swap the tokens. Colours, radius, type. If the template has no token file, that is your warning sign.",
@@ -77,9 +77,9 @@ export const post: Post = {
     { t: "p", x: "If an AI agent is doing that work, give it the system instead of a screenshot. Our guide to [MCP for UI components](/blog/mcp-server-ui-components-ai-agents) shows the setup." },
   ],
   faq: [
-    { q: "What is the best free admin dashboard template for Next.js?", a: "For a generic internal tool, TailAdmin’s free Next.js version or the shadcn/ui dashboard example. For a finished look with React and Figma together, the free Loopo system in Foundry UI." },
-    { q: "Do Foundry UI page templates come as React code?", a: "Page templates are in Figma today. The blocks inside them (tables, cards, charts, drawers, modals) are separate components, and {coded} of them already have React code checked against Figma." },
-    { q: "Which admin template works with Tailwind CSS v4?", a: "Foundry UI, TailAdmin and shadcn/ui all support Tailwind v4. Check the template’s changelog for the Tailwind and Next.js versions before you fork." },
+    { q: "What is the best free admin dashboard template for Next.js?", a: "For a generic internal tool, TailAdmin’s free Next.js version or the shadcn/ui dashboard example. For a finished look with React and Figma together, the free Loopo system in Ingot UI." },
+    { q: "Do Ingot UI page templates come as React code?", a: "Page templates are in Figma today. The blocks inside them (tables, cards, charts, drawers, modals) are separate components, and {coded} of them already have React code checked against Figma." },
+    { q: "Which admin template works with Tailwind CSS v4?", a: "Ingot UI, TailAdmin and shadcn/ui all support Tailwind v4. Check the template’s changelog for the Tailwind and Next.js versions before you fork." },
     { q: "Should I use a template or build my admin from scratch?", a: "Use a template or design system for the shell, tables and overlays, and spend your design time on the two or three screens unique to your product." },
   ],
   related: ["vantage-customers-table-26332895", "auton-agents-table-16931973", "axon-runs-table-73244305", "data-table"],

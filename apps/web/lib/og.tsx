@@ -19,7 +19,7 @@ export function ogImage({ eyebrow, title, sub, accent = "#0b0b0b", chips = [] }:
       <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", background: "#ffffff", padding: 64, fontFamily: "sans-serif", color: "#0b0b0b" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
           <Mark />
-          <span style={{ fontSize: 30, fontWeight: 700, letterSpacing: -0.5 }}>Foundry UI</span>
+          <span style={{ fontSize: 30, fontWeight: 700, letterSpacing: -0.5 }}>Ingot UI</span>
           <span style={{ marginLeft: "auto", fontSize: 22, color: "rgba(0,0,0,0.55)", background: "#efefef", borderRadius: 999, padding: "8px 18px" }}>{eyebrow}</span>
         </div>
         <div style={{ display: "flex", flex: 1, alignItems: "flex-end", gap: 48, marginTop: 40 }}>

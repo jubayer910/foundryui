@@ -2,7 +2,7 @@ import { getItem, getSystem } from "@/lib/catalog";
 import { entries, figmaQA, getFigmaItem } from "@/lib/library";
 import { ogImage, OG_SIZE, OG_TYPE } from "@/lib/og";
 
-export const alt = "Foundry UI dashboard component";
+export const alt = "Ingot UI dashboard component";
 export const size = OG_SIZE;
 export const contentType = OG_TYPE;
 

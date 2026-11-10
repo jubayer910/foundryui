@@ -1,7 +1,7 @@
 import { getPost, posts } from "@/lib/blog";
 import { ogImage, OG_SIZE, OG_TYPE } from "@/lib/og";
 
-export const alt = "Foundry UI guide";
+export const alt = "Ingot UI guide";
 export const size = OG_SIZE;
 export const contentType = OG_TYPE;
 

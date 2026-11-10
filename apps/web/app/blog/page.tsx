@@ -24,7 +24,7 @@ export default function BlogIndex() {
     <div className="max-w-[1100px]">
       <JsonLd
         data={[
-          breadcrumbLd([["Foundry UI", "/"], ["Resources", "/blog"]]),
+          breadcrumbLd([["Ingot UI", "/"], ["Resources", "/blog"]]),
           {
             "@context": "https://schema.org",
             "@type": "Blog",
@@ -37,7 +37,7 @@ export default function BlogIndex() {
       />
       <PageHead title="Resources" sub="Guides for founders and developers building dashboards." />
       <p className="mt-3 max-w-2xl text-[13px] leading-snug text-mute">
-        Written by Wolfpixel, the studio behind Foundry UI. Every number in these guides comes from the live library, and every comparison says where another tool is the better pick.
+        Written by Wolfpixel, the studio behind Ingot UI. Every number in these guides comes from the live library, and every comparison says where another tool is the better pick.
       </p>
 
       {lead && (

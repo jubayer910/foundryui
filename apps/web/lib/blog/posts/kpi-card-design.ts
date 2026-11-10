@@ -11,7 +11,7 @@ export const post: Post = {
   intent: "informational",
   lede: "A good KPI card answers three questions in under five seconds: what is the number, is it good or bad, and compared with what. Give it a plain label, one large value with its unit, a comparison stated in words (“+12% vs last month”), a colour that means something, and optionally a small trend line. Then put three to five of them at the top of the screen, ordered by the decision they drive.",
   body: [
-    { t: "p", x: "We are Wolfpixel. KPI cards are the most copied and least questioned piece of dashboard design. Across the six Foundry UI systems there are {cat:all:KPI and stats} KPI and stats components, drawn for very different products. This guide is what we learned designing them." },
+    { t: "p", x: "We are Wolfpixel. KPI cards are the most copied and least questioned piece of dashboard design. Across the six Ingot UI systems there are {cat:all:KPI and stats} KPI and stats components, drawn for very different products. This guide is what we learned designing them." },
     { t: "h2", x: "The anatomy of a KPI card" },
     { t: "ol", items: [
       "**Label.** Plain words the user would say: “Revenue this month”, not “MRR_Δ”. Put the period in the label if it is not obvious.",
@@ -47,7 +47,7 @@ export const post: Post = {
     ] },
     { t: "h2", x: "Accessibility and responsiveness" },
     { t: "ul", items: [
-      "Keep label and comparison text at 4.5:1 contrast. Muted greys on soft green backgrounds often fail; Foundry tokens include separate text tones for this (`--fu-positive-text`).",
+      "Keep label and comparison text at 4.5:1 contrast. Muted greys on soft green backgrounds often fail; Ingot tokens include separate text tones for this (`--fu-positive-text`).",
       "Give the card one accessible name: label, value and comparison read in order.",
       "On mobile, stack cards two across, never four tiny ones. Shorten labels before you shrink the value.",
       "Decide truncation up front: long labels wrap to two lines; values never truncate.",
@@ -65,7 +65,7 @@ export const post: Post = {
     { q: "What should a KPI card include?", a: "A plain label, one value with its unit, a comparison against a stated baseline, a status colour backed by text or an arrow, and optionally a sparkline and a link to the detail." },
     { q: "How many KPI cards should a dashboard have?", a: "Three to five in the top row, ordered by the decision they drive. Use a compact strip if you truly need more." },
     { q: "Should KPI cards have sparklines?", a: "Only when the shape of the trend changes the decision and there are enough data points. Otherwise they are decoration." },
-    { q: "Is there a free KPI card React component?", a: "Yes. The Loopo KPI card in Foundry UI is free React and Tailwind code, installable with `npx foundryui add kpi-card` or the shadcn CLI." },
+    { q: "Is there a free KPI card React component?", a: "Yes. The Loopo KPI card in Ingot UI is free React and Tailwind code, installable with `npx ingotui add kpi-card` or the shadcn CLI." },
   ],
   related: ["kpi-card", "vantage-kpi-strip-26230470", "auton-kpi-running-now-16931665", "delta-chip"],
   systems: ["vantage", "auton", "axon", "veriq", "mailpulse", "loopo"],

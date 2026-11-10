@@ -41,7 +41,7 @@ export function FigmaCodePanel({ slug, codeUrl, score }: { slug: string; codeUrl
         <Icon name="code" size={15} /> {open ? "Hide code" : "View code"}
       </button>
       <p className="mt-1 text-[12px] leading-snug text-mute">
-        Matches its Figma original at {score}% in our visual check. Uses <Link href="/icons" className="underline underline-offset-2">Foundry Icons</Link>.
+        Matches its Figma original at {score}% in our visual check. Uses <Link href="/icons" className="underline underline-offset-2">Ingot Icons</Link>.
       </p>
       {open && (
         <pre className="card mt-2 max-h-[420px] overflow-auto p-3 font-fu-mono text-[11.5px] leading-relaxed">

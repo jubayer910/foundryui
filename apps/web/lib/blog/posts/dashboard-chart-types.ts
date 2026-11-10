@@ -11,7 +11,7 @@ export const post: Post = {
   intent: "informational",
   lede: "Pick a dashboard chart by the question it answers. Comparing categories: bars. Change over time: a line or columns. Part of a whole with two to four parts: a donut or a stacked bar. Steps where people drop off: a funnel. Patterns by day and hour: a heatmap. Cohorts over time: a retention grid. Then make it honest (bars start at zero, label the axis, highlight one series) and give it a hover state.",
   body: [
-    { t: "p", x: "We are Wolfpixel. Charts are where dashboards win or lose trust. The six Foundry UI systems contain {cat:all:Charts} chart components, {codecat:all:Charts} of them with React code so far, and each was drawn for a real question in a real product. This guide maps those questions to chart types." },
+    { t: "p", x: "We are Wolfpixel. Charts are where dashboards win or lose trust. The six Ingot UI systems contain {cat:all:Charts} chart components, {codecat:all:Charts} of them with React code so far, and each was drawn for a real question in a real product. This guide maps those questions to chart types." },
     { t: "h2", x: "Match the chart to the question" },
     { t: "table", head: ["Question", "Chart", "Example component"], rows: [
       ["Which is biggest?", "Horizontal bars, sorted", "[Sources card](/components/loopo-sources-card-18845034)"],
@@ -35,7 +35,7 @@ export const post: Post = {
       "**Donuts for few parts only.** Beyond four slices, use sorted bars.",
     ] },
     { t: "h2", x: "Design details that make a chart look finished" },
-    { t: "p", x: "Most dashboard charts look unfinished for the same reasons: flat default bars, thin axis text, too many colours and no hover state. These are the details we apply across Foundry systems:" },
+    { t: "p", x: "Most dashboard charts look unfinished for the same reasons: flat default bars, thin axis text, too many colours and no hover state. These are the details we apply across Ingot systems:" },
     { t: "ul", items: [
       "**One accent series.** The series that matters gets the system accent; everything else is grey or a tint.",
       "**Depth on bars.** A subtle gradient, a soft inner stroke and a highlight band on the selected period, so bars read as objects instead of rectangles.",
@@ -54,14 +54,14 @@ export const post: Post = {
       ["[Veriq](/systems/veriq)", "{cat:veriq:Charts}", "{codecat:veriq:Charts}", "SLA weekly chart, plan usage"],
       ["[Vantage](/systems/vantage)", "{cat:vantage:Charts}", "{codecat:vantage:Charts}", "Retention grid, funnel, net movement, projections"],
     ], caption: "Counts come from the library’s Charts category, which also holds chart-adjacent panels such as filter and range popovers." },
-    { t: "cta", h: "Let your agent pick the chart", x: "The Foundry UI MCP server has a get_chart tool: describe the question and your data shape, and it returns the right chart wired to it.", href: "/mcp", label: "See the MCP tools" },
+    { t: "cta", h: "Let your agent pick the chart", x: "The Ingot UI MCP server has a get_chart tool: describe the question and your data shape, and it returns the right chart wired to it.", href: "/mcp", label: "See the MCP tools" },
     { t: "h2", x: "Choosing a React chart library underneath" },
-    { t: "p", x: "Foundry chart components are plain React and SVG on Tailwind, so they carry no chart library dependency. If you need interactions they do not cover (zoom, brushing, thousands of points), use a dedicated library such as [Recharts](https://recharts.org), [Visx](https://airbnb.io/visx) or [ECharts](https://echarts.apache.org) and apply the same rules above: zero baselines, one accent, labelled axes and hover states." },
+    { t: "p", x: "Ingot chart components are plain React and SVG on Tailwind, so they carry no chart library dependency. If you need interactions they do not cover (zoom, brushing, thousands of points), use a dedicated library such as [Recharts](https://recharts.org), [Visx](https://airbnb.io/visx) or [ECharts](https://echarts.apache.org) and apply the same rules above: zero baselines, one accent, labelled axes and hover states." },
   ],
   faq: [
     { q: "What are the most common dashboard chart types?", a: "Bar charts for comparing categories, line charts for change over time, donuts or stacked bars for simple part-to-whole, funnels for drop-off, heatmaps for timing patterns and retention grids for cohorts." },
     { q: "When should I use a donut chart on a dashboard?", a: "Only for two to four parts of a whole where the share matters more than exact values. For more parts, use a sorted bar chart." },
-    { q: "Are Foundry UI charts built on a chart library?", a: "No. They are React and SVG components styled with Tailwind and the system tokens, so they add no chart library dependency." },
+    { q: "Are Ingot UI charts built on a chart library?", a: "No. They are React and SVG components styled with Tailwind and the system tokens, so they add no chart library dependency." },
     { q: "How many charts should a dashboard have?", a: "As many as there are distinct questions the user needs answered on that screen, usually two to four. Repeat charts belong on a report, not a dashboard." },
   ],
   related: ["capsule-bars", "donut", "vantage-retention-grid-26234875", "mailpulse-best-time-to-send-13935062"],

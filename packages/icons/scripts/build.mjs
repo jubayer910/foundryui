@@ -1,5 +1,5 @@
 /**
- * Builds the Foundry UI icon library from open-licence sources, normalised to one spec:
+ * Builds the Ingot UI icon library from open-licence sources, normalised to one spec:
  * 24px grid, 1.5px live stroke, round caps and joins, currentColor.
  *
  *   Line style: Tabler outline (MIT) as the base, then Lucide (ISC) and Iconoir (MIT)
@@ -129,7 +129,7 @@ const cats = [...new Set(index.map((i) => i.c))];
 console.log(`line ${line.size} (tabler ${nTabler}, lucide ${nLucide}, iconoir ${nIconoir}) · fill ${fill.size} · ${cats.length} categories`);
 console.log(`hugeicons concepts ${concepts.length}: exact ${exact.length}, by parts ${byWords.length}, missing ${missing.length}`);
 
-// React entries: foundryui-icons/react/<style> (tree-shakeable), and /react = stroke-rounded.
+// React entries: ingotui-icons/react/<style> (tree-shakeable), and /react = stroke-rounded.
 const pascal = (n) => n.replace(/(^|-)([a-z0-9])/g, (_, __, c) => c.toUpperCase());
 const esc = (s) => JSON.stringify(s);
 const head = [

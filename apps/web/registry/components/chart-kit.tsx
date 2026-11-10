@@ -1,5 +1,5 @@
 /**
- * Foundry chart kit — the bar "finish" every chart shares:
+ * Ingot chart kit — the bar "finish" every chart shares:
  * vertical gradient (top ~13% lighter), barely-visible inside stroke, 1px top highlight,
  * tiny drop shadow, optional 45° hatch for tint / forecast bars.
  */

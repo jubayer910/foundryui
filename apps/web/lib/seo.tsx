@@ -8,7 +8,7 @@ import iconStats from "./icon-stats.json";
  * Set NEXT_PUBLIC_SITE_URL when the custom domain is live; until then the Workers URL is used.
  */
 export const SITE = (process.env.NEXT_PUBLIC_SITE_URL || CATALOG_SITE_URL).replace(/\/$/, "");
-export const SITE_NAME = "Foundry UI";
+export const SITE_NAME = "Ingot UI";
 export const PUBLISHER = "Wolfpixel";
 export const abs = (path = "/") => SITE + (path.startsWith("/") ? path : "/" + path);
 
@@ -35,6 +35,7 @@ export function organizationLd(): Json {
     "@type": "Organization",
     "@id": ORG_ID,
     name: SITE_NAME,
+    alternateName: "Foundry UI",
     url: SITE + "/",
     logo: abs("/logo.png"),
     description: "Dashboard design systems for founders: React components checked against Figma, Figma libraries, icons and an MCP server for AI coding agents. Made by Wolfpixel.",

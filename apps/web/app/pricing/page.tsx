@@ -45,7 +45,7 @@ export default function PricingPage() {
           {
             "@context": "https://schema.org",
             "@type": "SoftwareApplication",
-            name: "Foundry UI",
+            name: "Ingot UI",
             applicationCategory: "DeveloperApplication",
             operatingSystem: "Web, macOS, Windows, Linux",
             url: abs("/"),

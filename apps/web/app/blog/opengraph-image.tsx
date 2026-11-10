@@ -1,6 +1,6 @@
 import { ogImage, OG_SIZE, OG_TYPE } from "@/lib/og";
 
-export const alt = "Foundry UI Resources";
+export const alt = "Ingot UI Resources";
 export const size = OG_SIZE;
 export const contentType = OG_TYPE;
 

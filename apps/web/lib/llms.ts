@@ -4,17 +4,17 @@ import { figmaCount } from "./figma-library";
 import { posts } from "./blog";
 import { STATS, abs, fmt } from "./seo";
 
-export const MCP_URL = SITE_URL.replace("://foundry-ui.", "://foundry-ui-mcp.") + "/mcp";
+export const MCP_URL = SITE_URL.replace("://", "://mcp.") + "/mcp";
 const coded = (slug: string) => (systems.find((s) => s.slug === slug)?.status === "live" ? items.length : 0) + codeCount(slug);
 
-const SUMMARY = `> Foundry UI is a library of dashboard design systems for founders and developers, made by Wolfpixel. It has ${fmt(STATS.components)} components across ${STATS.systems} systems, ${fmt(STATS.coded)} of them with React 19 + Tailwind CSS v4 code that passed a visual check against the Figma original, ${fmt(STATS.icons)} icons, a CLI, a shadcn-compatible registry and an MCP server so AI coding agents (Claude Code, Cursor, Codex, VS Code) build with real components.`;
+const SUMMARY = `> Ingot UI (formerly Foundry UI) is a library of dashboard design systems for founders and developers, made by Wolfpixel. It has ${fmt(STATS.components)} components across ${STATS.systems} systems, ${fmt(STATS.coded)} of them with React 19 + Tailwind CSS v4 code that passed a visual check against the Figma original, ${fmt(STATS.icons)} icons, a CLI, a shadcn-compatible registry and an MCP server so AI coding agents (Claude Code, Cursor, Codex, VS Code) build with real components.`;
 
 function systemLines() {
   return systems.map((s) => `- [${s.name}](${abs("/systems/" + s.slug)}): ${s.tagline}. ${fmt(figmaCount(s.slug))} components in Figma, ${fmt(coded(s.slug))} with React code. ${s.tier === "free" ? "Free" : "Pro"}.`).join("\n");
 }
 
 export function llmsTxt() {
-  return `# Foundry UI
+  return `# Ingot UI
 
 ${SUMMARY}
 
@@ -28,9 +28,9 @@ ${systemLines()}
 
 - [Component library](${abs("/")}): browse and search every component; each has a page with a preview, facts and, where available, code.
 - [MCP server for AI agents](${abs("/mcp")}): setup for Claude Code, Cursor, VS Code and Codex, and the 14 tools.
-- [CLI and docs](${abs("/docs")}): \`npx foundryui init\`, \`npx foundryui add <component>\`, tokens and theming, licence.
+- [CLI and docs](${abs("/docs")}): \`npx ingotui init\`, \`npx ingotui add <component>\`, tokens and theming, licence.
 - [Charts](${abs("/charts")}): chart components for dashboards.
-- [Icons](${abs("/icons")}): ${fmt(STATS.icons)} icons, SVG and JSX, \`foundryui-icons\` package.
+- [Icons](${abs("/icons")}): ${fmt(STATS.icons)} icons, SVG and JSX, \`ingotui-icons\` package.
 - [Pricing](${abs("/pricing")})
 
 ## Guides
@@ -56,16 +56,16 @@ ${s.description} Tagline: ${s.tagline}. Accent ${s.accent}, type ${s.font}. Plan
 
 ${cats.map(([c, l]) => `#### ${c} (${l.length})\n\n${l.map((e) => `- [${e.name}](${abs("/components/" + e.slug)})${e.kind === "code" || e.qa ? " (React code)" : " (Figma)"}`).join("\n")}`).join("\n\n")}`;
   });
-  return `# Foundry UI: full reference
+  return `# Ingot UI: full reference
 
 ${SUMMARY}
 
-## How to use Foundry UI
+## How to use Ingot UI
 
 ### With an AI coding agent (MCP)
 
 1. Create a free account and an API key at ${abs("/account")}.
-2. Add the HTTP MCP server ${MCP_URL} with the header \`Authorization: Bearer YOUR_API_KEY\`. Claude Code: \`claude mcp add --transport http foundry-ui ${MCP_URL} --header "Authorization: Bearer YOUR_API_KEY"\`. Cursor: \`.cursor/mcp.json\`. VS Code: \`.vscode/mcp.json\`. Codex: \`~/.codex/config.toml\`.
+2. Add the HTTP MCP server ${MCP_URL} with the header \`Authorization: Bearer YOUR_API_KEY\`. Claude Code: \`claude mcp add --transport http ingot-ui ${MCP_URL} --header "Authorization: Bearer YOUR_API_KEY"\`. Cursor: \`.cursor/mcp.json\`. VS Code: \`.vscode/mcp.json\`. Codex: \`~/.codex/config.toml\`.
 3. Ask the agent to run \`init_project\` first. It writes tokens, the Tailwind theme bridge and an agent rules file.
 
 Tools: ${tools.map((t) => "`" + t + "`").join(", ")}.
@@ -73,9 +73,9 @@ Tools: ${tools.map((t) => "`" + t + "`").join(", ")}.
 ### With the CLI
 
 \`\`\`
-npx foundryui init                 # tokens + theme bridge
-npx foundryui add kpi-card donut    # components + their dependencies
-npx foundryui list                 # everything available
+npx ingotui init                 # tokens + theme bridge
+npx ingotui add kpi-card donut    # components + their dependencies
+npx ingotui list                 # everything available
 npx shadcn add ${SITE_URL}/r/kpi-card.json   # shadcn registry
 \`\`\`
 

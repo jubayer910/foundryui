@@ -9,7 +9,7 @@ export async function generateMetadata({ searchParams }: PageProps<"/">): Promis
   // Filtered and search views (?q= ?c= ?s=) are the same page re-sorted: keep them out of the index.
   const filtered = ["q", "c", "s"].some((k) => str(sp[k]));
   return pageMeta({
-    title: "Dashboard UI components for React, Figma and AI agents | Foundry UI",
+    title: "Dashboard UI components for React, Figma and AI agents | Ingot UI",
     absoluteTitle: true,
     description: `${fmt(STATS.components)} dashboard components in ${STATS.systems} design systems: charts, KPI cards, tables, modals and full pages. React + Tailwind code checked against Figma, plus an MCP server for AI agents.`,
     path: "/",

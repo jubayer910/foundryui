@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: PageProps<"/components/[slug]
   const path = "/components/" + slug;
   if (it) {
     const entry = entries.find((e) => e.slug === slug)!;
-    return pageMeta({ title: `${named(it.name, entry.category)} React component for dashboards (Figma + code)`, description: clip(`${it.description} Free React + Tailwind v4 code from the Loopo design system, plus a Figma copy and PNG/SVG export. Install with npx foundryui add ${slug}.`), path, image: path + "/opengraph-image" });
+    return pageMeta({ title: `${named(it.name, entry.category)} React component for dashboards (Figma + code)`, description: clip(`${it.description} Free React + Tailwind v4 code from the Loopo design system, plus a Figma copy and PNG/SVG export. Install with npx ingotui add ${slug}.`), path, image: path + "/opengraph-image" });
   }
   const f = getFigmaItem(slug);
   if (!f) return {};
@@ -138,12 +138,12 @@ export default async function ComponentPage({ params }: PageProps<"/components/[
       </dl>
     </div>
   );
-  const prompt = "Use the Foundry UI MCP to add the \"" + slug + "\" component (Loopo system) to this project, install its dependencies and render it on the dashboard page.";
+  const prompt = "Use the Ingot UI MCP to add the \"" + slug + "\" component (Loopo system) to this project, install its dependencies and render it on the dashboard page.";
   return (
     <div className="max-w-[1400px]">
       <JsonLd data={componentLd({ slug, name: it.name, description: it.description, system: "loopo", category: entry.category, coded: true, free: it.tier === "free" })} />
       <Suspense fallback={<div className="h-[560px] rounded-[8px] bg-tile" />}>
-        <Workbench slug={slug} name={it.name} files={files} installCmd={"npx foundryui add " + slug} facts={facts} prompt={prompt} />
+        <Workbench slug={slug} name={it.name} files={files} installCmd={"npx ingotui add " + slug} facts={facts} prompt={prompt} />
       </Suspense>
 
       {related.length > 0 && (

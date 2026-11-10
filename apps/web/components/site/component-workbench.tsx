@@ -128,7 +128,7 @@ export function ComponentWorkbench({ slug, name, files, installCmd, signedIn, fa
         </div>
         <details className="card p-3">
           <summary className="cursor-pointer text-[13px] font-medium">Prompt for your AI agent</summary>
-          <p className="mt-2 text-[12px] leading-snug text-mute">With the Foundry MCP connected, paste this into Claude Code, Cursor or Codex.</p>
+          <p className="mt-2 text-[12px] leading-snug text-mute">With the Ingot MCP connected, paste this into Claude Code, Cursor or Codex.</p>
           <p className="mt-2 rounded-[6px] bg-tile p-2 font-fu-mono text-[11.5px] leading-relaxed">{prompt}</p>
           <button className="pill mt-2 !h-7" onClick={() => navigator.clipboard.writeText(prompt).then(() => setToast("Prompt copied"))}>
             <Icon name="copy" size={13} /> Copy prompt

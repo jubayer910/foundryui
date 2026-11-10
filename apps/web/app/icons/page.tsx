@@ -6,7 +6,7 @@ import { PageHead } from "@/components/site/page-head";
 
 export async function generateMetadata({ searchParams }: PageProps<"/icons">): Promise<Metadata> {
   const q = (await searchParams).q;
-  return pageMeta({ title: "Free icons for dashboards: " + iconStats.line.toLocaleString("en-US") + " SVG and React icons", description: iconStats.line.toLocaleString("en-US") + " icons in six styles on one 24px grid with a 1.5px stroke. Copy SVG or JSX, download, or install the foundryui-icons React package.", path: "/icons", noindex: typeof q === "string" && !!q });
+  return pageMeta({ title: "Free icons for dashboards: " + iconStats.line.toLocaleString("en-US") + " SVG and React icons", description: iconStats.line.toLocaleString("en-US") + " icons in six styles on one 24px grid with a 1.5px stroke. Copy SVG or JSX, download, or install the ingotui-icons React package.", path: "/icons", noindex: typeof q === "string" && !!q });
 }
 
 export default async function IconsPage({ searchParams }: PageProps<"/icons">) {

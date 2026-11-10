@@ -1,4 +1,4 @@
-/* Foundry UI — Tailwind v4 theme bridge. Maps --fu-* system tokens to utilities
+/* Ingot UI — Tailwind v4 theme bridge. Maps --fu-* system tokens to utilities
    (bg-fu-surface, text-fu-ink, border-fu-line, rounded-fu-md, shadow-fu-card …). */
 @theme inline {
   --color-fu-page: var(--fu-page);

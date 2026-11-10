@@ -4,7 +4,7 @@ import { codeCount } from "@/lib/library";
 import { ogImage, OG_SIZE, OG_TYPE } from "@/lib/og";
 import { fmt } from "@/lib/seo";
 
-export const alt = "Foundry UI design system";
+export const alt = "Ingot UI design system";
 export const size = OG_SIZE;
 export const contentType = OG_TYPE;
 

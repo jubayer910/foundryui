@@ -10,7 +10,7 @@ export function MobileBar({ systems }: { systems: RailSystem[] }) {
   return (
     <div className="sticky top-0 z-30 border-b border-hair bg-white/90 backdrop-blur lg:hidden">
       <div className="flex h-12 items-center justify-between px-4">
-        <Link href="/" aria-label="Foundry UI home">
+        <Link href="/" aria-label="Ingot UI home">
           <Logo />
         </Link>
         <button onClick={() => setOpen((o) => !o)} aria-expanded={open} aria-label={open ? "Close menu" : "Open menu"} className="flex size-8 items-center justify-center rounded-full bg-chip">

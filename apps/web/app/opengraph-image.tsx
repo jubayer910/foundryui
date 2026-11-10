@@ -1,7 +1,7 @@
 import { ogImage, OG_SIZE, OG_TYPE } from "@/lib/og";
 import { STATS, fmt } from "@/lib/seo";
 
-export const alt = "Foundry UI: dashboard components in React, Figma and MCP";
+export const alt = "Ingot UI: dashboard components in React, Figma and MCP";
 export const size = OG_SIZE;
 export const contentType = OG_TYPE;
 

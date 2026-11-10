@@ -11,7 +11,7 @@ export const post: Post = {
   intent: "informational",
   lede: "The best SaaS dashboard examples are built around one daily decision and a short list of supporting screens: an overview, a main table, a detail drawer, create and edit flows, settings and an audit trail. Below are six real examples from different domains, with {screens} product screens between them, and what each one teaches.",
   body: [
-    { t: "p", x: "We are Wolfpixel. Inspiration galleries show you hero shots; they rarely show the twentieth screen, which is where a product feels finished or not. These six examples are the product files the Foundry UI systems were built from, so every screen below exists, down to the confirm modal." },
+    { t: "p", x: "We are Wolfpixel. Inspiration galleries show you hero shots; they rarely show the twentieth screen, which is where a product feels finished or not. These six examples are the product files the Ingot UI systems were built from, so every screen below exists, down to the confirm modal." },
     { t: "h2", x: "What every SaaS dashboard needs" },
     { t: "table", head: ["Screen", "Job", "Often forgotten"], rows: [
       ["Overview", "Answer “is anything wrong?” in five seconds", "A clear comparison on every KPI"],
@@ -52,8 +52,8 @@ export const post: Post = {
   faq: [
     { q: "What makes a good SaaS dashboard?", a: "A clear daily decision on the overview, KPIs with comparisons, a main table with every state designed, detail drawers that keep context, and complete settings, billing and audit screens." },
     { q: "How many screens does a SaaS dashboard need?", a: "More than most teams plan for. The six examples here have between {screens:veriq} and {screens:axon} source screens each once settings, overlays and states are counted." },
-    { q: "Can I use these SaaS dashboard examples in my product?", a: "Yes. They are Foundry UI design systems. Loopo is free; the others are part of Pro and Lifetime plans, with components in Figma and, for {coded} of them, React code." },
-    { q: "Where can I find SaaS dashboard inspiration with code?", a: "Each Foundry UI component page shows the Figma original and, where available, React and Tailwind code you can copy or pull into an AI agent through MCP." },
+    { q: "Can I use these SaaS dashboard examples in my product?", a: "Yes. They are Ingot UI design systems. Loopo is free; the others are part of Pro and Lifetime plans, with components in Figma and, for {coded} of them, React code." },
+    { q: "Where can I find SaaS dashboard inspiration with code?", a: "Each Ingot UI component page shows the Figma original and, where available, React and Tailwind code you can copy or pull into an AI agent through MCP." },
   ],
   related: ["vantage-retention-grid-26234875", "axon-queue-list-73243117", "veriq-secrets-table-6526326", "mailpulse-campaigns-table-13831109"],
   systems: ["mailpulse", "loopo", "auton", "axon", "veriq", "vantage"],
