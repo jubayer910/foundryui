@@ -1,17 +1,17 @@
 #!/usr/bin/env node
 /**
- * foundry-ui CLI — add Foundry UI components to your project.
- *   npx foundryui init                 tokens + theme bridge + cx + icons
- *   npx foundryui add kpi-card donut   components and their dependencies
- *   npx foundryui list                 everything available
- * Env: FOUNDRY_URL (default https://foundry-ui.mitaly-website.workers.dev), FOUNDRY_DIR (default ".")
+ * ingot-ui CLI — add Ingot UI components to your project.
+ *   npx ingotui init                 tokens + theme bridge + cx + icons
+ *   npx ingotui add kpi-card donut   components and their dependencies
+ *   npx ingotui list                 everything available
+ * Env: INGOT_URL (default https://ingotui.com), INGOT_DIR (default ".")
  */
 import { mkdir, writeFile, access } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { execSync } from "node:child_process";
 
-const SITE = (process.env.FOUNDRY_URL ?? "https://foundry-ui.mitaly-website.workers.dev").replace(/\/$/, "");
-const ROOT = process.env.FOUNDRY_DIR ?? ".";
+const SITE = (process.env.INGOT_URL ?? "https://ingotui.com").replace(/\/$/, "");
+const ROOT = process.env.INGOT_DIR ?? ".";
 const [, , cmd, ...args] = process.argv;
 const force = args.includes("--force");
 const names = args.filter((a) => !a.startsWith("--"));
@@ -70,11 +70,11 @@ async function main() {
   }
   if (cmd === "init") {
     await add(["tokens", "cx", "icons"]);
-    console.log("\nAdd to your global CSS (after @import \"tailwindcss\"):\n" + c.bold('@import "./styles/foundry/theme.css";\n@import "./styles/foundry/loopo.css";') + c.dim("\n(adjust the relative path to where your CSS lives)"));
+    console.log("\nAdd to your global CSS (after @import \"tailwindcss\"):\n" + c.bold('@import "./styles/ingot/theme.css";\n@import "./styles/ingot/loopo.css";') + c.dim("\n(adjust the relative path to where your CSS lives)"));
     return;
   }
   if (cmd === "add" && names.length) return add(names);
-  console.log(`${c.bold("foundry-ui")} — ${SITE}
+  console.log(`${c.bold("ingot-ui")} — ${SITE}
 
   init                 tokens, theme bridge, cx and icons
   add <slug…>          components + their dependencies  [--force] [--install]

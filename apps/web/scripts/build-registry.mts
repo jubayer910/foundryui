@@ -11,7 +11,7 @@ import { fileURLToPath } from "node:url";
 import { CATALOG, CATEGORIES, SYSTEMS } from "../registry/catalog.ts";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
-const SITE = (process.env.SITE_URL ?? "https://foundry-ui.mitaly-website.workers.dev").replace(/\/$/, "");
+const SITE = (process.env.SITE_URL ?? "https://ingotui.com").replace(/\/$/, "");
 
 const items = CATALOG.map((it) => ({
   ...it,
@@ -34,9 +34,9 @@ for (const it of items) {
   const files = it.files.map((f) => {
     const css = f.endsWith(".css");
     return {
-      path: "registry/foundry/" + f,
+      path: "registry/ingot/" + f,
       type: css ? "registry:file" : "registry:component",
-      target: css ? "styles/foundry/" + basename(f) : "components/foundry/" + basename(f),
+      target: css ? "styles/ingot/" + basename(f) : "components/ingot/" + basename(f),
       content: it.code[f],
     };
   });
@@ -56,6 +56,6 @@ for (const it of items) {
 }
 writeFileSync(
   join(outDir, "index.json"),
-  JSON.stringify({ $schema: "https://ui.shadcn.com/schema/registry.json", name: "foundry-ui", homepage: SITE, items: index }, null, 2),
+  JSON.stringify({ $schema: "https://ui.shadcn.com/schema/registry.json", name: "ingot-ui", homepage: SITE, items: index }, null, 2),
 );
 console.log("registry: " + items.length + " items, " + index.length + " public registry files → " + SITE);

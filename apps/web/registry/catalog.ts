@@ -1,5 +1,5 @@
 /**
- * Foundry UI catalogue — the single source of truth for every published item.
+ * Ingot UI catalogue — the single source of truth for every published item.
  * Pure data (no JSX) so build scripts, the website, the CLI and the MCP server can all read it.
  */
 export type Category = "foundations" | "primitives" | "overlays" | "charts" | "dashboard-blocks" | "navigation";
@@ -53,7 +53,7 @@ export const CATEGORIES: { slug: Category; name: string; blurb: string }[] = [
 export const CATALOG: CatalogItem[] = [
   { slug: "tokens", name: "Design tokens", category: "foundations", tier: "free", description: "Loopo token CSS (--fu-*) plus the Tailwind v4 theme bridge that turns them into utilities.", files: ["tokens/theme.css", "tokens/loopo.css"], tags: ["tokens", "theme", "tailwind", "css variables"] },
   { slug: "cx", name: "cx utility", category: "foundations", tier: "free", description: "Tiny className joiner used by every component.", files: ["components/cx.ts"], tags: ["utility", "classnames"] },
-  { slug: "icons", name: "Foundry Icons", category: "foundations", tier: "free", description: "Original 24px line icons on a keyline grid: 1.5px stroke, round caps, badge zone with a 1.5px gap.", files: ["components/icons.tsx"], tags: ["icons", "svg", "line icons"] },
+  { slug: "icons", name: "Ingot Icons", category: "foundations", tier: "free", description: "Original 24px line icons on a keyline grid: 1.5px stroke, round caps, badge zone with a 1.5px gap.", files: ["components/icons.tsx"], tags: ["icons", "svg", "line icons"] },
   { slug: "chart-kit", name: "Chart kit", category: "foundations", tier: "free", description: "Shared bar finish (gradient, inside stroke, highlight, hatch), grid lines, tooltip card and seeded data.", files: ["components/chart-kit.tsx"], registryDependencies: [], tags: ["charts", "svg", "utility"] },
   { slug: "button", name: "Button", category: "primitives", tier: "free", description: "Pill button in primary (graphite gradient), accent, secondary, ghost and danger variants, three sizes.", files: ["components/button.tsx"], registryDependencies: ["cx"], tags: ["button", "cta", "action"] },
   { slug: "icon-button", name: "Icon button", category: "primitives", tier: "free", description: "Square icon button with an optional notification indicator.", files: ["components/icon-button.tsx"], registryDependencies: ["cx", "icons"], tags: ["button", "icon", "toolbar"] },

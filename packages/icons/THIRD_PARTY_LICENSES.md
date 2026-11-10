@@ -1,6 +1,6 @@
 # Third-party licences
 
-Foundry UI icons are redrawn to one spec (24px grid, 1.5px stroke) from these open-licence sets. Their licences require this notice to be kept.
+Ingot UI icons are redrawn to one spec (24px grid, 1.5px stroke) from these open-licence sets. Their licences require this notice to be kept.
 
 ## Tabler Icons (MIT)
 

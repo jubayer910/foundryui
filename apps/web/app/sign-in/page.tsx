@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
+import { NOINDEX } from "@/lib/seo";
 import { AuthForm } from "@/components/site/auth-form";
 
-export const metadata: Metadata = { title: "Log in" };
+export const metadata: Metadata = { title: "Log in", robots: NOINDEX };
 
 export default async function SignIn({ searchParams }: PageProps<"/sign-in">) {
   const sp = await searchParams;

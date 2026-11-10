@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/lib/seo";
 import Link from "next/link";
 import { items, systems } from "@/lib/catalog";
 import { figmaCount, FIGMA_TOTAL } from "@/lib/figma-library";
 import { codeCount } from "@/lib/library";
 import { PageHead } from "@/components/site/page-head";
 
-export const metadata: Metadata = { title: "Design systems", description: "Six complete design systems drawn from real dashboards: tokens, components, charts and screens that belong together." };
+export const metadata: Metadata = pageMeta({ title: "Dashboard design systems for React and Figma", description: `Six complete dashboard design systems drawn from real products: ${FIGMA_TOTAL.toLocaleString("en-US")} components in Figma, React + Tailwind code checked against Figma, tokens, charts and page templates.`, path: "/systems" });
 
 export default function SystemsPage() {
   return (

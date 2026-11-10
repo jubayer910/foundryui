@@ -1,18 +1,19 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/lib/seo";
 import Link from "next/link";
 import { SITE_URL } from "@/lib/catalog";
 import { PageHead } from "@/components/site/page-head";
 import { CopyBlock } from "@/components/site/copy-block";
 
-export const metadata: Metadata = { title: "MCP & CLI", description: "Connect the Foundry UI MCP server to Claude Code, Cursor, Codex, Windsurf or VS Code and let your agent build with the library." };
+export const metadata: Metadata = pageMeta({ title: "MCP server for UI components: Claude Code, Cursor, Codex", description: "Connect the Ingot UI MCP server to Claude Code, Cursor, Codex or VS Code. 14 tools give your AI agent design tokens, checked React components, charts and icons.", path: "/mcp" });
 
-const MCP_URL = SITE_URL.replace("://foundry-ui.", "://foundry-ui-mcp.") + "/mcp";
+const MCP_URL = SITE_URL.replace("://", "://mcp.") + "/mcp";
 
 const CLIENTS = [
-  { name: "Claude Code", code: "claude mcp add --transport http foundry-ui " + MCP_URL + ' --header "Authorization: Bearer YOUR_API_KEY"' },
-  { name: "Cursor", code: JSON.stringify({ mcpServers: { "foundry-ui": { url: MCP_URL, headers: { Authorization: "Bearer YOUR_API_KEY" } } } }, null, 2) },
-  { name: "VS Code", code: JSON.stringify({ servers: { "foundry-ui": { type: "http", url: MCP_URL, headers: { Authorization: "Bearer YOUR_API_KEY" } } } }, null, 2) },
-  { name: "Codex", code: '[mcp_servers.foundry-ui]\nurl = "' + MCP_URL + '"\nhttp_headers = { Authorization = "Bearer YOUR_API_KEY" }' },
+  { name: "Claude Code", code: "claude mcp add --transport http ingot-ui " + MCP_URL + ' --header "Authorization: Bearer YOUR_API_KEY"' },
+  { name: "Cursor", code: JSON.stringify({ mcpServers: { "ingot-ui": { url: MCP_URL, headers: { Authorization: "Bearer YOUR_API_KEY" } } } }, null, 2) },
+  { name: "VS Code", code: JSON.stringify({ servers: { "ingot-ui": { type: "http", url: MCP_URL, headers: { Authorization: "Bearer YOUR_API_KEY" } } } }, null, 2) },
+  { name: "Codex", code: '[mcp_servers.ingot-ui]\nurl = "' + MCP_URL + '"\nhttp_headers = { Authorization = "Bearer YOUR_API_KEY" }' },
 ];
 
 const TOOLS: [string, string][] = [
@@ -26,7 +27,7 @@ const TOOLS: [string, string][] = [
   ["init_project", "Tokens, theme bridge, globals.css lines and an agent rules file for a new project"],
   ["scaffold_screen", "Turns a screen description into a page assembled from library components"],
   ["get_chart", "Picks the right chart for a question and returns it wired to your data shape"],
-  ["search_icons", "Find Foundry Icons by name and get the JSX"],
+  ["search_icons", "Find Ingot Icons by name and get the JSX"],
   ["audit_ui", "Checks your UI code for hard-coded colours and off-system patterns"],
   ["get_usage", "Your plan and limits"],
   ["send_feedback", "Request a component or report a problem"],
@@ -61,7 +62,7 @@ export default function McpPage() {
           </>
         ))}
         {step(3, "Ask for a screen", (
-          <CopyBlock blocks={[{ label: "Prompt", code: "Set this project up with the Foundry UI Loopo system, then build an analytics overview page with KPI cards, a capsule bar chart for monthly revenue and a transactions table." }]} />
+          <CopyBlock blocks={[{ label: "Prompt", code: "Set this project up with the Ingot UI Loopo system, then build an analytics overview page with KPI cards, a capsule bar chart for monthly revenue and a transactions table." }]} />
         ))}
       </ol>
 
@@ -83,7 +84,7 @@ export default function McpPage() {
         <h2 className="text-[13px] font-medium">Prefer a CLI?</h2>
         <p className="mt-1 text-[13px] text-mute">Same components, no agent needed.</p>
         <div className="mt-3">
-          <CopyBlock blocks={[{ label: "foundryui", code: "npx foundryui init                 # tokens + theme bridge\nnpx foundryui add kpi-card donut    # components + their dependencies\nnpx foundryui list                 # everything available" }, { label: "shadcn", code: "npx shadcn add " + SITE_URL + "/r/kpi-card.json" }]} />
+          <CopyBlock blocks={[{ label: "ingotui", code: "npx ingotui init                 # tokens + theme bridge\nnpx ingotui add kpi-card donut    # components + their dependencies\nnpx ingotui list                 # everything available" }, { label: "shadcn", code: "npx shadcn add " + SITE_URL + "/r/kpi-card.json" }]} />
         </div>
       </section>
     </div>

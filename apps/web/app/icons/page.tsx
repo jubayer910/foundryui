@@ -1,9 +1,13 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/lib/seo";
 import { IconBrowser } from "@/components/site/icon-browser";
 import iconStats from "@/lib/icon-stats.json";
 import { PageHead } from "@/components/site/page-head";
 
-export const metadata: Metadata = { title: "Icons", description: "7,000+ icons in six styles on one 24px grid with a 1.5px live stroke, plus 1,000+ filled. Copy SVG or JSX, or download." };
+export async function generateMetadata({ searchParams }: PageProps<"/icons">): Promise<Metadata> {
+  const q = (await searchParams).q;
+  return pageMeta({ title: "Free icons for dashboards: " + iconStats.line.toLocaleString("en-US") + " SVG and React icons", description: iconStats.line.toLocaleString("en-US") + " icons in six styles on one 24px grid with a 1.5px stroke. Copy SVG or JSX, download, or install the ingotui-icons React package.", path: "/icons", noindex: typeof q === "string" && !!q });
+}
 
 export default async function IconsPage({ searchParams }: PageProps<"/icons">) {
   const sp = await searchParams;

@@ -1,5 +1,5 @@
 /**
- * Foundry Icons — original 24px line icons (1.5px stroke, round caps/joins).
+ * Ingot Icons — original 24px line icons (1.5px stroke, round caps/joins).
  * Construction: 24 grid, 20px live area, keylines, badge zone 7px at (18,18).
  */
 import { useId, type SVGProps } from "react";

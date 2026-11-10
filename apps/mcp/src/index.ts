@@ -1,5 +1,5 @@
 /**
- * Foundry UI — remote MCP server (Streamable HTTP, stateless) on Cloudflare Workers.
+ * Ingot UI — remote MCP server (Streamable HTTP, stateless) on Cloudflare Workers.
  * Auth: `Authorization: Bearer fu_…` API key created at <site>/account. Usage is logged to D1.
  */
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
@@ -37,7 +37,7 @@ function resolveFiles(slug: string, seen = new Set<string>()): { slug: string; p
 
 /** Where each registry file should be written in the user's project. */
 function target(path: string) {
-  return path.startsWith("tokens/") ? "styles/foundry/" + path.slice(7) : "components/foundry/" + path.split("/").pop();
+  return path.startsWith("tokens/") ? "styles/ingot/" + path.slice(7) : "components/ingot/" + path.split("/").pop();
 }
 
 function score(it: Item, q: string) {
@@ -69,7 +69,7 @@ async function callsToday(env: Env, user: User) {
 }
 
 function buildServer(env: Env, user: User) {
-  const server = new McpServer({ name: "foundry-ui", version: "0.1.0" }, { instructions: "Foundry UI: design systems, React + Tailwind v4 components and charts. Call init_project once per project, then add_components or scaffold_screen. Write files to the paths given; never invent colours — use the --fu-* tokens." });
+  const server = new McpServer({ name: "ingot-ui", version: "0.1.0" }, { instructions: "Ingot UI: design systems, React + Tailwind v4 components and charts. Call init_project once per project, then add_components or scaffold_screen. Write files to the paths given; never invent colours — use the --fu-* tokens." });
   const site = env.SITE_URL;
 
   /** wraps every tool: quota + usage log */
@@ -81,7 +81,7 @@ function buildServer(env: Env, user: User) {
   };
   const locked = (it: Item) => it.tier === "pro" && user.plan === "free";
 
-  server.registerTool("list_design_systems", { description: "List the Foundry UI design systems with status (live / in-progress), tier, accent colour and font." }, guard("list_design_systems", async () => json(SYSTEMS)));
+  server.registerTool("list_design_systems", { description: "List the Ingot UI design systems with status (live / in-progress), tier, accent colour and font." }, guard("list_design_systems", async () => json(SYSTEMS)));
 
   server.registerTool(
     "get_design_system",
@@ -91,7 +91,7 @@ function buildServer(env: Env, user: User) {
       if (!s) return text("Unknown system. Available: " + SYSTEMS.map((x) => x.slug).join(", "));
       if (s.status !== "live") return text(s.name + " is still being built. Use loopo for now; every component is token-driven and will adapt when " + s.name + " ships.");
       const tokens = getItem("tokens")!;
-      return json({ ...s, tokens: tokens.code, rules: ["Use only --fu-* tokens (bg-fu-surface, text-fu-ink, border-fu-line, rounded-fu-md …); no hard-coded hex colours.", "Icons: Foundry Icons via <Icon name=… /> (1.5px stroke). No decorative dots before labels or as bullets.", "Charts: never a plain single-series bar or smooth line; use capsule-bars, stacked-blocks, line-highlight, donut, pill-meter, hatch-track-list.", "Light mode only for now."] });
+      return json({ ...s, tokens: tokens.code, rules: ["Use only --fu-* tokens (bg-fu-surface, text-fu-ink, border-fu-line, rounded-fu-md …); no hard-coded hex colours.", "Icons: Ingot Icons via <Icon name=… /> (1.5px stroke). No decorative dots before labels or as bullets.", "Charts: never a plain single-series bar or smooth line; use capsule-bars, stacked-blocks, line-highlight, donut, pill-meter, hatch-track-list.", "Light mode only for now."] });
     }),
   );
 
@@ -130,7 +130,7 @@ function buildServer(env: Env, user: User) {
       const it = getItem(slug);
       if (!it) return text("Unknown component: " + slug);
       const { code: _code, ...meta } = it;
-      return json({ ...meta, url: site + "/components/" + slug, install: "npx foundryui add " + slug, files: it.files.map(target) });
+      return json({ ...meta, url: site + "/components/" + slug, install: "npx ingotui add " + slug, files: it.files.map(target) });
     }),
   );
 
@@ -160,29 +160,29 @@ function buildServer(env: Env, user: User) {
 
   server.registerTool(
     "init_project",
-    { description: "Set up a project for a Foundry system: token files, the globals.css imports, required packages and an agent rules file (FOUNDRY.md) so later sessions keep using the system.", inputSchema: { system: z.string().default("loopo"), framework: z.enum(["next", "vite", "remix", "other"]).default("next") } },
+    { description: "Set up a project for a Ingot system: token files, the globals.css imports, required packages and an agent rules file (INGOT.md) so later sessions keep using the system.", inputSchema: { system: z.string().default("loopo"), framework: z.enum(["next", "vite", "remix", "other"]).default("next") } },
     guard("init_project", async ({ system, framework }: { system: string; framework: string }) => {
       const t = getItem("tokens")!.code;
       const css = framework === "next" ? "app/globals.css" : "src/index.css";
       return json({
         files: [
-          { path: "styles/foundry/theme.css", content: t["tokens/theme.css"] },
-          { path: "styles/foundry/loopo.css", content: t["tokens/loopo.css"] },
-          { path: "components/foundry/cx.ts", content: getItem("cx")!.code["components/cx.ts"] },
-          { path: "components/foundry/icons.tsx", content: getItem("icons")!.code["components/icons.tsx"] },
-          { path: "FOUNDRY.md", content: "# UI rules (Foundry UI · " + system + ")\n\n- Build UI only from components in components/foundry (add more with the Foundry MCP add_components tool).\n- Colours, radii and shadows come from --fu-* tokens via Tailwind utilities (bg-fu-surface, text-fu-ink, rounded-fu-lg). Never hard-code hex values.\n- Icons: <Icon name=… /> from components/foundry/icons. Every icon must depict its label.\n- No decorative dots (no dot bullets, no dot before badge text).\n- Charts: use Foundry chart components; never a plain bar or smooth line.\n- Light mode only for now.\n" },
+          { path: "styles/ingot/theme.css", content: t["tokens/theme.css"] },
+          { path: "styles/ingot/loopo.css", content: t["tokens/loopo.css"] },
+          { path: "components/ingot/cx.ts", content: getItem("cx")!.code["components/cx.ts"] },
+          { path: "components/ingot/icons.tsx", content: getItem("icons")!.code["components/icons.tsx"] },
+          { path: "INGOT.md", content: "# UI rules (Ingot UI · " + system + ")\n\n- Build UI only from components in components/ingot (add more with the Ingot MCP add_components tool).\n- Colours, radii and shadows come from --fu-* tokens via Tailwind utilities (bg-fu-surface, text-fu-ink, rounded-fu-lg). Never hard-code hex values.\n- Icons: <Icon name=… /> from components/ingot/icons. Every icon must depict its label.\n- No decorative dots (no dot bullets, no dot before badge text).\n- Charts: use Ingot chart components; never a plain bar or smooth line.\n- Light mode only for now.\n" },
         ],
-        editFile: { path: css, prepend: '@import "tailwindcss";\n@import "../styles/foundry/theme.css";\n@import "../styles/foundry/loopo.css";' },
+        editFile: { path: css, prepend: '@import "tailwindcss";\n@import "../styles/ingot/theme.css";\n@import "../styles/ingot/loopo.css";' },
         install: "npm install @base-ui/react",
         requires: "React 19 + Tailwind CSS v4",
-        next: "Reference FOUNDRY.md from CLAUDE.md / AGENTS.md / .cursor/rules so the rules persist.",
+        next: "Reference INGOT.md from CLAUDE.md / AGENTS.md / .cursor/rules so the rules persist.",
       });
     }),
   );
 
   server.registerTool(
     "scaffold_screen",
-    { description: "Turn a screen description into a page component assembled from Foundry components. Returns the page file plus the components it needs.", inputSchema: { description: z.string(), name: z.string().default("Dashboard") } },
+    { description: "Turn a screen description into a page component assembled from Ingot components. Returns the page file plus the components it needs.", inputSchema: { description: z.string(), name: z.string().default("Dashboard") } },
     guard("scaffold_screen", async ({ description, name }: { description: string; name: string }) => {
       const d = description.toLowerCase();
       const want = new Set<string>(["sidebar-nav", "kpi-card"]);
@@ -198,7 +198,7 @@ function buildServer(env: Env, user: User) {
       const has = (s: string) => want.has(s);
       const page = [
         '"use client";',
-        ...[...want].map((s) => "import { " + comp(s) + " } from \"@/components/foundry/" + s + "\";"),
+        ...[...want].map((s) => "import { " + comp(s) + " } from \"@/components/ingot/" + s + "\";"),
         "",
         "export default function " + name.replace(/\W/g, "") + "Page() {",
         "  return (",
@@ -233,7 +233,7 @@ function buildServer(env: Env, user: User) {
 
   server.registerTool(
     "get_chart",
-    { description: "Pick the right Foundry chart for a question and return its code plus how to pass data.", inputSchema: { question: z.string().describe("what the reader should learn, e.g. 'monthly revenue', 'share of traffic sources'"), series: z.number().int().min(1).max(3).default(1) } },
+    { description: "Pick the right Ingot chart for a question and return its code plus how to pass data.", inputSchema: { question: z.string().describe("what the reader should learn, e.g. 'monthly revenue', 'share of traffic sources'"), series: z.number().int().min(1).max(3).default(1) } },
     guard("get_chart", async ({ question, series }: { question: string; series: number }) => {
       const q = question.toLowerCase();
       const slug = /share|split|source|breakdown|composition of one/.test(q) ? "donut" : /capacity|quota|progress|limit/.test(q) ? "pill-meter" : /rank|top|country|countries/.test(q) ? "ranked-list" : /method|percent of total|share of total/.test(q) ? "hatch-track-list" : series > 1 || /new vs|stack|parts/.test(q) ? "stacked-blocks" : /trend|daily|weekly|over time|users|line/.test(q) ? "line-highlight" : "capsule-bars";
@@ -245,7 +245,7 @@ function buildServer(env: Env, user: User) {
   server.registerTool(
     "search_icons",
     {
-      description: "Search the Foundry icon library (7,000+ icons on a 24px grid, each in six styles: stroke-rounded, stroke-sharp, solid, duotone, twotone, bulk) by name or meaning. Returns names, JSX from foundryui-icons/react/<style>, and the SVG.",
+      description: "Search the Ingot icon library (7,000+ icons on a 24px grid, each in six styles: stroke-rounded, stroke-sharp, solid, duotone, twotone, bulk) by name or meaning. Returns names, JSX from ingotui-icons/react/<style>, and the SVG.",
       inputSchema: { query: z.string(), style: z.enum(["stroke-rounded", "stroke-sharp", "solid", "duotone", "twotone", "bulk"]).optional(), limit: z.number().int().min(1).max(50).optional() },
     },
     guard("search_icons", async ({ query, style = "stroke-rounded", limit = 12 }: { query: string; style?: string; limit?: number }) => {
@@ -264,8 +264,8 @@ function buildServer(env: Env, user: User) {
       const pascal = (n: string) => (/^\d/.test(n) ? "I" : "") + n.replace(/(^|-)([a-z0-9])/g, (_m, _d, c: string) => c.toUpperCase());
       const root = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">';
       return json({
-        install: "npm i foundryui-icons",
-        matches: hits.map(({ i }) => ({ name: i.n, category: i.c, jsx: `import { ${pascal(i.n)} } from "foundryui-icons/react/${style}";  <${pascal(i.n)} size={20} />`, svg: root + bodies[i.n] + "</svg>" })),
+        install: "npm i ingotui-icons",
+        matches: hits.map(({ i }) => ({ name: i.n, category: i.c, jsx: `import { ${pascal(i.n)} } from "ingotui-icons/react/${style}";  <${pascal(i.n)} size={20} />`, svg: root + bodies[i.n] + "</svg>" })),
         total: index.length,
         note: hits.length ? undefined : "No match. Try a simpler word (e.g. 'invoice', 'upload', 'chart').",
       });
@@ -283,7 +283,7 @@ function buildServer(env: Env, user: User) {
         if (/#[0-9a-fA-F]{3,8}\b/.test(l) && !/--fu-/.test(l)) findings.push(at + " hard-coded colour → use a --fu-* token utility");
         if (/\b(bg|text|border)-(red|blue|green|gray|slate|zinc|neutral|purple|indigo)-\d{2,3}\b/.test(l)) findings.push(at + " Tailwind palette colour → use bg-fu-* / text-fu-* tokens");
         if (/list-disc|•|·\s/.test(l)) findings.push(at + " decorative dot / bullet → remove or use a meaningful icon");
-        if (/from ["'](recharts|chart\.js|react-chartjs-2)["']/.test(l)) findings.push(at + " generic chart library → use a Foundry chart (get_chart)");
+        if (/from ["'](recharts|chart\.js|react-chartjs-2)["']/.test(l)) findings.push(at + " generic chart library → use a Ingot chart (get_chart)");
         if (/rounded-(sm|md|lg|xl|2xl)\b/.test(l) && !/rounded-fu-/.test(l)) findings.push(at + " raw radius → use rounded-fu-sm/md/lg/xl");
       });
       return json({ ok: findings.length === 0, count: findings.length, findings: findings.slice(0, 100) });
@@ -297,7 +297,7 @@ function buildServer(env: Env, user: User) {
 
   server.registerTool(
     "send_feedback",
-    { description: "Request a component or report a problem to the Foundry team.", inputSchema: { message: z.string().min(3).max(2000) } },
+    { description: "Request a component or report a problem to the Ingot team.", inputSchema: { message: z.string().min(3).max(2000) } },
     guard("send_feedback", async ({ message }: { message: string }) => {
       await env.DB.prepare("INSERT INTO usage_event (userId, action, target, client, createdAt) VALUES (?, 'feedback', ?, 'mcp', ?)").bind(user.id, message.slice(0, 2000), Math.floor(Date.now() / 1000)).run();
       return text("Thanks — logged. Requests with the most votes are built first.");
@@ -313,13 +313,13 @@ export default {
   async fetch(req: Request, env: Env): Promise<Response> {
     const url = new URL(req.url);
     if (req.method === "OPTIONS") return new Response(null, { headers: CORS });
-    if (url.pathname === "/" || url.pathname === "/health") return Response.json({ name: "foundry-ui-mcp", ok: true, endpoint: "/mcp", tools: 14, docs: env.SITE_URL + "/mcp" });
+    if (url.pathname === "/" || url.pathname === "/health") return Response.json({ name: "ingot-ui-mcp", ok: true, endpoint: "/mcp", tools: 14, docs: env.SITE_URL + "/mcp" });
     if (url.pathname !== "/mcp") return new Response("Not found", { status: 404 });
     const user = await authenticate(req, env);
     if (!user)
       return Response.json(
         { jsonrpc: "2.0", error: { code: -32001, message: "Missing or invalid API key. Create one at " + env.SITE_URL + "/account and send it as 'Authorization: Bearer fu_…'." }, id: null },
-        { status: 401, headers: { ...CORS, "www-authenticate": 'Bearer realm="foundry-ui"' } },
+        { status: 401, headers: { ...CORS, "www-authenticate": 'Bearer realm="ingot-ui"' } },
       );
     const server = buildServer(env, user);
     const transport = new WebStandardStreamableHTTPServerTransport({ sessionIdGenerator: undefined, enableJsonResponse: true });

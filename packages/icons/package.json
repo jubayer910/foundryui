@@ -1,7 +1,7 @@
 {
-  "name": "foundryui-icons",
+  "name": "ingotui-icons",
   "version": "0.1.0",
-  "description": "Foundry UI icons: 6,000+ line icons on one 24px grid with a 1.5px live stroke.",
+  "description": "Ingot UI icons: 6,000+ line icons on one 24px grid with a 1.5px live stroke.",
   "type": "module",
   "files": [
     "svg",

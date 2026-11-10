@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
+import { NOINDEX } from "@/lib/seo";
 import { systems } from "@/lib/catalog";
 import { SystemPicker } from "@/components/site/system-picker";
 
-export const metadata: Metadata = { title: "Welcome" };
+export const metadata: Metadata = { title: "Welcome", robots: NOINDEX };
 
 export default async function Welcome({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
   const sp = await searchParams;

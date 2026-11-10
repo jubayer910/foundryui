@@ -1,7 +1,7 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry.json",
-  "name": "foundry-ui",
-  "homepage": "https://foundry-ui.mitaly-website.workers.dev",
+  "name": "ingot-ui",
+  "homepage": "https://ingotui.com",
   "items": [
     {
       "name": "tokens",
@@ -20,7 +20,7 @@
     {
       "name": "icons",
       "type": "registry:component",
-      "title": "Foundry Icons",
+      "title": "Ingot Icons",
       "description": "Original 24px line icons on a keyline grid: 1.5px stroke, round caps, badge zone with a 1.5px gap.",
       "category": "foundations"
     },

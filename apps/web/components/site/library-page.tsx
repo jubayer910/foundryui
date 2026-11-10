@@ -5,6 +5,8 @@ import { railSystems } from "./rail";
 import { Browser } from "./browser";
 import { CIcon } from "./chrome-icon";
 import iconStats from "@/lib/icon-stats.json";
+import { posts, readingTime } from "@/lib/blog";
+import { clientEntries } from "@/lib/seo-entries";
 
 const EXITS = [
   { icon: "terminal" as const, h: "React code", b: "Plain TSX on Tailwind v4, one command to add." },
@@ -13,12 +15,12 @@ const EXITS = [
 ];
 
 /** The home page is the library: one short intro row, then the components. */
-export function LibraryPage({ q = "", c = "all", s = "all", intro = true }: { q?: string; c?: string; s?: string; intro?: boolean }) {
+export function LibraryPage({ q = "", c = "all", s = "all", intro = true, home = false }: { q?: string; c?: string; s?: string; intro?: boolean; home?: boolean }) {
   const live = systems.filter((s) => s.status === "live").length;
   return (
     <div>
       <header className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
-        <h1 className="page-title">Components</h1>
+        <h1 className="page-title">{home ? "Dashboard components" : "Components"}</h1>
         <p className="page-sub">Dashboard components that look finished, in code, Figma and for your AI agent.</p>
       </header>
 
@@ -45,7 +47,7 @@ export function LibraryPage({ q = "", c = "all", s = "all", intro = true }: { q?
       )}
 
       <div className="mt-5">
-        <Browser entries={entries} categories={CATEGORIES} systems={railSystems} initialQuery={q} initialCategory={c} initialSystem={s} />
+        <Browser entries={clientEntries(entries)} categories={CATEGORIES} systems={railSystems} initialQuery={q} initialCategory={c} initialSystem={s} />
       </div>
 
       {intro && (
@@ -62,6 +64,26 @@ export function LibraryPage({ q = "", c = "all", s = "all", intro = true }: { q?
             <p className="text-[13px] font-medium">Free, Pro or Lifetime</p>
             <p className="mt-1 text-[13px] text-mute">Start free with Loopo. Pay once for everything, including future systems.</p>
           </Link>
+        </section>
+      )}
+
+      {intro && posts.length > 0 && (
+        <section className="mt-10" aria-labelledby="home-resources">
+          <div className="flex items-baseline gap-2">
+            <h2 id="home-resources" className="text-[13px] font-medium">Resources</h2>
+            <p className="text-[13px] text-mute">Guides for founders building dashboards.</p>
+            <Link href="/blog" className="ml-auto text-[13px] text-mute hover:text-ink">All guides</Link>
+          </div>
+          <ul className="mt-3 grid gap-3 md:grid-cols-3">
+            {posts.slice(0, 3).map((p) => (
+              <li key={p.slug}>
+                <Link href={"/blog/" + p.slug} className="card flex h-full flex-col p-4 hover:bg-tile">
+                  <span className="text-[12px] text-mute">{p.category}, {readingTime(p)} min read</span>
+                  <span className="mt-1 text-[13px] font-medium leading-snug">{p.title}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
         </section>
       )}
     </div>

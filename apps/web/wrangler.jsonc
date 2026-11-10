@@ -9,5 +9,12 @@
     { "binding": "DB", "database_name": "foundry-ui-db", "database_id": "94a18a8e-7d72-45e3-9b45-733f8d74c02b", "migrations_dir": "migrations" }
   ],
   "kv_namespaces": [{ "binding": "KV", "id": "ab8eb3c162664234b4a575838334214a" }],
+  // Custom domains: wrangler creates the DNS records and certificates on deploy (zone ingotui.com is in this account).
+  // Keep the old workers.dev URL alive so next.config can 301 it to ingotui.com.
+  "workers_dev": true,
+  "routes": [
+    { "pattern": "ingotui.com", "custom_domain": true },
+    { "pattern": "www.ingotui.com", "custom_domain": true }
+  ],
   "observability": { "enabled": true }
 }

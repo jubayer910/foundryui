@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { JsonLd, ORG_ID, abs, faqLd, pageMeta } from "@/lib/seo";
 import Link from "next/link";
 import { items, systems } from "@/lib/catalog";
 import { FIGMA_TOTAL } from "@/lib/figma-library";
@@ -6,7 +7,7 @@ import { PageHead } from "@/components/site/page-head";
 import { Icon } from "@/registry/components/icons";
 import iconStats from "@/lib/icon-stats.json";
 
-export const metadata: Metadata = { title: "Pricing", description: "Start free with the Loopo system. Pro or Lifetime unlocks all six systems, every component and unlimited MCP." };
+export const metadata: Metadata = pageMeta({ title: "Pricing: free, Pro $149/year or Lifetime $299", description: "Start free with the Loopo design system. Pro or Lifetime unlocks all six dashboard systems, every component in React and Figma, the Figma kits and unlimited MCP.", path: "/pricing" });
 
 const free = items.filter((i) => i.tier === "free").length;
 const fmt = (n: number) => n.toLocaleString("en-US");
@@ -39,6 +40,26 @@ const FAQ = [
 export default function PricingPage() {
   return (
     <div className="max-w-[1100px]">
+      <JsonLd
+        data={[
+          {
+            "@context": "https://schema.org",
+            "@type": "SoftwareApplication",
+            name: "Ingot UI",
+            applicationCategory: "DeveloperApplication",
+            operatingSystem: "Web, macOS, Windows, Linux",
+            url: abs("/"),
+            description: "Dashboard design systems with React + Tailwind components checked against Figma, Figma kits, icons, a CLI and an MCP server for AI coding agents.",
+            publisher: { "@id": ORG_ID },
+            offers: [
+              { "@type": "Offer", name: "Free", price: "0", priceCurrency: "USD", url: abs("/pricing"), description: "The Loopo system, free components in code, every icon, 50 MCP calls a day." },
+              { "@type": "Offer", name: "Pro", price: "149", priceCurrency: "USD", url: abs("/pricing"), priceSpecification: { "@type": "UnitPriceSpecification", price: "149", priceCurrency: "USD", billingDuration: "P1Y", unitText: "year" } },
+              { "@type": "Offer", name: "Lifetime", price: "299", priceCurrency: "USD", url: abs("/pricing"), description: "One payment. Everything in Pro, forever, including future systems." },
+            ],
+          },
+          faqLd(FAQ.map(([q, a]) => ({ q, a }))),
+        ]}
+      />
       <PageHead title="Pricing" sub="Start free. Pay once if you want everything." />
 
       <div className="mt-5 grid gap-3 md:grid-cols-3">

@@ -8,10 +8,10 @@
   "registryDependencies": [],
   "files": [
     {
-      "path": "registry/foundry/components/cx.ts",
+      "path": "registry/ingot/components/cx.ts",
       "type": "registry:component",
-      "target": "components/foundry/cx.ts",
-      "content": "/** Tiny className joiner used by every Foundry component. */\nexport function cx(...parts: Array<string | false | null | undefined>) {\n  return parts.filter(Boolean).join(\" \");\n}\n"
+      "target": "components/ingot/cx.ts",
+      "content": "/** Tiny className joiner used by every Ingot component. */\nexport function cx(...parts: Array<string | false | null | undefined>) {\n  return parts.filter(Boolean).join(\" \");\n}\n"
     }
   ],
   "meta": {

@@ -1,0 +1,33 @@
+import type { MetadataRoute } from "next";
+import { systems } from "@/lib/catalog";
+import { entries } from "@/lib/library";
+import { posts } from "@/lib/blog";
+import { CATALOG_UPDATED, abs } from "@/lib/seo";
+
+/**
+ * One sitemap: about 1,900 URLs, far below the 50,000 URL / 50 MB limit per file,
+ * so a sitemap index would add a request without helping crawl. Split with
+ * generateSitemaps if the library passes ~40,000 URLs.
+ * Excluded on purpose: /components (canonical is /), filtered ?q= ?c= ?s= views,
+ * account, auth, saved and welcome pages (noindex).
+ */
+export default function sitemap(): MetadataRoute.Sitemap {
+  const lastPost = posts.reduce((d, p) => ((p.updated ?? p.date) > d ? p.updated ?? p.date : d), CATALOG_UPDATED);
+  const core: MetadataRoute.Sitemap = [
+    { url: abs("/"), lastModified: CATALOG_UPDATED, changeFrequency: "weekly", priority: 1 },
+    { url: abs("/systems"), lastModified: CATALOG_UPDATED, changeFrequency: "weekly", priority: 0.9 },
+    { url: abs("/charts"), lastModified: CATALOG_UPDATED, changeFrequency: "weekly", priority: 0.8 },
+    { url: abs("/icons"), lastModified: CATALOG_UPDATED, changeFrequency: "monthly", priority: 0.7 },
+    { url: abs("/mcp"), lastModified: CATALOG_UPDATED, changeFrequency: "monthly", priority: 0.8 },
+    { url: abs("/docs"), lastModified: CATALOG_UPDATED, changeFrequency: "monthly", priority: 0.6 },
+    { url: abs("/pricing"), lastModified: CATALOG_UPDATED, changeFrequency: "monthly", priority: 0.7 },
+    { url: abs("/changelog"), lastModified: CATALOG_UPDATED, changeFrequency: "weekly", priority: 0.4 },
+    { url: abs("/blog"), lastModified: lastPost, changeFrequency: "weekly", priority: 0.8 },
+  ];
+  return [
+    ...core,
+    ...systems.map((s) => ({ url: abs("/systems/" + s.slug), lastModified: CATALOG_UPDATED, changeFrequency: "weekly" as const, priority: 0.9 })),
+    ...posts.map((p) => ({ url: abs("/blog/" + p.slug), lastModified: p.updated ?? p.date, changeFrequency: "monthly" as const, priority: 0.7 })),
+    ...entries.map((e) => ({ url: abs("/components/" + e.slug), lastModified: CATALOG_UPDATED, changeFrequency: "monthly" as const, priority: e.kind === "code" || e.qa ? 0.6 : 0.5 })),
+  ];
+}

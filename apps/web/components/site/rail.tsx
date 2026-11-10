@@ -13,7 +13,7 @@ export function Rail() {
   return (
     <aside className="sticky top-0 hidden h-dvh w-[232px] shrink-0 flex-col border-r border-hair px-3 py-4 lg:flex">
       <div className="mb-6 flex items-center justify-between px-2">
-        <Link href="/" aria-label="Foundry UI home">
+        <Link href="/" aria-label="Ingot UI home">
           <Logo />
         </Link>
         <Suspense fallback={<span className="h-7 w-16" />}>

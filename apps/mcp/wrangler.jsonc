@@ -8,6 +8,8 @@
     { "binding": "DB", "database_name": "foundry-ui-db", "database_id": "94a18a8e-7d72-45e3-9b45-733f8d74c02b" }
   ],
   "services": [{ "binding": "SITE", "service": "foundry-ui" }],
-  "vars": { "SITE_URL": "https://foundry-ui.mitaly-website.workers.dev" },
+  "vars": { "SITE_URL": "https://ingotui.com" },
+  "workers_dev": true,
+  "routes": [{ "pattern": "mcp.ingotui.com", "custom_domain": true }],
   "observability": { "enabled": true }
 }

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { NOINDEX } from "@/lib/seo";
 import { redirect } from "next/navigation";
 import { desc, eq, sql } from "drizzle-orm";
 import { getSessionUser } from "@/lib/auth";
@@ -8,7 +9,7 @@ import { SignOut } from "@/components/site/sign-out";
 import { PageHead } from "@/components/site/page-head";
 import Link from "next/link";
 
-export const metadata: Metadata = { title: "Account" };
+export const metadata: Metadata = { title: "Account", robots: NOINDEX };
 
 export default async function AccountPage() {
   const user = await getSessionUser();
