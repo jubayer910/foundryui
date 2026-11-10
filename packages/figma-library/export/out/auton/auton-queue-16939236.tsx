@@ -42,7 +42,7 @@ export function Queue() {
           <p style={{ flex: "1 1 0", minWidth: 0, flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre-wrap", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#888888", lineHeight: "1.100000023841858", textBox: "trim-both cap alphabetic", height: "10px" }}>Search requests</p>
         </div>
       </div>
-      <svg style={{ width: "399px", height: "0px", flexShrink: 0, display: "block", lineHeight: 0 }} xmlns="http://www.w3.org/2000/svg" width="399" height="0.01" viewBox="0 0 399 0.01" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 20 0)" d="M0 0L360 0" fill="none" stroke="#e2e4e5" strokeWidth="1.5" strokeDasharray="3 3" strokeLinecap="butt"/></svg>
+      <svg style={{ width: "399px", height: "0px", flexShrink: 0, display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="399" height="1" viewBox="0 0 399 1" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 20 0)" d="M0 0L360 0" fill="none" stroke="#e2e4e5" strokeWidth="1.5" strokeDasharray="3 3" strokeLinecap="butt"/></svg>
       <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", padding: "12px 12px 12px 12px", gap: "4px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
         <div style={{ alignSelf: "stretch", flexShrink: 0, borderRadius: "12px", background: "#fcfcfc", boxShadow: "inset 0 0 0 1px #e7e9eb", display: "flex", flexDirection: "row", padding: "15px 13px 15px 13px", gap: "12px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
           <Circle size={40} style={{ width: "40px", height: "40px", flexShrink: 0, color: "#333333", display: "block" }} />

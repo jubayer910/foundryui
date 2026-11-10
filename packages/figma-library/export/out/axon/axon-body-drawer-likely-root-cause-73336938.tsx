@@ -61,20 +61,20 @@ export function BodyDrawerLikelyRootCause() {
           <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#e5484d", lineHeight: "20px" }}>Rising</p>
         </div>
         <div style={{ width: "470px", height: "90px", flexShrink: 0, position: "relative" }}>
-          <div style={{ position: "absolute", left: "7.8px", top: "75px", width: "18px", height: "12px", borderRadius: "3px 3px 0px 0px", background: "#e5484d" }} />
-          <div style={{ position: "absolute", left: "41.4px", top: "69px", width: "18px", height: "18px", borderRadius: "3px 3px 0px 0px", background: "#e5484d" }} />
-          <div style={{ position: "absolute", left: "74.9px", top: "75px", width: "18px", height: "12px", borderRadius: "3px 3px 0px 0px", background: "#e5484d" }} />
+          <div style={{ position: "absolute", left: "7.79px", top: "75px", width: "18px", height: "12px", borderRadius: "3px 3px 0px 0px", background: "#e5484d" }} />
+          <div style={{ position: "absolute", left: "41.36px", top: "69px", width: "18px", height: "18px", borderRadius: "3px 3px 0px 0px", background: "#e5484d" }} />
+          <div style={{ position: "absolute", left: "74.93px", top: "75px", width: "18px", height: "12px", borderRadius: "3px 3px 0px 0px", background: "#e5484d" }} />
           <div style={{ position: "absolute", left: "108.5px", top: "63px", width: "18px", height: "24px", borderRadius: "3px 3px 0px 0px", background: "#e5484d" }} />
-          <div style={{ position: "absolute", left: "142.1px", top: "69px", width: "18px", height: "18px", borderRadius: "3px 3px 0px 0px", background: "#e5484d" }} />
-          <div style={{ position: "absolute", left: "175.6px", top: "57px", width: "18px", height: "30px", borderRadius: "3px 3px 0px 0px", background: "#e5484d" }} />
-          <div style={{ position: "absolute", left: "209.2px", top: "63px", width: "18px", height: "24px", borderRadius: "3px 3px 0px 0px", background: "#e5484d" }} />
-          <div style={{ position: "absolute", left: "242.8px", top: "51px", width: "18px", height: "36px", borderRadius: "3px 3px 0px 0px", background: "#e5484d" }} />
-          <div style={{ position: "absolute", left: "276.4px", top: "33px", width: "18px", height: "54px", borderRadius: "3px 3px 0px 0px", background: "#e5484d" }} />
-          <div style={{ position: "absolute", left: "309.9px", top: "45px", width: "18px", height: "42px", borderRadius: "3px 3px 0px 0px", background: "#e5484d" }} />
+          <div style={{ position: "absolute", left: "142.07px", top: "69px", width: "18px", height: "18px", borderRadius: "3px 3px 0px 0px", background: "#e5484d" }} />
+          <div style={{ position: "absolute", left: "175.64px", top: "57px", width: "18px", height: "30px", borderRadius: "3px 3px 0px 0px", background: "#e5484d" }} />
+          <div style={{ position: "absolute", left: "209.21px", top: "63px", width: "18px", height: "24px", borderRadius: "3px 3px 0px 0px", background: "#e5484d" }} />
+          <div style={{ position: "absolute", left: "242.79px", top: "51px", width: "18px", height: "36px", borderRadius: "3px 3px 0px 0px", background: "#e5484d" }} />
+          <div style={{ position: "absolute", left: "276.36px", top: "33px", width: "18px", height: "54px", borderRadius: "3px 3px 0px 0px", background: "#e5484d" }} />
+          <div style={{ position: "absolute", left: "309.93px", top: "45px", width: "18px", height: "42px", borderRadius: "3px 3px 0px 0px", background: "#e5484d" }} />
           <div style={{ position: "absolute", left: "343.5px", top: "39px", width: "18px", height: "48px", borderRadius: "3px 3px 0px 0px", background: "#e5484d" }} />
-          <div style={{ position: "absolute", left: "377.1px", top: "15px", width: "18px", height: "72px", borderRadius: "3px 3px 0px 0px", background: "#e5484d" }} />
-          <div style={{ position: "absolute", left: "410.6px", top: "27px", width: "18px", height: "60px", borderRadius: "3px 3px 0px 0px", background: "#e5484d" }} />
-          <div style={{ position: "absolute", left: "444.2px", top: "3px", width: "18px", height: "84px", borderRadius: "3px 3px 0px 0px", background: "#e5484d" }} />
+          <div style={{ position: "absolute", left: "377.07px", top: "15px", width: "18px", height: "72px", borderRadius: "3px 3px 0px 0px", background: "#e5484d" }} />
+          <div style={{ position: "absolute", left: "410.64px", top: "27px", width: "18px", height: "60px", borderRadius: "3px 3px 0px 0px", background: "#e5484d" }} />
+          <div style={{ position: "absolute", left: "444.21px", top: "3px", width: "18px", height: "84px", borderRadius: "3px 3px 0px 0px", background: "#e5484d" }} />
         </div>
       </div>
       <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", gap: "8px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
