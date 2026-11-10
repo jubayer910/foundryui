@@ -28,7 +28,9 @@ export function FigmaItemPage({ item }: { item: FigmaItem }) {
             <nav className="flex items-center gap-1 text-[12px] text-mute" aria-label="Breadcrumb">
               <Link href="/" className="hover:text-ink">Components</Link>
               <span aria-hidden="true">/</span>
-              <Link href={"/?c=" + encodeURIComponent(item.category)} className="hover:text-ink">{item.category}</Link>
+              <Link href={"/systems/" + item.system} className="hover:text-ink">{sys?.name ?? item.system}</Link>
+              <span aria-hidden="true">/</span>
+              <span>{item.category}</span>
             </nav>
             <h1 className="mt-2 text-[20px] font-medium tracking-[-0.02em]">{item.name}</h1>
             <p className="mt-1 text-[13px] leading-snug text-mute">
@@ -67,7 +69,7 @@ export function FigmaItemPage({ item }: { item: FigmaItem }) {
         <div className="min-w-0">
           <div className="flex min-h-[520px] items-center justify-center rounded-[8px] bg-tile p-4 shadow-[inset_0_0_0_1px_var(--color-hair)] sm:p-8">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={item.thumb} alt={item.name + " component"} width={Math.min(item.w, 960)} className="h-auto max-h-[80vh] w-auto max-w-full rounded-[6px] shadow-[0_1px_3px_rgb(0_0_0/0.08),0_8px_24px_-12px_rgb(0_0_0/0.18)]" />
+            <img src={item.thumb} alt={item.name + ", " + item.category.toLowerCase() + " component from the " + (sys?.name ?? item.system) + " design system"} width={Math.min(item.w, 960)} className="h-auto max-h-[80vh] w-auto max-w-full rounded-[6px] shadow-[0_1px_3px_rgb(0_0_0/0.08),0_8px_24px_-12px_rgb(0_0_0/0.18)]" />
           </div>
         </div>
       </div>

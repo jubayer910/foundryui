@@ -18,6 +18,7 @@ const GROUPS: { h: string; links: L[] }[] = [
     links: [
       { href: "/mcp", label: "MCP for AI agents", icon: "plug" },
       { href: "/docs", label: "CLI and docs", icon: "terminal" },
+      { href: "/blog", label: "Resources", icon: "book" },
     ],
   },
   {

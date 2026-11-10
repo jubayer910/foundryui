@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/lib/seo";
 import Link from "next/link";
 import { SITE_URL } from "@/lib/catalog";
 import { PageHead } from "@/components/site/page-head";
 import { CopyBlock } from "@/components/site/copy-block";
 
-export const metadata: Metadata = { title: "MCP & CLI", description: "Connect the Foundry UI MCP server to Claude Code, Cursor, Codex, Windsurf or VS Code and let your agent build with the library." };
+export const metadata: Metadata = pageMeta({ title: "MCP server for UI components: Claude Code, Cursor, Codex", description: "Connect the Foundry UI MCP server to Claude Code, Cursor, Codex or VS Code. 14 tools give your AI agent design tokens, checked React components, charts and icons.", path: "/mcp" });
 
 const MCP_URL = SITE_URL.replace("://foundry-ui.", "://foundry-ui-mcp.") + "/mcp";
 

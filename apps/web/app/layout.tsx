@@ -2,20 +2,34 @@ import type { Metadata } from "next";
 import { Inter, Geist_Mono } from "next/font/google";
 import { Rail, railSystems } from "@/components/site/rail";
 import { MobileBar } from "@/components/site/mobile-bar";
+import { JsonLd, SITE, organizationLd, websiteLd } from "@/lib/seo";
 import "./globals.css";
 
 const inter = Inter({ variable: "--font-inter", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
 
+const DESCRIPTION = "Six dashboard design systems with 1,800+ components. Copy React code checked against Figma, paste Figma layers, or let your AI agent build through MCP.";
+
 export const metadata: Metadata = {
-  title: { default: "Foundry UI — dashboard components in Figma, React and MCP", template: "%s · Foundry UI" },
-  description: "Six complete design systems of dashboard components. Copy any piece as React code, a Figma layer or an image, or let your AI agent pull it through MCP.",
+  metadataBase: new URL(SITE),
+  title: { default: "Foundry UI: dashboard components in React, Figma and MCP", template: "%s | Foundry UI" },
+  description: DESCRIPTION,
+  applicationName: "Foundry UI",
+  authors: [{ name: "Wolfpixel", url: "https://www.wolfpixel.agency" }],
+  creator: "Wolfpixel",
+  publisher: "Wolfpixel",
+  openGraph: { type: "website", siteName: "Foundry UI", locale: "en_US", title: "Foundry UI: dashboard components in React, Figma and MCP", description: DESCRIPTION },
+  twitter: { card: "summary_large_image", title: "Foundry UI: dashboard components in React, Figma and MCP", description: DESCRIPTION },
+  robots: { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 } },
+  // Search Console / Bing: set these env vars once the owner verifies the domain.
+  verification: { google: process.env.GOOGLE_SITE_VERIFICATION || undefined, other: process.env.BING_SITE_VERIFICATION ? { "msvalidate.01": process.env.BING_SITE_VERIFICATION } : undefined },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${inter.variable} ${geistMono.variable} h-full antialiased`} data-system="loopo">
       <body className="min-h-full">
+        <JsonLd data={[organizationLd(), websiteLd()]} />
         <div className="flex min-h-dvh">
           <Rail />
           <div className="min-w-0 flex-1">

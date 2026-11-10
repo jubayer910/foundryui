@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
+import { NOINDEX } from "@/lib/seo";
 import { AuthForm } from "@/components/site/auth-form";
 import { Icon } from "@/registry/components/icons";
 
-export const metadata: Metadata = { title: "Create account" };
+export const metadata: Metadata = { title: "Create account", robots: NOINDEX };
 
 const GETS = ["Unlimited copies of every free component", "Saved items that follow you", "An API key for the MCP server and CLI", "The full Loopo system in Figma"];
 

@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { LibraryPage } from "@/components/site/library-page";
+import { NOINDEX } from "@/lib/seo";
 
-export const metadata: Metadata = { title: "Components", description: "Browse every Foundry UI component: navigation, KPI cards, charts, tables, overlays and dashboard blocks.", alternates: { canonical: "/" } };
+// Same library as the home page: canonical points home and the view stays out of the index.
+export const metadata: Metadata = { title: "Components", description: "Browse every Foundry UI dashboard component: navigation, KPI cards, charts, tables, overlays and page templates.", alternates: { canonical: "/" }, robots: NOINDEX };
 
 export default async function ComponentsPage({ searchParams }: PageProps<"/components">) {
   const sp = await searchParams;

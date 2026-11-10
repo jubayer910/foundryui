@@ -7,14 +7,35 @@ import { Browser } from "@/components/site/browser";
 import { railSystems } from "@/components/site/rail";
 import { CATEGORIES, codeCount, entries } from "@/lib/library";
 import { Preview } from "@/components/site/preview";
+import { clientEntries } from "@/lib/seo-entries";
+import { postsFor } from "@/lib/blog";
+import { JsonLd, ORG_ID, abs, breadcrumbLd, fmt, pageMeta } from "@/lib/seo";
 
 export function generateStaticParams() {
   return systems.map((s) => ({ slug: s.slug }));
 }
 
+const DOMAIN: Record<string, string> = {
+  loopo: "audience and revenue analytics",
+  mailpulse: "newsletter and email marketing",
+  auton: "AI agent governance and operations",
+  axon: "workflow automation and AI pipelines",
+  veriq: "security and compliance",
+  vantage: "business admin and subscriptions",
+};
+
+export const dynamicParams = false;
+
 export async function generateMetadata({ params }: PageProps<"/systems/[slug]">): Promise<Metadata> {
   const s = getSystem((await params).slug);
-  return s ? { title: s.name + " design system", description: s.description } : {};
+  if (!s) return {};
+  const coded = (s.status === "live" ? items.length : 0) + codeCount(s.slug);
+  return pageMeta({
+    title: `${s.name} dashboard design system: ${fmt(figmaCount(s.slug))} components in Figma and React`,
+    description: `${s.name} is a ${DOMAIN[s.slug] ?? "dashboard"} design system: ${fmt(figmaCount(s.slug))} components in Figma, ${fmt(coded)} with React + Tailwind code checked against Figma. ${s.tagline}. ${s.tier === "free" ? "Free." : "Included in Pro."}`,
+    path: "/systems/" + s.slug,
+    image: "/systems/" + s.slug + "/opengraph-image",
+  });
 }
 
 export default async function SystemPage({ params }: PageProps<"/systems/[slug]">) {
@@ -23,6 +44,23 @@ export default async function SystemPage({ params }: PageProps<"/systems/[slug]"
   const coded = (s.status === "live" ? items.length : 0) + codeCount(s.slug);
   const live = coded > 0;
   const lib = Object.entries(FIGMA_LIBRARY[s.slug] ?? {}).sort((a, b) => b[1] - a[1]);
+  // Only this system's entries go to the client browser (was the whole library).
+  const own = entries.filter((e) => e.system === s.slug);
+  const guides = postsFor({ system: s.slug }, 4);
+  const byCat = CATEGORIES.map((c) => [c, own.filter((e) => e.category === c).sort((a, b) => a.name.localeCompare(b.name))] as const).filter(([, l]) => l.length);
+  const ld = [
+    breadcrumbLd([["Foundry UI", "/"], ["Systems", "/systems"], [s.name, "/systems/" + s.slug]]),
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      name: s.name + " design system",
+      description: s.description,
+      url: abs("/systems/" + s.slug),
+      isPartOf: { "@id": abs("/#website") },
+      publisher: { "@id": ORG_ID },
+      mainEntity: { "@type": "ItemList", numberOfItems: own.length, itemListElement: own.slice(0, 50).map((e, i) => ({ "@type": "ListItem", position: i + 1, url: abs("/components/" + e.slug), name: e.name })) },
+    },
+  ];
   const rows: [string, string][] = [
     ["Status", live ? "Code and Figma" : "Figma library ready, code in progress"],
     ["Plan", s.tier === "free" ? "Free" : "Pro"],
@@ -33,6 +71,7 @@ export default async function SystemPage({ params }: PageProps<"/systems/[slug]"
   ];
   return (
     <div className="grid max-w-[1400px] gap-6 lg:grid-cols-[300px_1fr]">
+      <JsonLd data={ld} />
       <aside className="flex flex-col gap-4 lg:sticky lg:top-5 lg:self-start">
         <div>
           <nav className="flex items-center gap-1 text-[12px] text-mute" aria-label="Breadcrumb">
@@ -41,9 +80,9 @@ export default async function SystemPage({ params }: PageProps<"/systems/[slug]"
             <span>{s.name}</span>
           </nav>
           <div className="mt-3 flex items-center gap-2.5">
-            <span className="size-8 rounded-[8px]" style={{ background: s.accent }} />
+            <span className="size-8 rounded-[8px]" style={{ background: s.accent }} aria-hidden="true" />
             <div>
-              <h1 className="text-[20px] font-medium tracking-[-0.02em]">{s.name}</h1>
+              <h1 className="text-[20px] font-medium tracking-[-0.02em]">{s.name} <span className="sr-only">dashboard design system</span></h1>
               <p className="text-[12px] text-mute">{s.tagline}</p>
             </div>
           </div>
@@ -95,8 +134,40 @@ export default async function SystemPage({ params }: PageProps<"/systems/[slug]"
 
         <section className="mt-10">
           <h2 className="mb-3 text-[13px] font-medium">Browse {s.name}</h2>
-          <Browser entries={entries} categories={CATEGORIES} systems={railSystems} initialSystem={s.slug} />
+          <Browser entries={clientEntries(own)} categories={CATEGORIES} systems={railSystems.filter((r) => r.slug === s.slug)} initialSystem={s.slug} />
         </section>
+
+        <section className="mt-12" aria-labelledby="all-components">
+          <details className="card">
+            <summary className="flex cursor-pointer list-none items-center justify-between px-4 py-3 text-[13px] font-medium">
+              <h2 id="all-components" className="font-medium">All {s.name} components, A to Z <span className="text-mute">{own.length}</span></h2>
+              <span className="text-[12px] text-mute">Show list</span>
+            </summary>
+            <div className="grid gap-x-6 gap-y-5 border-t border-hair p-4 sm:grid-cols-2 xl:grid-cols-3">
+              {byCat.map(([c, list]) => (
+                <div key={c}>
+                  <h3 className="text-[12px] text-mute">{c} <span className="tabular-nums">{list.length}</span></h3>
+                  <ul className="mt-1">
+                    {list.map((e) => (
+                      <li key={e.slug}><Link href={"/components/" + e.slug} className="block truncate py-0.5 text-[13px] hover:underline">{e.name}</Link></li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </details>
+        </section>
+
+        {guides.length > 0 && (
+          <section className="mt-10" aria-labelledby="system-guides">
+            <h2 id="system-guides" className="text-[13px] font-medium">Guides that use {s.name}</h2>
+            <ul className="mt-3 grid gap-3 sm:grid-cols-2">
+              {guides.map((p) => (
+                <li key={p.slug}><Link href={"/blog/" + p.slug} className="card block p-4 text-[13px] font-medium leading-snug hover:bg-tile">{p.title}</Link></li>
+              ))}
+            </ul>
+          </section>
+        )}
 
         {!live && (
           <div className="mt-10 rounded-[8px] bg-tile px-6 py-10 text-center">

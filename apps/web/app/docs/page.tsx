@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/lib/seo";
 import Link from "next/link";
 import { SITE_URL } from "@/lib/catalog";
 import { PageHead } from "@/components/site/page-head";
 
-export const metadata: Metadata = { title: "Docs", description: "Install Foundry UI, wire the tokens, theme a system and use it with Figma and AI agents." };
+export const metadata: Metadata = pageMeta({ title: "Docs: install, tokens, Figma and AI agents", description: "Install Foundry UI with the CLI or shadcn, wire the Tailwind v4 tokens, theme a system, copy to Figma and use the library with AI agents. Licence included.", path: "/docs" });
 
 const H = "mt-10 text-[14px] font-medium scroll-mt-6";
 const P = "mt-2 text-[13px] leading-relaxed text-mute";

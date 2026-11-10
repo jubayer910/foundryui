@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
+import { NOINDEX } from "@/lib/seo";
 import { entries } from "@/lib/library";
 import { SavedList } from "@/components/site/saved-list";
 
-export const metadata: Metadata = { title: "Saved and recent" };
+export const metadata: Metadata = { title: "Saved and recent", robots: NOINDEX };
 
 export default function SavedPage() {
   return (

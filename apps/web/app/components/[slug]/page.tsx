@@ -7,18 +7,82 @@ import { getSessionUser } from "@/lib/auth";
 import { ComponentWorkbench } from "@/components/site/component-workbench";
 import { ItemCard } from "@/components/site/item-card";
 import { FigmaItemPage } from "@/components/site/figma-item-page";
-import { entries, getFigmaItem } from "@/lib/library";
+import { entries, figmaQA, getFigmaItem } from "@/lib/library";
+import { getSystem } from "@/lib/catalog";
+import { postsFor } from "@/lib/blog";
+import { JsonLd, ORG_ID, abs, breadcrumbLd, clip, pageMeta } from "@/lib/seo";
 
 export function generateStaticParams() {
   return entries.map((e) => ({ slug: e.slug }));
 }
 
+export const dynamicParams = false;
+
+const CAT_NOUN: Record<string, string> = { "KPI and stats": "KPI card", "Tables and lists": "table", "Cards and panels": "card", Charts: "chart", Modals: "modal", Drawers: "drawer", Menus: "menu", Popovers: "popover", Forms: "form", Navigation: "navigation", Headers: "header", Editors: "editor", Templates: "page template", Feedback: "feedback", Atoms: "UI", Foundations: "foundation" };
+/** "Revenue chart" stays as is; "Sources" becomes "Sources chart" so the title says what it is. */
+const named = (name: string, category: string) => {
+  const noun = CAT_NOUN[category] ?? "component";
+  return name.toLowerCase().includes(noun.split(" ")[0].toLowerCase()) ? name : name + " " + noun;
+};
+
 export async function generateMetadata({ params }: PageProps<"/components/[slug]">): Promise<Metadata> {
   const slug = (await params).slug;
   const it = getItem(slug);
-  if (it) return { title: it.name + " component", description: it.description + " React + Tailwind code, Figma copy and PNG/SVG export." };
+  const path = "/components/" + slug;
+  if (it) {
+    const entry = entries.find((e) => e.slug === slug)!;
+    return pageMeta({ title: `${named(it.name, entry.category)} React component for dashboards (Figma + code)`, description: clip(`${it.description} Free React + Tailwind v4 code from the Loopo design system, plus a Figma copy and PNG/SVG export. Install with npx foundryui add ${slug}.`), path, image: path + "/opengraph-image" });
+  }
   const f = getFigmaItem(slug);
-  return f ? { title: f.name + ", " + f.category + " component", description: f.name + " from the " + f.system + " design system: a " + f.category.toLowerCase() + " component for dashboards, in Figma." } : {};
+  if (!f) return {};
+  const sys = getSystem(f.system)?.name ?? f.system;
+  const coded = !!figmaQA(slug);
+  const n = named(f.name, f.category);
+  return pageMeta({
+    title: coded ? `${n} React component for dashboards (Figma + code)` : `${n} Figma component for dashboards`,
+    description: clip(`${n} from the ${sys} dashboard design system, taken from the ${f.source.replace(/^[\d.]+ · /, "").replace(/ — .*/, "") || "product"} screen. ${coded ? "React + Tailwind code checked against Figma, plus the Figma layer." : "In Figma now; React code in progress."}${f.keywords ? " Includes " + f.keywords.split(", ").slice(0, 4).join(", ").toLowerCase() + "." : ""}`),
+    path,
+    image: path + "/opengraph-image",
+  });
+}
+
+function componentLd(o: { slug: string; name: string; description: string; system: string; category: string; coded: boolean; free: boolean; image?: string }) {
+  const url = abs("/components/" + o.slug);
+  const sys = getSystem(o.system);
+  return [
+    breadcrumbLd([["Components", "/"], [sys?.name ?? o.system, "/systems/" + o.system], [o.name, "/components/" + o.slug]]),
+    {
+      "@context": "https://schema.org",
+      "@type": o.coded ? "SoftwareSourceCode" : "CreativeWork",
+      "@id": url + "#component",
+      name: o.name,
+      description: o.description,
+      url,
+      genre: o.category,
+      ...(o.coded ? { programmingLanguage: ["TypeScript", "React"], runtimePlatform: "React 19, Tailwind CSS v4", codeSampleType: "full solution" } : {}),
+      ...(o.image ? { image: abs(o.image) } : {}),
+      isPartOf: { "@type": "CreativeWork", name: (sys?.name ?? o.system) + " design system", url: abs("/systems/" + o.system) },
+      publisher: { "@id": ORG_ID },
+      isAccessibleForFree: o.free,
+      license: abs("/docs#license"),
+    },
+  ];
+}
+
+function Guides({ slug, system }: { slug: string; system: string }) {
+  const list = postsFor({ slug }, 3);
+  const more = list.length ? list : postsFor({ system }, 3);
+  if (!more.length) return null;
+  return (
+    <section className="mt-14 max-w-[1400px]" aria-labelledby="component-guides">
+      <h2 id="component-guides" className="text-[13px] font-medium">Guides</h2>
+      <ul className="mt-3 grid gap-3 md:grid-cols-3">
+        {more.map((p) => (
+          <li key={p.slug}><Link href={"/blog/" + p.slug} className="card block h-full p-4 text-[13px] font-medium leading-snug hover:bg-tile">{p.title}</Link></li>
+        ))}
+      </ul>
+    </section>
+  );
 }
 
 async function Workbench(props: Omit<Parameters<typeof ComponentWorkbench>[0], "signedIn">) {
@@ -32,7 +96,14 @@ export default async function ComponentPage({ params }: PageProps<"/components/[
   if (!it) {
     const f = getFigmaItem(slug);
     if (!f) notFound();
-    return <FigmaItemPage item={f} />;
+    const sys = getSystem(f.system);
+    return (
+      <>
+        <JsonLd data={componentLd({ slug, name: f.name, description: `${f.name}, a ${f.category.toLowerCase()} component from the ${sys?.name ?? f.system} dashboard design system.`, system: f.system, category: f.category, coded: !!figmaQA(slug), free: sys?.tier === "free", image: f.thumb })} />
+        <FigmaItemPage item={f} />
+        <Guides slug={slug} system={f.system} />
+      </>
+    );
   }
   const entry = entries.find((e) => e.slug === slug)!;
   const files = it.tier === "free" ? resolveFiles(slug).map(({ path, content }) => ({ path, content })) : [{ path: it.files[0], content: "// Pro component. Upgrade to view and copy the source." }];
@@ -51,7 +122,9 @@ export default async function ComponentPage({ params }: PageProps<"/components/[
       <nav className="flex items-center gap-1 text-[12px] text-mute" aria-label="Breadcrumb">
         <Link href="/" className="hover:text-ink">Components</Link>
         <span aria-hidden="true">/</span>
-        <Link href={"/?c=" + encodeURIComponent(entry.category)} className="hover:text-ink">{entry.category}</Link>
+        <Link href="/systems/loopo" className="hover:text-ink">Loopo</Link>
+        <span aria-hidden="true">/</span>
+        <span>{entry.category}</span>
       </nav>
       <h1 className="mt-2 text-[20px] font-medium tracking-[-0.02em]">{it.name}</h1>
       <p className="mt-1 text-[13px] leading-snug text-mute">{it.description}</p>
@@ -68,6 +141,7 @@ export default async function ComponentPage({ params }: PageProps<"/components/[
   const prompt = "Use the Foundry UI MCP to add the \"" + slug + "\" component (Loopo system) to this project, install its dependencies and render it on the dashboard page.";
   return (
     <div className="max-w-[1400px]">
+      <JsonLd data={componentLd({ slug, name: it.name, description: it.description, system: "loopo", category: entry.category, coded: true, free: it.tier === "free" })} />
       <Suspense fallback={<div className="h-[560px] rounded-[8px] bg-tile" />}>
         <Workbench slug={slug} name={it.name} files={files} installCmd={"npx foundryui add " + slug} facts={facts} prompt={prompt} />
       </Suspense>
@@ -84,6 +158,7 @@ export default async function ComponentPage({ params }: PageProps<"/components/[
           </div>
         </section>
       )}
+      <Guides slug={slug} system="loopo" />
     </div>
   );
 }

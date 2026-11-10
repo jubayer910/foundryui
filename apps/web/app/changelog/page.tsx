@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/lib/seo";
 import { Icon } from "@/registry/components/icons";
 import { PageHead } from "@/components/site/page-head";
 
-export const metadata: Metadata = { title: "Changelog" };
+export const metadata: Metadata = pageMeta({ title: "Changelog", description: "What shipped in Foundry UI, newest first: new design systems, components, icons, MCP tools and site updates.", path: "/changelog" });
 
 const LOG = [
   { date: "Nov 10, 2026", title: "A library-first site and 1,852 Figma components", body: ["Figma libraries for all six systems: 1,852 components harvested from the product screens and checked", "New site: the home page is the library, with quick copy and save on every card", "Component pages with a facts panel, keyboard shortcuts (C, F, S) and a width switcher", "Saved and recent, a visible free-copies meter, and a plan comparison on Pricing"] },
