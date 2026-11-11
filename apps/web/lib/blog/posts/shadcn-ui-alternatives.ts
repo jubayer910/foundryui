@@ -9,9 +9,9 @@ export const post: Post = {
   category: "Comparisons",
   keyword: "shadcn ui alternatives",
   intent: "commercial",
-  lede: "Most teams looking for a shadcn/ui alternative do not need to leave shadcn; they need a finished look on top of it. If you want different primitives, use Base UI or Radix directly. If you want a full component suite without Tailwind, MUI, Mantine or Chakra. If you want Tailwind classes without React, daisyUI or Flowbite. If you want finished dashboard components that install through the shadcn CLI, use a Ingot UI system.",
+  lede: "Most teams looking for a shadcn/ui alternative do not need to leave shadcn; they need a finished look on top of it. If you want different primitives, use Base UI or Radix directly. If you want a full component suite without Tailwind, MUI, Mantine or Chakra. If you want Tailwind classes without React, daisyUI or Flowbite. If you want finished dashboard components that install through the shadcn CLI, use an Ingot UI system.",
   body: [
-    { t: "p", x: "We are Wolfpixel. We use shadcn/ui on client work, and we built Ingot UI to sit on the same foundations: React, Tailwind CSS v4, Base UI for interactive parts and a shadcn-compatible registry. That colours this comparison, so here is the honest version: shadcn/ui is excellent at what it does, and several “alternatives” below are really layers on top of it." },
+    { t: "p", x: "Ingot UI is built on the same foundations as shadcn/ui: React, Tailwind CSS v4, Base UI for interactive parts and a shadcn-compatible registry. That colours this comparison, so here is the honest version: shadcn/ui is excellent at what it does, and several “alternatives” below are really layers on top of it." },
     { t: "h2", x: "Why people look for a shadcn/ui alternative" },
     { t: "p", x: "From the teams we work with, the reasons are almost always one of these:" },
     { t: "ul", items: [
@@ -36,7 +36,7 @@ export const post: Post = {
     { t: "h2", x: "When to stay on shadcn/ui" },
     { t: "p", x: "Stay if your problem is the look, not the foundation. Swapping your primitives to fix a visual problem means rewriting working code and still having no design. Instead, keep shadcn/ui for primitives and bring in a design layer: tokens, and finished components for the parts users stare at." },
     { t: "p", x: "That is exactly the gap Ingot UI was built for. Free components are published as shadcn registry items, so this works in any shadcn project:" },
-    { t: "code", label: "Add a Ingot UI component with the shadcn CLI", x: "npx shadcn add {site}/r/kpi-card.json" },
+    { t: "code", label: "Add an Ingot UI component with the shadcn CLI", x: "npx shadcn add {site}/r/kpi-card.json" },
     { t: "p", x: "Or use the Ingot CLI, which also writes the tokens and the theme bridge:" },
     { t: "code", label: "Ingot CLI", x: "npx ingotui init\nnpx ingotui add kpi-card capsule-bars data-table" },
     { t: "components", slugs: ["kpi-card", "capsule-bars", "data-table", "donut"], caption: "Free Loopo components that install with the shadcn or Ingot CLI." },

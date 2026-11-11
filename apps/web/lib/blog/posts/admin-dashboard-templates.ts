@@ -9,9 +9,9 @@ export const post: Post = {
   category: "Lists",
   keyword: "admin dashboard template nextjs",
   intent: "commercial",
-  lede: "A good Next.js admin dashboard template gives you the screens your users open daily (overview, tables, detail drawers, settings and create flows) in one consistent look, on React 19 and Tailwind v4. If you want a free starting point, fork TailAdmin or the shadcn/ui dashboard example. If you want a finished, domain-specific admin, use a Ingot UI system: Vantage for business admin, Auton for AI agent operations, Axon for workflow automation, Veriq for security and MailPulse for newsletters.",
+  lede: "A good Next.js admin dashboard template gives you the screens your users open daily (overview, tables, detail drawers, settings and create flows) in one consistent look, on React 19 and Tailwind v4. If you want a free starting point, fork TailAdmin or the shadcn/ui dashboard example. If you want a finished, domain-specific admin, use an Ingot UI system: Vantage for business admin, Auton for AI agent operations, Axon for workflow automation, Veriq for security and MailPulse for newsletters.",
   body: [
-    { t: "p", x: "We are Wolfpixel, and admin dashboards are most of what we design. The pattern we see in almost every project is the same: the team forks a template on day one, ships fast for two weeks, then spends two months fighting it. The template had a sales chart and a user table; the product needed a review queue, a credential rotation drawer and a policy editor." },
+    { t: "p", x: "Almost every admin dashboard project follows the same pattern: the team forks a template on day one, ships fast for two weeks, then spends two months fighting it. The template had a sales chart and a user table; the product needed a review queue, a credential rotation drawer and a policy editor." },
     { t: "p", x: "So this list is ranked by one question: how many of your real screens does the template already contain? Ingot UI systems are ours, and we say where a free template is the better call." },
     { t: "h2", x: "What a Next.js admin template should include in 2027" },
     { t: "ul", items: [

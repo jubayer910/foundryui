@@ -11,7 +11,7 @@ export const post: Post = {
   intent: "informational",
   lede: "Put your UI rules in a project rules file Cursor always loads (a file in `.cursor/rules/`, or an `AGENTS.md` at the repo root), keep them short and testable: use tokens not hex values, import from your component folder first, one icon set, every list has its states, charts follow fixed rules. Then connect a design-system MCP server so the agent can fetch the components the rules point to.",
   body: [
-    { t: "p", x: "We are Wolfpixel. Rules files are the cheapest way to raise the quality of AI-written UI. These are the ones we use, and why each one exists." },
+    { t: "p", x: "Rules files are the cheapest way to raise the quality of AI-written UI. These are the ones we use, and why each one exists." },
     { t: "h2", x: "Where the rules live" },
     { t: "ul", items: [
       "**`.cursor/rules/*.mdc`:** Cursor project rules. Set them to always apply for UI rules, or scope them to `app/**` and `components/**`.",

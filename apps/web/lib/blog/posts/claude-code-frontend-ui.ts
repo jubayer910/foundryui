@@ -11,7 +11,7 @@ export const post: Post = {
   intent: "informational",
   lede: "To get good frontend UI from Claude Code, give it a design system before the first screen: tokens in the repo, a CLAUDE.md rules file that points to your components, and an MCP server it can query for real components. Then ask for one screen at a time with the user, the decision and the data named, and review each screen against a screenshot before moving on.",
   body: [
-    { t: "p", x: "We are Wolfpixel. Much of our build work now runs through Claude Code. The quality of the UI it writes depends far more on the context it has than on the prompt, so this guide is mostly about setting up context." },
+    { t: "p", x: "Much frontend work now runs through Claude Code. The quality of the UI it writes depends far more on the context it has than on the prompt, so this guide is mostly about setting up context." },
     { t: "h2", x: "The setup (once per project)" },
     { t: "ol", items: [
       "**Tokens in the repo.** CSS variables for colour, radius, type, mapped to Tailwind v4 utilities.",

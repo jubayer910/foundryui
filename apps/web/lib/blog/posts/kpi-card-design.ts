@@ -11,7 +11,7 @@ export const post: Post = {
   intent: "informational",
   lede: "A good KPI card answers three questions in under five seconds: what is the number, is it good or bad, and compared with what. Give it a plain label, one large value with its unit, a comparison stated in words (“+12% vs last month”), a colour that means something, and optionally a small trend line. Then put three to five of them at the top of the screen, ordered by the decision they drive.",
   body: [
-    { t: "p", x: "We are Wolfpixel. KPI cards are the most copied and least questioned piece of dashboard design. Across the six Ingot UI systems there are {cat:all:KPI and stats} KPI and stats components, drawn for very different products. This guide is what we learned designing them." },
+    { t: "p", x: "KPI cards are the most copied and least questioned piece of dashboard design. Across the six Ingot UI systems there are {cat:all:KPI and stats} KPI and stats components, drawn for very different products. This guide is what we learned designing them." },
     { t: "h2", x: "The anatomy of a KPI card" },
     { t: "ol", items: [
       "**Label.** Plain words the user would say: “Revenue this month”, not “MRR_Δ”. Put the period in the label if it is not obvious.",

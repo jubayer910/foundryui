@@ -46,7 +46,7 @@ export default async function PostPage({ params }: PageProps<"/blog/[slug]">) {
     image: abs("/blog/" + p.slug + "/opengraph-image"),
     datePublished: p.date,
     dateModified: p.updated ?? p.date,
-    author: { "@type": "Organization", name: PUBLISHER, url: "https://www.wolfpixel.agency" },
+    author: { "@id": ORG_ID },
     publisher: { "@id": ORG_ID },
     articleSection: p.category,
     keywords: p.keyword,
@@ -77,7 +77,7 @@ export default async function PostPage({ params }: PageProps<"/blog/[slug]">) {
           </nav>
           <h1 className="mt-3 text-[30px] font-medium leading-[1.12] tracking-[-0.025em] sm:text-[34px]">{p.title}</h1>
           <p className="mt-3 flex flex-wrap gap-x-3 gap-y-1 text-[13px] text-mute">
-            <span>By <a href="https://www.wolfpixel.agency" rel="noopener" target="_blank" className="text-ink hover:underline">{PUBLISHER}</a></span>
+            <span>By <Link href="/" className="text-ink hover:underline">{PUBLISHER}</Link></span>
             <time dateTime={p.date}>{fmtDate(p.date)}</time>
             {p.updated && p.updated !== p.date && <span>Updated <time dateTime={p.updated}>{fmtDate(p.updated)}</time></span>}
             <span>{readingTime(p)} min read</span>
@@ -124,9 +124,9 @@ export default async function PostPage({ params }: PageProps<"/blog/[slug]">) {
           )}
 
           <section className="mt-14 rounded-[8px] bg-tile p-5">
-            <p className="text-[13px] font-medium">About the author</p>
+            <p className="text-[13px] font-medium">About Ingot UI</p>
             <p className="mt-1 text-[14px] leading-relaxed text-ink-2">
-              Wolfpixel is the product design studio that designed the six Ingot UI systems from real dashboard projects, and checks every generated React component against its Figma original before it ships. Read more on <a href="https://www.wolfpixel.agency" rel="noopener" target="_blank" className="font-medium text-ink underline underline-offset-2">wolfpixel.agency</a>.
+              Ingot UI is a library of six dashboard design systems built from real product screens. Every generated React component is checked against its Figma original before it ships. <Link href="/systems" className="font-medium text-ink underline underline-offset-2">See the systems</Link>.
             </p>
           </section>
         </article>

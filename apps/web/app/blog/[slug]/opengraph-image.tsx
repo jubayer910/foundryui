@@ -11,5 +11,5 @@ export function generateStaticParams() {
 
 export default async function Image({ params }: { params: Promise<{ slug: string }> }) {
   const p = getPost((await params).slug)!;
-  return ogImage({ eyebrow: p.category, title: p.title, sub: "By Wolfpixel", chips: [p.keyword] });
+  return ogImage({ eyebrow: p.category, title: p.title, sub: "By Ingot UI", chips: [p.keyword] });
 }

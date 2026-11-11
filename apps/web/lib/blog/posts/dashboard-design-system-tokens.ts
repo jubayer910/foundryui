@@ -11,7 +11,7 @@ export const post: Post = {
   intent: "informational",
   lede: "A dashboard design system in Tailwind v4 starts with one file of CSS variables (surfaces, lines, ink, accent, status colours, chart series, radii and type) and a second file that maps them to utilities with `@theme inline`. Components then use `bg-fu-surface` or `text-fu-muted`, never hex values, so you can switch the whole product’s look by swapping one token file.",
   body: [
-    { t: "p", x: "We are Wolfpixel. Ingot UI runs {systems} visual systems on one component codebase, and the only thing that changes between them is a token file. This is the setup we use, shown with the real Loopo tokens." },
+    { t: "p", x: "Ingot UI runs {systems} visual systems on one component codebase, and the only thing that changes between them is a token file. This is the setup we use, shown with the real Loopo tokens." },
     { t: "h2", x: "The token set a dashboard needs" },
     { t: "table", head: ["Group", "Tokens", "Why dashboards need it"], rows: [
       ["Surfaces", "`page`, `surface`, `raised`, `sunken`, `hover`", "Cards on a page, tables inside cards, rows on hover"],

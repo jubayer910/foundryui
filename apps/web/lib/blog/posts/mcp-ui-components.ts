@@ -11,7 +11,7 @@ export const post: Post = {
   intent: "informational",
   lede: "An MCP server for UI components lets your AI coding agent ask a design system for tokens, components and rules instead of guessing from training data. Connect one (Ingot UI’s takes one command in Claude Code or a small JSON file in Cursor), ask the agent to run `init_project` first, and every screen it builds afterwards uses real, checked components in one consistent look.",
   body: [
-    { t: "p", x: "We are Wolfpixel. Most of our engineering now runs through AI agents, and the biggest quality jump we have seen did not come from a better model. It came from giving the agent a design system it could query. This guide explains why, and how to set it up." },
+    { t: "p", x: "More and more engineering now runs through AI agents, and the biggest quality jump we have seen did not come from a better model. It came from giving the agent a design system it could query. This guide explains why, and how to set it up." },
     { t: "h2", x: "Why AI agents build generic UI" },
     { t: "p", x: "An agent with no design context does the reasonable thing: it writes the most common pattern it has seen. For dashboards that means the default shadcn look, a grey card, a blue line chart and a table with no states. It is not wrong; it is average. And because every agent averages the same training data, every product starts to look alike." },
     { t: "p", x: "Pasting a screenshot helps a little. The agent copies the surface, but it still invents the tokens, the spacing scale and the component boundaries, so the next screen drifts. We dig into this in [why AI-built dashboards look generic](/blog/ai-generated-dashboard-design)." },

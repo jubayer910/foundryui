@@ -11,7 +11,7 @@ export const post: Post = {
   intent: "commercial",
   lede: "To build a shadcn dashboard, start a Next.js project with Tailwind v4, add the shadcn primitives you need (sidebar, card, table, dialog, dropdown), lay out a shell with a sidebar and page header, then fill it with a KPI row, one or two charts and a table with every state. The step most teams skip is the look: swap the default theme for your own tokens and use finished dashboard components, or it will look like every other shadcn app.",
   body: [
-    { t: "p", x: "We are Wolfpixel. We build dashboards on shadcn/ui for clients, and the pattern is always the same: the first version takes a day and looks like the shadcn example, the second takes three weeks and finally looks like the product. This guide shortens the second part." },
+    { t: "p", x: "Dashboards built on shadcn/ui tend to follow the same pattern: the first version takes a day and looks like the shadcn example, the second takes three weeks and finally looks like the product. This guide shortens the second part." },
     { t: "h2", x: "What a shadcn dashboard is made of" },
     { t: "table", head: ["Layer", "shadcn gives you", "You still need"], rows: [
       ["Shell", "Sidebar, sheet, breadcrumb", "Your information architecture and a page header pattern"],

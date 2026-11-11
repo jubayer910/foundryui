@@ -11,7 +11,7 @@ export const post: Post = {
   intent: "informational",
   lede: "To turn Figma into React code you can ship, export structure from Figma (Dev Mode, a plugin or the Figma MCP server), generate code against your own tokens and components, then compare a screenshot of the rendered code with the Figma frame and fix what differs. The last step is the one most teams skip, and it is the one that decides quality: in our library {gen} of {figma} generated components ({pct:all}%) passed that check and are published; the rest are still being fixed.",
   body: [
-    { t: "p", x: "We are Wolfpixel. For Ingot UI we converted every component in six Figma libraries to React and Tailwind, then measured each result against its Figma original. That gave us a rare thing in this topic: real pass rates instead of demo GIFs. This guide shares the workflow and the numbers." },
+    { t: "p", x: "For Ingot UI we converted every component in six Figma libraries to React and Tailwind, then measured each result against its Figma original. That gave us a rare thing in this topic: real pass rates instead of demo GIFs. This guide shares the workflow and the numbers." },
     { t: "h2", x: "The three kinds of Figma to React tools" },
     { t: "table", head: ["Approach", "Examples", "Good at", "Weak at"], rows: [
       ["Inspect and hand-build", "Figma Dev Mode", "Exact values, full control, clean code", "Slow; every component is manual work"],

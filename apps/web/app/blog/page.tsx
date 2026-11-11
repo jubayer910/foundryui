@@ -6,7 +6,7 @@ import { JsonLd, abs, breadcrumbLd, pageMeta, SITE_NAME } from "@/lib/seo";
 
 export const metadata: Metadata = pageMeta({
   title: "Resources: dashboard UI guides for founders and developers",
-  description: "Practical guides on dashboard UI kits, shadcn alternatives, Figma to React, KPI cards, charts and building dashboards with AI agents and MCP. Written by Wolfpixel.",
+  description: "Practical guides on dashboard UI kits, shadcn alternatives, Figma to React, KPI cards, charts and building dashboards with AI agents and MCP. Written by the Ingot UI team.",
   path: "/blog",
   image: "/blog/opengraph-image",
 });
@@ -37,7 +37,7 @@ export default function BlogIndex() {
       />
       <PageHead title="Resources" sub="Guides for founders and developers building dashboards." />
       <p className="mt-3 max-w-2xl text-[13px] leading-snug text-mute">
-        Written by Wolfpixel, the studio behind Ingot UI. Every number in these guides comes from the live library, and every comparison says where another tool is the better pick.
+        Written by the Ingot UI team. Every number in these guides comes from the live library, and every comparison says where another tool is the better pick.
       </p>
 
       {lead && (

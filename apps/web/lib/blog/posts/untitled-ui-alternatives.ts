@@ -11,7 +11,7 @@ export const post: Post = {
   intent: "commercial",
   lede: "Untitled UI is a strong general-purpose Figma kit with a React library. Choose an alternative when you need something it is not built for: Ingot UI for dashboard-specific components with React code checked against Figma and an MCP server, shadcn/ui for free open-source primitives, Tailwind Plus for official Tailwind blocks, Ant Design or Material 3 for enterprise design languages with Figma and React, Flowbite or Mantine for broad free sets.",
   body: [
-    { t: "p", x: "We are Wolfpixel and Ingot UI is ours. Untitled UI is a well-made product and the right choice for many teams; this post is for the cases where it is not." },
+    { t: "p", x: "This guide is published by Ingot UI. Untitled UI is a well-made product and the right choice for many teams; this post is for the cases where it is not." },
     { t: "h2", x: "Why teams look for an alternative" },
     { t: "ul", items: [
       "They build a dashboard-heavy product and need domain screens (agents, campaigns, security findings, subscriptions), not general app UI.",

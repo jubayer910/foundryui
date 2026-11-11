@@ -11,7 +11,7 @@ export const post: Post = {
   intent: "commercial",
   lede: "For Tailwind v4 dashboards, use Ingot UI for finished dashboard components with Figma parity and tokens, Tailwind Plus for the official paid application UI, shadcn/ui for open-source React primitives, Flowbite or Preline for broad free component sets, daisyUI for framework-agnostic classes, Tremor for chart blocks, and TailAdmin for a full free admin template.",
   body: [
-    { t: "p", x: "We are Wolfpixel; Ingot UI is ours and every other source here is someone else’s. All of them work with Tailwind; they differ in what they include and how they handle theming." },
+    { t: "p", x: "This guide is published by Ingot UI; every other source here is someone else’s. All of them work with Tailwind; they differ in what they include and how they handle theming." },
     { t: "h2", x: "The 8 sources" },
     { t: "table", head: ["Source", "What it is", "Theming", "Price", "Best for"], rows: [
       ["[Ingot UI](/)", "{components} dashboard components in {systems} systems, React + Figma", "`--fu-*` tokens mapped with `@theme inline`", "Free (Loopo) and Pro", "Finished dashboards, AI agents via MCP"],

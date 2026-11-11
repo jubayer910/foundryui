@@ -11,7 +11,7 @@ export const post: Post = {
   intent: "informational",
   lede: "An empty state should say why the screen is empty and what to do next, with the action as a button. Design five kinds separately: first use (explain and offer the first action), no results (name the filters and offer to clear them), cleared (confirm success), error (say what failed and offer a retry) and no permission (say who can grant access).",
   body: [
-    { t: "p", x: "We are Wolfpixel. On onboarding projects the empty state is often the first screen a new user sees after sign-up, which makes it one of the most important screens in the product and one of the least designed." },
+    { t: "p", x: "In onboarding flows the empty state is often the first screen a new user sees after sign-up, which makes it one of the most important screens in the product and one of the least designed." },
     { t: "h2", x: "The five kinds" },
     { t: "table", head: ["Kind", "When", "What it says", "Action"], rows: [
       ["First use", "Nothing has been created yet", "What will appear here and why it is useful", "Create the first item, or import"],

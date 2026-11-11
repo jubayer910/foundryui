@@ -11,7 +11,7 @@ export const post: Post = {
   intent: "informational",
   lede: "AI-built dashboards look generic because a model with no design context returns the most common pattern it has seen: default theme, grey cards, a blue line chart and a table with no states. The fix is context, not a longer prompt. Give the agent your tokens, a library of real components, a brief written around decisions, and a rule to audit its own output. Those four changes do more than any amount of “make it beautiful”.",
   body: [
-    { t: "p", x: "We are Wolfpixel. Founders now send us dashboards they built in a weekend with an AI tool and ask why it “looks like every other startup”. It is a fair question with a concrete answer, and almost always the same seven fixes." },
+    { t: "p", x: "Founders now build dashboards in a weekend with an AI tool and then ask why it “looks like every other startup”. It is a fair question with a concrete answer, and almost always the same seven fixes." },
     { t: "h2", x: "The tell-tale signs of a vibe-coded dashboard" },
     { t: "ul", items: [
       "Four identical KPI cards, each with a big number and a green or red percentage, none telling you what to do.",

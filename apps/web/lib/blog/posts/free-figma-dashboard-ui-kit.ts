@@ -11,7 +11,7 @@ export const post: Post = {
   intent: "commercial",
   lede: "The best free Figma dashboard kits are the ones with matching code, because a Figma-only kit still leaves the build to you. Start with the free Loopo system from Ingot UI ({figma:loopo} Figma components, {code:loopo} with React code), then look at the free tiers of Untitled UI, TailAdmin and Flowbite, the shadcn/ui community kits, and Google’s Material 3 kit for Material products.",
   body: [
-    { t: "p", x: "We are Wolfpixel, and Loopo is ours, so read the first entry with that in mind. We list it first because it is the only free kit here built from a real product dashboard with React code checked against Figma; the others are excellent for different reasons." },
+    { t: "p", x: "Loopo is part of Ingot UI, which publishes this guide, so read the first entry with that in mind. We list it first because it is the only free kit here built from a real product dashboard with React code checked against Figma; the others are excellent for different reasons." },
     { t: "h2", x: "How we judged free kits" },
     { t: "ul", items: [
       "Is there matching code, or only Figma?",

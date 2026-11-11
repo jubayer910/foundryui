@@ -9,7 +9,7 @@ import iconStats from "./icon-stats.json";
  */
 export const SITE = (process.env.NEXT_PUBLIC_SITE_URL || CATALOG_SITE_URL).replace(/\/$/, "");
 export const SITE_NAME = "Ingot UI";
-export const PUBLISHER = "Wolfpixel";
+export const PUBLISHER = "Ingot UI";
 export const abs = (path = "/") => SITE + (path.startsWith("/") ? path : "/" + path);
 
 /** Date the catalogue data last changed; used as lastmod for library URLs. Bump with a data release. */
@@ -38,8 +38,7 @@ export function organizationLd(): Json {
     alternateName: "Foundry UI",
     url: SITE + "/",
     logo: abs("/logo.png"),
-    description: "Dashboard design systems for founders: React components checked against Figma, Figma libraries, icons and an MCP server for AI coding agents. Made by Wolfpixel.",
-    parentOrganization: { "@type": "Organization", name: PUBLISHER, url: "https://www.wolfpixel.agency" },
+    description: "Dashboard design systems for founders: React components checked against Figma, Figma libraries, icons and an MCP server for AI coding agents.",
   };
 }
 

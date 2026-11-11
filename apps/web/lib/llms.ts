@@ -7,7 +7,7 @@ import { STATS, abs, fmt } from "./seo";
 export const MCP_URL = SITE_URL.replace("://", "://mcp.") + "/mcp";
 const coded = (slug: string) => (systems.find((s) => s.slug === slug)?.status === "live" ? items.length : 0) + codeCount(slug);
 
-const SUMMARY = `> Ingot UI (formerly Foundry UI) is a library of dashboard design systems for founders and developers, made by Wolfpixel. It has ${fmt(STATS.components)} components across ${STATS.systems} systems, ${fmt(STATS.coded)} of them with React 19 + Tailwind CSS v4 code that passed a visual check against the Figma original, ${fmt(STATS.icons)} icons, a CLI, a shadcn-compatible registry and an MCP server so AI coding agents (Claude Code, Cursor, Codex, VS Code) build with real components.`;
+const SUMMARY = `> Ingot UI (formerly Foundry UI) is a library of dashboard design systems for founders and developers. It has ${fmt(STATS.components)} components across ${STATS.systems} systems, ${fmt(STATS.coded)} of them with React 19 + Tailwind CSS v4 code that passed a visual check against the Figma original, ${fmt(STATS.icons)} icons, a CLI, a shadcn-compatible registry and an MCP server so AI coding agents (Claude Code, Cursor, Codex, VS Code) build with real components.`;
 
 function systemLines() {
   return systems.map((s) => `- [${s.name}](${abs("/systems/" + s.slug)}): ${s.tagline}. ${fmt(figmaCount(s.slug))} components in Figma, ${fmt(coded(s.slug))} with React code. ${s.tier === "free" ? "Free" : "Pro"}.`).join("\n");

@@ -11,7 +11,7 @@ export const post: Post = {
   intent: "informational",
   lede: "A good dashboard table puts the identifying column first and the action last, shows status as a chip, keeps rows at a consistent density, hides row actions in a menu, offers filters in a popover and a search field, and designs the empty, loading, error and no-results states before launch. Detail opens in a drawer so people keep their place.",
   body: [
-    { t: "p", x: "We are Wolfpixel. Tables are where users spend most of their time in a B2B product, and where most dashboards look unfinished. The six Ingot UI systems contain {cat:all:Tables and lists} table and list components; these are the decisions we make every time." },
+    { t: "p", x: "Tables are where users spend most of their time in a B2B product, and where most dashboards look unfinished. The six Ingot UI systems contain {cat:all:Tables and lists} table and list components; these are the decisions we make every time." },
     { t: "h2", x: "The 12 decisions" },
     { t: "ol", items: [
       "**First column identifies the row.** Name plus a secondary line (email, ID). Make it the link to the detail.",
