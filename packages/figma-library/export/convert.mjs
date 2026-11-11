@@ -1,6 +1,6 @@
 // Figma node tree (from serialize.js) -> intermediate DOM -> HTML (for visual QA) and TSX (what users copy).
 // Auto layout becomes flexbox, fixed frames become relative boxes with absolute children.
-// Icons are swapped for Foundry Icons (foundryui-icons) matched by name; third-party icon drawings are never copied.
+// Icons are swapped for Ingot Icons (ingotui-icons) matched by name; third-party icon drawings are never copied.
 import { readFileSync } from "node:fs";
 import * as SI from "simple-icons";
 
@@ -294,9 +294,9 @@ export function toTSX(tree, icons, meta) {
   const jsx = toJSX(el, icons, 4, used);
   const byStyle = {};
   for (const [C, ic] of used) (byStyle[ic.style] ||= []).push(C !== pascal(ic.name) ? pascal(ic.name) + " as " + C : C);
-  const imports = Object.entries(byStyle).map(([style, cs]) => `import { ${[...new Set(cs)].sort().join(", ")} } from "foundryui-icons/react/${style}";`).join("\n");
-  return `// ${meta.name} (${meta.system}, ${meta.category}) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: ${fonts.join(", ") || "none"}. Icons: Foundry Icons.
+  const imports = Object.entries(byStyle).map(([style, cs]) => `import { ${[...new Set(cs)].sort().join(", ")} } from "ingotui-icons/react/${style}";`).join("\n");
+  return `// ${meta.name} (${meta.system}, ${meta.category}) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: ${fonts.join(", ") || "none"}. Icons: Ingot Icons.
 ${imports}${imports ? "\n\n" : ""}export function ${name}() {
   return (
 ${jsx}

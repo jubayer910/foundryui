@@ -5,6 +5,7 @@ import { FigmaCodePanel } from "./figma-code-panel";
 import { ItemCard } from "./item-card";
 import { SaveButton } from "./save-button";
 import { categoryHref } from "@/lib/hubs";
+import { LivePreview } from "./live-preview";
 
 /** Page for a component that lives in a system's Figma library (code still in progress). */
 export function FigmaItemPage({ item }: { item: FigmaItem }) {
@@ -69,8 +70,12 @@ export function FigmaItemPage({ item }: { item: FigmaItem }) {
         </aside>
         <div className="min-w-0">
           <div className="flex min-h-[520px] items-center justify-center rounded-[8px] bg-tile p-4 shadow-[inset_0_0_0_1px_var(--color-hair)] sm:p-8">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
+            {qa ? (
+              <LivePreview src={`/library-preview/${item.system}/${item.slug}.html`} w={item.w} h={item.h} thumb={item.thumb} alt={item.name + ", rendered from its React code"} />
+            ) : (
+            // eslint-disable-next-line @next/next/no-img-element
             <img src={item.thumb} alt={item.name + ", " + item.category.toLowerCase() + " component from the " + (sys?.name ?? item.system) + " design system"} width={Math.min(item.w, 960)} className="h-auto max-h-[80vh] w-auto max-w-full rounded-[6px] shadow-[0_1px_3px_rgb(0_0_0/0.08),0_8px_24px_-12px_rgb(0_0_0/0.18)]" />
+            )}
           </div>
         </div>
       </div>
