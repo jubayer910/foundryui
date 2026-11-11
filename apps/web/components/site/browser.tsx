@@ -19,6 +19,16 @@ export function Browser({ entries, categories, systems, initialCategory = "all",
   const input = useRef<HTMLInputElement>(null);
   const more = useRef<HTMLDivElement>(null);
 
+  // the page is prerendered once (static HTML), so a filtered link (?q= ?c= ?s=) is applied after load
+  useEffect(() => {
+    const p = new URLSearchParams(window.location.search);
+    /* eslint-disable react-hooks/set-state-in-effect -- one-time sync from the URL of a static page */
+    if (p.get("q")) setQ(p.get("q")!);
+    if (p.get("c")) setCat(p.get("c")!);
+    if (p.get("s")) setSys(p.get("s")!);
+    /* eslint-enable react-hooks/set-state-in-effect */
+  }, []);
+
   // "/" and Cmd/Ctrl+K focus search from anywhere on the page
   useEffect(() => {
     const k = (e: KeyboardEvent) => {

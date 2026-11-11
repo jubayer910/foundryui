@@ -26,6 +26,12 @@ export function IconBrowser({ initialQuery = "" }: { initialQuery?: string }) {
   const [sel, setSel] = useState<string | null>(null);
   const [note, setNote] = useState<{ text: string; login?: boolean } | null>(null);
 
+  // static page: apply a ?q= link after load
+  useEffect(() => {
+    const v = new URLSearchParams(window.location.search).get("q");
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- one-time sync from the URL of a static page
+    if (v) setQ(v);
+  }, []);
   useEffect(() => {
     fetch("/icons/index.json").then((r) => r.json()).then(setMeta);
   }, []);

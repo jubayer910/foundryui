@@ -5,7 +5,6 @@ import { NOINDEX } from "@/lib/seo";
 // Same library as the home page: canonical points home and the view stays out of the index.
 export const metadata: Metadata = { title: "Components", description: "Browse every Ingot UI dashboard component: navigation, KPI cards, charts, tables, overlays and page templates.", alternates: { canonical: "/" }, robots: NOINDEX };
 
-export default async function ComponentsPage({ searchParams }: PageProps<"/components">) {
-  const sp = await searchParams;
-  return <LibraryPage q={typeof sp.q === "string" ? sp.q : ""} intro={false} />;
+export default function ComponentsPage() {
+  return <LibraryPage intro={false} />;
 }
