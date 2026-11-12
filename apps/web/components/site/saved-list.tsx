@@ -3,11 +3,12 @@ import Link from "next/link";
 import type { Entry } from "@/lib/library";
 import { useLibrary } from "@/lib/local-library";
 import { ItemCard } from "./item-card";
+import { Illo } from "./illo";
 
 export function SavedList({ items }: { items: Entry[] }) {
   const lists = { saved: useLibrary("saved"), recent: useLibrary("recent") };
   const pick = (slugs: string[]) => slugs.map((s) => items.find((i) => i.slug === s)).filter((i): i is Entry => !!i);
-  const block = (h: string, list: Entry[], empty: string) => (
+  const block = (h: string, list: Entry[], empty: string, scene: string) => (
     <section className="mt-6">
       <h2 className="text-[13px] font-medium">
         {h} <span className="text-mute">{list.length}</span>
@@ -19,7 +20,8 @@ export function SavedList({ items }: { items: Entry[] }) {
           ))}
         </div>
       ) : (
-        <div className="mt-3 rounded-[8px] bg-tile px-6 py-10 text-center">
+        <div className="mt-3 rounded-[8px] bg-tile px-6 pb-10 pt-6 text-center">
+          <Illo scene={scene} label="" className="mx-auto mb-3 h-[110px] w-[200px]" />
           <p className="text-[13px] text-mute">{empty}</p>
           <Link href="/" className="btn-line mt-3">
             Browse components
@@ -30,8 +32,8 @@ export function SavedList({ items }: { items: Entry[] }) {
   );
   return (
     <>
-      {block("Saved", pick(lists.saved), "Nothing saved yet. Use the bookmark on any card to build a shortlist.")}
-      {block("Recently copied", pick(lists.recent), "Components you copy show up here.")}
+      {block("Saved", pick(lists.saved), "Nothing saved yet. Use the bookmark on any card to build a shortlist.", "empty")}
+      {block("Recently copied", pick(lists.recent), "Components you copy show up here.", "grid")}
     </>
   );
 }

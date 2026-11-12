@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { NOINDEX } from "@/lib/seo";
 import { AuthForm } from "@/components/site/auth-form";
 import { Icon } from "@/registry/components/icons";
+import { IlloTile } from "@/components/site/illo";
 
 export const metadata: Metadata = { title: "Create account", robots: NOINDEX };
 
@@ -24,6 +25,7 @@ export default async function SignUp({ searchParams }: PageProps<"/sign-up">) {
             </li>
           ))}
         </ul>
+        <IlloTile scene="stack" label="The Loopo system, layer by layer" className="mt-8 hidden h-[170px] md:block" />
       </div>
       <AuthForm mode="sign-up" next={next} />
     </div>

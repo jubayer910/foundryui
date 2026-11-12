@@ -3,6 +3,7 @@ import { pageMeta } from "@/lib/seo";
 import Link from "next/link";
 import { SITE_URL } from "@/lib/catalog";
 import { PageHead } from "@/components/site/page-head";
+import { IlloTile } from "@/components/site/illo";
 
 export const metadata: Metadata = pageMeta({ title: "Docs: install, tokens, Figma and AI agents", description: "Install Ingot UI with the CLI or shadcn, wire the Tailwind v4 tokens, theme a system, copy to Figma and use the library with AI agents. Licence included.", path: "/docs" });
 
@@ -14,6 +15,16 @@ export default function DocsPage() {
   return (
     <div className="max-w-[1100px]">
       <PageHead title="CLI and docs" sub="Install, theme and use Ingot UI in your project." />
+      <ul className="mt-5 grid grid-cols-2 gap-3 md:grid-cols-4">
+        {[["install", "Install", "terminal"], ["tokens", "Tokens & theming", "tokens"], ["figma", "Figma", "frames"], ["agents", "AI agents", "server"]].map(([id, l, scene]) => (
+          <li key={id}>
+            <a href={"#" + id} className="group block">
+              <IlloTile scene={scene} label={l} className="h-[120px] transition-colors group-hover:bg-chip" />
+              <span className="mt-2 block text-[13px] font-medium">{l}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
       <div className="mt-6 grid gap-10 lg:grid-cols-[180px_1fr]">
       <aside className="hidden lg:block">
         <nav className="sticky top-5 flex flex-col text-[13px]" aria-label="On this page">
@@ -45,6 +56,7 @@ export default function DocsPage() {
         </p>
 
         <h2 id="license" className={H}>License</h2>
+        <IlloTile scene="docs" label="Licence terms" className="mt-3 h-[130px]" />
         <p className={P}>Use components in unlimited personal and commercial projects. Free components are free forever. Pro components need an active Pro or Lifetime plan when you copy them; what you shipped stays yours. You may not resell or redistribute the library itself as a UI kit.</p>
       </article>
       </div>

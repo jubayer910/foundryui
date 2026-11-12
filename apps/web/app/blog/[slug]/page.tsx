@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Icon } from "@/registry/components/icons";
 import { PostBody } from "@/components/site/blog/post-body";
+import { PostCover } from "@/components/site/illo";
 import { Rich } from "@/components/site/blog/rich";
 import { ItemCard } from "@/components/site/item-card";
 import { fmtDate, getPost, posts, readingTime, relatedPosts, toc, wordCount } from "@/lib/blog";
@@ -82,6 +83,10 @@ export default async function PostPage({ params }: PageProps<"/blog/[slug]">) {
             {p.updated && p.updated !== p.date && <span>Updated <time dateTime={p.updated}>{fmtDate(p.updated)}</time></span>}
             <span>{readingTime(p)} min read</span>
           </p>
+
+          <div className="mt-6">
+            <PostCover slug={p.slug} category={p.category} title={p.title} size="hero" />
+          </div>
 
           <p className="mt-6 text-[17px] leading-[1.6] text-ink"><Rich x={p.lede} /></p>
 

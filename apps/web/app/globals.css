@@ -167,3 +167,58 @@ body {
     animation-duration: 0.01ms !important;
   }
 }
+
+/* Isometric illustrations (components/site/illo). Line art in ink with one accent. */
+.illo-tile {
+  overflow: hidden;
+  border-radius: 6px;
+  background: var(--color-tile);
+  background-image: radial-gradient(rgb(0 0 0 / 0.07) 0.8px, transparent 0.8px);
+  background-size: 14px 14px;
+}
+.illo {
+  --illo-line: rgb(11 11 11 / 0.62);
+  --illo-faint: rgb(11 11 11 / 0.3);
+  --illo-ink: #1b1b1d;
+  --illo-top: #ffffff;
+  --illo-l: #f4f4f5;
+  --illo-r: #e8e8eb;
+  --illo-accent: #4b55e6;
+  --illo-accent-wash: #e9eafd;
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.illo * { vector-effect: non-scaling-stroke; }
+.illo .f { animation: illo-float 4.6s ease-in-out infinite; }
+.illo .lift { animation: illo-lift 5.2s cubic-bezier(0.65, 0, 0.35, 1) infinite; }
+.illo .rise { transform-box: fill-box; transform-origin: 50% 100%; animation: illo-rise 3.8s cubic-bezier(0.65, 0, 0.35, 1) infinite; }
+.illo .flow polyline, .illo .flow polygon { stroke-dasharray: 2.5 2.5; animation: illo-flow 1.4s linear infinite; }
+.illo .pulse { transform-box: fill-box; transform-origin: center; animation: illo-pulse 2.2s ease-in-out infinite; }
+.illo .slide { animation: illo-slide 5.6s cubic-bezier(0.65, 0, 0.35, 1) infinite; }
+.illo .blink { animation: illo-blink 1.1s steps(1) infinite; }
+@keyframes illo-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3.5px); } }
+@keyframes illo-lift { 0%, 100% { transform: translateY(0); } 45%, 60% { transform: translateY(-5px); } }
+@keyframes illo-rise { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(0.62); } }
+@keyframes illo-flow { to { stroke-dashoffset: -10; } }
+@keyframes illo-pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.35; transform: scale(0.6); } }
+@keyframes illo-slide { 0%, 100% { transform: translate(0, 0); } 45%, 60% { transform: translate(10.4px, 6px); } }
+@keyframes illo-blink { 50% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .illo * { animation: none !important; }
+}
+.illo-dark {
+  background-color: rgb(255 255 255 / 0.06);
+  background-image: radial-gradient(rgb(255 255 255 / 0.09) 0.8px, transparent 0.8px);
+}
+.illo-dark .illo {
+  --illo-line: rgb(255 255 255 / 0.72);
+  --illo-faint: rgb(255 255 255 / 0.3);
+  --illo-ink: #ffffff;
+  --illo-top: #2a2a2e;
+  --illo-l: #1f1f22;
+  --illo-r: #161618;
+  --illo-accent: #9aa0ff;
+  --illo-accent-wash: #2d3060;
+}

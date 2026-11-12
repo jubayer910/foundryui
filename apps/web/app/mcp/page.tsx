@@ -3,6 +3,7 @@ import { pageMeta } from "@/lib/seo";
 import Link from "next/link";
 import { SITE_URL } from "@/lib/catalog";
 import { PageHead } from "@/components/site/page-head";
+import { IlloTile } from "@/components/site/illo";
 import { CopyBlock } from "@/components/site/copy-block";
 
 export const metadata: Metadata = pageMeta({ title: "MCP server for UI components: Claude Code, Cursor, Codex", description: "Connect the Ingot UI MCP server to Claude Code, Cursor, Codex or VS Code. 14 tools give your AI agent design tokens, checked React components, charts and icons.", path: "/mcp" });
@@ -36,11 +37,14 @@ const TOOLS: [string, string][] = [
 const FILES: Record<string, string> = { Cursor: ".cursor/mcp.json", "VS Code": ".vscode/mcp.json", Codex: "~/.codex/config.toml", "Claude Code": "Terminal" };
 
 export default function McpPage() {
-  const step = (n: number, h: string, body: React.ReactNode) => (
+  const step = (n: number, h: string, body: React.ReactNode, scene: string) => (
     <li className="grid gap-3 md:grid-cols-[220px_1fr]">
-      <div className="flex gap-3">
-        <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-ink text-[12px] font-medium text-white">{n}</span>
-        <p className="pt-0.5 text-[13px] font-medium">{h}</p>
+      <div>
+        <div className="flex gap-3">
+          <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-ink text-[12px] font-medium text-white">{n}</span>
+          <p className="pt-0.5 text-[13px] font-medium">{h}</p>
+        </div>
+        <IlloTile scene={scene} label={h} className="mt-3 hidden h-[120px] md:block" />
       </div>
       <div className="min-w-0">{body}</div>
     </li>
@@ -54,16 +58,16 @@ export default function McpPage() {
           <p className="text-[13px] text-mute">
             Free account needed. Open <Link href="/account" className="font-medium text-ink underline underline-offset-2">Account</Link> and create a key. It is shown once, so keep it somewhere safe.
           </p>
-        ))}
+        ), "key")}
         {step(2, "Add the server to your agent", (
           <>
             <CopyBlock blocks={CLIENTS.map((c) => ({ label: c.name, code: c.code }))} />
             <p className="mt-2 text-[12px] text-mute">Replace YOUR_API_KEY with your key. Where it goes: {Object.entries(FILES).map(([k, v]) => k + " → " + v).join(", ")}.</p>
           </>
-        ))}
+        ), "plug")}
         {step(3, "Ask for a screen", (
           <CopyBlock blocks={[{ label: "Prompt", code: "Set this project up with the Ingot UI Loopo system, then build an analytics overview page with KPI cards, a capsule bar chart for monthly revenue and a transactions table." }]} />
-        ))}
+        ), "screen-b")}
       </ol>
 
       <section className="mt-12">

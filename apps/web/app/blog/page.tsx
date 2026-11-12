@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHead } from "@/components/site/page-head";
+import { PostCover } from "@/components/site/illo";
 import { fmtDate, posts, readingTime } from "@/lib/blog";
 import { JsonLd, abs, breadcrumbLd, pageMeta, SITE_NAME } from "@/lib/seo";
 
@@ -41,20 +42,26 @@ export default function BlogIndex() {
       </p>
 
       {lead && (
-        <Link href={"/blog/" + lead.slug} className="card mt-6 block p-5 transition-colors hover:bg-tile sm:p-6">
-          {meta(lead)}
-          <h2 className="mt-3 max-w-3xl text-[22px] font-medium leading-tight tracking-[-0.02em]">{lead.title}</h2>
-          <p className="mt-2 max-w-3xl text-[14px] leading-relaxed text-mute">{lead.description}</p>
+        <Link href={"/blog/" + lead.slug} className="card group mt-6 grid gap-5 p-3 transition-colors hover:bg-tile md:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] md:items-center">
+          <PostCover slug={lead.slug} category={lead.category} title={lead.title} size="lead" />
+          <div className="px-2 pb-2 md:px-0 md:pb-0 md:pr-4">
+            {meta(lead)}
+            <h2 className="mt-3 text-[22px] font-medium leading-tight tracking-[-0.02em]">{lead.title}</h2>
+            <p className="mt-2 text-[14px] leading-relaxed text-mute">{lead.description}</p>
+          </div>
         </Link>
       )}
 
       <ul className="mt-3 grid gap-3 md:grid-cols-2">
         {rest.map((p) => (
           <li key={p.slug}>
-            <Link href={"/blog/" + p.slug} className="card flex h-full flex-col p-5 transition-colors hover:bg-tile">
-              {meta(p)}
-              <h2 className="mt-3 text-[16px] font-medium leading-snug tracking-[-0.01em]">{p.title}</h2>
-              <p className="mt-1.5 text-[13px] leading-relaxed text-mute">{p.description}</p>
+            <Link href={"/blog/" + p.slug} className="card flex h-full flex-col p-3 transition-colors hover:bg-tile">
+              <PostCover slug={p.slug} category={p.category} title={p.title} />
+              <div className="px-2 pb-2 pt-4">
+                {meta(p)}
+                <h2 className="mt-3 text-[16px] font-medium leading-snug tracking-[-0.01em]">{p.title}</h2>
+                <p className="mt-1.5 text-[13px] leading-relaxed text-mute">{p.description}</p>
+              </div>
             </Link>
           </li>
         ))}

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHead } from "@/components/site/page-head";
+import { IlloTile } from "@/components/site/illo";
 import { systems } from "@/lib/catalog";
 import { stat } from "@/lib/blog/stats";
 import { JsonLd, ORG_ID, abs, breadcrumbLd, fmt, pageMeta, STATS } from "@/lib/seo";
@@ -26,6 +27,7 @@ export default function About() {
         ]}
       />
       <PageHead title="About" sub="What Ingot UI is, how it is made, and how we write about it." />
+      <IlloTile scene="pipeline" label="Product screen to Figma component to React code to a passed check" className="mt-5 h-[170px] sm:h-[210px]" />
       <div className="mt-6 grid gap-10 lg:grid-cols-[180px_1fr]">
         <aside className="hidden lg:block">
           <nav className="sticky top-5 flex flex-col text-[13px]" aria-label="On this page">
@@ -62,6 +64,7 @@ export default function About() {
           </p>
 
           <h2 id="editorial" className={H}>Editorial policy</h2>
+          <IlloTile scene="docs" label="A checked guide on a stack of reviewed drafts" className="mt-3 h-[150px]" />
           <ul className="mt-3 border-t border-hair">
             {[
               "Guides answer the question first, then explain. Every guide is published by Ingot UI.",

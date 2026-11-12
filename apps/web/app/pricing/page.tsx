@@ -4,6 +4,7 @@ import Link from "next/link";
 import { items, systems } from "@/lib/catalog";
 import { FIGMA_TOTAL } from "@/lib/figma-library";
 import { PageHead } from "@/components/site/page-head";
+import { IlloTile } from "@/components/site/illo";
 import { Icon } from "@/registry/components/icons";
 import iconStats from "@/lib/icon-stats.json";
 
@@ -13,9 +14,9 @@ const free = items.filter((i) => i.tier === "free").length;
 const fmt = (n: number) => n.toLocaleString("en-US");
 
 const PLANS = [
-  { name: "Free", price: "$0", per: "forever", note: "No card needed", cta: "Create free account", href: "/sign-up", featured: false, points: ["The Loopo system", fmt(free) + " free components in code", "Every icon (" + fmt(iconStats.line) + ")", "MCP server, 50 calls a day", "Commercial use"] },
-  { name: "Pro", price: "$149", per: "per year", note: "or $19 a month", cta: "Get Pro", href: "/sign-up?plan=pro", featured: true, points: ["All " + systems.length + " design systems", "Every component in code and Figma (" + fmt(FIGMA_TOTAL) + " in Figma today)", "Full Figma kit per system", "Unlimited MCP and CLI", "New components every week"] },
-  { name: "Lifetime", price: "$299", per: "one payment", note: "About two years of Pro, then free forever", cta: "Get Lifetime", href: "/sign-up?plan=lifetime", featured: false, points: ["Everything in Pro, forever", "Future systems included", "Dark mode when it ships", "Priority component requests"] },
+  { scene: "seed", name: "Free", price: "$0", per: "forever", note: "No card needed", cta: "Create free account", href: "/sign-up", featured: false, points: ["The Loopo system", fmt(free) + " free components in code", "Every icon (" + fmt(iconStats.line) + ")", "MCP server, 50 calls a day", "Commercial use"] },
+  { scene: "six", name: "Pro", price: "$149", per: "per year", note: "or $19 a month", cta: "Get Pro", href: "/sign-up?plan=pro", featured: true, points: ["All " + systems.length + " design systems", "Every component in code and Figma (" + fmt(FIGMA_TOTAL) + " in Figma today)", "Full Figma kit per system", "Unlimited MCP and CLI", "New components every week"] },
+  { scene: "ingots", name: "Lifetime", price: "$299", per: "one payment", note: "About two years of Pro, then free forever", cta: "Get Lifetime", href: "/sign-up?plan=lifetime", featured: false, points: ["Everything in Pro, forever", "Future systems included", "Dark mode when it ships", "Priority component requests"] },
 ];
 
 const TABLE: [string, string, string, string][] = [
@@ -65,6 +66,7 @@ export default function PricingPage() {
       <div className="mt-5 grid gap-3 md:grid-cols-3">
         {PLANS.map((p) => (
           <div key={p.name} className={"flex flex-col rounded-[8px] p-5 " + (p.featured ? "bg-ink text-white" : "card")}>
+            <IlloTile scene={p.scene} label={p.name + " plan"} dark={p.featured} className="-mx-2 -mt-2 mb-5 h-[130px]" />
             <div className="flex items-center justify-between">
               <p className="text-[13px] font-medium">{p.name}</p>
               {p.featured && <span className="rounded-full bg-white/15 px-2 py-0.5 text-[11px]">Recommended</span>}

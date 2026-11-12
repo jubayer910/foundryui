@@ -2,12 +2,14 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { posts } from "@/lib/blog";
 import { systems } from "@/lib/catalog";
+import { IlloTile } from "@/components/site/illo";
 
 export const metadata: Metadata = { title: "Page not found", robots: { index: false, follow: true } };
 
 export default function NotFound() {
   return (
     <div className="mx-auto max-w-[640px] pt-12 lg:pt-20">
+      <IlloTile scene="lost" label="A grid with one block missing" className="mb-6 h-[180px]" />
       <h1 className="page-title">This page doesn’t exist</h1>
       <p className="page-sub mt-1">The link may be old, or the component was renamed. These will get you back on track.</p>
       <div className="mt-6 flex flex-wrap gap-1.5">
