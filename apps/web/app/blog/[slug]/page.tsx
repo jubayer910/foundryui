@@ -126,7 +126,7 @@ export default async function PostPage({ params }: PageProps<"/blog/[slug]">) {
           <section className="mt-14 rounded-[8px] bg-tile p-5">
             <p className="text-[13px] font-medium">About Ingot UI</p>
             <p className="mt-1 text-[14px] leading-relaxed text-ink-2">
-              Ingot UI is a library of six dashboard design systems built from real product screens. Every generated React component is checked against its Figma original before it ships. <Link href="/systems" className="font-medium text-ink underline underline-offset-2">See the systems</Link>.
+              Ingot UI is a library of six dashboard design systems built from real product screens. Every generated React component is checked against its Figma original before it ships. <Link href="/about#editorial" className="font-medium text-ink underline underline-offset-2">How we write guides</Link>.
             </p>
           </section>
         </article>
