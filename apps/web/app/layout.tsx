@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Geist_Mono } from "next/font/google";
+import Script from "next/script";
 import { Rail, railSystems } from "@/components/site/rail";
 import { MobileBar } from "@/components/site/mobile-bar";
 import { JsonLd, SITE, organizationLd, websiteLd } from "@/lib/seo";
@@ -7,6 +8,10 @@ import "./globals.css";
 
 const inter = Inter({ variable: "--font-inter", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
+
+// Google Analytics 4 (property ingotui.com, account "Ingot UI"). Client-side route changes are
+// counted by GA enhanced measurement (browser history events).
+const GA_ID = "G-791MYC76DX";
 
 const DESCRIPTION = "Six dashboard design systems with 1,800+ components. Copy React code checked against Figma, paste Figma layers, or let your AI agent build through MCP.";
 
@@ -37,6 +42,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             <main className="px-4 pb-24 pt-4 sm:px-6 lg:pt-5">{children}</main>
           </div>
         </div>
+        <Script src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} strategy="afterInteractive" />
+        <Script id="ga4" strategy="afterInteractive">
+          {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${GA_ID}');`}
+        </Script>
       </body>
     </html>
   );
