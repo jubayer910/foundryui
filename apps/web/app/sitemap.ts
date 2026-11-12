@@ -23,6 +23,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: abs("/mcp"), lastModified: CATALOG_UPDATED, changeFrequency: "monthly", priority: 0.8 },
     { url: abs("/docs"), lastModified: CATALOG_UPDATED, changeFrequency: "monthly", priority: 0.6 },
     { url: abs("/pricing"), lastModified: CATALOG_UPDATED, changeFrequency: "monthly", priority: 0.7 },
+    { url: abs("/about"), lastModified: CATALOG_UPDATED, changeFrequency: "monthly", priority: 0.5 },
     { url: abs("/changelog"), lastModified: CATALOG_UPDATED, changeFrequency: "weekly", priority: 0.4 },
     { url: abs("/blog"), lastModified: lastPost, changeFrequency: "weekly", priority: 0.8 },
   ];

@@ -19,6 +19,8 @@ import { post as cursorRules } from "./cursor-rules-design-system";
 import { post as freeFigma } from "./free-figma-dashboard-ui-kit";
 import { post as tailwindComps } from "./tailwind-dashboard-components";
 import { post as untitledAlt } from "./untitled-ui-alternatives";
+import { post as agentDash } from "./ai-agent-dashboard-design";
+import { post as emailDash } from "./email-marketing-dashboard";
 
 /** Display order for posts that share a date. */
-export const POSTS: Post[] = [uiKits, admin, shadcn, mcp, figma, aiDesign, saas, kpi, charts, tokens, shadcnDash, chartLibs, freeFigma, tailwindComps, untitledAlt, tables, modalDrawer, empty, claudeCode, cursorRules];
+export const POSTS: Post[] = [uiKits, admin, shadcn, mcp, figma, aiDesign, saas, kpi, charts, tokens, shadcnDash, chartLibs, freeFigma, tailwindComps, untitledAlt, tables, modalDrawer, empty, claudeCode, cursorRules, agentDash, emailDash];

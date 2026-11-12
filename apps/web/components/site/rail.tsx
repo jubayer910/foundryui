@@ -22,10 +22,11 @@ export function Rail() {
       </div>
       <div className="mt-4 flex flex-col gap-3">
         <FreeMeter />
-        <p className="flex gap-3 px-2 text-[12px] text-faint">
+        <p className="flex flex-wrap gap-x-3 gap-y-1 px-2 text-[12px] text-faint">
+          <Link href="/about" className="hover:text-ink">About</Link>
           <Link href="/changelog" className="hover:text-ink">Changelog</Link>
           <Link href="/docs#license" className="hover:text-ink">License</Link>
-          <span>© 2026</span>
+          <span className="whitespace-nowrap">© 2026</span>
         </p>
       </div>
     </aside>
