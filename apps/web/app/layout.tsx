@@ -5,6 +5,7 @@ import { Rail, railSystems } from "@/components/site/rail";
 import { MobileBar } from "@/components/site/mobile-bar";
 import { SupportWidget } from "@/components/site/support-widget";
 import { AnnouncementBar } from "@/components/site/announcement-bar";
+import { TrackBeacon } from "@/components/site/track-beacon";
 import { JsonLd, SITE, organizationLd, websiteLd } from "@/lib/seo";
 import "./globals.css";
 
@@ -48,6 +49,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           </div>
         </div>
         <SupportWidget />
+        <TrackBeacon />
         <Script src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} strategy="afterInteractive" />
         <Script id="ga4" strategy="afterInteractive">
           {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${GA_ID}');`}

@@ -44,11 +44,14 @@ export function Section({ title, sub, children, action }: { title: string; sub?:
   );
 }
 
-/** KPI tile: label, big number, optional hint line. */
-export function Kpi({ label, value, hint }: { label: string; value: string; hint?: ReactNode }) {
+/** KPI tile: label, big number, optional change badge (see Delta) and hint line. */
+export function Kpi({ label, value, hint, delta }: { label: string; value: string; hint?: ReactNode; delta?: ReactNode }) {
   return (
     <div className="card p-4">
-      <p className="text-[13px] text-mute">{label}</p>
+      <div className="flex items-start gap-2">
+        <p className="min-w-0 flex-1 text-[13px] text-mute">{label}</p>
+        {delta}
+      </div>
       <p className="mt-1 text-[22px] font-medium tracking-[-0.02em] tabular-nums">{value}</p>
       {hint && <p className="mt-0.5 text-[12px] text-faint">{hint}</p>}
     </div>
@@ -159,7 +162,7 @@ export function LinkTabs({ tabs }: { tabs: { href: string; label: string; count?
 export function Bars({ data, label }: { data: { day: string; n: number }[]; label: string }) {
   const W = 600;
   const H = 120;
-  const gap = 4;
+  const gap = data.length > 40 ? 1.5 : 4;
   const max = Math.max(1, ...data.map((d) => d.n));
   const bw = (W - gap * (data.length - 1)) / Math.max(1, data.length);
   const total = data.reduce((s, d) => s + d.n, 0);
@@ -169,6 +172,7 @@ export function Bars({ data, label }: { data: { day: string; n: number }[]; labe
         <span className="text-[13px] text-mute">{label}</span>
         <span className="ml-auto text-[13px] tabular-nums">{num(total)} total</span>
       </figcaption>
+      {total === 0 && <p className="mt-3 -mb-[132px] flex h-[120px] items-center justify-center text-[13px] text-mute">Nothing in this range yet.</p>}
       <svg viewBox={`0 0 ${W} ${H}`} className="mt-3 h-[120px] w-full" preserveAspectRatio="none" role="img" aria-label={`${label}: ${num(total)} in ${data.length} days, peak ${num(max)} a day`}>
         <line x1="0" x2={W} y1={H - 0.5} y2={H - 0.5} stroke="var(--color-hair-2)" />
         {data.map((d, i) => {
@@ -182,7 +186,7 @@ export function Bars({ data, label }: { data: { day: string; n: number }[]; labe
       </svg>
       <div className="mt-1.5 flex justify-between text-[11px] text-faint tabular-nums">
         <span>{data[0]?.day.slice(5)}</span>
-        <span>peak {num(max)} / day</span>
+        <span>{total ? `peak ${num(max)} / day` : "no data"}</span>
         <span>{data[data.length - 1]?.day.slice(5)}</span>
       </div>
     </figure>
