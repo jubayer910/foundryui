@@ -20,16 +20,22 @@ export const cap = (s: string) => (s ? s[0].toUpperCase() + s.slice(1) : s);
 const PLAN_LABEL: Record<string, string> = { free: "Free", pro: "Pro", lifetime: "Lifetime", proMonthly: "Pro monthly", proYearly: "Pro yearly", lifetimeDeal: "Lifetime deal", lifetimeAfter: "Lifetime" };
 export const planLabel = (p: string) => PLAN_LABEL[p] ?? p;
 
-/** Page header inside the admin panel. */
+/**
+ * Page header inside the admin shell: title (the page's h1), a one-line description under it, and actions
+ * (buttons, tags) on the right. Every admin page starts with one. `PageHeader` is the same component.
+ */
 export function AdminHead({ title, sub, children }: { title: string; sub?: string; children?: ReactNode }) {
   return (
-    <header className="flex flex-wrap items-center gap-x-2 gap-y-2">
-      <h1 className="page-title">{title}</h1>
-      {sub && <p className="page-sub">{sub}</p>}
-      {children && <div className="ml-auto flex flex-wrap items-center gap-1.5">{children}</div>}
+    <header className="flex flex-wrap items-start gap-x-4 gap-y-3">
+      <div className="min-w-0 flex-1 basis-[280px]">
+        <h1 className="text-[20px] leading-[28px] font-medium tracking-[-0.015em] text-ink">{title}</h1>
+        {sub && <p className="mt-0.5 text-[13px] text-mute">{sub}</p>}
+      </div>
+      {children && <div className="flex flex-wrap items-center gap-1.5">{children}</div>}
     </header>
   );
 }
+export const PageHeader = AdminHead;
 
 export function Section({ title, sub, children, action }: { title: string; sub?: string; children: ReactNode; action?: ReactNode }) {
   return (
@@ -97,7 +103,7 @@ export function statusTone(s: string): "plain" | "ink" | "good" | "warn" | "bad"
 export function Table({ head, children, empty }: { head: string[]; children: ReactNode; empty?: string }) {
   const rows = Array.isArray(children) ? children.filter(Boolean) : children ? [children] : [];
   return (
-    <div className="card overflow-x-auto">
+    <div className="card relative overflow-x-auto">
       <table className="w-full min-w-[640px] border-collapse text-left text-[13px]">
         <thead>
           <tr className="border-b border-hair text-[12px] text-faint">

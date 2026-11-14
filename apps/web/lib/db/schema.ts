@@ -9,11 +9,11 @@ export const user = sqliteTable("user", {
   emailVerified: integer("emailVerified", { mode: "boolean" }).notNull().default(false),
   image: text("image"),
   plan: text("plan").notNull().default("free"),
-  /** "user" | "admin" */
+  /** "user" | "moderator" | "admin" | "owner" (see lib/admin.ts Role) */
   role: text("role").notNull().default("user"),
   createdAt: ts("createdAt").notNull(),
   updatedAt: ts("updatedAt").notNull(),
-});
+}, (t) => [index("user_role_idx").on(t.role)]);
 
 export const session = sqliteTable("session", {
   id: text("id").primaryKey(),
@@ -218,3 +218,24 @@ export const auditLog = sqliteTable("audit_log", {
   detail: text("detail"),
   createdAt: ts("createdAt").notNull(),
 });
+
+/* ---- Admin team (migrations/0004_staff.sql) ---- */
+
+/** Single-use invite to the admin team. Only the SHA-256 hash of the token is stored; the link is shown once. */
+export const staffInvite = sqliteTable(
+  "staff_invite",
+  {
+    id: text("id").primaryKey(),
+    email: text("email").notNull(),
+    /** "moderator" | "admin" */
+    role: text("role").notNull(),
+    tokenHash: text("tokenHash").notNull().unique(),
+    /** email of the staff member who created it */
+    invitedBy: text("invitedBy").notNull(),
+    expiresAt: ts("expiresAt").notNull(),
+    acceptedAt: ts("acceptedAt"),
+    revokedAt: ts("revokedAt"),
+    createdAt: ts("createdAt").notNull(),
+  },
+  (t) => [index("staff_invite_email_idx").on(t.email)],
+);

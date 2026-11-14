@@ -1,10 +1,12 @@
-import { getSessionUser } from "@/lib/auth";
-import { isAdmin } from "@/lib/admin";
+import { getStaff } from "@/lib/admin";
 
 export const dynamic = "force-dynamic";
 
-/** Tells the rail account button whether to show the Admin link. No details beyond a boolean. */
+/**
+ * Tells the rail account button whether to show the Admin link, and the admin login page whether the
+ * signed-in account is staff. `admin` is true for any staff role (moderator, admin, owner).
+ */
 export async function GET() {
-  const admin = await isAdmin(await getSessionUser().catch(() => null));
-  return Response.json({ admin }, { headers: { "Cache-Control": "private, no-store", "X-Robots-Tag": "noindex" } });
+  const staff = await getStaff().catch(() => null);
+  return Response.json({ admin: !!staff, role: staff?.role ?? null }, { headers: { "Cache-Control": "private, no-store", "X-Robots-Tag": "noindex" } });
 }
