@@ -28,7 +28,7 @@ export function MobileBar({ systems }: { systems: RailSystem[] }) {
             <Link href="/about" onClick={() => setOpen(false)} className="hover:text-ink">About</Link>
             <Link href="/changelog" onClick={() => setOpen(false)} className="hover:text-ink">Changelog</Link>
             <Link href="/support" onClick={() => setOpen(false)} className="hover:text-ink">Support</Link>
-            <Link href="/docs#license" onClick={() => setOpen(false)} className="hover:text-ink">License</Link>
+            <Link href="/license" onClick={() => setOpen(false)} className="hover:text-ink">License</Link>
           </p>
         </div>
       )}
