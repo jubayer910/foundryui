@@ -37,6 +37,7 @@ export const post: Post = {
     { t: "code", label: "app/globals.css", x: "@import \"tailwindcss\";\n@import \"./styles/ingot/theme.css\";   /* maps --fu-* to utilities */\n@import \"./styles/ingot/loopo.css\";   /* the system’s values */" },
     { t: "p", x: "Full walkthrough in [dashboard design system with Tailwind v4 tokens](/blog/dashboard-design-system-tailwind-tokens)." },
     { t: "cta", h: "Tailwind v4 dashboard components", x: "Browse by category: KPI cards, tables, charts, modals, drawers and more.", href: "/categories", label: "Browse categories" },
+    { t: "p", x: "Tailwind Plus stopped taking new customers in September 2026; see [Tailwind Plus alternatives for dashboards](/compare/tailwind-plus-alternative)." },
   ],
   faq: [
     { q: "What are the best Tailwind dashboard components?", a: "It depends on what you need: Ingot UI for finished dashboard components with Figma parity, Tailwind Plus for official blocks, shadcn/ui for primitives, Tremor for charts, TailAdmin for a free template." },

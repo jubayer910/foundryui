@@ -42,6 +42,7 @@ export const post: Post = {
     { t: "cta", h: "Compare for yourself", x: "Every component is browsable free, with its Figma original and code status.", href: "/systems", label: "See the six systems" },
     { t: "h2", x: "When to stay with Untitled UI" },
     { t: "p", x: "Stay if you need one kit across marketing site, product and dashboards in a single neutral style, and your team designs the domain screens in-house. Its breadth is the point." },
+    { t: "p", x: "For a direct, sourced comparison, see [Ingot UI vs Untitled UI](/compare/ingot-ui-vs-untitled-ui)." },
   ],
   faq: [
     { q: "What is the best Untitled UI alternative for dashboards?", a: "For dashboard-specific components with Figma and checked React code, Ingot UI. For free primitives, shadcn/ui." },

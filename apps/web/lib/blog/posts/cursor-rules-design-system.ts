@@ -32,7 +32,7 @@ export const post: Post = {
       ["Audit step", "Gradual drift across sessions"],
     ] },
     { t: "h2", x: "Pair the rules with an MCP server" },
-    { t: "p", x: "Rules say what to use; an MCP server lets the agent fetch it. In Cursor, add the Ingot UI server to `.cursor/mcp.json` (setup on the [MCP page](/mcp)) and ask the agent to run `init_project` once. It writes tokens and an `INGOT.md` you can reference from your rules." },
+    { t: "p", x: "Rules say what to use; an MCP server lets the agent fetch it. In Cursor, add the Ingot UI server to `.cursor/mcp.json` (setup on the [MCP page](/mcp)) and ask the agent to run `init_project` once. It writes the tokens and `.cursor/rules/ingot.mdc` (plus `CLAUDE.md`, `AGENTS.md` and `INGOT.md`), so Cursor applies the rules in every chat." },
     { t: "code", label: ".cursor/mcp.json", x: "{\n  \"mcpServers\": {\n    \"ingot-ui\": {\n      \"url\": \"https://mcp.ingotui.com/mcp\",\n      \"headers\": { \"Authorization\": \"Bearer YOUR_API_KEY\" }\n    }\n  }\n}" },
     { t: "cta", h: "Rules plus real components", x: "Connect the MCP server and your agent builds with checked components from the first prompt.", href: "/mcp", label: "Set up MCP" },
     { t: "p", x: "More on why AI UI drifts in [why AI-built dashboards look generic](/blog/ai-generated-dashboard-design)." },
@@ -40,7 +40,7 @@ export const post: Post = {
   faq: [
     { q: "Where do Cursor rules go?", a: "Project rules live in the .cursor/rules folder. Many teams also keep an AGENTS.md at the repo root, which Cursor and other agents read." },
     { q: "How long should a rules file be?", a: "Short enough to read in a minute: ten or so concrete, checkable rules. Long rule files get ignored by people and diluted for the model." },
-    { q: "Does Ingot UI provide a rules file?", a: "Yes. The MCP init_project tool writes an INGOT.md with the system’s rules into your project." },
+    { q: "Does Ingot UI provide a rules file?", a: "Yes. The MCP init_project tool writes the system’s rules into your project: .cursor/rules/ingot.mdc for Cursor, CLAUDE.md and AGENTS.md for other agents, plus INGOT.md." },
   ],
   related: ["kpi-card", "data-table", "empty-state", "capsule-bars"],
   systems: ["loopo"],

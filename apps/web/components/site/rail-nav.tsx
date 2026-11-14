@@ -17,9 +17,12 @@ const GROUPS: { h: string; links: L[] }[] = [
   {
     h: "Build",
     links: [
+      { href: "/for/founders", label: "For founders", icon: "rocket" },
       { href: "/mcp", label: "MCP for AI agents", icon: "plug" },
+      { href: "/theme", label: "Theme generator", icon: "palette" },
       { href: "/docs", label: "CLI and docs", icon: "terminal" },
       { href: "/blog", label: "Resources", icon: "book" },
+      { href: "/compare", label: "Compare", icon: "git-compare" },
     ],
   },
   {

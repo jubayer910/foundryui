@@ -20,7 +20,7 @@ export const post: Post = {
       "**A screenshot loop.** Run the dev server and let Claude Code look at what it built (a browser tool or Playwright), so it can see spacing and alignment, not just code.",
     ] },
     { t: "code", label: "Connect the Ingot UI MCP server", x: "claude mcp add --transport http ingot-ui https://mcp.ingotui.com/mcp --header \"Authorization: Bearer YOUR_API_KEY\"" },
-    { t: "p", x: "Then ask it to run `init_project`. That writes the tokens, the theme bridge and an `INGOT.md` rules file; reference it from `CLAUDE.md` so every new session reads it. Details in [MCP for UI components](/blog/mcp-server-ui-components-ai-agents)." },
+    { t: "p", x: "Then ask it to run `init_project`. That writes the tokens, the theme bridge and the agent rules files (`CLAUDE.md`, `AGENTS.md`, `.cursor/rules/ingot.mdc`, plus `INGOT.md`), so every new session stays on the system. Details in [MCP for UI components](/blog/mcp-server-ui-components-ai-agents)." },
     { t: "takeaway", x: "Claude Code follows the repo. Put the design system in the repo before the first prompt." },
     { t: "h2", x: "Prompting screen by screen" },
     { t: "p", x: "Name the user, the decision, the data shape and the system. One screen per prompt, reviewed before the next." },

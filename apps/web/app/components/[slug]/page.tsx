@@ -67,7 +67,7 @@ function componentLd(o: { slug: string; name: string; description: string; syste
       isPartOf: { "@type": "CreativeWork", name: (sys?.name ?? o.system) + " design system", url: abs("/systems/" + o.system) },
       publisher: { "@id": ORG_ID },
       isAccessibleForFree: o.free,
-      license: abs("/docs#license"),
+      license: abs("/license"),
     },
   ];
 }

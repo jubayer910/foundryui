@@ -30,6 +30,26 @@ export const CHANGE_TYPES: { type: ChangeType; label: string }[] = [
 
 export const RELEASES: Release[] = [
   {
+    version: "1.2.0",
+    date: "2026-11-15",
+    title: "Built for founders: Team plan, one-click agent connect, theme generator",
+    scene: "founders",
+    summary: "Connect your agent in one step, bring your co-founder on a Team plan, and make any system look like your brand.",
+    items: [
+      { type: "new", text: "Team plan: 5 seats on one plan, invite teammates with a one-time link from your account" },
+      { type: "new", text: "One-step agent connect on the MCP page: a ready config with your key inside for Claude Code, Cursor, VS Code and Codex" },
+      { type: "new", text: "init_project now writes CLAUDE.md, AGENTS.md and .cursor/rules/ingot.mdc so your agent stays on the system in every session" },
+      { type: "new", text: "Free theme generator: turn a brand colour into a full, contrast-checked token set and export CSS, a Tailwind theme or JSON" },
+      { type: "new", text: "A plain-English licence page with a use-case matrix for your own SaaS, client work and teams" },
+      { type: "new", text: "Figma match score on component pages, plus accessibility notes and a public accessibility statement" },
+      { type: "new", text: "A guided start in your account: pick your system, connect your agent, build your first screen" },
+      { type: "new", text: "Public roadmap you can vote on, and an RSS feed for this changelog" },
+      { type: "improved", text: "A clearer home page for founders, with a real coded dashboard in the first screen" },
+      { type: "improved", text: "System pages show sharp, real product screens and say which kind of product each system fits" },
+      { type: "improved", text: "New pages for founders and agencies, and sourced comparisons with shadcn/ui blocks, Untitled UI, Tailwind Plus and Tremor" },
+    ],
+  },
+  {
     version: "1.1.1",
     date: "2026-11-15",
     title: "New Ingot UI logo and link previews",

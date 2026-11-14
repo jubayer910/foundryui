@@ -259,8 +259,7 @@ export default function LicensePage() {
         <div className="min-w-0">
           <h2 id="matrix" className={H}>What each plan covers</h2>
           <p className={P + " max-w-2xl"}>
-            Find your use case, read across. Prices and seats are on <Link href="/pricing" className={A}>pricing</Link>. The Team plan gives each seat the Pro terms; until it is on the pricing page, write to{" "}
-            <a href={MAILTO} className={A}>{SUPPORT}</a> for a team.
+            Find your use case, read across. Prices and seats are on <Link href="/pricing" className={A}>pricing</Link>. The Team plan gives each seat the Pro terms.
           </p>
 
           {/* Table from md up */}

@@ -15,3 +15,9 @@ apps/web/public/library/
 packages/figma-library/export/data/
 apps/web/public/library-code/
 apps/web/public/library-preview/
+
+# QA screenshots from agents
+apps/web/.qa/
+apps/web/public/library
+apps/web/public/library-code
+apps/web/public/library-preview

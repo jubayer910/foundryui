@@ -28,7 +28,10 @@ ${systemLines()}
 ## Use it
 
 - [Component library](${abs("/")}): browse and search every component; each has a page with a preview, facts and, where available, code.
-- [MCP server for AI agents](${abs("/mcp")}): setup for Claude Code, Cursor, VS Code and Codex, and the 14 tools.
+- [MCP server for AI agents](${abs("/mcp")}): connect Claude Code, Cursor, VS Code or Codex in one step, and the 14 tools.
+- [Licence](${abs("/license")}): plain-English licence, use-case matrix by plan, full terms.
+- [For founders](${abs("/for/founders")}): how a founder builds a finished-looking dashboard with an AI agent and Ingot UI.
+- [Theme generator](${abs("/theme")}): free tool that turns a brand colour into a full, contrast-checked token set.
 - [CLI and docs](${abs("/docs")}): \`npx ingotui init\`, \`npx ingotui add <component>\`, tokens and theming, licence.
 - [Charts](${abs("/charts")}): chart components for dashboards.
 - [Icons](${abs("/icons")}): ${fmt(STATS.icons)} icons, SVG and JSX, \`ingotui-icons\` package.

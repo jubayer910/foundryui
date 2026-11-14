@@ -61,6 +61,7 @@ export const post: Post = {
       "On React and Tailwind, unhappy with primitives? Use Base UI or Radix directly.",
       "On React and Tailwind, unhappy with the look? Keep shadcn/ui and add a design system such as Ingot UI.",
     ] },
+    { t: "p", x: "For a side-by-side on dashboards specifically, see [Ingot UI vs shadcn/ui blocks](/compare/ingot-ui-vs-shadcn-ui-blocks)." },
   ],
   faq: [
     { q: "Is Ingot UI a replacement for shadcn/ui?", a: "No, it is a layer on top. Ingot UI components use React, Tailwind CSS v4 and Base UI, and free components install through the shadcn CLI. You keep your primitives and get finished dashboard components and tokens." },
