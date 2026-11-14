@@ -1,13 +1,19 @@
-/** Ingot mark: three stacked plates, the library in layers. */
-export function Logo({ withName = true }: { withName?: boolean }) {
-  return (
-    <span className="flex items-center gap-2">
-      <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
-        <rect x="3" y="3" width="18" height="5" rx="1.5" fill="#0b0b0b" />
-        <rect x="3" y="10" width="12" height="5" rx="1.5" fill="#0b0b0b" />
-        <rect x="3" y="17" width="7" height="4" rx="1.5" fill="#0b0b0b" />
+import { LOCKUP_VIEWBOX, MARK_PATH, MARK_VIEWBOX, WORDMARK_PATHS } from "@/lib/brand";
+
+/** Ingot UI logo from the brand file: the full lockup, or the mark alone. Inherits text colour. */
+export function Logo({ withName = true, className = "" }: { withName?: boolean; className?: string }) {
+  if (!withName)
+    return (
+      <svg viewBox={MARK_VIEWBOX} className={"h-5 w-auto " + className} fill="currentColor" aria-hidden="true">
+        <path d={MARK_PATH} />
       </svg>
-      {withName && <span className="text-[14px] font-semibold tracking-[-0.02em]">Ingot</span>}
-    </span>
+    );
+  return (
+    <svg viewBox={LOCKUP_VIEWBOX} className={"h-[18px] w-auto text-ink " + className} fill="currentColor" role="img" aria-label="Ingot UI">
+      <path d={MARK_PATH} />
+      {WORDMARK_PATHS.map((d, i) => (
+        <path key={i} d={d} />
+      ))}
+    </svg>
   );
 }

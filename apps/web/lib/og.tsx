@@ -1,13 +1,21 @@
 import { ImageResponse } from "next/og";
+import { LOCKUP_VIEWBOX, MARK_PATH, MARK_VIEWBOX, WORDMARK_PATHS } from "./brand";
 
 export const OG_SIZE = { width: 1200, height: 630 };
 export const OG_TYPE = "image/png";
 
 const Mark = ({ s = 40 }: { s?: number }) => (
-  <svg viewBox="0 0 24 24" width={s} height={s}>
-    <rect x="3" y="3" width="18" height="5" rx="1.5" fill="#0b0b0b" />
-    <rect x="3" y="10" width="12" height="5" rx="1.5" fill="#0b0b0b" />
-    <rect x="3" y="17" width="7" height="4" rx="1.5" fill="#0b0b0b" />
+  <svg viewBox={MARK_VIEWBOX} width={Math.round((s * 207) / 212)} height={s}>
+    <path d={MARK_PATH} fill="#0b0b0b" />
+  </svg>
+);
+
+const Lockup = ({ h = 36 }: { h?: number }) => (
+  <svg viewBox={LOCKUP_VIEWBOX} width={Math.round((h * 1005) / 252)} height={h}>
+    <path d={MARK_PATH} fill="#0b0b0b" />
+    {WORDMARK_PATHS.map((d, i) => (
+      <path key={i} d={d} fill="#0b0b0b" />
+    ))}
   </svg>
 );
 
@@ -18,8 +26,7 @@ export function ogImage({ eyebrow, title, sub, accent = "#0b0b0b", chips = [] }:
     (
       <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", background: "#ffffff", padding: 64, fontFamily: "sans-serif", color: "#0b0b0b" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
-          <Mark />
-          <span style={{ fontSize: 30, fontWeight: 700, letterSpacing: -0.5 }}>Ingot UI</span>
+          <Lockup />
           <span style={{ marginLeft: "auto", fontSize: 22, color: "rgba(0,0,0,0.55)", background: "#efefef", borderRadius: 999, padding: "8px 18px" }}>{eyebrow}</span>
         </div>
         <div style={{ display: "flex", flex: 1, alignItems: "flex-end", gap: 48, marginTop: 40 }}>
@@ -50,7 +57,7 @@ export function markImage(size: number) {
   return new ImageResponse(
     (
       <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center", background: "#ffffff" }}>
-        <Mark s={Math.round(size * 0.78)} />
+        <Mark s={Math.round(size * 0.62)} />
       </div>
     ),
     { width: size, height: size },
