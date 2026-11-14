@@ -1,17 +1,15 @@
 import { after } from "next/server";
 import { sql } from "drizzle-orm";
 import { getDb, getEnv, schema } from "@/lib/db";
-import { sha256Hex } from "@/lib/hash";
 
 /**
  * First-party page-view counter for components/site/track-beacon.tsx.
  * Privacy: no cookies, no raw rows, no IP or user agent stored. D1 only holds per-day aggregates.
- * Unique visitors: sha256(daily random salt + day + ip + ua) is kept in KV for 2 days to answer
- * "seen today?", then expires. The salt itself lives in KV for 2 days and is never written to D1.
+ * Unique visitors: HMAC(secret + day, ip + ua) is kept in D1 table visitor_seen for at most 2 days to answer
+ * "seen today?", then deleted. The key changes every day, so visitors can't be followed across days.
  */
 
 const BOT = /bot|crawl|spider|slurp|bingpreview|facebookexternalhit|embedly|quora link|whatsapp|telegram|discord|preview|headless|phantom|puppeteer|playwright|selenium|lighthouse|pagespeed|gtmetrix|pingdom|uptime|monitor|curl|wget|python|httpclient|axios|node-fetch|go-http|java\/|okhttp|libwww|scrapy|ahrefs|semrush|mj12|dotbot|petal|yandex|baidu|bytespider|gptbot|claude|anthropic|perplexity|ccbot/i;
-const PER_MINUTE = 60; // beacons per IP per minute
 const DAY_S = 86_400;
 
 const ALIAS: [RegExp, string][] = [
@@ -54,19 +52,11 @@ function cleanSource(ref: unknown, utm: unknown, ownHost: string): string {
   return "direct";
 }
 
-const salts = new Map<string, string>();
-async function dailySalt(kv: CloudflareEnv["KV"], day: string) {
-  const hit = salts.get(day);
-  if (hit) return hit;
-  const key = "trk:salt:" + day;
-  let s = await kv.get(key);
-  if (!s) {
-    s = crypto.randomUUID() + crypto.randomUUID();
-    await kv.put(key, s, { expirationTtl: 2 * DAY_S });
-  }
-  salts.clear();
-  salts.set(day, s);
-  return s;
+/** HMAC-SHA256(secret, text) as hex. The key rotates daily (secret + day), so hashes can't be linked across days. */
+async function hmacHex(key: string, text: string) {
+  const k = await crypto.subtle.importKey("raw", new TextEncoder().encode(key), { name: "HMAC", hash: "SHA-256" }, false, ["sign"]);
+  const sig = await crypto.subtle.sign("HMAC", k, new TextEncoder().encode(text));
+  return [...new Uint8Array(sig)].map((b) => b.toString(16).padStart(2, "0")).join("").slice(0, 40);
 }
 
 const NO = () => new Response(null, { status: 204 });
@@ -89,34 +79,29 @@ export async function POST(req: Request) {
 
   after(async () => {
     try {
+      // No KV writes on this path: the KV free tier allows 1,000 writes a day, which page views would use up.
       const env = await getEnv();
-      const kv = env.KV;
       const now = new Date();
       const day = now.toISOString().slice(0, 10);
-      const salt = await dailySalt(kv, day);
-
-      // Rate limit per IP (key is a salted hash, not the IP). KV minimum TTL is 60 s.
-      const minute = Math.floor(now.getTime() / 60_000);
-      const rlKey = "trk:rl:" + (await sha256Hex(salt + "|rl|" + ip)).slice(0, 32) + ":" + minute;
-      const used = Number((await kv.get(rlKey)) ?? 0);
-      if (used >= PER_MINUTE) return;
-
-      const vKey = "trk:v:" + day + ":" + (await sha256Hex(salt + "|" + day + "|" + ip + "|" + ua));
-      const seen = await kv.get(vKey);
+      const hash = await hmacHex((env.BETTER_AUTH_SECRET ?? "ingot") + "|visitors|" + day, ip + "|" + ua);
 
       const db = await getDb();
       const P = schema.pageviewDaily;
       const R = schema.referrerDaily;
       const V = schema.visitorDaily;
+      // First sight of this visitor today? INSERT OR IGNORE reports a change only for a new row.
+      const seen = await db.run(sql`INSERT OR IGNORE INTO visitor_seen (day, hash) VALUES (${day}, ${hash})`);
+      const isNew = ((seen as { meta?: { changes?: number } }).meta?.changes ?? 0) > 0;
       const writes = [db.insert(P).values({ day, path, views: 1 }).onConflictDoUpdate({ target: [P.day, P.path], set: { views: sql`${P.views} + 1` } })] as const;
       const extra = [];
       if (source) extra.push(db.insert(R).values({ day, source, views: 1 }).onConflictDoUpdate({ target: [R.day, R.source], set: { views: sql`${R.views} + 1` } }));
-      if (!seen) extra.push(db.insert(V).values({ day, visitors: 1 }).onConflictDoUpdate({ target: V.day, set: { visitors: sql`${V.visitors} + 1` } }));
-      await Promise.all([
-        db.batch([...writes, ...extra]),
-        kv.put(rlKey, String(used + 1), { expirationTtl: 60 }),
-        seen ? null : kv.put(vKey, "1", { expirationTtl: 2 * DAY_S }),
-      ]);
+      if (isNew) extra.push(db.insert(V).values({ day, visitors: 1 }).onConflictDoUpdate({ target: V.day, set: { visitors: sql`${V.visitors} + 1` } }));
+      await db.batch([...writes, ...extra]);
+      // Forget visitor hashes after two days (cheap, runs on about 1 in 200 views).
+      if (Math.random() < 0.005) {
+        const cutoff = new Date(now.getTime() - 2 * DAY_S * 1000).toISOString().slice(0, 10);
+        await db.run(sql`DELETE FROM visitor_seen WHERE day < ${cutoff}`);
+      }
     } catch {
       // Analytics must never break the site.
     }
