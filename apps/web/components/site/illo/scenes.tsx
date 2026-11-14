@@ -685,6 +685,146 @@ function Six() {
   );
 }
 
+/** A launch pad: a product stack ships upward on a dashed trail, next to a rising growth trio. Home: founders. */
+function Founders() {
+  return (
+    <>
+      <Ground x0={-58} x1={58} y0={-40} y1={40} />
+      <Cyl at={[-14, 0, 0]} r={34} h={5} />
+      <Quad p={circleZ(-14, 0, 5, 22)} dash />
+      <Box at={[-30, -16, 5]} size={[32, 32, 10]} />
+      <Box at={[-26, -12, 15]} size={[24, 24, 8]} />
+      <A a="flow">
+        <Line p={[[-14, 0, 24], [-14, 0, 44]]} accent dash />
+      </A>
+      <A a="lift">
+        <Box at={[-23, -9, 48]} size={[18, 18, 12]} accent tone="accent">
+          <Line p={[[-18, 0, 60], [-14, -4, 60], [-10, 0, 60]]} accent />
+        </Box>
+      </A>
+      {[12, 22, 34].map((h, i) => (
+        <A key={i} a="rise" delay={i * 0.25}>
+          <Box at={[24 + i * 12, -32, 0]} size={[9, 9, h]} accent={i === 2} tone={i === 2 ? "accent" : undefined} />
+        </A>
+      ))}
+      <Dot at={[40, 14, 0]} className="pulse" />
+    </>
+  );
+}
+
+/** A code sheet lying flat, and component blocks snapping into the slots of a layout plate. Home: React code. */
+function ReactCode() {
+  return (
+    <>
+      <Ground x0={-64} x1={60} y0={-44} y1={40} />
+      <Box at={[-60, -40, 0]} size={[46, 60, 3]}>
+        <Line p={[[-52, -32, 3], [-56, -28, 3], [-52, -24, 3]]} accent />
+        <Line p={[[-46, -24, 3], [-42, -32, 3]]} accent />
+        <Line p={[[-38, -32, 3], [-34, -28, 3], [-38, -24, 3]]} accent />
+        {range(5).map((i) => (
+          <Line key={i} p={[[-54 + (i % 3 === 1 ? 6 : i % 3 === 2 ? 12 : 0), -16 + i * 7, 3], [i % 2 ? -26 : -20, -16 + i * 7, 3]]} faint={i > 2} />
+        ))}
+      </Box>
+      <A a="flow">
+        <Line p={[[-14, -10, 6], [-4, -10, 12], [6, -10, 6]]} accent dash />
+      </A>
+      <Box at={[6, -40, 0]} size={[52, 76, 3]}>
+        <Quad p={onZ(3, 12, 52, -34, -22)} />
+        <Quad p={onZ(3, 12, 30, -18, 0)} />
+        <Quad p={onZ(3, 34, 52, -18, 0)} dash accent />
+        <Quad p={onZ(3, 12, 52, 4, 30)} />
+      </Box>
+      <Box at={[12, -34, 3]} size={[40, 12, 5]} />
+      <Box at={[12, -18, 3]} size={[18, 18, 9]} />
+      <Box at={[12, 4, 3]} size={[40, 26, 4]}>
+        <Line p={[[18, 10, 7], [40, 10, 7]]} faint />
+        <Line p={[[18, 16, 7], [32, 16, 7]]} faint />
+      </Box>
+      <Line p={[[43, -9, 4], [43, -9, 22]]} dash faint />
+      <A a="lift">
+        <Box at={[34, -18, 22]} size={[18, 18, 9]} accent tone="accent" />
+      </A>
+    </>
+  );
+}
+
+/** Layers lifting off a frame and landing on a canvas inside a selection box. Home: Figma layer. */
+function FigmaLayer() {
+  const handles: V[] = [[10, -30, 3], [56, -30, 3], [56, 30, 3], [10, 30, 3]];
+  return (
+    <>
+      <Ground x0={-62} x1={64} y0={-40} y1={40} />
+      <Box at={[-58, -24, 0]} size={[44, 48, 3]}>
+        <Quad p={onZ(3, -52, -20, -18, -8)} dash />
+        <Quad p={onZ(3, -52, -20, -4, 18)} dash />
+      </Box>
+      {range(3).map((i) => (
+        <A key={i} a="lift" delay={i * 0.3}>
+          <Box at={[-54, -20, 10 + i * 9]} size={[36, 40, 2]} accent={i === 2} tone={i === 2 ? "accent" : undefined}>
+            {i === 2 && (
+              <>
+                <Line p={[[-48, -14, 30], [-30, -14, 30]]} accent />
+                <Quad p={onZ(30, -48, -24, -4, 14)} accent />
+              </>
+            )}
+          </Box>
+        </A>
+      ))}
+      <Box at={[4, -36, 0]} size={[58, 72, 3]}>
+        <Quad p={onZ(3, 10, 56, -30, 30)} accent />
+        {handles.map((h, i) => (
+          <Quad key={i} p={onZ(3, h[0] - 2, h[0] + 2, h[1] - 2, h[1] + 2)} fill="var(--illo-top)" accent />
+        ))}
+      </Box>
+      <A a="f" delay={0.5}>
+        <Box at={[16, -22, 6]} size={[34, 18, 3]} />
+        <Box at={[16, 0, 6]} size={[16, 22, 6]} />
+        <Box at={[36, 0, 6]} size={[14, 22, 3]} />
+      </A>
+      <A a="flow">
+        <Line p={[[-16, 0, 30], [-4, 0, 34], [8, 0, 24]]} accent dash />
+      </A>
+    </>
+  );
+}
+
+/** An agent block calling a component stack: calls go out and answers flow back. Home: your AI agent. */
+function Agent() {
+  const Y = 10;
+  return (
+    <>
+      <Ground x0={-60} x1={60} y0={-34} y1={36} />
+      <Box at={[-56, -14, 0]} size={[34, 24, 30]}>
+        <Quad p={onY(Y, -50, -28, 8, 26)} fill="var(--illo-ink)" />
+        <Line p={[[-46, Y, 21], [-43, Y, 18], [-46, Y, 15]]} accent />
+        <A a="blink">
+          <Line p={[[-40, Y, 15], [-35, Y, 15]]} accent />
+        </A>
+      </Box>
+      <A a="flow">
+        <Line p={[[-22, -6, 26], [-2, -6, 36], [20, -6, 30]]} accent dash />
+      </A>
+      <A a="flow" delay={0.7}>
+        <Line p={[[20, 6, 12], [-2, 6, 16], [-22, 6, 12]]} dash faint />
+      </A>
+      <Dot at={[-2, -6, 36]} className="pulse" />
+      {range(4).map((i) => (
+        <A key={i} a="lift" delay={i * 0.2}>
+          <Box at={[20, -20, i * 9]} size={[34, 34, 5]} accent={i === 3} tone={i === 3 ? "accent" : undefined}>
+            {i === 3 && (
+              <>
+                <Quad p={onZ(32, 26, 36, -14, -4)} accent />
+                <Line p={[[40, -9, 32], [48, -9, 32]]} accent />
+                <Line p={[[26, 4, 32], [48, 4, 32]]} />
+              </>
+            )}
+          </Box>
+        </A>
+      ))}
+    </>
+  );
+}
+
 export const SCENES: Record<string, () => ReactNode> = {
   stack: () => <Stack />,
   screen: () => <Screen />,
@@ -718,6 +858,10 @@ export const SCENES: Record<string, () => ReactNode> = {
   lost: () => <Lost />,
   seed: () => <Seed />,
   six: () => <Six />,
+  founders: () => <Founders />,
+  react: () => <ReactCode />,
+  figmalayer: () => <FigmaLayer />,
+  agent: () => <Agent />,
 };
 
 /** Cover scene for each guide. Every guide gets its own picture; unknown slugs fall back by category. */
@@ -782,5 +926,9 @@ export const VIEWBOX: Record<string, string> = {
  "icons": "-85 -60 171 116",
  "lost": "-92 -68 184 128",
  "seed": "-85 -61 171 117",
- "six": "-90 -64 181 123"
+ "six": "-90 -64 181 123",
+ "founders": "-108 -96 216 165",
+ "react": "-113 -78 226 148",
+ "figmalayer": "-111 -87 224 159",
+ "agent": "-106 -85 210 153"
 };

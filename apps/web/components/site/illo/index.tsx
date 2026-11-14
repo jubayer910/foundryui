@@ -18,8 +18,8 @@ export function Illo({ scene, label, className }: { scene: string; label: string
 export const sceneForPost = (slug: string, category: string) => POST_SCENE[slug] ?? CATEGORY_SCENE[category] ?? "stack";
 
 /** Cover tile for a guide: soft tile background with the scene centred. */
-export function PostCover({ slug, category, title, size = "card" }: { slug: string; category: string; title: string; size?: "card" | "lead" | "hero" }) {
-  const h = size === "lead" ? "h-[220px] sm:h-[260px]" : size === "hero" ? "h-[220px] sm:h-[300px]" : "h-[170px]";
+export function PostCover({ slug, category, title, size = "card" }: { slug: string; category: string; title: string; size?: "small" | "card" | "lead" | "hero" }) {
+  const h = size === "lead" ? "h-[220px] sm:h-[260px]" : size === "hero" ? "h-[220px] sm:h-[300px]" : size === "small" ? "h-[132px]" : "h-[170px]";
   return (
     <div className={`illo-tile ${h}`}>
       <Illo scene={sceneForPost(slug, category)} label={"Illustration for " + title} className="h-full w-full" />
