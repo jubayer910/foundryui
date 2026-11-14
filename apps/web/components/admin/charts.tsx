@@ -93,7 +93,7 @@ export function BarList({ title, rows, empty, unit, action }: { title: string; r
   const max = Math.max(1, ...rows.map((r) => r.n));
   const sum = rows.reduce((s, r) => s + r.n, 0);
   return (
-    <div className="card px-4 py-3">
+    <div className="card min-w-0 px-4 py-3">
       <div className="flex items-baseline gap-2">
         <p className="text-[13px] text-mute">{title}</p>
         {unit && <p className="ml-auto text-[12px] text-faint">{unit}</p>}
