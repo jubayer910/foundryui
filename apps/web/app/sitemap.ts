@@ -25,6 +25,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: abs("/pricing"), lastModified: CATALOG_UPDATED, changeFrequency: "monthly", priority: 0.7 },
     { url: abs("/support"), lastModified: CATALOG_UPDATED, changeFrequency: "monthly", priority: 0.5 },
     { url: abs("/about"), lastModified: CATALOG_UPDATED, changeFrequency: "monthly", priority: 0.5 },
+    { url: abs("/terms"), lastModified: CATALOG_UPDATED, changeFrequency: "yearly", priority: 0.3 },
+    { url: abs("/privacy"), lastModified: CATALOG_UPDATED, changeFrequency: "yearly", priority: 0.3 },
+    { url: abs("/refund"), lastModified: CATALOG_UPDATED, changeFrequency: "yearly", priority: 0.3 },
     { url: abs("/changelog"), lastModified: CATALOG_UPDATED, changeFrequency: "weekly", priority: 0.4 },
     { url: abs("/blog"), lastModified: lastPost, changeFrequency: "weekly", priority: 0.8 },
   ];

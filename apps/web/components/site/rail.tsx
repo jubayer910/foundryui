@@ -27,6 +27,8 @@ export function Rail() {
           <Link href="/changelog" className="hover:text-ink">Changelog</Link>
           <Link href="/support" className="hover:text-ink">Support</Link>
           <Link href="/docs#license" className="hover:text-ink">License</Link>
+          <Link href="/terms" className="hover:text-ink">Terms</Link>
+          <Link href="/privacy" className="hover:text-ink">Privacy</Link>
           <span className="whitespace-nowrap">© 2026</span>
         </p>
       </div>

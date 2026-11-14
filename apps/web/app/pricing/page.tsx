@@ -222,7 +222,7 @@ export default async function PricingPage() {
           );
         })}
       </div>
-      <p className="mt-3 text-[12px] text-mute">7-day refund on every paid plan. Prices in USD; sales tax or VAT is added at checkout where it applies. Payments by Lemon Squeezy.</p>
+      <p className="mt-3 text-[12px] text-mute"><Link href="/refund" className="underline underline-offset-2 hover:text-ink">7-day refund</Link> on every paid plan. Prices in USD; sales tax or VAT is added at checkout where it applies. Payments by Lemon Squeezy, our merchant of record. <Link href="/terms" className="underline underline-offset-2 hover:text-ink">Terms</Link></p>
 
       <section className="mt-12">
         <h2 className="text-[13px] font-medium">Compare plans</h2>
