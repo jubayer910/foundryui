@@ -1,5 +1,6 @@
 import { ImageResponse } from "next/og";
 import { LOCKUP_VIEWBOX, MARK_PATH, MARK_VIEWBOX, WORDMARK_PATHS } from "./brand";
+import { INTER_400, INTER_500, INTER_600 } from "./og-fonts";
 
 export const OG_SIZE = { width: 1200, height: 630 };
 export const OG_TYPE = "image/png";
@@ -19,37 +20,40 @@ const Lockup = ({ h = 36 }: { h?: number }) => (
   </svg>
 );
 
-/** One social card for every template: white, ink, hairline, one accent bar chart. */
-export function ogImage({ eyebrow, title, sub, accent = "#0b0b0b", chips = [] }: { eyebrow: string; title: string; sub?: string; accent?: string; chips?: string[] }) {
-  const bars = [38, 62, 48, 80, 56, 92, 70, 84];
+const fontData = (b64: string) => Uint8Array.from(atob(b64), (c) => c.charCodeAt(0)).buffer as ArrayBuffer;
+let fonts: { name: string; data: ArrayBuffer; weight: 400 | 500 | 600; style: "normal" }[] | null = null;
+const ogFonts = () =>
+  (fonts ??= [
+    { name: "Inter", data: fontData(INTER_400), weight: 400, style: "normal" },
+    { name: "Inter", data: fontData(INTER_500), weight: 500, style: "normal" },
+    { name: "Inter", data: fontData(INTER_600), weight: 600, style: "normal" },
+  ]);
+
+/**
+ * One social card for every template, from the owner's Figma frame
+ * (UwaYzhrLo0wwH61PauTGSw node 2:2): white, centred lockup on top, centred title, subtitle and chips at the bottom.
+ * `eyebrow` and `accent` are kept for callers but not drawn in this design.
+ */
+export function ogImage({ title, sub, chips = [] }: { eyebrow?: string; title: string; sub?: string; accent?: string; chips?: string[] }) {
+  const size = title.length > 70 ? 52 : title.length > 48 ? 58 : 66;
   return new ImageResponse(
     (
-      <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", background: "#ffffff", padding: 64, fontFamily: "sans-serif", color: "#0b0b0b" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
-          <Lockup />
-          <span style={{ marginLeft: "auto", fontSize: 22, color: "rgba(0,0,0,0.55)", background: "#efefef", borderRadius: 999, padding: "8px 18px" }}>{eyebrow}</span>
-        </div>
-        <div style={{ display: "flex", flex: 1, alignItems: "flex-end", gap: 48, marginTop: 40 }}>
-          <div style={{ display: "flex", flexDirection: "column", flex: 1 }}>
-            <div style={{ fontSize: title.length > 60 ? 54 : 66, fontWeight: 700, lineHeight: 1.08, letterSpacing: -2 }}>{title}</div>
-            {sub && <div style={{ fontSize: 26, color: "rgba(0,0,0,0.55)", marginTop: 22, lineHeight: 1.35 }}>{sub}</div>}
-            {chips.length > 0 && (
-              <div style={{ display: "flex", gap: 10, marginTop: 28 }}>
-                {chips.slice(0, 4).map((c) => (
-                  <span key={c} style={{ fontSize: 20, background: "#efefef", borderRadius: 999, padding: "6px 16px" }}>{c}</span>
-                ))}
-              </div>
-            )}
-          </div>
-          <div style={{ display: "flex", alignItems: "flex-end", gap: 8, width: 260, height: 220, padding: 18, borderRadius: 16, background: accent + "14" }}>
-            {bars.map((h, i) => (
-              <div key={i} style={{ flex: 1, height: h + "%", borderRadius: "6px 6px 0 0", background: i === 5 ? accent : accent + "4d" }} />
-            ))}
-          </div>
+      <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", alignItems: "center", background: "#ffffff", padding: 64, fontFamily: "Inter", color: "#0b0b0b" }}>
+        <Lockup h={36} />
+        <div style={{ display: "flex", flex: 1, flexDirection: "column", alignItems: "center", justifyContent: "flex-end", width: "100%" }}>
+          <div style={{ display: "flex", maxWidth: 730, textAlign: "center", justifyContent: "center", fontSize: size, fontWeight: 600, lineHeight: 1.08, letterSpacing: -4 * (size / 66) }}>{title}</div>
+          {sub && <div style={{ display: "flex", maxWidth: 730, textAlign: "center", justifyContent: "center", fontSize: 26, fontWeight: 400, color: "rgba(0,0,0,0.55)", marginTop: 22, lineHeight: 1.35 }}>{sub}</div>}
+          {chips.filter(Boolean).length > 0 && (
+            <div style={{ display: "flex", gap: 10, marginTop: 22 }}>
+              {chips.filter(Boolean).slice(0, 4).map((c) => (
+                <span key={c} style={{ fontSize: 20, fontWeight: 500, background: "#efefef", borderRadius: 999, padding: "7px 16px" }}>{c}</span>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     ),
-    OG_SIZE,
+    { ...OG_SIZE, fonts: ogFonts() },
   );
 }
 
