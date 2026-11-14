@@ -67,6 +67,9 @@ export function mapIcon(raw) {
   mapCache.set(raw, hit);
   return hit;
 }
+// image fills: the caller decides where picture bytes live (data URI for QA, a public path for site code)
+let imageUrl = () => null;
+export function setImageUrl(fn) { imageUrl = fn; }
 const pascal = (n) => n.split("-").map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join("");
 
 const px = (v) => (Math.round(v * 100) / 100) + "px";
@@ -98,7 +101,12 @@ const paintCss = (p, w, h) => {
   if (p.k === "s") return { solid: rgba(p.c, p.a) };
   if (p.k === "l") return { layer: linear(p, w, h) };
   if (p.k === "r") return { layer: `radial-gradient(${p.st.map(([c, a, pos]) => rgba(c, a * p.a) + " " + Math.round(pos * 100) + "%").join(", ")})` };
-  if (p.k === "i") return { solid: "#e5e7eb" };
+  if (p.k === "i") {
+    const url = p.h && imageUrl(p.h);
+    if (!url) return { solid: "#e5e7eb" };
+    const size = p.sm === "FIT" ? "contain" : p.sm === "TILE" ? "auto" : p.sm === "STRETCH" ? "100% 100%" : "cover";
+    return { layer: `url(${url}) center / ${size} ${p.sm === "TILE" ? "repeat" : "no-repeat"}` };
+  }
   return null;
 };
 function background(fills, st, w, h) {
@@ -114,7 +122,9 @@ function shadows(n, st) {
     const c = rgba(n.s[0].c, n.s[0].a);
     const [t, r, b, l] = Array.isArray(n.sw) ? n.sw : [n.sw, n.sw, n.sw, n.sw];
     const inset = n.sa !== "OUTSIDE";
-    if (t === r && r === b && b === l) out.push(`${inset ? "inset " : ""}0 0 0 ${px(t)} ${c}`);
+    // dashed strokes: an outline drawn inside (or centred on) the box keeps the dashes and leaves layout alone
+    if (n.dash && n.dash.length && t === r && r === b && b === l) { st.outline = `${px(t)} dashed ${c}`; st.outlineOffset = px(n.sa === "OUTSIDE" ? 0 : n.sa === "CENTER" ? -t / 2 : -t); }
+    else if (t === r && r === b && b === l) out.push(`${inset ? "inset " : ""}0 0 0 ${px(t)} ${c}`);
     else {
       if (t) out.push(`inset 0 ${px(t)} 0 0 ${c}`);
       if (b) out.push(`inset 0 ${px(-b)} 0 0 ${c}`);
@@ -148,7 +158,31 @@ function textStyle(seg) {
 // files whose small icons keep a 1.5px stroke (measured by QA): set per component with setAbsStroke()
 let ABS_STROKE = false;
 export const setAbsStroke = (v) => { ABS_STROKE = !!v; };
-export function build(n, parentLm = null, root = true) {
+export function build(n, parentLm = null, root = true, parent = null) {
+  // a rotated child inside auto layout takes the space of its rotated bounding box (e.g. vertical grid lines drawn as
+  // rotated lines): lay out a wrapper of that size and rotate the real node inside it
+  if (!root && parentLm && !n.abs && n.rot) {
+    const a = (-n.rot * Math.PI) / 180, c = Math.cos(a), s = Math.sin(a);
+    const pts = [[0, 0], [n.w, 0], [0, n.h], [n.w, n.h]].map(([x, y]) => [x * c - y * s, x * s + y * c]);
+    const mx = Math.min(...pts.map((p) => p[0])), my = Math.min(...pts.map((p) => p[1]));
+    const bw = Math.max(...pts.map((p) => p[0])) - mx, bh = Math.max(...pts.map((p) => p[1])) - my;
+    // cross axis: Figma reports where the rotated node really sits; pin the wrapper there instead of trusting align-items
+    let ix = -mx, iy = -my;
+    const wst = { position: "relative", flexShrink: 0 };
+    if (parent && parent.pad) {
+      const [pt, pr, pb, pl] = parent.pad;
+      if (parentLm === "V" && n.sh !== "FILL") { wst.alignSelf = "flex-start"; wst.marginLeft = px(Math.round((n.x + mx - pl) * 100) / 100); }
+      if (parentLm === "H" && n.sv !== "FILL") { wst.alignSelf = "flex-start"; wst.marginTop = px(Math.round((n.y + my - pt) * 100) / 100); }
+    }
+    const inner = buildNode({ ...n, abs: 1, x: ix, y: iy }, null, false);
+    const fillW = n.sh === "FILL", fillH = n.sv === "FILL";
+    if (fillW) { if (parentLm === "H") { wst.flex = "1 1 0"; wst.minWidth = 0; } else wst.alignSelf = "stretch"; } else wst.width = px(Math.round(bw * 100) / 100);
+    if (fillH) { if (parentLm === "V") { wst.flex = "1 1 0"; wst.minHeight = 0; } else wst.alignSelf = "stretch"; } else wst.height = px(Math.round(bh * 100) / 100);
+    return { tag: "div", st: wst, name: n.n, kids: [inner] };
+  }
+  return buildNode(n, parentLm, root);
+}
+function buildNode(n, parentLm = null, root = true) {
   const st = {};
   const el = { tag: "div", st, name: n.n, kids: [] };
   // position and size
@@ -160,8 +194,10 @@ export function build(n, parentLm = null, root = true) {
   const hugW = inFlow ? n.sh === "HUG" : false, hugH = inFlow ? n.sv === "HUG" : false;
   if (fillW) { if (parentLm === "H") { st.flex = "1 1 0"; st.minWidth = 0; } else st.alignSelf = "stretch"; } else if (!hugW || n.t !== "TEXT") st.width = px(n.w);
   if (fillH) { if (parentLm === "V") { st.flex = "1 1 0"; st.minHeight = 0; } else st.alignSelf = "stretch"; } else if (!hugH && !(n.t === "TEXT" && n.ar !== "NONE")) st.height = px(n.h);
-  if (hugW && n.t !== "TEXT" && n.lm) delete st.width;
-  if (hugH && n.lm) delete st.height;
+  // a rotated child makes Figma hug differently from CSS: keep the measured size
+  const rotKid = (n.k || []).some((k) => k.rot && !k.abs);
+  if (hugW && n.t !== "TEXT" && n.lm && !rotKid) delete st.width;
+  if (hugH && n.lm && !rotKid) delete st.height;
   if (inFlow) st.flexShrink = 0;
   if (n.op !== undefined) st.opacity = n.op;
   if (n.rot) {
@@ -178,6 +214,9 @@ export function build(n, parentLm = null, root = true) {
     // match the source glyph style: filled + soft layer = bulk, filled = solid, outline + soft fill = duotone, outline = stroke
     const style = n.istyle || (n.fill ? (n.duo ? "bulk" : "solid") : n.duo ? "duotone" : "stroke-rounded");
     el.icon = { name: n.istyle ? n.icon : mapIcon(n.icon), style, size: Math.round(Math.min(n.w, n.h) * 10) / 10 };
+    // stroke weight in px from Figma (resized instances keep 1.5px): express it in the 24-unit viewBox
+    if (n.isw && el.icon.size) { const sw = Math.round(((n.isw * 24) / el.icon.size) * 100) / 100; if (Math.abs(sw - 1.5) > 0.01) el.icon.sw = sw; }
+    else
     // some files keep a resized icon's 1.5px stroke; below 16px scale the 24-grid stroke so the drawn line stays 1.5px
     if (ABS_STROKE && el.icon.size < 16 && /stroke|duotone/.test(style)) el.icon.sw = Math.round((1.5 * 24 / el.icon.size) * 100) / 100;
     if (n.ic) st.color = n.ic;
@@ -234,7 +273,7 @@ export function build(n, parentLm = null, root = true) {
   } else if (n.k && n.k.length) {
     st.position = st.position || "relative";
   }
-  for (const k of n.k || []) el.kids.push(build(k, n.lm || null, false));
+  for (const k of n.k || []) el.kids.push(build(k, n.lm || null, false, n));
   return el;
 }
 
@@ -243,6 +282,7 @@ const kebab = (k) => k.replace(/[A-Z]/g, (m) => "-" + m.toLowerCase()).replace(/
 const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 const cssText = (st) => Object.entries(st).map(([k, v]) => kebab(k) + ":" + (typeof v === "number" && !/^(opacity|fontWeight|flexShrink|minWidth|minHeight|lineHeight)$/.test(k) ? v + "px" : v)).join(";");
 
+export const iconBody = (ic) => swBody(body(ic.style, ic.name), ic.sw);
 export function toHTML(el, icons = {}) {
   if (el.icon) return `<svg data-fu-icon="1" xmlns="http://www.w3.org/2000/svg" width="${el.icon.size}" height="${el.icon.size}" viewBox="0 0 24 24" style="${cssText(el.st).replace(/"/g, "'")}">${swBody(body(el.icon.style, el.icon.name), el.icon.sw)}</svg>`;
   const svg = el.svg ? (el.svg.startsWith("@") ? icons[el.svg.slice(1)] || "" : el.svg) : "";

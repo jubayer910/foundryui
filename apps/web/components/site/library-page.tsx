@@ -5,6 +5,7 @@ import { railSystems } from "./rail";
 import { Browser } from "./browser";
 import { IlloTile, PostCover } from "./illo";
 import { DEFAULT_SETTINGS } from "@/lib/settings";
+import { AgentShowcase } from "./showcase/agent-showcase";
 import iconStats from "@/lib/icon-stats.json";
 import { posts, readingTime } from "@/lib/blog";
 import { clientEntries } from "@/lib/seo-entries";
@@ -58,6 +59,7 @@ export function LibraryPage({ q = "", c = "all", s = "all", intro = true, home =
       <div className="mt-5">
         <Browser entries={clientEntries(entries)} categories={CATEGORIES} systems={railSystems} initialQuery={q} initialCategory={c} initialSystem={s} />
       </div>
+      {intro && <AgentShowcase />}
 
       {intro && (
         <section className="mt-16 grid gap-3 md:grid-cols-3" aria-label="More">

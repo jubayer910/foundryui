@@ -10,6 +10,7 @@ import { Preview } from "@/components/site/preview";
 import { clientEntries } from "@/lib/seo-entries";
 import { postsFor } from "@/lib/blog";
 import { JsonLd, ORG_ID, abs, breadcrumbLd, fmt, pageMeta } from "@/lib/seo";
+import { SystemShowcase } from "@/components/showcase/system-showcase";
 
 export function generateStaticParams() {
   return systems.map((s) => ({ slug: s.slug }));
@@ -108,6 +109,7 @@ export default async function SystemPage({ params }: PageProps<"/systems/[slug]"
       </aside>
 
       <div className="min-w-0">
+        <SystemShowcase system={s.slug} name={s.name} />
         {s.status === "live" && (
           <section>
             <h2 className="text-[13px] font-medium">Foundations</h2>

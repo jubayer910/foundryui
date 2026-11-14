@@ -1,0 +1,50 @@
+[
+ {
+  "slug": "loopo-analytics",
+  "system": "loopo",
+  "name": "Analytics overview",
+  "w": 1578,
+  "h": 1180,
+  "perceptual": 99.8,
+  "strict": 99,
+  "layout": 99.8,
+  "figma": "216:46980",
+  "source": "189:43535"
+ },
+ {
+  "slug": "loopo-overview",
+  "system": "loopo",
+  "name": "Overview",
+  "w": 1578,
+  "h": 1180,
+  "perceptual": 99.8,
+  "strict": 98.7,
+  "layout": 99.9,
+  "figma": "216:49581",
+  "source": "187:43155"
+ },
+ {
+  "slug": "veriq-secrets",
+  "system": "veriq",
+  "name": "Secrets",
+  "w": 1440,
+  "h": 1039,
+  "perceptual": 99.9,
+  "strict": 98.8,
+  "layout": 99.9,
+  "figma": "85:20140",
+  "source": "65:26084"
+ },
+ {
+  "slug": "veriq-team-access",
+  "system": "veriq",
+  "name": "Team and access",
+  "w": 1440,
+  "h": 1039,
+  "perceptual": 99.9,
+  "strict": 98.2,
+  "layout": 99.9,
+  "figma": "85:21277",
+  "source": "66:19252"
+ }
+]
