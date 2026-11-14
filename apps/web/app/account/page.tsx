@@ -9,6 +9,7 @@ import { ApiKeys } from "@/components/site/api-keys";
 import { SignOut } from "@/components/site/sign-out";
 import { PageHead } from "@/components/site/page-head";
 import { Billing, WelcomeBanner, type BillingSub, type Receipt } from "@/components/site/billing";
+import { OnboardingChecklist } from "@/components/site/onboarding-checklist";
 
 export const metadata: Metadata = { title: "Account", robots: NOINDEX };
 
@@ -72,6 +73,7 @@ export default async function AccountPage({ searchParams }: PageProps<"/account"
           <span className="font-medium">You already have {planLabel(user.plan)}.</span> <span className="text-mute">Nothing new to buy; everything it covers is unlocked.</span>
         </div>
       )}
+      <OnboardingChecklist user={user} />
       <div className="mt-5 grid gap-3 sm:grid-cols-3">
         {[
           ["Plan", planLabel(user.plan)],
