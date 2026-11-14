@@ -22,6 +22,8 @@ type User = { id: string; email: string; plan: string };
 const ITEMS = catalog.items as unknown as Item[];
 const SYSTEMS = catalog.systems;
 const FREE_DAILY_CALLS = 50;
+/** Same rule as apps/web lib/plans.ts isPaid(): Pro and Lifetime both unlock everything. */
+const isPaid = (plan: string | null | undefined) => plan === "pro" || plan === "lifetime";
 
 const text = (t: string) => ({ content: [{ type: "text" as const, text: t }] });
 const json = (v: unknown) => text(JSON.stringify(v, null, 2));
@@ -74,12 +76,12 @@ function buildServer(env: Env, user: User) {
 
   /** wraps every tool: quota + usage log */
   const guard = <A,>(tool: string, fn: (a: A) => Promise<ReturnType<typeof text>> | ReturnType<typeof text>) => async (a: A) => {
-    if (user.plan === "free" && (await callsToday(env, user)) >= FREE_DAILY_CALLS)
+    if (!isPaid(user.plan) && (await callsToday(env, user)) >= FREE_DAILY_CALLS)
       return text("Daily limit reached (" + FREE_DAILY_CALLS + " MCP calls on the Free plan). Upgrade for unlimited calls: " + site + "/pricing");
     await env.DB.prepare("INSERT INTO usage_event (userId, action, target, client, createdAt) VALUES (?, 'mcp_call', ?, 'mcp', ?)").bind(user.id, tool, Math.floor(Date.now() / 1000)).run();
     return fn(a);
   };
-  const locked = (it: Item) => it.tier === "pro" && user.plan === "free";
+  const locked = (it: Item) => it.tier === "pro" && !isPaid(user.plan);
 
   server.registerTool("list_design_systems", { description: "List the Ingot UI design systems with status (live / in-progress), tier, accent colour and font." }, guard("list_design_systems", async () => json(SYSTEMS)));
 
@@ -140,7 +142,7 @@ function buildServer(env: Env, user: User) {
     guard("get_component_code", async ({ slug }: { slug: string }) => {
       const it = getItem(slug);
       if (!it) return text("Unknown component: " + slug);
-      if (locked(it)) return text(it.name + " is a Pro component. Upgrade: " + site + "/pricing");
+      if (locked(it)) return text(it.name + " is a Pro component. Pro or Lifetime unlocks it: " + site + "/pricing");
       return json(resolveFiles(slug).map((f) => ({ path: target(f.path), content: f.content })));
     }),
   );
@@ -292,7 +294,7 @@ function buildServer(env: Env, user: User) {
 
   server.registerTool("get_usage", { description: "Your plan, today's MCP calls and limits." }, async () => {
     const n = await callsToday(env, user);
-    return json({ email: user.email, plan: user.plan, mcpCallsToday: n, dailyLimit: user.plan === "free" ? FREE_DAILY_CALLS : "unlimited", upgrade: site + "/pricing" });
+    return json({ email: user.email, plan: user.plan, mcpCallsToday: n, dailyLimit: !isPaid(user.plan) ? FREE_DAILY_CALLS : "unlimited", upgrade: site + "/pricing" });
   });
 
   server.registerTool(

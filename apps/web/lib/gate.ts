@@ -4,6 +4,7 @@ import { getEnv, getDb, schema } from "./db";
 import { getSessionUser, type SessionUser } from "./auth";
 import { getItem, systems } from "./catalog";
 import { getFigmaItem, figmaQA } from "./library";
+import { isPaid } from "./plans";
 
 export const ANON_LIMIT = 5;
 export const ACTIONS = ["copy_code", "copy_figma", "download_png", "download_svg", "download_jpeg", "install"] as const;
@@ -39,7 +40,7 @@ export async function checkAndRecord(slug: string, action: Action, client = "web
   const user = await getSessionUser();
   const db = await getDb();
   if (user) {
-    if (item.tier === "pro" && user.plan === "free") return { ok: false, reason: "upgrade_required", remaining: 0 };
+    if (item.tier === "pro" && !isPaid(user.plan)) return { ok: false, reason: "upgrade_required", remaining: 0 };
     await db.insert(schema.usageEvent).values({ userId: user.id, action, target: slug, client, createdAt: new Date() });
     return { ok: true, user, remaining: null };
   }

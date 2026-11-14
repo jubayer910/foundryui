@@ -13,12 +13,13 @@ function systemLines() {
   return systems.map((s) => `- [${s.name}](${abs("/systems/" + s.slug)}): ${s.tagline}. ${fmt(figmaCount(s.slug))} components in Figma, ${fmt(coded(s.slug))} with React code. ${s.tier === "free" ? "Free" : "Pro"}.`).join("\n");
 }
 
-export function llmsTxt() {
+/** `plans` is the line from pricingSentence(getPriceBook()) in lib/plans.ts, so prices follow the admin settings. */
+export function llmsTxt(plans: string) {
   return `# Ingot UI
 
 ${SUMMARY}
 
-Plans: Free (Loopo system, free components, every icon, 50 MCP calls a day), Pro ($149 a year or $19 a month, all systems, unlimited MCP), Lifetime ($299 once). Components may be used in unlimited personal and commercial projects; the library itself may not be resold.
+Plans: ${plans} Current prices: ${abs("/pricing")}. Components may be used in unlimited personal and commercial projects; the library itself may not be resold.
 
 ## Design systems
 
