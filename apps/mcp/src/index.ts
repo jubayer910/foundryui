@@ -22,8 +22,28 @@ type User = { id: string; email: string; plan: string };
 const ITEMS = catalog.items as unknown as Item[];
 const SYSTEMS = catalog.systems;
 const FREE_DAILY_CALLS = 50;
-/** Same rule as apps/web lib/plans.ts isPaid(): Pro and Lifetime both unlock everything. */
-const isPaid = (plan: string | null | undefined) => plan === "pro" || plan === "lifetime";
+/** Same rule as apps/web lib/plans.ts isPaid(): Pro, Team and Lifetime all unlock everything. */
+const isPaid = (plan: string | null | undefined) => plan === "pro" || plan === "team" || plan === "lifetime";
+
+/** Same rule as apps/web lib/plans.ts getEffectivePlan(): a joined Team member gets "team" while the owner's Team is live. */
+async function effectivePlan(env: Env, userId: string, plan: string) {
+  if (isPaid(plan)) return plan;
+  try {
+    const r = await env.DB.prepare(
+      `SELECT 1 AS ok FROM team_member m JOIN team t ON t.id = m.teamId JOIN user o ON o.id = t.ownerId
+       WHERE m.userId = ? AND m.role = 'member' AND m.joinedAt IS NOT NULL AND (
+         o.plan = 'team'
+         OR EXISTS (SELECT 1 FROM subscription s WHERE s.userId = t.ownerId AND s.plan = 'team' AND (s.status IN ('active','on_trial','past_due') OR (s.status = 'cancelled' AND (s.endsAt IS NULL OR s.endsAt > ?))))
+         OR EXISTS (SELECT 1 FROM purchase p WHERE p.userId = t.ownerId AND p.plan = 'team' AND p.status = 'granted')
+       ) LIMIT 1`,
+    )
+      .bind(userId, Math.floor(Date.now() / 1000))
+      .first<{ ok: number }>();
+    return r ? "team" : plan;
+  } catch {
+    return plan; // team tables not migrated yet
+  }
+}
 
 const text = (t: string) => ({ content: [{ type: "text" as const, text: t }] });
 const json = (v: unknown) => text(JSON.stringify(v, null, 2));
@@ -61,7 +81,7 @@ async function authenticate(req: Request, env: Env): Promise<User | null> {
     .first<{ id: string; email: string; plan: string; keyId: string }>();
   if (!row) return null;
   await env.DB.prepare("UPDATE api_key SET lastUsedAt = ? WHERE id = ?").bind(Math.floor(Date.now() / 1000), row.keyId).run();
-  return { id: row.id, email: row.email, plan: row.plan };
+  return { id: row.id, email: row.email, plan: await effectivePlan(env, row.id, row.plan) };
 }
 
 async function callsToday(env: Env, user: User) {

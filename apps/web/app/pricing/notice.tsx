@@ -2,7 +2,7 @@
 import { useSearchParams } from "next/navigation";
 import { Icon, type IconName } from "@/registry/components/icons";
 
-type Labels = Record<"proMonthly" | "proYearly" | "lifetime", { name: string; price: string }>;
+type Labels = Record<"proMonthly" | "proYearly" | "teamMonthly" | "teamYearly" | "lifetime", { name: string; price: string }>;
 
 /**
  * Messages that depend on the query string (?buy, ?waitlist, ?closed, ?error).
@@ -23,7 +23,7 @@ export function PricingNotice({ labels }: { labels: Labels }) {
   if (sp.get("closed"))
     return (
       <Box icon="lock" title="Lifetime is closed right now.">
-        All launch spots are taken. Pro monthly and Pro yearly are still open.
+        All launch spots are taken. Pro and Team, monthly or yearly, are still open.
       </Box>
     );
   if (sp.get("error"))
