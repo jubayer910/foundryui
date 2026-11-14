@@ -16,6 +16,7 @@ export default function NotFound() {
         <Link href="/" className="btn-ink">Browse components</Link>
         <Link href="/systems" className="btn-line">Design systems</Link>
         <Link href="/blog" className="btn-line">Resources</Link>
+        <Link href="/support" className="btn-line">Support</Link>
       </div>
       <h2 className="mt-10 text-[13px] font-medium">Systems</h2>
       <ul className="mt-2 flex flex-wrap gap-1.5">

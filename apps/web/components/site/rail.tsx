@@ -25,6 +25,7 @@ export function Rail() {
         <p className="flex flex-wrap gap-x-3 gap-y-1 px-2 text-[12px] text-faint">
           <Link href="/about" className="hover:text-ink">About</Link>
           <Link href="/changelog" className="hover:text-ink">Changelog</Link>
+          <Link href="/support" className="hover:text-ink">Support</Link>
           <Link href="/docs#license" className="hover:text-ink">License</Link>
           <span className="whitespace-nowrap">© 2026</span>
         </p>
