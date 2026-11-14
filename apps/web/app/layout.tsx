@@ -12,6 +12,8 @@ const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"]
 // Google Analytics 4 (property ingotui.com, account "Ingot UI"). Client-side route changes are
 // counted by GA enhanced measurement (browser history events).
 const GA_ID = "G-791MYC76DX";
+// Microsoft Clarity (project "ingotui"): heatmaps and session recordings; masks sensitive content by default.
+const CLARITY_ID = "zdnoi4px8s";
 
 const DESCRIPTION = "Six dashboard design systems with 1,800+ components. Copy React code checked against Figma, paste Figma layers, or let your AI agent build through MCP.";
 
@@ -45,6 +47,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Script src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} strategy="afterInteractive" />
         <Script id="ga4" strategy="afterInteractive">
           {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${GA_ID}');`}
+        </Script>
+        <Script id="clarity" strategy="afterInteractive">
+          {`(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","${CLARITY_ID}");`}
         </Script>
       </body>
     </html>
