@@ -93,9 +93,13 @@ export const NOINDEX = { index: false, follow: true } as const;
  * sets the whole object; this keeps siteName, card type and canonical consistent.
  */
 export function pageMeta({ title, description, path, absoluteTitle, noindex, type = "website", published, modified, image = "/opengraph-image" }: { title: string; description: string; path: string; absoluteTitle?: boolean; noindex?: boolean; type?: "website" | "article"; published?: string; modified?: string; /** route of the segment's opengraph-image, or the site card */ image?: string }) {
-  const full = absoluteTitle ? title : title + " | " + SITE_NAME;
+  // Google shows about 60 characters of a title: add the brand only when it still fits.
+  const branded = title + " | " + SITE_NAME;
+  const full = absoluteTitle || branded.length > 60 ? title : branded;
+  // ...and about 160 characters of a description: trim longer ones at a word boundary.
+  if (description.length > 160) description = description.slice(0, 157).replace(/[\s,;:.]+\S*$/, "") + "…";
   return {
-    title: absoluteTitle ? { absolute: title } : title,
+    title: { absolute: full },
     description,
     alternates: { canonical: path },
     robots: noindex ? NOINDEX : undefined,

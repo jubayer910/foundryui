@@ -14,6 +14,14 @@ import { postsFor } from "@/lib/blog";
 import { categoryHref } from "@/lib/hubs";
 import { JsonLd, ORG_ID, abs, breadcrumbLd, clip, isPart, pageMeta } from "@/lib/seo";
 
+/** Keyword-first component title that fits Google's ~60 characters (the brand suffix is added only when it fits). */
+function compTitle(name: string, coded: boolean) {
+  const opts = coded
+    ? [name + " React component for dashboards (Figma + code)", name + " React component (Figma + code)", name + " React + Figma component", name]
+    : [name + " Figma component for dashboards", name + " Figma component", name];
+  return opts.find((t) => t.length <= 60) ?? opts[opts.length - 1];
+}
+
 export function generateStaticParams() {
   return entries.map((e) => ({ slug: e.slug }));
 }
@@ -33,7 +41,7 @@ export async function generateMetadata({ params }: PageProps<"/components/[slug]
   const path = "/components/" + slug;
   if (it) {
     const entry = entries.find((e) => e.slug === slug)!;
-    return pageMeta({ title: `${named(it.name, entry.category)} React component for dashboards (Figma + code)`, description: clip(`${it.description} Free React + Tailwind v4 code from the Loopo design system, plus a Figma copy and PNG/SVG export. Install with npx ingotui add ${slug}.`), path, image: path + "/opengraph-image" });
+    return pageMeta({ title: compTitle(named(it.name, entry.category), true), description: clip(`${it.description} Free React + Tailwind v4 code from the Loopo design system, plus a Figma copy and PNG/SVG export. Install with npx ingotui add ${slug}.`), path, image: path + "/opengraph-image" });
   }
   const f = getFigmaItem(slug);
   if (!f) return {};
@@ -41,7 +49,7 @@ export async function generateMetadata({ params }: PageProps<"/components/[slug]
   const coded = !!figmaQA(slug);
   const n = named(f.name, f.category);
   return pageMeta({
-    title: coded ? `${n} React component for dashboards (Figma + code)` : `${n} Figma component for dashboards`,
+    title: compTitle(n, coded),
     description: clip(`${n} from the ${sys} dashboard design system, taken from the ${f.source.replace(/^[\d.]+ · /, "").replace(/ — .*/, "") || "product"} screen. ${coded ? "React + Tailwind code checked against Figma, plus the Figma layer." : "In Figma now; React code in progress."}${f.keywords ? " Includes " + f.keywords.split(", ").slice(0, 4).join(", ").toLowerCase() + "." : ""}`),
     path,
     image: path + "/opengraph-image",
