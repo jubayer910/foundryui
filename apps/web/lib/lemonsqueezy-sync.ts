@@ -66,7 +66,7 @@ export type SyncOptions = {
   maxPages?: number;
   /** stop starting new requests after this many ms (default 20 s) */
   deadlineMs?: number;
-  /** rows written per run (default 150); each write is a handful of D1 queries */
+  /** rows written per run (default 6); each write is a handful of D1 queries */
   maxWrites?: number;
   /** min gap between requests in ms (default 220, under 300 a minute) */
   gapMs?: number;
@@ -106,9 +106,10 @@ export async function runSync(db: Db, settings: Settings, keys: CheckoutKeys, op
   const t0 = Date.now();
   const base = (opts.base ?? LS_API).replace(/\/+$/, "");
   const doFetch = opts.fetch ?? fetch;
-  const maxPages = opts.maxPages ?? 20;
+  // Defaults sized for the Workers Free plan (50 D1 queries and 50 subrequests per request); "Sync now" resumes.
+  const maxPages = opts.maxPages ?? 4;
   const deadline = t0 + (opts.deadlineMs ?? 20_000);
-  const maxWrites = opts.maxWrites ?? 150;
+  const maxWrites = opts.maxWrites ?? 6;
   const gap = opts.gapMs ?? 220;
   const state: SyncState = {
     at: new Date().toISOString(),
