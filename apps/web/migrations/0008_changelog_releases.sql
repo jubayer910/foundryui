@@ -1,6 +1,6 @@
--- Changelog content: replace the four seeded entries with the full release history (lib/changelog.ts, versions 0.1.0 to 1.2.0).
+-- Changelog content: hide (not delete) the four seeded entries and add with the full release history (lib/changelog.ts, versions 0.1.0 to 1.2.0).
 -- After this, entries are edited at /admin/changelog.
-DELETE FROM `changelog_entry` WHERE `id` IN ('seed-2026-11-10-ingot', 'seed-2026-11-10-library', 'seed-2026-11-09-icons', 'seed-2026-11-08-preview');
+UPDATE `changelog_entry` SET `published` = 0 WHERE `id` IN ('seed-2026-11-10-ingot', 'seed-2026-11-10-library', 'seed-2026-11-09-icons', 'seed-2026-11-08-preview');
 --> statement-breakpoint
 INSERT OR IGNORE INTO `changelog_entry` (`id`, `date`, `title`, `items`, `scene`, `published`, `createdAt`, `updatedAt`) VALUES
 ('v0.1.0', '2026-11-08', 'Ingot UI preview', '["Loopo design system live: tokens and 30 components, including 7 charts","MCP server with 14 tools, a CLI and a shadcn-compatible registry","Free accounts, API keys and a 5-action guest limit"]', 'seed', 1, 1794700800, 1794700800),
