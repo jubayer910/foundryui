@@ -102,14 +102,16 @@ export function Browser({ entries, categories, systems, initialCategory = "all",
         ))}
       </Scroller>
 
-      <Scroller label="Category" className="mt-1.5">
-        {cats.map((c) => (
-          <button key={c} aria-pressed={cat === c} data-on={cat === c} onClick={reset(() => setCat(c))} className="pill shrink-0">
-            {c === "all" ? "All" : c}
-            <span className="pill-count">{count(c).toLocaleString("en-US")}</span>
-          </button>
-        ))}
-      </Scroller>
+      {cats.length > 2 && (
+        <Scroller label="Category" className="mt-1.5">
+          {cats.map((c) => (
+            <button key={c} aria-pressed={cat === c} data-on={cat === c} onClick={reset(() => setCat(c))} className="pill shrink-0">
+              {c === "all" ? "All" : c}
+              <span className="pill-count">{count(c).toLocaleString("en-US")}</span>
+            </button>
+          ))}
+        </Scroller>
+      )}
 
       {shown.length ? (
         <>
@@ -128,7 +130,7 @@ export function Browser({ entries, categories, systems, initialCategory = "all",
         </>
       ) : (
         <div className="mt-4 rounded-[8px] bg-tile px-6 py-16 text-center">
-          <p className="text-[14px] font-medium">Nothing matches “{q}” yet</p>
+          <p className="text-[14px] font-medium">{q.trim() ? <>Nothing matches “{q.trim()}” yet</> : "Nothing matches these filters yet"}</p>
           <p className="mt-1 text-[13px] text-mute">Try a broader word such as chart, table or modal, or switch to all systems.</p>
           <button onClick={() => { setQ(""); setCat("all"); setSys("all"); setKind("all"); setLimit(PAGE); }} className="btn-line mt-4">
             Clear search and filters

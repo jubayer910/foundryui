@@ -153,7 +153,7 @@ export function ComponentWorkbench({ slug, name, files, installCmd, signedIn, fa
             </button>
           ))}
           {tab === "preview" && (
-            <div className="ml-auto flex gap-1.5" role="group" aria-label="Preview width">
+            <div className="ml-auto flex gap-1.5 max-sm:hidden" role="group" aria-label="Preview width">
               {(["full", "tablet", "mobile"] as const).map((w) => (
                 <button key={w} onClick={() => setWidth(w)} data-on={width === w} className="pill capitalize">
                   {w === "full" ? "Desktop" : w}
@@ -172,7 +172,7 @@ export function ComponentWorkbench({ slug, name, files, installCmd, signedIn, fa
           </div>
           {tab === "code" && (
             <div className="bg-white">
-              <div className="flex gap-1 overflow-x-auto border-b border-hair px-2 py-1.5">
+              <div className="no-scrollbar flex gap-1 overflow-x-auto border-b border-hair px-2 py-1.5">
                 {files.map((f, i) => (
                   <button key={f.path} onClick={() => setFile(i)} data-on={i === file} className="pill !h-6 shrink-0 font-fu-mono !text-[12px]">
                     {f.path.split("/").pop()}

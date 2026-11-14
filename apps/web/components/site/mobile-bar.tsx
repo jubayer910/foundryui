@@ -4,6 +4,7 @@ import { useState } from "react";
 import { CIcon } from "./chrome-icon";
 import { RailNav, type RailSystem } from "./rail-nav";
 import { Logo } from "./logo";
+import { AccountLink } from "./account-link";
 
 export function MobileBar({ systems }: { systems: RailSystem[] }) {
   const [open, setOpen] = useState(false);
@@ -13,13 +14,21 @@ export function MobileBar({ systems }: { systems: RailSystem[] }) {
         <Link href="/" aria-label="Ingot UI home">
           <Logo />
         </Link>
-        <button onClick={() => setOpen((o) => !o)} aria-expanded={open} aria-label={open ? "Close menu" : "Open menu"} className="flex size-8 items-center justify-center rounded-full bg-chip">
-          <CIcon name={open ? "x" : "menu"} size={16} />
-        </button>
+        <div className="flex items-center gap-2">
+          <AccountLink />
+          <button onClick={() => setOpen((o) => !o)} aria-expanded={open} aria-controls="mobile-menu" aria-label={open ? "Close menu" : "Open menu"} className="flex size-8 items-center justify-center rounded-full bg-chip hover:bg-chip-2">
+            <CIcon name={open ? "x" : "menu"} size={16} />
+          </button>
+        </div>
       </div>
       {open && (
-        <div className="max-h-[calc(100dvh-48px)] overflow-y-auto border-t border-hair px-2 py-4">
+        <div id="mobile-menu" className="absolute inset-x-0 top-full max-h-[calc(100dvh-48px)] overflow-y-auto border-y border-hair bg-white px-2 py-4 shadow-[0_16px_32px_-16px_rgb(0_0_0/0.18)]">
           <RailNav systems={systems} onNavigate={() => setOpen(false)} />
+          <p className="mt-4 flex flex-wrap gap-x-4 gap-y-1 border-t border-hair px-2 pt-4 text-[12px] text-mute">
+            <Link href="/about" onClick={() => setOpen(false)} className="hover:text-ink">About</Link>
+            <Link href="/changelog" onClick={() => setOpen(false)} className="hover:text-ink">Changelog</Link>
+            <Link href="/docs#license" onClick={() => setOpen(false)} className="hover:text-ink">License</Link>
+          </p>
         </div>
       )}
     </div>

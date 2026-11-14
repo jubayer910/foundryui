@@ -21,6 +21,9 @@ export function FigmaItemPage({ item }: { item: FigmaItem }) {
     ["Figma", "In the " + (sys?.name ?? "") + " Figma kit"],
     ["Code", qa ? "React (TSX), checked" : "In progress"],
   ];
+  // layer text worth showing: words, not axis ticks, amounts or month labels
+  const MONTH = /^(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*$/i;
+  const inside = (item.keywords ?? "").split(", ").filter((k) => /[a-z]{3}/i.test(k) && !MONTH.test(k.trim())).slice(0, 10);
   const related = entries.filter((e) => e.slug !== item.slug && e.system === item.system && e.category === item.category).slice(0, 4);
   return (
     <div className="max-w-[1400px]">
@@ -57,11 +60,11 @@ export function FigmaItemPage({ item }: { item: FigmaItem }) {
           <p className="text-[12px] leading-snug text-mute">
             {qa ? "Figma kit downloads open at launch." : "Figma kit downloads open at launch. React code for this component is being converted and checked against the Figma original; save it to see it first when it lands."}
           </p>
-          {item.keywords && (
+          {inside.length > 0 && (
             <div>
               <p className="text-[12px] text-mute">What’s inside</p>
               <p className="mt-1 flex flex-wrap gap-1">
-                {item.keywords.split(", ").filter(Boolean).slice(0, 10).map((k) => (
+                {inside.map((k) => (
                   <span key={k} className="rounded-full bg-chip px-2 py-0.5 text-[12px]">{k}</span>
                 ))}
               </p>

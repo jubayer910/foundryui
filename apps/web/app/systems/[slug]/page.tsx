@@ -111,7 +111,7 @@ export default async function SystemPage({ params }: PageProps<"/systems/[slug]"
         {s.status === "live" && (
           <section>
             <h2 className="text-[13px] font-medium">Foundations</h2>
-            <div className="mt-3 overflow-hidden rounded-[8px] shadow-[inset_0_0_0_1px_var(--color-hair)]">
+            <div className="mt-3 overflow-hidden rounded-[8px] shadow-[0_0_0_1px_var(--color-hair-2)]">
               <Preview slug="tokens" />
             </div>
           </section>
