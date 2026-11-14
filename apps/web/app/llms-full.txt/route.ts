@@ -1,9 +1,11 @@
 import { llmsFullTxt } from "@/lib/llms";
-import { allPosts } from "@/lib/blog/db";
 
-/** Dynamic so the guide list includes published database posts (the static-assets page cache never revalidates). CDN caches it 5 minutes. */
-export const dynamic = "force-dynamic";
+/**
+ * Static (prerendered): the full file is ~200 KB and building it per request risks the Worker CPU limit.
+ * Posts written in the admin appear in /llms.txt (dynamic, small) and /sitemap-posts.xml.
+ */
+export const dynamic = "force-static";
 
-export async function GET() {
-  return new Response(llmsFullTxt(await allPosts()), { headers: { "content-type": "text/plain; charset=utf-8", "cache-control": "public, max-age=300, s-maxage=300" } });
+export function GET() {
+  return new Response(llmsFullTxt(), { headers: { "content-type": "text/plain; charset=utf-8" } });
 }

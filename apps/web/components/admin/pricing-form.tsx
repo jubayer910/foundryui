@@ -231,28 +231,11 @@ export function PricingForm({ initial, sold, action }: { initial: Values; sold: 
           </div>
         </fieldset>
 
-        <fieldset className="card p-4">
-          <legend className="sr-only">Announcement bar</legend>
-          <div className="flex items-center gap-3">
-            <p className="text-[13px] font-medium">Announcement bar</p>
-            <label className="ml-auto flex cursor-pointer items-center gap-2 text-[13px]">
-              <input type="checkbox" name="ann_enabled" checked={v.ann_enabled} onChange={(e) => set("ann_enabled", e.target.checked)} className="size-4 accent-[#0b0b0b]" />
-              Show bar
-            </label>
-          </div>
-          <div className="mt-3 grid gap-3 sm:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
-            <label className="flex flex-col gap-1">
-              <span className="text-[12px] text-mute">Text</span>
-              <input name="ann_text" value={v.ann_text} onChange={(e) => set("ann_text", e.target.value)} aria-invalid={!!err("ann_text")} className={inputCls} maxLength={160} />
-              {err("ann_text") && <span className="text-[12px] text-[#c62828]">{err("ann_text")}</span>}
-            </label>
-            <label className="flex flex-col gap-1">
-              <span className="text-[12px] text-mute">Link</span>
-              <input name="ann_href" value={v.ann_href} onChange={(e) => set("ann_href", e.target.value)} aria-invalid={!!err("ann_href")} className={inputCls} placeholder="/pricing" />
-              {err("ann_href") && <span className="text-[12px] text-[#c62828]">{err("ann_href")}</span>}
-            </label>
-          </div>
-        </fieldset>
+        <div className="card flex flex-wrap items-center gap-3 p-4 text-[13px]">
+          <p className="font-medium">Announcement bar</p>
+          <p className="text-mute">{v.ann_enabled ? "On: " + v.ann_text : "Off"}</p>
+          <a href="/admin/announcement" className="btn-line ml-auto">Edit in Content</a>
+        </div>
 
         <div className="flex flex-wrap items-center gap-3">
           <button type="submit" disabled={pending} className="btn-ink disabled:opacity-60">

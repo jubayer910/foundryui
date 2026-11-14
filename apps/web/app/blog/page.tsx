@@ -2,9 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHead } from "@/components/site/page-head";
 import { PostCover } from "@/components/site/illo";
-import { connection } from "next/server";
-import { fmtDate, readingTime, type Post } from "@/lib/blog";
-import { allPosts } from "@/lib/blog/db";
+import { fmtDate, posts as codePosts, readingTime, type Post } from "@/lib/blog";
+import { NewPosts } from "./new-posts";
 import { JsonLd, abs, breadcrumbLd, pageMeta, SITE_NAME } from "@/lib/seo";
 
 export const metadata: Metadata = pageMeta({
@@ -15,12 +14,13 @@ export const metadata: Metadata = pageMeta({
 });
 
 /**
- * Rendered per request: lists the code posts and the published database posts (admin editor) by date, so a
- * post published in the admin appears here without a redeploy. The page is light (one D1 query).
+ * Static (prerendered): the code guides. Posts written in the admin are fetched in the browser from
+ * /api/blog/posts and shown above them (NewPosts), so they appear without a redeploy and without rendering
+ * this large page per request (Worker CPU limit). Each admin post is also server-rendered at /blog/<slug>
+ * and listed in /sitemap-posts.xml.
  */
-export default async function BlogIndex() {
-  await connection();
-  const posts = await allPosts();
+export default function BlogIndex() {
+  const posts = codePosts;
   const [lead, ...rest] = posts;
   const meta = (p: Post) => (
     <p className="flex flex-wrap gap-x-3 gap-y-1 text-[12px] text-mute">
@@ -48,6 +48,8 @@ export default async function BlogIndex() {
       <p className="mt-3 max-w-2xl text-[13px] leading-snug text-mute">
         Written by the Ingot UI team. Every number in these guides comes from the live library, and every comparison says where another tool is the better pick.
       </p>
+
+      <NewPosts exclude={posts.map((p) => p.slug)} />
 
       {lead && (
         <Link href={"/blog/" + lead.slug} className="card group mt-6 grid gap-5 p-3 transition-colors hover:bg-tile md:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] md:items-center">
