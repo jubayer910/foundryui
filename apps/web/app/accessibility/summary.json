@@ -1,0 +1,1143 @@
+{
+ "date": "2026-11-15",
+ "tool": "axe-core 4.14.0 in headless Chrome",
+ "rules": "WCAG 2.0, 2.1 and 2.2 level A and AA rules, plus axe best practices. Page-level rules (landmarks, page heading, document title) are off for components.",
+ "checked": {
+  "total": 74,
+  "generated": 48,
+  "handBuilt": 26,
+  "errors": 0
+ },
+ "cleanAtWcagAA": 26,
+ "bySystem": {
+  "loopo": {
+   "checked": 34,
+   "clean": 18
+  },
+  "auton": {
+   "checked": 8,
+   "clean": 2
+  },
+  "mailpulse": {
+   "checked": 8,
+   "clean": 2
+  },
+  "axon": {
+   "checked": 8,
+   "clean": 3
+  },
+  "veriq": {
+   "checked": 8,
+   "clean": 1
+  },
+  "vantage": {
+   "checked": 8,
+   "clean": 0
+  }
+ },
+ "byCategory": {
+  "Cards and panels": {
+   "checked": 6,
+   "clean": 3
+  },
+  "Headers": {
+   "checked": 4,
+   "clean": 1
+  },
+  "Modals": {
+   "checked": 7,
+   "clean": 3
+  },
+  "Tables and lists": {
+   "checked": 8,
+   "clean": 0
+  },
+  "Forms": {
+   "checked": 9,
+   "clean": 5
+  },
+  "Charts": {
+   "checked": 12,
+   "clean": 7
+  },
+  "Menus": {
+   "checked": 4,
+   "clean": 1
+  },
+  "Navigation": {
+   "checked": 7,
+   "clean": 1
+  },
+  "Drawers": {
+   "checked": 4,
+   "clean": 0
+  },
+  "KPI and stats": {
+   "checked": 5,
+   "clean": 1
+  },
+  "Popovers": {
+   "checked": 2,
+   "clean": 1
+  },
+  "Atoms": {
+   "checked": 5,
+   "clean": 3
+  },
+  "Feedback": {
+   "checked": 1,
+   "clean": 0
+  }
+ },
+ "topIssues": [
+  {
+   "id": "color-contrast",
+   "help": "Elements must meet minimum color contrast ratio thresholds",
+   "helpUrl": "https://dequeuniversity.com/rules/axe/4.14/color-contrast?application=axeAPI",
+   "impact": "serious",
+   "level": "AA",
+   "components": 48,
+   "nodes": 218,
+   "examples": [
+    {
+     "slug": "loopo-paypal-integration-card-18953638",
+     "system": "loopo",
+     "kind": "generated",
+     "target": "p:nth-child(2)",
+     "html": "<p style=\"flex-shrink:0;margin:0;text-align:left;white-space:pre;line-height:17px;font-family:'Geist';font-size:13.15px;font-weight:400;color:#999999\">Payments</p>",
+     "summary": "Fix any of the following:   Element has insufficient color contrast of 2.84 (foreground color: #999999, background color: #ffffff, font size: 9.9pt (13.15px), font weight: normal). Expected contrast ratio of 4.5:1"
+    },
+    {
+     "slug": "loopo-header-card-members-18965303",
+     "system": "loopo",
+     "kind": "generated",
+     "target": "#c > div > div:nth-child(2) > div:nth-child(1) > p",
+     "html": "<p style=\"flex:1 1 0;min-width:0;flex-shrink:0;margin:0;text-align:left;white-space:pre-wrap;line-height:20px;font-family:'Geist';font-size:15.34px;font-weight:400;color:#999999\">S",
+     "summary": "Fix any of the following:   Element has insufficient color contrast of 2.84 (foreground color: #999999, background color: #ffffff, font size: 11.5pt (15.34px), font weight: normal). Expected contrast ratio of 4.5:1"
+    },
+    {
+     "slug": "loopo-members-card-18965142",
+     "system": "loopo",
+     "kind": "generated",
+     "target": "div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > p",
+     "html": "<p style=\"flex:1 1 0;min-width:0;flex-shrink:0;margin:0;text-align:left;white-space:pre-wrap;line-height:20px;font-family:'Geist';font-size:15.34px;font-weight:400;color:#999999\">S",
+     "summary": "Fix any of the following:   Element has insufficient color contrast of 2.84 (foreground color: #999999, background color: #ffffff, font size: 11.5pt (15.34px), font weight: normal). Expected contrast ratio of 4.5:1"
+    }
+   ]
+  },
+  {
+   "id": "aria-toggle-field-name",
+   "help": "ARIA toggle fields must have an accessible name",
+   "helpUrl": "https://dequeuniversity.com/rules/axe/4.14/aria-toggle-field-name?application=axeAPI",
+   "impact": "serious",
+   "level": "A",
+   "components": 1,
+   "nodes": 6,
+   "examples": [
+    {
+     "slug": "data-table",
+     "system": "loopo",
+     "kind": "hand-built",
+     "target": "#base-ui-_R_96j4klritpet3lb_",
+     "html": "<span data-unchecked=\"\" role=\"checkbox\" tabindex=\"0\" id=\"base-ui-_R_96j4klrit...\" aria-checked=\"false\" class=\"flex size-[18px] ite...\" aria-labelledby=\"base-ui-_R_96j4klrit...\">",
+     "summary": "Fix any of the following:   Element does not have text that is visible to screen readers   aria-label attribute does not exist or is empty"
+    }
+   ]
+  },
+  {
+   "id": "empty-table-header",
+   "help": "Table header text should not be empty",
+   "helpUrl": "https://dequeuniversity.com/rules/axe/4.14/empty-table-header?application=axeAPI",
+   "impact": "minor",
+   "level": "best practice",
+   "components": 1,
+   "nodes": 1,
+   "examples": [
+    {
+     "slug": "data-table",
+     "system": "loopo",
+     "kind": "hand-built",
+     "target": ".w-10",
+     "html": "<th class=\"w-10 py-2.5 pl-4\"></th>",
+     "summary": "Fix any of the following:   Element does not have text that is visible to screen readers"
+    }
+   ]
+  },
+  {
+   "id": "heading-order",
+   "help": "Heading levels should only increase by one",
+   "helpUrl": "https://dequeuniversity.com/rules/axe/4.14/heading-order?application=axeAPI",
+   "impact": "moderate",
+   "level": "best practice",
+   "components": 1,
+   "nodes": 1,
+   "examples": [
+    {
+     "slug": "empty-state",
+     "system": "loopo",
+     "kind": "hand-built",
+     "target": ".text-\\[15px\\]",
+     "html": "<h3 class=\"text-[15px] font-medium tracking-[-0.01em] text-fu-ink\">No invoices yet</h3>",
+     "summary": "Fix any of the following:   Heading order invalid"
+    }
+   ]
+  }
+ ],
+ "keyboard": [
+  {
+   "slug": "button",
+   "tabStops": [
+    {
+     "role": "button",
+     "label": "Add funds",
+     "hasName": true,
+     "focus": "indicator"
+    },
+    {
+     "role": "button",
+     "label": "Upgrade",
+     "hasName": true,
+     "focus": "indicator"
+    },
+    {
+     "role": "button",
+     "label": "Export",
+     "hasName": true,
+     "focus": "indicator"
+    },
+    {
+     "role": "button",
+     "label": "Cancel",
+     "hasName": true,
+     "focus": "indicator"
+    },
+    {
+     "role": "button",
+     "label": "Delete",
+     "hasName": true,
+     "focus": "indicator"
+    }
+   ]
+  },
+  {
+   "slug": "icon-button",
+   "tabStops": [
+    {
+     "role": "button",
+     "label": "Notifications",
+     "hasName": true,
+     "focus": "indicator"
+    },
+    {
+     "role": "button",
+     "label": "Filters",
+     "hasName": true,
+     "focus": "indicator"
+    },
+    {
+     "role": "button",
+     "label": "More",
+     "hasName": true,
+     "focus": "indicator"
+    }
+   ]
+  },
+  {
+   "slug": "badge",
+   "tabStops": []
+  },
+  {
+   "slug": "delta-chip",
+   "tabStops": []
+  },
+  {
+   "slug": "input",
+   "tabStops": [
+    {
+     "role": "input",
+     "label": "",
+     "hasName": true,
+     "focus": "indicator"
+    },
+    {
+     "role": "input",
+     "label": "",
+     "hasName": true,
+     "focus": "indicator"
+    }
+   ]
+  },
+  {
+   "slug": "search-field",
+   "tabStops": [
+    {
+     "role": "input",
+     "label": "",
+     "hasName": true,
+     "focus": "indicator"
+    }
+   ]
+  },
+  {
+   "slug": "select",
+   "tabStops": [
+    {
+     "role": "combobox",
+     "label": "Period",
+     "hasName": true,
+     "focus": "indicator"
+    },
+    {
+     "role": "combobox",
+     "label": "Year",
+     "hasName": true,
+     "focus": "indicator"
+    }
+   ],
+   "overlay": {
+    "opensWith": "ArrowDown",
+    "role": "listbox",
+    "focusInside": true,
+    "focused": "option",
+    "labelled": false,
+    "modal": null,
+    "arrowKeysMove": true,
+    "focusTrapped": null,
+    "escapeCloses": true,
+    "focusReturns": true
+   }
+  },
+  {
+   "slug": "segmented-control",
+   "tabStops": [
+    {
+     "role": "radio",
+     "label": "Daily",
+     "hasName": true,
+     "focus": "indicator"
+    },
+    {
+     "role": "radio",
+     "label": "Weekly",
+     "hasName": true,
+     "focus": "indicator"
+    },
+    {
+     "role": "radio",
+     "label": "Monthly",
+     "hasName": true,
+     "focus": "indicator"
+    }
+   ]
+  },
+  {
+   "slug": "tabs",
+   "tabStops": [
+    {
+     "role": "tab",
+     "label": "Overview",
+     "hasName": true,
+     "focus": "indicator"
+    },
+    {
+     "role": "tabpanel",
+     "label": "Revenue is up 12% this month.",
+     "hasName": true,
+     "focus": "indicator"
+    }
+   ],
+   "tabs": {
+    "arrowMovesFocus": true,
+    "selectedFollows": false
+   }
+  },
+  {
+   "slug": "switch",
+   "tabStops": [
+    {
+     "role": "switch",
+     "label": "",
+     "hasName": true,
+     "focus": "indicator"
+    },
+    {
+     "role": "switch",
+     "label": "",
+     "hasName": true,
+     "focus": "indicator"
+    }
+   ]
+  },
+  {
+   "slug": "checkbox",
+   "tabStops": [
+    {
+     "role": "checkbox",
+     "label": "",
+     "hasName": true,
+     "focus": "indicator"
+    },
+    {
+     "role": "checkbox",
+     "label": "",
+     "hasName": true,
+     "focus": "indicator"
+    }
+   ]
+  },
+  {
+   "slug": "avatar-group",
+   "tabStops": []
+  },
+  {
+   "slug": "tooltip",
+   "tabStops": [
+    {
+     "role": "button",
+     "label": "Hover me",
+     "hasName": true,
+     "focus": "indicator"
+    }
+   ]
+  },
+  {
+   "slug": "dropdown-menu",
+   "tabStops": [
+    {
+     "role": "button",
+     "label": "Actions",
+     "hasName": true,
+     "focus": "indicator"
+    }
+   ],
+   "overlay": {
+    "opensWith": "Enter",
+    "role": "menu",
+    "focusInside": true,
+    "focused": "menuitem",
+    "labelled": true,
+    "modal": null,
+    "arrowKeysMove": true,
+    "focusTrapped": null,
+    "escapeCloses": true,
+    "focusReturns": true
+   }
+  },
+  {
+   "slug": "dialog",
+   "tabStops": [
+    {
+     "role": "button",
+     "label": "Open dialog",
+     "hasName": true,
+     "focus": "indicator"
+    }
+   ],
+   "overlay": {
+    "opensWith": "Enter",
+    "role": "dialog",
+    "focusInside": true,
+    "focused": "button",
+    "labelled": true,
+    "modal": null,
+    "arrowKeysMove": null,
+    "focusTrapped": true,
+    "escapeCloses": true,
+    "focusReturns": true
+   }
+  },
+  {
+   "slug": "capsule-bars",
+   "tabStops": []
+  },
+  {
+   "slug": "stacked-blocks",
+   "tabStops": []
+  },
+  {
+   "slug": "line-highlight",
+   "tabStops": []
+  },
+  {
+   "slug": "donut",
+   "tabStops": []
+  },
+  {
+   "slug": "pill-meter",
+   "tabStops": []
+  },
+  {
+   "slug": "hatch-track-list",
+   "tabStops": []
+  },
+  {
+   "slug": "kpi-card",
+   "tabStops": []
+  },
+  {
+   "slug": "ranked-list",
+   "tabStops": []
+  },
+  {
+   "slug": "data-table",
+   "tabStops": [
+    {
+     "role": "button",
+     "label": "Amount",
+     "hasName": true,
+     "focus": "indicator"
+    },
+    {
+     "role": "checkbox",
+     "label": "",
+     "hasName": true,
+     "focus": "indicator"
+    },
+    {
+     "role": "checkbox",
+     "label": "",
+     "hasName": true,
+     "focus": "indicator"
+    },
+    {
+     "role": "checkbox",
+     "label": "",
+     "hasName": true,
+     "focus": "indicator"
+    },
+    {
+     "role": "checkbox",
+     "label": "",
+     "hasName": true,
+     "focus": "indicator"
+    },
+    {
+     "role": "checkbox",
+     "label": "",
+     "hasName": true,
+     "focus": "indicator"
+    },
+    {
+     "role": "checkbox",
+     "label": "",
+     "hasName": true,
+     "focus": "indicator"
+    }
+   ]
+  },
+  {
+   "slug": "empty-state",
+   "tabStops": [
+    {
+     "role": "button",
+     "label": "New invoice",
+     "hasName": true,
+     "focus": "indicator"
+    }
+   ]
+  },
+  {
+   "slug": "sidebar-nav",
+   "tabStops": [
+    {
+     "role": "button",
+     "label": "Overview",
+     "hasName": true,
+     "focus": "indicator"
+    },
+    {
+     "role": "button",
+     "label": "Analytics",
+     "hasName": true,
+     "focus": "indicator"
+    },
+    {
+     "role": "button",
+     "label": "Invoices4",
+     "hasName": true,
+     "focus": "indicator"
+    },
+    {
+     "role": "button",
+     "label": "Customers",
+     "hasName": true,
+     "focus": "indicator"
+    },
+    {
+     "role": "button",
+     "label": "Wallet",
+     "hasName": true,
+     "focus": "indicator"
+    },
+    {
+     "role": "button",
+     "label": "Cards",
+     "hasName": true,
+     "focus": "indicator"
+    },
+    {
+     "role": "button",
+     "label": "Schedule",
+     "hasName": true,
+     "focus": "indicator"
+    }
+   ]
+  }
+ ],
+ "sitePages": [
+  {
+   "path": "/",
+   "violations": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "level": "AA",
+     "nodes": 19,
+     "help": "Elements must meet minimum color contrast ratio thresholds"
+    },
+    {
+     "id": "region",
+     "impact": "moderate",
+     "level": "best practice",
+     "nodes": 1,
+     "help": "All page content should be contained by landmarks"
+    },
+    {
+     "id": "target-size",
+     "impact": "serious",
+     "level": "AA",
+     "nodes": 2,
+     "help": "All touch targets must be 24px large, or leave sufficient space"
+    }
+   ]
+  },
+  {
+   "path": "/components/dialog",
+   "violations": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "level": "AA",
+     "nodes": 9,
+     "help": "Elements must meet minimum color contrast ratio thresholds"
+    },
+    {
+     "id": "landmark-unique",
+     "impact": "moderate",
+     "level": "best practice",
+     "nodes": 1,
+     "help": "Landmarks should have a unique role or role/label/title (i.e. accessible name) combination"
+    },
+    {
+     "id": "region",
+     "impact": "moderate",
+     "level": "best practice",
+     "nodes": 1,
+     "help": "All page content should be contained by landmarks"
+    },
+    {
+     "id": "target-size",
+     "impact": "serious",
+     "level": "AA",
+     "nodes": 2,
+     "help": "All touch targets must be 24px large, or leave sufficient space"
+    }
+   ]
+  },
+  {
+   "path": "/components/loopo-paypal-integration-card-18953638",
+   "violations": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "level": "AA",
+     "nodes": 9,
+     "help": "Elements must meet minimum color contrast ratio thresholds"
+    },
+    {
+     "id": "landmark-unique",
+     "impact": "moderate",
+     "level": "best practice",
+     "nodes": 1,
+     "help": "Landmarks should have a unique role or role/label/title (i.e. accessible name) combination"
+    },
+    {
+     "id": "region",
+     "impact": "moderate",
+     "level": "best practice",
+     "nodes": 1,
+     "help": "All page content should be contained by landmarks"
+    },
+    {
+     "id": "target-size",
+     "impact": "serious",
+     "level": "AA",
+     "nodes": 2,
+     "help": "All touch targets must be 24px large, or leave sufficient space"
+    }
+   ]
+  },
+  {
+   "path": "/systems",
+   "violations": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "level": "AA",
+     "nodes": 9,
+     "help": "Elements must meet minimum color contrast ratio thresholds"
+    },
+    {
+     "id": "region",
+     "impact": "moderate",
+     "level": "best practice",
+     "nodes": 1,
+     "help": "All page content should be contained by landmarks"
+    },
+    {
+     "id": "target-size",
+     "impact": "serious",
+     "level": "AA",
+     "nodes": 2,
+     "help": "All touch targets must be 24px large, or leave sufficient space"
+    }
+   ]
+  },
+  {
+   "path": "/pricing",
+   "violations": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "level": "AA",
+     "nodes": 10,
+     "help": "Elements must meet minimum color contrast ratio thresholds"
+    },
+    {
+     "id": "region",
+     "impact": "moderate",
+     "level": "best practice",
+     "nodes": 1,
+     "help": "All page content should be contained by landmarks"
+    },
+    {
+     "id": "target-size",
+     "impact": "serious",
+     "level": "AA",
+     "nodes": 2,
+     "help": "All touch targets must be 24px large, or leave sufficient space"
+    }
+   ]
+  },
+  {
+   "path": "/accessibility",
+   "violations": [
+    {
+     "id": "color-contrast",
+     "impact": "serious",
+     "level": "AA",
+     "nodes": 9,
+     "help": "Elements must meet minimum color contrast ratio thresholds"
+    },
+    {
+     "id": "landmark-unique",
+     "impact": "moderate",
+     "level": "best practice",
+     "nodes": 1,
+     "help": "Landmarks should have a unique role or role/label/title (i.e. accessible name) combination"
+    },
+    {
+     "id": "region",
+     "impact": "moderate",
+     "level": "best practice",
+     "nodes": 1,
+     "help": "All page content should be contained by landmarks"
+    },
+    {
+     "id": "target-size",
+     "impact": "serious",
+     "level": "AA",
+     "nodes": 2,
+     "help": "All touch targets must be 24px large, or leave sufficient space"
+    }
+   ]
+  }
+ ],
+ "codeCensus": {
+  "files": 1708,
+  "withButton": 0,
+  "withInput": 0,
+  "withRole": 0,
+  "withAriaLabel": 0,
+  "withHeading": 0
+ },
+ "components": {
+  "loopo-paypal-integration-card-18953638": [
+   {
+    "id": "color-contrast",
+    "help": "Elements must meet minimum color contrast ratio thresholds",
+    "nodes": 2
+   }
+  ],
+  "loopo-header-card-members-18965303": [
+   {
+    "id": "color-contrast",
+    "help": "Elements must meet minimum color contrast ratio thresholds",
+    "nodes": 1
+   }
+  ],
+  "loopo-header-modal-18843361": [],
+  "loopo-members-card-18965142": [
+   {
+    "id": "color-contrast",
+    "help": "Elements must meet minimum color contrast ratio thresholds",
+    "nodes": 24
+   }
+  ],
+  "loopo-form-row-region-18964943": [
+   {
+    "id": "color-contrast",
+    "help": "Elements must meet minimum color contrast ratio thresholds",
+    "nodes": 2
+   }
+  ],
+  "loopo-monthly-revenue-card-18958215": [
+   {
+    "id": "color-contrast",
+    "help": "Elements must meet minimum color contrast ratio thresholds",
+    "nodes": 16
+   }
+  ],
+  "loopo-gross-volume-menu-18843442": [
+   {
+    "id": "color-contrast",
+    "help": "Elements must meet minimum color contrast ratio thresholds",
+    "nodes": 2
+   }
+  ],
+  "loopo-tabs-18953796": [
+   {
+    "id": "color-contrast",
+    "help": "Elements must meet minimum color contrast ratio thresholds",
+    "nodes": 1
+   }
+  ],
+  "auton-footer-modal-cancel-16933259": [
+   {
+    "id": "color-contrast",
+    "help": "Elements must meet minimum color contrast ratio thresholds",
+    "nodes": 1
+   }
+  ],
+  "auton-request-detail-16939333": [
+   {
+    "id": "color-contrast",
+    "help": "Elements must meet minimum color contrast ratio thresholds",
+    "nodes": 21
+   }
+  ],
+  "auton-pager-previous-16934064": [],
+  "auton-footer-drawer-open-v6-in-editor-16937630": [
+   {
+    "id": "color-contrast",
+    "help": "Elements must meet minimum color contrast ratio thresholds",
+    "nodes": 2
+   }
+  ],
+  "auton-filter-popover-16950371": [
+   {
+    "id": "color-contrast",
+    "help": "Elements must meet minimum color contrast ratio thresholds",
+    "nodes": 6
+   }
+  ],
+  "auton-kpi-over-privileged-16931680": [
+   {
+    "id": "color-contrast",
+    "help": "Elements must meet minimum color contrast ratio thresholds",
+    "nodes": 1
+   }
+  ],
+  "auton-settings-nav-billing-plan-16948650": [],
+  "auton-all-toolbar-all-16938240": [
+   {
+    "id": "color-contrast",
+    "help": "Elements must meet minimum color contrast ratio thresholds",
+    "nodes": 1
+   }
+  ],
+  "mailpulse-lesson-pager-13835854": [
+   {
+    "id": "color-contrast",
+    "help": "Elements must meet minimum color contrast ratio thresholds",
+    "nodes": 2
+   }
+  ],
+  "mailpulse-post-card-paid-13836825": [
+   {
+    "id": "color-contrast",
+    "help": "Elements must meet minimum color contrast ratio thresholds",
+    "nodes": 3
+   }
+  ],
+  "mailpulse-header-modal-13830318": [],
+  "mailpulse-lesson-header-13835820": [
+   {
+    "id": "color-contrast",
+    "help": "Elements must meet minimum color contrast ratio thresholds",
+    "nodes": 1
+   }
+  ],
+  "mailpulse-growth-pattern-13835281": [],
+  "mailpulse-heatmap-metric-menu-13935554": [
+   {
+    "id": "color-contrast",
+    "help": "Elements must meet minimum color contrast ratio thresholds",
+    "nodes": 1
+   }
+  ],
+  "mailpulse-search-wrap-13930103": [
+   {
+    "id": "color-contrast",
+    "help": "Elements must meet minimum color contrast ratio thresholds",
+    "nodes": 1
+   }
+  ],
+  "mailpulse-search-name-email-or-tag-toolbar-13929466": [
+   {
+    "id": "color-contrast",
+    "help": "Elements must meet minimum color contrast ratio thresholds",
+    "nodes": 2
+   }
+  ],
+  "axon-roles-panel-73341757": [
+   {
+    "id": "color-contrast",
+    "help": "Elements must meet minimum color contrast ratio thresholds",
+    "nodes": 11
+   }
+  ],
+  "axon-footer-modal-cancel-73340155": [
+   {
+    "id": "color-contrast",
+    "help": "Elements must meet minimum color contrast ratio thresholds",
+    "nodes": 1
+   }
+  ],
+  "axon-row-2-runs-over-time-73349292": [],
+  "axon-sso-73341442": [],
+  "axon-footer-drawer-showing-7-of-18-fields-73340398": [
+   {
+    "id": "color-contrast",
+    "help": "Elements must meet minimum color contrast ratio thresholds",
+    "nodes": 1
+   }
+  ],
+  "axon-open-toolbar-73336425": [
+   {
+    "id": "color-contrast",
+    "help": "Elements must meet minimum color contrast ratio thresholds",
+    "nodes": 5
+   }
+  ],
+  "axon-stat-p95-duration-73244327": [
+   {
+    "id": "color-contrast",
+    "help": "Elements must meet minimum color contrast ratio thresholds",
+    "nodes": 1
+   }
+  ],
+  "axon-page-header-audit-log-73346704": [],
+  "veriq-role-item-6619946": [],
+  "veriq-info-owner-6624491": [
+   {
+    "id": "color-contrast",
+    "help": "Elements must meet minimum color contrast ratio thresholds",
+    "nodes": 3
+   }
+  ],
+  "veriq-footer-modal-cancel-6523676": [
+   {
+    "id": "color-contrast",
+    "help": "Elements must meet minimum color contrast ratio thresholds",
+    "nodes": 1
+   }
+  ],
+  "veriq-path-table-6618304": [
+   {
+    "id": "color-contrast",
+    "help": "Elements must meet minimum color contrast ratio thresholds",
+    "nodes": 24
+   }
+  ],
+  "veriq-tabs-all-6518910": [
+   {
+    "id": "color-contrast",
+    "help": "Elements must meet minimum color contrast ratio thresholds",
+    "nodes": 6
+   }
+  ],
+  "veriq-header-drawer-6519038": [
+   {
+    "id": "color-contrast",
+    "help": "Elements must meet minimum color contrast ratio thresholds",
+    "nodes": 2
+   }
+  ],
+  "veriq-metric-merge-rate-6523192": [
+   {
+    "id": "color-contrast",
+    "help": "Elements must meet minimum color contrast ratio thresholds",
+    "nodes": 2
+   }
+  ],
+  "veriq-open-pr-on-github-menu-6523699": [
+   {
+    "id": "color-contrast",
+    "help": "Elements must meet minimum color contrast ratio thresholds",
+    "nodes": 2
+   }
+  ],
+  "vantage-mover-fredis-yanelis-paredes-26434475": [
+   {
+    "id": "color-contrast",
+    "help": "Elements must meet minimum color contrast ratio thresholds",
+    "nodes": 4
+   }
+  ],
+  "vantage-messages-vs-mg1-26329891": [
+   {
+    "id": "color-contrast",
+    "help": "Elements must meet minimum color contrast ratio thresholds",
+    "nodes": 14
+   }
+  ],
+  "vantage-footer-modal-26231162": [
+   {
+    "id": "color-contrast",
+    "help": "Elements must meet minimum color contrast ratio thresholds",
+    "nodes": 1
+   }
+  ],
+  "vantage-next-rank-26334755": [
+   {
+    "id": "color-contrast",
+    "help": "Elements must meet minimum color contrast ratio thresholds",
+    "nodes": 10
+   }
+  ],
+  "vantage-header-drawer-colmado-d-az-26337432": [
+   {
+    "id": "color-contrast",
+    "help": "Elements must meet minimum color contrast ratio thresholds",
+    "nodes": 2
+   }
+  ],
+  "vantage-stat-past-due-26333034": [
+   {
+    "id": "color-contrast",
+    "help": "Elements must meet minimum color contrast ratio thresholds",
+    "nodes": 3
+   }
+  ],
+  "vantage-header-row-leg-26436001": [
+   {
+    "id": "color-contrast",
+    "help": "Elements must meet minimum color contrast ratio thresholds",
+    "nodes": 7
+   }
+  ],
+  "vantage-march-2026-tooltip-card-26230978": [
+   {
+    "id": "color-contrast",
+    "help": "Elements must meet minimum color contrast ratio thresholds",
+    "nodes": 1
+   }
+  ],
+  "button": [
+   {
+    "id": "color-contrast",
+    "help": "Elements must meet minimum color contrast ratio thresholds",
+    "nodes": 1
+   }
+  ],
+  "icon-button": [],
+  "badge": [],
+  "delta-chip": [],
+  "input": [],
+  "search-field": [
+   {
+    "id": "color-contrast",
+    "help": "Elements must meet minimum color contrast ratio thresholds",
+    "nodes": 1
+   }
+  ],
+  "select": [],
+  "segmented-control": [
+   {
+    "id": "color-contrast",
+    "help": "Elements must meet minimum color contrast ratio thresholds",
+    "nodes": 2
+   }
+  ],
+  "tabs": [],
+  "switch": [],
+  "checkbox": [],
+  "avatar-group": [
+   {
+    "id": "color-contrast",
+    "help": "Elements must meet minimum color contrast ratio thresholds",
+    "nodes": 1
+   }
+  ],
+  "tooltip": [],
+  "dropdown-menu": [],
+  "dialog": [],
+  "capsule-bars": [],
+  "stacked-blocks": [],
+  "line-highlight": [],
+  "donut": [],
+  "pill-meter": [
+   {
+    "id": "color-contrast",
+    "help": "Elements must meet minimum color contrast ratio thresholds",
+    "nodes": 1
+   }
+  ],
+  "hatch-track-list": [],
+  "kpi-card": [],
+  "ranked-list": [
+   {
+    "id": "color-contrast",
+    "help": "Elements must meet minimum color contrast ratio thresholds",
+    "nodes": 7
+   }
+  ],
+  "data-table": [
+   {
+    "id": "aria-toggle-field-name",
+    "help": "ARIA toggle fields must have an accessible name",
+    "nodes": 6
+   },
+   {
+    "id": "color-contrast",
+    "help": "Elements must meet minimum color contrast ratio thresholds",
+    "nodes": 5
+   }
+  ],
+  "empty-state": [
+   {
+    "id": "color-contrast",
+    "help": "Elements must meet minimum color contrast ratio thresholds",
+    "nodes": 1
+   }
+  ],
+  "sidebar-nav": [
+   {
+    "id": "color-contrast",
+    "help": "Elements must meet minimum color contrast ratio thresholds",
+    "nodes": 8
+   }
+  ]
+ }
+}
