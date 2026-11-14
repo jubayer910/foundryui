@@ -1,33 +1,40 @@
 import type { Metadata } from "next";
+import { connection } from "next/server";
 import { pageMeta } from "@/lib/seo";
 import { Icon } from "@/registry/components/icons";
 import { PageHead } from "@/components/site/page-head";
 import { IlloTile } from "@/components/site/illo";
+import { listChangelog, fmtChangelogDate, type ChangelogEntry } from "./entries";
 
 export const metadata: Metadata = pageMeta({ title: "Changelog", description: "What shipped in Ingot UI, newest first: new design systems, components, icons, MCP tools and site updates.", path: "/changelog" });
 
-const LOG = [
-  { scene: "ingots", date: "Nov 10, 2026", title: "Foundry UI is now Ingot UI", body: ["New name and home: ingotui.com. Old links redirect automatically", "CLI is now npx ingotui and the icon package is ingotui-icons", "Components install into components/ingot and styles/ingot; the agent rules file is INGOT.md", "MCP server moves to mcp.ingotui.com; update the URL in your agent config", "Resources: ten guides on dashboard UI kits, Figma to React, KPI cards, charts and MCP"] },
-  { scene: "grid", date: "Nov 10, 2026", title: "A library-first site and 1,852 Figma components", body: ["Figma libraries for all six systems: 1,852 components harvested from the product screens and checked", "New site: the home page is the library, with quick copy and save on every card", "Component pages with a facts panel, keyboard shortcuts (C, F, S) and a width switcher", "Saved and recent, a visible free-copies meter, and a plan comparison on Pricing"] },
-  { scene: "icons", date: "Nov 09, 2026", title: "Icon library and a new look", body: ["Ingot Icons: 7,165 icons in six styles (Stroke, Sharp, Solid, Duotone, Twotone, Bulk) on one 24px grid", "Icons page: search, 41 categories, stroke control, copy SVG or JSX, download", "ingotui-icons package with a tree-shakeable React entry", "MCP search_icons now searches the whole library and returns JSX and SVG", "Library browser redesign"] },
-  { scene: "seed", date: "Nov 08, 2026", title: "Ingot UI preview", body: ["Loopo design system live: tokens, 30 components incl. 7 charts", "Ingot Icons: first 30 original icons (Line style in code; Line, Fill, Duo in Figma)", "MCP server with 14 tools, CLI and shadcn-compatible registry", "Free accounts, API keys and the 5-action guest limit"] },
-];
-
-export default function ChangelogPage() {
+/** Entries come from D1 (edited at /admin/changelog), rendered per request so changes show without a redeploy. */
+export default async function ChangelogPage() {
+  await connection();
+  let log: ChangelogEntry[] = [];
+  let failed = false;
+  try {
+    log = await listChangelog();
+  } catch {
+    failed = true;
+  }
   return (
     <div className="max-w-3xl">
       <PageHead title="Changelog" sub="What shipped, newest first." />
-      {LOG.map((e) => (
-        <section key={e.title} className="mt-6 grid gap-2 border-t border-hair pt-5 sm:grid-cols-[160px_1fr] sm:gap-6">
+      {(failed || !log.length) && (
+        <p className="mt-6 border-t border-hair pt-5 text-[13px] text-mute">{failed ? "The changelog can't be loaded right now. Try again in a minute." : "Nothing here yet."}</p>
+      )}
+      {log.map((e) => (
+        <section key={e.id} className="mt-6 grid gap-2 border-t border-hair pt-5 sm:grid-cols-[160px_1fr] sm:gap-6">
           <div>
-            <p className="text-[13px] text-mute">{e.date}</p>
+            <p className="text-[13px] text-mute">{fmtChangelogDate(e.date)}</p>
             <IlloTile scene={e.scene} label={e.title} className="mt-2 hidden h-[110px] sm:block" />
           </div>
           <div>
           <h2 className="text-[14px] font-medium">{e.title}</h2>
           <ul className="mt-2 flex flex-col gap-1.5 text-[13px] text-mute">
-            {e.body.map((b) => (
-              <li key={b} className="flex items-start gap-2">
+            {e.items.map((b, i) => (
+              <li key={i} className="flex items-start gap-2">
                 <Icon name="plus" size={14} className="mt-0.5 shrink-0 text-ink" />
                 {b}
               </li>
