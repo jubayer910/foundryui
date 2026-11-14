@@ -6,6 +6,8 @@ import { ItemCard } from "./item-card";
 import { SaveButton } from "./save-button";
 import { categoryHref } from "@/lib/hubs";
 import { LivePreview } from "./live-preview";
+import { QaBadge } from "./qa-badge";
+import { A11yNotes } from "./a11y-notes";
 
 /** Page for a component that lives in a system's Figma library (code still in progress). */
 export function FigmaItemPage({ item }: { item: FigmaItem }) {
@@ -41,6 +43,7 @@ export function FigmaItemPage({ item }: { item: FigmaItem }) {
             <p className="mt-1 text-[13px] leading-snug text-mute">
               A {item.category.toLowerCase()} component from the {sys?.name} design system, taken from a real product screen and kept in its Figma library.
             </p>
+            <QaBadge slug={item.slug} className="mt-3" />
           </div>
           <dl className="border-t border-hair">
             {rows.map(([k, v]) => (
@@ -82,6 +85,7 @@ export function FigmaItemPage({ item }: { item: FigmaItem }) {
           </div>
         </div>
       </div>
+      <A11yNotes slug={item.slug} category={item.category} handBuilt={false} />
       {related.length > 0 && (
         <section className="mt-14">
           <h2 className="text-[13px] font-medium">More {item.category.toLowerCase()} in {sys?.name}</h2>

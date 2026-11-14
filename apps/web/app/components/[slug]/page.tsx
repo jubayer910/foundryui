@@ -7,6 +7,7 @@ import { getSessionUser } from "@/lib/auth";
 import { ComponentWorkbench } from "@/components/site/component-workbench";
 import { ItemCard } from "@/components/site/item-card";
 import { FigmaItemPage } from "@/components/site/figma-item-page";
+import { A11yNotes } from "@/components/site/a11y-notes";
 import { entries, figmaQA, getFigmaItem } from "@/lib/library";
 import { getSystem } from "@/lib/catalog";
 import { postsFor } from "@/lib/blog";
@@ -147,6 +148,7 @@ export default async function ComponentPage({ params }: PageProps<"/components/[
       <Suspense fallback={<div className="h-[560px] rounded-[8px] bg-tile" />}>
         <Workbench slug={slug} name={it.name} files={files} installCmd={"npx ingotui add " + slug} facts={facts} prompt={prompt} />
       </Suspense>
+      <A11yNotes slug={slug} category={entry.category} handBuilt />
 
       {related.length > 0 && (
         <section className="mt-14">
