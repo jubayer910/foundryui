@@ -239,3 +239,52 @@ export const staffInvite = sqliteTable(
   },
   (t) => [index("staff_invite_email_idx").on(t.email)],
 );
+
+/* ---- Content (migrations/0006_content.sql) ---- */
+
+/**
+ * Blog post written in the admin editor. `body` is markdown (lib/blog/markdown.ts turns it into the same Block[]
+ * the code posts use). JSON columns: faq [{q,a}], related and systems (string arrays).
+ */
+export const post = sqliteTable(
+  "post",
+  {
+    id: text("id").primaryKey(),
+    slug: text("slug").notNull().unique(),
+    title: text("title").notNull(),
+    metaTitle: text("metaTitle"),
+    description: text("description").notNull().default(""),
+    /** "Guides" | "Lists" | "Comparisons" | "AI agents" */
+    category: text("category").notNull().default("Guides"),
+    keyword: text("keyword").notNull().default(""),
+    body: text("body").notNull().default(""),
+    faq: text("faq").notNull().default("[]"),
+    related: text("related").notNull().default("[]"),
+    systems: text("systems").notNull().default("[]"),
+    /** key of SCENES in components/site/illo; null = picked by category */
+    coverScene: text("coverScene"),
+    /** "draft" | "published" */
+    status: text("status").notNull().default("draft"),
+    publishedAt: ts("publishedAt"),
+    createdAt: ts("createdAt").notNull(),
+    updatedAt: ts("updatedAt").notNull(),
+    authorId: text("authorId"),
+  },
+  (t) => [index("post_status_idx").on(t.status, t.publishedAt)],
+);
+
+/** One changelog entry. `date` is "YYYY-MM-DD"; `items` is a JSON string array (one line each). */
+export const changelogEntry = sqliteTable(
+  "changelog_entry",
+  {
+    id: text("id").primaryKey(),
+    date: text("date").notNull(),
+    title: text("title").notNull(),
+    items: text("items").notNull().default("[]"),
+    scene: text("scene").notNull().default("stack"),
+    published: integer("published", { mode: "boolean" }).notNull().default(true),
+    createdAt: ts("createdAt").notNull(),
+    updatedAt: ts("updatedAt").notNull(),
+  },
+  (t) => [index("changelog_date_idx").on(t.date)],
+);

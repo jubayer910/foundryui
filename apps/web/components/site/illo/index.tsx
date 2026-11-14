@@ -17,12 +17,12 @@ export function Illo({ scene, label, className }: { scene: string; label: string
 
 export const sceneForPost = (slug: string, category: string) => POST_SCENE[slug] ?? CATEGORY_SCENE[category] ?? "stack";
 
-/** Cover tile for a guide: soft tile background with the scene centred. */
-export function PostCover({ slug, category, title, size = "card" }: { slug: string; category: string; title: string; size?: "small" | "card" | "lead" | "hero" }) {
+/** Cover tile for a guide: soft tile background with the scene centred. `scene` overrides the slug/category pick (database posts). */
+export function PostCover({ slug, category, title, size = "card", scene }: { slug: string; category: string; title: string; size?: "small" | "card" | "lead" | "hero"; scene?: string }) {
   const h = size === "lead" ? "h-[220px] sm:h-[260px]" : size === "hero" ? "h-[220px] sm:h-[300px]" : size === "small" ? "h-[132px]" : "h-[170px]";
   return (
     <div className={`illo-tile ${h}`}>
-      <Illo scene={sceneForPost(slug, category)} label={"Illustration for " + title} className="h-full w-full" />
+      <Illo scene={scene && SCENES[scene] ? scene : sceneForPost(slug, category)} label={"Illustration for " + title} className="h-full w-full" />
     </div>
   );
 }
