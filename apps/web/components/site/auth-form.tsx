@@ -26,7 +26,7 @@ export function AuthForm({ mode, next = "/account" }: { mode: "sign-in" | "sign-
     window.location.href = next;
   }
 
-  const field = "h-9 w-full rounded-[8px] bg-chip px-3 text-[13px] outline-none transition-[background-color,box-shadow] placeholder:text-mute focus:bg-white focus:shadow-[inset_0_0_0_1.5px_var(--color-ink)]";
+  const field = "field-input h-9 w-full rounded-[8px] bg-chip px-3 text-[13px] transition-[background-color,box-shadow] placeholder:text-mute";
   return (
     <form onSubmit={onSubmit} className="flex flex-col gap-4">
       {mode === "sign-up" && (

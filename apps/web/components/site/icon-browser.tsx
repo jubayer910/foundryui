@@ -81,7 +81,7 @@ export function IconBrowser({ initialQuery = "" }: { initialQuery?: string }) {
     <div className="grid grid-cols-1 gap-6 lg:grid-cols-[220px_1fr]">
       <aside className="min-w-0 lg:sticky lg:top-24 lg:max-h-[calc(100vh-8rem)] lg:self-start lg:overflow-y-auto">
         <p className="eyebrow mb-3 hidden lg:block">Categories</p>
-        <ul className="flex gap-1 overflow-x-auto lg:flex-col lg:overflow-visible">
+        <ul className="no-scrollbar fade-end flex gap-1 overflow-x-auto lg:flex-col lg:overflow-visible">
           {[["All", meta?.length ?? 0] as [string, number], ...cats].map(([c, n]) => (
             <li key={c} className="shrink-0">
               <button onClick={() => setCat(c)} className={"flex h-8 w-full items-center justify-between gap-4 rounded-[8px] px-2.5 text-left text-[13px] " + (cat === c ? "bg-card text-ink shadow-[inset_0_0_0_1px_var(--color-hair-2)]" : "text-ink-2 hover:bg-wash")}>
@@ -95,11 +95,11 @@ export function IconBrowser({ initialQuery = "" }: { initialQuery?: string }) {
 
       <div className="min-w-0">
         <div className="sticky top-14 z-10 -mx-1 mb-4 flex flex-wrap items-center gap-3 bg-paper/90 px-1 py-2 backdrop-blur">
-          <label className="flex h-11 min-w-[240px] flex-1 basis-full items-center gap-2.5 rounded-[12px] bg-card px-3.5 shadow-[inset_0_0_0_1px_var(--color-hair-2)] focus-within:shadow-[inset_0_0_0_1.5px_var(--color-ink)] xl:basis-0">
+          <label className="field-pill flex h-11 min-w-0 flex-1 basis-full items-center gap-2.5 rounded-[12px] bg-card px-3.5 shadow-[inset_0_0_0_1px_var(--color-hair-2)] xl:basis-0 xl:min-w-[240px]">
             <Icon name="search" size={16} className="text-mute" />
-            <input value={q} onChange={(e) => setQ(e.target.value)} placeholder={`Search ${meta ? meta.length.toLocaleString("en-US") : "7,000+"} icons, e.g. invoice, upload, chart`} className="w-full bg-transparent text-[14px] outline-none placeholder:text-faint" />
+            <input value={q} onChange={(e) => setQ(e.target.value)} placeholder={`Search ${meta ? meta.length.toLocaleString("en-US") : "7,000+"} icons, e.g. invoice`} className="w-full bg-transparent text-[14px] placeholder:text-faint" aria-label="Search icons" />
           </label>
-          <div className="flex h-11 max-w-full items-center gap-0.5 overflow-x-auto rounded-[12px] bg-card p-1 shadow-[inset_0_0_0_1px_var(--color-hair-2)]">
+          <div className="no-scrollbar flex h-11 max-w-full items-center gap-0.5 overflow-x-auto rounded-[12px] bg-card p-1 shadow-[inset_0_0_0_1px_var(--color-hair-2)]">
             {STYLES.map((s) => (
               <button key={s} onClick={() => setStyle(s)} className={"h-9 shrink-0 rounded-[9px] px-2.5 text-[13px] " + (style === s ? "bg-ink text-white" : "text-ink-2 hover:bg-wash")}>
                 {LABEL[s]}
