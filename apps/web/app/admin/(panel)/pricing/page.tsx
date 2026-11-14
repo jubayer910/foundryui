@@ -15,7 +15,7 @@ export default async function AdminPricing() {
   const str = (n: number) => String(n);
   return (
     <div>
-      <AdminHead title="Pricing & deal" sub="Prices, the Lifetime launch deal and the announcement bar." />
+      <AdminHead title="Pricing & deal" sub="Prices, the Lifetime launch deal with its spots and end date, and the announcement bar." />
       <PricingForm
         sold={deal.sold}
         action={savePricing}
@@ -31,6 +31,9 @@ export default async function AdminPricing() {
           deal_enabled: s.deal.enabled,
           spotsTotal: str(s.deal.spotsTotal),
           after: s.deal.after,
+          deal_endsAt: s.deal.endsAt || "",
+          deal_showSpots: s.deal.showSpots !== false,
+          deal_showTimer: s.deal.showTimer !== false,
           ann_enabled: s.announcement.enabled,
           ann_text: s.announcement.text,
           ann_href: s.announcement.href,

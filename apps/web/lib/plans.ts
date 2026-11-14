@@ -15,10 +15,44 @@ export const isPaid = (plan: string | null | undefined) => plan === "pro" || pla
 /** Seats in one Team plan, the owner included. */
 export const TEAM_SEATS = 5;
 
-export type Deal = { enabled: boolean; total: number; sold: number; left: number; soldOut: boolean; after: Settings["deal"]["after"] };
+export type DealReason = "disabled" | "sold_out" | "ended";
+export type Deal = {
+  enabled: boolean;
+  total: number;
+  sold: number;
+  left: number;
+  soldOut: boolean;
+  after: Settings["deal"]["after"];
+  /** Real end date (UTC ISO) or null when the deal has no end date. */
+  endsAt: string | null;
+  /** The end date has passed. */
+  ended: boolean;
+  /** The deal price is on sale right now: enabled, spots left and before endsAt. */
+  active: boolean;
+  /** Why the deal is not on sale (null while active). */
+  reason: DealReason | null;
+  showSpots: boolean;
+  /** Countdown shown: the owner's toggle and an end date. */
+  showTimer: boolean;
+};
+
+/** A valid end date as ms since epoch, or null. */
+export function dealEndMs(endsAt: string | null | undefined): number | null {
+  if (!endsAt) return null;
+  const t = Date.parse(endsAt);
+  return Number.isFinite(t) ? t : null;
+}
+
+/** The one rule for "is the deal price on sale": enabled AND spots left AND (no end date OR now < end). Checkout, pricing, /api/site and admin all use it. */
+export function dealState(d: { enabled: boolean; left: number; endsAt: string | null | undefined }, now = Date.now()): { active: boolean; ended: boolean; reason: DealReason | null } {
+  const end = dealEndMs(d.endsAt);
+  const ended = end !== null && now >= end;
+  const reason: DealReason | null = !d.enabled ? "disabled" : d.left <= 0 ? "sold_out" : ended ? "ended" : null;
+  return { active: reason === null, ended, reason };
+}
 
 /** Real spots: paid (not refunded) lifetime purchases at the deal. */
-export async function getDeal(s?: Settings): Promise<Deal> {
+export async function getDeal(s?: Settings, now = Date.now()): Promise<Deal> {
   const settings = s ?? (await getSettings());
   let sold = 0;
   try {
@@ -31,7 +65,23 @@ export async function getDeal(s?: Settings): Promise<Deal> {
   } catch {}
   const total = settings.deal.spotsTotal;
   const left = Math.max(0, total - sold);
-  return { enabled: settings.deal.enabled, total, sold, left, soldOut: left === 0, after: settings.deal.after };
+  const end = dealEndMs(settings.deal.endsAt);
+  const endsAt = end === null ? null : new Date(end).toISOString();
+  const st = dealState({ enabled: settings.deal.enabled, left, endsAt }, now);
+  return {
+    enabled: settings.deal.enabled,
+    total,
+    sold,
+    left,
+    soldOut: left === 0,
+    after: settings.deal.after,
+    endsAt,
+    ended: st.ended,
+    active: st.active,
+    reason: st.reason,
+    showSpots: settings.deal.showSpots !== false,
+    showTimer: settings.deal.showTimer !== false && endsAt !== null,
+  };
 }
 
 export type PriceBook = {
@@ -50,11 +100,12 @@ export type PriceBook = {
   dealActive: boolean;
 };
 
-export async function getPriceBook(): Promise<PriceBook> {
+export async function getPriceBook(now = Date.now()): Promise<PriceBook> {
   const settings = await getSettings();
-  const deal = await getDeal(settings);
-  const dealActive = deal.enabled && !deal.soldOut;
-  const closed = deal.enabled && deal.soldOut && deal.after === "closed";
+  const deal = await getDeal(settings, now);
+  const dealActive = deal.active;
+  // The deal ran and finished (spots gone or end date passed): Lifetime follows the owner's after-deal rule.
+  const closed = deal.enabled && !dealActive && deal.after === "closed";
   return {
     settings,
     deal,
@@ -141,13 +192,22 @@ export const optionName = (option: string) =>
             ? "Lifetime"
             : "Free";
 
-/** The one honest sentence about what happens when the deal spots are gone. */
+/** The one honest sentence about what happens when the deal ends (spots gone or end date passed). */
 export function dealRule(pb: PriceBook) {
   const { deal, settings } = pb;
   if (!deal.enabled) return "";
-  if (deal.soldOut)
-    return deal.after === "closed" ? "All " + deal.total + " launch spots are taken, so Lifetime is closed." : "All " + deal.total + " launch spots are taken. Lifetime is now " + usd(settings.prices.lifetimeAfter) + ".";
-  return deal.after === "closed" ? "When all " + deal.total + " spots are taken, Lifetime closes." : "When all " + deal.total + " spots are taken, Lifetime goes to " + usd(settings.prices.lifetimeAfter) + ".";
+  const after = usd(settings.prices.lifetimeAfter);
+  if (deal.reason === "sold_out") return deal.after === "closed" ? "All " + deal.total + " launch spots are taken, so Lifetime is closed." : "All " + deal.total + " launch spots are taken. Lifetime is now " + after + ".";
+  if (deal.reason === "ended") return deal.after === "closed" ? "The launch deal has ended, so Lifetime is closed." : "The launch deal has ended. Lifetime is now " + after + ".";
+  const end = deal.endsAt ? " or on " + dealEndText(deal.endsAt) : "";
+  const when = "When all " + deal.total + " spots are taken" + end;
+  return deal.after === "closed" ? when + ", Lifetime closes." : when + ", Lifetime goes to " + after + ".";
+}
+
+/** A fixed, readable UTC end date for server-rendered copy, e.g. "Nov 30, 2026, 23:59 UTC". */
+export function dealEndText(endsAt: string) {
+  const d = new Date(endsAt);
+  return d.toLocaleString("en-US", { timeZone: "UTC", month: "short", day: "numeric", year: "numeric", hour: "2-digit", minute: "2-digit", hourCycle: "h23" }) + " UTC";
 }
 
 /** One plain-text line for llms.txt and anywhere else prices are quoted in copy. */
@@ -156,7 +216,7 @@ export function pricingSentence(pb: PriceBook) {
     pb.lifetime === null
       ? "Lifetime is closed"
       : pb.dealActive
-        ? "Lifetime (" + usd(pb.lifetime) + " once for the first " + pb.deal.total + " buyers" + (pb.deal.after === "price" ? ", then " + usd(pb.settings.prices.lifetimeAfter) : "") + "; every system and every future update, forever)"
+        ? "Lifetime (" + usd(pb.lifetime) + " once for the first " + pb.deal.total + " buyers" + (pb.deal.endsAt ? " until " + dealEndText(pb.deal.endsAt) : "") + (pb.deal.after === "price" ? ", then " + usd(pb.settings.prices.lifetimeAfter) : "") + "; every system and every future update, forever)"
         : "Lifetime (" + usd(pb.lifetime) + " once; every system and every future update, forever)";
   return (
     "Free (Loopo system, free components, every icon, 50 MCP calls a day), Pro (" +

@@ -23,7 +23,7 @@ export function checkoutKeys(env: CloudflareEnv): CheckoutKeys | null {
 /** Creates a hosted checkout (JSON:API, POST /v1/checkouts) and returns its URL. */
 export async function createCheckout(
   keys: CheckoutKeys,
-  input: { variantId: string; email: string; userId: string; name?: string; redirectUrl: string },
+  input: { variantId: string; email: string; userId: string; name?: string; redirectUrl: string; expiresAt?: string },
 ): Promise<string> {
   const body = {
     data: {
@@ -31,6 +31,8 @@ export async function createCheckout(
       attributes: {
         checkout_data: { email: input.email, ...(input.name ? { name: input.name } : {}), custom: { user_id: input.userId } },
         product_options: { redirect_url: input.redirectUrl },
+        // A deal checkout stops working when the deal ends, so a link opened just before can't be paid after.
+        ...(input.expiresAt ? { expires_at: input.expiresAt } : {}),
       },
       relationships: {
         store: { data: { type: "stores", id: String(keys.storeId) } },
@@ -157,105 +159,133 @@ const optionPlan = (k: VariantKey | null): { plan: PlanId; variant: string; inte
 
 export type HandleResult = { ok: true; action: string; userId: string | null; plan?: string; note?: string };
 
+/**
+ * Where a row came from, kept in purchase.raw / subscription.raw. Webhook rows carry the event name;
+ * rows written by the API sync (lib/lemonsqueezy-sync.ts) carry source "sync".
+ */
+export type RowOrigin = { event: string } | { source: "sync" };
+
+/** Upserts one Lemon Squeezy order (an `orders` resource) into purchase, then moves user.plan. Shared by the webhook and the sync. */
+export async function upsertOrder(
+  db: Db,
+  settings: Settings,
+  input: { orderId: string; attrs: Attrs; customUserId?: unknown; testMode: boolean; origin: RowOrigin; refundedEvent?: boolean },
+): Promise<HandleResult> {
+  const a = input.attrs;
+  const email = str(a.user_email);
+  const user = await findUser(db, input.customUserId, email);
+  const now = new Date();
+  const item = (a.first_order_item ?? {}) as Attrs;
+  const key = variantKeyForId(settings, str(item.variant_id));
+  const op = optionPlan(key);
+  if (!op) return { ok: true, action: "unmatched_variant", userId: user?.id ?? null, note: "variant " + str(item.variant_id) + " is not in the admin variant IDs" };
+  const lsStatus = str(a.status) ?? "pending";
+  const status = input.refundedEvent || a.refunded === true || lsStatus === "refunded" ? "refunded" : lsStatus === "paid" ? "paid" : lsStatus;
+  const orderId = String(input.orderId);
+  const raw = JSON.stringify({ ...input.origin, test_mode: input.testMode, attributes: a });
+  const values = {
+    id: "ls_" + orderId,
+    provider: PROVIDER,
+    providerOrderId: orderId,
+    userId: user?.id ?? null,
+    email: email ?? "",
+    plan: op.plan,
+    variant: op.variant,
+    amountCents: Number(a.total ?? 0) || 0,
+    currency: str(a.currency) ?? "USD",
+    status,
+    raw,
+    createdAt: date(a.created_at) ?? now,
+    updatedAt: now,
+  };
+  // A late order_created after order_refunded must not flip a refund back to paid.
+  const [prev] = await db.select({ status: schema.purchase.status }).from(schema.purchase).where(and(eq(schema.purchase.provider, PROVIDER), eq(schema.purchase.providerOrderId, orderId))).limit(1);
+  if (prev?.status === "refunded" && status !== "refunded") values.status = "refunded";
+  await db
+    .insert(schema.purchase)
+    .values(values)
+    .onConflictDoUpdate({
+      target: [schema.purchase.provider, schema.purchase.providerOrderId],
+      set: { userId: values.userId, email: values.email, plan: values.plan, variant: values.variant, amountCents: values.amountCents, currency: values.currency, status: values.status, raw: values.raw, updatedAt: now },
+    });
+  let plan: string | undefined;
+  if (user) plan = await applyPlan(db, user, values.status === "refunded" ? "down" : "up");
+  return { ok: true, action: input.refundedEvent ? "purchase_refunded" : "purchase_" + values.status, userId: user?.id ?? null, plan };
+}
+
+/** Upserts one Lemon Squeezy subscription (a `subscriptions` resource), skipping data older than the stored row. Shared by the webhook and the sync. */
+export async function upsertSubscription(
+  db: Db,
+  settings: Settings,
+  input: { subId: string; attrs: Attrs; customUserId?: unknown; testMode: boolean; origin: RowOrigin; eventName?: string },
+): Promise<HandleResult> {
+  const a = input.attrs;
+  const name = input.eventName ?? "";
+  const email = str(a.user_email);
+  const user = await findUser(db, input.customUserId, email);
+  const now = new Date();
+  const key = variantKeyForId(settings, str(a.variant_id));
+  const op = optionPlan(key);
+  const variantName = (str(a.variant_name) ?? "").toLowerCase();
+  const interval = op?.interval ?? (variantName.includes("year") || variantName.includes("annual") ? "yearly" : "monthly");
+  // Unknown variant: keep the plan already on the row (or "pro", the historic default for a new row).
+  const subPlan = op?.plan === "team" ? "team" : op?.plan === "pro" ? "pro" : null;
+  const subId = String(input.subId);
+  const status = str(a.status) ?? (name === "subscription_expired" ? "expired" : name === "subscription_cancelled" ? "cancelled" : "active");
+  const urls = (a.urls ?? {}) as Attrs;
+  const updatedAt = date(a.updated_at) ?? now;
+  const [prev] = await db
+    .select({ raw: schema.subscription.raw })
+    .from(schema.subscription)
+    .where(and(eq(schema.subscription.provider, PROVIDER), eq(schema.subscription.providerSubId, subId)))
+    .limit(1);
+  let prevUpdated: Date | null = null;
+  try {
+    prevUpdated = prev?.raw ? date((JSON.parse(prev.raw) as { attributes?: Attrs }).attributes?.updated_at) : null;
+  } catch {}
+  if (prevUpdated && prevUpdated > updatedAt) return { ok: true, action: "stale_subscription_event", userId: user?.id ?? null };
+  const values = {
+    id: "ls_" + subId,
+    provider: PROVIDER,
+    providerSubId: subId,
+    userId: user?.id ?? null,
+    email: email ?? "",
+    plan: subPlan ?? "pro",
+    interval,
+    status,
+    renewsAt: date(a.renews_at),
+    endsAt: date(a.ends_at),
+    portalUrl: str(urls.customer_portal),
+    raw: JSON.stringify({ ...input.origin, test_mode: input.testMode, attributes: a }),
+    createdAt: date(a.created_at) ?? now,
+    updatedAt: now,
+  };
+  await db
+    .insert(schema.subscription)
+    .values(values)
+    .onConflictDoUpdate({
+      target: [schema.subscription.provider, schema.subscription.providerSubId],
+      set: { userId: values.userId, email: values.email, plan: subPlan ?? sql`${schema.subscription.plan}`, interval: values.interval, status: values.status, renewsAt: values.renewsAt, endsAt: values.endsAt, portalUrl: values.portalUrl ?? sql`${schema.subscription.portalUrl}`, raw: values.raw, updatedAt: now },
+    });
+  let plan: string | undefined;
+  if (user) plan = await applyPlan(db, user, "auto");
+  return { ok: true, action: "subscription_" + status, userId: user?.id ?? null, plan };
+}
+
 /** Handles one verified Lemon Squeezy event. Every write is an upsert, so redeliveries are harmless. */
 export async function handleEvent(db: Db, settings: Settings, ev: LsEvent): Promise<HandleResult> {
   const name = ev.meta?.event_name ?? "unknown";
   const a: Attrs = ev.data?.attributes ?? {};
   const email = str(a.user_email);
-  const user = await findUser(db, ev.meta?.custom_data?.user_id, email);
+  const customUserId = ev.meta?.custom_data?.user_id;
+  const user = await findUser(db, customUserId, email);
   const now = new Date();
   let result: HandleResult = { ok: true, action: "ignored", userId: user?.id ?? null };
 
   if (name === "order_created" || name === "order_refunded") {
-    const item = (a.first_order_item ?? {}) as Attrs;
-    const key = variantKeyForId(settings, str(item.variant_id));
-    const op = optionPlan(key);
-    if (!op) {
-      result = { ...result, action: "unmatched_variant", note: "variant " + str(item.variant_id) + " is not in the admin variant IDs" };
-    } else {
-      const lsStatus = str(a.status) ?? "pending";
-      const status = name === "order_refunded" || a.refunded === true || lsStatus === "refunded" ? "refunded" : lsStatus === "paid" ? "paid" : lsStatus;
-      const orderId = String(ev.data.id);
-      const raw = JSON.stringify({ event: name, test_mode: !!ev.meta.test_mode, attributes: a });
-      const values = {
-        id: "ls_" + orderId,
-        provider: PROVIDER,
-        providerOrderId: orderId,
-        userId: user?.id ?? null,
-        email: email ?? "",
-        plan: op.plan,
-        variant: op.variant,
-        amountCents: Number(a.total ?? 0) || 0,
-        currency: str(a.currency) ?? "USD",
-        status,
-        raw,
-        createdAt: date(a.created_at) ?? now,
-        updatedAt: now,
-      };
-      // A late order_created after order_refunded must not flip a refund back to paid.
-      const [prev] = await db.select({ status: schema.purchase.status }).from(schema.purchase).where(and(eq(schema.purchase.provider, PROVIDER), eq(schema.purchase.providerOrderId, orderId))).limit(1);
-      if (prev?.status === "refunded" && status !== "refunded") values.status = "refunded";
-      await db
-        .insert(schema.purchase)
-        .values(values)
-        .onConflictDoUpdate({
-          target: [schema.purchase.provider, schema.purchase.providerOrderId],
-          set: { userId: values.userId, email: values.email, plan: values.plan, variant: values.variant, amountCents: values.amountCents, currency: values.currency, status: values.status, raw: values.raw, updatedAt: now },
-        });
-      let plan: string | undefined;
-      if (user) plan = await applyPlan(db, user, values.status === "refunded" ? "down" : "up");
-      result = { ok: true, action: name === "order_created" ? "purchase_" + values.status : "purchase_refunded", userId: user?.id ?? null, plan };
-    }
+    result = await upsertOrder(db, settings, { orderId: String(ev.data.id), attrs: a, customUserId, testMode: !!ev.meta.test_mode, origin: { event: name }, refundedEvent: name === "order_refunded" });
   } else if (name.startsWith("subscription_") && ev.data?.type === "subscriptions") {
-    const key = variantKeyForId(settings, str(a.variant_id));
-    const op = optionPlan(key);
-    const variantName = (str(a.variant_name) ?? "").toLowerCase();
-    const interval = op?.interval ?? (variantName.includes("year") || variantName.includes("annual") ? "yearly" : "monthly");
-    // Unknown variant: keep the plan already on the row (or "pro", the historic default for a new row).
-    const subPlan = op?.plan === "team" ? "team" : op?.plan === "pro" ? "pro" : null;
-    const subId = String(ev.data.id);
-    const status = str(a.status) ?? (name === "subscription_expired" ? "expired" : name === "subscription_cancelled" ? "cancelled" : "active");
-    const urls = (a.urls ?? {}) as Attrs;
-    const updatedAt = date(a.updated_at) ?? now;
-    const [prev] = await db
-      .select({ raw: schema.subscription.raw })
-      .from(schema.subscription)
-      .where(and(eq(schema.subscription.provider, PROVIDER), eq(schema.subscription.providerSubId, subId)))
-      .limit(1);
-    let prevUpdated: Date | null = null;
-    try {
-      prevUpdated = prev?.raw ? date((JSON.parse(prev.raw) as { attributes?: Attrs }).attributes?.updated_at) : null;
-    } catch {}
-    if (prevUpdated && prevUpdated > updatedAt) {
-      result = { ...result, action: "stale_subscription_event" };
-    } else {
-      const values = {
-        id: "ls_" + subId,
-        provider: PROVIDER,
-        providerSubId: subId,
-        userId: user?.id ?? null,
-        email: email ?? "",
-        plan: subPlan ?? "pro",
-        interval,
-        status,
-        renewsAt: date(a.renews_at),
-        endsAt: date(a.ends_at),
-        portalUrl: str(urls.customer_portal),
-        raw: JSON.stringify({ event: name, test_mode: !!ev.meta.test_mode, attributes: a }),
-        createdAt: date(a.created_at) ?? now,
-        updatedAt: now,
-      };
-      await db
-        .insert(schema.subscription)
-        .values(values)
-        .onConflictDoUpdate({
-          target: [schema.subscription.provider, schema.subscription.providerSubId],
-          set: { userId: values.userId, email: values.email, plan: subPlan ?? sql`${schema.subscription.plan}`, interval: values.interval, status: values.status, renewsAt: values.renewsAt, endsAt: values.endsAt, portalUrl: values.portalUrl ?? sql`${schema.subscription.portalUrl}`, raw: values.raw, updatedAt: now },
-        });
-      let plan: string | undefined;
-      if (user) plan = await applyPlan(db, user, "auto");
-      result = { ok: true, action: "subscription_" + status, userId: user?.id ?? null, plan };
-    }
+    result = await upsertSubscription(db, settings, { subId: String(ev.data.id), attrs: a, customUserId, testMode: !!ev.meta.test_mode, origin: { event: name }, eventName: name });
   } else if (name.startsWith("subscription_payment_")) {
     // subscription-invoices: the status change itself arrives as subscription_updated.
     result = { ...result, action: name };

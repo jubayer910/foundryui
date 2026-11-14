@@ -7,10 +7,17 @@ import { requireStaff } from "@/lib/admin";
 import { AdminHead, Confirm, Field, Flash, Section, Table, Tag, cap, input, money, statusTone, td, when } from "@/components/admin/ui";
 import { Icon } from "@/registry/components/icons";
 import { grantPlan, revokePurchase } from "./actions";
+import { syncNow } from "../revenue/actions";
+import { sourceOf } from "../revenue/data";
+import { SyncButton } from "../revenue/sync-button";
+import { getSyncState } from "@/lib/lemonsqueezy-sync";
+import { checkoutKeys } from "@/lib/lemonsqueezy";
+import { getEnv } from "@/lib/db";
 
 export const metadata: Metadata = { title: "Orders" };
 
 const PURCHASE_STATUS = ["paid", "pending", "granted", "refunded", "revoked"];
+const SOURCE_HINT = { webhook: "Written by a Lemon Squeezy webhook", sync: "Written by Sync now (Lemon Squeezy API)", manual: "Granted by hand in admin", unknown: "Source not recorded" } as const;
 const SUB_STATUS = ["active", "on_trial", "past_due", "paused", "unpaid", "cancelled", "expired"];
 
 export default async function AdminOrders({ searchParams }: PageProps<"/admin/orders">) {
@@ -33,15 +40,24 @@ export default async function AdminOrders({ searchParams }: PageProps<"/admin/or
   if (status) sw.push(eq(S.status, status));
   if (search) sw.push(like(S.email, `%${search}%`));
 
-  const [purchases, subs] = await Promise.all([
+  const [purchases, subs, sync, env] = await Promise.all([
     db.select().from(P).where(pw.length ? and(...pw) : undefined).orderBy(desc(P.createdAt)).limit(200),
     db.select().from(S).where(sw.length ? and(...sw) : undefined).orderBy(desc(S.updatedAt)).limit(200),
+    getSyncState(db),
+    getEnv(),
   ]);
+  const canSync = !!checkoutKeys(env);
   const here = "/admin/orders" + (Object.keys(q).length ? "?" + new URLSearchParams(Object.entries({ plan, status, q: search }).filter(([, v]) => v)).toString() : "");
 
   return (
     <div>
-      <AdminHead title="Orders" sub="Purchases and subscriptions from Lemon Squeezy, plus manual grants.">
+      <AdminHead title="Orders" sub={"Purchases and subscriptions from Lemon Squeezy, plus manual grants. " + (sync ? `Last synced ${when(new Date(sync.at))}.` : "Never synced.")}>
+        {canSync && (
+          <form action={syncNow}>
+            <input type="hidden" name="back" value={here} />
+            <SyncButton tone="line" />
+          </form>
+        )}
         <a href="https://app.lemonsqueezy.com/orders" target="_blank" rel="noreferrer" className="btn-line">
           Lemon Squeezy
           <Icon name="arrow-up-right" size={14} />
@@ -84,7 +100,7 @@ export default async function AdminOrders({ searchParams }: PageProps<"/admin/or
       </form>
 
       <Section title="Purchases" sub={`${purchases.length} shown`}>
-        <Table head={["Date", "Email", "Plan", "Amount", "Status", "Order", ""]} empty="No purchases match.">
+        <Table head={["Date", "Email", "Plan", "Amount", "Status", "Source", "Order", ""]} empty="No purchases match.">
           {purchases.map((p) => (
             <tr key={p.id}>
               <td className={td + " whitespace-nowrap text-mute"}>{when(p.createdAt)}</td>
@@ -99,6 +115,7 @@ export default async function AdminOrders({ searchParams }: PageProps<"/admin/or
               <td className={td}>{cap(p.plan)}{p.variant && <span className="text-faint"> {p.variant}</span>}</td>
               <td className={td + " tabular-nums"}>{money(p.amountCents, p.currency)}</td>
               <td className={td}><Tag tone={statusTone(p.status)}>{p.status}</Tag></td>
+              <td className={td + " text-mute"} title={SOURCE_HINT[sourceOf(p)]}>{cap(sourceOf(p))}</td>
               <td className={td}>
                 {p.provider === "lemonsqueezy" ? (
                   <a href={`https://app.lemonsqueezy.com/orders/${encodeURIComponent(p.providerOrderId)}`} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 hover:underline">

@@ -10,6 +10,8 @@ interface CloudflareEnv {
   LEMONSQUEEZY_API_KEY?: string;
   LEMONSQUEEZY_STORE_ID?: string;
   LEMONSQUEEZY_WEBHOOK_SECRET?: string;
+  /** Local testing only: point the revenue sync at a mock API on localhost. Ignored in production. */
+  LEMONSQUEEZY_API_BASE?: string;
   /** Cloudflare Email Routing send_email binding, present once the owner enables Email Routing. */
   SUPPORT_MAIL?: { send(message: unknown): Promise<void> };
 }

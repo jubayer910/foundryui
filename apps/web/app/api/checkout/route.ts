@@ -52,7 +52,7 @@ export async function POST(req: Request) {
   }
 
   try {
-    const url = await createCheckout(keys, { variantId, email: user.email, userId: user.id, name: user.name, redirectUrl: origin + "/account?welcome=1" });
+    const url = await createCheckout(keys, { variantId, email: user.email, userId: user.id, name: user.name, redirectUrl: origin + "/account?welcome=1", expiresAt: key === "lifetimeDeal" && pb.deal.endsAt ? new Date(pb.deal.endsAt).toISOString() : undefined });
     return go(url);
   } catch (e) {
     console.error("checkout", e instanceof Error ? e.message : e);
