@@ -31,4 +31,12 @@ export type Post = {
   /** component slugs shown as "Components in this guide" */
   related: string[];
   systems: string[];
+  /** cover scene (key of SCENES in components/site/illo); unset = POST_SCENE[slug], then by category */
+  cover?: string;
+  /** "db" for posts written in the admin editor (D1), unset for code posts in lib/blog/posts */
+  source?: "code" | "db";
+  /** set on database posts that are not published (only shown to staff with ?preview=1) */
+  draft?: boolean;
 };
+
+export const CATEGORIES = ["Guides", "Lists", "Comparisons", "AI agents"] as const satisfies readonly Post["category"][];

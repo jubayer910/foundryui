@@ -1,24 +1,41 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { connection } from "next/server";
 import { Icon } from "@/registry/components/icons";
 import { PostBody } from "@/components/site/blog/post-body";
 import { PostCover } from "@/components/site/illo";
 import { Rich } from "@/components/site/blog/rich";
 import { ItemCard } from "@/components/site/item-card";
-import { fmtDate, getPost, posts, readingTime, relatedPosts, toc, wordCount } from "@/lib/blog";
+import { fmtDate, getPost, posts, readingTime, relatedPosts, toc, wordCount, type Post } from "@/lib/blog";
+import { allPosts, dbPost } from "@/lib/blog/db";
+import { can, getStaff } from "@/lib/admin";
 import { entries } from "@/lib/library";
 import { JsonLd, ORG_ID, abs, breadcrumbLd, faqLd, pageMeta, plain, PUBLISHER } from "@/lib/seo";
 
-export const dynamicParams = false;
+/**
+ * Code posts (lib/blog/posts) are prerendered at build time and served from the static-assets cache, as before.
+ * Any other slug is a database post: rendered per request (connection()), so publishing, editing and
+ * unpublishing show up without a redeploy. Drafts render only for staff with the content permission and ?preview=1.
+ */
+export const dynamicParams = true;
 export function generateStaticParams() {
   return posts.map((p) => ({ slug: p.slug }));
 }
 
-export async function generateMetadata({ params }: PageProps<"/blog/[slug]">): Promise<Metadata> {
-  const p = getPost((await params).slug);
+async function load(slug: string, searchParams: PageProps<"/blog/[slug]">["searchParams"]): Promise<Post | null> {
+  const code = getPost(slug);
+  if (code) return code;
+  await connection();
+  const wantsPreview = (await searchParams).preview === "1";
+  const staff = wantsPreview ? await getStaff() : null;
+  return dbPost(slug, { drafts: !!staff && can(staff.role, "content") });
+}
+
+export async function generateMetadata({ params, searchParams }: PageProps<"/blog/[slug]">): Promise<Metadata> {
+  const p = await load((await params).slug, searchParams);
   if (!p) return {};
-  return pageMeta({ title: p.metaTitle ?? p.title, description: p.description, path: "/blog/" + p.slug, type: "article", published: p.date, modified: p.updated, image: "/blog/" + p.slug + "/opengraph-image" });
+  return pageMeta({ title: p.metaTitle ?? p.title, description: p.description, path: "/blog/" + p.slug, type: "article", published: p.date, modified: p.updated, image: "/blog/" + p.slug + "/opengraph-image", noindex: p.draft });
 }
 
 const SUMMARIZE = [
@@ -27,13 +44,13 @@ const SUMMARIZE = [
   ["Perplexity", (q: string) => "https://www.perplexity.ai/search?q=" + q],
 ] as const;
 
-export default async function PostPage({ params }: PageProps<"/blog/[slug]">) {
-  const p = getPost((await params).slug);
+export default async function PostPage({ params, searchParams }: PageProps<"/blog/[slug]">) {
+  const p = await load((await params).slug, searchParams);
   if (!p) notFound();
   const url = abs("/blog/" + p.slug);
   const contents = toc(p);
   const comps = p.related.map((s) => entries.find((e) => e.slug === s)).filter((e): e is NonNullable<typeof e> => !!e).slice(0, 4);
-  const more = relatedPosts(p);
+  const more = p.source === "db" ? relatedPosts(p, 3, await allPosts()) : relatedPosts(p);
   const prompt = encodeURIComponent(`Summarize the key points of "${p.title}" by ${PUBLISHER} (${url}) for a founder building a dashboard.`);
 
   const article = {
@@ -58,6 +75,12 @@ export default async function PostPage({ params }: PageProps<"/blog/[slug]">) {
 
   return (
     <div className="max-w-[1100px]">
+      {p.draft && (
+        <p role="status" className="mb-5 flex items-center gap-2 rounded-[8px] bg-[#fff4dc] px-3 py-2 text-[13px] text-[#8a5a00]">
+          <Icon name="lock" size={15} />
+          Draft preview. Only staff can see this page; it is not on the blog, the sitemap or llms.txt until it is published.
+        </p>
+      )}
       <JsonLd data={[article, breadcrumbLd([["Ingot UI", "/"], ["Resources", "/blog"], [p.title, "/blog/" + p.slug]]), ...(p.faq.length ? [faqLd(p.faq.map((f) => ({ q: plain(f.q), a: plain(f.a) })))] : [])]} />
       <div className="grid gap-10 lg:grid-cols-[200px_minmax(0,680px)]">
         <aside className="hidden lg:block">
@@ -85,10 +108,10 @@ export default async function PostPage({ params }: PageProps<"/blog/[slug]">) {
           </p>
 
           <div className="mt-6">
-            <PostCover slug={p.slug} category={p.category} title={p.title} size="hero" />
+            <PostCover slug={p.slug} category={p.category} title={p.title} size="hero" scene={p.cover} />
           </div>
 
-          <p className="mt-6 text-[17px] leading-[1.6] text-ink"><Rich x={p.lede} /></p>
+          {p.lede && <p className="mt-6 text-[17px] leading-[1.6] text-ink"><Rich x={p.lede} /></p>}
 
           <p className="mt-5 flex flex-wrap items-center gap-1.5 text-[12px] text-mute">
             Summarize with

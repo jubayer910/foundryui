@@ -1,7 +1,7 @@
 import { SITE_URL, items, systems } from "./catalog";
 import { CATEGORIES, codeCount, entries } from "./library";
 import { figmaCount } from "./figma-library";
-import { posts } from "./blog";
+import { posts as codePosts, type Post } from "./blog";
 import { STATS, abs, fmt } from "./seo";
 
 export const MCP_URL = SITE_URL.replace("://", "://mcp.") + "/mcp";
@@ -13,8 +13,13 @@ function systemLines() {
   return systems.map((s) => `- [${s.name}](${abs("/systems/" + s.slug)}): ${s.tagline}. ${fmt(figmaCount(s.slug))} components in Figma, ${fmt(coded(s.slug))} with React code. ${s.tier === "free" ? "Free" : "Pro"}.`).join("\n");
 }
 
-/** `plans` is the line from pricingSentence(getPriceBook()) in lib/plans.ts, so prices follow the admin settings. */
-export function llmsTxt(plans: string) {
+const guideLines = (posts: Post[]) => posts.map((p) => `- [${p.title}](${abs("/blog/" + p.slug)}): ${p.description}`).join("\n");
+
+/**
+ * `plans` is the line from pricingSentence(getPriceBook()) in lib/plans.ts, so prices follow the admin settings.
+ * `posts` is every guide (code posts and published database posts, see allPosts() in lib/blog/db); defaults to the code posts.
+ */
+export function llmsTxt(plans: string, posts: Post[] = codePosts) {
   return `# Ingot UI
 
 ${SUMMARY}
@@ -39,7 +44,7 @@ ${systemLines()}
 
 ## Guides
 
-${posts.map((p) => `- [${p.title}](${abs("/blog/" + p.slug)}): ${p.description}`).join("\n")}
+${guideLines(posts)}
 
 ## Optional
 
@@ -49,7 +54,7 @@ ${posts.map((p) => `- [${p.title}](${abs("/blog/" + p.slug)}): ${p.description}`
 `;
 }
 
-export function llmsFullTxt() {
+export function llmsFullTxt(posts: Post[] = codePosts) {
   const tools = ["list_design_systems", "get_design_system", "get_tokens", "search_components", "get_component", "get_component_code", "add_components", "init_project", "scaffold_screen", "get_chart", "search_icons", "audit_ui", "get_usage", "send_feedback"];
   const sections = systems.map((s) => {
     const own = entries.filter((e) => e.system === s.slug);
@@ -89,7 +94,7 @@ React 19, Tailwind CSS v4, Base UI for interactive parts. Tokens are \`--fu-*\` 
 
 ## Guides
 
-${posts.map((p) => `- [${p.title}](${abs("/blog/" + p.slug)}): ${p.description}`).join("\n")}
+${guideLines(posts)}
 
 ## Components by system
 

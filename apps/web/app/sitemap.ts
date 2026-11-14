@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { systems } from "@/lib/catalog";
 import { entries } from "@/lib/library";
-import { posts } from "@/lib/blog";
+import { allPosts } from "@/lib/blog/db";
 import { CATALOG_UPDATED, abs, isPart } from "@/lib/seo";
 import { HUBS } from "@/lib/hubs";
 import { COMPARISONS } from "@/lib/compare";
@@ -13,8 +13,14 @@ import { CHANGELOG_UPDATED } from "@/lib/changelog";
  * generateSitemaps if the library passes ~40,000 URLs.
  * Excluded on purpose: /components (canonical is /), filtered ?q= ?c= ?s= views,
  * account, auth, saved and welcome pages (noindex).
+ *
+ * Dynamic so published database posts (admin editor) are listed without a redeploy (the static-assets cache
+ * never revalidates). Building it is a string join plus one D1 query.
  */
-export default function sitemap(): MetadataRoute.Sitemap {
+export const dynamic = "force-dynamic";
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const posts = await allPosts();
   const lastPost = posts.reduce((d, p) => ((p.updated ?? p.date) > d ? p.updated ?? p.date : d), CATALOG_UPDATED);
   const core: MetadataRoute.Sitemap = [
     { url: abs("/"), lastModified: CATALOG_UPDATED, changeFrequency: "weekly", priority: 1 },

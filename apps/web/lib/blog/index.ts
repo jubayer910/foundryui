@@ -5,13 +5,15 @@ import { entries } from "../library";
 import { POSTS as RAW } from "./posts";
 
 export type { Block, Post };
+export { CATEGORIES } from "./types";
 export const slugify = (s: string) => plain(s).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
 
 const known = new Set(entries.map((e) => e.slug));
 /** Drop component slugs that no longer exist so a post never links to a 404. */
 const live = (slugs: string[]) => slugs.filter((s) => known.has(s));
 
-function prepare(p: Post): Post {
+/** Fill {stat} placeholders, add h2 anchor ids and drop links to components that no longer exist. */
+export function prepare(p: Post): Post {
   const f = (s: string) => fill(s);
   const body: Block[] = p.body.map((b): Block => {
     switch (b.t) {
@@ -31,6 +33,8 @@ function prepare(p: Post): Post {
 
 export const posts: Post[] = RAW.map(prepare).sort((a, b) => b.date.localeCompare(a.date));
 export const getPost = (slug: string) => posts.find((p) => p.slug === slug);
+/** Slugs taken by code posts. Database posts can't use them. */
+export const codeSlugs = new Set(posts.map((p) => p.slug));
 
 const textOf = (b: Block): string => {
   switch (b.t) {
@@ -46,10 +50,10 @@ export const wordCount = (p: Post) => plain([p.lede, ...p.body.map(textOf), ...p
 export const readingTime = (p: Post) => Math.max(1, Math.ceil(wordCount(p) / 230));
 export const toc = (p: Post) => p.body.filter((b): b is Extract<Block, { t: "h2" }> => b.t === "h2").map((h) => ({ id: h.id!, label: h.x }));
 
-/** Same category first, then shared systems, then newest. */
-export function relatedPosts(p: Post, n = 3) {
+/** Same category first, then shared systems, then newest. `pool` defaults to the code posts. */
+export function relatedPosts(p: Post, n = 3, pool: Post[] = posts) {
   const score = (o: Post) => (o.category === p.category ? 2 : 0) + o.systems.filter((s) => p.systems.includes(s)).length;
-  return posts.filter((o) => o.slug !== p.slug).sort((a, b) => score(b) - score(a) || b.date.localeCompare(a.date)).slice(0, n);
+  return pool.filter((o) => o.slug !== p.slug).sort((a, b) => score(b) - score(a) || b.date.localeCompare(a.date)).slice(0, n);
 }
 
 /** Posts that mention a component or its system, for component and system pages. */

@@ -1,7 +1,9 @@
 import { llmsFullTxt } from "@/lib/llms";
+import { allPosts } from "@/lib/blog/db";
 
-export const dynamic = "force-static";
+/** Dynamic so the guide list includes published database posts (the static-assets page cache never revalidates). CDN caches it 5 minutes. */
+export const dynamic = "force-dynamic";
 
-export function GET() {
-  return new Response(llmsFullTxt(), { headers: { "content-type": "text/plain; charset=utf-8" } });
+export async function GET() {
+  return new Response(llmsFullTxt(await allPosts()), { headers: { "content-type": "text/plain; charset=utf-8", "cache-control": "public, max-age=300, s-maxage=300" } });
 }
