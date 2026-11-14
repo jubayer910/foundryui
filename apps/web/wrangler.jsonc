@@ -9,6 +9,9 @@
     { "binding": "DB", "database_name": "foundry-ui-db", "database_id": "94a18a8e-7d72-45e3-9b45-733f8d74c02b", "migrations_dir": "migrations" }
   ],
   "kv_namespaces": [{ "binding": "KV", "id": "ab8eb3c162664234b4a575838334214a" }],
+  // Support mail (lib/mail.ts). Enable Cloudflare Email Routing on ingotui.com first, verify the owner inbox,
+  // then uncomment and set destination_address to that verified inbox (see LAUNCH-SYSTEM.md, Owner checklists).
+  // "send_email": [{ "name": "SUPPORT_MAIL", "destination_address": "owner-inbox@example.com" }],
   // Custom domains: wrangler creates the DNS records and certificates on deploy (zone ingotui.com is in this account).
   // Keep the old workers.dev URL alive so next.config can 301 it to ingotui.com.
   "workers_dev": true,

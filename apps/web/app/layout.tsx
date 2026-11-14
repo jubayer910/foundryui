@@ -3,6 +3,7 @@ import { Inter, Geist_Mono } from "next/font/google";
 import Script from "next/script";
 import { Rail, railSystems } from "@/components/site/rail";
 import { MobileBar } from "@/components/site/mobile-bar";
+import { SupportWidget } from "@/components/site/support-widget";
 import { JsonLd, SITE, organizationLd, websiteLd } from "@/lib/seo";
 import "./globals.css";
 
@@ -44,6 +45,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             <main className="px-4 pb-24 pt-4 sm:px-6 lg:pt-5">{children}</main>
           </div>
         </div>
+        <SupportWidget />
         <Script src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} strategy="afterInteractive" />
         <Script id="ga4" strategy="afterInteractive">
           {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${GA_ID}');`}
