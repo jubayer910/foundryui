@@ -16,17 +16,17 @@ export async function getAuth() {
       schema: { user: schema.user, session: schema.session, account: schema.account, verification: schema.verification },
     }),
     emailAndPassword: { enabled: true, minPasswordLength: 8 },
-    user: { additionalFields: { plan: { type: "string", defaultValue: "free", input: false } } },
+    user: { additionalFields: { plan: { type: "string", defaultValue: "free", input: false }, role: { type: "string", defaultValue: "user", input: false } } },
     plugins: [nextCookies()],
   });
 }
 
-export type SessionUser = { id: string; name: string; email: string; plan: string };
+export type SessionUser = { id: string; name: string; email: string; plan: string; role: string };
 
 export async function getSessionUser(): Promise<SessionUser | null> {
   const auth = await getAuth();
   const s = await auth.api.getSession({ headers: await headers() });
   if (!s) return null;
-  const u = s.user as typeof s.user & { plan?: string };
-  return { id: u.id, name: u.name, email: u.email, plan: u.plan ?? "free" };
+  const u = s.user as typeof s.user & { plan?: string; role?: string };
+  return { id: u.id, name: u.name, email: u.email, plan: u.plan ?? "free", role: u.role ?? "user" };
 }
