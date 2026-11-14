@@ -27,8 +27,9 @@ function receiptUrl(raw: string | null) {
 
 export default async function AccountPage({ searchParams }: PageProps<"/account">) {
   const user = await getSessionUser();
-  if (!user) redirect("/sign-in?next=/account");
   const sp = await searchParams;
+  // Keep an invite token through sign-in so invitees land back on their invite.
+  if (!user) redirect("/sign-in?next=" + encodeURIComponent("/account" + (typeof sp.invite === "string" ? "?invite=" + sp.invite : "")));
   const db = await getDb();
   const [keys, usage, subs, purchases] = await Promise.all([
     db

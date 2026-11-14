@@ -4,6 +4,7 @@ import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { nextCookies } from "better-auth/next-js";
 import { headers } from "next/headers";
 import { getDb, getEnv, schema } from "./db";
+import { getEffectivePlan } from "./plans";
 
 export async function getAuth() {
   const env = await getEnv();
@@ -28,5 +29,7 @@ export async function getSessionUser(): Promise<SessionUser | null> {
   const s = await auth.api.getSession({ headers: await headers() });
   if (!s) return null;
   const u = s.user as typeof s.user & { plan?: string; role?: string };
-  return { id: u.id, name: u.name, email: u.email, plan: u.plan ?? "free", role: u.role ?? "user" };
+  // Team members inherit "team" from their owner's live Team plan (one D1 lookup, free users only).
+  const plan = await getEffectivePlan({ id: u.id, plan: u.plan ?? "free" });
+  return { id: u.id, name: u.name, email: u.email, plan, role: u.role ?? "user" };
 }

@@ -95,7 +95,7 @@ export async function OnboardingChecklist({ user }: { user: { id: string; name: 
         </ol>
       </details>
       {s.showSurvey && <SegmentSurvey options={SEGMENTS.map((o) => ({ id: o.id, label: o.label }))} />}
-      {s.showFeedback && <FeedbackAsk defaultName={user.name} />}
+      {s.showFeedback && !s.showSurvey && <FeedbackAsk defaultName={user.name} />}
     </>
   );
 }

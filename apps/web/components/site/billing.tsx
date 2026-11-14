@@ -10,7 +10,7 @@ const STATUS: Record<string, string> = { paid: "Paid", refunded: "Refunded", pen
 
 /** Thank-you banner after checkout (?welcome=1). The webhook can land a few seconds after the redirect. */
 export function WelcomeBanner({ plan }: { plan: string }) {
-  const done = plan === "pro" || plan === "lifetime";
+  const done = plan === "pro" || plan === "team" || plan === "lifetime";
   return (
     <div role="status" className="mt-5 flex items-start gap-3 rounded-[8px] bg-ink p-4 text-white">
       <Icon name="sparkle" size={18} className="mt-0.5 shrink-0" />
@@ -18,7 +18,7 @@ export function WelcomeBanner({ plan }: { plan: string }) {
         <span className="font-medium">Thank you for buying Ingot UI.</span>{" "}
         <span className="text-white/70">
           {done
-            ? "Your " + (plan === "lifetime" ? "Lifetime" : "Pro") + " plan is on. Every system and component is unlocked."
+            ? "Your " + (plan === "lifetime" ? "Lifetime" : plan === "team" ? "Team" : "Pro") + " plan is on. Every system and component is unlocked."
             : "Your payment is being confirmed. This takes a few seconds; refresh the page and your plan will show here. The receipt is in your inbox."}
         </span>
       </p>
@@ -29,7 +29,8 @@ export function WelcomeBanner({ plan }: { plan: string }) {
 /** Plan, renewal, "Manage billing" and receipts. Server-rendered from purchase / subscription rows. */
 export function Billing({ plan, sub, receipts }: { plan: string; sub: BillingSub | null; receipts: Receipt[] }) {
   const lifetime = plan === "lifetime";
-  const pro = plan === "pro";
+  const team = plan === "team";
+  const pro = plan === "pro" || team;
   const cancelled = sub?.status === "cancelled";
   const renew = day(sub?.renewsAt ?? null);
   const ends = day(sub?.endsAt ?? null);
@@ -43,13 +44,13 @@ export function Billing({ plan, sub, receipts }: { plan: string; sub: BillingSub
         ? "Paid once, forever. You still have a Pro subscription; cancel it in Manage billing so it stops renewing."
         : "Paid once. Every system and every future update, forever.";
   } else if (pro) {
-    title = "Pro " + (sub?.interval === "yearly" ? "yearly" : sub ? "monthly" : "");
+    title = (team ? "Team " : "Pro ") + (sub?.interval === "yearly" ? "yearly" : sub ? "monthly" : "");
     line = !sub
       ? "Every system and component is unlocked."
       : cancelled
-        ? "Cancelled. Pro stays on until " + (ends ?? "the end of the paid period") + "."
+        ? "Cancelled. " + (team ? "Team" : "Pro") + " stays on until " + (ends ?? "the end of the paid period") + "."
         : sub.status === "past_due"
-          ? "The last payment did not go through. Update your card to keep Pro."
+          ? "The last payment did not go through. Update your card to keep " + (team ? "Team." : "Pro.")
           : sub.status === "on_trial"
             ? "On trial" + (renew ? ", first payment " + renew : "") + "."
             : renew
