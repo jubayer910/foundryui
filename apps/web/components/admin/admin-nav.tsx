@@ -3,14 +3,16 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { CIcon, type ChromeIconName } from "@/components/site/chrome-icon";
 import { Icon, type IconName } from "@/registry/components/icons";
+import { AIcon, type AdminIconName } from "./admin-icons";
 
-type Item = { href: string; label: string; c?: ChromeIconName; i?: IconName; badge?: number };
+type Item = { href: string; label: string; c?: ChromeIconName; i?: IconName; a?: AdminIconName; badge?: number };
 
 /** Admin section nav: a column on desktop, a horizontal pill row on mobile. */
 export function AdminNav({ openTickets }: { openTickets: number }) {
   const path = usePathname();
   const items: Item[] = [
     { href: "/admin", label: "Overview", c: "dashboard" },
+    { href: "/admin/analytics", label: "Analytics", a: "chart-line" },
     { href: "/admin/pricing", label: "Pricing & deal", c: "tag" },
     { href: "/admin/orders", label: "Orders", c: "receipt" },
     { href: "/admin/users", label: "Users", i: "user" },
@@ -34,7 +36,7 @@ export function AdminNav({ openTickets }: { openTickets: number }) {
                 (on(l.href) ? "bg-ink text-white lg:bg-tile lg:text-ink" : "bg-chip text-ink lg:bg-transparent lg:text-mute lg:hover:text-ink")
               }
             >
-              {l.c ? <CIcon name={l.c} size={15} /> : <Icon name={l.i!} size={15} />}
+              {l.a ? <AIcon name={l.a} size={15} /> : l.c ? <CIcon name={l.c} size={15} /> : <Icon name={l.i!} size={15} />}
               {l.label}
               {!!l.badge && <span className="ml-auto pl-1 text-[12px] tabular-nums opacity-60">{l.badge}</span>}
             </Link>

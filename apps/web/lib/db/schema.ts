@@ -191,6 +191,25 @@ export const waitlist = sqliteTable("waitlist", {
   createdAt: ts("createdAt").notNull(),
 });
 
+/* ---- First-party analytics (migrations/0003_analytics.sql). Aggregates only, written by app/api/track. ---- */
+
+/** Page views per UTC day ("YYYY-MM-DD") and path. */
+export const pageviewDaily = sqliteTable(
+  "pageview_daily",
+  { day: text("day").notNull(), path: text("path").notNull(), views: integer("views").notNull().default(0) },
+  (t) => [primaryKey({ columns: [t.day, t.path] })],
+);
+
+/** Page views per UTC day and traffic source (utm_source, else referrer host, else "direct"). */
+export const referrerDaily = sqliteTable(
+  "referrer_daily",
+  { day: text("day").notNull(), source: text("source").notNull(), views: integer("views").notNull().default(0) },
+  (t) => [primaryKey({ columns: [t.day, t.source] })],
+);
+
+/** Estimated unique visitors per UTC day. A daily-salted hash in KV decides "first visit today"; the hash never reaches D1. */
+export const visitorDaily = sqliteTable("visitor_daily", { day: text("day").primaryKey(), visitors: integer("visitors").notNull().default(0) });
+
 export const auditLog = sqliteTable("audit_log", {
   id: integer("id").primaryKey({ autoIncrement: true }),
   actor: text("actor").notNull(),
