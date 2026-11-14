@@ -2,7 +2,7 @@ import "server-only";
 import { cache } from "react";
 import { requireAdmin } from "@/lib/admin";
 
-/** requireAdmin() deduped per request, for the layout and page of the same render. Server actions call requireAdmin() directly. */
+/** @deprecated Use requireStaff(perm, path) from lib/admin. Kept for branches written before roles (admin or owner only). */
 export const adminOnly = cache(requireAdmin);
 
 /** First value of a search param. */

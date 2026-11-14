@@ -1,7 +1,7 @@
 "use client";
 import { useActionState, useState } from "react";
 import { Icon } from "@/registry/components/icons";
-import type { PricingState } from "@/app/admin/pricing/actions";
+import type { PricingState } from "@/app/admin/(panel)/pricing/actions";
 
 type Values = {
   price_proMonthly: string;

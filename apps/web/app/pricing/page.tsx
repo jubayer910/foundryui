@@ -236,6 +236,7 @@ export default async function PricingPage() {
           ))}
         </div>
       </div>
+      <p className="mt-3 text-[12px] text-mute"><Link href="/refund" className="underline underline-offset-2 hover:text-ink">7-day refund</Link> on every paid plan. Prices in USD; sales tax or VAT is added at checkout where it applies. Payments by Lemon Squeezy, our merchant of record. <Link href="/terms" className="underline underline-offset-2 hover:text-ink">Terms</Link></p>
 
       <section id="lifetime" aria-labelledby="lifetime-h" className="mt-3 grid scroll-mt-6 gap-5 rounded-[8px] bg-ink p-5 text-white md:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)_auto] md:items-center">
         <div className="flex items-center gap-4">
