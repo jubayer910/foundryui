@@ -9,7 +9,7 @@ import { SITE, abs } from "@/lib/seo";
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: [{ userAgent: "*", allow: "/", disallow: ["/api/", "/library-preview/"] }],
-    sitemap: abs("/sitemap.xml"),
+    sitemap: [abs("/sitemap.xml"), abs("/sitemap-posts.xml")],
     host: SITE,
   };
 }

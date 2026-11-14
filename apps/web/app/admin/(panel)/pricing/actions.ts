@@ -36,10 +36,6 @@ export async function savePricing(_prev: PricingState, f: FormData): Promise<Pri
   const after = str("after");
   if (after !== "price" && after !== "closed") errors.after = "Choose what happens after the deal";
 
-  const announcement = { enabled: f.get("ann_enabled") === "on", text: str("ann_text"), href: str("ann_href") };
-  if (announcement.enabled && !announcement.text) errors.ann_text = "Write the bar text or turn the bar off";
-  if (announcement.text.length > 140) errors.ann_text = "Keep it under 140 characters";
-  if (announcement.href && !/^(\/|https:\/\/)/.test(announcement.href)) errors.ann_href = "Start with / or https://";
 
   const before = await getSettings();
   const enabled = f.get("deal_enabled") === "on";
@@ -70,12 +66,11 @@ export async function savePricing(_prev: PricingState, f: FormData): Promise<Pri
   await setSetting("prices", prices);
   await setSetting("variants", variants);
   await setSetting("deal", dealNext);
-  await setSetting("announcement", announcement);
-  await audit(me.email, "settings.pricing", "prices,variants,deal,announcement", {
-    before: { prices: before.prices, variants: before.variants, deal: before.deal, announcement: before.announcement },
-    after: { prices, variants, deal: dealNext, announcement },
+  await audit(me.email, "settings.pricing", "prices,variants,deal", {
+    before: { prices: before.prices, variants: before.variants, deal: before.deal },
+    after: { prices, variants, deal: dealNext },
   });
   revalidatePath("/pricing");
   revalidatePath("/", "layout");
-  return { ok: "Saved. Pricing and the announcement bar use the new values now." };
+  return { ok: "Saved. Pricing and the deal use the new values now." };
 }
