@@ -4,6 +4,7 @@ import Script from "next/script";
 import { Rail, railSystems } from "@/components/site/rail";
 import { MobileBar } from "@/components/site/mobile-bar";
 import { SupportWidget } from "@/components/site/support-widget";
+import { AnnouncementBar } from "@/components/site/announcement-bar";
 import { JsonLd, SITE, organizationLd, websiteLd } from "@/lib/seo";
 import "./globals.css";
 
@@ -38,6 +39,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html lang="en" className={`${inter.variable} ${geistMono.variable} h-full antialiased`} data-system="loopo">
       <body className="min-h-full">
         <JsonLd data={[organizationLd(), websiteLd()]} />
+        <AnnouncementBar />
         <div className="flex min-h-dvh">
           <Rail />
           <div className="min-w-0 flex-1">

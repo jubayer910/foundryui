@@ -12,7 +12,8 @@ import iconStats from "@/lib/icon-stats.json";
 import { PricingNotice } from "./notice";
 
 /** Spots left and admin price changes show within a minute. */
-export const revalidate = 60;
+// Dynamic on purpose: the static-assets page cache never revalidates, and prices + real deal spots come from D1.
+export const dynamic = "force-dynamic";
 
 const free = items.filter((i) => i.tier === "free").length;
 const fmt = (n: number) => n.toLocaleString("en-US");

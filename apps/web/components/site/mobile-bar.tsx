@@ -27,6 +27,7 @@ export function MobileBar({ systems }: { systems: RailSystem[] }) {
           <p className="mt-4 flex flex-wrap gap-x-4 gap-y-1 border-t border-hair px-2 pt-4 text-[12px] text-mute">
             <Link href="/about" onClick={() => setOpen(false)} className="hover:text-ink">About</Link>
             <Link href="/changelog" onClick={() => setOpen(false)} className="hover:text-ink">Changelog</Link>
+            <Link href="/support" onClick={() => setOpen(false)} className="hover:text-ink">Support</Link>
             <Link href="/docs#license" onClick={() => setOpen(false)} className="hover:text-ink">License</Link>
           </p>
         </div>
