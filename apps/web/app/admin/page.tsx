@@ -39,7 +39,7 @@ function Overview({ k, recentP, recentT, recentU }: Awaited<ReturnType<typeof lo
         </Link>
       </AdminHead>
       <div className="mt-5 grid grid-cols-2 gap-3 lg:grid-cols-4">
-        <Kpi label="Visitors today" value={num(k.visitorsToday)} delta={<Delta cur={k.visitorsToday} prev={k.visitorsYesterday} period="yesterday" />} hint={`${num(k.visitorsYesterday)} yesterday`} />
+        <Kpi label="Visitors today" value={num(k.visitorsToday)} hint={`Since 00:00 UTC, ${num(k.visitorsYesterday)} yesterday`} />
         <Kpi label="Visitors, 7 days" value={num(k.visitors)} delta={<Delta cur={k.visitors} prev={k.visitorsPrev} period={P7} />} hint={`${num(k.views)} page views`} />
         <Kpi label="Signups, 7 days" value={num(k.signups)} delta={<Delta cur={k.signups} prev={k.signupsPrev} period={P7} />} hint={`${num(k.usersTotal)} users in total`} />
         <Kpi label="Revenue, 7 days" value={money(k.revenue, k.revenueCurrency)} delta={<Delta cur={k.revenue} prev={k.revenuePrev} period={P7} />} hint={`${num(k.orders)} paid orders${k.otherCurrencies ? ", other currencies in Analytics" : ""}`} />

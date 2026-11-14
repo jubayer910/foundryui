@@ -181,7 +181,7 @@ export async function loadAnalytics(range: RangeKey) {
   const s0 = signups[0] ?? { cur: 0, prev: 0 };
   const funnel = [
     { label: "Visitors", n: traffic.visitorsTotal, prev: traffic.visitorsPrev },
-    { label: "Copied or downloaded", n: Number(c0.cur ?? 0), prev: Number(c0.prev ?? 0) },
+    { label: "Copied", n: Number(c0.cur ?? 0), prev: Number(c0.prev ?? 0) },
     { label: "Signed up", n: Number(s0.cur ?? 0), prev: Number(s0.prev ?? 0) },
     { label: "Paid", n: revenue.buyers, prev: revenue.buyersPrev },
   ];

@@ -56,7 +56,7 @@ function View({ a }: { a: Analytics }) {
       <Section title="Funnel" sub={`Visitors to paying customers in the last ${w.days} days.`}>
         <Funnel steps={a.funnel} period={period} />
         <p className="mt-2 text-[12px] text-faint">
-          Copied or downloaded counts distinct browsers and accounts that used a component on the website. Paid counts distinct buyers with a paid order. Overall {a.funnel[0].n ? fmtPct((a.funnel[3].n / a.funnel[0].n) * 100) : "0%"} of visitors paid.
+          Copied counts distinct browsers and accounts that copied or downloaded a component or icon on the website. Paid counts distinct buyers with a paid order. Overall {a.funnel[0].n ? fmtPct((a.funnel[3].n / a.funnel[0].n) * 100) : "0%"} of visitors paid.
         </p>
       </Section>
 
