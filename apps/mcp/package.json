@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "wrangler dev --port 8788",
     "deploy": "wrangler deploy",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "library": "node scripts/build-library.mjs"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.32.2",

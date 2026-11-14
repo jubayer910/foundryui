@@ -6,6 +6,7 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { WebStandardStreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/webStandardStreamableHttp.js";
 import { z } from "zod";
 import catalog from "./catalog.generated.json";
+import library from "./library.generated.json";
 
 interface Env {
   DB: D1Database;
@@ -20,7 +21,26 @@ type Item = {
 type User = { id: string; email: string; plan: string };
 
 const ITEMS = catalog.items as unknown as Item[];
-const SYSTEMS = catalog.systems;
+
+/** Generated components (Figma → React, checked against Figma), one self-contained file each, served from the site. */
+type Lib = { slug: string; name: string; system: string; category: string; keywords: string; score: number };
+const LIB = (library as { items: Lib[] }).items;
+const getLib = (s: string) => LIB.find((i) => i.slug === s);
+/** A system is live as soon as it has published code. */
+const SYSTEMS = catalog.systems.map((s) => ({ ...s, status: s.status === "live" || LIB.some((i) => i.system === s.slug) ? "live" : s.status, components: LIB.filter((i) => i.system === s.slug).length }));
+const libTier = (l: Lib) => (SYSTEMS.find((s) => s.slug === l.system)?.tier ?? "pro") as "free" | "pro";
+const pascal = (name: string) => name.replace(/[^A-Za-z0-9 ]/g, " ").split(/\s+/).filter(Boolean).map((w) => w[0].toUpperCase() + w.slice(1)).join("") || "Component";
+const libTarget = (l: Lib) => "components/ingot/" + l.system + "/" + pascal(l.name) + ".tsx";
+function libScore(l: Lib, q: string) {
+  const words = q.toLowerCase().split(/\W+/).filter((w) => w.length > 1);
+  const name = l.name.toLowerCase();
+  const hay = (l.name + " " + l.category + " " + l.keywords + " " + l.system).toLowerCase();
+  return words.reduce((s, w) => s + (name.includes(w) ? 3 : 0) + (l.category.toLowerCase().includes(w) ? 2 : 0) + (hay.includes(w) ? 1 : 0), 0);
+}
+async function libCode(env: Env, l: Lib) {
+  const r = await env.SITE.fetch(env.SITE_URL + "/library-code/" + l.system + "/" + l.slug + ".txt");
+  return r.ok ? r.text() : null;
+}
 const FREE_DAILY_CALLS = 50;
 /** Same rule as apps/web lib/plans.ts isPaid(): Pro, Team and Lifetime all unlock everything. */
 const isPaid = (plan: string | null | undefined) => plan === "pro" || plan === "team" || plan === "lifetime";
@@ -148,6 +168,8 @@ function buildServer(env: Env, user: User) {
       const s = SYSTEMS.find((x) => x.slug === system);
       if (!s) return text("Unknown system. Available: " + SYSTEMS.map((x) => x.slug).join(", "));
       if (s.status !== "live") return text(s.name + " is still being built. Use loopo for now; every component is token-driven and will adapt when " + s.name + " ships.");
+      if (s.slug !== "loopo")
+        return json({ ...s, howToBuild: "Every " + s.name + " component is a self-contained React + Tailwind file with the system's own colours, type and Ingot icons baked in. Find them with search_components (system: '" + s.slug + "'), then get_component_code or add_components. Use init_project for the base tokens and rules files.", rules: ["Build screens from " + s.name + " components; don't restyle them with other colours.", "Icons: Ingot Icons only. No decorative dots before labels or as bullets.", "Light mode only for now."] });
       const tokens = getItem("tokens")!;
       return json({ ...s, tokens: tokens.code, rules: ["Use only --fu-* tokens (bg-fu-surface, text-fu-ink, border-fu-line, rounded-fu-md …); no hard-coded hex colours.", "Icons: Ingot Icons via <Icon name=… /> (1.5px stroke). No decorative dots before labels or as bullets.", "Charts: never a plain single-series bar or smooth line; use capsule-bars, stacked-blocks, line-highlight, donut, pill-meter, hatch-track-list.", "Light mode only for now."] });
     }),
@@ -169,14 +191,22 @@ function buildServer(env: Env, user: User) {
 
   server.registerTool(
     "search_components",
-    { description: "Search components by meaning, e.g. 'card that shows MRR with a trend', 'transactions table', 'donut for traffic sources'.", inputSchema: { query: z.string(), category: z.string().optional(), limit: z.number().int().min(1).max(30).default(8) } },
-    guard("search_components", async ({ query, category, limit }: { query: string; category?: string; limit: number }) => {
-      const hits = ITEMS.filter((i) => !category || i.category === category)
-        .map((i) => ({ i, s: score(i, query) }))
+    {
+      description: "Search components by meaning across all six systems, e.g. 'card that shows MRR with a trend', 'transactions table', 'agents list page'. Filter by system to keep a product in one look.",
+      inputSchema: { query: z.string(), system: z.string().optional().describe("system slug: loopo, mailpulse, auton, axon, veriq or vantage"), category: z.string().optional(), limit: z.number().int().min(1).max(30).default(8) },
+    },
+    guard("search_components", async ({ query, system, category, limit }: { query: string; system?: string; category?: string; limit: number }) => {
+      const cat = category?.toLowerCase();
+      const core = (system && system !== "loopo" ? [] : ITEMS)
+        .filter((i) => !cat || i.category.toLowerCase() === cat)
+        .map((i) => ({ s: score(i, query), r: { slug: i.slug, name: i.name, system: "loopo", category: i.category, tier: i.tier, description: i.description, url: site + "/components/" + i.slug } }));
+      const lib = LIB.filter((l) => (!system || l.system === system) && (!cat || l.category.toLowerCase().includes(cat)))
+        .map((l) => ({ s: libScore(l, query), r: { slug: l.slug, name: l.name, system: l.system, category: l.category, tier: libTier(l), figmaMatch: l.score + "%", url: site + "/components/" + l.slug } }));
+      const hits = [...core, ...lib]
         .filter((x) => x.s > 0)
         .sort((a, b) => b.s - a.s)
         .slice(0, limit)
-        .map(({ i }) => ({ slug: i.slug, name: i.name, category: i.category, tier: i.tier, description: i.description, url: site + "/components/" + i.slug }));
+        .map((x) => x.r);
       return hits.length ? json(hits) : text("No match. Categories: " + catalog.categories.map((c) => c.slug).join(", ") + ". Use send_feedback to request it.");
     }),
   );
@@ -186,7 +216,11 @@ function buildServer(env: Env, user: User) {
     { description: "Metadata, dependencies and usage notes for one component.", inputSchema: { slug: z.string() } },
     guard("get_component", async ({ slug }: { slug: string }) => {
       const it = getItem(slug);
-      if (!it) return text("Unknown component: " + slug);
+      if (!it) {
+        const l = getLib(slug);
+        if (!l) return text("Unknown component: " + slug);
+        return json({ ...l, tier: libTier(l), figmaMatch: l.score + "%", url: site + "/components/" + slug, file: libTarget(l), note: "Self-contained file: React + Tailwind v4, Ingot icons inlined, no extra packages." });
+      }
       const { code: _code, ...meta } = it;
       return json({ ...meta, url: site + "/components/" + slug, install: "npx ingotui add " + slug, files: it.files.map(target) });
     }),
@@ -197,7 +231,13 @@ function buildServer(env: Env, user: User) {
     { description: "All source files a component needs (registry dependencies included), with the target path to write each file to.", inputSchema: { slug: z.string() } },
     guard("get_component_code", async ({ slug }: { slug: string }) => {
       const it = getItem(slug);
-      if (!it) return text("Unknown component: " + slug);
+      if (!it) {
+        const l = getLib(slug);
+        if (!l) return text("Unknown component: " + slug);
+        if (libTier(l) === "pro" && !isPaid(user.plan)) return text(l.name + " is in a Pro system. Pro, Team or Lifetime unlocks it: " + site + "/pricing");
+        const code = await libCode(env, l);
+        return code ? json([{ path: libTarget(l), content: code }]) : text("Could not load " + slug + " right now. Try again.");
+      }
       if (locked(it)) return text(it.name + " is a Pro component. Pro or Lifetime unlocks it: " + site + "/pricing");
       return json(resolveFiles(slug).map((f) => ({ path: target(f.path), content: f.content })));
     }),
@@ -208,11 +248,18 @@ function buildServer(env: Env, user: User) {
     { description: "Everything needed to add several components: deduped files with target paths plus the npm install command. Write every file, then run the command.", inputSchema: { slugs: z.array(z.string()).min(1) } },
     guard("add_components", async ({ slugs }: { slugs: string[] }) => {
       const seen = new Set<string>();
-      const missing = slugs.filter((s) => !getItem(s));
-      const blocked = slugs.map(getItem).filter((i): i is Item => !!i && locked(i)).map((i) => i.slug);
-      const files = slugs.filter((s) => !missing.includes(s) && !blocked.includes(s)).flatMap((s) => resolveFiles(s, seen));
+      const libs = slugs.map(getLib).filter((l): l is Lib => !!l && !getItem(l.slug));
+      const missing = slugs.filter((s) => !getItem(s) && !getLib(s));
+      const blocked = [
+        ...slugs.map(getItem).filter((i): i is Item => !!i && locked(i)).map((i) => i.slug),
+        ...libs.filter((l) => libTier(l) === "pro" && !isPaid(user.plan)).map((l) => l.slug),
+      ];
+      const files = slugs.filter((s) => getItem(s) && !blocked.includes(s)).flatMap((s) => resolveFiles(s, seen));
       const deps = [...new Set(files.flatMap((f) => getItem(f.slug)?.dependencies ?? []))];
-      return json({ files: files.map((f) => ({ path: target(f.path), content: f.content })), install: deps.length ? "npm install " + deps.join(" ") : null, missing, blocked });
+      const libFiles = (await Promise.all(libs.filter((l) => !blocked.includes(l.slug)).map(async (l) => ({ l, code: await libCode(env, l) }))))
+        .filter((x) => x.code)
+        .map((x) => ({ path: libTarget(x.l), content: x.code as string }));
+      return json({ files: [...files.map((f) => ({ path: target(f.path), content: f.content })), ...libFiles], install: deps.length ? "npm install " + deps.join(" ") : null, missing, blocked });
     }),
   );
 
