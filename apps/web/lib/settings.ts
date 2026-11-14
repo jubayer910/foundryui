@@ -34,7 +34,7 @@ export const DEFAULT_SETTINGS: Settings = {
   variants: { proMonthly: "", proYearly: "", lifetimeDeal: "", lifetimeAfter: "" },
   deal: { enabled: true, spotsTotal: 200, after: "price", endsAt: "", showSpots: true, showTimer: true },
   support: { email: "support@ingotui.com", contactEmail: "support@ingotui.com", notify: true },
-  announcement: { enabled: true, text: "Launch deal: Lifetime for $29, first 200 buyers only", href: "/pricing" },
+  announcement: { enabled: true, text: "Launch deal: Lifetime access for $29, every future update included", href: "/pricing" },
   adminEmails: [],
 };
 

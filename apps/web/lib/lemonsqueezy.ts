@@ -23,7 +23,7 @@ export function checkoutKeys(env: CloudflareEnv): CheckoutKeys | null {
 /** Creates a hosted checkout (JSON:API, POST /v1/checkouts) and returns its URL. */
 export async function createCheckout(
   keys: CheckoutKeys,
-  input: { variantId: string; email: string; userId: string; name?: string; redirectUrl: string },
+  input: { variantId: string; email: string; userId: string; name?: string; redirectUrl: string; expiresAt?: string },
 ): Promise<string> {
   const body = {
     data: {
@@ -31,6 +31,8 @@ export async function createCheckout(
       attributes: {
         checkout_data: { email: input.email, ...(input.name ? { name: input.name } : {}), custom: { user_id: input.userId } },
         product_options: { redirect_url: input.redirectUrl },
+        // A deal checkout stops working when the deal ends, so a link opened just before can't be paid after.
+        ...(input.expiresAt ? { expires_at: input.expiresAt } : {}),
       },
       relationships: {
         store: { data: { type: "stores", id: String(keys.storeId) } },
