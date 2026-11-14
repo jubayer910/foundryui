@@ -16,6 +16,12 @@ export type Settings = {
     spotsTotal: number; // "first N buyers"
     /** when spots run out: switch Lifetime to lifetimeAfter price, or close Lifetime */
     after: "price" | "closed";
+    /** Real end of the deal as a UTC ISO string; "" = no end date (ends only when spots run out). */
+    endsAt: string;
+    /** Show "N of TOTAL spots left" on the bar and the pricing card. */
+    showSpots: boolean;
+    /** Show the countdown to endsAt (only when endsAt is set). */
+    showTimer: boolean;
   };
   support: { email: string; contactEmail: string; notify: boolean };
   announcement: { enabled: boolean; text: string; href: string };
@@ -26,7 +32,7 @@ export type Settings = {
 export const DEFAULT_SETTINGS: Settings = {
   prices: { proMonthly: 7, proYearly: 59, lifetimeDeal: 29, lifetimeAfter: 99 },
   variants: { proMonthly: "", proYearly: "", lifetimeDeal: "", lifetimeAfter: "" },
-  deal: { enabled: true, spotsTotal: 200, after: "price" },
+  deal: { enabled: true, spotsTotal: 200, after: "price", endsAt: "", showSpots: true, showTimer: true },
   support: { email: "support@ingotui.com", contactEmail: "support@ingotui.com", notify: true },
   announcement: { enabled: true, text: "Launch deal: Lifetime for $29, first 200 buyers only", href: "/pricing" },
   adminEmails: [],
