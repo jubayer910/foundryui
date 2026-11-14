@@ -4,7 +4,6 @@ import { CATEGORIES, CODED_TOTAL, entries } from "@/lib/library";
 import { railSystems } from "./rail";
 import { Browser } from "./browser";
 import { IlloTile, PostCover } from "./illo";
-import { DEFAULT_SETTINGS } from "@/lib/settings";
 import { AgentShowcase } from "./showcase/agent-showcase";
 import iconStats from "@/lib/icon-stats.json";
 import { posts, readingTime } from "@/lib/blog";
@@ -20,7 +19,7 @@ const EXITS = [
 const MORE = [
   { href: "/mcp", scene: "server", h: "Connect your AI agent", b: "One line in Claude Code or Cursor, and your agent builds with the system." },
   { href: "/systems", scene: "six", h: "Six design systems", b: "Each one complete: tokens, components, charts and screens in one look." },
-  { href: "/pricing", scene: "ingots", h: "Free, Pro or Lifetime", b: `Start free with Loopo. Lifetime launch deal for the first ${DEFAULT_SETTINGS.deal.spotsTotal} buyers.` },
+  { href: "/pricing", scene: "ingots", h: "Free, Pro or Lifetime", b: "Start free with Loopo, or get the Lifetime launch deal while it lasts." },
 ];
 
 /** The home page is the library: one short intro row, then the components. */

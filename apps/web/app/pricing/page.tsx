@@ -4,12 +4,13 @@ import Link from "next/link";
 import { JsonLd, ORG_ID, abs, faqLd, pageMeta } from "@/lib/seo";
 import { items, systems } from "@/lib/catalog";
 import { FIGMA_TOTAL } from "@/lib/figma-library";
-import { dealRule, getPriceBook, usd, yearlySaving, type CheckoutOption, type PriceBook } from "@/lib/plans";
+import { dealEndText, dealRule, getPriceBook, usd, yearlySaving, type CheckoutOption, type PriceBook } from "@/lib/plans";
 import { PageHead } from "@/components/site/page-head";
 import { IlloTile } from "@/components/site/illo";
 import { Icon } from "@/registry/components/icons";
 import iconStats from "@/lib/icon-stats.json";
 import { PricingNotice } from "./notice";
+import { LifetimeCountdown } from "./countdown";
 
 /** Spots left and admin price changes show within a minute. */
 // Dynamic on purpose: the static-assets page cache never revalidates, and prices + real deal spots come from D1.
@@ -85,7 +86,7 @@ function faq(pb: PriceBook): [string, string][] {
   if (pb.deal.enabled)
     out.push([
       "How does the launch deal work?",
-      "Lifetime costs " + usd(pb.settings.prices.lifetimeDeal) + " for the first " + pb.deal.total + " buyers. The spots counter on this page counts real paid orders. " + dealRule(pb) + " No timers, no fake scarcity.",
+      "Lifetime costs " + usd(pb.settings.prices.lifetimeDeal) + " for the first " + pb.deal.total + " buyers" + (pb.deal.endsAt ? ", until " + dealEndText(pb.deal.endsAt) : "") + ". The spots counter on this page counts real paid orders" + (pb.deal.endsAt ? " and the countdown runs to that real end date; it never resets" : "") + ". " + dealRule(pb),
     ]);
   out.push(
     ["Monthly or yearly?", "Same Pro plan. Yearly is " + usd(pb.proYearly) + " instead of " + usd(pb.proMonthly * 12) + " for twelve months" + (save > 0 ? ", " + save + "% less" : "") + ". You can cancel either one any time from your account; Pro stays on until the end of the period you paid for."],
@@ -172,9 +173,10 @@ export default async function PricingPage() {
               <p className={"text-[12px] " + sub}>{p.note}</p>
 
               {p.key === "lifetime" && deal.enabled && !p.closed && (
-                <div className="mt-4">
-                  {pb.dealActive ? (
-                    <>
+                <div className="mt-1">
+                  {pb.dealActive && deal.showTimer && deal.endsAt ? <LifetimeCountdown endsAt={deal.endsAt} /> : null}
+                  {pb.dealActive && deal.showSpots ? (
+                    <div className="mt-3">
                       <div className="flex items-baseline justify-between text-[12px]">
                         <span className="font-medium tabular-nums">
                           {fmt(deal.left)} of {fmt(deal.total)} left
@@ -191,7 +193,7 @@ export default async function PricingPage() {
                       >
                         <div className="h-full rounded-full bg-white" style={{ width: pct + "%" }} />
                       </div>
-                    </>
+                    </div>
                   ) : null}
                   <p className="mt-2 text-[12px] leading-snug text-white/60">{dealRule(pb)}</p>
                 </div>
