@@ -10,6 +10,10 @@ type State = { name: string } | null | undefined;
  */
 export function AccountLink() {
   const [user, setUser] = useState<State>(undefined);
+  const [admin, setAdmin] = useState(false);
+  useEffect(() => {
+    if (user) fetch("/admin/me", { credentials: "include" }).then((r) => (r.ok ? r.json() : null)).then((d: { admin?: boolean } | null) => setAdmin(!!d?.admin)).catch(() => {});
+  }, [user]);
   useEffect(() => {
     fetch("/api/auth/get-session", { credentials: "include" })
       .then((r) => (r.ok ? r.json() : null))
@@ -19,9 +23,16 @@ export function AccountLink() {
   if (user === undefined) return <span className="h-7 w-16" aria-hidden="true" />;
   if (user)
     return (
-      <Link href="/account" aria-label="Your account" className="flex size-7 items-center justify-center rounded-full bg-ink text-[12px] font-medium text-white">
-        {user.name.slice(0, 1).toUpperCase()}
-      </Link>
+      <span className="flex items-center gap-1.5">
+        {admin && (
+          <Link href="/admin" className="pill !h-7 !px-2.5 !text-[12px]">
+            Admin
+          </Link>
+        )}
+        <Link href="/account" aria-label="Your account" className="flex size-7 items-center justify-center rounded-full bg-ink text-[12px] font-medium text-white">
+          {user.name.slice(0, 1).toUpperCase()}
+        </Link>
+      </span>
     );
   return (
     <Link href="/sign-in" className="btn-line !h-7 !px-3 !font-normal">
