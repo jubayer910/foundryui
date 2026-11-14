@@ -1,10 +1,10 @@
 import { getSessionUser } from "@/lib/auth";
 import { getDb, getEnv, schema } from "@/lib/db";
 import { checkoutKeys, createCheckout } from "@/lib/lemonsqueezy";
-import { PLAN_RANK, getPriceBook, isCheckoutOption, variantKeyFor, type CheckoutOption, type PlanId } from "@/lib/plans";
+import { getEffectivePlan, getPriceBook, isCheckoutOption, isPaid, isTeamActive, isTeamOption, variantKeyFor, type CheckoutOption } from "@/lib/plans";
 
 /**
- * POST /api/checkout  (form field or JSON body: option = proMonthly | proYearly | lifetime)
+ * POST /api/checkout  (form field or JSON body: option = proMonthly | proYearly | teamMonthly | teamYearly | lifetime)
  * Signed out → sign up first, then back to /pricing?buy=<option>.
  * Keys or variant missing → waitlist row and /pricing?waitlist=<option>.
  * Otherwise → a Lemon Squeezy hosted checkout (303).
@@ -25,8 +25,13 @@ export async function POST(req: Request) {
   if (!user) return go("/sign-up?next=" + encodeURIComponent("/pricing?buy=" + option));
 
   // Already covered: nothing to buy.
-  const have = PLAN_RANK[user.plan as PlanId] ?? 0;
-  if (have === PLAN_RANK.lifetime || (have === PLAN_RANK.pro && option !== "lifetime")) return go("/account?already=1");
+  // Team: blocked only when this user already pays for a Team (a Pro or Lifetime buyer may add one for teammates).
+  // Pro: blocked when anything paid covers it, a Team seat included. Lifetime: blocked for Lifetime only.
+  if (isTeamOption(option)) {
+    if (await isTeamActive(user.id, user.plan)) return go("/account?already=1");
+  } else if (user.plan === "lifetime" || (option !== "lifetime" && isPaid(await getEffectivePlan(user)))) {
+    return go("/account?already=1");
+  }
 
   const pb = await getPriceBook();
   const key = variantKeyFor(pb, option);

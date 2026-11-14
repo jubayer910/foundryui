@@ -6,6 +6,7 @@ import { getSessionUser } from "@/lib/auth";
 import { getDb, schema } from "@/lib/db";
 import { planLabel, usd } from "@/lib/plans";
 import { ApiKeys } from "@/components/site/api-keys";
+import { TeamSeats } from "@/components/site/team-seats";
 import { SignOut } from "@/components/site/sign-out";
 import { PageHead } from "@/components/site/page-head";
 import { Billing, WelcomeBanner, type BillingSub, type Receipt } from "@/components/site/billing";
@@ -87,6 +88,7 @@ export default async function AccountPage({ searchParams }: PageProps<"/account"
         ))}
       </div>
       <Billing plan={user.plan} sub={sub} receipts={receipts} />
+      <TeamSeats invite={typeof sp.invite === "string" ? sp.invite : null} />
       <section className="mt-10">
         <h2 className="text-[13px] font-medium">API keys</h2>
         <p className="mt-1 text-[13px] text-mute">Use a key to connect the MCP server or the CLI. Keys are shown once and stored hashed.</p>

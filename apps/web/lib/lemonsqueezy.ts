@@ -109,11 +109,17 @@ export async function entitlement(db: Db, userId: string, now = new Date()): Pro
     .from(schema.purchase)
     .where(and(eq(schema.purchase.userId, userId), inArray(schema.purchase.status, LIVE_PURCHASE)));
   if (purchases.some((p) => p.plan === "lifetime")) return "lifetime";
-  // A paid Pro order is only the first subscription payment (the subscription row decides);
-  // a manual Pro grant from admin (status "granted") counts on its own.
+  // A paid Pro/Team order is only the first subscription payment (the subscription row decides);
+  // a manual grant from admin (status "granted") counts on its own.
+  if (purchases.some((p) => p.plan === "team" && p.status === "granted")) return "team";
+  const subs = await db
+    .select({ plan: schema.subscription.plan, status: schema.subscription.status, endsAt: schema.subscription.endsAt })
+    .from(schema.subscription)
+    .where(eq(schema.subscription.userId, userId));
+  const live = subs.filter((s) => LIVE_SUB.includes(s.status) || (s.status === "cancelled" && (!s.endsAt || s.endsAt > now)));
+  if (live.some((s) => s.plan === "team")) return "team";
   if (purchases.some((p) => p.plan === "pro" && p.status === "granted")) return "pro";
-  const subs = await db.select({ status: schema.subscription.status, endsAt: schema.subscription.endsAt }).from(schema.subscription).where(eq(schema.subscription.userId, userId));
-  if (subs.some((s) => LIVE_SUB.includes(s.status) || (s.status === "cancelled" && (!s.endsAt || s.endsAt > now)))) return "pro";
+  if (live.length) return "pro";
   return "free";
 }
 
@@ -126,16 +132,28 @@ async function applyPlan(db: Db, user: { id: string; plan: string }, mode: "up" 
   const want = await entitlement(db, user.id);
   const have = PLAN_RANK[user.plan as PlanId] ?? 0;
   const next = PLAN_RANK[want];
-  // auto (subscription events): raise while entitled, lower once nothing entitles the user
-  const dir = mode === "auto" ? (next > 0 ? "up" : "down") : mode;
+  // auto (subscription events): raise while entitled, lower once nothing entitles the user.
+  // A Team that ends while a Pro subscription still runs steps the user down from Team to Pro.
+  const dir = mode === "auto" ? (next > 0 && !(user.plan === "team" && next < have) ? "up" : "down") : mode;
   const change = dir === "up" ? next > have : next < have;
   if (!change) return user.plan;
   await db.update(schema.user).set({ plan: want, updatedAt: new Date() }).where(eq(schema.user.id, user.id));
   return want;
 }
 
-const optionPlan = (k: VariantKey | null): { plan: PlanId; variant: string } | null =>
-  k === "lifetimeDeal" || k === "lifetimeAfter" ? { plan: "lifetime", variant: k } : k === "proMonthly" ? { plan: "pro", variant: "monthly" } : k === "proYearly" ? { plan: "pro", variant: "yearly" } : null;
+/** variant = what purchase.variant stores; interval = what a subscription row stores. */
+const optionPlan = (k: VariantKey | null): { plan: PlanId; variant: string; interval?: "monthly" | "yearly" } | null =>
+  k === "lifetimeDeal" || k === "lifetimeAfter"
+    ? { plan: "lifetime", variant: k }
+    : k === "proMonthly"
+      ? { plan: "pro", variant: "monthly", interval: "monthly" }
+      : k === "proYearly"
+        ? { plan: "pro", variant: "yearly", interval: "yearly" }
+        : k === "teamMonthly"
+          ? { plan: "team", variant: "teamMonthly", interval: "monthly" }
+          : k === "teamYearly"
+            ? { plan: "team", variant: "teamYearly", interval: "yearly" }
+            : null;
 
 export type HandleResult = { ok: true; action: string; userId: string | null; plan?: string; note?: string };
 
@@ -192,7 +210,9 @@ export async function handleEvent(db: Db, settings: Settings, ev: LsEvent): Prom
     const key = variantKeyForId(settings, str(a.variant_id));
     const op = optionPlan(key);
     const variantName = (str(a.variant_name) ?? "").toLowerCase();
-    const interval = op?.plan === "pro" ? op.variant : variantName.includes("year") || variantName.includes("annual") ? "yearly" : "monthly";
+    const interval = op?.interval ?? (variantName.includes("year") || variantName.includes("annual") ? "yearly" : "monthly");
+    // Unknown variant: keep the plan already on the row (or "pro", the historic default for a new row).
+    const subPlan = op?.plan === "team" ? "team" : op?.plan === "pro" ? "pro" : null;
     const subId = String(ev.data.id);
     const status = str(a.status) ?? (name === "subscription_expired" ? "expired" : name === "subscription_cancelled" ? "cancelled" : "active");
     const urls = (a.urls ?? {}) as Attrs;
@@ -215,7 +235,7 @@ export async function handleEvent(db: Db, settings: Settings, ev: LsEvent): Prom
         providerSubId: subId,
         userId: user?.id ?? null,
         email: email ?? "",
-        plan: "pro",
+        plan: subPlan ?? "pro",
         interval,
         status,
         renewsAt: date(a.renews_at),
@@ -230,7 +250,7 @@ export async function handleEvent(db: Db, settings: Settings, ev: LsEvent): Prom
         .values(values)
         .onConflictDoUpdate({
           target: [schema.subscription.provider, schema.subscription.providerSubId],
-          set: { userId: values.userId, email: values.email, interval: values.interval, status: values.status, renewsAt: values.renewsAt, endsAt: values.endsAt, portalUrl: values.portalUrl ?? sql`${schema.subscription.portalUrl}`, raw: values.raw, updatedAt: now },
+          set: { userId: values.userId, email: values.email, plan: subPlan ?? sql`${schema.subscription.plan}`, interval: values.interval, status: values.status, renewsAt: values.renewsAt, endsAt: values.endsAt, portalUrl: values.portalUrl ?? sql`${schema.subscription.portalUrl}`, raw: values.raw, updatedAt: now },
         });
       let plan: string | undefined;
       if (user) plan = await applyPlan(db, user, "auto");
