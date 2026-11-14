@@ -9,8 +9,9 @@ import { CATEGORIES, codeCount, entries } from "@/lib/library";
 import { Preview } from "@/components/site/preview";
 import { clientEntries } from "@/lib/seo-entries";
 import { postsFor } from "@/lib/blog";
-import { JsonLd, ORG_ID, abs, breadcrumbLd, fmt, pageMeta } from "@/lib/seo";
+import { JsonLd, ORG_ID, abs, breadcrumbLd, clip, fmt, pageMeta } from "@/lib/seo";
 import { SystemShowcase } from "@/components/showcase/system-showcase";
+import { fitFor, lc, shotSrc } from "../fit";
 
 export function generateStaticParams() {
   return systems.map((s) => ({ slug: s.slug }));
@@ -31,9 +32,11 @@ export async function generateMetadata({ params }: PageProps<"/systems/[slug]">)
   const s = getSystem((await params).slug);
   if (!s) return {};
   const coded = (s.status === "live" ? items.length : 0) + codeCount(s.slug);
+  const f = fitFor(s.slug);
+  const type = f ? f.seoType : "Dashboard";
   return pageMeta({
-    title: `${s.name} dashboard design system: ${fmt(figmaCount(s.slug))} components in Figma and React`,
-    description: `${s.name} is a ${DOMAIN[s.slug] ?? "dashboard"} design system: ${fmt(figmaCount(s.slug))} components in Figma, ${fmt(coded)} with React + Tailwind code checked against Figma. ${s.tagline}. ${s.tier === "free" ? "Free." : "Included in Pro."}`,
+    title: `${s.name}: ${type} dashboard template, React + Figma`,
+    description: clip(`The ${s.name} ${lc(type)} dashboard template, for ${lc(f?.goodFor ?? DOMAIN[s.slug] ?? "dashboards")}. ${fmt(figmaCount(s.slug))} Figma components, ${fmt(coded)} in React checked against Figma. ${s.tier === "free" ? "Free." : "In Pro."}`, 160),
     path: "/systems/" + s.slug,
     image: "/systems/" + s.slug + "/opengraph-image",
   });
@@ -44,6 +47,7 @@ export default async function SystemPage({ params }: PageProps<"/systems/[slug]"
   if (!s) notFound();
   const coded = (s.status === "live" ? items.length : 0) + codeCount(s.slug);
   const live = coded > 0;
+  const fit = fitFor(s.slug);
   const lib = Object.entries(FIGMA_LIBRARY[s.slug] ?? {}).sort((a, b) => b[1] - a[1]);
   // Only this system's entries go to the client browser (was the whole library).
   const own = entries.filter((e) => e.system === s.slug);
@@ -57,6 +61,7 @@ export default async function SystemPage({ params }: PageProps<"/systems/[slug]"
       name: s.name + " design system",
       description: s.description,
       url: abs("/systems/" + s.slug),
+      ...(fit ? { primaryImageOfPage: { "@type": "ImageObject", contentUrl: abs(shotSrc(s.slug)), width: fit.w, height: fit.h } } : {}),
       isPartOf: { "@id": abs("/#website") },
       publisher: { "@id": ORG_ID },
       mainEntity: { "@type": "ItemList", numberOfItems: own.length, itemListElement: own.slice(0, 50).map((e, i) => ({ "@type": "ListItem", position: i + 1, url: abs("/components/" + e.slug), name: e.name })) },
@@ -87,7 +92,13 @@ export default async function SystemPage({ params }: PageProps<"/systems/[slug]"
               <p className="text-[12px] text-mute">{s.tagline}</p>
             </div>
           </div>
-          <p className="mt-3 text-[13px] leading-snug text-mute">{s.description}</p>
+          {fit && (
+            <p className="mt-3 text-[13px] leading-snug">
+              <span className="text-mute">Good for </span>
+              {lc(fit.goodFor)}.
+            </p>
+          )}
+          <p className="mt-2 text-[13px] leading-snug text-mute">{s.description}</p>
         </div>
         <dl className="border-t border-hair">
           {rows.map(([k, v]) => (
@@ -97,14 +108,20 @@ export default async function SystemPage({ params }: PageProps<"/systems/[slug]"
             </div>
           ))}
         </dl>
-        {live ? (
-          <Link href={"/?s=" + s.slug} className="btn-ink w-full">Browse {s.name} components</Link>
-        ) : (
-          <Link href="/systems/loopo" className="btn-line w-full">Start with Loopo, it’s live now</Link>
-        )}
-        <div className="card p-3">
-          <p className="text-[13px] font-medium">Use it with your AI agent</p>
-          <p className="mt-1 rounded-[6px] bg-tile p-2 font-fu-mono text-[11.5px]">{"Build with the " + s.name + " system from Ingot UI."}</p>
+        <div className="flex flex-col gap-2">
+          {live ? (
+            <Link href={"/?s=" + s.slug} className="btn-ink w-full">Browse {s.name} components</Link>
+          ) : (
+            <Link href="/systems/loopo" className="btn-line w-full">Start with Loopo, it’s live now</Link>
+          )}
+          {s.tier === "free" ? (
+            <p className="text-center text-[12px] text-mute">Included in the Free plan.</p>
+          ) : (
+            <p className="text-center text-[12px] text-mute">
+              {s.name} is in the Pro plan. <Link href="/pricing" className="text-ink underline underline-offset-2">See plans</Link>
+            </p>
+          )}
+          <Link href="/systems#which-system" className="text-center text-[12px] text-mute underline underline-offset-2 hover:text-ink">Not sure? See which system fits your product</Link>
         </div>
       </aside>
 
