@@ -5,7 +5,8 @@ import { join } from "node:path";
 import puppeteer from "puppeteer-core";
 import { PNG } from "pngjs";
 import pixelmatch from "pixelmatch";
-import { build, toHTML, toTSX } from "./convert.mjs";
+import { build, toHTML, toTSX, setImageUrl } from "./convert.mjs";
+import { readFileSync, existsSync } from "node:fs";
 import { createRequire } from "node:module";
 const sharp = createRequire(new URL("../../../apps/web/package.json", import.meta.url))("sharp");
 
@@ -13,9 +14,19 @@ const sys = process.argv[2];
 const limit = Number(process.argv[3] || 1e9);
 const only = process.argv[4];
 const DATA = new URL("./data/" + sys + "/", import.meta.url).pathname;
+// image fills exported with serialize args.images: inline them so the render shows the real picture
+setImageUrl((h) => {
+  const f = DATA + "img/" + h + ".bin";
+  if (!existsSync(f)) return null;
+  const b = readFileSync(f);
+  const mime = b[0] === 0x89 ? "image/png" : b[0] === 0xff ? "image/jpeg" : b[0] === 0x47 ? "image/gif" : "image/webp";
+  return "'data:" + mime + ";base64," + b.toString("base64") + "'";
+});
 const OUT = new URL("./out/" + sys + "/", import.meta.url).pathname;
 await mkdir(OUT, { recursive: true });
 const meta = JSON.parse(await readFile(new URL("../../../apps/web/lib/figma-items.json", import.meta.url), "utf8")).filter((m) => m.system === sys);
+// whole-screen copies made for the site showcase are not library items: their metadata is in showcase.json
+meta.push(...JSON.parse(await readFile(new URL("./showcase.json", import.meta.url), "utf8")).filter((m) => m.system === sys));
 const byId = new Map(meta.map((m) => [m.id.replace(/[:;]/g, "-"), m]));
 const onlySet = process.env.ONLY_FILE ? new Set(JSON.parse(await readFile(process.env.ONLY_FILE, "utf8")).filter((k) => k.startsWith(sys + ":")).map((k) => k.split(":")[1])) : null;
 const ids = (await readdir(DATA)).filter((f) => /^\d+-\d+\.json$/.test(f)).map((f) => f.slice(0, -5)).filter((id) => (!only || id === only) && (!onlySet || onlySet.has(id))).slice(0, limit);

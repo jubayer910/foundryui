@@ -48,6 +48,14 @@ const handler = async (req, res) => {
       JSON.parse(body); await writeFile(join(dir, "icon-list.json"), body);
       return res.end("ok");
     }
+    if (u.pathname === "/img") {
+      const hash = (u.searchParams.get("hash") || "").replace(/[^0-9a-f]/g, "");
+      if (!hash) return res.writeHead(400).end();
+      const dir = new URL("./data/" + system + "/img/", import.meta.url).pathname;
+      await mkdir(dir, { recursive: true });
+      await writeFile(join(dir, hash + ".bin"), Buffer.from(body, "base64"));
+      return res.end("ok");
+    }
     if (u.pathname === "/node" || u.pathname === "/png") {
       const id = (u.searchParams.get("id") || "").replace(/[^0-9-]/g, "");
       const dir = new URL("./data/" + system + "/", import.meta.url).pathname;

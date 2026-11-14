@@ -7,6 +7,7 @@ import { Browser } from "@/components/site/browser";
 import { railSystems } from "@/components/site/rail";
 import { CATEGORIES, codeCount, entries } from "@/lib/library";
 import { Preview } from "@/components/site/preview";
+import { SystemShowcase } from "@/components/showcase/system-showcase";
 
 export function generateStaticParams() {
   return systems.map((s) => ({ slug: s.slug }));
@@ -69,6 +70,7 @@ export default async function SystemPage({ params }: PageProps<"/systems/[slug]"
       </aside>
 
       <div className="min-w-0">
+        <SystemShowcase system={s.slug} name={s.name} />
         {s.status === "live" && (
           <section>
             <h2 className="text-[13px] font-medium">Foundations</h2>

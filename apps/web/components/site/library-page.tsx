@@ -3,6 +3,7 @@ import { items, systems, FIGMA_LIBRARY_COUNT } from "@/lib/catalog";
 import { CATEGORIES, CODED_TOTAL, entries } from "@/lib/library";
 import { railSystems } from "./rail";
 import { Browser } from "./browser";
+import { AgentShowcase } from "./showcase/agent-showcase";
 import { CIcon } from "./chrome-icon";
 import iconStats from "@/lib/icon-stats.json";
 
@@ -47,6 +48,7 @@ export function LibraryPage({ q = "", c = "all", s = "all", intro = true }: { q?
       <div className="mt-5">
         <Browser entries={entries} categories={CATEGORIES} systems={railSystems} initialQuery={q} initialCategory={c} initialSystem={s} />
       </div>
+      {intro && <AgentShowcase />}
 
       {intro && (
         <section className="mt-16 grid gap-3 md:grid-cols-3" aria-label="More">

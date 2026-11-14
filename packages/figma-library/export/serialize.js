@@ -2,10 +2,12 @@
 // For each Foundry Library component: posts a compact node tree (/node) and a 1x PNG (/png) to the local receiver.
 if (figma.root.name.toLowerCase() !== args.file.toLowerCase()) throw new Error("wrong file " + figma.root.name);
 const P = figma.root.children.find((p) => p.name === "Foundry Library");
-await figma.setCurrentPageAsync(P);
+// with explicit ids, load the page without switching the owner's view
+if (args.ids) await P.loadAsync(); else await figma.setCurrentPageAsync(P);
 const L = [];
 for (const s of P.children) if (s.type === "SECTION" && !/\/ (Templates)$/.test(s.name)) for (const c of s.children) if (c.type === "COMPONENT" || c.type === "COMPONENT_SET") L.push(c);
 const U = "http://localhost:9231";
+const IMGS = new Set();
 const hex = (c) => "#" + [c.r, c.g, c.b].map((v) => Math.round(v * 255).toString(16).padStart(2, "0")).join("");
 const r2 = (v) => Math.round(v * 100) / 100;
 const paint = (p) => {
@@ -15,7 +17,8 @@ const paint = (p) => {
     const t = p.gradientTransform; const ang = Math.round((Math.atan2(t[1][0], t[0][0]) * 180) / Math.PI);
     return { k: p.type === "GRADIENT_LINEAR" ? "l" : "r", ang, gt: t.map((row) => row.map((v) => Math.round(v * 10000) / 10000)), a: r2(p.opacity ?? 1), st: p.gradientStops.map((s) => [hex(s.color), r2(s.color.a), r2(s.position)]) };
   }
-  if (p.type === "IMAGE") return { k: "i" };
+  // image fills: keep the hash and scale mode; the bytes are posted once per hash (args.images) so the converter can use the real picture
+  if (p.type === "IMAGE") { if (p.imageHash) IMGS.add(p.imageHash); return { k: "i", h: p.imageHash || undefined, sm: p.scaleMode }; }
   return null;
 };
 const paints = (ps) => (Array.isArray(ps) ? ps.map(paint).filter(Boolean) : []);
@@ -119,6 +122,10 @@ async function ser(n, parent) {
     // filled glyphs (solid shapes) vs outlined glyphs (strokes)
     const filled = v.filter((x) => Array.isArray(x.fills) && x.fills.some((p) => p.visible !== false)).length, stroked = v.filter((x) => Array.isArray(x.strokes) && x.strokes.some((p) => p.visible !== false)).length;
     if (filled > stroked) o.fill = 1;
+    // resized instances keep their stroke weight in px (Figma does not scale strokes on resize)
+    const sv = v.find((x) => Array.isArray(x.strokes) && x.strokes.some((p) => p.visible !== false) && typeof x.strokeWeight === "number");
+    if (sv) o.isw = r2(sv.strokeWeight);
+    if (n.layoutPositioning === "ABSOLUTE") o.abs = 1;
     return o;
   }
   // drawn shapes (chart marks, illustrations) become one SVG built from Figma's own geometry (no export calls)
@@ -156,7 +163,7 @@ for (const c of LIST) {
   globalThis.__fuSer = { sys: args.sys, done: ok + err.length, of: LIST.length };
   try {
     const id = c.id.replace(/[:;]/g, "-");
-    if (c.findAll(() => true).length > 1200) { err.push(id + ":too-large"); continue; }
+    if (c.findAll(() => true).length > (args.maxNodes || 1200)) { err.push(id + ":too-large"); continue; }
     const tree = await ser(c, null);
     // the PNG export includes shadow bleed: remember where the box sits inside it
     const rb = c.absoluteRenderBounds, bb = c.absoluteBoundingBox;
@@ -164,6 +171,13 @@ for (const c of LIST) {
     const r1 = await fetch(U + "/node?system=" + args.sys + "&id=" + id, { method: "POST", body: JSON.stringify(tree) });
     const png = await Promise.race([c.exportAsync({ format: "PNG", constraint: { type: "SCALE", value: 1 } }), new Promise((_, rej) => setTimeout(() => rej(new Error("png timeout")), 8000))]);
     const r2_ = await fetch(U + "/png?system=" + args.sys + "&id=" + id, { method: "POST", body: figma.base64Encode(png) });
+    // image bytes (once per hash), only when asked: whole screens with avatars and logos
+    if (args.images) for (const h of IMGS) {
+      const img = figma.getImageByHash(h); if (!img) continue;
+      const bytes = await img.getBytesAsync();
+      await fetch(U + "/img?system=" + args.sys + "&hash=" + h, { method: "POST", body: figma.base64Encode(bytes) });
+    }
+    IMGS.clear();
     if (r1.ok && r2_.ok) ok++; else err.push(id);
     timing.push(c.name.split("/").pop() + ":" + (Date.now() - tc));
   } catch (e) { err.push(c.id + ":" + String(e).slice(0, 80)); }
