@@ -90,8 +90,44 @@ async function callsToday(env: Env, user: User) {
   return Number(r?.n ?? 0);
 }
 
+/** Markers around the Ingot block in shared files (CLAUDE.md, AGENTS.md) so re-running init_project replaces it in place. */
+const RULES_START = "<!-- ingot-ui:start -->";
+const RULES_END = "<!-- ingot-ui:end -->";
+
+/** Short, concrete rules every agent reads at the start of a session. */
+function rulesBody(system: string, site: string) {
+  return [
+    "## UI: Ingot UI (" + system + " system)",
+    "",
+    "This project's UI is built with the Ingot UI design system, served by the `ingot-ui` MCP server.",
+    "",
+    "- Build every screen from Ingot components in `components/ingot/`. Before writing a new component, call `search_components`; add what you need with `add_components`, or start a page with `scaffold_screen`.",
+    "- Colours, radii and shadows come only from the `--fu-*` tokens through Tailwind utilities (`bg-fu-surface`, `text-fu-ink`, `border-fu-line`, `rounded-fu-lg`). Never write raw hex, rgb() or Tailwind palette colours (`bg-blue-500`), and never raw radii (`rounded-lg`).",
+    "- Charts: use `get_chart` and the Ingot chart components. No recharts or chart.js, no plain single-series bar or smooth line.",
+    "- Icons: `<Icon name=… />` from `components/ingot/icons`, or `search_icons`. Every icon must depict its label. No decorative dots before labels or as bullets.",
+    "- Before you finish any UI change, run `audit_ui` on each file you touched and fix every finding.",
+    "- Missing a component? Use `send_feedback` instead of inventing one with custom styles.",
+    "",
+    "Docs: " + site + "/mcp",
+  ].join("\n");
+}
+
+function rulesFiles(system: string, site: string, want: Set<string>) {
+  const body = rulesBody(system, site);
+  const block = RULES_START + "\n" + body + "\n" + RULES_END + "\n";
+  const files: { path: string; content: string; mode: "create" | "merge"; markers?: { start: string; end: string } }[] = [
+    // kept for projects set up before the rules files existed
+    { path: "INGOT.md", content: "# " + body.slice(3) + "\n", mode: "create" },
+  ];
+  if (want.has("claude")) files.push({ path: "CLAUDE.md", content: block, mode: "merge", markers: { start: RULES_START, end: RULES_END } });
+  if (want.has("codex")) files.push({ path: "AGENTS.md", content: block, mode: "merge", markers: { start: RULES_START, end: RULES_END } });
+  if (want.has("cursor"))
+    files.push({ path: ".cursor/rules/ingot.mdc", content: "---\ndescription: Ingot UI design system rules for all UI code\nglobs:\nalwaysApply: true\n---\n\n" + body + "\n", mode: "create" });
+  return files;
+}
+
 function buildServer(env: Env, user: User) {
-  const server = new McpServer({ name: "ingot-ui", version: "0.1.0" }, { instructions: "Ingot UI: design systems, React + Tailwind v4 components and charts. Call init_project once per project, then add_components or scaffold_screen. Write files to the paths given; never invent colours — use the --fu-* tokens." });
+  const server = new McpServer({ name: "ingot-ui", version: "0.1.0" }, { instructions: "Ingot UI: design systems, React + Tailwind v4 components and charts. Call init_project once per project and write the rules files it returns (CLAUDE.md, AGENTS.md, .cursor/rules/ingot.mdc), then add_components or scaffold_screen. Write files to the paths given; never invent colours — use the --fu-* tokens. Run audit_ui before finishing UI work." });
   const site = env.SITE_URL;
 
   /** wraps every tool: quota + usage log */
@@ -182,22 +218,32 @@ function buildServer(env: Env, user: User) {
 
   server.registerTool(
     "init_project",
-    { description: "Set up a project for a Ingot system: token files, the globals.css imports, required packages and an agent rules file (INGOT.md) so later sessions keep using the system.", inputSchema: { system: z.string().default("loopo"), framework: z.enum(["next", "vite", "remix", "other"]).default("next") } },
-    guard("init_project", async ({ system, framework }: { system: string; framework: string }) => {
+    {
+      description:
+        "Set up a project for an Ingot system: token files, the globals.css imports, required packages and agent rules files (CLAUDE.md, AGENTS.md, .cursor/rules/ingot.mdc, plus INGOT.md) so every later session keeps using the system. Write every file; for files with mode 'merge', keep the existing content and replace or append only the block between the ingot-ui markers.",
+      inputSchema: {
+        system: z.string().default("loopo"),
+        framework: z.enum(["next", "vite", "remix", "other"]).default("next"),
+        agents: z.array(z.enum(["claude", "codex", "cursor"])).optional().describe("which agent rules files to return; default all three"),
+      },
+    },
+    guard("init_project", async ({ system, framework, agents }: { system: string; framework: string; agents?: ("claude" | "codex" | "cursor")[] }) => {
       const t = getItem("tokens")!.code;
       const css = framework === "next" ? "app/globals.css" : "src/index.css";
+      const sys = SYSTEMS.find((x) => x.slug === system) ? system : "loopo";
+      const want = new Set(agents?.length ? agents : ["claude", "codex", "cursor"]);
       return json({
         files: [
-          { path: "styles/ingot/theme.css", content: t["tokens/theme.css"] },
-          { path: "styles/ingot/loopo.css", content: t["tokens/loopo.css"] },
-          { path: "components/ingot/cx.ts", content: getItem("cx")!.code["components/cx.ts"] },
-          { path: "components/ingot/icons.tsx", content: getItem("icons")!.code["components/icons.tsx"] },
-          { path: "INGOT.md", content: "# UI rules (Ingot UI · " + system + ")\n\n- Build UI only from components in components/ingot (add more with the Ingot MCP add_components tool).\n- Colours, radii and shadows come from --fu-* tokens via Tailwind utilities (bg-fu-surface, text-fu-ink, rounded-fu-lg). Never hard-code hex values.\n- Icons: <Icon name=… /> from components/ingot/icons. Every icon must depict its label.\n- No decorative dots (no dot bullets, no dot before badge text).\n- Charts: use Ingot chart components; never a plain bar or smooth line.\n- Light mode only for now.\n" },
+          { path: "styles/ingot/theme.css", content: t["tokens/theme.css"], mode: "create" },
+          { path: "styles/ingot/loopo.css", content: t["tokens/loopo.css"], mode: "create" },
+          { path: "components/ingot/cx.ts", content: getItem("cx")!.code["components/cx.ts"], mode: "create" },
+          { path: "components/ingot/icons.tsx", content: getItem("icons")!.code["components/icons.tsx"], mode: "create" },
+          ...rulesFiles(sys, site, want),
         ],
         editFile: { path: css, prepend: '@import "tailwindcss";\n@import "../styles/ingot/theme.css";\n@import "../styles/ingot/loopo.css";' },
         install: "npm install @base-ui/react",
         requires: "React 19 + Tailwind CSS v4",
-        next: "Reference INGOT.md from CLAUDE.md / AGENTS.md / .cursor/rules so the rules persist.",
+        next: "Write the files above (mode 'merge': keep what is already in the file and put the ingot-ui block in place of any older one). Then run audit_ui on the screens you build before you finish.",
       });
     }),
   );
