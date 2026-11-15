@@ -517,7 +517,7 @@ body {
   display: inline-flex;
   border-radius: 10px;
   box-shadow: 0 0 0 1px var(--color-hair);
-  transition: box-shadow 0.2s, transform 0.2s;
+  transition: box-shadow 0.2s;
 }
 .feat-illo .illo-tile { border-radius: 10px; }
 .feat-badge {
@@ -534,8 +534,7 @@ body {
 .feat-row:not(:hover):not(:focus-within) .feat:nth-child(2) .feat-illo,
 .feat-link:hover .feat-illo,
 .feat-link:focus-visible .feat-illo {
-  box-shadow: 0 0 0 1px rgb(75 85 230 / 0.55), 0 10px 22px -12px rgb(75 85 230 / 0.55);
-  transform: translateY(-2px);
+  box-shadow: 0 0 0 1px rgb(75 85 230 / 0.55);
 }
 .feat-row:not(:hover):not(:focus-within) .feat:nth-child(2) .feat-link::before,
 .feat-link:hover::before,
