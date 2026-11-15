@@ -28,6 +28,14 @@ export async function savePricing(_prev: PricingState, f: FormData): Promise<Pri
     variants[k] = v;
   }
 
+  const externalCheckout = {} as Settings["externalCheckout"];
+  for (const k of PRICE_KEYS) {
+    const v = str("ext_" + k);
+    if (v && !/^https:\/\/[^\s]+$/.test(v)) errors["ext_" + k] = "Paste a full https:// link";
+    else if (v.length > 500) errors["ext_" + k] = "That link is too long";
+    externalCheckout[k] = v;
+  }
+
   const deal = await getDeal();
   const spots = Number(str("spotsTotal"));
   if (!Number.isInteger(spots) || spots < 1) errors.spotsTotal = "Whole number, at least 1";
@@ -65,10 +73,11 @@ export async function savePricing(_prev: PricingState, f: FormData): Promise<Pri
   };
   await setSetting("prices", prices);
   await setSetting("variants", variants);
+  await setSetting("externalCheckout", externalCheckout);
   await setSetting("deal", dealNext);
   await audit(me.email, "settings.pricing", "prices,variants,deal", {
-    before: { prices: before.prices, variants: before.variants, deal: before.deal },
-    after: { prices, variants, deal: dealNext },
+    before: { prices: before.prices, variants: before.variants, externalCheckout: before.externalCheckout, deal: before.deal },
+    after: { prices, variants, externalCheckout, deal: dealNext },
   });
   revalidatePath("/pricing");
   revalidatePath("/", "layout");

@@ -1,12 +1,14 @@
 import { getSessionUser } from "@/lib/auth";
 import { getDb, getEnv, schema } from "@/lib/db";
+import { audit } from "@/lib/admin";
 import { checkoutKeys, createCheckout } from "@/lib/lemonsqueezy";
 import { getEffectivePlan, getPriceBook, isCheckoutOption, isPaid, isTeamActive, isTeamOption, variantKeyFor, type CheckoutOption } from "@/lib/plans";
 
 /**
  * POST /api/checkout  (form field or JSON body: option = proMonthly | proYearly | teamMonthly | teamYearly | lifetime)
  * Signed out → sign up first, then back to /pricing?buy=<option>.
- * Keys or variant missing → waitlist row and /pricing?waitlist=<option>.
+ * Keys or variant missing → the admin's external checkout link for that option (e.g. Contra) if set,
+ * otherwise a waitlist row and /pricing?waitlist=<option>.
  * Otherwise → a Lemon Squeezy hosted checkout (303).
  * JSON callers get { url } instead of a redirect.
  */
@@ -42,6 +44,15 @@ export async function POST(req: Request) {
   const variantId = pb.settings.variants[key]?.trim();
 
   if (!keys || !variantId) {
+    // No Lemon Squeezy checkout: an external checkout link (e.g. a Contra product) wins over the waitlist.
+    // The plan is then granted by hand in admin; the audit row lets the owner match the buyer.
+    const external = pb.settings.externalCheckout?.[key]?.trim();
+    if (external && /^https:\/\//.test(external)) {
+      try {
+        await audit(user.email, "checkout.external", key, { option, userId: user.id, url: external });
+      } catch {}
+      return go(external);
+    }
     const db = await getDb();
     // Keep the price they saw: the variant key records deal vs after-deal for Lifetime.
     await db

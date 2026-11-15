@@ -19,6 +19,12 @@ type Values = {
   variant_teamYearly: string;
   variant_lifetimeDeal: string;
   variant_lifetimeAfter: string;
+  ext_proMonthly: string;
+  ext_proYearly: string;
+  ext_teamMonthly: string;
+  ext_teamYearly: string;
+  ext_lifetimeDeal: string;
+  ext_lifetimeAfter: string;
   deal_enabled: boolean;
   spotsTotal: string;
   after: "price" | "closed";
@@ -96,6 +102,23 @@ export function PricingForm({ initial, sold, action }: { initial: Values; sold: 
         />
       </span>
       {err(k) ? <span className="text-[12px] text-[#c62828]">{err(k)}</span> : hint ? <span className="text-[12px] text-faint">{hint}</span> : null}
+    </label>
+  );
+
+  const link = (k: keyof Values, label: string) => (
+    <label className="flex flex-col gap-1">
+      <span className="text-[12px] text-mute">{label}</span>
+      <input
+        name={k}
+        type="url"
+        inputMode="url"
+        placeholder="https://contra.com/..."
+        value={v[k] as string}
+        onChange={(e) => set(k, e.target.value as never)}
+        aria-invalid={!!err(k)}
+        className={inputCls}
+      />
+      {err(k) && <span className="text-[12px] text-[#c62828]">{err(k)}</span>}
     </label>
   );
 
@@ -236,6 +259,20 @@ export function PricingForm({ initial, sold, action }: { initial: Values; sold: 
             {num("variant_teamYearly", "Team yearly")}
             {num("variant_lifetimeDeal", "Lifetime deal")}
             {num("variant_lifetimeAfter", "Lifetime after deal")}
+          </div>
+        </fieldset>
+
+        <fieldset className="card p-4">
+          <legend className="sr-only">External checkout links</legend>
+          <p className="text-[13px] font-medium">External checkout links (Contra)</p>
+          <p className="mt-0.5 text-[12px] text-faint">Used only when an option has no Lemon Squeezy variant. The buy button opens this link; you activate the plan by hand in Orders, Grant plan. Empty means waitlist.</p>
+          <div className="mt-3 grid grid-cols-2 gap-3">
+            {link("ext_proMonthly", "Pro monthly")}
+            {link("ext_proYearly", "Pro yearly")}
+            {link("ext_teamMonthly", "Team monthly")}
+            {link("ext_teamYearly", "Team yearly")}
+            {link("ext_lifetimeDeal", "Lifetime deal")}
+            {link("ext_lifetimeAfter", "Lifetime after deal")}
           </div>
         </fieldset>
 
