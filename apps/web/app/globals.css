@@ -473,3 +473,38 @@ body {
   .hero-eyebrow::before { animation: none; --hero-eyebrow-angle: 180deg; }
   .hero-glow { animation: none; }
 }
+
+/* Custom cursor. Pure CSS image cursors in the spirit of recent.design (no JS follower, so no lag and no
+   rAF loop). components/site/cursor/custom-cursor.tsx sets data-ingot-cursor on <html> only on devices with
+   hover + a fine pointer; touch never sees these rules. Ink arrow with a white outline and soft shadow (so it
+   reads on dark surfaces too), brand accent over clickable things, native cursors where they help:
+   text fields, selects, code, iframes, disabled controls and any Tailwind cursor-* other than pointer.
+   Escape hatch: data-native-cursor on any element. Unlayered on purpose, so it sits above the
+   utilities layer; revert-layer hands the excluded elements back to their layered/UA cursor. */
+html[data-ingot-cursor] {
+  --ingot-cursor: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'><defs><filter id='s' x='-20%' y='-20%' width='160%' height='160%'><feDropShadow dx='0' dy='1' stdDeviation='1.1' flood-color='%23000' flood-opacity='.28'/></filter></defs><path filter='url(%23s)' d='M5 4V21.2L9.4 17.3L12.4 24.1L15.5 22.7L12.6 16.1L18.6 16Z' fill='%230b0b0b' stroke='%23fff' stroke-width='1.75' stroke-linejoin='round'/></svg>") 5 4, auto;
+  --ingot-cursor-hover: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'><defs><filter id='s' x='-20%' y='-20%' width='160%' height='160%'><feDropShadow dx='0' dy='1' stdDeviation='1.1' flood-color='%23000' flood-opacity='.28'/></filter></defs><path filter='url(%23s)' d='M5 4V21.2L9.4 17.3L12.4 24.1L15.5 22.7L12.6 16.1L18.6 16Z' fill='%234b55e6' stroke='%23fff' stroke-width='1.75' stroke-linejoin='round'/></svg>") 5 4, pointer;
+}
+html[data-ingot-cursor],
+html[data-ingot-cursor] body,
+html[data-ingot-cursor] body * {
+  cursor: var(--ingot-cursor);
+}
+html[data-ingot-cursor] :is(a[href], button, [role=button], [role=link], [role=tab], [role=menuitem], [role=menuitemradio], [role=menuitemcheckbox], [role=option], [role=switch], [role=checkbox], [role=radio], summary, label[for], input:is([type=checkbox], [type=radio], [type=submit], [type=button], [type=reset], [type=range], [type=color], [type=file]), .cursor-pointer),
+html[data-ingot-cursor] :is(a[href], button, [role=button], [role=link], [role=tab], [role=menuitem], [role=menuitemradio], [role=menuitemcheckbox], [role=option], [role=switch], [role=checkbox], [role=radio], summary, label[for], .cursor-pointer) * {
+  cursor: var(--ingot-cursor-hover);
+}
+/* Typing surfaces keep the I-beam. The long :not() chain also lifts these selectors above the hover rule. */
+html[data-ingot-cursor] :is(textarea, input:not([type=checkbox]):not([type=radio]):not([type=submit]):not([type=button]):not([type=reset]):not([type=range]):not([type=color]):not([type=file]):not([type=hidden]), [contenteditable]:not([contenteditable=false]), [contenteditable]:not([contenteditable=false]) *) {
+  cursor: text;
+}
+/* Native cursor (auto: I-beam over code text, the OS arrow elsewhere). auto, not revert: cursor inherits. */
+html[data-ingot-cursor] :is(select, iframe, pre, code, kbd, [data-native-cursor], input:not([type=checkbox]):not([type=radio]):not([type=submit]):not([type=button]):not([type=reset]):not([type=range]):not([type=color]):not([type=file]):not([type=hidden]):disabled),
+html[data-ingot-cursor] :is(pre, [data-native-cursor]) :not(input):not(textarea):not([contenteditable]) {
+  cursor: auto;
+}
+/* Disabled controls and Tailwind cursor-* utilities (not-allowed, grab, move, resize…) keep their own cursor.
+   The class branch's specificity carries the whole :is() above the hover rule. */
+html[data-ingot-cursor] :is(:disabled, [aria-disabled=true], :is([class^="cursor-"], [class*=" cursor-"]):not(.cursor-pointer):not(.cursor-default):not(.cursor-auto)) {
+  cursor: revert-layer;
+}
