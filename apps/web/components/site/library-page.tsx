@@ -3,7 +3,8 @@ import { CATEGORIES, entries } from "@/lib/library";
 import { railSystems } from "./rail";
 import { Browser } from "./browser";
 import { IlloTile, PostCover } from "./illo";
-import { HomeHero, ShowcaseBand } from "./home-hero";
+import { ShowcaseBand } from "./home-hero";
+import { HomeHeroV2 } from "./hero/home-hero-v2";
 import { ProofStrip, HOME_PROOF } from "./proof-strip";
 import { posts, readingTime } from "@/lib/blog";
 import { clientEntries } from "@/lib/seo-entries";
@@ -27,7 +28,7 @@ export function LibraryPage({ q = "", c = "all", s = "all", intro = true, home =
   return (
     <div>
       {home ? (
-        <HomeHero />
+        <HomeHeroV2 />
       ) : (
         <header className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
           <h1 className="page-title">Components</h1>

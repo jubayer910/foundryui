@@ -6,7 +6,8 @@ import { SiteChrome } from "@/components/site/site-chrome";
 import { JsonLd, SITE, organizationLd, websiteLd } from "@/lib/seo";
 import "./globals.css";
 
-const inter = Inter({ variable: "--font-inter", subsets: ["latin"] });
+// opsz axis: large headings use Inter Display (opsz 32) from the same variable font
+const inter = Inter({ variable: "--font-inter", subsets: ["latin"], axes: ["opsz"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
 
 // Google Analytics 4 (G-791MYC76DX) and Microsoft Clarity (zdnoi4px8s) load only after cookie consent:
