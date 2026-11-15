@@ -1,6 +1,9 @@
 /* Original isometric scenes for Ingot UI pages and guide covers. Each scene draws back to front. */
 import type { ReactNode } from "react";
 import { A, Box, Cyl, Dot, Ground, Line, LinesY, Quad, onX, onY, onZ, type V } from "./iso";
+import { CATEGORY_SCENES } from "./category-scenes";
+
+export { LIBRARY_CATEGORY_SCENE } from "./category-scenes";
 
 const range = (n: number) => Array.from({ length: n }, (_, i) => i);
 
@@ -826,6 +829,7 @@ function Agent() {
 }
 
 export const SCENES: Record<string, () => ReactNode> = {
+  ...CATEGORY_SCENES,
   stack: () => <Stack />,
   screen: () => <Screen />,
   "screen-b": () => <Screen variant="b" />,
@@ -895,6 +899,21 @@ export const CATEGORY_SCENE: Record<string, string> = { Guides: "stack", Lists: 
 
 /** Fitted viewBox per scene (measured from the drawn geometry, plus padding for motion). */
 export const VIEWBOX: Record<string, string> = {
+ "cat-cards": "-108 -73 216 142",
+ "cat-charts": "-101 -113 203 178",
+ "cat-tables": "-113 -76 226 148",
+ "cat-modals": "-118 -79 236 154",
+ "cat-forms": "-84 -114 164 169",
+ "cat-templates": "-116 -78 233 152",
+ "cat-nav": "-115 -80 229 153",
+ "cat-kpi": "-96 -95 183 159",
+ "cat-menus": "-77 -116 160 167",
+ "cat-popovers": "-106 -72 212 140",
+ "cat-drawers": "-118 -79 236 154",
+ "cat-headers": "-113 -77 226 149",
+ "cat-editors": "-120 -80 240 156",
+ "cat-empty": "-113 -84 226 156",
+ "cat-atoms": "-110 -74 219 144",
  "stack": "-103 -110 205 176",
  "screen": "-113 -115 216 187",
  "screen-b": "-113 -115 216 187",
