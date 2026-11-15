@@ -80,30 +80,21 @@ export function Browser({ entries, categories, systems, initialCategory = "all",
 
   return (
     <div>
-      <div className="flex flex-col gap-2 lg:flex-row lg:items-center lg:gap-3">
-        <label className="field-pill flex h-9 items-center gap-2 rounded-full bg-chip px-3.5 lg:w-[340px]">
+      <div className="flex flex-col gap-2 lg:flex-row lg:items-center">
+        <label className="field-pill flex h-9 items-center gap-2 rounded-full bg-chip px-3.5 lg:w-[320px]">
           <Icon name="search" size={15} className="shrink-0 text-mute" />
           <input ref={input} type="search" value={q} onChange={(e) => { setQ(e.target.value); setLimit(PAGE); }} placeholder="Search, e.g. invoice table, add funds" className="min-w-0 flex-1 bg-transparent text-[13px] placeholder:text-mute" aria-label="Search components" />
           <kbd className="rounded-[4px] bg-white px-1.5 text-[11px] text-mute max-lg:hidden" aria-hidden="true">/</kbd>
         </label>
-        <div className="grid grid-cols-2 gap-1.5 lg:ml-auto lg:flex lg:items-center">
+        <div className="grid grid-cols-3 gap-1.5 lg:ml-auto lg:flex lg:items-center">
+          <PillSelect label="Design system" value={sys} onChange={(v) => { setSys(v); setLimit(PAGE); }} options={[["all", "All systems"], ...systems.map((x): [string, string] => [x.slug, x.name])]} />
           <PillSelect label="Format" value={kind} onChange={(v) => { setKind(v as typeof kind); setLimit(PAGE); }} options={[["all", "Code and Figma"], ["code", "With code"], ["figma", "Figma only (code coming)"]]} />
           <PillSelect label="Sort" value={sort} onChange={(v) => setSort(v as Sort)} options={[["featured", "Featured"], ["code", "Code first"], ["az", "A to Z"]]} />
         </div>
       </div>
 
-      <Scroller label="Design system" className="mt-3">
-        <button onClick={reset(() => setSys("all"))} data-on={sys === "all"} aria-pressed={sys === "all"} className="pill shrink-0">All systems</button>
-        {systems.map((s) => (
-          <button key={s.slug} onClick={reset(() => setSys(s.slug))} data-on={sys === s.slug} aria-pressed={sys === s.slug} className="pill shrink-0">
-            <span className="size-2.5 rounded-[3px]" style={{ background: s.accent }} aria-hidden="true" />
-            {s.name}
-          </button>
-        ))}
-      </Scroller>
-
       {cats.length > 2 && (
-        <Scroller label="Category" className="mt-1.5">
+        <Scroller label="Category" className="mt-2">
           {cats.map((c) => (
             <button key={c} aria-pressed={cat === c} data-on={cat === c} onClick={reset(() => setCat(c))} className="pill shrink-0">
               {c === "all" ? "All" : c}
@@ -144,7 +135,7 @@ export function Browser({ entries, categories, systems, initialCategory = "all",
 /** A native select dressed as a pill: same height as the search field, custom chevron, one focus ring. */
 function PillSelect({ label, value, onChange, options }: { label: string; value: string; onChange: (v: string) => void; options: [string, string][] }) {
   return (
-    <span className="relative inline-flex min-w-0">
+    <span className="relative inline-flex min-w-0 lg:min-w-[132px]">
       <select value={value} onChange={(e) => onChange(e.target.value)} aria-label={label} className="select-pill w-full">
         {options.map(([v, t]) => (
           <option key={v} value={v}>
