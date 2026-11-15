@@ -9,10 +9,14 @@ import type { PricingState } from "@/app/admin/(panel)/pricing/actions";
 type Values = {
   price_proMonthly: string;
   price_proYearly: string;
+  price_teamMonthly: string;
+  price_teamYearly: string;
   price_lifetimeDeal: string;
   price_lifetimeAfter: string;
   variant_proMonthly: string;
   variant_proYearly: string;
+  variant_teamMonthly: string;
+  variant_teamYearly: string;
   variant_lifetimeDeal: string;
   variant_lifetimeAfter: string;
   deal_enabled: boolean;
@@ -127,6 +131,8 @@ export function PricingForm({ initial, sold, action }: { initial: Values; sold: 
           <div className="mt-3 grid grid-cols-2 gap-3">
             {num("price_proMonthly", "Pro monthly", "$", "per month")}
             {num("price_proYearly", "Pro yearly", "$", "per year")}
+            {num("price_teamMonthly", "Team monthly", "$", "per month, 5 seats")}
+            {num("price_teamYearly", "Team yearly", "$", "per year, 5 seats")}
             {num("price_lifetimeDeal", "Lifetime deal", "$", "while the deal runs")}
             {num("price_lifetimeAfter", "Lifetime after deal", "$", "after the deal ends")}
           </div>
@@ -226,6 +232,8 @@ export function PricingForm({ initial, sold, action }: { initial: Values; sold: 
           <div className="mt-3 grid grid-cols-2 gap-3">
             {num("variant_proMonthly", "Pro monthly")}
             {num("variant_proYearly", "Pro yearly")}
+            {num("variant_teamMonthly", "Team monthly")}
+            {num("variant_teamYearly", "Team yearly")}
             {num("variant_lifetimeDeal", "Lifetime deal")}
             {num("variant_lifetimeAfter", "Lifetime after deal")}
           </div>

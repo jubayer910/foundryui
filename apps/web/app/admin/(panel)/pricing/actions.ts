@@ -6,7 +6,7 @@ import { getSettings, setSetting, type Settings } from "@/lib/settings";
 
 export type PricingState = { ok?: string; errors?: Record<string, string> };
 
-const PRICE_KEYS = ["proMonthly", "proYearly", "lifetimeDeal", "lifetimeAfter"] as const;
+const PRICE_KEYS = ["proMonthly", "proYearly", "teamMonthly", "teamYearly", "lifetimeDeal", "lifetimeAfter"] as const;
 
 export async function savePricing(_prev: PricingState, f: FormData): Promise<PricingState> {
   const { user: me } = await requireStaff("pricing");
