@@ -5,7 +5,7 @@ import { SITE_URL } from "@/lib/catalog";
 import { PageHead } from "@/components/site/page-head";
 import { IlloTile } from "@/components/site/illo";
 
-export const metadata: Metadata = pageMeta({ title: "Docs: install, tokens, Figma and AI agents", description: "Install Ingot UI with the CLI or shadcn, wire the Tailwind v4 tokens, theme a system, copy to Figma and use the library with AI agents. Licence included.", path: "/docs" });
+export const metadata: Metadata = pageMeta({ title: "Docs: install, tokens, Figma and AI agents", description: "Install Ingot UI with the CLI or shadcn, wire the Tailwind v4 tokens, theme a system, copy to Figma and use the library with AI agents. Licence included.", path: "/docs", image: "/docs/opengraph-image" });
 
 const H = "mt-10 text-[14px] font-medium scroll-mt-6";
 const P = "mt-2 text-[13px] leading-relaxed text-mute";

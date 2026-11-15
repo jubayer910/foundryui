@@ -11,7 +11,7 @@ import { CARD, PRODUCT_TYPES, cardSrc, fitFor, lc, shotAlt, shotSrc } from "./fi
 export const metadata: Metadata = pageMeta({
   title: "Dashboard templates for React and Figma: 6 systems",
   description: "Six complete dashboard design systems: analytics, email, AI agent, workflow, security and SaaS admin. Real screens in Figma, React + Tailwind code checked against Figma.",
-  path: "/systems",
+  path: "/systems", image: "/systems/opengraph-image",
 });
 
 const codedFor = (s: (typeof systems)[number]) => (s.status === "live" ? items.length : 0) + codeCount(s.slug);

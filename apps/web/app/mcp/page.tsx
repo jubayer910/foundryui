@@ -10,7 +10,7 @@ import { CLIENTS, configText, mcpUrlFor } from "@/components/site/connect-agent-
 export const metadata: Metadata = pageMeta({
   title: "MCP server for UI components: Claude Code, Cursor, Codex",
   description: "Connect Claude Code, Cursor, VS Code or Codex to the Ingot UI MCP server in one step. Your agent builds with checked React components and tokens, not guesses.",
-  path: "/mcp",
+  path: "/mcp", image: "/mcp/opengraph-image",
 });
 
 const MCP_URL = mcpUrlFor(SITE_URL);

@@ -9,7 +9,7 @@ import { JsonLd, ORG_ID, abs, breadcrumbLd, fmt, pageMeta, STATS } from "@/lib/s
 export const metadata: Metadata = pageMeta({
   title: "About Ingot UI: how the components are made and checked",
   description: "What Ingot UI is, how its dashboard components are built from real product screens and checked against Figma, and the editorial policy behind its guides and comparisons.",
-  path: "/about",
+  path: "/about", image: "/about/opengraph-image",
 });
 
 const H = "mt-10 scroll-mt-6 text-[15px] font-medium";

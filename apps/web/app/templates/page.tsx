@@ -7,7 +7,7 @@ import { JsonLd, abs, breadcrumbLd, pageMeta, SITE_NAME } from "@/lib/seo";
 export const metadata: Metadata = pageMeta({
   title: "Dashboard templates: full screens in React and Figma",
   description: "Complete dashboard screens to start from: analytics, overview, campaign, agent and customer pages from the six Ingot UI design systems, in React code and Figma.",
-  path: "/templates",
+  path: "/templates", image: "/templates/opengraph-image",
 });
 
 const WORDS: Record<number, string> = { 4: "Four", 5: "Five", 6: "Six" };

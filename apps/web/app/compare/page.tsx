@@ -9,7 +9,7 @@ import { Crumbs, Faq, LinkCards, Section } from "@/app/for/_ui";
 export const metadata: Metadata = pageMeta({
   title: "Dashboard UI kit comparisons",
   description: "Honest comparisons of Ingot UI with shadcn/ui blocks, Untitled UI and Tremor, plus Tailwind Plus alternatives. Each with Best for lines and linked sources.",
-  path: "/compare",
+  path: "/compare", image: "/compare/opengraph-image",
 });
 
 const faq = [
