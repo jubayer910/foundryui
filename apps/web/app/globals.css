@@ -541,6 +541,7 @@ body {
 .feat-link:focus-visible::before { opacity: 1; transform: scaleX(1); }
 @media (prefers-reduced-motion: reduce) {
   .feat-illo, .feat-link::before { transition: none; }
+}
 
 /* Custom cursor. Pure CSS image cursors in the spirit of recent.design (no JS follower, so no lag and no
    rAF loop). components/site/cursor/custom-cursor.tsx sets data-ingot-cursor on <html> only on devices with
