@@ -390,43 +390,60 @@ body {
   .hero-title { font-size: 56px; }
 }
 .hero-eyebrow {
+  /* Figma "Hero / Eyebrow · animated" (instance 18:13778): 34px tall, padding 4.7 / 4.7 / 4.7 / 13.2, gap 5.7 */
   position: relative;
   display: inline-flex;
+  height: 34px;
   align-items: center;
-  gap: 10px;
-  padding: 5px 5px 5px 14px;
+  gap: 5.7px;
+  padding: 4.7px 4.7px 4.7px 13.2px;
   border-radius: 9999px;
   background: #fff;
-  box-shadow: inset 0 0 0 1px #e5e5e8;
-  font-size: 13px;
+  box-shadow: inset 0 0 0 0.94px #e5e5e8;
+  font-size: 12.3px;
   font-weight: 500;
-  line-height: 1.2;
+  line-height: 15px;
   color: #0b0b0b;
+}
+.hero-eyebrow-logos {
+  display: inline-flex;
+  align-items: center;
 }
 .hero-eyebrow-logo {
   display: inline-flex;
-  width: 24px;
-  height: 24px;
+  width: 22.7px;
+  height: 22.7px;
   align-items: center;
   justify-content: center;
   border-radius: 9999px;
-  background: #f6f6f7;
-  box-shadow: inset 0 0 0 1px #e5e5e8;
+  background: #f8f8f8;
 }
-.hero-eyebrow-line {
+.hero-eyebrow-logo + .hero-eyebrow-logo {
+  /* overlap like the Figma stack, with a white ring between the two circles */
+  margin-left: -4.7px;
+  box-shadow: 0 0 0 0.94px #fff;
+}
+@property --hero-eyebrow-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+.hero-eyebrow::before {
+  /* a short blue → coral highlight that travels around the whole border */
+  content: "";
   position: absolute;
-  bottom: -0.5px;
-  left: 36%;
-  width: 28%;
-  height: 1px;
-  border-radius: 1px;
-  background: linear-gradient(90deg, rgba(75, 85, 230, 0), rgba(75, 85, 230, 0.7) 45%, rgba(242, 112, 90, 0.55) 70%, rgba(242, 112, 90, 0));
-  filter: blur(0.3px);
-  animation: hero-eyebrow-slide 3.5s ease-in-out infinite alternate;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: conic-gradient(from var(--hero-eyebrow-angle), transparent 0deg 250deg, rgba(75, 85, 230, 0.85) 295deg, rgba(138, 92, 240, 0.85) 320deg, rgba(242, 112, 90, 0.8) 345deg, transparent 360deg);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  pointer-events: none;
+  animation: hero-eyebrow-spin 4s linear infinite;
 }
-@keyframes hero-eyebrow-slide {
-  from { transform: translateX(-70%); }
-  to { transform: translateX(70%); }
+@keyframes hero-eyebrow-spin {
+  to { --hero-eyebrow-angle: 360deg; }
 }
 .hero-btn {
   display: inline-flex;
@@ -453,5 +470,6 @@ body {
   50% { opacity: 0.82; transform: translate(-50%, 38%) scale(1.06); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .hero-eyebrow-line, .hero-glow { animation: none; }
+  .hero-eyebrow::before { animation: none; --hero-eyebrow-angle: 180deg; }
+  .hero-glow { animation: none; }
 }

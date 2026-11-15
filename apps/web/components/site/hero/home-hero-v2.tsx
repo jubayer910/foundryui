@@ -5,7 +5,7 @@ import { HeroDealButton } from "./hero-deal-button";
 
 /** Original marks, used only to say what the kit works with. */
 const ReactMark = () => (
-  <svg width="14" height="12.5" viewBox="-11.5 -10.23 23 20.46" aria-hidden="true">
+  <svg width="13.2" height="11.8" viewBox="-11.5 -10.23 23 20.46" aria-hidden="true">
     <circle r="2.05" fill="#61DAFB" />
     <g stroke="#61DAFB" strokeWidth="1" fill="none">
       <ellipse rx="11" ry="4.2" />
@@ -15,7 +15,7 @@ const ReactMark = () => (
   </svg>
 );
 const FigmaMark = () => (
-  <svg width="8.6" height="13" viewBox="0 0 38 57" aria-hidden="true">
+  <svg width="8.1" height="12.3" viewBox="0 0 38 57" aria-hidden="true">
     <path d="M19 28.5a9.5 9.5 0 1 1 19 0 9.5 9.5 0 0 1-19 0z" fill="#1ABCFE" />
     <path d="M0 47.5A9.5 9.5 0 0 1 9.5 38H19v9.5a9.5 9.5 0 1 1-19 0z" fill="#0ACF83" />
     <path d="M19 0v19h9.5a9.5 9.5 0 1 0 0-19H19z" fill="#FF7262" />
@@ -32,17 +32,14 @@ export function HomeHeroV2() {
   return (
     <section aria-labelledby="home-title" className="hero-paper relative isolate -mx-4 -mt-4 overflow-hidden sm:-mx-6 lg:-mt-5">
       <StreakIngot className="-z-10" />
-      {/* veil: keeps the copy on near-white above the art */}
-      <div aria-hidden="true" className="pointer-events-none absolute bottom-[60px] left-1/2 -z-10 h-[200px] w-[min(760px,100%)] -translate-x-1/2 rounded-[50%]" style={{ background: "radial-gradient(closest-side, rgba(255,255,255,.85), rgba(255,255,255,.64) 60%, rgba(255,255,255,0))" }} />
 
       <div className="mx-auto flex min-h-[560px] max-w-[783px] flex-col items-center px-4 pb-[230px] pt-[120px] text-center sm:min-h-[640px] sm:pb-[250px] lg:min-h-[709px] lg:pt-[186px]">
         <p className="hero-eyebrow">
           <span>Dashboard UI kit for React and Figma</span>
-          <span className="flex items-center gap-1">
+          <span className="hero-eyebrow-logos">
             <span className="hero-eyebrow-logo" title="React"><ReactMark /></span>
             <span className="hero-eyebrow-logo" title="Figma"><FigmaMark /></span>
           </span>
-          <span aria-hidden="true" className="hero-eyebrow-line" />
         </p>
 
         <h1 id="home-title" className="hero-title mt-3">

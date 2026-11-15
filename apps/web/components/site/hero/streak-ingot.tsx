@@ -5,8 +5,7 @@ import { useEffect, useRef } from "react";
  * Home hero background: an isometric ingot made of thin vertical streaks, indigo at the top dissolving into
  * particles, coral at the base. Same geometry and colours as the Figma frame "Hero · 2 · Ingot of streaks"
  * (UwaYzhrLo0wwH61PauTGSw, node 18:12432), drawn on one canvas in a 1440 × 709 design space.
- * Motion: streaks shimmer in 8 groups, particles rise and fade, the base glow breathes (CSS), ≤ 8 px cursor
- * parallax. Paused off-screen; drawn once and left still under prefers-reduced-motion.
+ * Motion: streaks shimmer in 8 groups, particles rise and fade, the base glow breathes (CSS); it does not follow the cursor. Paused off-screen; drawn once and left still under prefers-reduced-motion.
  */
 
 const DW = 1440;
@@ -69,7 +68,7 @@ export function StreakIngot({ className = "" }: { className?: string }) {
     if (!ctx) return;
     const { faces, tops, dots } = build();
     const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    let raf = 0, visible = true, scale = 1, ox = 0, oy = 0, px = 0, py = 0, tx = 0, ty = 0;
+    let raf = 0, visible = true, scale = 1, ox = 0, oy = 0;
 
     const fit = () => {
       const w = box.clientWidth, h = box.clientHeight;
@@ -113,7 +112,6 @@ export function StreakIngot({ className = "" }: { className?: string }) {
       ctx.clearRect(0, 0, cv.width, cv.height);
       ctx.restore();
       ctx.save();
-      ctx.translate(px, py);
       strokeGroups(faces, facesGrad(), 0.7, t);
       strokeGroups(tops, topsGrad(), 0.55, t + 400);
       ctx.fillStyle = dotsGrad();
@@ -128,8 +126,6 @@ export function StreakIngot({ className = "" }: { className?: string }) {
     };
 
     const loop = (t: number) => {
-      px += (tx - px) * 0.06;
-      py += (ty - py) * 0.06;
       draw(t);
       if (visible) raf = requestAnimationFrame(loop);
     };
@@ -149,18 +145,10 @@ export function StreakIngot({ className = "" }: { className?: string }) {
       if (!still && visible && !was) raf = requestAnimationFrame(loop);
     });
     io.observe(box);
-    const onMove = (e: PointerEvent) => {
-      if (still) return;
-      const r = box.getBoundingClientRect();
-      tx = ((e.clientX - r.left) / r.width - 0.5) * 16 / scale;
-      ty = ((e.clientY - r.top) / r.height - 0.5) * 8 / scale;
-    };
-    window.addEventListener("pointermove", onMove, { passive: true });
     return () => {
       cancelAnimationFrame(raf);
       ro.disconnect();
       io.disconnect();
-      window.removeEventListener("pointermove", onMove);
     };
   }, []);
 
