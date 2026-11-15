@@ -316,6 +316,33 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .illo * { animation: none !important; }
 }
+/* Hover scenes (H groups, class .hv): calm at rest, they act out their category while the
+   card (.group) is hovered or holds keyboard focus. Transform and opacity only. */
+.illo .hv {
+  transform: var(--h-rest);
+  opacity: var(--o-rest);
+  transform-box: fill-box;
+  transform-origin: var(--h-origin);
+  transition:
+    transform 520ms cubic-bezier(0.22, 1, 0.36, 1) var(--h-delay),
+    opacity 380ms cubic-bezier(0.22, 1, 0.36, 1) var(--h-delay);
+}
+.group:hover .illo .hv,
+.group:focus-within .illo .hv {
+  transform: var(--h-on);
+  opacity: var(--o-on);
+}
+.illo-live { transition: box-shadow 200ms ease-out; }
+.group:hover .illo-live,
+.group:focus-within .illo-live { box-shadow: inset 0 0 0 1px rgb(75 85 230 / 0.22); }
+@media (prefers-reduced-motion: reduce) {
+  /* No movement: the scene keeps its rest pose and only the tile edge highlights. */
+  .group:hover .illo .hv,
+  .group:focus-within .illo .hv {
+    transform: var(--h-rest);
+    opacity: var(--o-rest);
+  }
+}
 .illo-dark {
   background-color: rgb(255 255 255 / 0.06);
   background-image: radial-gradient(rgb(255 255 255 / 0.09) 0.8px, transparent 0.8px);

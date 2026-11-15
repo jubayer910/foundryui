@@ -118,3 +118,29 @@ export function Frame({ children, label, vb = "-122 -82 244 148" }: G & { label:
     </svg>
   );
 }
+
+/** Screen-space translate for a 3D displacement, as a CSS transform string (SVG user units). */
+export const shift = (dx: number, dy: number, dz: number) => {
+  const [a, b] = iso([dx, dy, dz]);
+  return `translate(${a.toFixed(2)}px, ${b.toFixed(2)}px)`;
+};
+
+/** Hover-driven group (class .hv in globals.css). It rests at `rest` and moves to `on` while the
+    surrounding card (.group) is hovered or holds focus. `o` is [rest, on] opacity, `delay` in ms,
+    `origin` a transform-origin on the group's own box. No motion under prefers-reduced-motion. */
+export function H({ rest, on, o, origin, delay, children }: { rest?: string; on?: string; o?: [number, number]; origin?: string; delay?: number; children: ReactNode }) {
+  // Every variable is set on every group, so nested groups never inherit a parent's motion.
+  const style: Record<string, string | number> = {
+    "--h-rest": rest ?? "none",
+    "--h-on": on ?? rest ?? "none",
+    "--o-rest": o ? o[0] : 1,
+    "--o-on": o ? o[1] : 1,
+    "--h-origin": origin ?? "50% 50%",
+    "--h-delay": (delay ?? 0) + "ms",
+  };
+  return (
+    <g className="hv" style={style as CSSProperties}>
+      {children}
+    </g>
+  );
+}
