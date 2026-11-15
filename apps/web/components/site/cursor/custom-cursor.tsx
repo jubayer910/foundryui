@@ -19,7 +19,7 @@ import { playClickSound, readSoundPref, type SoundName } from "./click-sounds";
  * a key of SOUNDS in ./click-sounds.ts ("softTick" | "keyTap" | "woodKnock" | "glassPop" | "paperFlick");
  * preview them all at /dev/cursor-sounds.
  */
-export const CLICK_SOUND = null as SoundName | null;
+export const CLICK_SOUND = "softTick" as SoundName | null;
 
 const FINE_POINTER = "(hover: hover) and (pointer: fine)";
 
