@@ -234,7 +234,7 @@ function StatusCard({ act, onUpdate, onEdit }: { act: PublicActivation; onUpdate
         <AIcon name="clock-hour-4" size={18} />
       </span>
       <h2 className="mt-3 text-[17px] font-medium tracking-[-0.01em]">We&apos;re confirming your payment</h2>
-      <p className="mt-1 text-[13px] text-mute">This usually takes a few minutes; we&apos;ll also email you. You can leave this page open, it updates by itself.</p>
+      <p className="mt-1 text-[13px] text-mute">We usually confirm it within a few hours and email you when it is live. You can leave this page open, it updates by itself.</p>
       {details}
       <p className="mt-3 text-[12px] text-faint" aria-live="off">
         {polling
