@@ -4,7 +4,7 @@ import Link from "next/link";
 import { JsonLd, ORG_ID, abs, faqLd, pageMeta } from "@/lib/seo";
 import { items, systems } from "@/lib/catalog";
 import { FIGMA_TOTAL } from "@/lib/figma-library";
-import { dealEndText, dealRule, getPriceBook, teamYearlySaving, usd, yearlySaving, type CheckoutOption, type PriceBook } from "@/lib/plans";
+import { dealAudience, dealBadge, dealEndText, dealRule, getPriceBook, teamYearlySaving, usd, yearlySaving, type CheckoutOption, type PriceBook } from "@/lib/plans";
 import { PageHead } from "@/components/site/page-head";
 import { IlloTile } from "@/components/site/illo";
 import { Icon } from "@/registry/components/icons";
@@ -23,7 +23,7 @@ const cents = (n: number) => usd(Math.round(n * 100) / 100);
 
 export async function generateMetadata(): Promise<Metadata> {
   const pb = await getPriceBook();
-  const life = pb.lifetime === null ? "" : " Lifetime is " + usd(pb.lifetime) + " once" + (pb.dealActive ? " for the first " + pb.deal.total : "") + ".";
+  const life = pb.lifetime === null ? "" : " Lifetime is " + usd(pb.lifetime) + " once" + (pb.dealActive ? " for " + dealAudience(pb) : "") + ".";
   return pageMeta({
     title: "Pricing: Free, Pro " + usd(pb.proMonthly) + "/mo, Team " + usd(pb.teamMonthly) + "/mo",
     description: "Start free. Pro is " + usd(pb.proMonthly) + " a month for one founder, Team is " + usd(pb.teamMonthly) + " a month for " + pb.teamSeats + " people." + life + " All six systems, React + Figma.",
@@ -99,7 +99,7 @@ function faq(pb: PriceBook): [string, string][] {
   if (pb.deal.enabled)
     out.push([
       "How does the launch deal work?",
-      "Lifetime costs " + usd(pb.settings.prices.lifetimeDeal) + " for the first " + pb.deal.total + " buyers" + (pb.deal.endsAt ? ", until " + dealEndText(pb.deal.endsAt) : "") + ". The spots counter on this page counts real paid orders" + (pb.deal.endsAt ? " and the countdown runs to that real end date; it never resets" : "") + ". " + dealRule(pb),
+      "Lifetime costs " + usd(pb.settings.prices.lifetimeDeal) + " for " + dealAudience(pb) + (pb.deal.endsAt ? ", until " + dealEndText(pb.deal.endsAt) : "") + ". " + (pb.deal.showSpots ? "The spots counter on this page counts real paid orders" + (pb.deal.endsAt ? " and the countdown runs to that real end date; it never resets" : "") + ". " : pb.deal.endsAt ? "The countdown runs to that real end date and never resets. Seats are limited, so we may close it earlier once they are filled. " : "Seats are limited, so we may close it once they are filled. ") + dealRule(pb),
     ]);
   out.push(
     ["Monthly or yearly?", "Same plan either way. Pro yearly is " + usd(pb.proYearly) + " instead of " + usd(pb.proMonthly * 12) + (save > 0 ? ", " + save + "% less" : "") + "; Team yearly is " + usd(pb.teamYearly) + " instead of " + usd(pb.teamMonthly * 12) + ". Cancel either any time from your account; the plan stays on until the end of the period you paid for."],
@@ -148,7 +148,7 @@ export default async function PricingPage() {
     { "@type": "Offer", name: "Team yearly", price: String(pb.teamYearly), priceCurrency: "USD", url: abs("/pricing"), description: "Everything in Pro for " + pb.teamSeats + " people on one bill.", priceSpecification: unit(pb.teamYearly, "P1Y") },
     ...(lifeClosed
       ? []
-      : [{ "@type": "Offer", name: pb.dealActive ? "Lifetime deal" : "Lifetime", price: String(pb.lifetime), priceCurrency: "USD", url: abs("/pricing"), availability: "https://schema.org/LimitedAvailability", description: "One person, one payment. Every system and every future update, forever." + (pb.dealActive ? " Launch price for the first " + deal.total + " buyers." : "") }]),
+      : [{ "@type": "Offer", name: pb.dealActive ? "Lifetime deal" : "Lifetime", price: String(pb.lifetime), priceCurrency: "USD", url: abs("/pricing"), availability: "https://schema.org/LimitedAvailability", description: "One person, one payment. Every system and every future update, forever." + (pb.dealActive ? " Launch price for " + dealAudience(pb) + "." : "") }]),
   ];
   const labels = {
     proMonthly: { name: "Pro monthly", price: usd(pb.proMonthly) + " a month" },
@@ -247,7 +247,7 @@ export default async function PricingPage() {
               <h2 id="lifetime-h" className="text-[13px] font-medium">
                 {pb.dealActive ? "Lifetime launch deal" : "Lifetime"}
               </h2>
-              {!lifeClosed && pb.dealActive && <span className="rounded-full bg-white/15 px-2 py-0.5 text-[11px] font-medium">First {fmt(deal.total)} buyers</span>}
+              {!lifeClosed && pb.dealActive && <span className="rounded-full bg-white/15 px-2 py-0.5 text-[11px] font-medium">{dealBadge(pb)}</span>}
             </div>
             <p className="mt-2 flex items-baseline gap-1.5">
               <span className="text-[32px] font-medium tracking-[-0.03em] tabular-nums">{lifeClosed ? usd(pb.settings.prices.lifetimeAfter) : usd(pb.lifetime!)}</span>

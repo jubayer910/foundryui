@@ -197,10 +197,17 @@ export function dealRule(pb: PriceBook) {
   const { deal, settings } = pb;
   if (!deal.enabled) return "";
   const after = usd(settings.prices.lifetimeAfter);
-  if (deal.reason === "sold_out") return deal.after === "closed" ? "All " + deal.total + " launch spots are taken, so Lifetime is closed." : "All " + deal.total + " launch spots are taken. Lifetime is now " + after + ".";
+  if (deal.reason === "sold_out") {
+    const taken = deal.showSpots ? "All " + deal.total + " launch spots are taken" : "The launch seats are filled";
+    return deal.after === "closed" ? taken + ", so Lifetime is closed." : taken + ". Lifetime is now " + after + ".";
+  }
   if (deal.reason === "ended") return deal.after === "closed" ? "The launch deal has ended, so Lifetime is closed." : "The launch deal has ended. Lifetime is now " + after + ".";
   const end = deal.endsAt ? " or on " + dealEndText(deal.endsAt) : "";
-  const when = "When all " + deal.total + " spots are taken" + end;
+  const when = deal.showSpots
+    ? "When all " + deal.total + " spots are taken" + end
+    : deal.endsAt
+      ? "When the launch deal ends on " + dealEndText(deal.endsAt) + ", or earlier if the seats fill up"
+      : "When the limited seats fill up";
   return deal.after === "closed" ? when + ", Lifetime closes." : when + ", Lifetime goes to " + after + ".";
 }
 
@@ -210,13 +217,23 @@ export function dealEndText(endsAt: string) {
   return d.toLocaleString("en-US", { timeZone: "UTC", month: "short", day: "numeric", year: "numeric", hour: "2-digit", minute: "2-digit", hourCycle: "h23" }) + " UTC";
 }
 
+/** Who the deal is for, in copy. With the spots counter hidden we never quote a buyer count. */
+export function dealAudience(pb: PriceBook) {
+  return pb.deal.showSpots ? "the first " + pb.deal.total + " buyers" : "launch week, while the limited seats last";
+}
+
+/** Short badge for the Lifetime card. */
+export function dealBadge(pb: PriceBook) {
+  return pb.deal.showSpots ? "First " + pb.deal.total.toLocaleString("en-US") + " buyers" : "Launch week";
+}
+
 /** One plain-text line for llms.txt and anywhere else prices are quoted in copy. */
 export function pricingSentence(pb: PriceBook) {
   const life =
     pb.lifetime === null
       ? "Lifetime is closed"
       : pb.dealActive
-        ? "Lifetime (" + usd(pb.lifetime) + " once for the first " + pb.deal.total + " buyers" + (pb.deal.endsAt ? " until " + dealEndText(pb.deal.endsAt) : "") + (pb.deal.after === "price" ? ", then " + usd(pb.settings.prices.lifetimeAfter) : "") + "; every system and every future update, forever)"
+        ? "Lifetime (" + usd(pb.lifetime) + " once for " + dealAudience(pb) + (pb.deal.endsAt ? " until " + dealEndText(pb.deal.endsAt) : "") + (pb.deal.after === "price" ? ", then " + usd(pb.settings.prices.lifetimeAfter) : "") + "; every system and every future update, forever)"
         : "Lifetime (" + usd(pb.lifetime) + " once; every system and every future update, forever)";
   return (
     "Free (Loopo system, free components, every icon, 50 MCP calls a day), Pro (" +
