@@ -4,11 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "node scripts/library-finalize.mjs && next build",
+    "build": "node scripts/library-finalize.mjs && node scripts/code-gate.mjs && next build",
     "start": "next start",
     "lint": "eslint",
     "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
-    "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+    "deploy": "opennextjs-cloudflare build && node scripts/assets-ignore.mjs && opennextjs-cloudflare deploy",
     "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
     "registry": "node scripts/build-registry.mts",
     "db:migrate:local": "wrangler d1 migrations apply foundry-ui-db --local",

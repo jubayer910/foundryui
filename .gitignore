@@ -21,3 +21,9 @@ apps/web/.qa/
 apps/web/public/library
 apps/web/public/library-code
 apps/web/public/library-preview
+
+# Generated code behind unguessable paths (scripts/code-gate.mjs); the salt must never be committed
+apps/web/.library-salt
+apps/web/public/c/
+apps/web/lib/code-paths.generated.json
+apps/mcp/src/code-paths.generated.json

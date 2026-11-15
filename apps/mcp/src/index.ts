@@ -7,6 +7,8 @@ import { WebStandardStreamableHTTPServerTransport } from "@modelcontextprotocol/
 import { z } from "zod";
 import catalog from "./catalog.generated.json";
 import library from "./library.generated.json";
+// slug -> token of the code file at <site>/c/<token>.txt (git-ignored; written by apps/web/scripts/code-gate.mjs)
+import codePaths from "./code-paths.generated.json";
 
 interface Env {
   DB: D1Database;
@@ -38,7 +40,9 @@ function libScore(l: Lib, q: string) {
   return words.reduce((s, w) => s + (name.includes(w) ? 3 : 0) + (l.category.toLowerCase().includes(w) ? 2 : 0) + (hay.includes(w) ? 1 : 0), 0);
 }
 async function libCode(env: Env, l: Lib) {
-  const r = await env.SITE.fetch(env.SITE_URL + "/library-code/" + l.system + "/" + l.slug + ".txt");
+  const token = (codePaths as Record<string, string>)[l.slug];
+  if (!token) return null;
+  const r = await env.SITE.fetch(env.SITE_URL + "/c/" + token + ".txt");
   return r.ok ? r.text() : null;
 }
 const FREE_DAILY_CALLS = 50;

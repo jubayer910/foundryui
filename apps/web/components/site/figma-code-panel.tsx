@@ -6,9 +6,10 @@ import { pushRecent } from "@/lib/local-library";
 import { Icon } from "@/registry/components/icons";
 
 /** Copy and view the generated React code of a Figma component that passed visual QA. */
-export function FigmaCodePanel({ slug, codeUrl, score }: { slug: string; codeUrl: string; score: number }) {
+export function FigmaCodePanel({ slug }: { slug: string; score?: number }) {
   const router = useRouter();
   const [code, setCode] = useState<string | null>(null);
+  const [locked, setLocked] = useState<null | "login_required" | "upgrade_required">(null);
   const [open, setOpen] = useState(false);
   const [note, setNote] = useState<string | null>(null);
   useEffect(() => {
@@ -17,8 +18,17 @@ export function FigmaCodePanel({ slug, codeUrl, score }: { slug: string; codeUrl
     return () => clearTimeout(t);
   }, [note]);
   useEffect(() => {
-    if (open && code === null) fetch(codeUrl).then((r) => r.text()).then(setCode).catch(() => setCode("// Couldn’t load the code."));
-  }, [open, code, codeUrl]);
+    if (!open || code !== null || locked) return;
+    // Ask the server first: Pro-system code is only shown to paid plans.
+    fetch("/api/code?slug=" + encodeURIComponent(slug))
+      .then((r) => r.json() as Promise<{ codeUrl?: string; locked?: boolean; reason?: "login_required" | "upgrade_required" }>)
+      .then(async (d) => {
+        if (d.locked) return setLocked(d.reason ?? "upgrade_required");
+        if (!d.codeUrl) throw new Error("no code");
+        setCode(await (await fetch(d.codeUrl)).text());
+      })
+      .catch(() => setCode("// Couldn’t load the code."));
+  }, [open, code, locked, slug]);
 
   async function copy() {
     const res = await fetch("/api/actions", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ slug, action: "copy_code" }) });
@@ -43,7 +53,16 @@ export function FigmaCodePanel({ slug, codeUrl, score }: { slug: string; codeUrl
       <p className="mt-1 text-[12px] leading-snug text-mute">
         Uses <Link href="/icons" className="underline underline-offset-2">Ingot Icons</Link>.
       </p>
-      {open && (
+      {open && locked && (
+        <div className="card mt-2 p-3 text-[13px] leading-snug">
+          <p className="font-medium">This component is in a Pro system</p>
+          <p className="mt-1 text-mute">Its code is included in Pro, Team and Lifetime. The live preview above is free to explore.</p>
+          <Link href={locked === "login_required" ? "/sign-in?next=/components/" + slug : "/pricing?from=" + slug} className="btn-ink mt-3">
+            {locked === "login_required" ? "Log in to see the code" : "See plans"}
+          </Link>
+        </div>
+      )}
+      {open && !locked && (
         <pre className="card mt-2 max-h-[420px] overflow-auto p-3 font-fu-mono text-[11.5px] leading-relaxed">
           <code>{code ?? "Loading…"}</code>
         </pre>

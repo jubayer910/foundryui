@@ -53,7 +53,7 @@ export function FigmaItemPage({ item }: { item: FigmaItem }) {
               </div>
             ))}
           </dl>
-          {qa && <FigmaCodePanel slug={item.slug} codeUrl={`/library-code/${item.system}/${item.slug}.txt`} score={qa.score} />}
+          {qa && <FigmaCodePanel slug={item.slug} score={qa.score} />}
           <div className="flex flex-col gap-1.5">
             <SaveButton slug={item.slug} quiet={!!qa} />
             <Link href={free ? "/sign-up?next=/components/" + item.slug : "/pricing?from=" + item.slug} className="btn-line w-full">
