@@ -16,8 +16,8 @@ export function PricingNotice({ labels }: { labels: Labels }) {
 
   if (opt(waitlist))
     return (
-      <Box icon="mail" title={"Checkout opens in a few days. We saved your spot at " + opt(waitlist)!.price + "."}>
-        We will email you the moment {opt(waitlist)!.name} checkout is live. Nothing was charged.
+      <Box icon="mail" title={"You're on the waitlist for " + opt(waitlist)!.name + "."}>
+        We are adding payments now and it opens soon. We will email you as soon as you can buy, and your price of {opt(waitlist)!.price} is saved for you. Nothing was charged.
       </Box>
     );
   if (sp.get("closed"))
