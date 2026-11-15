@@ -513,18 +513,13 @@ body {
   transform: scaleX(0.4);
   transition: opacity 0.2s, transform 0.25s cubic-bezier(0.2, 0.7, 0.2, 1);
 }
-.feat-icon {
+.feat-illo {
   display: inline-flex;
-  width: 42px;
-  height: 42px;
-  align-items: center;
-  justify-content: center;
-  border-radius: 12px;
-  background: var(--color-chip);
-  color: var(--color-mute);
-  box-shadow: inset 0 0 0 1px var(--color-hair);
-  transition: background-color 0.2s, color 0.2s, box-shadow 0.2s, transform 0.2s;
+  border-radius: 10px;
+  box-shadow: 0 0 0 1px var(--color-hair);
+  transition: box-shadow 0.2s, transform 0.2s;
 }
+.feat-illo .illo-tile { border-radius: 10px; }
 .feat-badge {
   border-radius: 6px;
   padding: 1px 6px;
@@ -536,17 +531,15 @@ body {
 .feat-badge-free { background: var(--color-chip); color: var(--color-mute); box-shadow: inset 0 0 0 1px var(--color-hair); }
 .feat-badge-pro { background: #eef0fd; color: #3b45d6; }
 /* active column: hovered or focused, else the second one */
-.feat-row:not(:hover):not(:focus-within) .feat:nth-child(2) .feat-icon,
-.feat-link:hover .feat-icon,
-.feat-link:focus-visible .feat-icon {
-  background: #4b55e6;
-  color: #fff;
-  box-shadow: 0 6px 14px -6px rgb(75 85 230 / 0.6), inset 0 0 0 1px rgb(255 255 255 / 0.12);
-  transform: translateY(-1px);
+.feat-row:not(:hover):not(:focus-within) .feat:nth-child(2) .feat-illo,
+.feat-link:hover .feat-illo,
+.feat-link:focus-visible .feat-illo {
+  box-shadow: 0 0 0 1px rgb(75 85 230 / 0.55), 0 10px 22px -12px rgb(75 85 230 / 0.55);
+  transform: translateY(-2px);
 }
 .feat-row:not(:hover):not(:focus-within) .feat:nth-child(2) .feat-link::before,
 .feat-link:hover::before,
 .feat-link:focus-visible::before { opacity: 1; transform: scaleX(1); }
 @media (prefers-reduced-motion: reduce) {
-  .feat-icon, .feat-link::before { transition: none; }
+  .feat-illo, .feat-link::before { transition: none; }
 }

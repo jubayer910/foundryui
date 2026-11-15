@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { FIGMA_LIBRARY_COUNT, items } from "@/lib/catalog";
 import { CODED_TOTAL, codeCount } from "@/lib/library";
-import { CIcon, type ChromeIconName } from "./chrome-icon";
+import { IlloTile } from "./illo";
 
 const fmt = (n: number) => n.toLocaleString("en-US");
 
@@ -12,11 +12,11 @@ const fmt = (n: number) => n.toLocaleString("en-US");
  */
 export function FeatureRow() {
   const loopo = items.length + codeCount("loopo");
-  const cols: { href: string; icon: ChromeIconName; h: string; tier: "Free" | "Pro"; b: string }[] = [
-    { href: "/systems/loopo", icon: "grid", h: "Free system", tier: "Free", b: `Loopo: ${fmt(loopo)} components in code, free forever` },
-    { href: "/components", icon: "chart", h: "Components & charts", tier: "Pro", b: `${fmt(CODED_TOTAL)} in React, each checked against Figma` },
-    { href: "/templates", icon: "dashboard", h: "Dashboard templates", tier: "Pro", b: "Full screens for six products, more added soon" },
-    { href: "/systems", icon: "shapes", h: "Figma library", tier: "Pro", b: `${fmt(FIGMA_LIBRARY_COUNT)} components with variables` },
+  const cols: { href: string; scene: string; h: string; tier: "Free" | "Pro"; b: string }[] = [
+    { href: "/systems/loopo", scene: "seed", h: "Free system", tier: "Free", b: `Loopo: ${fmt(loopo)} components in code, free forever` },
+    { href: "/components", scene: "bars", h: "Components & charts", tier: "Pro", b: `${fmt(CODED_TOTAL)} in React, each checked against Figma` },
+    { href: "/templates", scene: "screen", h: "Dashboard templates", tier: "Pro", b: "Full screens for six products, more added soon" },
+    { href: "/systems", scene: "frames", h: "Figma library", tier: "Pro", b: `${fmt(FIGMA_LIBRARY_COUNT)} components with variables` },
   ];
   return (
     <section aria-label="What you get" className="feat-row relative mt-6">
@@ -28,8 +28,8 @@ export function FeatureRow() {
         {cols.map((c) => (
           <li key={c.h} className="feat">
             <Link href={c.href} className="feat-link">
-              <span className="feat-icon">
-                <CIcon name={c.icon} size={17} />
+              <span className="feat-illo">
+                <IlloTile scene={c.scene} label="" className="h-[96px] w-[148px]" />
               </span>
               <span className="mt-3 flex flex-wrap items-center justify-center gap-1.5">
                 <span className="text-[14px] font-medium tracking-[-0.01em] text-ink">{c.h}</span>

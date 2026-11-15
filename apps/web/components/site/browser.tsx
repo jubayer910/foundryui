@@ -135,7 +135,7 @@ export function Browser({ entries, categories, systems, initialCategory = "all",
 /** A native select dressed as a pill: same height as the search field, custom chevron, one focus ring. */
 function PillSelect({ label, value, onChange, options }: { label: string; value: string; onChange: (v: string) => void; options: [string, string][] }) {
   return (
-    <span className="relative inline-flex min-w-0 lg:min-w-[132px]">
+    <span className="relative inline-flex min-w-[124px] lg:min-w-[132px]">
       <select value={value} onChange={(e) => onChange(e.target.value)} aria-label={label} className="select-pill w-full">
         {options.map(([v, t]) => (
           <option key={v} value={v}>
