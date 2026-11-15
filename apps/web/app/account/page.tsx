@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { NOINDEX } from "@/lib/seo";
 import { redirect } from "next/navigation";
 import { desc, eq, sql } from "drizzle-orm";
@@ -11,10 +12,12 @@ import { SignOut } from "@/components/site/sign-out";
 import { PageHead } from "@/components/site/page-head";
 import { Billing, WelcomeBanner, type BillingSub, type Receipt } from "@/components/site/billing";
 import { OnboardingChecklist } from "@/components/site/onboarding-checklist";
+import { latestClick, latestForUser, productName } from "@/lib/activation";
+import { AIcon } from "@/components/admin/admin-icons";
 
 export const metadata: Metadata = { title: "Account", robots: NOINDEX };
 
-const VARIANT_LABEL: Record<string, string> = { monthly: "Pro monthly", yearly: "Pro yearly", lifetimeDeal: "Lifetime (launch deal)", lifetimeAfter: "Lifetime", lifetime: "Lifetime", manual: "Manual" };
+const VARIANT_LABEL: Record<string, string> = { monthly: "Pro monthly", yearly: "Pro yearly", lifetimeDeal: "Lifetime (launch deal)", lifetimeAfter: "Lifetime", lifetime: "Lifetime", manual: "Manual", proMonthly: "Pro monthly", proYearly: "Pro yearly", teamMonthly: "Team monthly", teamYearly: "Team yearly" };
 
 function receiptUrl(raw: string | null) {
   try {
@@ -31,7 +34,7 @@ export default async function AccountPage({ searchParams }: PageProps<"/account"
   // Keep an invite token through sign-in so invitees land back on their invite.
   if (!user) redirect("/sign-in?next=" + encodeURIComponent("/account" + (typeof sp.invite === "string" ? "?invite=" + sp.invite : "")));
   const db = await getDb();
-  const [keys, usage, subs, purchases] = await Promise.all([
+  const [keys, usage, subs, purchases, activation, click] = await Promise.all([
     db
       .select({ id: schema.apiKey.id, name: schema.apiKey.name, prefix: schema.apiKey.prefix, createdAt: schema.apiKey.createdAt, lastUsedAt: schema.apiKey.lastUsedAt })
       .from(schema.apiKey)
@@ -44,6 +47,8 @@ export default async function AccountPage({ searchParams }: PageProps<"/account"
       .groupBy(schema.usageEvent.action, schema.usageEvent.client),
     db.select().from(schema.subscription).where(eq(schema.subscription.userId, user.id)).orderBy(desc(schema.subscription.updatedAt)),
     db.select().from(schema.purchase).where(eq(schema.purchase.userId, user.id)).orderBy(desc(schema.purchase.createdAt)),
+    latestForUser(user.id).catch(() => null),
+    latestClick(user).catch(() => null),
   ]);
   const total = usage.reduce((s, u) => s + Number(u.n), 0);
   const mcp = usage.filter((u) => u.client === "mcp").reduce((s, u) => s + Number(u.n), 0);
@@ -54,7 +59,7 @@ export default async function AccountPage({ searchParams }: PageProps<"/account"
     ? { interval: live.interval, status: live.status, renewsAt: live.renewsAt?.toISOString() ?? null, endsAt: live.endsAt?.toISOString() ?? null, portalUrl: live.portalUrl }
     : null;
   const receipts: Receipt[] = purchases
-    .filter((p) => p.provider === "lemonsqueezy")
+    .filter((p) => p.provider === "lemonsqueezy" || p.provider === "contra")
     .map((p) => ({
       id: p.id,
       date: p.createdAt.toISOString(),
@@ -74,6 +79,29 @@ export default async function AccountPage({ searchParams }: PageProps<"/account"
         <div role="status" className="mt-5 rounded-[8px] bg-tile p-4 text-[13px]">
           <span className="font-medium">You already have {planLabel(user.plan)}.</span> <span className="text-mute">Nothing new to buy; everything it covers is unlocked.</span>
         </div>
+      )}
+      {activation?.status === "pending" ? (
+        <Link href="/activate" className="mt-5 flex items-center gap-3 rounded-[8px] bg-tile p-4 text-[13px] hover:bg-chip">
+          <AIcon name="clock-hour-4" size={18} className="shrink-0" />
+          <span className="min-w-0 flex-1">
+            <span className="block font-medium">We&apos;re confirming your {productName(activation.variantKey)} payment</span>
+            <span className="block text-mute">This usually takes a few minutes. See the status</span>
+          </span>
+          <AIcon name="chevron-right" size={16} className="shrink-0 text-faint" />
+        </Link>
+      ) : (
+        click &&
+        user.plan === "free" &&
+        !activation && (
+          <Link href={`/activate?plan=${click.option}`} className="mt-5 flex items-center gap-3 rounded-[8px] bg-tile p-4 text-[13px] hover:bg-chip">
+            <AIcon name="rosette-discount-check" size={18} className="shrink-0" />
+            <span className="min-w-0 flex-1">
+              <span className="block font-medium">Paid on Contra?</span>
+              <span className="block text-mute">Activate your plan in one step.</span>
+            </span>
+            <AIcon name="chevron-right" size={16} className="shrink-0 text-faint" />
+          </Link>
+        )
       )}
       <OnboardingChecklist user={user} />
       <div className="mt-5 grid gap-3 sm:grid-cols-3">
