@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import type { Entry } from "@/lib/library";
 import { pushRecent, toggleSaved, useLibrary } from "@/lib/local-library";
 import { Preview } from "./preview";
+import { CardLive } from "./card-live";
 import { CIcon } from "./chrome-icon";
 import { Icon } from "@/registry/components/icons";
 
@@ -39,9 +40,14 @@ export function ItemCard({ item }: { item: Entry }) {
   return (
     <div className="group relative">
       <Link href={href} className="block overflow-hidden rounded-[8px] bg-tile shadow-[inset_0_0_0_1px_var(--color-hair)]">
-        <div className={"flex h-56 items-center overflow-hidden " + (item.kind === "figma" && (item.w ?? 1) / (item.h ?? 1) > 3.2 ? "justify-start" : "justify-center")}>
+        <div className={"flex h-56 items-center overflow-hidden " + (item.kind === "figma" && !item.qa && (item.w ?? 1) / (item.h ?? 1) > 3.2 ? "justify-start" : "justify-center")}>
           {item.kind === "code" ? (
             <Preview slug={item.slug} size="card" />
+          ) : item.qa ? (
+            // the real design, rendered from the component's React code (not a screenshot)
+            <div className="size-full p-3">
+              <CardLive src={`/library-preview/${item.system}/${item.slug}.html`} w={item.w ?? 320} h={item.h ?? 200} thumb={item.thumb ?? ""} alt={item.name + " component preview"} />
+            </div>
           ) : (
             // eslint-disable-next-line @next/next/no-img-element
             <img
