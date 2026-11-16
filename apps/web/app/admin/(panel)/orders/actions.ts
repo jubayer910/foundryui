@@ -3,7 +3,7 @@ import { revalidatePath } from "next/cache";
 import { eq, sql } from "drizzle-orm";
 import { audit, requireStaff } from "@/lib/admin";
 import { getDb, schema } from "@/lib/db";
-import { planFromRows } from "@/components/admin/plan";
+import { syncPlan } from "@/components/admin/plan";
 import { back } from "@/components/admin/back";
 
 
@@ -37,8 +37,7 @@ export async function grantPlan(f: FormData) {
     createdAt: now,
     updatedAt: now,
   });
-  const next = await planFromRows(u.id);
-  await db.update(schema.user).set({ plan: next, updatedAt: now }).where(eq(schema.user.id, u.id));
+  const next = await syncPlan(u.id, now);
   await audit(me.email, "plan.grant", u.id, { email, plan, note, purchaseId: id, planBefore: u.plan, planAfter: next });
   revalidatePath("/admin", "layout");
   back(to, { ok: `Granted ${plan === "pro" ? "Pro" : "Lifetime"} to ${email}. Their plan is now ${next}.` });
@@ -62,8 +61,7 @@ export async function revokePurchase(f: FormData) {
     .where(eq(schema.purchase.id, id));
   let planAfter: string | null = null;
   if (p.userId) {
-    planAfter = await planFromRows(p.userId);
-    await db.update(schema.user).set({ plan: planAfter, updatedAt: now }).where(eq(schema.user.id, p.userId));
+    planAfter = await syncPlan(p.userId, now);
   }
   await audit(me.email, "plan.revoke", p.userId ?? p.email, { purchaseId: id, statusBefore: p.status, note, planAfter });
   revalidatePath("/admin", "layout");

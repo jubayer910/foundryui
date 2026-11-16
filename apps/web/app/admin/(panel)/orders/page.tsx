@@ -17,7 +17,7 @@ import { getEnv } from "@/lib/db";
 export const metadata: Metadata = { title: "Orders" };
 
 const PURCHASE_STATUS = ["paid", "pending", "granted", "refunded", "revoked"];
-const SOURCE_HINT = { webhook: "Written by a Lemon Squeezy webhook", sync: "Written by Sync now (Lemon Squeezy API)", manual: "Granted by hand in admin", unknown: "Source not recorded" } as const;
+const SOURCE_HINT = { webhook: "Written by a Lemon Squeezy webhook", sync: "Written by Sync now (Lemon Squeezy API)", manual: "Granted by hand in admin", contra: "Paid on Contra, approved in Activations", unknown: "Source not recorded" } as const;
 const SUB_STATUS = ["active", "on_trial", "past_due", "paused", "unpaid", "cancelled", "expired"];
 
 export default async function AdminOrders({ searchParams }: PageProps<"/admin/orders">) {
@@ -73,6 +73,7 @@ export default async function AdminOrders({ searchParams }: PageProps<"/admin/or
           <select name="plan" defaultValue={plan} className={input}>
             <option value="">All plans</option>
             <option value="pro">Pro</option>
+            <option value="team">Team</option>
             <option value="lifetime">Lifetime</option>
           </select>
         </Field>
@@ -122,6 +123,8 @@ export default async function AdminOrders({ searchParams }: PageProps<"/admin/or
                     {p.providerOrderId}
                     <Icon name="arrow-up-right" size={13} />
                   </a>
+                ) : p.provider === "contra" ? (
+                  <Link href="/admin/activations?tab=approved" className="text-mute hover:underline">Contra</Link>
                 ) : (
                   <span className="text-faint">Manual</span>
                 )}
@@ -157,10 +160,14 @@ export default async function AdminOrders({ searchParams }: PageProps<"/admin/or
               <td className={td + " whitespace-nowrap text-mute"}>{when(s.renewsAt)}</td>
               <td className={td + " whitespace-nowrap text-mute"}>{when(s.endsAt)}</td>
               <td className={td}>
-                <a href={`https://app.lemonsqueezy.com/subscriptions/${encodeURIComponent(s.providerSubId)}`} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 hover:underline">
-                  {s.providerSubId}
-                  <Icon name="arrow-up-right" size={13} />
-                </a>
+                {s.provider === "contra" ? (
+                  <Link href="/admin/activations" className="text-mute hover:underline" title="Renewals are checked by hand in Activations">Contra</Link>
+                ) : (
+                  <a href={`https://app.lemonsqueezy.com/subscriptions/${encodeURIComponent(s.providerSubId)}`} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 hover:underline">
+                    {s.providerSubId}
+                    <Icon name="arrow-up-right" size={13} />
+                  </a>
+                )}
               </td>
             </tr>
           ))}

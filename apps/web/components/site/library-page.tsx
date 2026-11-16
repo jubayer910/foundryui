@@ -3,17 +3,13 @@ import { CATEGORIES, entries } from "@/lib/library";
 import { railSystems } from "./rail";
 import { Browser } from "./browser";
 import { IlloTile, PostCover } from "./illo";
-import { HomeHero, ShowcaseBand } from "./home-hero";
+import { ShowcaseBand } from "./home-hero";
+import { HomeHeroV2 } from "./hero/home-hero-v2";
+import { FeatureRow } from "./feature-row";
 import { ProofStrip, HOME_PROOF } from "./proof-strip";
 import { posts, readingTime } from "@/lib/blog";
 import { clientEntries } from "@/lib/seo-entries";
 import { HUBS } from "@/lib/hubs";
-
-const EXITS = [
-  { scene: "react", h: "React code", b: "Plain TSX on Tailwind v4, one command to add." },
-  { scene: "figmalayer", h: "Figma layer", b: "Paste into Figma and keep designing." },
-  { scene: "agent", h: "Your AI agent", b: "Claude Code, Cursor or Codex pull it through MCP." },
-];
 
 const MORE = [
   { href: "/mcp", scene: "server", h: "Connect your AI agent", b: "One line in Claude Code or Cursor, and your agent builds with the system." },
@@ -27,7 +23,7 @@ export function LibraryPage({ q = "", c = "all", s = "all", intro = true, home =
   return (
     <div>
       {home ? (
-        <HomeHero />
+        <HomeHeroV2 />
       ) : (
         <header className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
           <h1 className="page-title">Components</h1>
@@ -38,19 +34,7 @@ export function LibraryPage({ q = "", c = "all", s = "all", intro = true, home =
       {home && <ProofStrip {...HOME_PROOF} />}
       {home && <ShowcaseBand />}
 
-      {intro && (
-        <section aria-label="Three ways to use a component" className="mt-3 grid gap-3 md:grid-cols-3">
-          {EXITS.map((e) => (
-            <div key={e.h} className="card flex items-center gap-3 p-2">
-              <IlloTile scene={e.scene} label="" className="h-[64px] w-[92px] shrink-0" />
-              <div className="min-w-0 pr-2">
-                <p className="text-[13px] font-medium">{e.h}</p>
-                <p className="mt-0.5 text-[12.5px] leading-snug text-mute">{e.b}</p>
-              </div>
-            </div>
-          ))}
-        </section>
-      )}
+      {intro && <FeatureRow />}
 
       <div className="mt-5">
         <Browser entries={clientEntries(entries)} categories={CATEGORIES} systems={railSystems} initialQuery={q} initialCategory={c} initialSystem={s} />

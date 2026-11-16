@@ -6,6 +6,7 @@ import type { Entry } from "@/lib/library";
 import { pushRecent, toggleSaved, useLibrary } from "@/lib/local-library";
 import { Preview } from "./preview";
 import { CardLive } from "./card-live";
+import { surfaceStyle } from "@/lib/system-surface";
 import { CIcon } from "./chrome-icon";
 import { Icon } from "@/registry/components/icons";
 
@@ -39,7 +40,7 @@ export function ItemCard({ item }: { item: Entry }) {
   const qa = "flex h-7 items-center gap-1.5 rounded-full bg-white px-2.5 text-[12px] font-medium shadow-[0_0_0_1px_rgb(0_0_0/0.08),0_2px_6px_-2px_rgb(0_0_0/0.12)] hover:bg-tile";
   return (
     <div className="group relative">
-      <Link href={href} className="block overflow-hidden rounded-[8px] bg-tile shadow-[inset_0_0_0_1px_var(--color-hair)]">
+      <Link href={href} className="block overflow-hidden rounded-[8px] bg-tile shadow-[inset_0_0_0_1px_var(--color-hair)]" style={surfaceStyle(item.system)}>
         <div className={"flex h-56 items-center overflow-hidden " + (item.kind === "figma" && !item.qa && (item.w ?? 1) / (item.h ?? 1) > 3.2 ? "justify-start" : "justify-center")}>
           {item.kind === "code" ? (
             <Preview slug={item.slug} size="card" />

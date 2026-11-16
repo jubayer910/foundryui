@@ -3,10 +3,12 @@ import { Inter, Geist_Mono } from "next/font/google";
 import { Rail, railSystems } from "@/components/site/rail";
 import { MobileBar } from "@/components/site/mobile-bar";
 import { SiteChrome } from "@/components/site/site-chrome";
+import { CustomCursor } from "@/components/site/cursor/custom-cursor";
 import { JsonLd, SITE, organizationLd, websiteLd } from "@/lib/seo";
 import "./globals.css";
 
-const inter = Inter({ variable: "--font-inter", subsets: ["latin"] });
+// opsz axis: large headings use Inter Display (opsz 32) from the same variable font
+const inter = Inter({ variable: "--font-inter", subsets: ["latin"], axes: ["opsz"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
 
 // Google Analytics 4 (G-791MYC76DX) and Microsoft Clarity (zdnoi4px8s) load only after cookie consent:
@@ -34,6 +36,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html lang="en" className={`${inter.variable} ${geistMono.variable} h-full antialiased`} data-system="loopo">
       <body className="min-h-full">
         <JsonLd data={[organizationLd(), websiteLd()]} />
+        <CustomCursor />
         {/* Public chrome, GA and Clarity live in SiteChrome; /admin renders without them. */}
         <SiteChrome rail={<Rail />} mobileBar={<MobileBar systems={railSystems} />}>
           {children}

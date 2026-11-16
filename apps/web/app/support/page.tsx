@@ -14,7 +14,7 @@ import { OpenHash } from "./open-hash";
 export const metadata: Metadata = pageMeta({
   title: "Support: billing, licence, install, MCP and Figma answers",
   description: "Answers to common Ingot UI questions on plans, refunds, the licence, installing with the CLI or shadcn, connecting the MCP server and copying to Figma. Or write to support@ingotui.com.",
-  path: "/support",
+  path: "/support", image: "/support/opengraph-image",
 });
 
 // Answers come from D1 (edited in admin) and the form is prefilled for signed-in users.

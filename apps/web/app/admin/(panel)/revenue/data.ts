@@ -1,5 +1,5 @@
 import "server-only";
-import { eq } from "drizzle-orm";
+import { inArray } from "drizzle-orm";
 import { getDb, getEnv, schema } from "@/lib/db";
 import { getSyncState, type SyncState } from "@/lib/lemonsqueezy-sync";
 import { getDeal, type Deal } from "@/lib/plans";
@@ -18,6 +18,8 @@ export const rangeOf = (v: string): RangeKey => (v in RANGES ? (v as RangeKey) :
 
 /** Order statuses that took money (a refund later gives some or all of it back). */
 const CHARGED = ["paid", "refunded", "partial_refund"];
+/** Providers whose orders took real money. Contra sales are approved by hand in /admin/activations. */
+const PAID_PROVIDERS = ["lemonsqueezy", "contra"];
 /** Subscription statuses that still bill. */
 const BILLING = ["active", "past_due"];
 const LIVE = ["active", "on_trial", "past_due"];
@@ -39,7 +41,8 @@ const parse = (raw: string | null): { attrs: Attrs; source: "webhook" | "sync" |
 const int = (v: unknown): number | null => (typeof v === "number" && Number.isFinite(v) ? Math.round(v) : typeof v === "string" && /^-?\d+$/.test(v) ? Number(v) : null);
 
 /** Where a purchase row came from, for the orders table. */
-export function sourceOf(p: { provider: string; raw: string | null }): "webhook" | "sync" | "manual" | "unknown" {
+export function sourceOf(p: { provider: string; raw: string | null }): "webhook" | "sync" | "manual" | "contra" | "unknown" {
+  if (p.provider === "contra") return "contra";
   if (p.provider !== "lemonsqueezy") return "manual";
   return parse(p.raw).source ?? "unknown";
 }
@@ -134,7 +137,7 @@ export function windowFor(range: RangeKey, firstOrder: Date | null, now = Date.n
 
 export async function loadOrders(): Promise<Order[]> {
   const db = await getDb();
-  const rows = await db.select().from(schema.purchase).where(eq(schema.purchase.provider, "lemonsqueezy"));
+  const rows = await db.select().from(schema.purchase).where(inArray(schema.purchase.provider, PAID_PROVIDERS));
   return rows
     .map((p): Order => {
       const { attrs, source, test } = parse(p.raw);
@@ -144,7 +147,8 @@ export async function loadOrders(): Promise<Order[]> {
       // A full refund without a refunded amount gives back the whole order.
       const refundUsd = usd === null ? null : p.status === "refunded" ? Math.min(usd, refundedAmount && refundedAmount > 0 ? refundedAmount : usd) : p.status === "partial_refund" ? Math.min(usd, refundedAmount ?? 0) : 0;
       const variant = p.variant ?? "";
-      const plan: PlanKey | null = variant === "monthly" ? "proMonthly" : variant === "yearly" ? "proYearly" : variant === "lifetimeDeal" ? "lifetimeDeal" : variant === "lifetimeAfter" ? "lifetimeAfter" : null;
+      // Lemon Squeezy rows store monthly / yearly; Contra rows store the option key.
+      const plan: PlanKey | null = variant === "monthly" || variant === "proMonthly" ? "proMonthly" : variant === "yearly" || variant === "proYearly" ? "proYearly" : variant === "lifetimeDeal" ? "lifetimeDeal" : variant === "lifetimeAfter" ? "lifetimeAfter" : null;
       const urls = (attrs.urls ?? {}) as Attrs;
       return {
         id: p.id,
@@ -174,7 +178,7 @@ export async function loadRevenue(range: RangeKey, now = Date.now()): Promise<Re
   const settings = await getSettings();
   const [orders, subRows, deal, sync] = await Promise.all([
     loadOrders(),
-    db.select().from(schema.subscription).where(eq(schema.subscription.provider, "lemonsqueezy")),
+    db.select().from(schema.subscription).where(inArray(schema.subscription.provider, PAID_PROVIDERS)),
     getDeal(settings),
     getSyncState(db),
   ]);

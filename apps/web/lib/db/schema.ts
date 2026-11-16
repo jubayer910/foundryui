@@ -1,4 +1,5 @@
-import { sqliteTable, text, integer, index, primaryKey } from "drizzle-orm/sqlite-core";
+import { sql } from "drizzle-orm";
+import { sqliteTable, text, integer, index, primaryKey, uniqueIndex } from "drizzle-orm/sqlite-core";
 
 const ts = (name: string) => integer(name, { mode: "timestamp" });
 
@@ -287,4 +288,44 @@ export const changelogEntry = sqliteTable(
     updatedAt: ts("updatedAt").notNull(),
   },
   (t) => [index("changelog_date_idx").on(t.date)],
+);
+
+/* ---- Contra purchase activation (migrations/0010_activation.sql, lib/activation.ts) ---- */
+
+/**
+ * A buyer's "I paid on Contra" request. Contra has no API or webhook, so staff approve it in
+ * /admin/activations (later, the Contra sale email matcher can too). Approve writes the purchase row.
+ */
+export const activation = sqliteTable(
+  "activation",
+  {
+    id: text("id").primaryKey(),
+    userId: text("userId").notNull(),
+    /** the Ingot UI account that gets the plan */
+    accountEmail: text("accountEmail").notNull(),
+    /** the email used to pay on Contra (defaults to the account email) */
+    payerEmail: text("payerEmail").notNull(),
+    /** "proMonthly" | "proYearly" | "teamMonthly" | "teamYearly" | "lifetime" */
+    option: text("option").notNull(),
+    /** key into settings.prices: "lifetimeDeal" | "lifetimeAfter" | "proMonthly" | ... */
+    variantKey: text("variantKey").notNull(),
+    /** price from the price book when the request was made */
+    amountCents: integer("amountCents").notNull().default(0),
+    provider: text("provider").notNull().default("contra"),
+    /** optional Contra receipt or order number */
+    reference: text("reference"),
+    /** "pending" | "approved" | "rejected" */
+    status: text("status").notNull().default("pending"),
+    decidedBy: text("decidedBy"),
+    decidedAt: ts("decidedAt"),
+    /** rejection reason shown to the buyer */
+    note: text("note"),
+    createdAt: ts("createdAt").notNull(),
+  },
+  (t) => [
+    index("activation_status_idx").on(t.status, t.createdAt),
+    index("activation_user_idx").on(t.userId),
+    uniqueIndex("activation_pending_unique").on(t.userId, t.variantKey).where(sql`status = 'pending'`),
+    index("activation_payer_idx").on(t.payerEmail, t.status),
+  ],
 );

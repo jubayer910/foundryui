@@ -10,11 +10,55 @@ type Sort = "featured" | "az" | "code";
 const PAGE = 48;
 const AUTO_PAGES = 3;
 
+/** Rounds of the opening mix: each round takes one item per system, best first. `name` keeps out blocks that sit in a
+ *  category but are not what the round promises (a large settings form filed under Charts, a lone table row). */
+const CHART = /chart|trend|graph|revenue|volume|funnel|donut|traffic|growth|breakdown|analytics|performance|heatmap|retention|usage|spend|activity|cash/i;
+const KPI = /kpi|metric|stat|summary|overview/i;
+// Charts and KPIs lead (three chart rounds, two KPI rounds), then one round of tables, cards and overlays.
+const SHOWCASE_ROUNDS: { cats: string[]; name: RegExp }[] = [
+  { cats: ["Charts"], name: CHART },
+  { cats: ["KPI and stats"], name: KPI },
+  { cats: ["Charts"], name: CHART },
+  { cats: ["Tables and lists"], name: /table|list|log|queue|history|ledger|directory|inbox/i },
+  { cats: ["Charts"], name: CHART },
+  { cats: ["KPI and stats", "Cards and panels"], name: /kpi|metric|stat|summary|overview|insight|leaderboard|pipeline/i },
+  { cats: ["Modals", "Drawers"], name: /modal|drawer|dialog|detail|new|create|invite|connect/i },
+];
+/** Shown low in the unfiltered library: Vantage is a dark-only product, so its blocks wait below the mix. */
+const LOW_SYSTEMS = new Set(["vantage"]);
+
+/**
+ * The opening of the unfiltered library: for every design system, its most detailed blocks (largest
+ * chart, table, KPI, card and overlay; coded ones first, part-only pieces left out), interleaved system by
+ * system so the first screens show all six looks, free and Pro together.
+ */
+function showcase(list: Entry[], part: RegExp): Entry[] {
+  const area = (e: Entry) => (e.w ?? 0) * (e.h ?? 0);
+  const score = (e: Entry) => area(e) * (coded(e) ? 1.6 : 1);
+  const order = [...new Set(list.map((e) => e.system))].filter((x) => !LOW_SYSTEMS.has(x));
+  const used = new Set<string>();
+  const out: Entry[] = [];
+  for (const round of SHOWCASE_ROUNDS) {
+    for (const system of order) {
+      const pool = list.filter((e) => e.system === system && round.cats.includes(e.category) && !used.has(e.slug) && !part.test(e.name) && area(e) > 0);
+      const best = (xs: Entry[]) => [...xs].sort((a, b) => score(b) - score(a))[0];
+      // only blocks that are what the round promises; a system without one sits that round out
+      const pick = best(pool.filter((e) => round.name.test(e.name) && !/\bform\b|settings/i.test(e.name)));
+      if (pick) {
+        used.add(pick.slug);
+        out.push(pick);
+      }
+    }
+  }
+  return out;
+}
+
 export function Browser({ entries, categories, systems, initialCategory = "all", initialQuery = "", initialSystem = "all" }: { entries: Entry[]; categories: string[]; systems: Sys[]; initialCategory?: string; initialQuery?: string; initialSystem?: string }) {
   const [q, setQ] = useState(initialQuery);
   const [cat, setCat] = useState(initialCategory);
   const [sys, setSys] = useState(initialSystem);
   const [kind, setKind] = useState<"all" | "code" | "figma">("all");
+  const [plan, setPlan] = useState<"all" | "free" | "pro">("all");
   const [sort, setSort] = useState<Sort>("featured");
   const [limit, setLimit] = useState(PAGE);
   const input = useRef<HTMLInputElement>(null);
@@ -45,9 +89,9 @@ export function Browser({ entries, categories, systems, initialCategory = "all",
 
   const words = q.trim().toLowerCase().split(/\s+/).filter(Boolean);
   const base = useMemo(
-    () => entries.filter((e) => (sys === "all" || e.system === sys) && (kind === "all" || (kind === "code" ? coded(e) : !coded(e))) && words.every((w) => e.text.includes(w) || e.category.toLowerCase().includes(w))),
+    () => entries.filter((e) => (sys === "all" || e.system === sys) && (plan === "all" || e.tier === plan) && (kind === "all" || (kind === "code" ? coded(e) : !coded(e))) && words.every((w) => e.text.includes(w) || e.category.toLowerCase().includes(w))),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [entries, sys, kind, q],
+    [entries, sys, kind, plan, q],
   );
   const shown = useMemo(() => {
     const list = base.filter((e) => cat === "all" || e.category === cat);
@@ -58,8 +102,14 @@ export function Browser({ entries, categories, systems, initialCategory = "all",
     const part = /^(header|body|footer) (modal|drawer|card)\b/i;
     const W: Record<string, number> = { Charts: 0, "KPI and stats": 1, "Tables and lists": 2, Modals: 3, Drawers: 4, "Cards and panels": 5, Templates: 6, Menus: 7, Popovers: 8, Editors: 9, Navigation: 10, Forms: 11, Headers: 12, Feedback: 13, Atoms: 14, Foundations: 15 };
     const rank = (e: Entry) => (part.test(e.name) ? 100 : 0) + (W[e.category] ?? 9) - (coded(e) ? 0.5 : 0);
-    return [...list].sort((a, b) => rank(a) - rank(b));
-  }, [base, cat, sort]);
+    const ranked = [...list].sort((a, b) => rank(a) - rank(b));
+    // "All" with no filters: open with the richest work of every system, mixed, instead of one system's list
+    if (sys !== "all" || cat !== "all" || words.length) return ranked;
+    const head = showcase(list, part);
+    const taken = new Set(head.map((e) => e.slug));
+    const rest = ranked.filter((e) => !taken.has(e.slug));
+    return [...head, ...rest.filter((e) => !LOW_SYSTEMS.has(e.system)), ...rest.filter((e) => LOW_SYSTEMS.has(e.system))];
+  }, [base, cat, sort, sys, words.length]);
   const count = (c: string) => (c === "all" ? base.length : base.filter((e) => e.category === c).length);
   const cats = ["all", ...categories.filter((c) => base.some((e) => e.category === c))];
 
@@ -80,30 +130,22 @@ export function Browser({ entries, categories, systems, initialCategory = "all",
 
   return (
     <div>
-      <div className="flex flex-col gap-2 lg:flex-row lg:items-center lg:gap-3">
-        <label className="field-pill flex h-9 items-center gap-2 rounded-full bg-chip px-3.5 lg:w-[340px]">
+      <div className="flex flex-col gap-2 lg:flex-row lg:items-center">
+        <label className="field-pill flex h-9 items-center gap-2 rounded-full bg-chip px-3.5 lg:w-[320px]">
           <Icon name="search" size={15} className="shrink-0 text-mute" />
           <input ref={input} type="search" value={q} onChange={(e) => { setQ(e.target.value); setLimit(PAGE); }} placeholder="Search, e.g. invoice table, add funds" className="min-w-0 flex-1 bg-transparent text-[13px] placeholder:text-mute" aria-label="Search components" />
           <kbd className="rounded-[4px] bg-white px-1.5 text-[11px] text-mute max-lg:hidden" aria-hidden="true">/</kbd>
         </label>
-        <div className="grid grid-cols-2 gap-1.5 lg:ml-auto lg:flex lg:items-center">
+        <div className="flex flex-wrap items-center gap-1.5 lg:ml-auto lg:flex-nowrap">
+          <PillSelect label="Design system" value={sys} onChange={(v) => { setSys(v); setLimit(PAGE); }} options={[["all", "All systems"], ...systems.map((x): [string, string] => [x.slug, x.name])]} />
+          <PillSelect label="Plan" value={plan} onChange={(v) => { setPlan(v as typeof plan); setLimit(PAGE); }} options={[["all", "Free and Pro"], ["free", "Free"], ["pro", "Pro"]]} />
           <PillSelect label="Format" value={kind} onChange={(v) => { setKind(v as typeof kind); setLimit(PAGE); }} options={[["all", "Code and Figma"], ["code", "With code"], ["figma", "Figma only (code coming)"]]} />
           <PillSelect label="Sort" value={sort} onChange={(v) => setSort(v as Sort)} options={[["featured", "Featured"], ["code", "Code first"], ["az", "A to Z"]]} />
         </div>
       </div>
 
-      <Scroller label="Design system" className="mt-3">
-        <button onClick={reset(() => setSys("all"))} data-on={sys === "all"} aria-pressed={sys === "all"} className="pill shrink-0">All systems</button>
-        {systems.map((s) => (
-          <button key={s.slug} onClick={reset(() => setSys(s.slug))} data-on={sys === s.slug} aria-pressed={sys === s.slug} className="pill shrink-0">
-            <span className="size-2.5 rounded-[3px]" style={{ background: s.accent }} aria-hidden="true" />
-            {s.name}
-          </button>
-        ))}
-      </Scroller>
-
       {cats.length > 2 && (
-        <Scroller label="Category" className="mt-1.5">
+        <Scroller label="Category" className="mt-2">
           {cats.map((c) => (
             <button key={c} aria-pressed={cat === c} data-on={cat === c} onClick={reset(() => setCat(c))} className="pill shrink-0">
               {c === "all" ? "All" : c}
@@ -132,7 +174,7 @@ export function Browser({ entries, categories, systems, initialCategory = "all",
         <div className="mt-4 rounded-[8px] bg-tile px-6 py-16 text-center">
           <p className="text-[14px] font-medium">{q.trim() ? <>Nothing matches “{q.trim()}” yet</> : "Nothing matches these filters yet"}</p>
           <p className="mt-1 text-[13px] text-mute">Try a broader word such as chart, table or modal, or switch to all systems.</p>
-          <button onClick={() => { setQ(""); setCat("all"); setSys("all"); setKind("all"); setLimit(PAGE); }} className="btn-line mt-4">
+          <button onClick={() => { setQ(""); setCat("all"); setSys("all"); setKind("all"); setPlan("all"); setLimit(PAGE); }} className="btn-line mt-4">
             Clear search and filters
           </button>
         </div>
@@ -143,16 +185,20 @@ export function Browser({ entries, categories, systems, initialCategory = "all",
 
 /** A native select dressed as a pill: same height as the search field, custom chevron, one focus ring. */
 function PillSelect({ label, value, onChange, options }: { label: string; value: string; onChange: (v: string) => void; options: [string, string][] }) {
+  const current = options.find(([v]) => v === value)?.[1] ?? options[0]?.[1];
+  // The visible pill is just the current label and a chevron, so it is exactly as wide as its text.
+  // The native select sits on top, invisible, so keyboard, screen readers and the OS picker still work.
   return (
-    <span className="relative inline-flex min-w-0">
-      <select value={value} onChange={(e) => onChange(e.target.value)} aria-label={label} className="select-pill w-full">
+    <span className="select-pill relative inline-flex items-center gap-1.5">
+      <span className="truncate">{current}</span>
+      <Icon name="chevron-down" size={14} strokeWidth={1.75} className="pointer-events-none shrink-0 text-mute" />
+      <select value={value} onChange={(e) => onChange(e.target.value)} aria-label={label} className="absolute inset-0 h-full w-full cursor-pointer appearance-none rounded-full opacity-0">
         {options.map(([v, t]) => (
           <option key={v} value={v}>
             {t}
           </option>
         ))}
       </select>
-      <Icon name="chevron-down" size={14} strokeWidth={1.75} className="pointer-events-none absolute top-1/2 right-3 -translate-y-1/2 text-mute" />
     </span>
   );
 }

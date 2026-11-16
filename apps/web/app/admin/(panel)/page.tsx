@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { desc } from "drizzle-orm";
 import { getDb, schema } from "@/lib/db";
-import { requireStaff } from "@/lib/admin";
+import { can, requireStaff } from "@/lib/admin";
+import { pendingCount } from "@/lib/activation";
 import { loadCockpit } from "@/components/admin/analytics";
 import { AIcon } from "@/components/admin/admin-icons";
 import { Delta } from "@/components/admin/charts";
@@ -13,22 +14,23 @@ export const metadata: Metadata = { title: "Overview" };
 const P7 = "previous 7 days";
 
 export default async function AdminOverview() {
-  await requireStaff("overview", "/admin");
-  return <Overview {...await load()} />;
+  const { role } = await requireStaff("overview", "/admin");
+  return <Overview {...await load(can(role, "orders"))} />;
 }
 
-async function load() {
+async function load(orders: boolean) {
   const db = await getDb();
-  const [k, recentP, recentT, recentU] = await Promise.all([
+  const [k, recentP, recentT, recentU, pending] = await Promise.all([
     loadCockpit(),
     db.select().from(schema.purchase).orderBy(desc(schema.purchase.createdAt)).limit(5),
     db.select().from(schema.ticket).orderBy(desc(schema.ticket.updatedAt)).limit(5),
     db.select({ id: schema.user.id, name: schema.user.name, email: schema.user.email, plan: schema.user.plan, createdAt: schema.user.createdAt }).from(schema.user).orderBy(desc(schema.user.createdAt)).limit(5),
+    orders ? pendingCount() : Promise.resolve(null),
   ]);
-  return { k, recentP, recentT, recentU };
+  return { k, recentP, recentT, recentU, pending };
 }
 
-function Overview({ k, recentP, recentT, recentU }: Awaited<ReturnType<typeof load>>) {
+function Overview({ k, recentP, recentT, recentU, pending }: Awaited<ReturnType<typeof load>>) {
   const { deal } = k;
   return (
     <div>
@@ -47,6 +49,9 @@ function Overview({ k, recentP, recentT, recentU }: Awaited<ReturnType<typeof lo
         <Kpi label="MCP calls, 7 days" value={num(k.mcp)} delta={<Delta cur={k.mcp} prev={k.mcpPrev} period={P7} />} hint="From AI agents" />
         <Kpi label="Paying users" value={num(k.pro + k.lifetime)} hint={`Pro ${num(k.pro)}, Lifetime ${num(k.lifetime)}`} />
         <Kpi label="Lifetime spots" value={`${num(deal.sold)} / ${num(deal.total)}`} hint={deal.enabled ? (deal.soldOut ? "Sold out" : `${num(deal.left)} left`) : "Deal off"} />
+        {pending !== null && (
+          <Kpi label="Pending activations" value={num(pending)} hint={<Link href="/admin/activations" className="hover:text-ink">{pending ? "Approve Contra buyers" : "Open the inbox"}</Link>} />
+        )}
         <Kpi label="Open tickets" value={num(k.openTickets)} hint={<Link href="/admin/support" className="hover:text-ink">Open the inbox</Link>} />
         <Kpi label="Waitlist" value={num(k.waitlist)} hint={<Link href="/admin/waitlist" className="hover:text-ink">See emails</Link>} />
       </div>

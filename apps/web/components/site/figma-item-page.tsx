@@ -6,6 +6,7 @@ import { ItemCard } from "./item-card";
 import { SaveButton } from "./save-button";
 import { categoryHref } from "@/lib/hubs";
 import { LivePreview } from "./live-preview";
+import { surfaceStyle } from "@/lib/system-surface";
 import { QaBadge } from "./qa-badge";
 import { A11yNotes } from "./a11y-notes";
 
@@ -75,7 +76,7 @@ export function FigmaItemPage({ item }: { item: FigmaItem }) {
           )}
         </aside>
         <div className="min-w-0">
-          <div className="flex min-h-[520px] items-center justify-center rounded-[8px] bg-tile p-4 shadow-[inset_0_0_0_1px_var(--color-hair)] sm:p-8">
+          <div className="flex min-h-[520px] items-center justify-center rounded-[8px] bg-tile p-4 shadow-[inset_0_0_0_1px_var(--color-hair)] sm:p-8" style={surfaceStyle(item.system)}>
             {qa ? (
               <LivePreview src={`/library-preview/${item.system}/${item.slug}.html`} w={item.w} h={item.h} thumb={item.thumb} alt={item.name + ", rendered from its React code"} />
             ) : (

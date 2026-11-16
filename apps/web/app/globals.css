@@ -167,7 +167,8 @@ body {
 }
 .field-pill:focus-within,
 .field-input:focus-visible,
-.select-pill:focus-visible {
+.select-pill:focus-visible,
+.select-pill:has(select:focus-visible) {
   outline: none;
   background-color: #fff;
   box-shadow: inset 0 0 0 1px var(--color-ink), 0 0 0 2px rgb(11 11 11 / 0.15);
@@ -186,7 +187,7 @@ body {
   appearance: none;
   height: 36px;
   min-width: 0;
-  padding: 0 32px 0 14px;
+  padding: 0 12px 0 14px; /* the chevron sits inside the pill, right after the label */
   border-radius: 9999px;
   background-color: var(--color-chip);
   color: var(--color-ink);
@@ -356,4 +357,224 @@ body {
   --illo-r: #161618;
   --illo-accent: #9aa0ff;
   --illo-accent-wash: #2d3060;
+}
+
+/* Home hero v2 (Figma "Hero · 2 · Ingot of streaks", 18:12432) */
+.hero-paper {
+  background-color: #fcfbf8;
+}
+.hero-paper::before {
+  /* film grain over the warm paper, like the Figma NOISE effect */
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -20; /* under the art, like the Figma paper layer */
+  pointer-events: none;
+  opacity: 0.06;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .05  0 0 0 0 .05  0 0 0 0 .1  0 0 0 .55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+.hero-title {
+  font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  font-variation-settings: "opsz" 32; /* Inter Display */
+  font-weight: 500;
+  font-size: 38px;
+  line-height: 1.06;
+  letter-spacing: -0.04em;
+  color: #0b0b0b;
+  text-wrap: balance;
+}
+@media (min-width: 640px) {
+  .hero-title { font-size: 48px; }
+}
+@media (min-width: 1024px) {
+  .hero-title { font-size: 56px; }
+}
+.hero-eyebrow {
+  /* Figma "Hero / Eyebrow · animated" (instance 18:13778): 34px tall, padding 4.7 / 4.7 / 4.7 / 13.2, gap 5.7 */
+  position: relative;
+  display: inline-flex;
+  height: 34px;
+  align-items: center;
+  gap: 5.7px;
+  padding: 4.7px 4.7px 4.7px 13.2px;
+  border-radius: 9999px;
+  background: #fff;
+  box-shadow: inset 0 0 0 0.94px #e5e5e8;
+  font-size: 12.3px;
+  font-weight: 500;
+  line-height: 15px;
+  color: #0b0b0b;
+}
+.hero-eyebrow-logos {
+  display: inline-flex;
+  align-items: center;
+}
+.hero-eyebrow-logo {
+  display: inline-flex;
+  width: 22.7px;
+  height: 22.7px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: #f8f8f8;
+}
+.hero-eyebrow-logo + .hero-eyebrow-logo {
+  /* overlap like the Figma stack, with a white ring between the two circles */
+  margin-left: -4.7px;
+  box-shadow: 0 0 0 0.94px #fff;
+}
+@property --hero-eyebrow-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+.hero-eyebrow::before {
+  /* a short blue → coral highlight that travels around the whole border */
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: conic-gradient(from var(--hero-eyebrow-angle), transparent 0deg 250deg, rgba(75, 85, 230, 0.85) 295deg, rgba(138, 92, 240, 0.85) 320deg, rgba(242, 112, 90, 0.8) 345deg, transparent 360deg);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  pointer-events: none;
+  animation: hero-eyebrow-spin 4s linear infinite;
+}
+@keyframes hero-eyebrow-spin {
+  to { --hero-eyebrow-angle: 360deg; }
+}
+.hero-btn {
+  display: inline-flex;
+  height: 44px;
+  align-items: center;
+  gap: 4px;
+  padding: 0 20px;
+  border-radius: 9999px;
+  font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  font-variation-settings: "opsz" 32;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  transition: background-color 0.15s, box-shadow 0.15s, transform 0.15s;
+}
+.hero-btn:active { transform: translateY(1px); }
+.hero-btn-ink { background: #0b0b0b; color: #fff; }
+.hero-btn-ink:hover { background: #262626; }
+.hero-btn-line { background: #fff; color: #0b0b0b; box-shadow: inset 0 0 0 1px #ececee, 0 1px 2px rgb(0 0 0 / 0.04); }
+.hero-btn-line:hover { box-shadow: inset 0 0 0 1px #d9d9dd, 0 1px 2px rgb(0 0 0 / 0.06); }
+.hero-glow { animation: hero-glow-breathe 7s ease-in-out infinite; }
+@keyframes hero-glow-breathe {
+  0%, 100% { opacity: 1; transform: translate(-50%, 38%) scale(1); }
+  50% { opacity: 0.82; transform: translate(-50%, 38%) scale(1.06); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-eyebrow::before { animation: none; --hero-eyebrow-angle: 180deg; }
+  .hero-glow { animation: none; }
+}
+
+/* Home "What you get" row (components/site/feature-row.tsx) */
+.feat-corner {
+  position: absolute;
+  z-index: 1;
+  width: 7px;
+  height: 7px;
+  margin: -3px;
+  border-radius: 2px;
+  background: #fff;
+  box-shadow: inset 0 0 0 1px var(--color-hair-2);
+}
+.feat + .feat { box-shadow: inset 1px 0 0 var(--color-hair); }
+@media (max-width: 1023px) {
+  .feat:nth-child(3) { box-shadow: inset 0 1px 0 var(--color-hair); }
+  .feat:nth-child(4) { box-shadow: inset 1px 0 0 var(--color-hair), inset 0 1px 0 var(--color-hair); }
+}
+.feat-link {
+  position: relative;
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+  padding: 26px 18px 24px;
+  text-align: center;
+}
+.feat-link::before {
+  /* the short accent line on the top hairline of the active column */
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 50%;
+  width: 72px;
+  height: 1px;
+  margin-left: -36px;
+  background: #4b55e6;
+  opacity: 0;
+  transform: scaleX(0.4);
+  transition: opacity 0.2s, transform 0.25s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.feat-illo {
+  display: inline-flex;
+  border-radius: 10px;
+  box-shadow: 0 0 0 1px var(--color-hair);
+  transition: box-shadow 0.2s;
+}
+.feat-illo .illo-tile { border-radius: 10px; }
+.feat-badge {
+  border-radius: 6px;
+  padding: 1px 6px;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  line-height: 16px;
+}
+.feat-badge-free { background: var(--color-chip); color: var(--color-mute); box-shadow: inset 0 0 0 1px var(--color-hair); }
+.feat-badge-pro { background: #eef0fd; color: #3b45d6; }
+/* active column: hovered or focused, else the second one */
+.feat-row:not(:hover):not(:focus-within) .feat:nth-child(2) .feat-illo,
+.feat-link:hover .feat-illo,
+.feat-link:focus-visible .feat-illo {
+  box-shadow: 0 0 0 1px rgb(75 85 230 / 0.55);
+}
+.feat-row:not(:hover):not(:focus-within) .feat:nth-child(2) .feat-link::before,
+.feat-link:hover::before,
+.feat-link:focus-visible::before { opacity: 1; transform: scaleX(1); }
+@media (prefers-reduced-motion: reduce) {
+  .feat-illo, .feat-link::before { transition: none; }
+}
+
+/* Custom cursor. Pure CSS image cursors in the spirit of recent.design (no JS follower, so no lag and no
+   rAF loop). components/site/cursor/custom-cursor.tsx sets data-ingot-cursor on <html> only on devices with
+   hover + a fine pointer; touch never sees these rules. Ink arrow with a white outline and soft shadow (so it
+   reads on dark surfaces too), brand accent over clickable things, native cursors where they help:
+   text fields, selects, code, iframes, disabled controls and any Tailwind cursor-* other than pointer.
+   Escape hatch: data-native-cursor on any element. Unlayered on purpose, so it sits above the
+   utilities layer; revert-layer hands the excluded elements back to their layered/UA cursor. */
+html[data-ingot-cursor] {
+  --ingot-cursor: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'><defs><filter id='s' x='-20%' y='-20%' width='160%' height='160%'><feDropShadow dx='0' dy='1' stdDeviation='1.1' flood-color='%23000' flood-opacity='.28'/></filter></defs><path filter='url(%23s)' d='M5 4V21.2L9.4 17.3L12.4 24.1L15.5 22.7L12.6 16.1L18.6 16Z' fill='%230b0b0b' stroke='%23fff' stroke-width='1.75' stroke-linejoin='round'/></svg>") 5 4, auto;
+  --ingot-cursor-hover: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'><defs><filter id='s' x='-20%' y='-20%' width='160%' height='160%'><feDropShadow dx='0' dy='1' stdDeviation='1.1' flood-color='%23000' flood-opacity='.28'/></filter></defs><path filter='url(%23s)' d='M5 4V21.2L9.4 17.3L12.4 24.1L15.5 22.7L12.6 16.1L18.6 16Z' fill='%234b55e6' stroke='%23fff' stroke-width='1.75' stroke-linejoin='round'/></svg>") 5 4, pointer;
+}
+html[data-ingot-cursor],
+html[data-ingot-cursor] body,
+html[data-ingot-cursor] body * {
+  cursor: var(--ingot-cursor);
+}
+html[data-ingot-cursor] :is(a[href], button, [role=button], [role=link], [role=tab], [role=menuitem], [role=menuitemradio], [role=menuitemcheckbox], [role=option], [role=switch], [role=checkbox], [role=radio], summary, label[for], input:is([type=checkbox], [type=radio], [type=submit], [type=button], [type=reset], [type=range], [type=color], [type=file]), .cursor-pointer),
+html[data-ingot-cursor] :is(a[href], button, [role=button], [role=link], [role=tab], [role=menuitem], [role=menuitemradio], [role=menuitemcheckbox], [role=option], [role=switch], [role=checkbox], [role=radio], summary, label[for], .cursor-pointer) * {
+  cursor: var(--ingot-cursor-hover);
+}
+/* Typing surfaces keep the I-beam. The long :not() chain also lifts these selectors above the hover rule. */
+html[data-ingot-cursor] :is(textarea, input:not([type=checkbox]):not([type=radio]):not([type=submit]):not([type=button]):not([type=reset]):not([type=range]):not([type=color]):not([type=file]):not([type=hidden]), [contenteditable]:not([contenteditable=false]), [contenteditable]:not([contenteditable=false]) *) {
+  cursor: text;
+}
+/* Native cursor (auto: I-beam over code text, the OS arrow elsewhere). auto, not revert: cursor inherits. */
+html[data-ingot-cursor] :is(select, iframe, pre, code, kbd, [data-native-cursor], input:not([type=checkbox]):not([type=radio]):not([type=submit]):not([type=button]):not([type=reset]):not([type=range]):not([type=color]):not([type=file]):not([type=hidden]):disabled),
+html[data-ingot-cursor] :is(pre, [data-native-cursor]) :not(input):not(textarea):not([contenteditable]) {
+  cursor: auto;
+}
+/* Disabled controls and Tailwind cursor-* utilities (not-allowed, grab, move, resize…) keep their own cursor.
+   The class branch's specificity carries the whole :is() above the hover rule. */
+html[data-ingot-cursor] :is(:disabled, [aria-disabled=true], :is([class^="cursor-"], [class*=" cursor-"]):not(.cursor-pointer):not(.cursor-default):not(.cursor-auto)) {
+  cursor: revert-layer;
 }

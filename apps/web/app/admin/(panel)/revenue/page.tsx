@@ -413,17 +413,18 @@ function Kpis({ r }: { r: Revenue }) {
 
 /* ------------------------------------------------------------------ tables */
 
-const lsLink = (path: string, text: ReactNode) => (
-  <a
-    href={`${LS}/${path}`}
-    target="_blank"
-    rel="noreferrer"
-    className="inline-flex items-center gap-1 hover:underline"
-  >
-    {text}
-    <Icon name="arrow-up-right" size={13} />
-  </a>
-);
+const lsLink = (path: string, text: ReactNode) =>
+  // Contra sales (ids from /admin/activations) have no Lemon Squeezy page.
+  /\/act_/.test(path) ? (
+    <Link href="/admin/activations?tab=approved" className="hover:underline">
+      Contra
+    </Link>
+  ) : (
+    <a href={`${LS}/${path}`} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 hover:underline">
+      {text}
+      <Icon name="arrow-up-right" size={13} />
+    </a>
+  );
 
 const who = (email: string, userId: string | null) =>
   userId ? (

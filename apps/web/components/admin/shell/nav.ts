@@ -6,7 +6,7 @@ import type { AdminIconName } from "../admin-icons";
  * guards its page (the same perm the page passes to requireStaff). Items the signed-in role can't open are
  * hidden. `badge` names a live count the panel layout computes (see BadgeKey).
  */
-export type BadgeKey = "openTickets";
+export type BadgeKey = "openTickets" | "pendingActivations";
 export type NavItem = { href: string; label: string; icon: AdminIconName; perm: Perm; badge?: BadgeKey };
 export type NavGroup = { label: string; items: NavItem[] };
 
@@ -23,6 +23,7 @@ export const NAV: NavGroup[] = [
     items: [
       { href: "/admin/revenue", label: "Revenue", icon: "report-money", perm: "revenue" },
       { href: "/admin/orders", label: "Orders", icon: "receipt", perm: "orders" },
+      { href: "/admin/activations", label: "Activations", icon: "rosette-discount-check", perm: "orders", badge: "pendingActivations" },
       { href: "/admin/pricing", label: "Pricing & deal", icon: "tag", perm: "pricing" },
     ],
   },

@@ -4,7 +4,7 @@ import { IconBrowser } from "@/components/site/icon-browser";
 import iconStats from "@/lib/icon-stats.json";
 import { PageHead } from "@/components/site/page-head";
 
-export const metadata: Metadata = pageMeta({ title: "Free icons for dashboards: " + iconStats.line.toLocaleString("en-US") + " SVG and React icons", description: iconStats.line.toLocaleString("en-US") + " icons in six styles on one 24px grid with a 1.5px stroke. Copy SVG or JSX, download, or install the ingotui-icons React package.", path: "/icons" });
+export const metadata: Metadata = pageMeta({ title: "Free icons for dashboards: " + iconStats.line.toLocaleString("en-US") + " SVG and React icons", description: iconStats.line.toLocaleString("en-US") + " icons in six styles on one 24px grid with a 1.5px stroke. Copy SVG or JSX, download, or install the ingotui-icons React package.", path: "/icons", image: "/icons/opengraph-image" });
 
 export default function IconsPage() {
   return (

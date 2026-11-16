@@ -6,7 +6,7 @@ import { PageHead } from "@/components/site/page-head";
 import { IlloTile } from "@/components/site/illo";
 import { listChangelog, fmtChangelogDate, type ChangelogEntry } from "./entries";
 
-const base = pageMeta({ title: "Changelog: every Ingot UI release", description: "What shipped in Ingot UI, newest first: new design systems, components, MCP tools, plans and site updates. Follow it by RSS or see what comes next on the roadmap.", path: "/changelog" });
+const base = pageMeta({ title: "Changelog: every Ingot UI release", description: "What shipped in Ingot UI, newest first: new design systems, components, MCP tools, plans and site updates. Follow it by RSS or see what comes next on the roadmap.", path: "/changelog", image: "/changelog/opengraph-image" });
 export const metadata: Metadata = { ...base, alternates: { canonical: "/changelog", types: { "application/rss+xml": "/changelog/rss.xml" } } };
 
 /** Entries come from D1 (edited at /admin/changelog), rendered per request so changes show without a redeploy. */

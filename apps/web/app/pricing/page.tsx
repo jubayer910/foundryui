@@ -27,7 +27,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return pageMeta({
     title: "Pricing: Free, Pro " + usd(pb.proMonthly) + "/mo, Team " + usd(pb.teamMonthly) + "/mo",
     description: "Start free. Pro is " + usd(pb.proMonthly) + " a month for one founder, Team is " + usd(pb.teamMonthly) + " a month for " + pb.teamSeats + " people." + life + " All six systems, React + Figma.",
-    path: "/pricing",
+    path: "/pricing", image: "/pricing/opengraph-image",
   });
 }
 

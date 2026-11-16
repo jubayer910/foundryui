@@ -10,7 +10,7 @@ const charts = entries.filter((e) => e.category === "Charts");
 export const metadata: Metadata = pageMeta({
   title: "Dashboard chart components for React and Figma",
   description: `${fmt(charts.length)} dashboard chart components: bars, lines, donuts, funnels, heatmaps and retention grids with real-looking data and hover states. React + Tailwind code and Figma.`,
-  path: "/charts",
+  path: "/charts", image: "/charts/opengraph-image",
 });
 
 export default function ChartsPage() {

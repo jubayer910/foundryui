@@ -13,6 +13,8 @@ export type Settings = {
   };
   /** Lemon Squeezy variant IDs, one per paid option. Empty = that option shows the waitlist. */
   variants: { proMonthly: string; proYearly: string; lifetimeDeal: string; lifetimeAfter: string; teamMonthly: string; teamYearly: string };
+  /** External checkout page per option (e.g. a Contra product link), used when Lemon Squeezy checkout is not set up. Empty = waitlist. */
+  externalCheckout: { proMonthly: string; proYearly: string; lifetimeDeal: string; lifetimeAfter: string; teamMonthly: string; teamYearly: string };
   deal: {
     enabled: boolean;
     spotsTotal: number; // "first N buyers"
@@ -34,6 +36,7 @@ export type Settings = {
 export const DEFAULT_SETTINGS: Settings = {
   prices: { proMonthly: 7, proYearly: 59, lifetimeDeal: 29, lifetimeAfter: 149, teamMonthly: 29, teamYearly: 290 },
   variants: { proMonthly: "", proYearly: "", lifetimeDeal: "", lifetimeAfter: "", teamMonthly: "", teamYearly: "" },
+  externalCheckout: { proMonthly: "", proYearly: "", lifetimeDeal: "", lifetimeAfter: "", teamMonthly: "", teamYearly: "" },
   deal: { enabled: true, spotsTotal: 200, after: "price", endsAt: "", showSpots: true, showTimer: true },
   support: { email: "support@ingotui.com", contactEmail: "support@ingotui.com", notify: true },
   announcement: { enabled: true, text: "Launch deal: Lifetime access for $29, every future update included", href: "/pricing" },

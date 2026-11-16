@@ -10,7 +10,7 @@ import { JsonLd, breadcrumbLd, fmt, isPart, pageMeta } from "@/lib/seo";
 export const metadata: Metadata = pageMeta({
   title: "Dashboard component categories: KPI cards, tables, modals",
   description: "Browse dashboard components by type: KPI cards, data tables, cards, modals, drawers, forms, navigation, page templates, charts and more, in React and Figma.",
-  path: "/categories",
+  path: "/categories", image: "/categories/opengraph-image",
 });
 
 export default function Categories() {
