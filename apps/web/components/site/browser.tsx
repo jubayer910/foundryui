@@ -12,15 +12,20 @@ const AUTO_PAGES = 3;
 
 /** Rounds of the opening mix: each round takes one item per system, best first. `name` keeps out blocks that sit in a
  *  category but are not what the round promises (a large settings form filed under Charts, a lone table row). */
+const CHART = /chart|trend|graph|revenue|volume|funnel|donut|traffic|growth|breakdown|analytics|performance|heatmap|retention|usage|spend|activity|cash/i;
+const KPI = /kpi|metric|stat|summary|overview/i;
+// Charts and KPIs lead (three chart rounds, two KPI rounds), then one round of tables, cards and overlays.
 const SHOWCASE_ROUNDS: { cats: string[]; name: RegExp }[] = [
-  { cats: ["Charts"], name: /chart|trend|graph|revenue|volume|funnel|donut|traffic|growth|breakdown|analytics|performance|heatmap|retention|usage|spend|activity|cash/i },
+  { cats: ["Charts"], name: CHART },
+  { cats: ["KPI and stats"], name: KPI },
+  { cats: ["Charts"], name: CHART },
   { cats: ["Tables and lists"], name: /table|list|log|queue|history|ledger|directory|inbox/i },
-  { cats: ["KPI and stats"], name: /kpi|metric|stat|summary|overview/i },
-  { cats: ["Charts"], name: /chart|trend|graph|revenue|volume|funnel|donut|traffic|growth|breakdown|analytics|performance|heatmap|retention|usage|spend|activity|cash/i },
-  { cats: ["Cards and panels"], name: /card|panel|summary|overview|insight|leaderboard|pipeline/i },
-  { cats: ["Tables and lists"], name: /table|list|log|queue|history|ledger|directory|inbox/i },
+  { cats: ["Charts"], name: CHART },
+  { cats: ["KPI and stats", "Cards and panels"], name: /kpi|metric|stat|summary|overview|insight|leaderboard|pipeline/i },
   { cats: ["Modals", "Drawers"], name: /modal|drawer|dialog|detail|new|create|invite|connect/i },
 ];
+/** Shown low in the unfiltered library: Vantage is a dark-only product, so its blocks wait below the mix. */
+const LOW_SYSTEMS = new Set(["vantage"]);
 
 /**
  * The opening of the unfiltered library: for every design system, its most detailed blocks (largest
@@ -30,7 +35,7 @@ const SHOWCASE_ROUNDS: { cats: string[]; name: RegExp }[] = [
 function showcase(list: Entry[], part: RegExp): Entry[] {
   const area = (e: Entry) => (e.w ?? 0) * (e.h ?? 0);
   const score = (e: Entry) => area(e) * (coded(e) ? 1.6 : 1);
-  const order = [...new Set(list.map((e) => e.system))];
+  const order = [...new Set(list.map((e) => e.system))].filter((x) => !LOW_SYSTEMS.has(x));
   const used = new Set<string>();
   const out: Entry[] = [];
   for (const round of SHOWCASE_ROUNDS) {
@@ -53,6 +58,7 @@ export function Browser({ entries, categories, systems, initialCategory = "all",
   const [cat, setCat] = useState(initialCategory);
   const [sys, setSys] = useState(initialSystem);
   const [kind, setKind] = useState<"all" | "code" | "figma">("all");
+  const [plan, setPlan] = useState<"all" | "free" | "pro">("all");
   const [sort, setSort] = useState<Sort>("featured");
   const [limit, setLimit] = useState(PAGE);
   const input = useRef<HTMLInputElement>(null);
@@ -83,9 +89,9 @@ export function Browser({ entries, categories, systems, initialCategory = "all",
 
   const words = q.trim().toLowerCase().split(/\s+/).filter(Boolean);
   const base = useMemo(
-    () => entries.filter((e) => (sys === "all" || e.system === sys) && (kind === "all" || (kind === "code" ? coded(e) : !coded(e))) && words.every((w) => e.text.includes(w) || e.category.toLowerCase().includes(w))),
+    () => entries.filter((e) => (sys === "all" || e.system === sys) && (plan === "all" || e.tier === plan) && (kind === "all" || (kind === "code" ? coded(e) : !coded(e))) && words.every((w) => e.text.includes(w) || e.category.toLowerCase().includes(w))),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [entries, sys, kind, q],
+    [entries, sys, kind, plan, q],
   );
   const shown = useMemo(() => {
     const list = base.filter((e) => cat === "all" || e.category === cat);
@@ -101,7 +107,8 @@ export function Browser({ entries, categories, systems, initialCategory = "all",
     if (sys !== "all" || cat !== "all" || words.length) return ranked;
     const head = showcase(list, part);
     const taken = new Set(head.map((e) => e.slug));
-    return [...head, ...ranked.filter((e) => !taken.has(e.slug))];
+    const rest = ranked.filter((e) => !taken.has(e.slug));
+    return [...head, ...rest.filter((e) => !LOW_SYSTEMS.has(e.system)), ...rest.filter((e) => LOW_SYSTEMS.has(e.system))];
   }, [base, cat, sort, sys, words.length]);
   const count = (c: string) => (c === "all" ? base.length : base.filter((e) => e.category === c).length);
   const cats = ["all", ...categories.filter((c) => base.some((e) => e.category === c))];
@@ -129,8 +136,9 @@ export function Browser({ entries, categories, systems, initialCategory = "all",
           <input ref={input} type="search" value={q} onChange={(e) => { setQ(e.target.value); setLimit(PAGE); }} placeholder="Search, e.g. invoice table, add funds" className="min-w-0 flex-1 bg-transparent text-[13px] placeholder:text-mute" aria-label="Search components" />
           <kbd className="rounded-[4px] bg-white px-1.5 text-[11px] text-mute max-lg:hidden" aria-hidden="true">/</kbd>
         </label>
-        <div className="grid grid-cols-3 gap-1.5 lg:ml-auto lg:flex lg:items-center">
+        <div className="flex flex-wrap items-center gap-1.5 lg:ml-auto lg:flex-nowrap">
           <PillSelect label="Design system" value={sys} onChange={(v) => { setSys(v); setLimit(PAGE); }} options={[["all", "All systems"], ...systems.map((x): [string, string] => [x.slug, x.name])]} />
+          <PillSelect label="Plan" value={plan} onChange={(v) => { setPlan(v as typeof plan); setLimit(PAGE); }} options={[["all", "Free and Pro"], ["free", "Free"], ["pro", "Pro"]]} />
           <PillSelect label="Format" value={kind} onChange={(v) => { setKind(v as typeof kind); setLimit(PAGE); }} options={[["all", "Code and Figma"], ["code", "With code"], ["figma", "Figma only (code coming)"]]} />
           <PillSelect label="Sort" value={sort} onChange={(v) => setSort(v as Sort)} options={[["featured", "Featured"], ["code", "Code first"], ["az", "A to Z"]]} />
         </div>
@@ -166,7 +174,7 @@ export function Browser({ entries, categories, systems, initialCategory = "all",
         <div className="mt-4 rounded-[8px] bg-tile px-6 py-16 text-center">
           <p className="text-[14px] font-medium">{q.trim() ? <>Nothing matches “{q.trim()}” yet</> : "Nothing matches these filters yet"}</p>
           <p className="mt-1 text-[13px] text-mute">Try a broader word such as chart, table or modal, or switch to all systems.</p>
-          <button onClick={() => { setQ(""); setCat("all"); setSys("all"); setKind("all"); setLimit(PAGE); }} className="btn-line mt-4">
+          <button onClick={() => { setQ(""); setCat("all"); setSys("all"); setKind("all"); setPlan("all"); setLimit(PAGE); }} className="btn-line mt-4">
             Clear search and filters
           </button>
         </div>
@@ -177,16 +185,20 @@ export function Browser({ entries, categories, systems, initialCategory = "all",
 
 /** A native select dressed as a pill: same height as the search field, custom chevron, one focus ring. */
 function PillSelect({ label, value, onChange, options }: { label: string; value: string; onChange: (v: string) => void; options: [string, string][] }) {
+  const current = options.find(([v]) => v === value)?.[1] ?? options[0]?.[1];
+  // The visible pill is just the current label and a chevron, so it is exactly as wide as its text.
+  // The native select sits on top, invisible, so keyboard, screen readers and the OS picker still work.
   return (
-    <span className="relative inline-flex min-w-[124px] lg:min-w-[132px]">
-      <select value={value} onChange={(e) => onChange(e.target.value)} aria-label={label} className="select-pill w-full">
+    <span className="select-pill relative inline-flex items-center gap-1.5">
+      <span className="truncate">{current}</span>
+      <Icon name="chevron-down" size={14} strokeWidth={1.75} className="pointer-events-none shrink-0 text-mute" />
+      <select value={value} onChange={(e) => onChange(e.target.value)} aria-label={label} className="absolute inset-0 h-full w-full cursor-pointer appearance-none rounded-full opacity-0">
         {options.map(([v, t]) => (
           <option key={v} value={v}>
             {t}
           </option>
         ))}
       </select>
-      <Icon name="chevron-down" size={14} strokeWidth={1.75} className="pointer-events-none absolute top-1/2 right-3 -translate-y-1/2 text-mute" />
     </span>
   );
 }
