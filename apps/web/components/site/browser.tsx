@@ -10,6 +10,44 @@ type Sort = "featured" | "az" | "code";
 const PAGE = 48;
 const AUTO_PAGES = 3;
 
+/** Rounds of the opening mix: each round takes one item per system, best first. `name` keeps out blocks that sit in a
+ *  category but are not what the round promises (a large settings form filed under Charts, a lone table row). */
+const SHOWCASE_ROUNDS: { cats: string[]; name: RegExp }[] = [
+  { cats: ["Charts"], name: /chart|trend|graph|revenue|volume|funnel|donut|traffic|growth|breakdown|analytics|performance|heatmap|retention|usage|spend|activity|cash/i },
+  { cats: ["Tables and lists"], name: /table|list|log|queue|history|ledger|directory|inbox/i },
+  { cats: ["KPI and stats"], name: /kpi|metric|stat|summary|overview/i },
+  { cats: ["Charts"], name: /chart|trend|graph|revenue|volume|funnel|donut|traffic|growth|breakdown|analytics|performance|heatmap|retention|usage|spend|activity|cash/i },
+  { cats: ["Cards and panels"], name: /card|panel|summary|overview|insight|leaderboard|pipeline/i },
+  { cats: ["Tables and lists"], name: /table|list|log|queue|history|ledger|directory|inbox/i },
+  { cats: ["Modals", "Drawers"], name: /modal|drawer|dialog|detail|new|create|invite|connect/i },
+];
+
+/**
+ * The opening of the unfiltered library: for every design system, its most detailed blocks (largest
+ * chart, table, KPI, card and overlay; coded ones first, part-only pieces left out), interleaved system by
+ * system so the first screens show all six looks, free and Pro together.
+ */
+function showcase(list: Entry[], part: RegExp): Entry[] {
+  const area = (e: Entry) => (e.w ?? 0) * (e.h ?? 0);
+  const score = (e: Entry) => area(e) * (coded(e) ? 1.6 : 1);
+  const order = [...new Set(list.map((e) => e.system))];
+  const used = new Set<string>();
+  const out: Entry[] = [];
+  for (const round of SHOWCASE_ROUNDS) {
+    for (const system of order) {
+      const pool = list.filter((e) => e.system === system && round.cats.includes(e.category) && !used.has(e.slug) && !part.test(e.name) && area(e) > 0);
+      const best = (xs: Entry[]) => [...xs].sort((a, b) => score(b) - score(a))[0];
+      // only blocks that are what the round promises; a system without one sits that round out
+      const pick = best(pool.filter((e) => round.name.test(e.name) && !/\bform\b|settings/i.test(e.name)));
+      if (pick) {
+        used.add(pick.slug);
+        out.push(pick);
+      }
+    }
+  }
+  return out;
+}
+
 export function Browser({ entries, categories, systems, initialCategory = "all", initialQuery = "", initialSystem = "all" }: { entries: Entry[]; categories: string[]; systems: Sys[]; initialCategory?: string; initialQuery?: string; initialSystem?: string }) {
   const [q, setQ] = useState(initialQuery);
   const [cat, setCat] = useState(initialCategory);
@@ -58,8 +96,13 @@ export function Browser({ entries, categories, systems, initialCategory = "all",
     const part = /^(header|body|footer) (modal|drawer|card)\b/i;
     const W: Record<string, number> = { Charts: 0, "KPI and stats": 1, "Tables and lists": 2, Modals: 3, Drawers: 4, "Cards and panels": 5, Templates: 6, Menus: 7, Popovers: 8, Editors: 9, Navigation: 10, Forms: 11, Headers: 12, Feedback: 13, Atoms: 14, Foundations: 15 };
     const rank = (e: Entry) => (part.test(e.name) ? 100 : 0) + (W[e.category] ?? 9) - (coded(e) ? 0.5 : 0);
-    return [...list].sort((a, b) => rank(a) - rank(b));
-  }, [base, cat, sort]);
+    const ranked = [...list].sort((a, b) => rank(a) - rank(b));
+    // "All" with no filters: open with the richest work of every system, mixed, instead of one system's list
+    if (sys !== "all" || cat !== "all" || words.length) return ranked;
+    const head = showcase(list, part);
+    const taken = new Set(head.map((e) => e.slug));
+    return [...head, ...ranked.filter((e) => !taken.has(e.slug))];
+  }, [base, cat, sort, sys, words.length]);
   const count = (c: string) => (c === "all" ? base.length : base.filter((e) => e.category === c).length);
   const cats = ["all", ...categories.filter((c) => base.some((e) => e.category === c))];
 
