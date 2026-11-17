@@ -33,7 +33,7 @@ export function HomeHeroV2() {
     <section aria-labelledby="home-title" className="hero-paper relative isolate -mx-4 -mt-4 overflow-hidden sm:-mx-6 lg:-mt-5">
       <StreakIngot className="-z-10" />
 
-      <div className="mx-auto flex min-h-[560px] max-w-[783px] flex-col items-center px-4 pb-[230px] pt-[120px] text-center sm:min-h-[640px] sm:pb-[250px] lg:min-h-[709px] lg:pt-[186px]">
+      <div className="mx-auto flex min-h-[500px] max-w-[783px] flex-col items-center px-4 pb-[200px] pt-[88px] text-center sm:min-h-[560px] sm:pb-[220px] lg:min-h-[600px] lg:pt-[112px]">
         <p className="hero-eyebrow">
           <span>Dashboard UI kit for React and Figma</span>
           <span className="hero-eyebrow-logos">
