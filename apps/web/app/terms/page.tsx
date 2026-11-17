@@ -3,7 +3,7 @@ import Link from "next/link";
 import { LegalPage, List, LP } from "@/components/site/legal-page";
 import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = pageMeta({ title: "Terms of Service", description: "The terms for using Ingot UI: accounts, plans and billing through Lemon Squeezy, the component licence, the MCP server and API keys, acceptable use and liability.", path: "/terms" });
+export const metadata: Metadata = pageMeta({ title: "Terms of Service", description: "The terms for using Ingot UI: accounts, plans and billing through Contra, the component licence, the MCP server and API keys, acceptable use and liability.", path: "/terms" });
 
 const A = "font-medium text-ink underline underline-offset-2";
 
@@ -22,7 +22,7 @@ export default function TermsPage() {
             <List
               items={[
                 <>Plans and prices are on <Link href="/pricing" className={A}>Pricing</Link>. Pro renews automatically every month or year until you cancel; Lifetime is a single payment.</>,
-                "Orders are processed by Lemon Squeezy, our reseller and merchant of record. Lemon Squeezy charges you, handles sales tax and VAT, and issues your receipt; its buyer terms also apply to the purchase.",
+                "Orders are processed by Contra, our payment provider. Contra charges you and issues your receipt; its terms also apply to the purchase. After paying, you click Activate in your Account and we switch the plan on once we confirm the payment, usually within a few hours.",
                 "Lifetime includes every current and future design system and every update, for as long as Ingot UI runs. The launch price applies to the first buyers until the published number of spots is taken.",
                 <>Refunds follow our <Link href="/refund" className={A}>Refund Policy</Link>: 7 days, no questions asked.</>,
                 "We may change prices for new purchases. A price change never applies to a Lifetime purchase already made, and a subscription price change takes effect at your next renewal after we tell you.",

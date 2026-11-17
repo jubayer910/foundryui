@@ -93,7 +93,7 @@ function faq(pb: PriceBook): [string, string][] {
     ["How does the Team plan work?", "One person, the owner, buys Team and invites up to " + others + " teammates from their account, " + pb.teamSeats + " people in total. Each person signs in with their own account and gets everything in Pro. The owner pays one bill of " + usd(pb.teamMonthly) + " a month or " + usd(pb.teamYearly) + " a year."],
     ["How do I invite my co-founder?", "Open Account, type their email under Team and copy the invite link. Send it however you like. They sign in or create a free account with that email and click Join team. Each link works once, for that email."],
     ["What happens when someone leaves the team?", "Their Pro access ends straight away and the seat is free for someone new. Anything they already copied stays theirs to ship. If the owner cancels Team, members keep access until the end of the paid period."],
-    ["I already have Pro or Lifetime. Can I add my team?", "Yes. Buy Team to add seats for your teammates. If you are on Pro, cancel it in Manage billing so you don't pay twice; Team already includes you. If you have Lifetime, you keep it, and Team covers the others."],
+    ["I already have Pro or Lifetime. Can I add my team?", "Yes. Buy Team to add seats for your teammates. If you are on Pro, cancel it in your Contra purchases so you don't pay twice; Team already includes you. If you have Lifetime, you keep it, and Team covers the others."],
   ];
   out.push(["What does Lifetime include?", "Everything in Pro for one person: all " + systems.length + " design systems, every component in React and Figma, the Figma kits, unlimited MCP and CLI, and every future update and new system. Forever, for one payment."]);
   if (pb.deal.enabled)
@@ -107,7 +107,7 @@ function faq(pb: PriceBook): [string, string][] {
     ["Is there a refund?", "Yes. 7 days on every paid plan, no questions asked. Write to " + pb.settings.support.email + "."],
     ["Can I try before paying?", "Yes. Browse and preview everything, copy 5 items without an account, then a free account gives unlimited copies of free components and the Loopo system."],
     ["What happens to my code if I stop paying?", "Everything you already copied stays yours to ship. You just can’t copy new Pro items."],
-    ["Who handles the payment?", "Lemon Squeezy, our merchant of record. It takes cards and PayPal, adds sales tax or VAT where it applies and sends your receipt. You can add a company name and VAT ID at checkout. Prices are in USD."],
+    ["Who handles the payment?", "Contra, the payments platform for independents. It takes cards, Google Pay and Cash App Pay and emails your receipt. Pay with the same email you use on ingotui.com, then open Account and click Activate; we switch your plan on, usually within a few hours. Prices are in USD."],
   );
   return out;
 }
@@ -237,7 +237,7 @@ export default async function PricingPage() {
           ))}
         </div>
       </div>
-      <p className="mt-3 text-[12px] text-mute"><Link href="/refund" className="underline underline-offset-2 hover:text-ink">7-day refund</Link> on every paid plan. Prices in USD; sales tax or VAT is added at checkout where it applies. Payments by Lemon Squeezy, our merchant of record. <Link href="/terms" className="underline underline-offset-2 hover:text-ink">Terms</Link></p>
+      <p className="mt-3 text-[12px] text-mute"><Link href="/refund" className="underline underline-offset-2 hover:text-ink">7-day refund</Link> on every paid plan. Prices in USD; tax is added at checkout where it applies. Payments through Contra: after paying, click Activate in your Account. <Link href="/terms" className="underline underline-offset-2 hover:text-ink">Terms</Link></p>
 
       <section id="lifetime" aria-labelledby="lifetime-h" className="mt-3 grid scroll-mt-6 gap-5 rounded-[8px] bg-ink p-5 text-white md:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)_auto] md:items-center">
         <div className="flex items-center gap-4">
@@ -294,7 +294,7 @@ export default async function PricingPage() {
           Talk to us
         </Link>
       </div>
-      <p className="mt-3 text-[12px] text-mute">Sales tax or VAT is added at checkout where it applies. Payments by Lemon Squeezy.</p>
+      <p className="mt-3 text-[12px] text-mute">Tax is added at checkout where it applies. Payments through Contra.</p>
 
       <section className="mt-12" aria-labelledby="compare-h">
         <h2 id="compare-h" className="text-[13px] font-medium">
