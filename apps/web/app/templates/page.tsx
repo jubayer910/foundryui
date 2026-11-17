@@ -5,8 +5,8 @@ import { TEMPLATES, isCoded } from "@/components/site/templates/data";
 import { JsonLd, abs, breadcrumbLd, pageMeta, SITE_NAME } from "@/lib/seo";
 
 export const metadata: Metadata = pageMeta({
-  title: "Dashboard templates: full screens in React and Figma",
-  description: "Complete dashboard screens to start from: analytics, overview, campaign, agent and customer pages from the six Ingot UI design systems, in React code and Figma.",
+  title: "Free dashboard templates in React and Figma",
+  description: "Free dashboard templates: 10 complete screens (analytics, campaigns, agents, customers, security) as React code checked against Figma and as editable Figma layers.",
   path: "/templates", image: "/templates/opengraph-image",
 });
 
@@ -42,11 +42,11 @@ export default function Templates() {
           },
         ]}
       />
-      <PageHead title="Templates" sub="Full dashboard screens to start from." />
+      <PageHead title="Free templates" sub="Full dashboard screens to start from, free with an account." />
       <p className="mt-3 max-w-2xl text-[13px] leading-snug text-mute">
         Complete dashboard screens built from the six Ingot UI systems, each made from that system&rsquo;s own components, charts and tokens.{" "}
         {coded === TEMPLATES.length
-          ? "Every one ships as React code checked against its Figma screen, and as Figma."
+          ? "Every one is free: copy it as React code checked against its Figma screen, or paste it into Figma as editable layers."
           : `${WORDS[coded] ?? coded} already ship as React code checked against Figma; the rest are Figma screens, with their code in progress.`}{" "}
         More templates are being added soon.
       </p>

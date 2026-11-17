@@ -25,12 +25,13 @@ type User = { id: string; email: string; plan: string };
 const ITEMS = catalog.items as unknown as Item[];
 
 /** Generated components (Figma → React, checked against Figma), one self-contained file each, served from the site. */
-type Lib = { slug: string; name: string; system: string; category: string; keywords: string; score: number };
+type Lib = { slug: string; name: string; system: string; category: string; keywords: string; score: number; free?: boolean };
 const LIB = (library as { items: Lib[] }).items;
 const getLib = (s: string) => LIB.find((i) => i.slug === s);
 /** A system is live as soon as it has published code. */
 const SYSTEMS = catalog.systems.map((s) => ({ ...s, status: s.status === "live" || LIB.some((i) => i.system === s.slug) ? "live" : s.status, components: LIB.filter((i) => i.system === s.slug).length }));
-const libTier = (l: Lib) => (SYSTEMS.find((s) => s.slug === l.system)?.tier ?? "pro") as "free" | "pro";
+/** Dashboard templates are free for everyone; other components follow their system's tier. */
+const libTier = (l: Lib) => (l.free ? "free" : SYSTEMS.find((s) => s.slug === l.system)?.tier ?? "pro") as "free" | "pro";
 const pascal = (name: string) => name.replace(/[^A-Za-z0-9 ]/g, " ").split(/\s+/).filter(Boolean).map((w) => w[0].toUpperCase() + w.slice(1)).join("") || "Component";
 const libTarget = (l: Lib) => "components/ingot/" + l.system + "/" + pascal(l.name) + ".tsx";
 function libScore(l: Lib, q: string) {

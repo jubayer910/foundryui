@@ -67,6 +67,8 @@ const figmaEntries: Entry[] = figma.map((f) => ({
 /** Code first inside each category (they are fully usable), then Figma components. */
 export const entries: Entry[] = [...codeEntries, ...figmaEntries];
 export const getFigmaItem = (slug: string) => figma.find((f) => f.slug === slug);
+/** The dashboard templates on /templates are free for everyone (owner decision, 2026-11-18), whatever their system. */
+export const isFreeTemplate = (slug: string) => slug in templateCode;
 export const figmaQA = (slug: string) => (figmaCode as Record<string, { score: number; strict: number }>)[slug];
 /** true when the entry can be copied as code (hand-built code or QA-passed generated code) */
 export const hasCode = (e: Entry) => e.kind === "code" || !!e.qa;

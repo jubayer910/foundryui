@@ -3,7 +3,7 @@ import { cookies, headers } from "next/headers";
 import { getEnv, getDb, schema } from "./db";
 import { getSessionUser, type SessionUser } from "./auth";
 import { getItem, systems } from "./catalog";
-import { getFigmaItem, figmaQA } from "./library";
+import { getFigmaItem, figmaQA, isFreeTemplate } from "./library";
 import { getEffectivePlan, isPaid } from "./plans";
 
 export const ANON_LIMIT = 5;
@@ -35,7 +35,7 @@ export async function anonUsage() {
 
 export async function checkAndRecord(slug: string, action: Action, client = "web"): Promise<GateResult> {
   const fig = getFigmaItem(slug);
-  const item = slug.startsWith("icon:") ? { tier: "free" as const } : getItem(slug) ?? (fig && (action !== "copy_code" || figmaQA(slug)) ? { tier: (systems.find((s) => s.slug === fig.system)?.tier ?? "pro") as "free" | "pro" } : undefined);
+  const item = slug.startsWith("icon:") ? { tier: "free" as const } : getItem(slug) ?? (fig && (action !== "copy_code" || figmaQA(slug)) ? { tier: (isFreeTemplate(slug) ? "free" : systems.find((s) => s.slug === fig.system)?.tier ?? "pro") as "free" | "pro" } : undefined);
   if (!item) return { ok: false, reason: "not_found", remaining: 0 };
   const user = await getSessionUser();
   const db = await getDb();

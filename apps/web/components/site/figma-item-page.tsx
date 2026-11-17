@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { getSystem } from "@/lib/catalog";
-import { entries, figmaQA, type FigmaItem } from "@/lib/library";
+import { entries, figmaQA, isFreeTemplate, type FigmaItem } from "@/lib/library";
 import { FigmaCodePanel } from "./figma-code-panel";
 import { FigmaCopy } from "./templates/figma-copy";
 import { figmaPath } from "@/lib/code-paths";
@@ -15,7 +15,7 @@ import { A11yNotes } from "./a11y-notes";
 /** Page for a component that lives in a system's Figma library (code still in progress). */
 export function FigmaItemPage({ item }: { item: FigmaItem }) {
   const sys = getSystem(item.system);
-  const free = sys?.tier === "free";
+  const free = sys?.tier === "free" || isFreeTemplate(item.slug);
   const qa = figmaQA(item.slug);
   const rows: [string, string][] = [
     ["System", sys?.name ?? item.system],
@@ -61,7 +61,7 @@ export function FigmaItemPage({ item }: { item: FigmaItem }) {
           <div className="flex flex-col gap-1.5">
             <SaveButton slug={item.slug} quiet={!!qa} />
             <Link href={free ? "/sign-up?next=/components/" + item.slug : "/pricing?from=" + item.slug} className="btn-line w-full">
-              {free ? "Get the free Loopo Figma kit" : "Unlock with Pro"}
+              {isFreeTemplate(item.slug) ? "Create a free account" : free ? "Get the free Loopo Figma kit" : "Unlock with Pro"}
             </Link>
           </div>
           <p className="text-[12px] leading-snug text-mute">

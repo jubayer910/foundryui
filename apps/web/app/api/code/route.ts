@@ -1,7 +1,7 @@
 import { getSessionUser } from "@/lib/auth";
 import { systems } from "@/lib/catalog";
 import { codePath } from "@/lib/code-paths";
-import { getFigmaItem } from "@/lib/library";
+import { getFigmaItem, isFreeTemplate } from "@/lib/library";
 import { isPaid } from "@/lib/plans";
 
 // Per-user answer: never cached.
@@ -17,7 +17,7 @@ export async function GET(req: Request) {
   const fig = getFigmaItem(slug);
   const url = fig && codePath(slug);
   if (!fig || !url) return Response.json({ error: "not_found" }, { status: 404, headers: { "cache-control": "no-store" } });
-  const tier = systems.find((s) => s.slug === fig.system)?.tier ?? "pro";
+  const tier = isFreeTemplate(slug) ? "free" : systems.find((s) => s.slug === fig.system)?.tier ?? "pro";
   if (tier !== "free") {
     const user = await getSessionUser();
     if (!user) return Response.json({ locked: true, reason: "login_required" }, { headers: { "cache-control": "no-store" } });
