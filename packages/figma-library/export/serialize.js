@@ -18,7 +18,8 @@ const paint = (p) => {
     return { k: p.type === "GRADIENT_LINEAR" ? "l" : "r", ang, gt: t.map((row) => row.map((v) => Math.round(v * 10000) / 10000)), a: r2(p.opacity ?? 1), st: p.gradientStops.map((s) => [hex(s.color), r2(s.color.a), r2(s.position)]) };
   }
   // image fills: keep the hash and scale mode; the bytes are posted once per hash (args.images) so the converter can use the real picture
-  if (p.type === "IMAGE") { if (p.imageHash) IMGS.add(p.imageHash); return { k: "i", h: p.imageHash || undefined, sm: p.scaleMode }; }
+  // CROP keeps the visible part of the picture as imageTransform (node box -> picture space)
+  if (p.type === "IMAGE") { if (p.imageHash) IMGS.add(p.imageHash); return { k: "i", h: p.imageHash || undefined, sm: p.scaleMode, it: p.scaleMode === "CROP" && p.imageTransform ? p.imageTransform.map((row) => row.map((v) => Math.round(v * 10000) / 10000)) : undefined }; }
   return null;
 };
 const paints = (ps) => (Array.isArray(ps) ? ps.map(paint).filter(Boolean) : []);
@@ -97,11 +98,12 @@ function shapes(n, rootInv, out, defs) {
   }
 }
 const flat = (arr) => arr.map((x) => (typeof x === "string" ? x : `<g clip-path="url(#${x.clip})">${flat(x.items)}</g>`)).join("");
-function svgOf(n) {
+// box: draw in the node's axis-aligned bounding box instead of its own (rotated or mirrored) frame
+function svgOf(n, box) {
   const out = [], defs = [];
-  shapes(n, inv(n.absoluteTransform), out, defs);
+  shapes(n, box ? [[1, 0, -box.x], [0, 1, -box.y]] : inv(n.absoluteTransform), out, defs);
   if (!out.length) return null;
-  const w = Math.max(n.width, 0.01), h = Math.max(n.height, 0.01);
+  const w = Math.max(box ? box.width : n.width, 0.01), h = Math.max(box ? box.height : n.height, 0.01);
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${Math.round(w * 100) / 100}" height="${Math.round(h * 100) / 100}" viewBox="0 0 ${Math.round(w * 100) / 100} ${Math.round(h * 100) / 100}" fill="none" overflow="visible">${defs.length ? "<defs>" + defs.join("") + "</defs>" : ""}${flat(out)}</svg>`;
 }
 async function ser(n, parent) {
@@ -130,7 +132,12 @@ async function ser(n, parent) {
   }
   // drawn shapes (chart marks, illustrations) become one SVG built from Figma's own geometry (no export calls)
   if (VEC.test(n.type) || ((n.type === "GROUP" || n.type === "FRAME" || n.type === "INSTANCE") && !paintsOn(n) && allVec(n))) {
-    const s = svgOf(n);
+    // rotated or mirrored drawings (a flipped chevron reports rotation 180): bake the transform into the drawing
+    const rt = n.relativeTransform, det = rt[0][0] * rt[1][1] - rt[0][1] * rt[1][0];
+    const bb = n.absoluteBoundingBox;
+    const bake = parent && bb && (Math.abs(n.rotation || 0) > 0.01 || det < 0) && Math.abs(parent.absoluteTransform[0][1]) < 1e-6;
+    const s = bake ? svgOf(n, bb) : svgOf(n);
+    if (s && bake) { o.svg = s; o.w = r2(bb.width); o.h = r2(bb.height); o.x = r2(bb.x - parent.absoluteTransform[0][2]); o.y = r2(bb.y - parent.absoluteTransform[1][2]); delete o.rot; return o; }
     if (s) { o.svg = s; return o; }
   }
   if ("fills" in n && n.fills !== figma.mixed && n.type !== "TEXT") { const f = paints(n.fills); if (f.length) o.f = f; }

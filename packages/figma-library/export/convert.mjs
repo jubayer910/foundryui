@@ -104,6 +104,11 @@ const paintCss = (p, w, h) => {
   if (p.k === "i") {
     const url = p.h && imageUrl(p.h);
     if (!url) return { solid: "#e5e7eb" };
+    // CROP: the node box shows the part [tx, tx + sx] x [ty, ty + sy] of the picture (unrotated crops only)
+    if (p.sm === "CROP" && p.it && !p.it[0][1] && !p.it[1][0] && p.it[0][0] > 0 && p.it[1][1] > 0) {
+      const [[sx, , tx], [, sy, ty]] = p.it, r = (v) => Math.round(v * 100) / 100;
+      return { layer: `url(${url}) ${r((-tx / sx) * w)}px ${r((-ty / sy) * h)}px / ${r(w / sx)}px ${r(h / sy)}px no-repeat` };
+    }
     const size = p.sm === "FIT" ? "contain" : p.sm === "TILE" ? "auto" : p.sm === "STRETCH" ? "100% 100%" : "cover";
     return { layer: `url(${url}) center / ${size} ${p.sm === "TILE" ? "repeat" : "no-repeat"}` };
   }
@@ -132,13 +137,20 @@ function shadows(n, st) {
       if (r) out.push(`inset ${px(-r)} 0 0 0 ${c}`);
     }
   }
+  // a frame with no fill and no stroke casts its drop shadow from its content (Figma), not from its box
+  const contentShadow = n.t !== "TEXT" && !(n.f && n.f.length) && !(n.s && n.s.length);
+  const drops = [];
   for (const e of n.fx || []) {
-    if (e[0] === "DROP_SHADOW") out.push(`${px(e[1])} ${px(e[2])} ${px(e[3])} ${px(e[4])} ${rgba(e[5], e[6])}`);
+    if (e[0] === "DROP_SHADOW" && contentShadow) drops.push(`drop-shadow(${px(e[1])} ${px(e[2])} ${px(e[3] / 2)} ${rgba(e[5], e[6])})`);
+    else if (e[0] === "DROP_SHADOW") out.push(`${px(e[1])} ${px(e[2])} ${px(e[3])} ${px(e[4])} ${rgba(e[5], e[6])}`);
+    // ...and its inner shadow falls inside the glyphs, not along the box edge: no box ring
+    else if (e[0] === "INNER_SHADOW" && contentShadow) continue;
     else if (e[0] === "INNER_SHADOW") out.push(`inset ${px(e[1])} ${px(e[2])} ${px(e[3])} ${px(e[4])} ${rgba(e[5], e[6])}`);
     else if (e[0] === "LAYER_BLUR") st.filter = `blur(${px(e[1] / 2)})`;
     else if (e[0] === "BACKGROUND_BLUR") st.backdropFilter = `blur(${px(e[1] / 2)})`;
   }
   if (out.length) st.boxShadow = out.join(", ");
+  if (drops.length) st.filter = (st.filter ? st.filter + " " : "") + drops.join(" ");
 }
 const JUST = { MIN: "flex-start", CENTER: "center", MAX: "flex-end", SPACE_BETWEEN: "space-between" };
 const ALIGN = { MIN: "flex-start", CENTER: "center", MAX: "flex-end", BASELINE: "baseline" };
@@ -224,12 +236,18 @@ function buildNode(n, parentLm = null, root = true) {
     return el;
   }
   if (n.svg) {
+    // a single vector node: serialize.js writes its opacity on the paths as well as on the node; apply it once
+    const own = n.op !== undefined && /^(VECTOR|BOOLEAN_OPERATION|STAR|POLYGON|LINE|ELLIPSE|RECTANGLE)$/.test(n.t);
+    const svg0 = own ? n.svg.split(` opacity="${n.op}"`).join("") : n.svg;
     // hairlines (0px tall or wide) must keep a 1px box or Chrome paints nothing
-    el.svg = n.svg.replace(/^<svg([^>]*?) width="([\d.]+)" height="([\d.]+)" viewBox="0 0 ([\d.]+) ([\d.]+)"/, (m, a, w, h, vw, vh) => {
+    el.svg = svg0.replace(/^<svg([^>]*?) width="([\d.]+)" height="([\d.]+)" viewBox="0 0 ([\d.]+) ([\d.]+)"/, (m, a, w, h, vw, vh) => {
       const W = Math.max(Number(w), 1), H = Math.max(Number(h), 1);
       return `<svg${a} width="${W}" height="${H}" viewBox="0 0 ${Math.max(Number(vw), Number(vw) < 1 ? 1 : 0)} ${Math.max(Number(vh), Number(vh) < 1 ? 1 : 0)}"`;
     });
     st.display = "block"; st.lineHeight = 0; st.overflow = "visible";
+    // a 0px CSS box scales the drawing to nothing: give hairlines 1px and take the pixel back from the layout
+    if (st.height === "0px") { st.height = "1px"; if (inFlow && parentLm === "V") st.marginBottom = "-1px"; }
+    if (st.width === "0px") { st.width = "1px"; if (inFlow && parentLm === "H") st.marginRight = "-1px"; }
     return el;
   }
 
@@ -241,7 +259,9 @@ function buildNode(n, parentLm = null, root = true) {
   if (n.t === "TEXT") {
     el.tag = "p"; st.margin = 0;
     st.textAlign = { LEFT: "left", CENTER: "center", RIGHT: "right", JUSTIFIED: "justify" }[n.ta] || "left";
-    if (n.ar === "WIDTH_AND_HEIGHT") { st.whiteSpace = "pre"; delete st.width; }
+    // auto-width text: Figma's box is the truth (Chrome measures the same glyphs up to ~1px narrower, which adds up
+    // along a hugging row), so keep it as a minimum width
+    if (n.ar === "WIDTH_AND_HEIGHT") { st.whiteSpace = "pre"; delete st.width; st.minWidth = px(n.w); }
     else st.whiteSpace = "pre-wrap";
     if (n.trunc) { st.overflow = "hidden"; st.textOverflow = "ellipsis"; st.whiteSpace = "nowrap"; }
     const segs = (n.seg || []).filter((g) => g && g.ff);
@@ -250,7 +270,13 @@ function buildNode(n, parentLm = null, root = true) {
     const maxFs = Math.max(...segs.map((g) => g.fs), 1);
     const lines = Math.max(1, Math.round(n.h / (maxFs * 1.22)));
     // Figma "leading trim" (cap height): the text box is shorter than the font size; CSS text-box does the same trim
-    const trimmed = !segs.some((g) => g.c.includes("\n")) && n.h < maxFs * 0.98;
+    // multi-line text with a set line height is trimmed too when its box is not a whole number of lines
+    const lhPx = (g) => (typeof g.lh === "number" ? g.lh : g.lh !== undefined ? (parseFloat(g.lh) / 100) * g.fs : null);
+    const lh0 = lhPx(segs[0]);
+    const evenLh = lh0 && segs.every((g) => Math.abs((lhPx(g) || 0) - lh0) < 0.01);
+    const nLines = evenLh ? n.h / lh0 : 0;
+    const trimmedMulti = evenLh && n.ar !== "NONE" && nLines > 1 && Math.abs(nLines - Math.round(nLines)) > 0.2;
+    const trimmed = (!segs.some((g) => g.c.includes("\n")) && n.h < maxFs * 0.98) || trimmedMulti;
     const autoLh = !trimmed && segs.every((g) => g.lh === undefined) ? px(n.h / lines) : null;
     if (autoLh) st.lineHeight = autoLh;
     if (segs.length === 1) { Object.assign(st, textStyle(segs[0])); if (autoLh) st.lineHeight = autoLh; el.text = segs[0].c; }
@@ -274,6 +300,15 @@ function buildNode(n, parentLm = null, root = true) {
     st.position = st.position || "relative";
   }
   for (const k of n.k || []) el.kids.push(build(k, n.lm || null, false, n));
+  // negative spacing (overlapping items) is not valid CSS gap: pull every later item back with a negative margin
+  if (n.lm && n.gap < 0 && n.pa !== "SPACE_BETWEEN" && !n.wrap) {
+    let first = true;
+    (n.k || []).forEach((k, i) => {
+      if (k.abs) return;
+      if (first) { first = false; return; }
+      el.kids[i].st[n.lm === "H" ? "marginLeft" : "marginTop"] = px(n.gap);
+    });
+  }
   return el;
 }
 
@@ -286,7 +321,9 @@ export const iconBody = (ic) => swBody(body(ic.style, ic.name), ic.sw);
 export function toHTML(el, icons = {}) {
   if (el.icon) return `<svg data-fu-icon="1" xmlns="http://www.w3.org/2000/svg" width="${el.icon.size}" height="${el.icon.size}" viewBox="0 0 24 24" style="${cssText(el.st).replace(/"/g, "'")}">${swBody(body(el.icon.style, el.icon.name), el.icon.sw)}</svg>`;
   const svg = el.svg ? (el.svg.startsWith("@") ? icons[el.svg.slice(1)] || "" : el.svg) : "";
-  const inner = el.svg ? svg : el.text !== undefined ? esc(el.text) : el.kids.map((k) => toHTML(k, icons)).join("");
+  // the styled box is the <svg> itself, exactly as in the TSX (a wrapping div would put the drawing on a text baseline)
+  if (el.svg) return svg.replace(/^<svg/, `<svg style="${cssText(el.st).replace(/"/g, "'")}"`);
+  const inner = el.text !== undefined ? esc(el.text) : el.kids.map((k) => toHTML(k, icons)).join("");
   return `<${el.tag} style="${cssText(el.st).replace(/"/g, "'")}">${inner}</${el.tag}>`;
 }
 

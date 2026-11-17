@@ -24,6 +24,54 @@
   "source": "187:43155"
  },
  {
+  "slug": "mailpulse-analytics",
+  "system": "mailpulse",
+  "name": "Analytics",
+  "w": 1316,
+  "h": 933,
+  "perceptual": 100,
+  "strict": 99.3,
+  "layout": 100,
+  "figma": "160:35349",
+  "source": "139:39510"
+ },
+ {
+  "slug": "mailpulse-campaigns",
+  "system": "mailpulse",
+  "name": "Campaigns",
+  "w": 1316,
+  "h": 933,
+  "perceptual": 100,
+  "strict": 98.9,
+  "layout": 100,
+  "figma": "160:36886",
+  "source": "138:30780"
+ },
+ {
+  "slug": "auton-agents",
+  "system": "auton",
+  "name": "Agents",
+  "w": 1440,
+  "h": 1026,
+  "perceptual": 99.6,
+  "strict": 98.4,
+  "layout": 99.1,
+  "figma": "194:33520",
+  "source": "169:31634"
+ },
+ {
+  "slug": "axon-analytics",
+  "system": "axon",
+  "name": "Analytics",
+  "w": 1440,
+  "h": 1084,
+  "perceptual": 99.8,
+  "strict": 99.1,
+  "layout": 99.9,
+  "figma": "756:39604",
+  "source": "733:48421"
+ },
+ {
   "slug": "veriq-secrets",
   "system": "veriq",
   "name": "Secrets",
@@ -46,5 +94,29 @@
   "layout": 99.9,
   "figma": "85:21277",
   "source": "66:19252"
+ },
+ {
+  "slug": "vantage-home",
+  "system": "vantage",
+  "name": "Home",
+  "w": 1440,
+  "h": 1083,
+  "perceptual": 99.7,
+  "strict": 99.6,
+  "layout": 99.8,
+  "figma": "273:7937",
+  "source": "262:33146"
+ },
+ {
+  "slug": "vantage-customers",
+  "system": "vantage",
+  "name": "Customers",
+  "w": 1440,
+  "h": 1083,
+  "perceptual": 100,
+  "strict": 99.7,
+  "layout": 100,
+  "figma": "273:13688",
+  "source": "263:32368"
  }
 ]

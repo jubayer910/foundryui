@@ -75,6 +75,9 @@ await mkdir(WEB + "components/showcase", { recursive: true });
 await mkdir(WEB + "public/showcase", { recursive: true });
 const manifest = [];
 const ALL = JSON.parse(await readFile(new URL("./showcase.json", import.meta.url), "utf8"));
+// ONLY=<slug>,<slug> (without "showcase-") regenerates just those screens; every other screen keeps its file and entry
+const ONLY = process.env.ONLY ? new Set(process.env.ONLY.split(",")) : null;
+const PREV = JSON.parse(await readFile(WEB + "components/showcase/generated.json", "utf8").catch(() => "[]"));
 for (const sys of SYSTEMS) {
   const dir = new URL("./data/" + sys + "/", import.meta.url).pathname;
   const metas = ALL.filter((m) => m.system === sys);
@@ -83,14 +86,30 @@ for (const sys of SYSTEMS) {
   const tokens = await tokenMap(sys);
   for (const m of metas) {
     const id = m.id.replace(/[:;]/g, "-");
+    const file0 = m.slug.replace(/^showcase-/, "");
+    if (ONLY && !ONLY.has(file0)) {
+      const keep = PREV.find((x) => x.slug === file0);
+      if (keep) manifest.push(keep);
+      continue;
+    }
     const r = qa.find((x) => x.id === id);
     if (!r || r.score === undefined || r.score < TH) { console.log("skip", m.slug, r && r.score); continue; }
     const tree = JSON.parse(await readFile(dir + id + ".json", "utf8"));
     // pictures: webp files under /showcase/
     const hashes = [...new Set((JSON.stringify(tree).match(/"h":"[0-9a-f]+"/g) || []).map((x) => x.slice(5, -1)))];
+    // picture size: 2x the largest box it is drawn in (a cropped picture is drawn larger than its box), at least 192 px
+    const need = {};
+    (function walk(n) {
+      for (const p of n.f || []) if (p.k === "i" && p.h) {
+        const sx = p.it ? p.it[0][0] || 1 : 1, sy = p.it ? p.it[1][1] || 1 : 1;
+        need[p.h] = Math.max(need[p.h] || 0, (2 * n.w) / sx, (2 * n.h) / sy);
+      }
+      (n.k || []).forEach(walk);
+    })(tree);
     for (const h of hashes) {
       const src = dir + "img/" + h + ".bin";
-      if (existsSync(src)) await sharp(src).resize({ width: 192, height: 192, fit: "inside", withoutEnlargement: true }).webp({ quality: 85 }).toFile(WEB + "public/showcase/" + h + ".webp");
+      const px = Math.min(1600, Math.max(192, Math.ceil(need[h] || 0)));
+      if (existsSync(src)) await sharp(src).resize({ width: px, height: px, fit: "inside", withoutEnlargement: true }).webp({ quality: 85 }).toFile(WEB + "public/showcase/" + h + ".webp");
     }
     setImageUrl((h) => (hashes.includes(h) && existsSync(dir + "img/" + h + ".bin") ? `'/showcase/${h}.webp'` : null));
     const { jsx, table } = emit(tree, tokens);

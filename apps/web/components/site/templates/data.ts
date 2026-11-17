@@ -61,12 +61,12 @@ export const TEMPLATES: Template[] = [
   code("loopo-overview", "Overview", "Revenue and cash KPIs, a 12-month comparison, gross volume by source, daily cash flow and transaction trend."),
   code("veriq-secrets", "Secrets", "Exposures against rotations over 90 days, a rotation SLA gauge and a table of leaked secrets."),
   code("veriq-team-access", "Team & access", "Seats, roles, SSO and 2FA coverage, a member table with roles and teams, plus access reviews."),
-  figma("mailpulse-analytics-page-13939510", "Analytics", "Subscriber growth by month, cohort retention and a growth breakdown for a newsletter app."),
-  figma("mailpulse-campaigns-page-13830780", "Campaigns", "Upcoming sends on top, then a campaign table with status, audience, open and click rates."),
-  figma("auton-agents-page-16931634", "Agents", "Agent KPIs, then a table of agents with owner, environment, access scope and credential TTL."),
-  figma("axon-analytics-page-73348421", "Analytics", "Hours saved, automation rate, runs over time and automation rate by workflow."),
-  figma("vantage-home-page-26233146", "Performance overview", "Dark admin home: KPI row, performance trend, conversion pipeline and team leaderboard."),
-  figma("vantage-customers-page-26332368", "Customers", "Dark customer table with plan, tenure, a 12-month payment strip and lifetime value."),
+  code("mailpulse-analytics", "Analytics", "Subscriber growth by month, cohort retention and a growth breakdown for a newsletter app."),
+  code("mailpulse-campaigns", "Campaigns", "Upcoming sends on top, then a campaign table with status, audience, open and click rates."),
+  code("auton-agents", "Agents", "Agent KPIs, then a table of agents with owner, environment, access scope and credential TTL."),
+  code("axon-analytics", "Analytics", "Hours saved, automation rate, runs over time and automation rate by workflow."),
+  code("vantage-home", "Performance overview", "Dark admin home: KPI row, performance trend, conversion pipeline and team leaderboard."),
+  code("vantage-customers", "Customers", "Dark customer table with plan, tenure, a 12-month payment strip and lifetime value."),
 ];
 
 export const isCoded = (t: Template) => t.screen.kind === "code";

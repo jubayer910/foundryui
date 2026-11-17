@@ -13,6 +13,12 @@ const LOADERS: Record<string, () => Promise<{ default: ComponentType }>> = {
   "loopo-overview": () => import("./loopo-overview"),
   "veriq-secrets": () => import("./veriq-secrets"),
   "veriq-team-access": () => import("./veriq-team-access"),
+  "mailpulse-analytics": () => import("./mailpulse-analytics"),
+  "mailpulse-campaigns": () => import("./mailpulse-campaigns"),
+  "auton-agents": () => import("./auton-agents"),
+  "axon-analytics": () => import("./axon-analytics"),
+  "vantage-home": () => import("./vantage-home"),
+  "vantage-customers": () => import("./vantage-customers"),
 };
 const cache = new Map<string, ComponentType>();
 

@@ -34,5 +34,59 @@
   "slug": "showcase-veriq-team-access",
   "source": "66:19252",
   "file": "PB3XpCt9pnD9EiJfqXAiN3"
+ },
+ {
+  "id": "160:35349",
+  "system": "mailpulse",
+  "category": "Showcase",
+  "name": "Analytics",
+  "slug": "showcase-mailpulse-analytics",
+  "source": "139:39510",
+  "file": "HO8FIKAQjZlHdfM65hYYis"
+ },
+ {
+  "id": "160:36886",
+  "system": "mailpulse",
+  "category": "Showcase",
+  "name": "Campaigns",
+  "slug": "showcase-mailpulse-campaigns",
+  "source": "138:30780",
+  "file": "HO8FIKAQjZlHdfM65hYYis"
+ },
+ {
+  "id": "194:33520",
+  "system": "auton",
+  "category": "Showcase",
+  "name": "Agents",
+  "slug": "showcase-auton-agents",
+  "source": "169:31634",
+  "file": "Q7K7Ix4KwJryX5XvLhaCZg"
+ },
+ {
+  "id": "756:39604",
+  "system": "axon",
+  "category": "Showcase",
+  "name": "Analytics",
+  "slug": "showcase-axon-analytics",
+  "source": "733:48421",
+  "file": "s8dzTyDpYzwDoDkqPekxXk"
+ },
+ {
+  "id": "273:7937",
+  "system": "vantage",
+  "category": "Showcase",
+  "name": "Home",
+  "slug": "showcase-vantage-home",
+  "source": "262:33146",
+  "file": "nG9LOj0Kw0l4iD7sSXFmc9"
+ },
+ {
+  "id": "273:13688",
+  "system": "vantage",
+  "category": "Showcase",
+  "name": "Customers",
+  "slug": "showcase-vantage-customers",
+  "source": "263:32368",
+  "file": "nG9LOj0Kw0l4iD7sSXFmc9"
  }
 ]

@@ -44,7 +44,11 @@ export default function Templates() {
       />
       <PageHead title="Templates" sub="Full dashboard screens to start from." />
       <p className="mt-3 max-w-2xl text-[13px] leading-snug text-mute">
-        Complete dashboard screens built from the six Ingot UI systems, each made from that system&rsquo;s own components, charts and tokens. {WORDS[coded] ?? coded} already ship as React code checked against Figma; the rest are Figma screens, with their code in progress. More templates are being added soon.
+        Complete dashboard screens built from the six Ingot UI systems, each made from that system&rsquo;s own components, charts and tokens.{" "}
+        {coded === TEMPLATES.length
+          ? "Every one ships as React code checked against its Figma screen, and as Figma."
+          : `${WORDS[coded] ?? coded} already ship as React code checked against Figma; the rest are Figma screens, with their code in progress.`}{" "}
+        More templates are being added soon.
       </p>
 
       <ul className="mt-6 grid gap-3 md:grid-cols-2">

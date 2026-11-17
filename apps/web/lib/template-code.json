@@ -7,6 +7,22 @@
   "score": 99.8,
   "strict": 98.7
  },
+ "mailpulse-analytics-page-13939510": {
+  "score": 100,
+  "strict": 99.3
+ },
+ "mailpulse-campaigns-page-13830780": {
+  "score": 100,
+  "strict": 98.9
+ },
+ "auton-agents-page-16931634": {
+  "score": 99.6,
+  "strict": 98.4
+ },
+ "axon-analytics-page-73348421": {
+  "score": 99.8,
+  "strict": 99.1
+ },
  "veriq-secrets-page-6526084": {
   "score": 99.9,
   "strict": 98.8
@@ -14,5 +30,13 @@
  "veriq-team-access-page-6619252": {
   "score": 99.9,
   "strict": 98.2
+ },
+ "vantage-home-page-26233146": {
+  "score": 99.7,
+  "strict": 99.6
+ },
+ "vantage-customers-page-26332368": {
+  "score": 100,
+  "strict": 99.7
  }
 }
