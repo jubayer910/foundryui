@@ -2,7 +2,7 @@ import { getSessionUser } from "@/lib/auth";
 import { getDb, getEnv, schema } from "@/lib/db";
 import { audit } from "@/lib/admin";
 import { checkoutKeys, createCheckout } from "@/lib/lemonsqueezy";
-import { getEffectivePlan, getPriceBook, isCheckoutOption, isPaid, isTeamActive, isTeamOption, variantKeyFor, type CheckoutOption } from "@/lib/plans";
+import { getEffectivePlan, getPriceBook, isCheckoutOption, isPaid, isTeamActive, isTeamOption, variantKeyFor, type CheckoutOption, isMonthlyOff } from "@/lib/plans";
 
 /**
  * POST /api/checkout  (form field or JSON body: option = proMonthly | proYearly | teamMonthly | teamYearly | lifetime)
@@ -36,6 +36,7 @@ export async function POST(req: Request) {
   }
 
   const pb = await getPriceBook();
+  if (isMonthlyOff(pb, option)) return go("/pricing#plans");
   const key = variantKeyFor(pb, option);
   if (!key) return go("/pricing?closed=1");
 

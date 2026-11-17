@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { NOINDEX } from "@/lib/seo";
 import { getSessionUser } from "@/lib/auth";
-import { getPriceBook, isCheckoutOption, optionPriceText, planLabel, type CheckoutOption } from "@/lib/plans";
+import { getPriceBook, isCheckoutOption, optionPriceText, planLabel, type CheckoutOption, isMonthlyOff } from "@/lib/plans";
 import { alreadyHas, grantOf, latestClick, latestForUser, publicView } from "@/lib/activation";
 import { PageHead } from "@/components/site/page-head";
 import { AIcon } from "@/components/admin/admin-icons";
@@ -60,7 +60,7 @@ export default async function ActivatePage({ searchParams }: PageProps<"/activat
       ["teamYearly", `Everything in Pro for ${pb.teamSeats} people, billed yearly.`],
     ] as [CheckoutOption, string][]
   )
-    .filter(([o]) => o !== "lifetime" || pb.lifetime !== null)
+    .filter(([o]) => (o !== "lifetime" || pb.lifetime !== null) && !isMonthlyOff(pb, o))
     .map(([option, sub]) => ({
       option,
       name: option === "lifetime" ? "Lifetime" : option === "proMonthly" ? "Pro monthly" : option === "proYearly" ? "Pro yearly" : option === "teamMonthly" ? "Team monthly" : "Team yearly",

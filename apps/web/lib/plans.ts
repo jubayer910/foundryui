@@ -91,6 +91,8 @@ export type PriceBook = {
   proYearly: number;
   teamMonthly: number;
   teamYearly: number;
+  /** false when the admin set the monthly prices to 0: yearly + Lifetime only */
+  monthly: boolean;
   /** seats in one Team plan, the owner included */
   teamSeats: number;
   /** Lifetime price shown right now, or null when Lifetime is closed */
@@ -113,6 +115,7 @@ export async function getPriceBook(now = Date.now()): Promise<PriceBook> {
     proYearly: settings.prices.proYearly,
     teamMonthly: settings.prices.teamMonthly,
     teamYearly: settings.prices.teamYearly,
+    monthly: settings.prices.proMonthly > 0 && settings.prices.teamMonthly > 0,
     teamSeats: TEAM_SEATS,
     lifetime: closed ? null : dealActive ? settings.prices.lifetimeDeal : settings.prices.lifetimeAfter,
     lifetimeVariant: closed ? null : dealActive ? "lifetimeDeal" : "lifetimeAfter",
@@ -179,6 +182,9 @@ export function optionPriceText(pb: PriceBook, option: CheckoutOption) {
   return pb.lifetime === null ? "closed" : usd(pb.lifetime) + " once";
 }
 
+/** A monthly option while monthly plans are switched off (prices set to 0 in admin). */
+export const isMonthlyOff = (pb: PriceBook, option: string) => !pb.monthly && (option === "proMonthly" || option === "teamMonthly");
+
 export const optionName = (option: string) =>
   option === "proMonthly"
     ? "Pro monthly"
@@ -237,12 +243,10 @@ export function pricingSentence(pb: PriceBook) {
         : "Lifetime (" + usd(pb.lifetime) + " once; every system and every future update, forever)";
   return (
     "Free (Loopo system, free components, every icon, 50 MCP calls a day), Pro (" +
-    usd(pb.proMonthly) +
-    " a month or " +
+    (pb.monthly ? usd(pb.proMonthly) + " a month or " : "") +
     usd(pb.proYearly) +
     " a year, all systems, unlimited MCP), Team (" +
-    usd(pb.teamMonthly) +
-    " a month or " +
+    (pb.monthly ? usd(pb.teamMonthly) + " a month or " : "") +
     usd(pb.teamYearly) +
     " a year, everything in Pro for " +
     pb.teamSeats +

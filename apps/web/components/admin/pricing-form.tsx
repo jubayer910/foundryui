@@ -152,9 +152,9 @@ export function PricingForm({ initial, sold, action }: { initial: Values; sold: 
           <legend className="sr-only">Prices</legend>
           <p className="text-[13px] font-medium">Prices (USD)</p>
           <div className="mt-3 grid grid-cols-2 gap-3">
-            {num("price_proMonthly", "Pro monthly", "$", "per month")}
+            {num("price_proMonthly", "Pro monthly", "$", "per month, 0 = no monthly")}
             {num("price_proYearly", "Pro yearly", "$", "per year")}
-            {num("price_teamMonthly", "Team monthly", "$", "per month, 5 seats")}
+            {num("price_teamMonthly", "Team monthly", "$", "per month, 5 seats, 0 = no monthly")}
             {num("price_teamYearly", "Team yearly", "$", "per year, 5 seats")}
             {num("price_lifetimeDeal", "Lifetime deal", "$", "while the deal runs")}
             {num("price_lifetimeAfter", "Lifetime after deal", "$", "after the deal ends")}
