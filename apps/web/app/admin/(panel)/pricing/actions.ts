@@ -16,7 +16,8 @@ export async function savePricing(_prev: PricingState, f: FormData): Promise<Pri
   const prices = {} as Settings["prices"];
   for (const k of PRICE_KEYS) {
     const v = Number(str("price_" + k));
-    if (!Number.isFinite(v) || v <= 0) errors["price_" + k] = "Enter a price above 0";
+    const canBeOff = k === "proMonthly" || k === "teamMonthly"; // 0 = no monthly plan, yearly only
+    if (!Number.isFinite(v) || v < 0 || (v === 0 && !canBeOff)) errors["price_" + k] = canBeOff ? "Enter 0 (no monthly plan) or a price" : "Enter a price above 0";
     else if (v > 100000) errors["price_" + k] = "That looks too high";
     prices[k] = Math.round(v * 100) / 100;
   }

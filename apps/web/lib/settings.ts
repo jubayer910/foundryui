@@ -4,11 +4,11 @@ import { getDb, getEnv, schema } from "./db";
 /** Every admin-controlled value, with the launch defaults (owner decisions 2026-11-15). */
 export type Settings = {
   prices: {
-    proMonthly: number; // USD per month
+    proMonthly: number; // USD per month; 0 = no monthly plan (yearly only)
     proYearly: number; // USD per year
     lifetimeDeal: number; // USD once, while deal spots last
     lifetimeAfter: number; // USD once, after the deal (used when deal.after = "price")
-    teamMonthly: number; // USD per month, Team (5 seats)
+    teamMonthly: number; // USD per month, Team (5 seats); 0 = no monthly plan
     teamYearly: number; // USD per year, Team (5 seats)
   };
   /** Lemon Squeezy variant IDs, one per paid option. Empty = that option shows the waitlist. */
@@ -34,12 +34,13 @@ export type Settings = {
 };
 
 export const DEFAULT_SETTINGS: Settings = {
-  prices: { proMonthly: 7, proYearly: 59, lifetimeDeal: 29, lifetimeAfter: 149, teamMonthly: 29, teamYearly: 290 },
+  // Option B with Lifetime launch at $49 (owner 2026-11-18, Documents/Design Library Platform/PRICING-PLAN.md): yearly + Lifetime, no monthly.
+  prices: { proMonthly: 0, proYearly: 39, lifetimeDeal: 49, lifetimeAfter: 99, teamMonthly: 0, teamYearly: 129 },
   variants: { proMonthly: "", proYearly: "", lifetimeDeal: "", lifetimeAfter: "", teamMonthly: "", teamYearly: "" },
   externalCheckout: { proMonthly: "", proYearly: "", lifetimeDeal: "", lifetimeAfter: "", teamMonthly: "", teamYearly: "" },
-  deal: { enabled: true, spotsTotal: 200, after: "price", endsAt: "", showSpots: true, showTimer: true },
+  deal: { enabled: true, spotsTotal: 100, after: "price", endsAt: "", showSpots: true, showTimer: true },
   support: { email: "support@ingotui.com", contactEmail: "support@ingotui.com", notify: true },
-  announcement: { enabled: true, text: "Launch deal: Lifetime access for $29, every future update included", href: "/pricing" },
+  announcement: { enabled: true, text: "Launch deal: Lifetime for $49 instead of $99, every future update included", href: "/pricing" },
   adminEmails: [],
 };
 
