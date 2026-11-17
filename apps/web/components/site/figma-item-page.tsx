@@ -2,6 +2,8 @@ import Link from "next/link";
 import { getSystem } from "@/lib/catalog";
 import { entries, figmaQA, type FigmaItem } from "@/lib/library";
 import { FigmaCodePanel } from "./figma-code-panel";
+import { FigmaCopy } from "./templates/figma-copy";
+import { figmaPath } from "@/lib/code-paths";
 import { ItemCard } from "./item-card";
 import { SaveButton } from "./save-button";
 import { categoryHref } from "@/lib/hubs";
@@ -55,6 +57,7 @@ export function FigmaItemPage({ item }: { item: FigmaItem }) {
             ))}
           </dl>
           {qa && <FigmaCodePanel slug={item.slug} score={qa.score} />}
+          {figmaPath(item.slug) && <FigmaCopy slug={item.slug} label={item.name} variant="wide" next={"/components/" + item.slug} />}
           <div className="flex flex-col gap-1.5">
             <SaveButton slug={item.slug} quiet={!!qa} />
             <Link href={free ? "/sign-up?next=/components/" + item.slug : "/pricing?from=" + item.slug} className="btn-line w-full">

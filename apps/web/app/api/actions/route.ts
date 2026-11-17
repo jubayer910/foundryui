@@ -2,7 +2,7 @@ import { z } from "zod";
 import { ACTIONS, checkAndRecord } from "@/lib/gate";
 import { getItem, resolveFiles } from "@/lib/catalog";
 import { getFigmaItem } from "@/lib/library";
-import { codePath } from "@/lib/code-paths";
+import { codePath, figmaPath } from "@/lib/code-paths";
 
 const Body = z.object({ slug: z.string().min(1), action: z.enum(ACTIONS) });
 
@@ -15,7 +15,14 @@ export async function POST(req: Request) {
   if (!gate.ok) return Response.json({ error: gate.reason, remaining: gate.remaining }, { status: gate.reason === "not_found" ? 404 : 403 });
   const fig = !getItem(slug) && getFigmaItem(slug);
   // generated code sits at an unguessable static path (scripts/code-gate.mjs); the URL is handed out only after the gate says yes
-  if (fig) return Response.json({ ok: true, remaining: gate.remaining, codeUrl: action === "copy_code" ? codePath(slug) ?? undefined : undefined });
+  if (fig)
+    return Response.json({
+      ok: true,
+      remaining: gate.remaining,
+      codeUrl: action === "copy_code" ? codePath(slug) ?? undefined : undefined,
+      // templates with a captured Figma clipboard payload: pasting it in Figma gives editable layers
+      figmaUrl: action === "copy_figma" ? figmaPath(slug) ?? undefined : undefined,
+    });
   const files = action === "copy_code" ? resolveFiles(slug) : undefined;
   return Response.json({ ok: true, remaining: gate.remaining, files });
 }

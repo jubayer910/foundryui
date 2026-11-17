@@ -5,6 +5,8 @@ import { CIcon } from "@/components/site/chrome-icon";
 import { Icon } from "@/registry/components/icons";
 import type { Template } from "./data";
 import { TemplateCopy } from "./template-copy";
+import { FigmaCopy } from "./figma-copy";
+import { figmaPath } from "@/lib/code-paths";
 
 const address = (title: string) => "app.yourproduct.com/" + title.toLowerCase().replace(/&/g, "").trim().replace(/\s+/g, "-");
 
@@ -58,7 +60,8 @@ export function TemplateCard({ t, eager = false }: { t: Template; eager?: boolea
             </>
           )}
           {coded ? (
-            <span className="ml-auto">
+            <span className="ml-auto flex items-center gap-1.5">
+              {figmaPath(t.slug) && <FigmaCopy slug={t.slug} label={t.systemName + " " + t.title} />}
               <TemplateCopy slug={t.slug} label={t.systemName + " " + t.title} />
             </span>
           ) : (

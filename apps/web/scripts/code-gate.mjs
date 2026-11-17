@@ -33,17 +33,21 @@ if (existsSync(SRC)) {
     const dir = join(SRC, sys);
     if (!statSync(dir).isDirectory()) continue;
     for (const f of readdirSync(dir)) {
-      if (!f.endsWith(".txt")) continue;
-      const slug = f.slice(0, -4);
-      const token = createHash("sha256").update(salt + ":" + slug).digest("hex").slice(0, 32);
-      map[slug] = token;
+      // <slug>.txt = React code, <slug>.figma.html = Figma clipboard payload (captured from Figma desktop)
+      const figma = f.endsWith(".figma.html");
+      if (!figma && !f.endsWith(".txt")) continue;
+      const slug = figma ? f.slice(0, -".figma.html".length) : f.slice(0, -4);
+      const key = figma ? "figma:" + slug : slug;
+      const ext = figma ? ".html" : ".txt";
+      const token = createHash("sha256").update(salt + ":" + key).digest("hex").slice(0, 32);
+      map[key] = token;
       const from = join(dir, f);
-      const to = join(OUT, token + ".txt");
+      const to = join(OUT, token + ext);
       if (!existsSync(to) || statSync(to).mtimeMs < statSync(from).mtimeMs) copyFileSync(from, to);
     }
   }
   // drop copies whose slug is gone or whose salt changed
-  const keep = new Set(Object.values(map).map((t) => t + ".txt"));
+  const keep = new Set(Object.entries(map).map(([k, t]) => t + (k.startsWith("figma:") ? ".html" : ".txt")));
   for (const f of readdirSync(OUT)) if (!keep.has(f)) rmSync(join(OUT, f));
 }
 const json = JSON.stringify(map);
