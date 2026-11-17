@@ -6,8 +6,8 @@
   "w": 1578,
   "h": 1180,
   "perceptual": 99.8,
-  "strict": 99,
-  "layout": 99.8,
+  "strict": 99.3,
+  "layout": 99.9,
   "figma": "216:46980",
   "source": "189:43535"
  },
@@ -17,9 +17,9 @@
   "name": "Overview",
   "w": 1578,
   "h": 1180,
-  "perceptual": 99.8,
-  "strict": 98.7,
-  "layout": 99.9,
+  "perceptual": 99.9,
+  "strict": 99,
+  "layout": 100,
   "figma": "216:49581",
   "source": "187:43155"
  },

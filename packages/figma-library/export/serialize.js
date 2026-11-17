@@ -59,6 +59,29 @@ function paintAttr(ps, w, h, defs) {
   }
   return null;
 }
+// a polyline with a corner radius (smooth chart lines): Figma rounds every joint; vectorPaths keeps the sharp
+// corners, so round them here (arc tangent to both segments, clamped to half of each segment)
+function roundPoly(d, r) {
+  if (!/^[\sML\d.eE+-]+$/.test(d) || /M[^M]*M/.test(d)) return d;
+  const nums = d.match(/-?[\d.]+(?:e[+-]?\d+)?/gi).map(Number);
+  const P = []; for (let i = 0; i + 1 < nums.length; i += 2) P.push([nums[i], nums[i + 1]]);
+  if (P.length < 3) return d;
+  const f = (v) => Math.round(v * 1000) / 1000;
+  let s = `M${f(P[0][0])} ${f(P[0][1])}`;
+  for (let i = 1; i < P.length - 1; i++) {
+    const [a, p, b] = [P[i - 1], P[i], P[i + 1]];
+    const la = Math.hypot(a[0] - p[0], a[1] - p[1]) || 1, lb = Math.hypot(b[0] - p[0], b[1] - p[1]) || 1;
+    const ua = [(a[0] - p[0]) / la, (a[1] - p[1]) / la], ub = [(b[0] - p[0]) / lb, (b[1] - p[1]) / lb];
+    const cos = Math.max(-1, Math.min(1, ua[0] * ub[0] + ua[1] * ub[1])), th = Math.acos(cos);
+    const t = Math.min(th > 1e-3 ? r / Math.tan(th / 2) : 0, la / 2, lb / 2);
+    if (t < 0.01) { s += `L${f(p[0])} ${f(p[1])}`; continue; }
+    // circular arc of the radius that fits that tangent length; sweep follows the turn direction
+    const re = t * Math.tan(th / 2), sweep = ua[0] * ub[1] - ua[1] * ub[0] < 0 ? 1 : 0;
+    s += `L${f(p[0] + ua[0] * t)} ${f(p[1] + ua[1] * t)}A${f(re)} ${f(re)} 0 0 ${sweep} ${f(p[0] + ub[0] * t)} ${f(p[1] + ub[1] * t)}`;
+  }
+  const z = P[P.length - 1];
+  return s + `L${f(z[0])} ${f(z[1])}`;
+}
 function shapes(n, rootInv, out, defs) {
   if (n.visible === false) return;
   if ("fillGeometry" in n && SHAPE.test(n.type)) {
@@ -71,10 +94,14 @@ function shapes(n, rootInv, out, defs) {
     };
     const f = paintAttr(n.fills, n.width, n.height, defs), k = paintAttr(n.strokes, n.width, n.height, defs);
     if (f) put(n.fillGeometry, f);
-    if (k && n.dashPattern && n.dashPattern.length && n.strokeWeight !== figma.mixed) {
-      // dashed strokes: Figma's stroke geometry ignores dashes, so draw the centre line with a real dash array
+    // when Figma's stroke geometry already holds the dashes (many pieces), it is the exact drawing: use it as is
+    const subs = (gs) => (gs || []).reduce((a, g) => a + (g.data.match(/M/g) || []).length, 0);
+    const dashedGeo = n.dashPattern && n.dashPattern.length && n.type !== "LINE" && subs(n.strokeGeometry) > 2 * Math.max(1, subs(n.vectorPaths)) + 2;
+    if (k && n.dashPattern && n.dashPattern.length && n.strokeWeight !== figma.mixed && !dashedGeo) {
+      // dashed strokes whose stroke geometry ignores the dashes: draw the centre line with a real dash array
       const [val, alpha] = k.split("|");
-      const ds = n.type === "LINE" ? [{ data: `M0 0L${n.width} 0` }] : n.vectorPaths || [];
+      const cr = typeof n.cornerRadius === "number" ? n.cornerRadius : 0;
+      const ds = n.type === "LINE" ? [{ data: `M0 0L${n.width} 0` }] : (n.vectorPaths || []).map((g) => (cr > 0 ? { data: roundPoly(g.data, cr) } : g));
       for (const g of ds) out.push(`<path transform="${tr}" d="${g.data}" fill="none" stroke${val}${alpha ? ` stroke-opacity="${alpha}"` : ""} stroke-width="${n.strokeWeight}" stroke-dasharray="${n.dashPattern.join(" ")}" stroke-linecap="${String(n.strokeCap || "NONE") === "ROUND" ? "round" : "butt"}"${op}/>`);
     } else if (k && n.strokeGeometry) put(n.strokeGeometry, k);
     return;

@@ -246,8 +246,10 @@ function buildNode(n, parentLm = null, root = true) {
     });
     st.display = "block"; st.lineHeight = 0; st.overflow = "visible";
     // a 0px CSS box scales the drawing to nothing: give hairlines 1px and take the pixel back from the layout
-    if (st.height === "0px") { st.height = "1px"; if (inFlow && parentLm === "V") st.marginBottom = "-1px"; }
-    if (st.width === "0px") { st.width = "1px"; if (inFlow && parentLm === "H") st.marginRight = "-1px"; }
+    // (anything under 1px, e.g. a baked rotated line 0.01px tall, scales the same way)
+    const thin = (v) => typeof v === "string" && /px$/.test(v) && parseFloat(v) < 1;
+    if (thin(st.height)) { const h = parseFloat(st.height); st.height = "1px"; if (inFlow && parentLm === "V") st.marginBottom = px(h - 1); }
+    if (thin(st.width)) { const w = parseFloat(st.width); st.width = "1px"; if (inFlow && parentLm === "H") st.marginRight = px(w - 1); }
     return el;
   }
 
