@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "node scripts/library-finalize.mjs && node scripts/code-gate.mjs && node scripts/og-visuals.mjs && next build",
+    "build": "node scripts/templates-export.mjs && node scripts/library-finalize.mjs && node scripts/code-gate.mjs && node scripts/og-visuals.mjs && next build",
     "start": "next start",
     "lint": "eslint",
     "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",

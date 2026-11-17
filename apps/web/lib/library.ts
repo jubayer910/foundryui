@@ -1,6 +1,10 @@
 import { items, systems } from "./catalog";
 import figmaItems from "./figma-items.json";
-import figmaCode from "./figma-code.json";
+import generatedCode from "./figma-code.json";
+import templateCode from "./template-code.json";
+
+/** QA scores of every generated file that can be copied: components (publish.mjs) and dashboard templates (scripts/templates-export.mjs). */
+const figmaCode: Record<string, { score: number; strict: number }> = { ...generatedCode, ...templateCode };
 
 /** One browsable entry: a coded component (live preview + code) or a Figma library component (image preview). */
 export type Entry = {
