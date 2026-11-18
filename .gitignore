@@ -26,4 +26,5 @@ apps/web/public/library-preview
 apps/web/.library-salt
 apps/web/public/c/
 apps/web/lib/code-paths.generated.json
+apps/web/lib/component-specs.generated.json
 apps/mcp/src/code-paths.generated.json

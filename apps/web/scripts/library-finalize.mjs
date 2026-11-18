@@ -144,5 +144,31 @@ for (const sys of await readdir(CODE)) {
   }
 }
 await rm(TMP, { recursive: true, force: true });
+
+// 3. Specs for each component page, read from its finished code (lib/component-specs.generated.json).
+//    Real, per-component facts (icons, type, colours, radii, size of the code) give every page its own text.
+const words = (n) => n.replace(/(Bulk|Solid|Duotone|Twotone|Sharp|Icon)$/, "").replace(/([a-z0-9])([A-Z])/g, "$1 $2").replace(/^./, (c) => c.toUpperCase()).replace(/ ([A-Z])(?=[a-z])/g, (m) => m.toLowerCase());
+const px = (v) => Math.round(parseFloat(v) * 2) / 2;
+const top = (arr, n) => Object.entries(arr.reduce((m, x) => ((m[x] = (m[x] || 0) + 1), m), {})).sort((a, b) => b[1] - a[1]).slice(0, n);
+const specs = {};
+for (const sys of await readdir(CODE)) {
+  const dir = join(CODE, sys);
+  if (!(await stat(dir)).isDirectory()) continue;
+  for (const file of (await readdir(dir)).filter((f) => f.endsWith(".txt"))) {
+    const code = await readFile(join(dir, file), "utf8");
+    const fn = code.match(/^export function (\w+)/m)?.[1];
+    if (!fn) continue;
+    const icons = [...new Set([...code.matchAll(/^const (\w+) = icon\(/gm)].map((m) => words(m[1])))];
+    const fonts = (code.match(/Fonts: ([^.]+)\./)?.[1] ?? "").split(",").map((x) => x.trim()).filter((x) => x && x !== "none");
+    const sizes = [...new Set([...code.matchAll(/fontSize: "([\d.]+)px"/g)].map((m) => px(m[1])))].sort((a, b) => a - b);
+    const weights = [...new Set([...code.matchAll(/fontWeight: (\d{3})/g)].map((m) => +m[1]))].sort((a, b) => a - b);
+    const colors = top([...code.matchAll(/#[0-9a-fA-F]{6}\b/g)].map((m) => m[0].toLowerCase()), 6).map(([c]) => c);
+    const radii = [...new Set([...code.matchAll(/borderRadius: "([\d.]+)px"/g)].map((m) => px(m[1])).filter((r) => r > 0 && r < 999))].sort((a, b) => a - b).slice(0, 5);
+    const lines = code.split("\n").length;
+    specs[file.slice(0, -4)] = [fn, icons, fonts, sizes, weights, colors, radii, lines];
+  }
+}
+await writeFile(join(WEB, "lib/component-specs.generated.json"), JSON.stringify(specs));
+console.log(`library-finalize: specs for ${Object.keys(specs).length} components`);
 console.log(`library-finalize: ${finalized} code files made self-contained, ${rendered} previews rendered, ${skipped} up to date, ${failed.length} failed`);
 if (failed.length) console.log("  failed: " + failed.slice(0, 20).join("; ") + (failed.length > 20 ? " …" : ""));

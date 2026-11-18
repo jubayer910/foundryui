@@ -8,6 +8,8 @@ import { ItemCard } from "./item-card";
 import { SaveButton } from "./save-button";
 import { categoryHref } from "@/lib/hubs";
 import { LivePreview } from "./live-preview";
+import { ComponentSpecs } from "./component-specs";
+import { getSpecs } from "@/lib/component-specs";
 import { surfaceStyle } from "@/lib/system-surface";
 import { QaBadge } from "./qa-badge";
 import { A11yNotes } from "./a11y-notes";
@@ -17,6 +19,7 @@ export function FigmaItemPage({ item }: { item: FigmaItem }) {
   const sys = getSystem(item.system);
   const free = sys?.tier === "free" || isFreeTemplate(item.slug);
   const qa = figmaQA(item.slug);
+  const specs = qa ? getSpecs(item.slug) : null;
   const rows: [string, string][] = [
     ["System", sys?.name ?? item.system],
     ["Category", item.category],
@@ -89,6 +92,7 @@ export function FigmaItemPage({ item }: { item: FigmaItem }) {
           </div>
         </div>
       </div>
+      {specs && <ComponentSpecs s={specs} name={item.name} w={item.w} h={item.h} system={sys?.name ?? item.system} />}
       <A11yNotes slug={item.slug} category={item.category} handBuilt={false} />
       {related.length > 0 && (
         <section className="mt-14">

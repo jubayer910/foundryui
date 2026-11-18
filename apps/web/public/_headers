@@ -1,0 +1,7 @@
+# Cloudflare static-asset headers (Workers assets read this file at deploy).
+# Code files and shadcn registry JSON are for tools and copy buttons, not search results:
+# keep them out of Google's index without blocking the fetch.
+/c/*
+  X-Robots-Tag: noindex
+/r/*
+  X-Robots-Tag: noindex
