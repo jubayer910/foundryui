@@ -36,7 +36,7 @@ export function SiteChrome({ rail, mobileBar, children }: { rail: ReactNode; mob
         {rail}
         <div className="min-w-0 flex-1">
           {mobileBar}
-          <main className="px-4 pb-24 pt-4 sm:px-6 lg:pt-5">{children}</main>
+          <main className="site-main px-4 pb-24 pt-4 sm:px-6 lg:pt-5">{children}</main>
         </div>
       </div>
       <SupportWidget />

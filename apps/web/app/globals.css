@@ -578,3 +578,8 @@ html[data-ingot-cursor] :is(pre, [data-native-cursor]) :not(input):not(textarea)
 html[data-ingot-cursor] :is(:disabled, [aria-disabled=true], :is([class^="cursor-"], [class*=" cursor-"]):not(.cursor-pointer):not(.cursor-default):not(.cursor-auto)) {
   cursor: revert-layer;
 }
+
+/* Wide screens: a page's capped content column sits in the middle of the space beside the rail, not against it. */
+.site-main > [class*="max-w-"] {
+  margin-inline: auto;
+}
