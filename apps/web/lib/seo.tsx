@@ -36,6 +36,7 @@ export function organizationLd(): Json {
     "@id": ORG_ID,
     name: SITE_NAME,
     alternateName: "Foundry UI",
+    sameAs: ["https://x.com/ingotui"],
     url: SITE + "/",
     logo: abs("/logo.png"),
     description: "Dashboard design systems for founders: React components checked against Figma, Figma libraries, icons and an MCP server for AI coding agents.",
@@ -105,7 +106,7 @@ export function pageMeta({ title, description, path, absoluteTitle, noindex, typ
     robots: noindex ? NOINDEX : undefined,
     // An explicit image wins over segment opengraph-image files, so pass the segment's own route.
     openGraph: { type, siteName: SITE_NAME, locale: "en_US", url: path, title: full, description, images: [{ url: image, width: 1200, height: 630, alt: full }], ...(type === "article" ? { publishedTime: published, modifiedTime: modified ?? published, authors: [PUBLISHER] } : {}) },
-    twitter: { card: "summary_large_image" as const, title: full, description, images: [image] },
+    twitter: { card: "summary_large_image" as const, site: "@ingotui", creator: "@ingotui", title: full, description, images: [image] },
   };
 }
 

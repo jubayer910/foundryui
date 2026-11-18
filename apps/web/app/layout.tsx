@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   creator: "Ingot UI",
   publisher: "Ingot UI",
   openGraph: { type: "website", siteName: "Ingot UI", locale: "en_US", title: "Ingot UI: dashboard components in React, Figma and MCP", description: DESCRIPTION },
-  twitter: { card: "summary_large_image", title: "Ingot UI: dashboard components in React, Figma and MCP", description: DESCRIPTION },
+  twitter: { card: "summary_large_image", site: "@ingotui", creator: "@ingotui", title: "Ingot UI: dashboard components in React, Figma and MCP", description: DESCRIPTION },
   robots: { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 } },
   // Search Console / Bing: set these env vars once the owner verifies the domain.
   verification: { google: process.env.GOOGLE_SITE_VERIFICATION || undefined, other: process.env.BING_SITE_VERIFICATION ? { "msvalidate.01": process.env.BING_SITE_VERIFICATION } : undefined },

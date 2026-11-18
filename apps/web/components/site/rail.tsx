@@ -5,6 +5,7 @@ import { AccountLink } from "./account-link";
 import { FreeMeter } from "./free-meter";
 import { RailNav } from "./rail-nav";
 import { Logo } from "./logo";
+import { FollowX } from "./follow-x";
 
 export const railSystems = systems.map((s) => ({ slug: s.slug, name: s.name, accent: s.accent, live: s.status === "live" || codeCount(s.slug) > 0 }));
 
@@ -22,6 +23,7 @@ export function Rail() {
       </div>
       <div className="mt-4 flex flex-col gap-3">
         <FreeMeter />
+        <FollowX />
         <p className="flex flex-wrap gap-x-3 px-2 text-[12px] text-mute">
           <Link href="/about" className="inline-flex min-h-6 items-center hover:text-ink">About</Link>
           <Link href="/changelog" className="inline-flex min-h-6 items-center hover:text-ink">Changelog</Link>
