@@ -1,6 +1,6 @@
 # Third-party licences
 
-Ingot UI icons are redrawn to one spec (24px grid, 1.5px stroke) from these open-licence sets, or taken as drawn where a set is already on that spec (Hugeicons free). Their licences require this notice to be kept.
+Ingot UI icons are redrawn to one spec (24px grid, 1.5px stroke) from these open-licence sets. Their licences require this notice to be kept.
 
 ## Tabler Icons (MIT)
 
@@ -102,9 +102,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
 
-## Hugeicons free set (MIT)
-
-The free stroke icons, read from the Iconify package `@iconify-json/hugeicons`. Brand logos are left out.
+## Additional icons (MIT)
 
 ```
 MIT License

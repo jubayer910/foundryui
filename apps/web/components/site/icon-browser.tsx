@@ -136,7 +136,7 @@ export function IconBrowser({ initialQuery = "" }: { initialQuery?: string }) {
           </div>
         )}
         <p className="mt-8 text-[12px] leading-relaxed text-mute">
-          Drawn to one spec from open-licence sets (Tabler, Lucide, Iconoir, Hugeicons), free for commercial use. <Link href="/icons/LICENSES.md" className="underline underline-offset-2">Licences</Link>
+          Drawn to one spec from open-licence icon sets, free for commercial use. <Link href="/icons/LICENSES.md" className="underline underline-offset-2">Licences</Link>
         </p>
       </div>
 
