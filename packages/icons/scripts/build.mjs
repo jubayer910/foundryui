@@ -3,10 +3,12 @@
  * 24px grid, 1.5px live stroke, round caps and joins, currentColor.
  *
  *   Line style: Tabler outline (MIT) as the base, then Lucide (ISC) and Iconoir (MIT)
- *               for concepts Tabler doesn't have.
+ *               for concepts Tabler doesn't have, then the Hugeicons free set (MIT, via the
+ *               Iconify JSON package) for everything still missing, AI icons first.
  *   Fill style: Tabler filled (MIT).
  *
- * The Hugeicons free set (MIT) is used only as a coverage checklist (names), never drawn from.
+ * Hugeicons is already drawn on this spec, so its icons are used as drawn; see scripts/hugeicons.mjs
+ * for which ones join (no brand logos), under what name, category and tags.
  *
  * Outputs:
  *   packages/icons/svg/{line,fill}/<name>.svg
@@ -20,6 +22,7 @@ import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { createHash } from "node:crypto";
 import { STYLES, deriveStyles } from "./styles.mjs";
+import { isBrand, rename, isAI, aiTags, wordCategory } from "./hugeicons.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const nm = join(root, "node_modules");
@@ -77,16 +80,55 @@ for (const f of readdirSync(iDir)) {
 }
 const nIconoir = line.size - nTabler - nLucide;
 
+// 4. Hugeicons free set (Iconify JSON) for what is still missing, AI icons first.
+/** Hugeicons body -> library body: <g> wrappers unwrapped (their fill pushed down), stroke paint dropped
+ *  (the style wrapper adds it), filled shapes kept as fills with no stroke on top. */
+function hugeInner(body) {
+  let b = body;
+  for (let i = 0; i < 4 && /<g\b/.test(b); i++)
+    b = b.replace(/<g\b([^>]*)>((?:(?!<g\b)[\s\S])*?)<\/g>/g, (_m, attrs, kids) => {
+      const f = /\sfill="(currentColor)"/.exec(attrs);
+      return f ? kids.replace(/<(path|circle|rect|ellipse|polygon)\b(?![^>]*\sfill=)/g, '<$1 fill="currentColor"') : kids;
+    });
+  b = b.replace(/\s(stroke-width|stroke-linecap|stroke-linejoin|class)="[^"]*"/g, "").replace(/\sfill="none"/g, "");
+  // a filled shape without its own stroke must not pick up the style wrapper's stroke
+  b = b.replace(/<(path|circle|rect|ellipse|polygon)\b([^>]*)>/g, (m, tag, a) => (/\sfill="currentColor"/.test(a) && !/\sstroke=/.test(a) ? `<${tag}${a.replace(/\s*\/$/, "")} stroke="none"/>` : m));
+  b = b.replace(/\sstroke="currentColor"/g, "");
+  return b.replace(/\s+/g, " ").replace(/>\s+</g, "><").trim();
+}
+const hJson = JSON.parse(read(join(nm, "@iconify-json/hugeicons/icons.json")));
+const hHidden = new Set(hJson.hidden ?? []);
+const hNames = Object.keys(hJson.icons).filter((n) => !hHidden.has(n) && !isBrand(n) && !/transform=|<use\b|<defs\b/.test(hJson.icons[n].body));
+hNames.sort((a, b) => Number(isAI(b)) - Number(isAI(a))); // stable: AI first, then upstream order
+const hugeAdded = [];
+const jsxId = (n) => (/^\d/.test(n) ? "I" : "") + n.replace(/(^|-)([a-z0-9])/g, (_m, _d, c) => c.toUpperCase());
+const ids = new Set([...line.keys()].map(jsxId));
+const taken = (n) => line.has(n) || ids.has(jsxId(n)); // a React export name must stay unique too
+for (const up of hNames) {
+  if (line.has(up)) continue; // same name already drawn by an earlier source
+  let name = rename(up);
+  if (taken(name)) name = name + "-alt";
+  if (taken(name)) continue;
+  const ai = isAI(up);
+  const tags = ai ? aiTags(name) : [];
+  if (name !== up) tags.push(up.replace(/-/g, " "));
+  if (add(name, hugeInner(hJson.icons[up].body), ai ? "AI" : wordCategory(name) || "", tags, "hugeicons")) {
+    hugeAdded.push(name);
+    ids.add(jsxId(name));
+  }
+}
+const nHuge = hugeAdded.length;
+
 // Category for non-Tabler icons: borrow from a Tabler icon sharing the first name word.
 const firstWordCat = new Map();
 for (const [n, v] of line) if (v.src === "tabler" && !firstWordCat.has(n.split("-")[0])) firstWordCat.set(n.split("-")[0], v.c);
-for (const [n, v] of line) if (!v.c) v.c = firstWordCat.get(n.split("-")[0]) || "General";
+for (const [n, v] of line) if (!v.c) v.c = firstWordCat.get(n.split("-")[0]) || (v.src === "hugeicons" && n.split("-").map((w) => firstWordCat.get(w)).find(Boolean)) || "General";
 
 // Fill style: Tabler filled
 const fill = new Map();
 for (const f of readdirSync(join(nm, "@tabler/icons/icons/filled"))) {
   const name = f.replace(/\.svg$/, "");
-  if (line.has(name)) fill.set(name, inner(read(join(nm, "@tabler/icons/icons/filled", f)), { keepFill: true }));
+  if (line.get(name)?.src === "tabler") fill.set(name, inner(read(join(nm, "@tabler/icons/icons/filled", f)), { keepFill: true }));
 }
 
 // Six styles per icon (see scripts/styles.mjs). Solid prefers Tabler's hand-drawn filled version.
@@ -123,10 +165,13 @@ const words = new Set([...line.keys()].flatMap((n) => n.split("-")).concat([...l
 const exact = concepts.filter((c) => line.has(c));
 const byWords = concepts.filter((c) => !line.has(c) && c.split("-").every((w) => words.has(w)));
 const missing = concepts.filter((c) => !line.has(c) && !c.split("-").every((w) => words.has(w)));
+const hugeCats = {};
+for (const n of hugeAdded) hugeCats[line.get(n).c] = (hugeCats[line.get(n).c] ?? 0) + 1;
+writeFileSync(join(root, "hugeicons-added.json"), JSON.stringify({ total: nHuge, byCategory: Object.fromEntries(Object.entries(hugeCats).sort((a, b) => b[1] - a[1])), names: hugeAdded }, null, 1));
 writeFileSync(join(root, "coverage.json"), JSON.stringify({ concepts: concepts.length, exactName: exact.length, coveredByParts: byWords.length, missing }, null, 1));
 
 const cats = [...new Set(index.map((i) => i.c))];
-console.log(`line ${line.size} (tabler ${nTabler}, lucide ${nLucide}, iconoir ${nIconoir}) · fill ${fill.size} · ${cats.length} categories`);
+console.log(`line ${line.size} (tabler ${nTabler}, lucide ${nLucide}, iconoir ${nIconoir}, hugeicons ${nHuge}) · fill ${fill.size} · ${cats.length} categories`);
 console.log(`hugeicons concepts ${concepts.length}: exact ${exact.length}, by parts ${byWords.length}, missing ${missing.length}`);
 
 // React entries: ingotui-icons/react/<style> (tree-shakeable), and /react = stroke-rounded.
