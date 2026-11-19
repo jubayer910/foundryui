@@ -2,6 +2,10 @@ import { items, systems } from "./catalog";
 import figmaItems from "./figma-items.json";
 import generatedCode from "./figma-code.json";
 import templateCode from "./template-code.json";
+import figmaPaste from "./figma-paste.generated.json";
+
+/** slugs that can be copied to Figma as editable layers (written by scripts/code-gate.mjs) */
+const figmaPasteSet = new Set<string>(figmaPaste as string[]);
 
 /** QA scores of every generated file that can be copied: components (publish.mjs) and dashboard templates (scripts/templates-export.mjs). */
 const figmaCode: Record<string, { score: number; strict: number }> = { ...generatedCode, ...templateCode };
@@ -21,6 +25,8 @@ export type Entry = {
   source?: string;
   /** set when generated React code passed visual QA against the Figma original */
   qa?: { score: number; strict: number };
+  /** true when a Copy to Figma payload (editable layers) exists */
+  figma?: boolean;
 };
 
 export type FigmaItem = { id: string; system: string; category: string; name: string; slug: string; w: number; h: number; keywords: string; source: string; thumb: string };
@@ -62,6 +68,7 @@ const figmaEntries: Entry[] = figma.map((f) => ({
   text: [f.name, f.category, f.keywords].join(" ").toLowerCase().slice(0, 180),
   source: f.source,
   qa: (figmaCode as Record<string, { score: number; strict: number }>)[f.slug],
+  figma: figmaPasteSet.has(f.slug) || undefined,
 }));
 
 /** Code first inside each category (they are fully usable), then Figma components. */

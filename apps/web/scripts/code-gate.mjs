@@ -53,4 +53,7 @@ if (existsSync(SRC)) {
 }
 const json = JSON.stringify(map);
 for (const m of MAPS) if (existsSync(dirname(m))) writeFileSync(m, json);
+// Which slugs have a Copy to Figma payload: slugs only, no tokens, so library cards (client side) can show the button.
+const figmaSlugs = Object.keys(map).filter((k) => k.startsWith("figma:")).map((k) => k.slice(6)).sort();
+writeFileSync(join(WEB, "lib/figma-paste.generated.json"), JSON.stringify(figmaSlugs) + "\n");
 console.log("code-gate:", Object.keys(map).length, "files behind tokens");
