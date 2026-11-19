@@ -15,7 +15,8 @@ let saved = 0, copied = 0;
 const osa = (script) => new Promise((ok, no) => execFile("osascript", ["-e", script], { maxBuffer: 64 * 1024 * 1024 }, (e, out) => (e ? no(e) : ok(out))));
 async function figmaCopy() {
   await osa('set the clipboard to "ingot-copy-marker"');
-  await osa('tell application "Figma" to activate\ntell application "System Events" to keystroke "c" using command down');
+  // Edit > Copy acts on the canvas selection even when the plugin window holds keyboard focus
+  await osa('tell application "Figma" to activate\ndelay 0.2\ntell application "System Events" to tell process "Figma" to click menu item "Copy" of menu 1 of menu bar item "Edit" of menu bar 1');
   for (let i = 0; i < 30; i++) {
     await new Promise((r) => setTimeout(r, 150));
     const raw = await osa("try\nthe clipboard as «class HTML»\non error\nreturn \"\"\nend try").catch(() => "");
