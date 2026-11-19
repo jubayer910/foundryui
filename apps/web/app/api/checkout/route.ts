@@ -6,7 +6,8 @@ import { getEffectivePlan, getPriceBook, isCheckoutOption, isPaid, isTeamActive,
 
 /**
  * POST /api/checkout  (form field or JSON body: option = proMonthly | proYearly | teamMonthly | teamYearly | lifetime)
- * Signed out → sign up first, then back to /pricing?buy=<option>.
+ * Signed out → straight to the external checkout (Contra) when that is how the option sells; otherwise
+ * sign up first, then back to /pricing?buy=<option>.
  * Keys or variant missing → the admin's external checkout link for that option (e.g. Contra) if set,
  * otherwise a waitlist row and /pricing?waitlist=<option>.
  * Otherwise → a Lemon Squeezy hosted checkout (303).
@@ -24,7 +25,23 @@ export async function POST(req: Request) {
   const option: CheckoutOption = raw;
 
   const user = await getSessionUser();
-  if (!user) return go("/sign-up?next=" + encodeURIComponent("/pricing?buy=" + option));
+  if (!user) {
+    // Signed out: when this option sells through an external checkout (Contra) and not Lemon Squeezy,
+    // go straight there. No account needed to pay: the Contra sale is matched to an account later by
+    // the payer's email (lib/contra), and the buyer gets an email telling them what happens next.
+    const pb = await getPriceBook();
+    if (isMonthlyOff(pb, option)) return go("/pricing#plans");
+    const key = variantKeyFor(pb, option);
+    const external = key ? pb.settings.externalCheckout?.[key]?.trim() : "";
+    const lsReady = !!(key && checkoutKeys(await getEnv()) && pb.settings.variants[key]?.trim());
+    if (key && !lsReady && external && /^https:\/\//.test(external)) {
+      try {
+        await audit("guest", "checkout.external", key, { option, userId: null, url: external });
+      } catch {}
+      return go(external);
+    }
+    return go("/sign-up?next=" + encodeURIComponent("/pricing?buy=" + option));
+  }
 
   // Already covered: nothing to buy.
   // Team: blocked only when this user already pays for a Team (a Pro or Lifetime buyer may add one for teammates).
