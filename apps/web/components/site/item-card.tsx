@@ -17,43 +17,78 @@ function sound(name: SoundName) {
   if (window.matchMedia("(hover: hover) and (pointer: fine)").matches && soundAllowed()) playClickSound(name);
 }
 
-const PILL = "flex h-7 items-center rounded-full bg-white text-[12px] font-medium text-ink shadow-[0_0_0_1px_rgb(0_0_0/0.08),0_2px_6px_-2px_rgb(0_0_0/0.12)] transition-[background-color,transform] duration-150 hover:bg-tile active:scale-[0.96] motion-reduce:transition-none";
-
-/** Figma's mark. */
-export function FigmaMark({ size = 12 }: { size?: number }) {
+/** Hugeicons strokes (figma, react, copy-01, tick-02), monochrome so the card stays quiet. */
+function Glyph({ d, size = 14, className = "" }: { d: React.ReactNode; size?: number; className?: string }) {
   return (
-    <svg width={(size * 38) / 57} height={size} viewBox="0 0 38 57" aria-hidden="true" className="shrink-0">
-      <path d="M19 28.5a9.5 9.5 0 1 1 19 0 9.5 9.5 0 0 1-19 0z" fill="#1ABCFE" />
-      <path d="M0 47.5A9.5 9.5 0 0 1 9.5 38H19v9.5a9.5 9.5 0 1 1-19 0z" fill="#0ACF83" />
-      <path d="M19 0v19h9.5a9.5 9.5 0 1 0 0-19H19z" fill="#FF7262" />
-      <path d="M0 9.5A9.5 9.5 0 0 0 9.5 19H19V0H9.5A9.5 9.5 0 0 0 0 9.5z" fill="#F24E1E" />
-      <path d="M0 28.5A9.5 9.5 0 0 0 9.5 38H19V19H9.5A9.5 9.5 0 0 0 0 28.5z" fill="#A259FF" />
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className={"shrink-0 " + className}>
+      {d}
     </svg>
   );
 }
+export const FigmaGlyph = (p: { size?: number; className?: string }) => (
+  <Glyph
+    {...p}
+    d={
+      <>
+        <circle cx="15" cy="12" r="3" />
+        <path d="M9 21a3 3 0 0 0 3-3v-3H9a3 3 0 1 0 0 6Z" />
+        <path d="M12 9v6H9a3 3 0 1 1 0-6zm0-6v6H9a3 3 0 0 1 0-6zm0 0v6h3a3 3 0 1 0 0-6z" />
+      </>
+    }
+  />
+);
+export const ReactGlyph = (p: { size?: number; className?: string }) => (
+  <Glyph
+    {...p}
+    d={
+      <>
+        <path d="M12 8c5.523 0 10 1.79 10 4s-4.477 4-10 4s-10-1.79-10-4s4.477-4 10-4Z" />
+        <path d="M15.56 9.975c2.836 4.842 3.543 9.674 1.577 10.792s-5.859-1.9-8.696-6.742S4.897 4.35 6.863 3.233s5.859 1.9 8.696 6.742Z" />
+        <path d="M15.56 14.025c-2.838 4.842-6.731 7.86-8.697 6.742s-1.26-5.95 1.578-10.792s6.73-7.86 8.696-6.742s1.26 5.95-1.578 10.792Z" />
+        <circle cx="12" cy="12" r="0.6" fill="currentColor" />
+      </>
+    }
+  />
+);
+const CopyGlyph = (p: { size?: number; className?: string }) => (
+  <Glyph
+    {...p}
+    d={
+      <>
+        <path d="M7.5 14.5c0-3.3 0-4.95 1.025-5.975S11.2 7.5 14.5 7.5s4.95 0 5.975 1.025S21.5 11.2 21.5 14.5s0 4.95-1.025 5.975S17.8 21.5 14.5 21.5s-4.95 0-5.975-1.025S7.5 17.8 7.5 14.5" />
+        <path d="M7.5 16.5c-1.396 0-2.095 0-2.656-.196a3.5 3.5 0 0 1-2.148-2.148C2.5 13.595 2.5 12.896 2.5 11.5v-2c0-3.3 0-4.95 1.025-5.975S6.2 2.5 9.5 2.5h2c1.396 0 2.095 0 2.656.196a3.5 3.5 0 0 1 2.148 2.148c.196.561.196 1.26.196 2.656" />
+      </>
+    }
+  />
+);
+const TickGlyph = (p: { size?: number; className?: string }) => <Glyph {...p} d={<path d="m5 14l3.5 3.5L19 6.5" />} />;
 
-/** React's atom mark. */
-export function ReactMark({ size = 14 }: { size?: number }) {
+/**
+ * One button of the hover toolbar: icons only, with a small tooltip naming the action (hover or keyboard focus),
+ * so the card stays minimal but nobody has to guess.
+ */
+function ToolButton({ tip, aria, onClick, pressed, children }: { tip: string; aria: string; onClick: () => void; pressed?: boolean; children: React.ReactNode }) {
   return (
-    <svg width={size} height={size} viewBox="-11.5 -10.23 23 20.46" aria-hidden="true" className="shrink-0">
-      <circle r="2.05" fill="#087EA4" />
-      <g fill="none" stroke="#087EA4" strokeWidth="1.2">
-        <ellipse rx="11" ry="4.2" />
-        <ellipse rx="11" ry="4.2" transform="rotate(60)" />
-        <ellipse rx="11" ry="4.2" transform="rotate(120)" />
-      </g>
-    </svg>
-  );
-}
-
-/** Quick action: the format's logo plus a plain "Copy" label, so it reads at a glance. */
-function QuickAction({ label, aria, pro, onClick, children }: { label: string; aria: string; pro: boolean; onClick: () => void; children: React.ReactNode }) {
-  return (
-    <button type="button" onClick={onClick} onPointerDown={() => sound("keyTap")} data-no-click-sound aria-label={aria} className={PILL + " gap-1.5 pl-2 pr-2.5"}>
-      <span className="grid size-[14px] place-items-center">{children}</span>
-      <span aria-live="polite" className="whitespace-nowrap">{label}</span>
-      {pro && <Icon name="lock" size={11} />}
-    </button>
+    <span className="group/tb relative">
+      <button
+        type="button"
+        onClick={onClick}
+        onPointerDown={() => sound("keyTap")}
+        data-no-click-sound
+        aria-label={aria}
+        aria-pressed={pressed}
+        className="flex h-7 items-center gap-1 rounded-full px-2 text-ink/75 transition-[background-color,color,transform] duration-150 hover:bg-black/[0.05] hover:text-ink active:scale-[0.94] motion-reduce:transition-none"
+      >
+        {children}
+      </button>
+      <span
+        role="tooltip"
+        aria-live="polite"
+        className="pointer-events-none absolute right-0 top-[calc(100%+6px)] z-20 whitespace-nowrap rounded-[6px] bg-ink px-2 py-1 text-[11px] font-medium text-white opacity-0 transition-opacity duration-150 group-focus-within/tb:opacity-100 group-hover/tb:opacity-100 group-hover/tb:delay-150"
+      >
+        {tip}
+      </span>
+    </span>
   );
 }
 
@@ -152,37 +187,31 @@ export function ItemCard({ item }: { item: Entry }) {
           )}
         </div>
       </Link>
-      <div className="pointer-events-none absolute inset-x-0 top-0 flex justify-end gap-1.5 p-2 opacity-0 transition-opacity duration-150 group-focus-within:pointer-events-auto group-focus-within:opacity-100 group-hover:pointer-events-auto group-hover:opacity-100 max-lg:pointer-events-auto max-lg:opacity-100">
+      {/* hover toolbar: hidden until the card is hovered or focused (always shown on touch screens, which cannot hover) */}
+      <div className="pointer-events-none absolute right-2 top-2 flex translate-y-0.5 items-center gap-px rounded-full bg-white/80 p-0.5 opacity-0 shadow-[0_0_0_1px_rgb(0_0_0/0.05)] backdrop-blur-md transition-[opacity,transform] duration-200 ease-out group-focus-within:pointer-events-auto group-focus-within:translate-y-0 group-focus-within:opacity-100 group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:opacity-100 motion-reduce:transition-none [@media(hover:none)]:pointer-events-auto [@media(hover:none)]:translate-y-0 [@media(hover:none)]:opacity-100">
         {item.figma && (
-          <QuickAction
-            label={done === "figma" ? "Copied, paste in Figma" : busy === "figma" ? "Copying…" : "Copy"}
+          <ToolButton
+            tip={done === "figma" ? "Copied, paste in Figma" : busy === "figma" ? "Copying…" : item.tier === "pro" ? "Copy to Figma (Pro)" : "Copy to Figma"}
             aria={"Copy " + item.name + " to Figma as editable layers"}
-            pro={item.tier === "pro"}
             onClick={() => quickCopy("figma")}
           >
-            {done === "figma" ? <Icon name="check" size={13} /> : <FigmaMark size={13} />}
-          </QuickAction>
+            <FigmaGlyph size={14} />
+            {done === "figma" ? <TickGlyph size={13} className="text-[#16a34a]" /> : <CopyGlyph size={12} className="opacity-60" />}
+          </ToolButton>
         )}
         {coded && (
-          <QuickAction
-            label={done === "code" ? "Code copied" : busy === "code" ? "Copying…" : "Copy"}
+          <ToolButton
+            tip={done === "code" ? "Code copied" : busy === "code" ? "Copying…" : item.tier === "pro" ? "Copy React code (Pro)" : "Copy React code"}
             aria={"Copy the React code of " + item.name}
-            pro={item.tier === "pro"}
             onClick={() => quickCopy("code")}
           >
-            {done === "code" ? <Icon name="check" size={13} /> : <ReactMark size={14} />}
-          </QuickAction>
+            <ReactGlyph size={14} />
+            {done === "code" ? <TickGlyph size={13} className="text-[#16a34a]" /> : <CopyGlyph size={12} className="opacity-60" />}
+          </ToolButton>
         )}
-        <button
-          onClick={() => toggleSaved(item.slug)}
-          onPointerDown={() => sound("keyTap")}
-          data-no-click-sound
-          className={PILL + " w-7 justify-center"}
-          aria-pressed={saved}
-          aria-label={saved ? "Remove from saved" : "Save " + item.name}
-        >
+        <ToolButton tip={saved ? "Saved" : "Save"} aria={saved ? "Remove from saved" : "Save " + item.name} pressed={saved} onClick={() => toggleSaved(item.slug)}>
           <CIcon name="bookmark" size={14} className={saved ? "fill-ink" : ""} />
-        </button>
+        </ToolButton>
       </div>
       {note && <span className="absolute left-2 top-2 rounded-full bg-ink px-2.5 py-1 text-[12px] text-white">{note}</span>}
       <div className="mt-2 flex items-center gap-2 px-0.5">
@@ -192,14 +221,14 @@ export function ItemCard({ item }: { item: Entry }) {
         <span className="shrink-0 text-[12px] text-mute">{SYSTEM_NAMES[item.system] ?? item.system}</span>
         <span className="ml-auto inline-flex shrink-0 items-center gap-1.5 text-[12px] text-mute">
           {/* formats as icons: React code (when it exists) and Figma (every item lives in Figma) */}
-          <span className="inline-flex items-center gap-1" aria-label={coded ? "React code and Figma" : "Figma"} role="img">
+          <span className="inline-flex items-center gap-1 text-mute" aria-label={coded ? "React code and Figma" : "Figma"} role="img">
             {coded && (
-              <span title="React code" className="grid size-[20px] place-items-center rounded-[5px] bg-chip">
-                <ReactMark size={13} />
+              <span title="React code">
+                <ReactGlyph size={13} />
               </span>
             )}
-            <span title="Figma" className="grid size-[20px] place-items-center rounded-[5px] bg-chip">
-              <FigmaMark size={11} />
+            <span title="Figma">
+              <FigmaGlyph size={13} />
             </span>
           </span>
           {item.tier === "pro" ? (
