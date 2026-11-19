@@ -24,6 +24,7 @@ export const NAV: NavGroup[] = [
       { href: "/admin/revenue", label: "Revenue", icon: "report-money", perm: "revenue" },
       { href: "/admin/orders", label: "Orders", icon: "receipt", perm: "orders" },
       { href: "/admin/activations", label: "Activations", icon: "rosette-discount-check", perm: "orders", badge: "pendingActivations" },
+      { href: "/admin/contra", label: "Contra sales", icon: "plug-connected", perm: "orders" },
       { href: "/admin/pricing", label: "Pricing & deal", icon: "tag", perm: "pricing" },
     ],
   },

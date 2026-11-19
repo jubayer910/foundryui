@@ -16,6 +16,8 @@ export const SENDERS = {
 } satisfies Record<string, Sender>;
 
 const EMAIL_RE = /^[^\s@<>()",;:]+@[^\s@<>()",;:]+\.[^\s@<>()",;:]+$/;
+/** Mails "sent" while MAIL_DRY_RUN=1, newest last (in memory; tests count them). Never printed. */
+export const dryRunLog: { to: string; subject: string }[] = [];
 const oneLine = (s: string) => s.replace(/[\r\n]+/g, " ").trim();
 
 /** RFC 2047 encoded-word for non-ASCII header text. */
@@ -94,6 +96,12 @@ export async function sendMail(mail: Mail): Promise<MailResult> {
     if (!mail || !EMAIL_RE.test(oneLine(mail.to ?? ""))) return { sent: false, reason: "invalid recipient" };
     if (mail.replyTo && !EMAIL_RE.test(oneLine(mail.replyTo))) mail = { ...mail, replyTo: undefined };
     const env = await getEnv().catch(() => null);
+    // MAIL_DRY_RUN=1 (local tests, .dev.vars): send nothing, report success so flows behave as in production.
+    if ((env?.MAIL_DRY_RUN || process.env.MAIL_DRY_RUN) === "1") {
+      dryRunLog.push({ to: oneLine(mail.to), subject: oneLine(mail.subject) });
+      if (dryRunLog.length > 200) dryRunLog.shift();
+      return { sent: true, reason: "dry run" };
+    }
     const resendKey = env?.RESEND_API_KEY || process.env.RESEND_API_KEY;
     if (resendKey) return await sendViaResend(resendKey, mail);
     const binding = env?.SUPPORT_MAIL;

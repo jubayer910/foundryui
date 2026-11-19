@@ -95,6 +95,18 @@ export default async function AdminActivations({ searchParams }: PageProps<"/adm
   );
 }
 
+const CONTRA_AUTO = "contra-auto";
+
+/** Approved by the Contra sales sync, not by staff. */
+function AutoTag() {
+  return (
+    <span className="inline-flex h-5 shrink-0 items-center gap-1 rounded-full bg-[#e7f6ec] px-2 text-[12px] whitespace-nowrap text-[#17663a]">
+      <AIcon name="bolt" size={12} />
+      Auto by Contra
+    </span>
+  );
+}
+
 function Signal({ s }: { s: ClickSignal | undefined }) {
   if (!s) return null;
   return (
@@ -132,6 +144,10 @@ function RequestCard({ a, signal, now, back }: { a: Activation; signal?: ClickSi
           <AIcon name="receipt" size={14} className="shrink-0" />
           {a.reference ? <span className="truncate">Receipt {a.reference}</span> : "No receipt number given"}
         </li>
+        <li className="flex items-center gap-1.5 text-mute">
+          <AIcon name="user" size={14} className="shrink-0" />
+          {a.contraName ? <span className="truncate">Name on Contra: {a.contraName}</span> : "No Contra name given"}
+        </li>
         <li>
           <Signal s={signal} />
         </li>
@@ -141,6 +157,7 @@ function RequestCard({ a, signal, now, back }: { a: Activation; signal?: ClickSi
             <span className="truncate">
               {cap(a.status)} by {a.decidedBy}, {when(a.decidedAt)}
             </span>
+            {a.decidedBy === CONTRA_AUTO && <AutoTag />}
           </li>
         )}
         {a.note && <li className="text-mute">Reason: {a.note}</li>}
@@ -224,6 +241,11 @@ function RequestTable({ rows, signals, now, back, tab }: { rows: Activation[]; s
               ) : (
                 <span className="block text-left text-[12px] text-mute">
                   {when(a.decidedAt)}, {a.decidedBy}
+                  {a.decidedBy === CONTRA_AUTO && (
+                    <span className="ml-1.5 align-middle">
+                      <AutoTag />
+                    </span>
+                  )}
                   {a.note && <span className="block max-w-[260px] truncate text-faint" title={a.note}>{a.note}</span>}
                 </span>
               )}

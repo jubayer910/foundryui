@@ -1,7 +1,10 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "foundry-ui",
-  "main": ".open-next/worker.js",
+  // worker.ts wraps the generated .open-next/worker.js and adds the `scheduled` handler (Contra sales sync).
+  "main": "worker.ts",
+  // Contra sales sync every minute (worker.ts → POST /api/internal/contra-sync), so a buyer is emailed within 1-2 minutes of paying.
+  "triggers": { "crons": ["* * * * *"] },
   "compatibility_date": "2026-11-01",
   "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
   "assets": { "directory": ".open-next/assets", "binding": "ASSETS" },

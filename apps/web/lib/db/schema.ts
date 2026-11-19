@@ -320,6 +320,8 @@ export const activation = sqliteTable(
     decidedAt: ts("decidedAt"),
     /** rejection reason shown to the buyer */
     note: text("note"),
+    /** first and last name as on the Contra receipt (optional; matches sales whose buyer hid their email) */
+    contraName: text("contraName"),
     createdAt: ts("createdAt").notNull(),
   },
   (t) => [
@@ -327,5 +329,60 @@ export const activation = sqliteTable(
     index("activation_user_idx").on(t.userId),
     uniqueIndex("activation_pending_unique").on(t.userId, t.variantKey).where(sql`status = 'pending'`),
     index("activation_payer_idx").on(t.payerEmail, t.status),
+  ],
+);
+
+/** Contra OAuth connection (single row, id "default"). Tokens and the client secret are AES-GCM encrypted (lib/contra/crypto.ts). */
+export const contraConnection = sqliteTable("contra_connection", {
+  id: text("id").primaryKey(),
+  clientId: text("clientId").notNull(),
+  clientSecret: text("clientSecret"),
+  redirectUri: text("redirectUri").notNull(),
+  accessToken: text("accessToken"),
+  refreshToken: text("refreshToken"),
+  expiresAt: ts("expiresAt"),
+  connectedBy: text("connectedBy"),
+  connectedAt: ts("connectedAt"),
+  lastSyncAt: ts("lastSyncAt"),
+  lastError: text("lastError"),
+  /** JSON { at, links }: payment links found on Contra (old and new slugs per product), refreshed every 5 minutes */
+  linkMap: text("linkMap"),
+});
+
+/** One Contra payment-link sale (id = Contra transaction id). See lib/contra/sync.ts. */
+export const contraSale = sqliteTable(
+  "contra_sale",
+  {
+    id: text("id").primaryKey(),
+    slug: text("slug").notNull(),
+    option: text("option").notNull(),
+    variantKey: text("variantKey").notNull(),
+    amountCents: integer("amountCents").notNull().default(0),
+    currency: text("currency").notNull().default("USD"),
+    /** YYYY-MM-DD from Contra */
+    paidOn: text("paidOn"),
+    /** null when the buyer did not share their email with the seller */
+    payerEmail: text("payerEmail"),
+    firstName: text("firstName"),
+    lastName: text("lastName"),
+    contraProfileId: text("contraProfileId"),
+    invoiceStatus: text("invoiceStatus"),
+    /** "unmatched" | "matched" | "ignored" */
+    status: text("status").notNull().default("unmatched"),
+    userId: text("userId"),
+    activationId: text("activationId"),
+    /** "email" | "name" | "manual" */
+    matchedBy: text("matchedBy"),
+    /** why it stayed unmatched (price mismatch, several name matches), or what matching did */
+    note: text("note"),
+    /** when the "create your account with this email" mail went out (once per sale) */
+    invitedAt: ts("invitedAt"),
+    createdAt: ts("createdAt").notNull(),
+    updatedAt: ts("updatedAt").notNull(),
+  },
+  (t) => [
+    index("contra_sale_status_idx").on(t.status, t.paidOn),
+    index("contra_sale_payer_idx").on(t.payerEmail),
+    uniqueIndex("contra_sale_activation_unique").on(t.activationId).where(sql`"activationId" IS NOT NULL`),
   ],
 );

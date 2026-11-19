@@ -21,6 +21,7 @@ export function ActivateFlow({ choices, preset, accountEmail, initial }: { choic
   const [pick, setPick] = useState(choices.some((c) => c.option === preset) ? preset : (choices[0]?.option ?? ""));
   const [payer, setPayer] = useState(initial?.payerEmail ?? accountEmail);
   const [ref, setRef] = useState(initial?.reference ?? "");
+  const [name, setName] = useState(initial?.contraName ?? "");
   const [sending, setSending] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -33,7 +34,7 @@ export function ActivateFlow({ choices, preset, accountEmail, initial }: { choic
       const r = await fetch("/api/activation", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ option: pick, payerEmail: payer, reference: ref, website: f.get("website") }),
+        body: JSON.stringify({ option: pick, payerEmail: payer, reference: ref, contraName: name, website: f.get("website") }),
       });
       const j = (await r.json().catch(() => ({}))) as { activation?: PublicActivation; message?: string };
       if (!r.ok || !j.activation) {
@@ -49,7 +50,7 @@ export function ActivateFlow({ choices, preset, accountEmail, initial }: { choic
     }
   }
 
-  if (act && !editing) return <StatusCard key={act.id + act.status} act={act}onUpdate={setAct} onEdit={() => setEditing(true)} />;
+  if (act && !editing) return <StatusCard key={act.id + act.status} act={act} onUpdate={setAct} onEdit={() => setEditing(true)} />;
 
   return (
     <form onSubmit={submit} className="mt-6 flex flex-col gap-6">
@@ -79,6 +80,14 @@ export function ActivateFlow({ choices, preset, accountEmail, initial }: { choic
         Email you paid with on Contra
         <input type="email" required autoComplete="email" maxLength={200} value={payer} onChange={(e) => setPayer(e.target.value)} className={field} />
         <span className="text-[12px] font-normal text-mute">We match your payment by this email. It can differ from your account email ({accountEmail}).</span>
+      </label>
+
+      <label className="flex flex-col gap-1.5 text-[13px] font-medium">
+        <span>
+          Name on Contra <span className="font-normal text-mute">(optional)</span>
+        </span>
+        <input value={name} onChange={(e) => setName(e.target.value)} maxLength={120} autoComplete="name" className={field} placeholder="First and last name" />
+        <span className="text-[12px] font-normal text-mute">Your first and last name as they appear on the Contra receipt. It helps us find your payment if you did not share your email with us on Contra.</span>
       </label>
 
       <label className="flex flex-col gap-1.5 text-[13px] font-medium">
@@ -175,6 +184,12 @@ function StatusCard({ act, onUpdate, onEdit }: { act: PublicActivation; onUpdate
       <dd className="truncate">{act.product}</dd>
       <dt className="text-mute">Paid as</dt>
       <dd className="truncate">{act.payerEmail}</dd>
+      {act.contraName && (
+        <>
+          <dt className="text-mute">Name on Contra</dt>
+          <dd className="truncate">{act.contraName}</dd>
+        </>
+      )}
       {act.reference && (
         <>
           <dt className="text-mute">Receipt</dt>
