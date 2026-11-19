@@ -27,7 +27,7 @@ export default async function SignUp({ searchParams }: PageProps<"/sign-up">) {
         </ul>
         <IlloTile scene="stack" label="The Loopo system, layer by layer" className="mt-8 hidden h-[170px] md:block" />
       </div>
-      <AuthForm mode="sign-up" next={next} />
+      <AuthForm mode="sign-up" next={next} email={typeof sp.email === "string" ? sp.email.slice(0, 200) : undefined} />
     </div>
   );
 }

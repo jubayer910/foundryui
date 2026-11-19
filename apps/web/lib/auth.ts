@@ -3,8 +3,16 @@ import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { nextCookies } from "better-auth/next-js";
 import { headers } from "next/headers";
+import { eq } from "drizzle-orm";
 import { getDb, getEnv, schema } from "./db";
 import { getEffectivePlan } from "./plans";
+
+async function contraMatch(email: string) {
+  try {
+    const { matchForEmail } = await import("./contra/sync");
+    await matchForEmail(email);
+  } catch {}
+}
 
 export async function getAuth() {
   const env = await getEnv();
@@ -19,6 +27,19 @@ export async function getAuth() {
     emailAndPassword: { enabled: true, minPasswordLength: 8 },
     user: { additionalFields: { plan: { type: "string", defaultValue: "free", input: false }, role: { type: "string", defaultValue: "user", input: false } } },
     plugins: [nextCookies()],
+    // Contra sales paid with this email switch the plan on as soon as the buyer signs up or signs in
+    // (lib/contra/sync.ts matchForEmail: local D1 only, never throws, never blocks the sign-up).
+    databaseHooks: {
+      user: { create: { after: async (u) => contraMatch(u.email) } },
+      session: {
+        create: {
+          after: async (s) => {
+            const [u] = await db.select({ email: schema.user.email }).from(schema.user).where(eq(schema.user.id, s.userId)).limit(1);
+            if (u) await contraMatch(u.email);
+          },
+        },
+      },
+    },
   });
 }
 

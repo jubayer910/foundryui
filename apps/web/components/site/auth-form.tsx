@@ -3,7 +3,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { authClient } from "@/lib/auth-client";
 
-export function AuthForm({ mode, next = "/account" }: { mode: "sign-in" | "sign-up"; next?: string }) {
+export function AuthForm({ mode, next = "/account", email }: { mode: "sign-in" | "sign-up"; next?: string; email?: string }) {
   const [error, setError] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
 
@@ -37,7 +37,7 @@ export function AuthForm({ mode, next = "/account" }: { mode: "sign-in" | "sign-
       )}
       <label className="flex flex-col gap-1.5 text-[13px] font-medium">
         Email
-        <input name="email" type="email" required autoComplete="email" className={field} placeholder="you@company.com" />
+        <input name="email" type="email" required autoComplete="email" defaultValue={email} className={field} placeholder="you@company.com" />
       </label>
       <label className="flex flex-col gap-1.5 text-[13px] font-medium">
         Password

@@ -17,14 +17,14 @@ import { ensureTeam } from "@/app/api/team/_lib";
  *    paid, amount from the price book when they asked), a subscription row for Pro and Team (renewsAt is
  *    checked by hand in "Renewals due"), a team for Team, then user.plan is recomputed from the rows.
  *
- * Phase 2 seam: a Cloudflare Email Worker that receives Contra's "new sale" emails can call
- * findPendingByPayer(payerEmail, variantKey) and approveActivation(id, "contra-email") with no session.
+ * Automatic: once the owner connects Contra in /admin/contra, lib/contra/sync.ts reads the payment-link
+ * sales every minute (and on each /activate request) and calls approveActivation(id, "contra-auto").
  * Neither function checks staff rights; the admin server actions do that before calling them.
  */
 
 export type Activation = typeof schema.activation.$inferSelect;
 /** Buyer emails come from Jubayer (jubayer@ingotui.com) through lib/mail (Resend); replies go back to him. Never throws. */
-async function mailBuyer(to: string, subject: string, lines: string[]) {
+export async function mailBuyer(to: string, subject: string, lines: string[]) {
   try {
     await sendMail({ to, subject, text: [...lines, "", "Questions? Just reply to this email.", "", "Jubayer", "Ingot UI"].join("\n"), from: SENDERS.sales, replyTo: SENDERS.sales.email });
   } catch {
@@ -164,7 +164,7 @@ export async function takeRateLimit(userId: string): Promise<boolean> {
   }
 }
 
-export type RequestInput = { option: string; payerEmail: string; reference?: string };
+export type RequestInput = { option: string; payerEmail: string; reference?: string; contraName?: string };
 export type RequestResult =
   | { ok: true; activation: Activation; deduped: boolean }
   | { ok: false; error: "unknown_option" | "bad_email" | "closed" | "already" | "rate_limited"; message: string };
@@ -176,6 +176,7 @@ export async function requestActivation(user: SessionUser, input: RequestInput):
   const payerEmail = (input.payerEmail || user.email).trim().toLowerCase().slice(0, 200);
   if (!EMAIL_RE.test(payerEmail)) return { ok: false, error: "bad_email", message: "Enter the email you paid with on Contra." };
   const reference = (input.reference ?? "").replace(/\s+/g, " ").trim().slice(0, 80) || null;
+  const contraName = (input.contraName ?? "").replace(/\s+/g, " ").trim().slice(0, 120) || null;
   if (await alreadyHas(user, option)) return { ok: false, error: "already", message: "You already have " + planLabel(grantOf(option).plan) + "." };
   if (!(await takeRateLimit(user.id))) return { ok: false, error: "rate_limited", message: "Too many tries. Wait an hour, or write to support." };
 
@@ -194,10 +195,10 @@ export async function requestActivation(user: SessionUser, input: RequestInput):
     // Same product asked twice: keep one request, with the latest email and receipt number.
     const [row] = await db
       .update(A)
-      .set({ payerEmail, reference: reference ?? existing.reference })
+      .set({ payerEmail, reference: reference ?? existing.reference, contraName: contraName ?? existing.contraName })
       .where(eq(A.id, existing.id))
       .returning();
-    return { ok: true, activation: row ?? existing, deduped: true };
+    return { ok: true, activation: (await afterRequest(row ?? existing)) ?? row ?? existing, deduped: true };
   }
   const row: Activation = {
     id: "act_" + crypto.randomUUID(),
@@ -213,6 +214,7 @@ export async function requestActivation(user: SessionUser, input: RequestInput):
     decidedBy: null,
     decidedAt: null,
     note: null,
+    contraName,
     createdAt: new Date(),
   };
   try {
@@ -227,7 +229,10 @@ export async function requestActivation(user: SessionUser, input: RequestInput):
     if (again) return { ok: true, activation: again, deduped: true };
     throw new Error("activation insert failed");
   }
-  await audit(user.email, "activation.request", row.id, { option, variantKey: v.key, amountCents: v.cents, payerEmail, reference });
+  await audit(user.email, "activation.request", row.id, { option, variantKey: v.key, amountCents: v.cents, payerEmail, reference, contraName });
+  // Already paid? The Contra sync approves it right here (and sends the "is active" email instead).
+  const synced = await afterRequest(row);
+  if (synced && synced.status !== "pending") return { ok: true, activation: synced, deduped: false };
   await mailBuyer(row.accountEmail, `We got your Ingot UI ${optionName(option)} request`, [
     "Hi,",
     "",
@@ -236,6 +241,19 @@ export async function requestActivation(user: SessionUser, input: RequestInput):
     "You get another email the moment it is active. You can also watch the status here: https://ingotui.com/activate",
   ]);
   return { ok: true, activation: row, deduped: false };
+}
+
+/** Runs the Contra sync (when connected, at most ~8 s) and returns the fresh row. Never throws. */
+async function afterRequest(a: Activation): Promise<Activation | null> {
+  try {
+    const { syncForRequest } = await import("./contra/sync");
+    await syncForRequest();
+    const db = await getDb();
+    const [row] = await db.select().from(schema.activation).where(eq(schema.activation.id, a.id)).limit(1);
+    return row ?? null;
+  } catch {
+    return null;
+  }
 }
 
 /** The buyer's newest activation, or null. */
@@ -255,6 +273,7 @@ export function publicView(a: Activation) {
     plan: grantOf(a.option).plan,
     payerEmail: a.payerEmail,
     reference: a.reference,
+    contraName: a.contraName,
     reason: a.status === "rejected" ? a.note : null,
     createdAt: a.createdAt.toISOString(),
     decidedAt: a.decidedAt?.toISOString() ?? null,
