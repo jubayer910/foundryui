@@ -2,7 +2,7 @@ import "server-only";
 import { z } from "zod";
 import { getDb, getEnv, schema } from "../db";
 import { getSettings } from "../settings";
-import { sendMail } from "../mail";
+import { SENDERS, sendMail } from "../mail";
 
 export const RATE_LIMIT = 5; // tickets per IP per hour
 
@@ -58,6 +58,7 @@ export async function notifyNewTicket(t: { id: string; subject: string }, input:
     const mail = {
       subject: `[${t.id}] ${t.subject}`,
       replyTo: input.email,
+      from: SENDERS.support,
       text: [
         `New support ticket ${t.id} (${input.source})`,
         `From: ${input.name ? input.name + " " : ""}<${input.email}>`,

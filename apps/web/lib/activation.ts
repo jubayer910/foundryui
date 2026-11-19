@@ -2,7 +2,7 @@ import "server-only";
 import { and, desc, eq, inArray, lte, sql } from "drizzle-orm";
 import { getDb, getEnv, schema } from "./db";
 import { audit } from "./admin";
-import { sendMail } from "./mail";
+import { SENDERS, sendMail } from "./mail";
 import { getEffectivePlan, getPriceBook, isCheckoutOption, isPaid, isTeamActive, isTeamOption, optionName, planLabel, type CheckoutOption, type PlanId, type PriceBook, type VariantKey } from "./plans";
 import type { Settings } from "./settings";
 import type { SessionUser } from "./auth";
@@ -23,12 +23,10 @@ import { ensureTeam } from "@/app/api/team/_lib";
  */
 
 export type Activation = typeof schema.activation.$inferSelect;
-const SUPPORT_EMAIL = "support@ingotui.com";
-
-/** Buyer emails go out through lib/mail (Resend). Replies land in the support inbox. Never throws. */
+/** Buyer emails come from Jubayer (jubayer@ingotui.com) through lib/mail (Resend); replies go back to him. Never throws. */
 async function mailBuyer(to: string, subject: string, lines: string[]) {
   try {
-    await sendMail({ to, subject, text: [...lines, "", "Questions? Just reply to this email.", "", "Ingot UI"].join("\n"), replyTo: SUPPORT_EMAIL });
+    await sendMail({ to, subject, text: [...lines, "", "Questions? Just reply to this email.", "", "Jubayer", "Ingot UI"].join("\n"), from: SENDERS.sales, replyTo: SENDERS.sales.email });
   } catch {
     // Mail is a bonus; the buyer's /activate page always shows the status.
   }

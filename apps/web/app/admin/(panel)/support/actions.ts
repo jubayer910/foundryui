@@ -3,7 +3,7 @@ import { revalidatePath } from "next/cache";
 import { asc, eq } from "drizzle-orm";
 import { audit, requireStaff } from "@/lib/admin";
 import { getDb, schema } from "@/lib/db";
-import { sendMail } from "@/lib/mail";
+import { SENDERS, sendMail } from "@/lib/mail";
 import { getSettings } from "@/lib/settings";
 import { back, str } from "@/components/admin/back";
 import { quotedBody, replySubject } from "@/components/admin/thread";
@@ -29,6 +29,7 @@ export async function replyTicket(f: FormData) {
     subject: replySubject(t.subject, t.id),
     text: quotedBody(body, earlier, t.name || t.email),
     replyTo: s.support.email,
+    from: SENDERS.support,
   });
   await audit(me.email, "ticket.reply", id, { messageId: msgId, emailed: res.sent, reason: res.reason ?? null });
   revalidatePath("/admin", "layout");

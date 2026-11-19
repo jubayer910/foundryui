@@ -1,11 +1,19 @@
 import "server-only";
 import { getEnv } from "./db";
 
-export type Mail = { to: string; subject: string; text: string; replyTo?: string };
+export type Sender = { email: string; name: string };
+/** `from` picks the sender address (all on ingotui.com, verified in Resend). Default: noreply. */
+export type Mail = { to: string; subject: string; text: string; replyTo?: string; from?: Sender };
 export type MailResult = { sent: boolean; reason?: string };
 
 export const MAIL_FROM = "noreply@ingotui.com";
 const FROM_NAME = "Ingot UI";
+
+/** Who each kind of email comes from. Purchases and activations: Jubayer. Support: the support inbox. */
+export const SENDERS = {
+  sales: { email: "jubayer@ingotui.com", name: "Jubayer from Ingot UI" },
+  support: { email: "support@ingotui.com", name: "Ingot UI Support" },
+} satisfies Record<string, Sender>;
 
 const EMAIL_RE = /^[^\s@<>()",;:]+@[^\s@<>()",;:]+\.[^\s@<>()",;:]+$/;
 const oneLine = (s: string) => s.replace(/[\r\n]+/g, " ").trim();
@@ -63,7 +71,7 @@ async function sendViaResend(apiKey: string, mail: Mail): Promise<MailResult> {
     method: "POST",
     headers: { authorization: `Bearer ${apiKey}`, "content-type": "application/json" },
     body: JSON.stringify({
-      from: `${FROM_NAME} <${MAIL_FROM}>`,
+      from: `${oneLine(mail.from?.name ?? FROM_NAME)} <${mail.from?.email ?? MAIL_FROM}>`,
       to: [oneLine(mail.to)],
       subject: oneLine(mail.subject),
       text: mail.text,
