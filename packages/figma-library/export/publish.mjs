@@ -8,7 +8,12 @@ const out = {};
 let pass = 0, total = 0, held = 0;
 // reviewed by eye and approved although the perceptual score is 98-99 (layout score >= 99)
 const approved = new Set(JSON.parse(await readFile(new URL("./data/approved-extra.json", import.meta.url), "utf8").catch(() => "[]")));
-await rm(WEB + "public/library-code", { recursive: true, force: true });
+// only the published code files are rebuilt; Figma clipboard payloads (*.figma.html, captured from Figma desktop)
+// and Figma build steps live in the same folders and must survive a republish
+import { readdir } from "node:fs/promises";
+for (const sys of await readdir(WEB + "public/library-code").catch(() => [])) {
+  for (const f of await readdir(WEB + "public/library-code/" + sys).catch(() => [])) if (f.endsWith(".txt")) await rm(WEB + "public/library-code/" + sys + "/" + f, { force: true });
+}
 for (const sys of ["loopo", "auton", "mailpulse", "axon", "veriq", "vantage", "montra", "spendix", "abotix"]) {
   const qa = JSON.parse(await readFile(new URL(`./data/${sys}/qa.json`, import.meta.url), "utf8").catch(() => "[]"));
   const rejected = new Set(JSON.parse(await readFile(new URL(`./data/${sys}/review.json`, import.meta.url), "utf8").catch(() => "[]")));

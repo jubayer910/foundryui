@@ -2,10 +2,20 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { pushRecent } from "@/lib/local-library";
-import { Icon } from "@/registry/components/icons";
+
+/** Figma's mark, so the button says where the copy goes. */
+const FigmaMark = () => (
+  <svg width="9" height="13.5" viewBox="0 0 38 57" aria-hidden="true" className="shrink-0">
+    <path d="M19 28.5a9.5 9.5 0 1 1 19 0 9.5 9.5 0 0 1-19 0z" fill="#1ABCFE" />
+    <path d="M0 47.5A9.5 9.5 0 0 1 9.5 38H19v9.5a9.5 9.5 0 1 1-19 0z" fill="#0ACF83" />
+    <path d="M19 0v19h9.5a9.5 9.5 0 1 0 0-19H19z" fill="#FF7262" />
+    <path d="M0 9.5A9.5 9.5 0 0 0 9.5 19H19V0H9.5A9.5 9.5 0 0 0 0 9.5z" fill="#F24E1E" />
+    <path d="M0 28.5A9.5 9.5 0 0 0 9.5 38H19V19H9.5A9.5 9.5 0 0 0 0 28.5z" fill="#A259FF" />
+  </svg>
+);
 
 /**
- * Copy a template to Figma as real, editable layers. The payload is Figma's own clipboard format, captured from
+ * Copy a component or template to Figma as real, editable layers. The payload is Figma's own clipboard format, captured from
  * the Figma screen; /api/actions hands its URL out only after the guest limit and Pro gate. The clipboard write
  * starts inside the click (ClipboardItem with a promise) so Safari keeps the user gesture.
  */
@@ -44,14 +54,14 @@ export function FigmaCopy({ slug, label, variant = "pill", next = "/templates" }
     <button
       type="button"
       onClick={copy}
-      aria-label={"Copy the " + label + " template to Figma as editable layers"}
+      aria-label={"Copy " + label + " to Figma as editable layers"}
       className={
         variant === "wide"
           ? "btn-line w-full !justify-start !px-3"
           : "relative z-10 inline-flex h-7 shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full bg-chip px-3 text-[12px] font-medium text-ink hover:bg-chip-2"
       }
     >
-      <Icon name="layers" size={13} />
+      <FigmaMark />
       <span aria-live="polite">{text}</span>
     </button>
   );
