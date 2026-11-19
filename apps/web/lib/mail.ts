@@ -57,17 +57,37 @@ async function loadEmailMessage(): Promise<EmailMessageCtor | null> {
   }
 }
 
+/** Resend's HTTP API (https://resend.com/docs/api-reference/emails/send-email). Used whenever RESEND_API_KEY is set. */
+async function sendViaResend(apiKey: string, mail: Mail): Promise<MailResult> {
+  const res = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: { authorization: `Bearer ${apiKey}`, "content-type": "application/json" },
+    body: JSON.stringify({
+      from: `${FROM_NAME} <${MAIL_FROM}>`,
+      to: [oneLine(mail.to)],
+      subject: oneLine(mail.subject),
+      text: mail.text,
+      ...(mail.replyTo ? { reply_to: oneLine(mail.replyTo) } : {}),
+    }),
+  });
+  if (res.ok) return { sent: true };
+  const detail = await res.text().catch(() => "");
+  return { sent: false, reason: `resend ${res.status}: ${detail.slice(0, 200)}` };
+}
+
 /**
- * Send a plain-text email through the Cloudflare Email Routing `send_email` binding (SUPPORT_MAIL).
- * Contract shared by support (W2) and admin (W3). Never throws: returns { sent: false, reason } when
- * the binding is missing or sending fails, so callers can fall back (ticket stays in admin, mailto link).
- * Note: Email Routing only delivers to verified destination addresses of the account.
+ * Send a plain-text email. Resend first (RESEND_API_KEY, from noreply@ingotui.com, any recipient), else the
+ * Cloudflare Email Routing `send_email` binding (SUPPORT_MAIL), which only reaches verified addresses of the
+ * account. Never throws: returns { sent: false, reason } so callers can fall back (ticket stays in admin,
+ * mailto link, the /activate page shows the result).
  */
 export async function sendMail(mail: Mail): Promise<MailResult> {
   try {
     if (!mail || !EMAIL_RE.test(oneLine(mail.to ?? ""))) return { sent: false, reason: "invalid recipient" };
     if (mail.replyTo && !EMAIL_RE.test(oneLine(mail.replyTo))) mail = { ...mail, replyTo: undefined };
     const env = await getEnv().catch(() => null);
+    const resendKey = env?.RESEND_API_KEY || process.env.RESEND_API_KEY;
+    if (resendKey) return await sendViaResend(resendKey, mail);
     const binding = env?.SUPPORT_MAIL;
     if (!binding || typeof binding.send !== "function") return { sent: false, reason: "mail not configured" };
     const EmailMessage = await loadEmailMessage();

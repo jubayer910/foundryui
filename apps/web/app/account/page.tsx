@@ -85,7 +85,7 @@ export default async function AccountPage({ searchParams }: PageProps<"/account"
           <AIcon name="clock-hour-4" size={18} className="shrink-0" />
           <span className="min-w-0 flex-1">
             <span className="block font-medium">We&apos;re confirming your {productName(activation.variantKey)} payment</span>
-            <span className="block text-mute">We usually confirm it within a few hours. See the status</span>
+            <span className="block text-mute">We usually confirm it within an hour. See the status</span>
           </span>
           <AIcon name="chevron-right" size={16} className="shrink-0 text-faint" />
         </Link>

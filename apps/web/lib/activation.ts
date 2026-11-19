@@ -23,6 +23,17 @@ import { ensureTeam } from "@/app/api/team/_lib";
  */
 
 export type Activation = typeof schema.activation.$inferSelect;
+const SUPPORT_EMAIL = "support@ingotui.com";
+
+/** Buyer emails go out through lib/mail (Resend). Replies land in the support inbox. Never throws. */
+async function mailBuyer(to: string, subject: string, lines: string[]) {
+  try {
+    await sendMail({ to, subject, text: [...lines, "", "Questions? Just reply to this email.", "", "Ingot UI"].join("\n"), replyTo: SUPPORT_EMAIL });
+  } catch {
+    // Mail is a bonus; the buyer's /activate page always shows the status.
+  }
+}
+
 export type ActivationStatus = "pending" | "approved" | "rejected";
 export const PROVIDER = "contra";
 
@@ -219,6 +230,13 @@ export async function requestActivation(user: SessionUser, input: RequestInput):
     throw new Error("activation insert failed");
   }
   await audit(user.email, "activation.request", row.id, { option, variantKey: v.key, amountCents: v.cents, payerEmail, reference });
+  await mailBuyer(row.accountEmail, `We got your Ingot UI ${optionName(option)} request`, [
+    "Hi,",
+    "",
+    `Thanks for buying ${optionName(option)} on Contra. We are matching your payment (paid as ${payerEmail}) and will switch your plan on, usually within an hour.`,
+    "",
+    "You get another email the moment it is active. You can also watch the status here: https://ingotui.com/activate",
+  ]);
   return { ok: true, activation: row, deduped: false };
 }
 
@@ -330,26 +348,15 @@ export async function approveActivation(id: string, actor: string, now = new Dat
   await audit(actor, "activation.approve", cur.id, { userId: u.id, option: cur.option, variantKey: cur.variantKey, amountCents: cur.amountCents, payerEmail: cur.payerEmail, reference: cur.reference, planBefore: u.plan, planAfter });
 
   const name = productName(cur.variantKey);
-  try {
-    await sendMail({
-      to: cur.accountEmail,
-      subject: `Your Ingot UI ${planLabel(g.plan)} is active`,
-      text: [
-        "Hi,",
-        "",
-        `Thanks for buying ${name}. We matched your Contra payment and your plan is now active on ${cur.accountEmail}.`,
-        "",
-        "Browse the library: https://ingotui.com/",
-        "Your account: https://ingotui.com/account",
-        "",
-        "Questions? Just reply to this email.",
-        "",
-        "Ingot UI",
-      ].join("\n"),
-    });
-  } catch {
-    // Mail is a bonus; the buyer's /activate page already shows the result.
-  }
+  await mailBuyer(cur.accountEmail, `Your Ingot UI ${planLabel(g.plan)} is active`, [
+    "Hi,",
+    "",
+    `Thanks for buying ${name}. We matched your Contra payment and your plan is now active on ${cur.accountEmail}.`,
+    ...(g.plan === "team" ? ["", "Invite up to 4 teammates by link from your account: https://ingotui.com/account"] : []),
+    "",
+    "Browse the library: https://ingotui.com/",
+    "Your account: https://ingotui.com/account",
+  ]);
   const [after] = await db.select().from(A).where(eq(A.id, id)).limit(1);
   return { ok: true, changed: true, activation: after ?? cur, planAfter };
 }
@@ -369,6 +376,14 @@ export async function rejectActivation(id: string, actor: string, reason: string
     return cur ? { ok: true, changed: false, activation: cur } : { ok: false, message: "That request no longer exists." };
   }
   await audit(actor, "activation.reject", id, { userId: row.userId, option: row.option, payerEmail: row.payerEmail, note });
+  await mailBuyer(row.accountEmail, "About your Ingot UI activation request", [
+    "Hi,",
+    "",
+    `We could not match a Contra payment for your ${productName(row.variantKey)} request (paid as ${row.payerEmail}).`,
+    ...(note ? ["", `Note from us: ${note}`] : []),
+    "",
+    "If you did pay, reply to this email with your Contra receipt and we will sort it out. You can also send a new request with the right email: https://ingotui.com/activate",
+  ]);
   return { ok: true, changed: true, activation: row };
 }
 

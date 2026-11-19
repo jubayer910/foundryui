@@ -114,7 +114,7 @@ function faq(pb: PriceBook): [string, string][] {
     ["Is there a refund?", "Yes. 7 days on every paid plan, no questions asked. Write to " + pb.settings.support.email + "."],
     ["Can I try before paying?", "Yes. Browse and preview everything, copy 5 items without an account, then a free account gives unlimited copies of free components and the Loopo system."],
     ["What happens to my code if I stop paying?", "Everything you already copied stays yours to ship. You just can’t copy new Pro items."],
-    ["Who handles the payment?", "Contra, the payments platform for independents. It takes cards, Google Pay and Cash App Pay and emails your receipt. Pay with the same email you use on ingotui.com, then open Account and click Activate; we switch your plan on, usually within a few hours. Prices are in USD."],
+    ["Who handles the payment?", "Contra, the payments platform for independents. It takes cards, Google Pay and Cash App Pay and emails your receipt. Pay with the same email you use on ingotui.com, then open Account and click Activate; we switch your plan on, usually within an hour. Prices are in USD."],
   );
   return out;
 }
