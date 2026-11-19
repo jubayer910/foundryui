@@ -1,13 +1,25 @@
 import Link from "next/link";
 import { systems } from "@/lib/catalog";
-import { codeCount } from "@/lib/library";
+import { codeCount, entries } from "@/lib/library";
+import { HUBS } from "@/lib/hubs";
+import { TEMPLATES } from "./templates/data";
+import iconStats from "@/lib/icon-stats.json";
 import { AccountLink } from "./account-link";
 import { FreeMeter } from "./free-meter";
-import { RailNav } from "./rail-nav";
+import { RailNav, type RailCounts } from "./rail-nav";
 import { Logo } from "./logo";
 import { FollowX } from "./follow-x";
 
 export const railSystems = systems.map((s) => ({ slug: s.slug, name: s.name, accent: s.accent, live: s.status === "live" || codeCount(s.slug) > 0 }));
+
+/** Sidebar counts: same sources as the pages they link to (library, /templates, /categories rows, /charts, /icons). */
+export const railCounts: RailCounts = {
+  "/": entries.length,
+  "/templates": TEMPLATES.length,
+  "/categories": HUBS.length + 1,
+  "/charts": entries.filter((e) => e.category === "Charts").length,
+  "/icons": iconStats.line,
+};
 
 export function Rail() {
   return (
@@ -19,7 +31,7 @@ export function Rail() {
         <AccountLink />
       </div>
       <div className="min-h-0 flex-1 overflow-y-auto">
-        <RailNav systems={railSystems} />
+        <RailNav systems={railSystems} counts={railCounts} />
       </div>
       <div className="mt-4 flex flex-col gap-3">
         <FreeMeter />

@@ -61,7 +61,7 @@ export const COMPARISONS: Comparison[] = [
       "Ingot UI vs shadcn/ui blocks: what each gives a founder building a dashboard, where shadcn/ui is the better pick, and how to use both. Sources linked.",
     h1: "Ingot UI vs shadcn/ui blocks",
     other: { name: "shadcn/ui", url: "https://ui.shadcn.com" },
-    card: "Free open-source base and blocks, or six finished dashboard systems on top of the same stack.",
+    card: "Free open-source base and blocks, or nine finished dashboard systems on top of the same stack.",
     answer:
       "Choose **shadcn/ui** when you want a free, open-source base and are happy to design the look yourself. Choose **Ingot UI** when you want a finished dashboard look across every screen, with Figma files that match the code and an agent that stays on one system. They are not rivals: Ingot UI's free components install with the shadcn CLI, so you can use both.",
     rows: [
@@ -136,7 +136,7 @@ export const COMPARISONS: Comparison[] = [
       "Ingot UI vs Untitled UI for a product dashboard: Figma, React code, AI agents and licence, where Untitled UI is the better pick, with every source linked.",
     h1: "Ingot UI vs Untitled UI",
     other: { name: "Untitled UI", url: "https://www.untitledui.com" },
-    card: "A very broad Figma kit and React library, or six focused dashboard systems with checked code.",
+    card: "A very broad Figma kit and React library, or nine focused dashboard systems with checked code.",
     answer:
       "Choose **Untitled UI** for breadth: a very large Figma kit, a React library built on React Aria, dark mode and marketing pages as well as app UI. Choose **Ingot UI** when you only need the dashboard and want it to look like one finished product, with code checked against Figma and an MCP server that builds whole screens on one system.",
     rows: [
@@ -274,7 +274,7 @@ export const COMPARISONS: Comparison[] = [
       "Ingot UI vs Tremor for React dashboards: charts, blocks, Figma and AI agents, where Tremor is the better pick and how the two differ. Every source is linked.",
     h1: "Ingot UI vs Tremor",
     other: { name: "Tremor", url: "https://www.tremor.so" },
-    card: "Free, MIT chart-first components, or six full dashboard systems with charts included.",
+    card: "Free, MIT chart-first components, or nine full dashboard systems with charts included.",
     answer:
       "Choose **Tremor** when you mainly need charts and want free, open-source React components under MIT. Choose **Ingot UI** when you need the whole dashboard, not only the charts: tables, drawers, forms, settings and page templates in one finished look, in code and Figma, with an MCP server for your agent.",
     rows: [

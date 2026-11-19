@@ -48,7 +48,10 @@ function NewMark() {
 
 export type RailSystem = { slug: string; name: string; accent: string; live: boolean };
 
-export function RailNav({ systems, onNavigate }: { systems: RailSystem[]; onNavigate?: () => void }) {
+/** How many items each Browse page holds, keyed by href (computed on the server in rail.tsx). */
+export type RailCounts = Record<string, number>;
+
+export function RailNav({ systems, counts, onNavigate }: { systems: RailSystem[]; counts?: RailCounts; onNavigate?: () => void }) {
   const path = usePathname();
   const on = (href: string) => (href === "/" ? path === "/" || path.startsWith("/components") : path.startsWith(href));
   const link = (l: L) => (
@@ -62,6 +65,7 @@ export function RailNav({ systems, onNavigate }: { systems: RailSystem[]; onNavi
         <CIcon name={l.icon} size={15} />
         {l.label}
         {l.badge && <NewMark />}
+        {counts?.[l.href] ? <span className="ml-auto text-[11px] tabular-nums text-mute/60">{counts[l.href].toLocaleString("en-US")}</span> : null}
       </Link>
     </li>
   );
