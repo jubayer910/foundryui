@@ -240,12 +240,17 @@ export function classify(settings: Settings, link: Pick<Link, "keys" | "priceCen
   const usdOk = amt && amt.currency === "USD" && amt.cents > 0;
   if (link.priceCents != null) {
     if (usdOk && amt.cents === link.priceCents) return { key: LIFETIME_KEYS.includes(keys[0]) ? lifetimeKey(amt.cents) : keys[0], note: null };
+    // Contra keeps the same link when the owner changes its price, so a sale at an earlier price (e.g. the
+    // $29 launch price on a link that now shows $49) is real. The link itself says which product it is;
+    // only a stray amount far below the price (under half) is held for the owner.
+    if (usdOk && amt.cents >= Math.floor(link.priceCents / 2)) return { key: LIFETIME_KEYS.includes(keys[0]) ? lifetimeKey(amt.cents) : keys[0], note: null };
     return { key: keys[0], note: `${PRICE_MISMATCH}: paid ${paid}, this Contra link charges ${usd(link.priceCents)}. Check it on Contra, then match by hand.` };
   }
   const family = [...new Set(keys.flatMap((k) => familyOf(k)))] as VariantKey[];
   const hit = usdOk ? family.find((k) => priceCents(settings, k) === amt.cents) : undefined;
   if (hit) return { key: hit, note: null };
   const want = priceCents(settings, keys[0]);
+  if (usdOk && want > 0 && amt.cents >= Math.floor(want / 2)) return { key: keys[0], note: null };
   return { key: keys[0], note: `${PRICE_MISMATCH}: paid ${paid}, ${optionOfKey(keys[0]) === "lifetime" ? "Lifetime" : keys[0]} costs ${usd(want)}. Check it on Contra, then match by hand.` };
 }
 
