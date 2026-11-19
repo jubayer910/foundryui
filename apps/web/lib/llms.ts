@@ -55,7 +55,7 @@ ${guideLines(posts)}
 }
 
 export function llmsFullTxt(posts: Post[] = codePosts) {
-  const tools = ["list_design_systems", "get_design_system", "get_tokens", "search_components", "get_component", "get_component_code", "add_components", "init_project", "scaffold_screen", "get_chart", "search_icons", "audit_ui", "get_usage", "send_feedback"];
+  const tools = ["list_design_systems", "get_design_system", "get_tokens", "search_components", "get_component", "get_component_code", "get_figma_design", "add_components", "init_project", "scaffold_screen", "get_chart", "search_icons", "audit_ui", "get_usage", "send_feedback"];
   const sections = systems.map((s) => {
     const own = entries.filter((e) => e.system === s.slug);
     const cats = CATEGORIES.map((c) => [c, own.filter((e) => e.category === c)] as const).filter(([, l]) => l.length);

@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "wrangler dev --port 8788",
-    "deploy": "node ../web/scripts/code-gate.mjs && wrangler deploy",
+    "deploy": "node scripts/build-library.mjs && node ../web/scripts/code-gate.mjs && wrangler deploy",
     "typecheck": "tsc --noEmit",
     "library": "node scripts/build-library.mjs"
   },

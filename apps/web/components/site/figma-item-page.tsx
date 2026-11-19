@@ -13,6 +13,7 @@ import { getSpecs } from "@/lib/component-specs";
 import { surfaceStyle } from "@/lib/system-surface";
 import { QaBadge } from "./qa-badge";
 import { A11yNotes } from "./a11y-notes";
+import { PlanCta } from "./plan-cta";
 
 /** Page for a component that lives in a system's Figma library (code still in progress). */
 export function FigmaItemPage({ item }: { item: FigmaItem }) {
@@ -63,9 +64,7 @@ export function FigmaItemPage({ item }: { item: FigmaItem }) {
           {figmaPath(item.slug) && <FigmaCopy slug={item.slug} label={item.name} variant="wide" next={"/components/" + item.slug} />}
           <div className="flex flex-col gap-1.5">
             <SaveButton slug={item.slug} quiet={!!qa} />
-            <Link href={free ? "/sign-up?next=/components/" + item.slug : "/pricing?from=" + item.slug} className="btn-line w-full">
-              {isFreeTemplate(item.slug) ? "Create a free account" : free ? "Get the free Loopo Figma kit" : "Unlock with Pro"}
-            </Link>
+            <PlanCta pro={!free} href={free ? "/sign-up?next=/components/" + item.slug : "/pricing?from=" + item.slug} label={isFreeTemplate(item.slug) ? "Create a free account" : free ? "Get the free Loopo Figma kit" : "Unlock with Pro"} />
           </div>
           <p className="text-[12px] leading-snug text-mute">
             {qa ? "Figma kit downloads open at launch." : "Figma kit downloads open at launch. React code for this component is being converted and checked against the Figma original; save it to see it first when it lands."}

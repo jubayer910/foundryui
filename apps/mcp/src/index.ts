@@ -9,6 +9,8 @@ import catalog from "./catalog.generated.json";
 import library from "./library.generated.json";
 // slug -> token of the code file at <site>/c/<token>.txt (git-ignored; written by apps/web/scripts/code-gate.mjs)
 import codePaths from "./code-paths.generated.json";
+// Figma build runtime + steps per slug (written by apps/web/scripts/figma-steps-export.mjs)
+import figmaBuild from "./figma-runtime.generated.json";
 
 interface Env {
   DB: D1Database;
@@ -152,7 +154,7 @@ function rulesFiles(system: string, site: string, want: Set<string>) {
 }
 
 function buildServer(env: Env, user: User) {
-  const server = new McpServer({ name: "ingot-ui", version: "0.1.0" }, { instructions: "Ingot UI: design systems, React + Tailwind v4 components and charts. Call init_project once per project and write the rules files it returns (CLAUDE.md, AGENTS.md, .cursor/rules/ingot.mdc), then add_components or scaffold_screen. Write files to the paths given; never invent colours — use the --fu-* tokens. Run audit_ui before finishing UI work." });
+  const server = new McpServer({ name: "ingot-ui", version: "0.1.0" }, { instructions: "Ingot UI: design systems, React + Tailwind v4 components and charts, and real Figma layers. To design in Figma, call get_figma_design for a component or template slug (find them with search_components; templates are the \"<system>-<screen>-page-<id>\" items) and run each returned program, in order, with the Figma MCP tool use_figma on the user's Figma file. Call init_project once per project and write the rules files it returns (CLAUDE.md, AGENTS.md, .cursor/rules/ingot.mdc), then add_components or scaffold_screen. Write files to the paths given; never invent colours — use the --fu-* tokens. Run audit_ui before finishing UI work." });
   const site = env.SITE_URL;
 
   /** wraps every tool: quota + usage log */
@@ -245,6 +247,38 @@ function buildServer(env: Env, user: User) {
       }
       if (locked(it)) return text(it.name + " is a Pro component. Pro or Lifetime unlocks it: " + site + "/pricing");
       return json(resolveFiles(slug).map((f) => ({ path: target(f.path), content: f.content })));
+    }),
+  );
+
+  server.registerTool(
+    "get_figma_design",
+    {
+      description:
+        "Build a component or a whole dashboard template in Figma as real, editable layers (auto layout, text, colours, Ingot icons). Returns one JavaScript program per step: run each, in order, with the Figma MCP tool use_figma (pass the user's fileKey), all on the same Figma page. Small designs are one step; full dashboards take several. Call with step = 1, then step = 2, and so on until done is true.",
+      inputSchema: { slug: z.string().describe("component or template slug, from search_components"), step: z.number().int().min(1).optional().describe("1-based step, default 1") },
+    },
+    guard("get_figma_design", async ({ slug, step }: { slug: string; step?: number }) => {
+      const l = getLib(slug);
+      if (!l) return text("Unknown component: " + slug + ". Use search_components to find Ingot slugs.");
+      if (libTier(l) === "pro" && !isPaid(user.plan)) return text(l.name + " is in a Pro system. Pro, Team or Lifetime unlocks Figma builds: " + site + "/pricing");
+      const total = (figmaBuild.steps as Record<string, number>)[slug];
+      const token = (codePaths as Record<string, string>)["steps:" + slug];
+      if (!total || !token) return text("The Figma build for " + l.name + " is not ready yet. Its React code is available with get_component_code.");
+      const n = Math.min(Math.max(step ?? 1, 1), total);
+      const r = await env.SITE.fetch(env.SITE_URL + "/c/" + token + ".json");
+      if (!r.ok) return text("Could not load the Figma build for " + slug + " right now. Try again.");
+      const steps = (await r.json()) as unknown[];
+      const program = figmaBuild.runtime + "\nreturn await runStep(" + JSON.stringify(steps[n - 1]) + ");";
+      return json({
+        slug,
+        name: l.name,
+        system: l.system,
+        step: n,
+        steps: total,
+        done: n === total,
+        run: "Pass `program` unchanged as the code argument of the Figma MCP tool use_figma on the user's file" + (n < total ? ", then call get_figma_design again with step " + (n + 1) + "." : ". The design is then complete and selected on the current page."),
+        program,
+      });
     }),
   );
 

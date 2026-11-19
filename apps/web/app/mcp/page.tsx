@@ -25,6 +25,7 @@ const TOOLS: [string, string][] = [
   ["add_components", "A ready-to-write file set + npm install command for several components"],
   ["init_project", "Tokens, globals.css lines and rules files (CLAUDE.md, AGENTS.md, .cursor/rules) that keep later sessions on the system"],
   ["scaffold_screen", "Turns a screen description into a page assembled from library components"],
+  ["get_figma_design", "Builds a component or a whole dashboard template in your Figma file as real, editable layers, through the Figma MCP"],
   ["get_chart", "Picks the right chart for a question and returns it wired to your data shape"],
   ["search_icons", "Find Ingot Icons by name and get the JSX"],
   ["audit_ui", "Checks your UI code for hard-coded colours and off-system patterns"],

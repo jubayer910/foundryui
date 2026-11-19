@@ -34,11 +34,12 @@ if (existsSync(SRC)) {
     if (!statSync(dir).isDirectory()) continue;
     for (const f of readdirSync(dir)) {
       // <slug>.txt = React code, <slug>.figma.html = Figma clipboard payload (captured from Figma desktop)
-      const figma = f.endsWith(".figma.html");
-      if (!figma && !f.endsWith(".txt")) continue;
-      const slug = figma ? f.slice(0, -".figma.html".length) : f.slice(0, -4);
-      const key = figma ? "figma:" + slug : slug;
-      const ext = figma ? ".html" : ".txt";
+      // <slug>.steps.json = Figma build steps for the MCP tool get_figma_design (scripts/figma-steps-export.mjs)
+      const figma = f.endsWith(".figma.html"), steps = f.endsWith(".steps.json");
+      if (!figma && !steps && !f.endsWith(".txt")) continue;
+      const slug = figma ? f.slice(0, -".figma.html".length) : steps ? f.slice(0, -".steps.json".length) : f.slice(0, -4);
+      const key = figma ? "figma:" + slug : steps ? "steps:" + slug : slug;
+      const ext = figma ? ".html" : steps ? ".json" : ".txt";
       const token = createHash("sha256").update(salt + ":" + key).digest("hex").slice(0, 32);
       map[key] = token;
       const from = join(dir, f);
@@ -47,7 +48,7 @@ if (existsSync(SRC)) {
     }
   }
   // drop copies whose slug is gone or whose salt changed
-  const keep = new Set(Object.entries(map).map(([k, t]) => t + (k.startsWith("figma:") ? ".html" : ".txt")));
+  const keep = new Set(Object.entries(map).map(([k, t]) => t + (k.startsWith("figma:") ? ".html" : k.startsWith("steps:") ? ".json" : ".txt")));
   for (const f of readdirSync(OUT)) if (!keep.has(f)) rmSync(join(OUT, f));
 }
 const json = JSON.stringify(map);
