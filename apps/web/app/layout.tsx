@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"]
 // Google Analytics 4 (G-791MYC76DX) and Microsoft Clarity (zdnoi4px8s) load only after cookie consent:
 // see components/site/cookie-consent.tsx (mounted by SiteChrome, never on /admin).
 
-const DESCRIPTION = "Six dashboard design systems with 1,800+ components. Copy React code checked against Figma, paste Figma layers, or let your AI agent build through MCP.";
+const DESCRIPTION = "Nine dashboard design systems with 2,600+ components. Copy React code checked against Figma, paste Figma layers, or let your AI agent build through MCP.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE),

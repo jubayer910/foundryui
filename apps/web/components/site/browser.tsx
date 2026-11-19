@@ -30,7 +30,7 @@ const LOW_SYSTEMS = new Set(["vantage"]);
 /**
  * The opening of the unfiltered library: for every design system, its most detailed blocks (largest
  * chart, table, KPI, card and overlay; coded ones first, part-only pieces left out), interleaved system by
- * system so the first screens show all six looks, free and Pro together.
+ * system so the first screens show all nine looks, free and Pro together.
  */
 function showcase(list: Entry[], part: RegExp): Entry[] {
   const area = (e: Entry) => (e.w ?? 0) * (e.h ?? 0);

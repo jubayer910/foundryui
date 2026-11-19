@@ -19,7 +19,7 @@ export const ROADMAP: RoadmapItem[] = [
   { id: "same-prompt-demo", column: "now", title: "Same prompt, three outputs", body: "A side-by-side demo: a plain agent, shadcn defaults and an agent using Ingot UI." },
 
   // Next: dark mode first
-  { id: "dark-mode", column: "next", title: "Dark mode for all six systems", body: "Dark tokens, components and charts in code, with matching Figma variable modes." },
+  { id: "dark-mode", column: "next", title: "Dark mode for all nine systems", body: "Dark tokens, components and charts in code, with matching Figma variable modes." },
   { id: "team-agency-plans", column: "next", title: "Agency plan and invoices", body: "An Agency tier with a licence for many people doing client work, plus invoices with your company details." },
   { id: "audit-command", column: "next", title: "Keep your agent on the system", body: "npx ingotui audit and a GitHub Action that flag raw colours, off-scale spacing and stray components." },
   { id: "starter-kits", column: "next", title: "Starter kits per product type", body: "SaaS admin, analytics, billing and AI agent console screen sets, plus Next.js and Vite starters." },

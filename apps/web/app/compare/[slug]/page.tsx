@@ -115,10 +115,10 @@ export default async function ComparePage({ params }: PageProps<"/compare/[slug]
 
       <Section id="pricing" title="Pricing" className="mt-12">
         <p className={P + " max-w-3xl"}>
-          We don’t quote {other}’s prices because they change. See <a href={c.pricingUrl} rel="noopener" target="_blank" className="font-medium text-ink underline underline-offset-2">{other}’s own site</a>. Ingot UI starts free with the Loopo system; Pro unlocks all six systems. Current prices are on <Link href="/pricing" className="font-medium text-ink underline underline-offset-2">our pricing page</Link> and the terms on the <Link href="/license" className="font-medium text-ink underline underline-offset-2">licence page</Link>.
+          We don’t quote {other}’s prices because they change. See <a href={c.pricingUrl} rel="noopener" target="_blank" className="font-medium text-ink underline underline-offset-2">{other}’s own site</a>. Ingot UI starts free with the Loopo system; Pro unlocks all nine systems. Current prices are on <Link href="/pricing" className="font-medium text-ink underline underline-offset-2">our pricing page</Link> and the terms on the <Link href="/license" className="font-medium text-ink underline underline-offset-2">licence page</Link>.
         </p>
         <p className="mt-4 flex flex-wrap gap-1.5">
-          <Link href="/systems" className="btn-ink">See the six systems</Link>
+          <Link href="/systems" className="btn-ink">See the nine systems</Link>
           <Link href="/mcp" className="btn-line">Connect your agent</Link>
         </p>
       </Section>

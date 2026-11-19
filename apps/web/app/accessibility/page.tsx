@@ -71,7 +71,7 @@ export default function Accessibility() {
           <ul className="mt-3 border-t border-hair">
             {[
               ["Automated check.", `${S.tool}. ${S.rules}`],
-              ["Generated components.", `A sample spread over all six systems and their categories (${S.checked.generated} in the latest run), rendered from their published code exactly as the component pages show them.`],
+              ["Generated components.", `A sample spread over all nine systems and their categories (${S.checked.generated} in the latest run), rendered from their published code exactly as the component pages show them.`],
               ["Hand-built components.", `All ${S.checked.handBuilt} interactive Loopo components, checked live on their pages.`],
               ["Keyboard.", "On the hand-built components, a scripted pass Tabs through each one, checks that focus is visible and the control has a name, and opens and closes the dialog, menu and select with the keyboard to check focus moves in and comes back. Tabs are checked with the arrow keys."],
               ["Code review.", `Every published generated file (${fmt(c.files)}) is scanned for native controls, roles and ARIA.`],

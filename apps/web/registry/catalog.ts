@@ -39,6 +39,9 @@ export const SYSTEMS: DesignSystem[] = [
   { slug: "axon", name: "Axon", status: "in-progress", tier: "pro", tagline: "Dense data, calm chrome", description: "A data-dense product system with a full brand book already in Figma.", accent: "#0f766e", font: "Geist", figmaKey: "s8dzTyDpYzwDoDkqPekxXk" },
   { slug: "veriq", name: "Veriq", status: "in-progress", tier: "pro", tagline: "Trust and verification", description: "A verification and compliance dashboard system.", accent: "#4f46e5", font: "Geist + Inter", figmaKey: "PB3XpCt9pnD9EiJfqXAiN3" },
   { slug: "vantage", name: "Vantage", status: "in-progress", tier: "pro", tagline: "Admin at a glance", description: "An admin dashboard system built from the Vantage Admin screens.", accent: "#e11d48", font: "Geist", figmaKey: "nG9LOj0Kw0l4iD7sSXFmc9" },
+  { slug: "montra", name: "Montra", status: "in-progress", tier: "pro", tagline: "Finance, calm and exact", description: "A business finance system: cash position, transactions, budgets, invoices, forecasts and cash flow, in neutral greys with a blue series palette.", accent: "#4996fe", font: "Geist", figmaKey: "toYI6MQsdYYU5sQvHPWTdY" },
+  { slug: "spendix", name: "Spendix", status: "in-progress", tier: "pro", tagline: "Spend control for teams", description: "A company spend system: cards, requests, approvals, subscriptions and team spending, with slate type and a blue accent.", accent: "#2563eb", font: "Geist + Manrope", figmaKey: "LIk6T8Wj1vA1m7P3xSNCl5" },
+  { slug: "abotix", name: "Abotix", status: "in-progress", tier: "pro", tagline: "AI security operations", description: "An AI security system: threat monitoring, vulnerabilities, attack paths, AI pentests, agents, policies and compliance.", accent: "#1666f4", font: "Geist + Inter", figmaKey: "Wbmq8H1cYhZN0uX1YdppR2" },
 ];
 
 export const CATEGORIES: { slug: Category; name: string; blurb: string }[] = [

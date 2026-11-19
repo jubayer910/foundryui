@@ -38,5 +38,25 @@
  "vantage-customers-page-26332368": {
   "score": 100,
   "strict": 99.7
+ },
+ "montra-dashboard-page-3821482": {
+  "score": 99.6,
+  "strict": 99
+ },
+ "montra-spending-analysis-page-3826578": {
+  "score": 99.9,
+  "strict": 99.3
+ },
+ "spendix-team-spending-page-3634972": {
+  "score": 99.4,
+  "strict": 98.3
+ },
+ "spendix-subscriptions-page-3627733": {
+  "score": 99.4,
+  "strict": 98.3
+ },
+ "abotix-overview-page-834888": {
+  "score": 99.4,
+  "strict": 98
  }
 }

@@ -14,7 +14,7 @@ const env = await readFile(join(ROOT, ".env.local"), "utf8").catch(() => "");
 const TOKEN = process.env.FIGMA_TOKEN || (env.match(/^FIGMA_TOKEN=(.+)$/m) || [])[1]?.trim();
 if (!TOKEN) throw new Error("FIGMA_TOKEN missing in .env.local");
 
-const FILES = { loopo: "lBBGdEStjKRYnwrTdJs1T3", auton: "Q7K7Ix4KwJryX5XvLhaCZg", mailpulse: "HO8FIKAQjZlHdfM65hYYis", axon: "s8dzTyDpYzwDoDkqPekxXk", veriq: "PB3XpCt9pnD9EiJfqXAiN3", vantage: "nG9LOj0Kw0l4iD7sSXFmc9" };
+const FILES = { loopo: "lBBGdEStjKRYnwrTdJs1T3", auton: "Q7K7Ix4KwJryX5XvLhaCZg", mailpulse: "HO8FIKAQjZlHdfM65hYYis", axon: "s8dzTyDpYzwDoDkqPekxXk", veriq: "PB3XpCt9pnD9EiJfqXAiN3", vantage: "nG9LOj0Kw0l4iD7sSXFmc9", montra: "toYI6MQsdYYU5sQvHPWTdY", spendix: "LIk6T8Wj1vA1m7P3xSNCl5", abotix: "Wbmq8H1cYhZN0uX1YdppR2" };
 const only = process.argv.slice(2);
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 

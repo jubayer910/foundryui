@@ -46,7 +46,7 @@ export function HomeHeroV2() {
           Your design should look like enterprise products
         </h1>
         <p className="mt-5 max-w-[608px] text-pretty text-[16px] leading-[1.5] text-black/[.66] sm:text-[18px]">
-          Pick one of 6 design systems, then copy the React code, paste the Figma layers, or let your AI agent build the screens.
+          Pick one of 9 design systems, then copy the React code, paste the Figma layers, or let your AI agent build the screens.
         </p>
 
         <div className="mt-6 flex flex-wrap items-center justify-center gap-1.5">

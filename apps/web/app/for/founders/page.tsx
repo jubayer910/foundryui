@@ -38,9 +38,9 @@ export default function ForFounders() {
     { q: "I have no designer. Will my product still look like a template?", a: `Less than with defaults. Each of the ${systems.length} systems was designed as one complete product, so the overview, tables, drawers and settings already agree on spacing, colour and type. You choose the look once; your agent builds every screen in it.` },
     { q: "Which AI coding agents work with Ingot UI?", a: "Any agent that supports MCP: Claude Code, Cursor, VS Code and Codex have setup steps on the [MCP page](/mcp). Ask it to run `init_project` first so later sessions stay on the system." },
     { q: "Can I use it without an agent?", a: "Yes. Copy any component as React and Tailwind code, install it with `npx ingotui add` or the shadcn CLI, or paste it into Figma from its page." },
-    { q: "What does it cost to start?", a: "Nothing. The Loopo system and the free components are free, with a daily limit on MCP calls. Pro unlocks all six systems. Current prices are on the [pricing page](/pricing)." },
+    { q: "What does it cost to start?", a: "Nothing. The Loopo system and the free components are free, with a daily limit on MCP calls. Pro unlocks all nine systems. Current prices are on the [pricing page](/pricing)." },
     { q: "Is the code mine?", a: "Yes. It is plain React and Tailwind code in your repo. What you have copied stays yours to ship if you stop paying. The [licence page](/license) has the details." },
-    { q: "Does it have dark mode?", a: "Not yet. Light mode ships today; dark mode for all six systems is the first update." },
+    { q: "Does it have dark mode?", a: "Not yet. Light mode ships today; dark mode for all nine systems is the first update." },
   ];
 
   const guides = ["ai-generated-dashboard-design", "claude-code-frontend-ui", "mcp-server-ui-components-ai-agents", "saas-dashboard-examples", "cursor-rules-design-system", "best-dashboard-ui-kits"]

@@ -19,6 +19,11 @@ const LOADERS: Record<string, () => Promise<{ default: ComponentType }>> = {
   "axon-analytics": () => import("./axon-analytics"),
   "vantage-home": () => import("./vantage-home"),
   "vantage-customers": () => import("./vantage-customers"),
+  "montra-dashboard": () => import("./montra-dashboard"),
+  "montra-spending": () => import("./montra-spending"),
+  "spendix-team-spending": () => import("./spendix-team-spending"),
+  "spendix-subscriptions": () => import("./spendix-subscriptions"),
+  "abotix-overview": () => import("./abotix-overview"),
 };
 const cache = new Map<string, ComponentType>();
 

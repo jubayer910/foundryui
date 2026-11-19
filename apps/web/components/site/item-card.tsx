@@ -10,7 +10,7 @@ import { surfaceStyle } from "@/lib/system-surface";
 import { CIcon } from "./chrome-icon";
 import { Icon } from "@/registry/components/icons";
 
-const SYSTEM_NAMES: Record<string, string> = { loopo: "Loopo", mailpulse: "MailPulse", auton: "Auton", axon: "Axon", veriq: "Veriq", vantage: "Vantage" };
+const SYSTEM_NAMES: Record<string, string> = { loopo: "Loopo", mailpulse: "MailPulse", auton: "Auton", axon: "Axon", veriq: "Veriq", vantage: "Vantage", montra: "Montra", spendix: "Spendix", abotix: "Abotix" };
 
 /** Library card: the preview is the product. Quick actions on hover let people copy without opening. */
 export function ItemCard({ item }: { item: Entry }) {

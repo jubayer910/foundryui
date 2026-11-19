@@ -55,7 +55,7 @@ function figma(itemSlug: string, title: string, blurb: string): Template {
   };
 }
 
-/** The 10 templates, coded ones first. Every system appears at least once. */
+/** The 15 templates, coded ones first. Every system appears at least once. */
 export const TEMPLATES: Template[] = [
   code("loopo-analytics", "Analytics", "Revenue KPIs, daily revenue against the previous period, revenue by channel and cohort retention."),
   code("loopo-overview", "Overview", "Revenue and cash KPIs, a 12-month comparison, gross volume by source, daily cash flow and transaction trend."),
@@ -67,6 +67,11 @@ export const TEMPLATES: Template[] = [
   code("axon-analytics", "Analytics", "Hours saved, automation rate, runs over time and automation rate by workflow."),
   code("vantage-home", "Performance overview", "Dark admin home: KPI row, performance trend, conversion pipeline and team leaderboard."),
   code("vantage-customers", "Customers", "Dark customer table with plan, tenure, a 12-month payment strip and lifetime value."),
+  code("montra-dashboard", "Finance dashboard", "Available funds, expenses, net cash and receivables, a 12-month cash position chart, spending breakdown and recent activity."),
+  code("montra-spending", "Spending analysis", "Spend KPIs, a spend-by-day heatmap, share by category, top merchants and unusual charges flagged."),
+  code("spendix-team-spending", "Team spending", "Budget against spent by team with a month-end forecast, the monthly total and a team budgets table with trends and top vendors."),
+  code("spendix-subscriptions", "Subscriptions", "Subscription KPIs, a renewal calendar, spend by tool and every subscription with owner, plan, seats and next renewal."),
+  code("abotix-overview", "AI security overview", "Protected agents, critical findings, blocked actions and posture score, with vulnerability trends and attack surface."),
 ];
 
 export const isCoded = (t: Template) => t.screen.kind === "code";

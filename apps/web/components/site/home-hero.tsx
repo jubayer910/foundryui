@@ -13,7 +13,7 @@ const fmt = (n: number) => n.toLocaleString("en-US");
 /** Same rule as /systems: a system counts as "in code" once it has at least one coded component. */
 const codedSystems = () => systems.filter((s) => (s.status === "live" ? items.length : 0) + codeCount(s.slug) > 0).length;
 
-/** "6 systems, all in code and Figma" when true; otherwise the honest split. */
+/** "9 systems, all in code and Figma" when true; otherwise the honest split. */
 export function systemsFact() {
   const n = systems.length;
   const coded = codedSystems();

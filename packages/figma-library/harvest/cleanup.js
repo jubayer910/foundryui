@@ -11,9 +11,9 @@ for (const c of LIB.findAll((n) => n.type === "COMPONENT" && n.parent.type === "
 }
 // 2. names: "Panel X" -> "X card", "Modal X" -> "X modal", duplicates get their first text
 const nice = (short) => {
-  let s = short.replace(/ — UX Improved/, "");
+  let s = short.replace(/ — UX Improved/, "").replace(/^(.+?) — 00 (Page|Overview)\b.*$/i, "$1 page");
   if (/^\d+\.0\b| — page\b/i.test(s)) s = s.replace(/^\d+\.0 ?·? ?/, "").replace(/ — page\b.*$/i, "").replace(/ — /g, ", ") + " page";
-  s = s.replace(/^Panel (.+)$/, "$1 card").replace(/^Modal (.+)$/, "$1 modal").replace(/^Drawer (.+)$/, "$1 drawer").replace(/^Menu (.+)$/, "$1 menu").replace(/^Popover (.+)$/, "$1 popover").replace(/^Integration (.+)$/, "$1 integration card").replace(/^Shell /, "").replace(/ · /g, ", ");
+  s = s.replace(/^Panel (.+)$/, "$1 card").replace(/^Card (.+)$/, "$1 card").replace(/^KPI (.+)$/, "$1 KPI").replace(/^Chart (.+)$/, "$1 chart").replace(/^Table (.+)$/, "$1 table").replace(/^Modal (.+)$/, "$1 modal").replace(/^Drawer (.+)$/, "$1 drawer").replace(/^Menu (.+)$/, "$1 menu").replace(/^Popover (.+)$/, "$1 popover").replace(/^Integration (.+)$/, "$1 integration card").replace(/^Shell /, "").replace(/ · /g, ", ");
   return s.charAt(0).toUpperCase() + s.slice(1);
 };
 const firstText = (n) => n.findAll((x) => x.type === "TEXT").map((x) => x.characters.trim()).find((c) => c && c.length < 28) || "";

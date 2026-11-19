@@ -9,7 +9,7 @@ import { Icon } from "@/registry/components/icons";
 import { CARD, PRODUCT_TYPES, cardSrc, fitFor, lc, shotAlt, shotSrc } from "./fit";
 
 export const metadata: Metadata = pageMeta({
-  title: "Dashboard templates for React and Figma: 6 systems",
+  title: "Dashboard templates for React and Figma: 9 systems",
   description: "Six complete dashboard design systems: analytics, email, AI agent, workflow, security and SaaS admin. Real screens in Figma, React + Tailwind code checked against Figma.",
   path: "/systems", image: "/systems/opengraph-image",
 });

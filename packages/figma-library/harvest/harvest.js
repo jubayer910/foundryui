@@ -6,7 +6,7 @@ const SYSTEM = ARGS.system || "Loopo";
 const SRC = (ARGS.page && figma.root.children.find((p) => p.name === ARGS.page)) || figma.root.children[0];
 const MINW = ARGS.minW || 1280;
 const CONTAINER = /^(Content card|Content|Body|Main|Page body)$/;
-const TEMPLATE = /^\d+\.0\b| — page\b/i;
+const TEMPLATE = /^\d+\.0\b| — page\b| — 00 (Page|Overview)\b/i;
 await figma.setCurrentPageAsync(SRC);
 let LIB = figma.root.children.find((p) => p.name === "Foundry Library");
 if (!LIB) { LIB = figma.createPage(); LIB.name = "Foundry Library"; }

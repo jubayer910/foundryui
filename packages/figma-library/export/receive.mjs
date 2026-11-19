@@ -7,7 +7,7 @@ import { join } from "node:path";
 import { createRequire } from "node:module";
 const WEB = new URL("../../../apps/web/", import.meta.url).pathname;
 const sharp = createRequire(join(WEB, "package.json"))("sharp");
-const SYS = /^(loopo|auton|mailpulse|axon|veriq|vantage)$/;
+const SYS = /^(loopo|auton|mailpulse|axon|veriq|vantage|montra|spendix|abotix)$/;
 let saved = 0;
 const handler = async (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");

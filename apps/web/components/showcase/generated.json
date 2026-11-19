@@ -118,5 +118,65 @@
   "layout": 100,
   "figma": "273:13688",
   "source": "263:32368"
+ },
+ {
+  "slug": "montra-dashboard",
+  "system": "montra",
+  "name": "Dashboard",
+  "w": 1316,
+  "h": 1003,
+  "perceptual": 99.6,
+  "strict": 99,
+  "layout": 99.6,
+  "figma": "38:21482",
+  "source": "38:21482"
+ },
+ {
+  "slug": "montra-spending",
+  "system": "montra",
+  "name": "Spending analysis",
+  "w": 1316,
+  "h": 1003,
+  "perceptual": 99.9,
+  "strict": 99.3,
+  "layout": 99.9,
+  "figma": "38:26578",
+  "source": "38:26578"
+ },
+ {
+  "slug": "spendix-team-spending",
+  "system": "spendix",
+  "name": "Team spending",
+  "w": 1440,
+  "h": 1071,
+  "perceptual": 99.4,
+  "strict": 98.3,
+  "layout": 99.4,
+  "figma": "36:34972",
+  "source": "36:34972"
+ },
+ {
+  "slug": "spendix-subscriptions",
+  "system": "spendix",
+  "name": "Subscriptions",
+  "w": 1440,
+  "h": 1071,
+  "perceptual": 99.4,
+  "strict": 98.3,
+  "layout": 99.4,
+  "figma": "36:27733",
+  "source": "36:27733"
+ },
+ {
+  "slug": "abotix-overview",
+  "system": "abotix",
+  "name": "Overview",
+  "w": 1440,
+  "h": 1080,
+  "perceptual": 99.4,
+  "strict": 98,
+  "layout": 99.5,
+  "figma": "8:34888",
+  "source": "8:34888"
  }
 ]

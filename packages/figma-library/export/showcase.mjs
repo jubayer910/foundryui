@@ -13,7 +13,7 @@ import { build, setImageUrl, iconBody } from "./convert.mjs";
 const WEB = new URL("../../../apps/web/", import.meta.url).pathname;
 const sharp = createRequire(WEB + "package.json")("sharp");
 const TH = Number(process.env.TH || 99);
-const SYSTEMS = ["loopo", "mailpulse", "auton", "axon", "veriq", "vantage"];
+const SYSTEMS = ["loopo", "mailpulse", "auton", "axon", "veriq", "vantage", "montra", "spendix", "abotix"];
 
 // token files: hex -> var(--fu-name, hex)
 async function tokenMap(sys) {

@@ -22,5 +22,5 @@ export function resolveFiles(slug: string, seen = new Set<string>()): { slug: st
   return [...deps, ...it.files.map((f) => ({ slug, path: f, content: it.code[f] }))];
 }
 
-/** Components harvested into the Figma library (all six systems, after QA). */
+/** Components harvested into the Figma library (all nine systems, after QA). */
 export { FIGMA_TOTAL as FIGMA_LIBRARY_COUNT } from "./figma-library";

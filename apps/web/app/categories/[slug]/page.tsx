@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: PageProps<"/categories/[slug]
   const list = listFor(h.category);
   return pageMeta({
     title: h.title,
-    description: `${fmt(list.length)} ${h.h1.toLowerCase()} components from six dashboard design systems, ${fmt(list.filter(hasCode).length)} with React + Tailwind code checked against Figma. ${h.intro.split(". ")[0]}.`,
+    description: `${fmt(list.length)} ${h.h1.toLowerCase()} components from nine dashboard design systems, ${fmt(list.filter(hasCode).length)} with React + Tailwind code checked against Figma. ${h.intro.split(". ")[0]}.`,
     path: "/categories/" + h.slug,
   });
 }

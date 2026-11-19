@@ -65,6 +65,27 @@ export const FIT: Record<string, SystemFit> = {
     seoType: "SaaS admin",
     dark: true,
   },
+  montra: {
+    goodFor: "Business finance, cash flow and accounting",
+    screen: "Dashboard",
+    shows: "available funds, monthly expenses, net cash position and pending receivables, a 12-month cash inflow and outflow chart, a spending breakdown by team and a recent financial activity table",
+    w: 2632, h: 2006,
+    seoType: "Finance",
+  },
+  spendix: {
+    goodFor: "Company spend, corporate cards and approvals",
+    screen: "Approvals",
+    shows: "requests waiting, average time to approve, approvals this month and SLA breaches, a queue of spend requests with budget usage, and the selected request with budget impact, policy checks and history",
+    w: 2880, h: 2142,
+    seoType: "Spend management",
+  },
+  abotix: {
+    goodFor: "AI security, threat monitoring and red teaming",
+    screen: "Overview",
+    shows: "protected AI agents, critical vulnerabilities, blocked risky actions and a posture score, vulnerability trends by severity, busiest attack hours, policy coverage and attack surface by asset",
+    w: 2880, h: 2160,
+    seoType: "AI security",
+  },
 };
 
 export const fitFor = (slug: string): SystemFit | undefined => FIT[slug];
@@ -84,4 +105,7 @@ export const PRODUCT_TYPES: { type: string; example: string; system: string; why
   { type: "Workflow, automation or data pipeline tool", example: "job runner, integration platform, ETL", system: "axon", why: "Dense run tables, step progress, durations, failure rates and live queues." },
   { type: "Security, compliance or devtools product", example: "secrets scanner, vulnerability tracker", system: "veriq", why: "Findings tables with exposure and status, SLA gauges, annotated trend charts and team access screens." },
   { type: "Subscription SaaS back office", example: "billing admin, customer and plan management", system: "vantage", why: "Customer tables with plans and payment history, plan mix and churn panels, in a dark theme." },
+  { type: "Finance, accounting or cash flow product", example: "business banking, FP&A, bookkeeping", system: "montra", why: "Cash position charts, budgets, invoices, forecasts and recurring payments for a finance team." },
+  { type: "Spend management or corporate cards", example: "expense tool, procurement, card issuing", system: "spendix", why: "Request queues with approvals, budget impact, card controls, subscriptions and team spending." },
+  { type: "AI security or threat detection product", example: "AI firewall, agent security, pentest platform", system: "abotix", why: "Threat monitors, vulnerability trends, attack paths, AI pentests and policy coverage." },
 ];

@@ -198,7 +198,7 @@ function buildServer(env: Env, user: User) {
     "search_components",
     {
       description: "Search components by meaning across all six systems, e.g. 'card that shows MRR with a trend', 'transactions table', 'agents list page'. Filter by system to keep a product in one look.",
-      inputSchema: { query: z.string(), system: z.string().optional().describe("system slug: loopo, mailpulse, auton, axon, veriq or vantage"), category: z.string().optional(), limit: z.number().int().min(1).max(30).default(8) },
+      inputSchema: { query: z.string(), system: z.string().optional().describe("system slug: loopo, mailpulse, auton, axon, veriq, vantage, montra, spendix or abotix"), category: z.string().optional(), limit: z.number().int().min(1).max(30).default(8) },
     },
     guard("search_components", async ({ query, system, category, limit }: { query: string; system?: string; category?: string; limit: number }) => {
       const cat = category?.toLowerCase();

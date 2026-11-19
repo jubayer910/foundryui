@@ -24,6 +24,9 @@ const DOMAIN: Record<string, string> = {
   axon: "workflow automation and AI pipelines",
   veriq: "security and compliance",
   vantage: "business admin and subscriptions",
+  montra: "business finance and cash flow",
+  spendix: "company spend, cards and approvals",
+  abotix: "AI security and threat operations",
 };
 
 export const dynamicParams = false;

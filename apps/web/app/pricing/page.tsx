@@ -28,7 +28,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const teamP = pb.monthly ? usd(pb.teamMonthly) + "/mo" : usd(pb.teamYearly) + "/yr";
   return pageMeta({
     title: "Pricing: Free, Pro " + pro + ", Team " + teamP,
-    description: "Start free. Pro is " + (pb.monthly ? usd(pb.proMonthly) + " a month" : usd(pb.proYearly) + " a year") + " for one founder, Team is " + (pb.monthly ? usd(pb.teamMonthly) + " a month" : usd(pb.teamYearly) + " a year") + " for " + pb.teamSeats + " people." + life + " All six systems, React + Figma.",
+    description: "Start free. Pro is " + (pb.monthly ? usd(pb.proMonthly) + " a month" : usd(pb.proYearly) + " a year") + " for one founder, Team is " + (pb.monthly ? usd(pb.teamMonthly) + " a month" : usd(pb.teamYearly) + " a year") + " for " + pb.teamSeats + " people." + life + " All nine systems, React + Figma.",
     path: "/pricing", image: "/pricing/opengraph-image",
   });
 }

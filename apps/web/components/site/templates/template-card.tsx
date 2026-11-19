@@ -67,7 +67,7 @@ export function MoreSoonCard() {
           </span>
           <p className="text-[15px] font-medium tracking-[-0.01em]">More templates soon</p>
           <p className="max-w-[320px] text-[13px] leading-snug text-mute">
-            We are adding more full screens from the six systems. New ones show up here and in the changelog.
+            We are adding more full screens from the nine systems. New ones show up here and in the changelog.
           </p>
       </div>
       <div className="px-2 pb-2 pt-3.5">

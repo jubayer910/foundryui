@@ -9,7 +9,7 @@ let pass = 0, total = 0, held = 0;
 // reviewed by eye and approved although the perceptual score is 98-99 (layout score >= 99)
 const approved = new Set(JSON.parse(await readFile(new URL("./data/approved-extra.json", import.meta.url), "utf8").catch(() => "[]")));
 await rm(WEB + "public/library-code", { recursive: true, force: true });
-for (const sys of ["loopo", "auton", "mailpulse", "axon", "veriq", "vantage"]) {
+for (const sys of ["loopo", "auton", "mailpulse", "axon", "veriq", "vantage", "montra", "spendix", "abotix"]) {
   const qa = JSON.parse(await readFile(new URL(`./data/${sys}/qa.json`, import.meta.url), "utf8").catch(() => "[]"));
   const rejected = new Set(JSON.parse(await readFile(new URL(`./data/${sys}/review.json`, import.meta.url), "utf8").catch(() => "[]")));
   await mkdir(WEB + `public/library-code/${sys}`, { recursive: true });

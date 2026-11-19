@@ -59,7 +59,7 @@ export default function ForAgencies() {
             <Link href="/pricing" className="btn-line">See team pricing</Link>
           </div>
         </div>
-        <IlloTile scene="six" label="Six design systems, one per client look" className="h-[200px] sm:h-[240px]" />
+        <IlloTile scene="six" label="Nine design systems, one per client look" className="h-[200px] sm:h-[240px]" />
       </header>
 
       <Section id="why" title="Why agencies use Ingot UI">

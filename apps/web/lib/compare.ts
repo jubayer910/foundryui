@@ -107,7 +107,7 @@ export const COMPARISONS: Comparison[] = [
         id: "where-ingot-falls-short",
         h2: "Where Ingot UI falls short today",
         paras: [
-          "Ingot UI is dashboard-only: no marketing sites. It ships light mode today; dark mode is the first update. It is React and Tailwind CSS v4 only. And five of the six systems are paid, where shadcn/ui is free.",
+          "Ingot UI is dashboard-only: no marketing sites. It ships light mode today; dark mode is the first update. It is React and Tailwind CSS v4 only. And five of the nine systems are paid, where shadcn/ui is free.",
         ],
       },
     ],
@@ -116,7 +116,7 @@ export const COMPARISONS: Comparison[] = [
       { q: "Is Ingot UI built on shadcn/ui?", a: "It uses the same stack (React and Tailwind CSS) and the same registry format, so free Ingot UI components install with the shadcn CLI. The look and the components are Ingot UI's own." },
       { q: "Are shadcn/ui blocks free?", a: "The shadcn/ui blocks page lists them as open source and free. Check ui.shadcn.com for the current terms." },
       { q: "Which is better for an AI coding agent?", a: "Both have an MCP server. shadcn/ui's lets an agent browse, search and install registry items. Ingot UI's also scaffolds full screens from one system and audits the result for off-system colours and spacing." },
-      { q: "Does Ingot UI have a free plan?", a: "Yes. The Loopo system and the free components are free, with the MCP server on a daily call limit. Pro unlocks all six systems." },
+      { q: "Does Ingot UI have a free plan?", a: "Yes. The Loopo system and the free components are free, with the MCP server on a daily call limit. Pro unlocks all nine systems." },
     ],
     guides: ["shadcn-ui-alternatives", "shadcn-dashboard", "ai-generated-dashboard-design"],
     categories: [{ label: "Tables and lists", href: "/categories/tables" }, { label: "KPI cards", href: "/categories/kpi-cards" }, { label: "Charts", href: "/charts" }],
@@ -166,7 +166,7 @@ export const COMPARISONS: Comparison[] = [
         id: "breadth-vs-depth",
         h2: "Breadth or depth",
         paras: [
-          "Untitled UI covers a lot of ground in one kit. Ingot UI goes deep on one job: the dashboard. Each of its six systems comes from a real product, so the overview, tables, drawers, settings and charts were designed together. If your product is mostly dashboard, depth means fewer screens you have to design yourself.",
+          "Untitled UI covers a lot of ground in one kit. Ingot UI goes deep on one job: the dashboard. Each of its nine systems comes from a real product, so the overview, tables, drawers, settings and charts were designed together. If your product is mostly dashboard, depth means fewer screens you have to design yourself.",
         ],
       },
       {
@@ -180,7 +180,7 @@ export const COMPARISONS: Comparison[] = [
     pricingUrl: "https://www.untitledui.com",
     faq: [
       { q: "Is Untitled UI free?", a: "Untitled UI says a large part of its React library is free and open source, and PRO adds more components and page examples. See untitledui.com for current plans." },
-      { q: "Does Ingot UI have dark mode?", a: "Not yet. Light mode ships today and dark mode for all six systems is the first update." },
+      { q: "Does Ingot UI have dark mode?", a: "Not yet. Light mode ships today and dark mode for all nine systems is the first update." },
       { q: "Can I use Ingot UI for client projects?", a: "Ingot UI's licence covers unlimited personal and commercial projects. The licence page sets out client work, teams and agencies in plain English." },
       { q: "Which one works better with Claude Code or Cursor?", a: "Both have an MCP server. Ingot UI's server also scaffolds complete screens from one system and audits agent output for off-system values." },
     ],

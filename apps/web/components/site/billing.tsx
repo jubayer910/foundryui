@@ -86,7 +86,7 @@ export function Billing({ plan, sub, receipts }: { plan: string; sub: BillingSub
         ) : null}
       </div>
       {!lifetime && !pro && (
-        <p className="mt-2 text-[12px] text-mute">Pro unlocks all six systems, every component in code and Figma, and unlimited MCP. Lifetime is one payment for all of it, forever.</p>
+        <p className="mt-2 text-[12px] text-mute">Pro unlocks all nine systems, every component in code and Figma, and unlimited MCP. Lifetime is one payment for all of it, forever.</p>
       )}
 
       <h3 className="mt-6 text-[13px] font-medium">Receipts</h3>
