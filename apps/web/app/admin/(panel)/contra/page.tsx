@@ -14,7 +14,7 @@ import { ignore, matchToUser, syncNow } from "./actions";
 export const metadata: Metadata = { title: "Contra sales" };
 
 const buyer = (s: Sale) => [s.firstName, s.lastName].filter(Boolean).join(" ") || "Name not shared";
-const how = (m: string | null) => (m === "email" ? "Email" : m === "name" ? "Name on Contra" : m === "manual" ? "By hand" : "");
+const how = (m: string | null) => (m === "email" ? "Email" : m === "name" ? "Name on Contra" : m === "manual" ? "By hand" : m === "claim" ? "Claim link" : "");
 const tone = (s: string) => (s === "matched" ? "good" : s === "ignored" ? "plain" : "warn") as "good" | "plain" | "warn";
 
 export default async function AdminContra({ searchParams }: PageProps<"/admin/contra">) {

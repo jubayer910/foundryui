@@ -7,18 +7,26 @@ import { planLabel, type CheckoutOption, type VariantKey } from "../plans";
 import { alreadyHas, approveActivation, findPendingByPayer, grantOf, mailBuyer, optionOfKey, priceCents, productName, type Activation } from "../activation";
 import { getConnection, isConnected, setConnectionStatus } from "./oauth";
 import { contraToolCaller, type ToolCaller } from "./mcp";
+import { claimToken, verifyClaimToken } from "./claim-token";
+
+const SITE = "https://ingotui.com";
 
 /**
  * Contra sales sync. Reads every Contra payment link set in settings.externalCheckout through Contra's MCP
  * server (list_payment_link_transactions), stores PAID sales in contra_sale, then matches unmatched sales:
  *
- *  a) payer email shared → the oldest pending activation paid with that email for the same product family
- *     → approve it (actor "contra-auto", buyer gets the "is active" email).
+ * "Proven" account (provenFor): its email is verified by the auth provider, or it existed before the sale's
+ * day. Sign-up is email+password without verification, so a newer unverified account never gets a plan by
+ * email alone: it must open the claim link mailed to the payer inbox (/claim, lib/contra/claim-token.ts).
+ *
+ *  a) payer email shared → the oldest pending activation paid with that email for the same product family,
+ *     if its account is proven → approve it (actor "contra-auto", buyer gets the "is active" email).
  *     A hand-approved activation with that payer email that no sale is linked to yet → link it, nothing else.
- *  b) payer email shared → the account with that email: already has the plan → link, no email; otherwise
- *     create an activation for it and approve it.
+ *  b) payer email shared → the account with that email: already has the plan → link, no email; proven →
+ *     create an activation for it and approve it; otherwise (or no account) → claim link emailed once.
  *  c) payer email hidden → the one pending activation for the same family whose "Name on Contra" equals the
- *     receipt name (case-insensitive). Zero or several candidates → stays unmatched for staff.
+ *     receipt name (case-insensitive), sent on or after the sale's day.
+ *     Otherwise it stays unmatched for staff.
  *
  * A sale whose amount differs from the price of its option stays unmatched (note says why). Each sale links
  * to one activation at most (unique index), and approveActivation is idempotent, so a repeated sync can never
@@ -394,7 +402,7 @@ export async function syncContraSales(opts: { callTool?: ToolCaller; now?: Date;
 /* ------------------------------------------------------------------ matching */
 
 /** Links an unmatched sale (only while it is still unmatched). False when another run got there first or the activation is taken. */
-async function claim(saleId: string, set: { userId: string | null; activationId: string | null; matchedBy: "email" | "name" | "manual"; note?: string | null }, now: Date): Promise<boolean> {
+async function claim(saleId: string, set: { userId: string | null; activationId: string | null; matchedBy: How; note?: string | null }, now: Date): Promise<boolean> {
   const db = await getDb();
   const S = schema.contraSale;
   try {
@@ -428,7 +436,7 @@ async function linkedIds(ids: string[]): Promise<Set<string>> {
 }
 
 /** Claims the sale for this pending activation, then approves it. Undoes the claim if approval fails. */
-async function claimAndApprove(sale: Sale, a: Activation, how: "email" | "name" | "manual", actor: string, now: Date): Promise<MatchOutcome> {
+async function claimAndApprove(sale: Sale, a: Activation, how: How, actor: string, now: Date): Promise<MatchOutcome> {
   if (!(await claim(sale.id, { userId: a.userId, activationId: a.id, matchedBy: how }, now))) return { status: "skipped", note: "Already matched, or that request is linked to another sale" };
   const r = await approveActivation(a.id, actor, now);
   if (!r.ok) {
@@ -436,7 +444,7 @@ async function claimAndApprove(sale: Sale, a: Activation, how: "email" | "name" 
     return { status: "unmatched", note: r.message };
   }
   await audit(actor, "contra.match", sale.id, { activationId: a.id, userId: a.userId, how, approved: r.changed, variantKey: sale.variantKey, amountCents: sale.amountCents });
-  return { status: "matched", how: how === "manual" ? undefined : how, activationId: a.id, approved: r.changed };
+  return { status: "matched", how: how === "email" || how === "name" ? how : undefined, activationId: a.id, approved: r.changed };
 }
 
 /** Creates a pending activation for this account and sale (or reuses the one already pending for that product). */
@@ -474,6 +482,36 @@ async function activationFor(user: { id: string; email: string }, sale: Sale, pa
   }
 }
 
+type How = "email" | "name" | "manual" | "claim";
+type Account = { id: string; email: string; plan: string; emailVerified: boolean; createdAt: Date };
+
+/** Start of the sale's day (UTC). Contra gives only a date, so "before the sale" means before that day. */
+export function saleStart(sale: Pick<Sale, "paidOn" | "createdAt">): number {
+  const t = sale.paidOn ? Date.parse(sale.paidOn + "T00:00:00Z") : NaN;
+  return Number.isFinite(t) ? t : sale.createdAt.getTime();
+}
+
+/**
+ * May a sale auto-activate on this account by email alone? Only when the address is proven: verified by the
+ * auth provider (e.g. Google), or the account existed before the sale (nobody can predict a future buyer's
+ * email). A newer email+password account must prove inbox access with the claim link instead.
+ */
+export const provenFor = (u: Pick<Account, "emailVerified" | "createdAt">, sale: Pick<Sale, "paidOn" | "createdAt">) => !!u.emailVerified || u.createdAt.getTime() < saleStart(sale);
+
+const accountCols = () => ({ id: schema.user.id, email: schema.user.email, plan: schema.user.plan, emailVerified: schema.user.emailVerified, createdAt: schema.user.createdAt });
+
+async function accountById(id: string): Promise<Account | null> {
+  const db = await getDb();
+  const [u] = await db.select(accountCols()).from(schema.user).where(eq(schema.user.id, id)).limit(1);
+  return u ?? null;
+}
+
+async function accountByEmail(email: string): Promise<Account | null> {
+  const db = await getDb();
+  const [u] = await db.select(accountCols()).from(schema.user).where(sql`lower(${schema.user.email}) = ${email}`).limit(1);
+  return u ?? null;
+}
+
 /** Matches one unmatched sale by the rules at the top of this file. */
 export async function matchSale(sale: Sale, now = new Date()): Promise<MatchOutcome> {
   if (sale.status !== "unmatched") return { status: "skipped" };
@@ -484,9 +522,13 @@ export async function matchSale(sale: Sale, now = new Date()): Promise<MatchOutc
   const email = sale.payerEmail?.toLowerCase() ?? null;
 
   if (email) {
-    // a) a pending request paid with this email
+    // a) a pending request paid with this email. Someone could type another person's payer email, so only
+    //    when that account is proven for the sale (provenFor); otherwise staff or the claim link decide.
     const pending = await findPendingByPayer(email, sale.variantKey);
-    if (pending && !(await linkedIds([pending.id])).has(pending.id)) return claimAndApprove(sale, pending, "email", ACTOR, now);
+    if (pending && !(await linkedIds([pending.id])).has(pending.id)) {
+      const owner = await accountById(pending.userId);
+      if (owner && provenFor(owner, sale)) return claimAndApprove(sale, pending, "email", ACTOR, now);
+    }
 
     // a') approved by hand before the sync existed: link it, grant nothing
     const approved = await db
@@ -501,23 +543,28 @@ export async function matchSale(sale: Sale, now = new Date()): Promise<MatchOutc
       return { status: "matched", how: "email", activationId: free.id, approved: false };
 
     // b) the account with this email
-    const [u] = await db.select({ id: schema.user.id, email: schema.user.email, plan: schema.user.plan }).from(schema.user).where(sql`lower(${schema.user.email}) = ${email}`).limit(1);
-    if (u) {
-      if (await alreadyHas(u, sale.option as CheckoutOption)) {
-        if (!(await claim(sale.id, { userId: u.id, activationId: null, matchedBy: "email", note: `Account already had ${grantOf(sale.option).plan}` }, now))) return { status: "skipped" };
-        await audit(ACTOR, "contra.match", sale.id, { userId: u.id, how: "email", approved: false, already: true });
-        return { status: "matched", how: "email", activationId: null, approved: false };
-      }
+    const u = await accountByEmail(email);
+    if (u && (await alreadyHas(u, sale.option as CheckoutOption))) {
+      // Grants nothing, so no proof needed: just link it (keeps hand-approved history silent).
+      if (!(await claim(sale.id, { userId: u.id, activationId: null, matchedBy: "email", note: `Account already had ${grantOf(sale.option).plan}` }, now))) return { status: "skipped" };
+      await audit(ACTOR, "contra.match", sale.id, { userId: u.id, how: "email", approved: false, already: true });
+      return { status: "matched", how: "email", activationId: null, approved: false };
+    }
+    if (u && provenFor(u, sale)) {
       const a = await activationFor(u, sale, email, now);
       if (a.status === "pending") return claimAndApprove(sale, a, "email", ACTOR, now);
     }
-    // No account yet: tell the buyer once to sign up with this email; sign-up then matches it (matchForEmail).
-    const invited = await inviteBuyer(sale, email, now);
-    await setNote(sale.id, invited ? "Waiting for the buyer to sign up; account invite emailed" : "No request or account uses this email yet", now);
+    // No proven account: email the buyer a claim link once (opening it proves the inbox).
+    const invited = await inviteBuyer(sale, email, !!u, now);
+    const why = u ? "Account is newer than the sale and its email is not verified" : pending ? "A request uses this email, but its account is not proven for this sale" : "No account uses this email yet";
+    await setNote(sale.id, invited ? `${why}; claim link emailed` : why, now);
     return { status: "unmatched", note: invited ? "invited" : undefined };
   }
 
-  // c) email hidden: match the name on the Contra receipt
+  // c) email hidden: match the name on the Contra receipt. Exactly one candidate, and that request must be
+  //    sent on or after the sale's day: the buyer reacting to the receipt. A request that names someone before
+  //    they paid is a guess, whatever the account's age ("account older than the sale OR request after it"
+  //    would always hold, since a request needs an account first), so it waits for staff.
   const name = normName([sale.firstName, sale.lastName].filter(Boolean).join(" "));
   if (!name) {
     await setNote(sale.id, "Buyer shared no email or name", now);
@@ -531,7 +578,11 @@ export async function matchSale(sale: Sale, now = new Date()): Promise<MatchOutc
     .limit(500);
   const taken = await linkedIds(pend.map((a) => a.id));
   const hits = pend.filter((a) => normName(a.contraName) === name && !taken.has(a.id));
-  if (hits.length === 1) return claimAndApprove(sale, hits[0], "name", ACTOR, now);
+  if (hits.length === 1) {
+    if (hits[0].createdAt.getTime() >= saleStart(sale)) return claimAndApprove(sale, hits[0], "name", ACTOR, now);
+    await setNote(sale.id, "One request gives this name, but it was sent before the sale; check by hand", now);
+    return { status: "unmatched" };
+  }
   await setNote(sale.id, hits.length ? `${hits.length} requests give this name; match by hand` : "Email not shared and no request gives this name yet", now);
   return { status: "unmatched" };
 }
@@ -540,13 +591,12 @@ export async function matchSale(sale: Sale, now = new Date()): Promise<MatchOutc
 export const INVITE_WITHIN_DAYS = 2;
 
 /**
- * Emails "create your account with this email" for a sale whose buyer has no account. At most once per
- * sale: invitedAt is claimed in the database before the mail goes out. Only for recent sales.
+ * Emails the buyer a claim link for a sale no proven account can take. At most once per sale: invitedAt is
+ * claimed in the database before the mail goes out. Only for recent sales (older ones stay silent).
  */
-async function inviteBuyer(sale: Sale, email: string, now: Date): Promise<boolean> {
+async function inviteBuyer(sale: Sale, email: string, hasAccount: boolean, now: Date): Promise<boolean> {
   if (sale.invitedAt) return true;
-  const paid = sale.paidOn ? Date.parse(sale.paidOn + "T00:00:00Z") : NaN;
-  if (!Number.isFinite(paid) || now.getTime() - paid > (INVITE_WITHIN_DAYS + 1) * 86_400_000) return false;
+  if (now.getTime() - saleStart(sale) > (INVITE_WITHIN_DAYS + 1) * 86_400_000) return false;
   const db = await getDb();
   const S = schema.contraSale;
   const won = await db
@@ -557,19 +607,59 @@ async function inviteBuyer(sale: Sale, email: string, now: Date): Promise<boolea
   if (!won.length) return false;
   const product = productName(sale.variantKey);
   const plan = planLabel(grantOf(sale.option).plan);
-  const signUp = `https://ingotui.com/sign-up?email=${encodeURIComponent(email)}&next=/account`;
+  const link = `${SITE}/claim?t=${encodeURIComponent(await claimToken(sale.id, now))}`;
   await mailBuyer(email, `Your Ingot UI ${product} purchase is confirmed`, [
     "Hi,",
     "",
     `Thanks for buying ${product}. Your purchase is confirmed.`,
     "",
-    `Create your free Ingot UI account with this same email (${email}) and ${plan} switches on automatically:`,
-    signUp,
+    hasAccount
+      ? `Open this link while signed in as ${email} and ${plan} switches on:`
+      : `Open this link and create your free Ingot UI account with this same email (${email}). ${plan} switches on right away:`,
+    link,
     "",
-    "Already have an account with another email? Reply to this email and we will move it over.",
+    "The link works for 14 days. Already have an account with another email? Reply to this email and we will move it over.",
   ]);
-  await audit(ACTOR, "contra.invite", sale.id, { variantKey: sale.variantKey });
+  await audit(ACTOR, "contra.invite", sale.id, { variantKey: sale.variantKey, hasAccount });
   return true;
+}
+
+export type ClaimCheck = { ok: true; sale: Sale } | { ok: false; reason: "bad_link" | "expired" | "gone"; message: string };
+
+/** Verifies a claim link and loads its sale (no account needed). */
+export async function checkClaim(token: string, now = new Date()): Promise<ClaimCheck> {
+  const v = await verifyClaimToken(token, now);
+  if (!v.ok) return { ok: false, reason: v.reason, message: v.reason === "expired" ? "This link has expired." : "This link is not valid." };
+  const db = await getDb();
+  const [sale] = await db.select().from(schema.contraSale).where(eq(schema.contraSale.id, v.saleId)).limit(1);
+  if (!sale || !sale.payerEmail) return { ok: false, reason: "gone", message: "We could not find this purchase." };
+  return { ok: true, sale };
+}
+
+export type ClaimResult = { ok: true; already: boolean } | { ok: false; reason: "bad_link" | "expired" | "gone" | "wrong_account" | "taken" | "failed"; payerEmail?: string | null; message: string };
+
+/**
+ * /claim: the signed-in account opened a valid claim link. Opening it proves the inbox, so the sale goes to
+ * this account when its email is the payer email. Idempotent: a second open returns already: true.
+ */
+export async function claimSale(token: string, user: { id: string; email: string }, now = new Date()): Promise<ClaimResult> {
+  const c = await checkClaim(token, now);
+  if (!c.ok) return c;
+  const sale = c.sale;
+  const payer = sale.payerEmail ?? "";
+  if (sale.status === "matched") return sale.userId === user.id ? { ok: true, already: true } : { ok: false, reason: "taken", payerEmail: payer, message: "This purchase is already active on another account." };
+  if (user.email.toLowerCase() !== payer.toLowerCase()) return { ok: false, reason: "wrong_account", payerEmail: payer, message: `This purchase was paid with ${payer}. Sign in with that email to switch it on.` };
+  if (sale.status === "ignored") return { ok: false, reason: "gone", message: "This purchase needs a quick check from us. Reply to the email and we will sort it out." };
+  const u = await accountById(user.id);
+  if (!u) return { ok: false, reason: "failed", message: "Your account was not found." };
+  if (await alreadyHas(u, sale.option as CheckoutOption)) {
+    await claim(sale.id, { userId: u.id, activationId: null, matchedBy: "claim", note: `Account already had ${grantOf(sale.option).plan}` }, now);
+    return { ok: true, already: true };
+  }
+  const a = await activationFor(u, sale, payer, now);
+  const r = await claimAndApprove(sale, a, "claim", ACTOR, now);
+  if (r.status !== "matched") return { ok: false, reason: "failed", message: r.note ?? "We could not switch it on. Reply to the email and we will sort it out." };
+  return { ok: true, already: false };
 }
 
 /** A buyer signed up or signed in: match their unmatched sales (local D1 only). Never throws. */
