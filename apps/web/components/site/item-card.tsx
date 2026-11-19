@@ -17,7 +17,7 @@ function sound(name: SoundName) {
   if (window.matchMedia("(hover: hover) and (pointer: fine)").matches && soundAllowed()) playClickSound(name);
 }
 
-/** Hugeicons strokes (figma, react, copy-01, tick-02), monochrome so the card stays quiet. */
+/** Hugeicons strokes (copy-01, tick-02) for the quiet parts of the toolbar. */
 function Glyph({ d, size = 14, className = "" }: { d: React.ReactNode; size?: number; className?: string }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className={"shrink-0 " + className}>
@@ -25,30 +25,26 @@ function Glyph({ d, size = 14, className = "" }: { d: React.ReactNode; size?: nu
     </svg>
   );
 }
-export const FigmaGlyph = (p: { size?: number; className?: string }) => (
-  <Glyph
-    {...p}
-    d={
-      <>
-        <circle cx="15" cy="12" r="3" />
-        <path d="M9 21a3 3 0 0 0 3-3v-3H9a3 3 0 1 0 0 6Z" />
-        <path d="M12 9v6H9a3 3 0 1 1 0-6zm0-6v6H9a3 3 0 0 1 0-6zm0 0v6h3a3 3 0 1 0 0-6z" />
-      </>
-    }
-  />
+/** Figma's original mark, in its own colours. */
+export const FigmaGlyph = ({ size = 14 }: { size?: number; className?: string }) => (
+  <svg width={(size * 38) / 57} height={size} viewBox="0 0 38 57" aria-hidden="true" className="shrink-0">
+    <path d="M19 28.5a9.5 9.5 0 1 1 19 0 9.5 9.5 0 0 1-19 0z" fill="#1ABCFE" />
+    <path d="M0 47.5A9.5 9.5 0 0 1 9.5 38H19v9.5a9.5 9.5 0 1 1-19 0z" fill="#0ACF83" />
+    <path d="M19 0v19h9.5a9.5 9.5 0 1 0 0-19H19z" fill="#FF7262" />
+    <path d="M0 9.5A9.5 9.5 0 0 0 9.5 19H19V0H9.5A9.5 9.5 0 0 0 0 9.5z" fill="#F24E1E" />
+    <path d="M0 28.5A9.5 9.5 0 0 0 9.5 38H19V19H9.5A9.5 9.5 0 0 0 0 28.5z" fill="#A259FF" />
+  </svg>
 );
-export const ReactGlyph = (p: { size?: number; className?: string }) => (
-  <Glyph
-    {...p}
-    d={
-      <>
-        <path d="M12 8c5.523 0 10 1.79 10 4s-4.477 4-10 4s-10-1.79-10-4s4.477-4 10-4Z" />
-        <path d="M15.56 9.975c2.836 4.842 3.543 9.674 1.577 10.792s-5.859-1.9-8.696-6.742S4.897 4.35 6.863 3.233s5.859 1.9 8.696 6.742Z" />
-        <path d="M15.56 14.025c-2.838 4.842-6.731 7.86-8.697 6.742s-1.26-5.95 1.578-10.792s6.73-7.86 8.696-6.742s1.26 5.95-1.578 10.792Z" />
-        <circle cx="12" cy="12" r="0.6" fill="currentColor" />
-      </>
-    }
-  />
+/** React's original atom, in its brand blue. */
+export const ReactGlyph = ({ size = 14 }: { size?: number; className?: string }) => (
+  <svg width={size} height={size} viewBox="-11.5 -10.23 23 20.46" aria-hidden="true" className="shrink-0">
+    <circle r="2.05" fill="#58C4DC" />
+    <g fill="none" stroke="#58C4DC" strokeWidth="1.1">
+      <ellipse rx="11" ry="4.2" />
+      <ellipse rx="11" ry="4.2" transform="rotate(60)" />
+      <ellipse rx="11" ry="4.2" transform="rotate(120)" />
+    </g>
+  </svg>
 );
 const CopyGlyph = (p: { size?: number; className?: string }) => (
   <Glyph
@@ -67,6 +63,9 @@ const TickGlyph = (p: { size?: number; className?: string }) => <Glyph {...p} d=
  * One button of the hover toolbar: icons only, with a small tooltip naming the action (hover or keyboard focus),
  * so the card stays minimal but nobody has to guess.
  */
+/** Thin vertical rule between toolbar segments, so each action reads as its own target. */
+const Divider = () => <span aria-hidden="true" className="mx-0.5 h-4 w-px shrink-0 bg-black/[0.09]" />;
+
 function ToolButton({ tip, aria, onClick, pressed, children }: { tip: string; aria: string; onClick: () => void; pressed?: boolean; children: React.ReactNode }) {
   return (
     <span className="group/tb relative">
@@ -77,7 +76,7 @@ function ToolButton({ tip, aria, onClick, pressed, children }: { tip: string; ar
         data-no-click-sound
         aria-label={aria}
         aria-pressed={pressed}
-        className="flex h-7 items-center gap-1 rounded-full px-2 text-ink/75 transition-[background-color,color,transform] duration-150 hover:bg-black/[0.05] hover:text-ink active:scale-[0.94] motion-reduce:transition-none"
+        className="flex h-7 items-center gap-1.5 rounded-full px-2.5 text-ink/70 transition-[background-color,color,transform] duration-150 hover:bg-black/[0.05] hover:text-ink active:scale-[0.94] motion-reduce:transition-none"
       >
         {children}
       </button>
@@ -199,6 +198,7 @@ export function ItemCard({ item }: { item: Entry }) {
             {done === "figma" ? <TickGlyph size={13} className="text-[#16a34a]" /> : <CopyGlyph size={12} className="opacity-60" />}
           </ToolButton>
         )}
+        {item.figma && coded && <Divider />}
         {coded && (
           <ToolButton
             tip={done === "code" ? "Code copied" : busy === "code" ? "Copying…" : item.tier === "pro" ? "Copy React code (Pro)" : "Copy React code"}
@@ -209,6 +209,7 @@ export function ItemCard({ item }: { item: Entry }) {
             {done === "code" ? <TickGlyph size={13} className="text-[#16a34a]" /> : <CopyGlyph size={12} className="opacity-60" />}
           </ToolButton>
         )}
+        {(item.figma || coded) && <Divider />}
         <ToolButton tip={saved ? "Saved" : "Save"} aria={saved ? "Remove from saved" : "Save " + item.name} pressed={saved} onClick={() => toggleSaved(item.slug)}>
           <CIcon name="bookmark" size={14} className={saved ? "fill-ink" : ""} />
         </ToolButton>
@@ -221,7 +222,7 @@ export function ItemCard({ item }: { item: Entry }) {
         <span className="shrink-0 text-[12px] text-mute">{SYSTEM_NAMES[item.system] ?? item.system}</span>
         <span className="ml-auto inline-flex shrink-0 items-center gap-1.5 text-[12px] text-mute">
           {/* formats as icons: React code (when it exists) and Figma (every item lives in Figma) */}
-          <span className="inline-flex items-center gap-1 text-mute" aria-label={coded ? "React code and Figma" : "Figma"} role="img">
+          <span className="inline-flex items-center gap-1.5" aria-label={coded ? "React code and Figma" : "Figma"} role="img">
             {coded && (
               <span title="React code">
                 <ReactGlyph size={13} />
