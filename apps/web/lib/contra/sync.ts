@@ -114,6 +114,38 @@ const cleanEmail = (e: unknown) => {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s) ? s.slice(0, 200) : null;
 };
 
+/**
+ * The buyer's email from a Contra invoice (get_invoice_status). The sales list hides the email unless the
+ * buyer agreed to share it, but the invoice usually names who paid. The shape is not documented, so: walk
+ * the result, collect email strings under keys that name the payer side (client, payer, customer, buyer,
+ * billed, recipient, purchaser), never the seller's own addresses. Returns null unless exactly one remains.
+ */
+export function invoicePayerEmail(data: unknown, exclude: Set<string>): string | null {
+  const payerish = /(client|payer|customer|buyer|billed|bill_to|billto|recipient|purchaser|paidby|paid_by)/i;
+  const preferred = new Set<string>();
+  const other = new Set<string>();
+  const walk = (v: unknown, path: string, depth: number) => {
+    if (depth > 8 || v == null) return;
+    if (typeof v === "string") {
+      let parsed: unknown = null;
+      if ((v.startsWith("{") || v.startsWith("[")) && depth < 3) {
+        try { parsed = JSON.parse(v); } catch {}
+      }
+      if (parsed) return walk(parsed, path, depth + 1);
+      const e = cleanEmail(v);
+      if (!e || exclude.has(e) || e.endsWith("@contra.com") || e.endsWith("@ingotui.com")) return;
+      (payerish.test(path) ? preferred : other).add(e);
+      return;
+    }
+    if (Array.isArray(v)) return v.forEach((x, i) => walk(x, path + "." + i, depth + 1));
+    if (typeof v === "object") for (const [k, x] of Object.entries(v as Record<string, unknown>)) walk(x, path + "." + k, depth + 1);
+  };
+  walk(data, "", 0);
+  if (preferred.size === 1) return [...preferred][0];
+  if (!preferred.size && other.size === 1) return [...other][0];
+  return null;
+}
+
 const familyOf = (key: string): string[] => (LIFETIME_KEYS.includes(key as VariantKey) ? LIFETIME_KEYS : [key]);
 const usd = (cents: number) => "$" + (cents % 100 ? (cents / 100).toFixed(2) : String(cents / 100));
 
@@ -275,7 +307,7 @@ async function releaseLock() {
 }
 
 /** Stores one page; returns how many were new and whether every id was already known. */
-async function storePage(txs: ContraTx[], link: Link, settings: Settings, now: Date) {
+async function storePage(txs: ContraTx[], link: Link, settings: Settings, now: Date, lookupEmail?: (invoiceId: string) => Promise<string | null>) {
   const slug = link.slug;
   const db = await getDb();
   const S = schema.contraSale;
@@ -291,8 +323,18 @@ async function storePage(txs: ContraTx[], link: Link, settings: Settings, now: D
     const { key, note } = classify(settings, link, amt);
     const option = optionOfKey(key) as CheckoutOption;
     const c = t.customer ?? {};
+    let payerEmail = cleanEmail(c.emailAddress);
+    // Hidden email: read it from the sale's invoice, only while the sale still needs it (new or unmatched without one).
+    if (!payerEmail && lookupEmail && t.invoice?.id) {
+      let needs = !known.has(id);
+      if (!needs) {
+        const [row] = await db.select({ status: S.status, payerEmail: S.payerEmail }).from(S).where(eq(S.id, id)).limit(1);
+        needs = !!row && row.status === "unmatched" && !row.payerEmail;
+      }
+      if (needs) payerEmail = await lookupEmail(String(t.invoice.id)).catch(() => null);
+    }
     const fields = {
-      payerEmail: cleanEmail(c.emailAddress),
+      payerEmail,
       firstName: (c.firstName ?? "").trim().slice(0, 100) || null,
       lastName: (c.lastName ?? "").trim().slice(0, 100) || null,
       contraProfileId: c.userProfileId != null ? String(c.userProfileId).slice(0, 100) : null,
@@ -350,6 +392,8 @@ export async function syncContraSales(opts: { callTool?: ToolCaller; now?: Date;
   try {
     const settings = opts.settings ?? (await getSettings());
     const call = opts.callTool ?? (await contraToolCaller());
+    // The seller's own addresses never count as a buyer's.
+    const ownEmails = new Set([conn?.connectedBy, "mhjubayer910@gmail.com"].map((e) => cleanEmail(e)).filter((e): e is string => !!e));
     let cached: { at: number; links: Link[] } | null = null;
     try {
       cached = conn?.linkMap ? JSON.parse(conn.linkMap) : null;
@@ -381,7 +425,7 @@ export async function syncContraSales(opts: { callTool?: ToolCaller; now?: Date;
             if (!txs.length || ids === prevIds) break;
             prevIds = ids;
             out.fetched += txs.length;
-            const r = await storePage(txs, link, settings, now);
+            const r = await storePage(txs, link, settings, now, async (invoiceId) => invoicePayerEmail(await call("get_invoice_status", { invoiceId }), ownEmails));
             out.added += r.added;
             if (r.allKnown || txs.length < PAGE_SIZE) break;
           }
