@@ -12,9 +12,11 @@ export const user = sqliteTable("user", {
   plan: text("plan").notNull().default("free"),
   /** "user" | "moderator" | "admin" | "owner" (see lib/admin.ts Role) */
   role: text("role").notNull().default("user"),
+  /** ?ref= link name that brought them before sign-up (migrations/0015_user_ref.sql) */
+  ref: text("ref"),
   createdAt: ts("createdAt").notNull(),
   updatedAt: ts("updatedAt").notNull(),
-}, (t) => [index("user_role_idx").on(t.role)]);
+}, (t) => [index("user_role_idx").on(t.role), index("user_ref_idx").on(t.ref)]);
 
 export const session = sqliteTable("session", {
   id: text("id").primaryKey(),

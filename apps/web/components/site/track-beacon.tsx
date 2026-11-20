@@ -1,10 +1,12 @@
 "use client";
 import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
+import { REF_COOKIE, REF_DAYS, cleanRef } from "@/lib/ref";
 
 /**
  * First-party page-view beacon. Sends { path, ref (referrer host), utm, l } to /api/track on load and on
- * client-side route changes. No cookies, no storage, no identifiers. Skips bots, admin/API paths and
+ * client-side route changes. No identifiers. The one cookie: a visit through a referral link (?ref=name) keeps
+ * that name for 30 days so a sign-up can be credited to the link (lib/ref.ts). Skips bots, admin/API paths and
  * visitors who ask not to be tracked (Do Not Track / Global Privacy Control).
  */
 export function TrackBeacon() {
@@ -30,7 +32,10 @@ export function TrackBeacon() {
         if (h !== location.hostname) ref = h;
       } catch {}
     }
-    const utm = isFirst ? (new URLSearchParams(location.search).get("utm_source") ?? "").slice(0, 64) : "";
+    const qs = new URLSearchParams(location.search);
+    const refLink = isFirst ? cleanRef(qs.get("ref")) : "";
+    if (refLink) document.cookie = `${REF_COOKIE}=${refLink}; Max-Age=${REF_DAYS * 86400}; Path=/; SameSite=Lax${location.protocol === "https:" ? "; Secure" : ""}`;
+    const utm = isFirst ? refLink || (qs.get("utm_source") ?? "").slice(0, 64) : "";
     // l = 1 marks the landing page view, the only one that carries a traffic source.
     const body = JSON.stringify({ path, ref, utm, l: isFirst ? 1 : 0 });
     try {

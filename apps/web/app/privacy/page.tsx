@@ -53,6 +53,7 @@ export default function PrivacyPage() {
               items={[
                 "A sign-in session cookie, so you stay logged in.",
                 "A random anonymous ID cookie for the free-copy counter (one year).",
+                "A referral cookie (30 days), set only when you open a link with ?ref= in it. It holds just the link's name, such as x-reply. If you create an account in that time, we save that name on your account to learn which link worked. It is not set if Do Not Track or Global Privacy Control is on.",
                 "Google Analytics and Microsoft Clarity cookies, described above. These load only after you accept them in the cookie banner, and you can change your choice any time.",
                 "Local storage in your browser for saved and recently copied items and for dismissing the announcement bar. These stay on your device.",
               ]}

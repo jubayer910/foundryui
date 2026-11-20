@@ -34,6 +34,7 @@ export async function getAuth() {
       user: {
         create: {
           after: async (u) => {
+            await creditRef(u.id);
             await contraMatch(u.email);
             try { const { sendWelcome } = await import("./emails/welcome"); await sendWelcome(u); } catch {}
           },
@@ -49,6 +50,18 @@ export async function getAuth() {
       },
     },
   });
+}
+
+/** Credit the new account to the referral link in the ingot_ref cookie, if any (lib/ref.ts). Never throws. */
+async function creditRef(userId: string) {
+  try {
+    const { cookies } = await import("next/headers");
+    const { REF_COOKIE, cleanRef } = await import("./ref");
+    const ref = cleanRef((await cookies()).get(REF_COOKIE)?.value);
+    if (!ref) return;
+    const db = await getDb();
+    await db.update(schema.user).set({ ref }).where(eq(schema.user.id, userId));
+  } catch {}
 }
 
 export type SessionUser = { id: string; name: string; email: string; plan: string; role: string };

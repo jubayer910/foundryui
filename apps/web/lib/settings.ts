@@ -32,6 +32,8 @@ export type Settings = {
   /** Sidebar sign-up card for signed-out visitors (admin → Announcement). Text is the owner's; avatars are image URLs
    *  or, when empty, the first letter of the newest members' names. */
   signupCard: { enabled: boolean; title: string; note: string; button: string; avatars: string[] };
+  /** Referral links made in admin → Referral links (lib/ref.ts). `to` is the page the link opens. */
+  refLinks: { name: string; note: string; to: string; createdAt: string }[];
   /** extra admins besides ADMIN_EMAILS and user.role = admin */
   adminEmails: string[];
 };
@@ -45,6 +47,7 @@ export const DEFAULT_SETTINGS: Settings = {
   support: { email: "support@ingotui.com", contactEmail: "support@ingotui.com", notify: true },
   announcement: { enabled: true, text: "Launch deal: Lifetime for $49 instead of $99, every future update included", href: "/pricing" },
   signupCard: { enabled: true, title: "Dashboard components for React, Figma and your AI agent.", note: "", button: "Sign up", avatars: [] },
+  refLinks: [],
   adminEmails: [],
 };
 
