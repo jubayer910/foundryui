@@ -112,7 +112,8 @@ export default function WidgetPanel({ open, onMinimise, onClose }: { open: boole
     setQ("");
     push({ from: "user", text: message });
     setBusy(true);
-    const started = Date.now();
+    // a short, fixed minimum for the typing line, so instant answers don't flash
+    const minWait = new Promise((r) => setTimeout(r, MIN_TYPING));
     const history = msgs
       .filter((m) => m.from !== "ticket")
       .slice(-8)
@@ -122,8 +123,7 @@ export default function WidgetPanel({ open, onMinimise, onClose }: { open: boole
       const r = await fetch("/api/support/chat", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ message, state, history }) });
       res = (await r.json().catch(() => null)) as ChatResponse | null;
     } catch {}
-    const wait = MIN_TYPING - (Date.now() - started);
-    if (wait > 0) await new Promise((r) => setTimeout(r, wait));
+    await minWait;
     setBusy(false);
     if (!res?.reply) {
       push({ from: "bot", reply: { text: "I can’t reach the help service right now. Check your connection and try again, or email support@ingotui.com.", intent: "offline", confidence: 1, chips: ["Talk to a human"] } });
