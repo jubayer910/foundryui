@@ -18,13 +18,12 @@ export async function unsubscribeUrl(email: string) {
   return `${SITE}/unsubscribe?e=${encodeURIComponent(email.trim().toLowerCase())}&t=${await optoutToken(email)}`;
 }
 
-/** "Saturday, Nov 21" + " at 17:59 UTC (11:59 PM in Bangladesh)." from the deal's real end (UTC ISO). */
+/** "Saturday, Nov 21" + " at 17:59 UTC." from the deal's real end (UTC ISO). */
 function endText(iso: string) {
   const d = new Date(iso);
   const day = d.toLocaleDateString("en-US", { timeZone: "UTC", weekday: "long", month: "short", day: "numeric" });
   const utc = d.toLocaleTimeString("en-GB", { timeZone: "UTC", hour: "2-digit", minute: "2-digit" });
-  const bd = d.toLocaleTimeString("en-US", { timeZone: "Asia/Dhaka", hour: "numeric", minute: "2-digit" });
-  return { day, rest: ` at ${utc} UTC (${bd} in Bangladesh).` };
+  return { day, rest: ` at ${utc} UTC.` };
 }
 
 /** The welcome email for a new account, with the live launch deal (price and real end date from admin settings). */
