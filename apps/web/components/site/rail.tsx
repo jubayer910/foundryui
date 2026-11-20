@@ -6,6 +6,7 @@ import { TEMPLATES } from "./templates/data";
 import iconStats from "@/lib/icon-stats.json";
 import { AccountLink } from "./account-link";
 import { FreeMeter } from "./free-meter";
+import { SignupCard } from "./signup-card";
 import { RailNav, type RailCounts } from "./rail-nav";
 import { Logo } from "./logo";
 import { FollowX } from "./follow-x";
@@ -34,6 +35,7 @@ export function Rail() {
         <RailNav systems={railSystems} counts={railCounts} />
       </div>
       <div className="mt-4 flex flex-col gap-3">
+        <SignupCard />
         <FreeMeter />
         <FollowX />
         <p className="flex flex-wrap gap-x-3 px-2 text-[12px] text-mute">

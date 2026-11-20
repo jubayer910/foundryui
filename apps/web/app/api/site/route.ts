@@ -1,4 +1,6 @@
+import { desc } from "drizzle-orm";
 import { getPriceBook } from "@/lib/plans";
+import { getDb, schema } from "@/lib/db";
 
 // Live site-wide values for static pages (announcement bar, deal spots, deal end). Static pages are served from the
 // static-assets cache and never revalidate, so anything an admin can change is read here instead.
@@ -8,8 +10,19 @@ export async function GET() {
   const book = await getPriceBook();
   const a = book.settings.announcement;
   const d = book.deal;
+  const c = book.settings.signupCard;
+  // newest members' initials, for the sign-up card when no avatar images are set (no names or photos leave the server)
+  let initials: string[] = [];
+  if (c.enabled && !c.avatars.length) {
+    try {
+      const db = await getDb();
+      const rows = await db.select({ name: schema.user.name }).from(schema.user).orderBy(desc(schema.user.createdAt)).limit(5);
+      initials = rows.map((r) => (r.name || "").trim().charAt(0).toUpperCase()).filter((x) => /[A-Z0-9]/.test(x));
+    } catch {}
+  }
   return Response.json(
     {
+      signupCard: c.enabled ? { title: c.title, note: c.note, button: c.button || "Sign up", avatars: c.avatars.slice(0, 5), initials } : null,
       announcement: a.enabled && a.text ? { text: a.text, href: a.href || null } : null,
       // Only while the deal is really on sale (enabled, spots left, before the end date).
       deal: book.dealActive
