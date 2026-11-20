@@ -11,7 +11,7 @@ import { CONTRA, accessToken } from "./oauth";
 export type ToolCaller = (name: string, args: Record<string, unknown>) => Promise<unknown>;
 
 const PROTOCOL = "2025-06-18";
-export const READ_TOOLS = new Set(["list_payment_link_transactions", "list_payment_links", "list_products", "list_contractor_transactions", "get_invoice_status"]);
+export const READ_TOOLS = new Set(["list_payment_link_transactions", "list_payment_links", "list_products", "list_contractor_transactions", "get_invoice_status", "list_invoices_sent"]);
 const TIMEOUT_MS = 15_000;
 
 type RpcMessage = { jsonrpc: "2.0"; id?: number | string; result?: unknown; error?: { code: number; message: string }; method?: string };

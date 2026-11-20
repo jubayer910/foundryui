@@ -205,6 +205,48 @@ export async function emailFromInvoiceUrl(url: string, exclude: Set<string>): Pr
   return { email: null, diag: `invoiceUrl ${type || "unknown type"}, ${buf.length} bytes, ${found.size} candidate emails` };
 }
 
+/**
+ * Contra's sent-invoices list (list_invoices_sent) names the client of each invoice. Pages through it (newest
+ * first, a few pages at most) for the entry with this invoice id or number, then reads the buyer email there.
+ */
+async function invoiceFromSentList(call: ToolCaller, invoiceId: string, detail: unknown): Promise<{ email: string | null; diag: string }> {
+  const d = detail as { invoice?: { invoiceNumber?: unknown } } | null;
+  const number = typeof d?.invoice?.invoiceNumber === "string" ? d.invoice.invoiceNumber : null;
+  const own = new Set<string>(["mhjubayer910@gmail.com"]);
+  let shape = "";
+  for (let page = 0; page < 4; page++) {
+    const data = await call("list_invoices_sent", { pageIndex: page, pageSize: 50 });
+    if (!shape) shape = shapeOf(data);
+    const items = findInvoiceItems(data);
+    const hit = items.find((it) => {
+      const o = it as Record<string, unknown>;
+      return o.id === invoiceId || o.invoiceId === invoiceId || (number && (o.invoiceNumber === number || o.number === number));
+    });
+    if (hit) {
+      const e = invoicePayerEmail(hit, own);
+      return e ? { email: e, diag: "" } : { email: null, diag: "sent list has the invoice but no email in fields: " + shapeOf(hit) };
+    }
+    if (items.length < 50) break;
+  }
+  return { email: null, diag: "invoice not found in list_invoices_sent (fields: " + shape.slice(0, 300) + ")" };
+}
+
+/** The array of invoice-like objects anywhere in a list result. */
+function findInvoiceItems(data: unknown, depth = 0): unknown[] {
+  if (depth > 4 || data == null) return [];
+  if (typeof data === "string" && (data.startsWith("{") || data.startsWith("["))) {
+    try { return findInvoiceItems(JSON.parse(data), depth + 1); } catch { return []; }
+  }
+  if (Array.isArray(data)) return data.some((x) => x && typeof x === "object" && ("invoiceNumber" in x || "id" in x)) ? data : [];
+  if (typeof data === "object") {
+    for (const v of Object.values(data as Record<string, unknown>)) {
+      const r = findInvoiceItems(v, depth + 1);
+      if (r.length) return r;
+    }
+  }
+  return [];
+}
+
 /** The invoiceUrl inside a get_invoice_status result, if any. */
 function invoiceUrlOf(data: unknown): string | null {
   const d = data as { invoiceUrl?: unknown; invoice?: { invoiceUrl?: unknown } } | null;
@@ -551,15 +593,19 @@ export async function syncContraSales(opts: { callTool?: ToolCaller; now?: Date;
               const data = await call("get_invoice_status", { invoiceId });
               const e = invoicePayerEmail(data, ownEmails);
               if (e) return e;
-              // The MCP invoice has no "Bill to"; the invoice document behind invoiceUrl does.
+              // The invoice detail has no "Bill to"; the sent-invoices list names the client. Find this invoice there.
+              const listed = await invoiceFromSentList(call, invoiceId, data).catch((err) => ({ email: null, diag: "list_invoices_sent failed: " + (err instanceof Error ? err.message : String(err)).slice(0, 120) }));
+              if (listed.email) return listed.email;
+              const sentDiag = listed.diag;
+              // Last try: the invoice document behind invoiceUrl (often needs a Contra login).
               const url = invoiceUrlOf(data);
               if (url) {
                 const r = await emailFromInvoiceUrl(url, ownEmails).catch((err) => ({ email: null, diag: "invoiceUrl fetch failed: " + (err instanceof Error ? err.message : String(err)).slice(0, 120) }));
                 if (r.email) return r.email;
-                invoiceMisses.set(invoiceId, r.diag);
+                invoiceMisses.set(invoiceId, sentDiag + "; " + r.diag);
                 return null;
               }
-              invoiceMisses.set(invoiceId, "no buyer email and no invoiceUrl in fields: " + shapeOf(data));
+              invoiceMisses.set(invoiceId, sentDiag + "; no invoiceUrl in fields: " + shapeOf(data));
               return null;
             });
             out.added += r.added;
