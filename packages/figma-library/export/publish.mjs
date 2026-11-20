@@ -7,6 +7,8 @@ const WEB = new URL("../../../apps/web/", import.meta.url).pathname;
 const out = {};
 let pass = 0, total = 0, held = 0;
 // reviewed by eye and approved although the perceptual score is 98-99 (layout score >= 99)
+// components with picture fills whose code points at hosted copies of every picture (publish-images.mjs)
+const imagesReady = new Set(JSON.parse(await readFile(new URL("./data/images-ready.json", import.meta.url), "utf8").catch(() => "[]")));
 const approved = new Set(JSON.parse(await readFile(new URL("./data/approved-extra.json", import.meta.url), "utf8").catch(() => "[]")));
 // only the published code files are rebuilt; Figma clipboard payloads (*.figma.html, captured from Figma desktop)
 // and Figma build steps live in the same folders and must survive a republish
@@ -24,7 +26,8 @@ for (const sys of ["loopo", "auton", "mailpulse", "axon", "veriq", "vantage", "m
     if (r.score < TH && !approved.has(sys + ":" + r.id)) continue;
     // image fills are placeholders in generated code for now: hold those back (visual review found avatars rendering grey)
     const tree = await readFile(new URL(`./data/${sys}/${r.id}.json`, import.meta.url), "utf8");
-    if (tree.includes('"k":"i"')) { held++; continue; }
+    // ...unless publish-images.mjs rewrote the code with every picture hosted on the site
+    if (tree.includes('"k":"i"') && !imagesReady.has(sys + ":" + r.id)) { held++; continue; }
     await copyFile(new URL(`./out/${sys}/${r.slug}.tsx`, import.meta.url), WEB + `public/library-code/${sys}/${r.slug}.txt`);
     out[r.slug] = { score: r.score, strict: r.strict };
     pass++;
