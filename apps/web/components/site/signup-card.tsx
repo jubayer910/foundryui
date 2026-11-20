@@ -32,8 +32,8 @@ export function SignupCard() {
   const note = card.note || NOTE;
   return (
     <div className="px-2">
-      {card.title && <p className="text-[15px] leading-[1.35] text-ink">{card.title}</p>}
-      <div className="mt-3 flex items-center gap-3">
+      {card.title && <p className="mb-3 text-[15px] leading-[1.35] text-ink">{card.title}</p>}
+      <div className="flex items-center gap-3">
         <Link href="/sign-up" className="inline-flex h-9 shrink-0 items-center whitespace-nowrap rounded-full bg-ink px-4 text-[14px] text-white hover:opacity-90">
           {card.button}
         </Link>

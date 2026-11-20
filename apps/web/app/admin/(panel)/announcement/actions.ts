@@ -31,9 +31,10 @@ export async function saveSignupCard(_prev: SignupCardState, f: FormData): Promi
   const clean = (k: string, n: number) => String(f.get(k) ?? "").replace(/\s+/g, " ").trim().slice(0, n);
   const enabled = f.get("enabled") === "on";
   const title = clean("title", 120), note = clean("note", 140), button = clean("button", 24) || "Sign up";
-  const avatars = String(f.get("avatars") ?? "").split(/[\s,]+/).map((x) => x.trim()).filter(Boolean).slice(0, 5);
-  if (avatars.some((a) => !/^https:\/\/\S+$/.test(a))) return { err: "Avatar images must be https:// links, one per line.", at: Date.now() };
-  if (enabled && !title && !note) return { err: "Write the title or the note, or turn the card off.", at: Date.now() };
+  // photos: pasted or picked images arrive as small data URLs (resized to 96 px in the browser), or https links
+  const avatars = String(f.get("avatars") ?? "").split(/\s+/).map((x) => x.trim()).filter(Boolean).slice(0, 5);
+  const okPic = (a: string) => /^https:\/\/\S+$/.test(a) || (/^data:image\/(jpeg|png|webp);base64,[A-Za-z0-9+/=]+$/.test(a) && a.length <= 60000);
+  if (avatars.some((a) => !okPic(a))) return { err: "A photo couldn't be read. Paste it again or use an https link.", at: Date.now() };
   const before = (await getSettings()).signupCard;
   const after = { enabled, title, note, button, avatars };
   await setSetting("signupCard", after);

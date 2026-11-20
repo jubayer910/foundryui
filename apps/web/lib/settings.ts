@@ -46,7 +46,7 @@ export const DEFAULT_SETTINGS: Settings = {
   deal: { enabled: true, spotsTotal: 100, after: "price", endsAt: "", showSpots: true, showTimer: true },
   support: { email: "support@ingotui.com", contactEmail: "support@ingotui.com", notify: true },
   announcement: { enabled: true, text: "Launch deal: Lifetime for $49 instead of $99, every future update included", href: "/pricing" },
-  signupCard: { enabled: true, title: "Dashboard components for React, Figma and your AI agent.", note: "", button: "Sign up", avatars: [] },
+  signupCard: { enabled: true, title: "", note: "", button: "Sign up", avatars: [] },
   refLinks: [],
   adminEmails: [],
 };
