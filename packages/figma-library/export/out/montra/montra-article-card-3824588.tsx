@@ -8,7 +8,7 @@ export function ArticleCard() {
   const fuRef = useRef<any>(null);
   useEffect(() => fuInteract(fuRef.current), []);
   return (
-    <div ref={fuRef} style={{ width: "560px", height: "819px", borderRadius: "10.97px", background: "#fefefe", boxShadow: "inset 0 0 0 0.91px #ededed", overflow: "hidden", display: "flex", flexDirection: "column", padding: "22.84px 24.67px 22.84px 24.67px", gap: "12.79px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+    <div ref={fuRef} data-fu="card" style={{ width: "560px", height: "819px", borderRadius: "10.97px", background: "#fefefe", boxShadow: "inset 0 0 0 0.91px #ededed", overflow: "hidden", display: "flex", flexDirection: "column", padding: "22.84px 24.67px 22.84px 24.67px", gap: "12.79px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
       <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "7.31px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
         <div style={{ height: "23.3px", flexShrink: 0, borderRadius: "999px", background: "#e6fbfb", display: "flex", flexDirection: "row", padding: "0px 9.14px 0px 9.14px", gap: "3.66px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
           <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "93px", lineHeight: "14px", fontFamily: "'Geist'", fontSize: "10.97px", fontWeight: 500, color: "#0a9ea3" }}>Bank connections</p>
@@ -167,7 +167,7 @@ export function ArticleCard() {
       <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "160px", lineHeight: "20px", fontFamily: "'Geist'", fontSize: "15.54px", fontWeight: 500, color: "#202020", letterSpacing: "-0.01em" }}>3. Fix unmatched lines</p>
       <p style={{ width: "512.48px", flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre-wrap", fontFamily: "'Geist'", fontSize: "12.79px", fontWeight: 400, color: "#3f3f46", lineHeight: "1.5499999523162842" }}>For a line like the WeWork rent above, choose Find match, search by amount or date, or create the transaction straight from the bank line.</p>
       <div style={{ width: "512.48px", flexShrink: 0, display: "flex", flexDirection: "row", gap: "9.14px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
-        <div style={{ flex: "1 1 0", minWidth: 0, flexShrink: 0, borderRadius: "9.14px", background: "#ffffff", boxShadow: "inset 0 0 0 0.91px #e8e8e8", display: "flex", flexDirection: "column", padding: "11.88px 11.88px 11.88px 11.88px", gap: "5.48px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+        <div data-fu="card" style={{ flex: "1 1 0", minWidth: 0, flexShrink: 0, borderRadius: "9.14px", background: "#ffffff", boxShadow: "inset 0 0 0 0.91px #e8e8e8", display: "flex", flexDirection: "column", padding: "11.88px 11.88px 11.88px 11.88px", gap: "5.48px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
           <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "5.48px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
             <svg style={{ width: "6.4px", height: "6.4px", flexShrink: 0, display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="6.4" height="6.4" viewBox="0 0 6.4 6.4" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M6.4 3.2 C6.4 4.96731 4.96731 6.4 3.2 6.4 C1.43269 6.4 0 4.96731 0 3.2 C0 1.43269 1.43269 0 3.2 0 C4.96731 0 6.4 1.43269 6.4 3.2 Z" fill="#18b170"/></svg>
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "45px", lineHeight: "14px", fontFamily: "'Geist'", fontSize: "10.97px", fontWeight: 400, color: "#6b6b6b" }}>Matched</p>
@@ -204,7 +204,7 @@ export function ArticleCard() {
             <div style={{ width: "2.92px", height: "9.14px", flexShrink: 0, borderRadius: "1.46px", background: "rgba(24, 177, 112, 0.16)" }} />
           </div>
         </div>
-        <div style={{ flex: "1 1 0", minWidth: 0, flexShrink: 0, borderRadius: "9.14px", background: "#ffffff", boxShadow: "inset 0 0 0 0.91px #e8e8e8", display: "flex", flexDirection: "column", padding: "11.88px 11.88px 11.88px 11.88px", gap: "5.48px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+        <div data-fu="card" style={{ flex: "1 1 0", minWidth: 0, flexShrink: 0, borderRadius: "9.14px", background: "#ffffff", boxShadow: "inset 0 0 0 0.91px #e8e8e8", display: "flex", flexDirection: "column", padding: "11.88px 11.88px 11.88px 11.88px", gap: "5.48px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
           <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "5.48px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
             <svg style={{ width: "6.4px", height: "6.4px", flexShrink: 0, display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="6.4" height="6.4" viewBox="0 0 6.4 6.4" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M6.4 3.2 C6.4 4.96731 4.96731 6.4 3.2 6.4 C1.43269 6.4 0 4.96731 0 3.2 C0 1.43269 1.43269 0 3.2 0 C4.96731 0 6.4 1.43269 6.4 3.2 Z" fill="#4996fe"/></svg>
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "55px", lineHeight: "14px", fontFamily: "'Geist'", fontSize: "10.97px", fontWeight: 400, color: "#6b6b6b" }}>Suggested</p>
@@ -241,7 +241,7 @@ export function ArticleCard() {
             <div style={{ width: "2.92px", height: "9.14px", flexShrink: 0, borderRadius: "1.46px", background: "rgba(73, 150, 254, 0.16)" }} />
           </div>
         </div>
-        <div style={{ flex: "1 1 0", minWidth: 0, flexShrink: 0, borderRadius: "9.14px", background: "#ffffff", boxShadow: "inset 0 0 0 0.91px #e8e8e8", display: "flex", flexDirection: "column", padding: "11.88px 11.88px 11.88px 11.88px", gap: "5.48px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+        <div data-fu="card" style={{ flex: "1 1 0", minWidth: 0, flexShrink: 0, borderRadius: "9.14px", background: "#ffffff", boxShadow: "inset 0 0 0 0.91px #e8e8e8", display: "flex", flexDirection: "column", padding: "11.88px 11.88px 11.88px 11.88px", gap: "5.48px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
           <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "5.48px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
             <svg style={{ width: "6.4px", height: "6.4px", flexShrink: 0, display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="6.4" height="6.4" viewBox="0 0 6.4 6.4" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M6.4 3.2 C6.4 4.96731 4.96731 6.4 3.2 6.4 C1.43269 6.4 0 4.96731 0 3.2 C0 1.43269 1.43269 0 3.2 0 C4.96731 0 6.4 1.43269 6.4 3.2 Z" fill="#fd872f"/></svg>
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "58px", lineHeight: "14px", fontFamily: "'Geist'", fontSize: "10.97px", fontWeight: 400, color: "#6b6b6b" }}>Unmatched</p>
@@ -326,12 +326,12 @@ function fuInteract(root: HTMLElement | null) {
   };
   // the chart around a group of marks: the nearest ancestor that also holds text labels
   const chartOf = (el: Element) => { let c: Element | null = el.parentElement; while (c && c !== root.parentElement) { if (texts(c).length >= 3) return c; c = c.parentElement; } return root; };
-  const labelNear = (scope: Element, x: number, y: number, below: boolean) => {
+  const labelNear = (scope: Element, x: number, y: number, below: boolean, anyText = false) => {
     let best = "", d = 1e9;
     for (const t of texts(scope)) {
       const r = box(t);
       if (below ? r.top < y - 2 : r.right > x + 2) continue;
-      if (NUM.test((t.textContent || "").trim()) && !/[a-z]{3}/i.test(t.textContent || "")) continue;
+      if (!anyText && NUM.test((t.textContent || "").trim()) && !/[a-z]{3}/i.test(t.textContent || "")) continue;
       const dd = below ? Math.abs(r.left + r.width / 2 - x) + (r.top - y) * 0.2 : Math.abs(r.top + r.height / 2 - y) + (x - r.right) * 0.1;
       if (dd < d) { d = dd; best = (t.textContent || "").trim(); }
     }
@@ -410,6 +410,110 @@ function fuInteract(root: HTMLElement | null) {
       show([label, val ? val(sp.y) : ""].filter(Boolean).join(" · "), sp.x, sp.y);
     });
     area.addEventListener("mouseleave", () => { g.style.opacity = "0"; hide(); });
+  }
+
+  // cards: a small lift on hover (an extra drop shadow, the card's own shadows stay as they are)
+  for (const c of all("[data-fu=card]").concat(root.dataset.fu === "card" ? [root] : [])) {
+    c.addEventListener("mouseenter", () => { ease(c, "transform .18s ease, filter .18s ease"); c.style.transform = "translateY(-2px)"; c.style.filter = "drop-shadow(0 8px 16px rgba(17,17,19,.08))"; });
+    c.addEventListener("mouseleave", () => { c.style.transform = ""; c.style.filter = ""; });
+  }
+
+  // heatmap and calendar cells: an outline and the cell's own text
+  for (const c of all("[data-fu=cell]")) {
+    c.addEventListener("mouseenter", () => {
+      ease(c, "outline-color .12s");
+      c.style.outline = "2px solid rgba(17,17,19,.55)";
+      c.style.outlineOffset = "1px";
+      const r = box(c);
+      // its own text, or the row and column labels of the grid it sits in
+      let label = (c.textContent || "").trim();
+      if (!label) {
+        // walk outwards until a row label (left) and a column label (below) are in reach
+        let row = "", col = "";
+        for (let a: Element | null = c.parentElement; a && a !== root.parentElement && !(row && col); a = a.parentElement) {
+          if (!row) row = labelNear(a, r.left, r.top + r.height / 2, false, true);
+          if (!col) col = labelNear(a, r.left + r.width / 2, r.bottom, true, true);
+        }
+        label = [row, col].filter(Boolean).join(" · ");
+      }
+      show(label, r.left + r.width / 2, r.top);
+    });
+    c.addEventListener("mouseleave", () => { c.style.outline = ""; c.style.outlineOffset = ""; hide(); });
+  }
+
+  // fields: hover and focus states
+  for (const f of all("[data-fu=field]")) {
+    f.style.cursor = "text";
+    f.addEventListener("mouseenter", () => { ease(f, "filter .15s, outline-color .15s"); f.style.filter = "brightness(0.985)"; });
+    f.addEventListener("mouseleave", () => { f.style.filter = ""; });
+    f.addEventListener("mousedown", (ev) => {
+      ev.stopPropagation();
+      for (const o of all("[data-fu=field]")) o.style.outline = "";
+      f.style.outline = "3px solid rgba(17,17,19,.12)";
+      f.style.outlineOffset = "0px";
+    });
+  }
+  doc.addEventListener("mousedown", () => { for (const o of all("[data-fu=field]")) o.style.outline = ""; });
+
+  // donut and pie charts drawn as one vector per arc: the hovered arc stays, the others fade
+  const arcGroups = new Map<Element, HTMLElement[]>();
+  for (const a of all("[data-fu=arc]")) { const p = a.parentElement!; if (!arcGroups.has(p)) arcGroups.set(p, []); arcGroups.get(p)!.push(a); }
+  arcGroups.forEach((arcs) => {
+    const scope = chartOf(arcs[0]);
+    const hexOf = (c: string) => { const m = c.match(/\d+/g); return m && m.length >= 3 ? "#" + m.slice(0, 3).map((x) => (+x).toString(16).padStart(2, "0")).join("") : c.toLowerCase(); };
+    const legend = (color: string) => {
+      for (const el of all("*", scope)) {
+        if (el.children.length || (el.textContent || "").trim()) continue;
+        if (hexOf(getComputedStyle(el).backgroundColor) !== color.toLowerCase()) continue;
+        // climb to the legend row: the first ancestor that holds more than the swatch's label
+        let row: Element | null = el.parentElement;
+        while (row && row.parentElement && texts(row).length < 2 && row !== scope) row = row.parentElement;
+        const words = row ? texts(row).map((t) => (t.textContent || "").trim()) : [];
+        if (words.length && words.length <= 5) return words.join(" · ");
+        if (el.parentElement) return texts(el.parentElement).map((t) => (t.textContent || "").trim()).join(" · ");
+      }
+      return "";
+    };
+    // hit-test the whole stack under the pointer: labels or tracks drawn over the ring don't get in the way
+    const fills = new Map(arcs.map((a) => { const sh = a.querySelector("path"); return [a, (sh && (sh.getAttribute("fill") || sh.getAttribute("stroke"))) || ""] as [HTMLElement, string]; }));
+    let current: HTMLElement | null = null;
+    scope.addEventListener("mousemove", (ev) => {
+      const e = ev as MouseEvent;
+      // the arc whose drawn shape (not just its box) is under the pointer
+      const inside = (sh: SVGGeometryElement) => { const m = sh.getScreenCTM(); if (!m) return false; const q = new DOMPoint(e.clientX, e.clientY).matrixTransform(m.inverse()); return sh.isPointInFill(q) || sh.isPointInStroke(q); };
+      const arc = arcs.find((a) => (Array.from(a.querySelectorAll("path, circle, ellipse")) as SVGGeometryElement[]).some(inside)) || null;
+      if (!arc) { if (current) { undim(arcs); hide(); current = null; } return; }
+      if (arc !== current) { dim(arcs, [arc]); current = arc; }
+      show(legend(fills.get(arc) || ""), e.clientX, e.clientY);
+    });
+    scope.addEventListener("mouseleave", () => { undim(arcs); hide(); current = null; });
+  });
+
+  // donut and pie arcs in one drawing: the hovered arc stays, the others fade; the legend row with the same colour names it
+  for (const svg of all("svg[data-fu=donut]") as unknown as SVGSVGElement[]) {
+    const arcs = (Array.from(svg.querySelectorAll("path")) as SVGPathElement[]).filter((p) => { const f = p.getAttribute("fill"); return f && f !== "none" && !/^url/.test(f); });
+    const scope = chartOf(svg);
+    const hex = (c: string) => { const m = c.match(/\d+/g); return m && m.length >= 3 ? "#" + m.slice(0, 3).map((x) => (+x).toString(16).padStart(2, "0")).join("") : c.toLowerCase(); };
+    const legend = (color: string) => {
+      for (const el of all("*", scope)) {
+        if (el.children.length || (el.textContent || "").trim()) continue;
+        const bg = getComputedStyle(el).backgroundColor;
+        if (!bg || hex(bg) !== color.toLowerCase()) continue;
+        const row = el.parentElement;
+        const words = row ? texts(row).map((t) => (t.textContent || "").trim()) : [];
+        if (words.length) return words.join(" · ");
+      }
+      return "";
+    };
+    for (const a of arcs) {
+      a.addEventListener("mouseenter", (ev) => {
+        dim(arcs, [a]);
+        const e = ev as MouseEvent;
+        show(legend(a.getAttribute("fill") || ""), e.clientX, e.clientY);
+      });
+      a.addEventListener("mousemove", (ev) => { const e = ev as MouseEvent; tip.style.left = e.clientX + "px"; tip.style.top = e.clientY - 8 + "px"; });
+      a.addEventListener("mouseleave", () => { undim(arcs); hide(); });
+    }
   }
 
   // rows: a soft highlight under the pointer

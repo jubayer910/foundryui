@@ -56,6 +56,17 @@ function graft(now, live) {
   return strip(result) === strip(live) ? result : null;
 }
 
+// the live file may already carry an older interaction layer: take it off exactly, keeping everything else byte for byte
+const unInteract = (code) => {
+  if (!code.includes("function fuInteract(")) return code;
+  let c = code.replace(/^"use client";\n/, "").replace(/import \{ useEffect, useRef \} from "react";\n/, "");
+  c = c.replace(/\n  const fuRef = useRef<any>\(null\);\n  useEffect\(\(\) => fuInteract\(fuRef\.current\), \[\]\);/, "");
+  c = c.replace(/ data-fu="[a-z]+"/g, "").replace(/ ref=\{fuRef\}/, "");
+  const at = c.indexOf("\n// Interactions:");
+  if (at >= 0) c = c.slice(0, at).replace(/\n*$/, "\n");
+  return c;
+};
+
 let kept = 0, restored = 0, nolive = 0, plain = 0, aligned = 0;
 const restoredList = [];
 for (const sys of readdirSync(join(WEB, "public/library-code"))) {
@@ -66,16 +77,17 @@ for (const sys of readdirSync(join(WEB, "public/library-code"))) {
     const tok = paths[slug];
     const livePath = tok && join(WEB, "public/c", tok + ".txt");
     if (!livePath || !existsSync(livePath)) { nolive++; continue; }
-    const live = readFileSync(livePath, "utf8");
+    const liveFile = readFileSync(livePath, "utf8");
+    const live = unInteract(liveFile);
     if (!now.includes("function fuInteract(")) {
       // not interactive: it must still be the live code
-      if (strip(now) !== strip(live)) { if (!DRY) { writeFileSync(join(dir, f), live); if (existsSync(join(OUT, sys, slug + ".tsx"))) writeFileSync(join(OUT, sys, slug + ".tsx"), live); } restored++; restoredList.push(slug); } else plain++;
+      if (strip(now) !== strip(live)) { if (!DRY) { writeFileSync(join(dir, f), liveFile); if (existsSync(join(OUT, sys, slug + ".tsx"))) writeFileSync(join(OUT, sys, slug + ".tsx"), liveFile); } restored++; restoredList.push(slug); } else plain++;
       continue;
     }
     if (strip(now) === strip(live)) { kept++; continue; }
     // same element tree, only styles differ (converter drift): put the roles onto the live code, element by element
     const grafted = graft(now, live);
-    const next = grafted ?? live;
+    const next = grafted ?? liveFile;
     if (!DRY) { writeFileSync(join(dir, f), next); if (existsSync(join(OUT, sys, slug + ".tsx"))) writeFileSync(join(OUT, sys, slug + ".tsx"), next); }
     if (grafted) { aligned++; continue; }
     restored++;

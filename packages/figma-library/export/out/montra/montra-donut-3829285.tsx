@@ -9,11 +9,11 @@ export function Donut() {
   return (
     <div ref={fuRef} style={{ width: "137.08px", height: "137.08px", position: "relative" }}>
       <svg data-fu="plot" style={{ position: "absolute", left: "5.94px", top: "5.94px", width: "125.2px", height: "125.2px", display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="125.2" height="125.2" viewBox="0 0 125.2 125.2" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M62.63 125.2 L62.6335 131.14 L62.6335 131.14 L62.63 125.2 Z M2.40932e-05 62.6501 L5.94002 62.6449 L5.94002 62.6449 L2.40932e-05 62.6501 Z M125.2 62.6001 L119.26 62.6001 C119.26 93.8801 93.9081 119.242 62.6266 119.26 L62.63 125.2 L62.6335 131.14 C100.472 131.118 131.14 100.44 131.14 62.6001 L125.2 62.6001 Z M62.63 125.2 L62.6266 119.26 C31.3378 119.278 5.96718 93.9363 5.94002 62.6449 L2.40932e-05 62.6501 L-5.93997 62.6552 C-5.90713 100.504 24.7823 131.162 62.6335 131.14 L62.63 125.2 Z M2.40932e-05 62.6501 L5.94002 62.6449 C5.91287 31.366 31.246 5.98532 62.5286 5.94006 L62.52 6.69078e-05 L62.5114 -5.93993 C24.674 -5.88519 -5.97282 24.8142 -5.93997 62.6552 L2.40932e-05 62.6501 Z M62.52 6.69078e-05 L62.5286 5.94006 C93.8076 5.89481 119.206 31.2191 119.26 62.5004 L125.2 62.4901 L131.14 62.4798 C131.074 24.641 100.352 -5.99467 62.5114 -5.93993 L62.52 6.69078e-05 Z" fill="#f1f1f3"/></svg>
-      <svg style={{ position: "absolute", left: "52.69px", top: "6.4px", width: "78.45px", height: "124.74px", display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="78.45" height="124.74" viewBox="0 0 78.45 124.74" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M24.1264 -5.89664 C20.8698 -6.29231 17.909 -3.97306 17.5134 -0.716438 C17.1177 2.54018 19.4369 5.50096 22.6936 5.89664 L23.41 0 L24.1264 -5.89664 Z M74.49 40.23 L80.0545 38.1516 L80.0542 38.1507 L74.49 40.23 Z M62.31 104.1 L66.7182 108.081 L66.7183 108.081 L62.31 104.1 Z M1.50456 116.954 C-1.66903 116.123 -4.91535 118.022 -5.74629 121.195 C-6.57724 124.369 -4.67815 127.615 -1.50456 128.446 L0 122.7 L1.50456 116.954 Z M23.41 0 L22.6936 5.89664 C43.6999 8.44889 61.5216 22.4954 68.9258 42.3093 L74.49 40.23 L80.0542 38.1507 C71.0984 14.1846 49.5401 -2.80889 24.1264 -5.89664 L23.41 0 Z M74.49 40.23 L68.9255 42.3084 C76.3298 62.1316 72.075 84.4249 57.9017 100.119 L62.31 104.1 L66.7183 108.081 C83.865 89.0951 89.0102 62.1284 80.0545 38.1516 L74.49 40.23 Z M62.31 104.1 L57.9018 100.119 C43.7187 115.822 21.9689 122.312 1.50456 116.954 L-0 122.7 L-1.50456 128.446 C23.2511 134.928 49.5613 127.078 66.7182 108.081 L62.31 104.1 Z" fill="#4996fe"/></svg>
-      <svg style={{ position: "absolute", left: "7px", top: "79.99px", width: "31.63px", height: "43.54px", display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="31.63" height="43.54" viewBox="0 0 31.63 43.54" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M28.7911 48.7577 C31.6728 50.3256 35.2798 49.2605 36.8477 46.3789 C38.4156 43.4972 37.3505 39.8902 34.4689 38.3223 L31.63 43.54 L28.7911 48.7577 Z M5.83975 -1.08669 C5.23959 -4.31189 2.13852 -6.43991 -1.08669 -5.83975 C-4.31189 -5.23959 -6.43991 -2.13852 -5.83975 1.08669 L0 0 L5.83975 -1.08669 Z M31.63 43.54 L34.4689 38.3223 C19.4797 30.1669 8.9624 15.6942 5.83975 -1.08669 L0 0 L-5.83975 1.08669 C-2.0624 21.3858 10.6603 38.8931 28.7911 48.7577 L31.63 43.54 Z" fill="#8e83fd"/></svg>
-      <svg style={{ position: "absolute", left: "6.05px", top: "28.43px", width: "14.44px", height: "36.48px", display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="14.44" height="36.48" viewBox="0 0 14.44 36.48" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M-5.92995 36.1346 C-6.12073 39.4096 -3.62045 42.2192 -0.345434 42.4099 C2.92959 42.6007 5.73917 40.1005 5.92995 36.8254 L0 36.48 L-5.92995 36.1346 Z M18.9996 3.80705 C21.1022 1.28885 20.7652 -2.45703 18.247 -4.5596 C15.7288 -6.66218 11.983 -6.32525 9.8804 -3.80705 L14.44 0 L18.9996 3.80705 Z M0 36.48 L5.92995 36.8254 C6.63595 24.7057 11.2159 13.1293 18.9996 3.80705 L14.44 0 L9.8804 -3.80705 C0.464054 7.47066 -5.07595 21.4743 -5.92995 36.1346 L0 36.48 Z" fill="#63c093"/></svg>
-      <svg style={{ position: "absolute", left: "31.5px", top: "11.78px", width: "10.64px", height: "6.3px", display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="10.64" height="6.3" viewBox="0 0 10.64 6.3" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M-3.52017 1.51544 C-6.16261 3.45958 -6.72869 7.17773 -4.78456 9.82017 C-2.84042 12.4626 0.877732 13.0287 3.52017 11.0846 L0 6.3 L-3.52017 1.51544 Z M13.1456 5.38567 C16.1201 4.00185 17.4095 0.468791 16.0257 -2.50563 C14.6418 -5.48005 11.1088 -6.76949 8.13437 -5.38567 L10.64 0 L13.1456 5.38567 Z M0 6.3 L3.52017 11.0846 C6.52965 8.87038 9.75939 6.96108 13.1456 5.38567 L10.64 0 L8.13437 -5.38567 C4.04061 -3.48108 0.130348 -1.17037 -3.52017 1.51544 L0 6.3 Z" fill="#fd872f"/></svg>
-      <svg style={{ position: "absolute", left: "56.53px", top: "6.4px", width: "4.45px", height: "1px", display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="4.45" height="1" viewBox="0 0 4.45 1" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M-1.1422 -5.11915 C-4.36155 -4.48833 -6.45997 -1.36715 -5.82915 1.8522 C-5.19833 5.07155 -2.07715 7.16997 1.1422 6.53915 L0 0.71 L-1.1422 -5.11915 Z M5.1624 5.89712 C8.4193 5.50367 10.7406 2.54449 10.3471 -0.712404 C9.95367 -3.9693 6.99449 -6.29058 3.7376 -5.89712 L4.45 0 L5.1624 5.89712 Z M0 0.71 L1.1422 6.53915 C2.49574 6.27393 3.83171 6.05788 5.1624 5.89712 L4.45 0 L3.7376 -5.89712 C2.08829 -5.69788 0.464258 -5.43393 -1.1422 -5.11915 L0 0.71 Z" fill="#d8d8d8"/></svg>
+      <svg data-fu="arc" style={{ position: "absolute", left: "52.69px", top: "6.4px", width: "78.45px", height: "124.74px", display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="78.45" height="124.74" viewBox="0 0 78.45 124.74" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M24.1264 -5.89664 C20.8698 -6.29231 17.909 -3.97306 17.5134 -0.716438 C17.1177 2.54018 19.4369 5.50096 22.6936 5.89664 L23.41 0 L24.1264 -5.89664 Z M74.49 40.23 L80.0545 38.1516 L80.0542 38.1507 L74.49 40.23 Z M62.31 104.1 L66.7182 108.081 L66.7183 108.081 L62.31 104.1 Z M1.50456 116.954 C-1.66903 116.123 -4.91535 118.022 -5.74629 121.195 C-6.57724 124.369 -4.67815 127.615 -1.50456 128.446 L0 122.7 L1.50456 116.954 Z M23.41 0 L22.6936 5.89664 C43.6999 8.44889 61.5216 22.4954 68.9258 42.3093 L74.49 40.23 L80.0542 38.1507 C71.0984 14.1846 49.5401 -2.80889 24.1264 -5.89664 L23.41 0 Z M74.49 40.23 L68.9255 42.3084 C76.3298 62.1316 72.075 84.4249 57.9017 100.119 L62.31 104.1 L66.7183 108.081 C83.865 89.0951 89.0102 62.1284 80.0545 38.1516 L74.49 40.23 Z M62.31 104.1 L57.9018 100.119 C43.7187 115.822 21.9689 122.312 1.50456 116.954 L-0 122.7 L-1.50456 128.446 C23.2511 134.928 49.5613 127.078 66.7182 108.081 L62.31 104.1 Z" fill="#4996fe"/></svg>
+      <svg data-fu="arc" style={{ position: "absolute", left: "7px", top: "79.99px", width: "31.63px", height: "43.54px", display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="31.63" height="43.54" viewBox="0 0 31.63 43.54" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M28.7911 48.7577 C31.6728 50.3256 35.2798 49.2605 36.8477 46.3789 C38.4156 43.4972 37.3505 39.8902 34.4689 38.3223 L31.63 43.54 L28.7911 48.7577 Z M5.83975 -1.08669 C5.23959 -4.31189 2.13852 -6.43991 -1.08669 -5.83975 C-4.31189 -5.23959 -6.43991 -2.13852 -5.83975 1.08669 L0 0 L5.83975 -1.08669 Z M31.63 43.54 L34.4689 38.3223 C19.4797 30.1669 8.9624 15.6942 5.83975 -1.08669 L0 0 L-5.83975 1.08669 C-2.0624 21.3858 10.6603 38.8931 28.7911 48.7577 L31.63 43.54 Z" fill="#8e83fd"/></svg>
+      <svg data-fu="arc" style={{ position: "absolute", left: "6.05px", top: "28.43px", width: "14.44px", height: "36.48px", display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="14.44" height="36.48" viewBox="0 0 14.44 36.48" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M-5.92995 36.1346 C-6.12073 39.4096 -3.62045 42.2192 -0.345434 42.4099 C2.92959 42.6007 5.73917 40.1005 5.92995 36.8254 L0 36.48 L-5.92995 36.1346 Z M18.9996 3.80705 C21.1022 1.28885 20.7652 -2.45703 18.247 -4.5596 C15.7288 -6.66218 11.983 -6.32525 9.8804 -3.80705 L14.44 0 L18.9996 3.80705 Z M0 36.48 L5.92995 36.8254 C6.63595 24.7057 11.2159 13.1293 18.9996 3.80705 L14.44 0 L9.8804 -3.80705 C0.464054 7.47066 -5.07595 21.4743 -5.92995 36.1346 L0 36.48 Z" fill="#63c093"/></svg>
+      <svg data-fu="arc" style={{ position: "absolute", left: "31.5px", top: "11.78px", width: "10.64px", height: "6.3px", display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="10.64" height="6.3" viewBox="0 0 10.64 6.3" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M-3.52017 1.51544 C-6.16261 3.45958 -6.72869 7.17773 -4.78456 9.82017 C-2.84042 12.4626 0.877732 13.0287 3.52017 11.0846 L0 6.3 L-3.52017 1.51544 Z M13.1456 5.38567 C16.1201 4.00185 17.4095 0.468791 16.0257 -2.50563 C14.6418 -5.48005 11.1088 -6.76949 8.13437 -5.38567 L10.64 0 L13.1456 5.38567 Z M0 6.3 L3.52017 11.0846 C6.52965 8.87038 9.75939 6.96108 13.1456 5.38567 L10.64 0 L8.13437 -5.38567 C4.04061 -3.48108 0.130348 -1.17037 -3.52017 1.51544 L0 6.3 Z" fill="#fd872f"/></svg>
+      <svg data-fu="arc" style={{ position: "absolute", left: "56.53px", top: "6.4px", width: "4.45px", height: "1px", display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="4.45" height="1" viewBox="0 0 4.45 1" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M-1.1422 -5.11915 C-4.36155 -4.48833 -6.45997 -1.36715 -5.82915 1.8522 C-5.19833 5.07155 -2.07715 7.16997 1.1422 6.53915 L0 0.71 L-1.1422 -5.11915 Z M5.1624 5.89712 C8.4193 5.50367 10.7406 2.54449 10.3471 -0.712404 C9.95367 -3.9693 6.99449 -6.29058 3.7376 -5.89712 L4.45 0 L5.1624 5.89712 Z M0 0.71 L1.1422 6.53915 C2.49574 6.27393 3.83171 6.05788 5.1624 5.89712 L4.45 0 L3.7376 -5.89712 C2.08829 -5.69788 0.464258 -5.43393 -1.1422 -5.11915 L0 0.71 Z" fill="#d8d8d8"/></svg>
       <div style={{ position: "absolute", left: "37.04px", top: "50.63px", width: "63px", height: "35.83px", display: "flex", flexDirection: "column", gap: "1.83px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
         <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "63px", lineHeight: "21px", fontFamily: "'Geist'", fontSize: "16.45px", fontWeight: 500, color: "#1f1f22" }}>$12,480</p>
         <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "59px", lineHeight: "13px", fontFamily: "'Geist'", fontSize: "10.05px", fontWeight: 400, color: "#6b6b6b" }}>Spent in Aug</p>
@@ -65,12 +65,12 @@ function fuInteract(root: HTMLElement | null) {
   };
   // the chart around a group of marks: the nearest ancestor that also holds text labels
   const chartOf = (el: Element) => { let c: Element | null = el.parentElement; while (c && c !== root.parentElement) { if (texts(c).length >= 3) return c; c = c.parentElement; } return root; };
-  const labelNear = (scope: Element, x: number, y: number, below: boolean) => {
+  const labelNear = (scope: Element, x: number, y: number, below: boolean, anyText = false) => {
     let best = "", d = 1e9;
     for (const t of texts(scope)) {
       const r = box(t);
       if (below ? r.top < y - 2 : r.right > x + 2) continue;
-      if (NUM.test((t.textContent || "").trim()) && !/[a-z]{3}/i.test(t.textContent || "")) continue;
+      if (!anyText && NUM.test((t.textContent || "").trim()) && !/[a-z]{3}/i.test(t.textContent || "")) continue;
       const dd = below ? Math.abs(r.left + r.width / 2 - x) + (r.top - y) * 0.2 : Math.abs(r.top + r.height / 2 - y) + (x - r.right) * 0.1;
       if (dd < d) { d = dd; best = (t.textContent || "").trim(); }
     }
@@ -149,6 +149,110 @@ function fuInteract(root: HTMLElement | null) {
       show([label, val ? val(sp.y) : ""].filter(Boolean).join(" · "), sp.x, sp.y);
     });
     area.addEventListener("mouseleave", () => { g.style.opacity = "0"; hide(); });
+  }
+
+  // cards: a small lift on hover (an extra drop shadow, the card's own shadows stay as they are)
+  for (const c of all("[data-fu=card]").concat(root.dataset.fu === "card" ? [root] : [])) {
+    c.addEventListener("mouseenter", () => { ease(c, "transform .18s ease, filter .18s ease"); c.style.transform = "translateY(-2px)"; c.style.filter = "drop-shadow(0 8px 16px rgba(17,17,19,.08))"; });
+    c.addEventListener("mouseleave", () => { c.style.transform = ""; c.style.filter = ""; });
+  }
+
+  // heatmap and calendar cells: an outline and the cell's own text
+  for (const c of all("[data-fu=cell]")) {
+    c.addEventListener("mouseenter", () => {
+      ease(c, "outline-color .12s");
+      c.style.outline = "2px solid rgba(17,17,19,.55)";
+      c.style.outlineOffset = "1px";
+      const r = box(c);
+      // its own text, or the row and column labels of the grid it sits in
+      let label = (c.textContent || "").trim();
+      if (!label) {
+        // walk outwards until a row label (left) and a column label (below) are in reach
+        let row = "", col = "";
+        for (let a: Element | null = c.parentElement; a && a !== root.parentElement && !(row && col); a = a.parentElement) {
+          if (!row) row = labelNear(a, r.left, r.top + r.height / 2, false, true);
+          if (!col) col = labelNear(a, r.left + r.width / 2, r.bottom, true, true);
+        }
+        label = [row, col].filter(Boolean).join(" · ");
+      }
+      show(label, r.left + r.width / 2, r.top);
+    });
+    c.addEventListener("mouseleave", () => { c.style.outline = ""; c.style.outlineOffset = ""; hide(); });
+  }
+
+  // fields: hover and focus states
+  for (const f of all("[data-fu=field]")) {
+    f.style.cursor = "text";
+    f.addEventListener("mouseenter", () => { ease(f, "filter .15s, outline-color .15s"); f.style.filter = "brightness(0.985)"; });
+    f.addEventListener("mouseleave", () => { f.style.filter = ""; });
+    f.addEventListener("mousedown", (ev) => {
+      ev.stopPropagation();
+      for (const o of all("[data-fu=field]")) o.style.outline = "";
+      f.style.outline = "3px solid rgba(17,17,19,.12)";
+      f.style.outlineOffset = "0px";
+    });
+  }
+  doc.addEventListener("mousedown", () => { for (const o of all("[data-fu=field]")) o.style.outline = ""; });
+
+  // donut and pie charts drawn as one vector per arc: the hovered arc stays, the others fade
+  const arcGroups = new Map<Element, HTMLElement[]>();
+  for (const a of all("[data-fu=arc]")) { const p = a.parentElement!; if (!arcGroups.has(p)) arcGroups.set(p, []); arcGroups.get(p)!.push(a); }
+  arcGroups.forEach((arcs) => {
+    const scope = chartOf(arcs[0]);
+    const hexOf = (c: string) => { const m = c.match(/\d+/g); return m && m.length >= 3 ? "#" + m.slice(0, 3).map((x) => (+x).toString(16).padStart(2, "0")).join("") : c.toLowerCase(); };
+    const legend = (color: string) => {
+      for (const el of all("*", scope)) {
+        if (el.children.length || (el.textContent || "").trim()) continue;
+        if (hexOf(getComputedStyle(el).backgroundColor) !== color.toLowerCase()) continue;
+        // climb to the legend row: the first ancestor that holds more than the swatch's label
+        let row: Element | null = el.parentElement;
+        while (row && row.parentElement && texts(row).length < 2 && row !== scope) row = row.parentElement;
+        const words = row ? texts(row).map((t) => (t.textContent || "").trim()) : [];
+        if (words.length && words.length <= 5) return words.join(" · ");
+        if (el.parentElement) return texts(el.parentElement).map((t) => (t.textContent || "").trim()).join(" · ");
+      }
+      return "";
+    };
+    // hit-test the whole stack under the pointer: labels or tracks drawn over the ring don't get in the way
+    const fills = new Map(arcs.map((a) => { const sh = a.querySelector("path"); return [a, (sh && (sh.getAttribute("fill") || sh.getAttribute("stroke"))) || ""] as [HTMLElement, string]; }));
+    let current: HTMLElement | null = null;
+    scope.addEventListener("mousemove", (ev) => {
+      const e = ev as MouseEvent;
+      // the arc whose drawn shape (not just its box) is under the pointer
+      const inside = (sh: SVGGeometryElement) => { const m = sh.getScreenCTM(); if (!m) return false; const q = new DOMPoint(e.clientX, e.clientY).matrixTransform(m.inverse()); return sh.isPointInFill(q) || sh.isPointInStroke(q); };
+      const arc = arcs.find((a) => (Array.from(a.querySelectorAll("path, circle, ellipse")) as SVGGeometryElement[]).some(inside)) || null;
+      if (!arc) { if (current) { undim(arcs); hide(); current = null; } return; }
+      if (arc !== current) { dim(arcs, [arc]); current = arc; }
+      show(legend(fills.get(arc) || ""), e.clientX, e.clientY);
+    });
+    scope.addEventListener("mouseleave", () => { undim(arcs); hide(); current = null; });
+  });
+
+  // donut and pie arcs in one drawing: the hovered arc stays, the others fade; the legend row with the same colour names it
+  for (const svg of all("svg[data-fu=donut]") as unknown as SVGSVGElement[]) {
+    const arcs = (Array.from(svg.querySelectorAll("path")) as SVGPathElement[]).filter((p) => { const f = p.getAttribute("fill"); return f && f !== "none" && !/^url/.test(f); });
+    const scope = chartOf(svg);
+    const hex = (c: string) => { const m = c.match(/\d+/g); return m && m.length >= 3 ? "#" + m.slice(0, 3).map((x) => (+x).toString(16).padStart(2, "0")).join("") : c.toLowerCase(); };
+    const legend = (color: string) => {
+      for (const el of all("*", scope)) {
+        if (el.children.length || (el.textContent || "").trim()) continue;
+        const bg = getComputedStyle(el).backgroundColor;
+        if (!bg || hex(bg) !== color.toLowerCase()) continue;
+        const row = el.parentElement;
+        const words = row ? texts(row).map((t) => (t.textContent || "").trim()) : [];
+        if (words.length) return words.join(" · ");
+      }
+      return "";
+    };
+    for (const a of arcs) {
+      a.addEventListener("mouseenter", (ev) => {
+        dim(arcs, [a]);
+        const e = ev as MouseEvent;
+        show(legend(a.getAttribute("fill") || ""), e.clientX, e.clientY);
+      });
+      a.addEventListener("mousemove", (ev) => { const e = ev as MouseEvent; tip.style.left = e.clientX + "px"; tip.style.top = e.clientY - 8 + "px"; });
+      a.addEventListener("mouseleave", () => { undim(arcs); hide(); });
+    }
   }
 
   // rows: a soft highlight under the pointer

@@ -8,7 +8,7 @@ export function AmazonBusinessIntegrationCard() {
   const fuRef = useRef<any>(null);
   useEffect(() => fuInteract(fuRef.current), []);
   return (
-    <div ref={fuRef} style={{ width: "290px", height: "210px", borderRadius: "12px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #e2e8f0", overflow: "hidden", position: "relative" }}>
+    <div ref={fuRef} data-fu="card" style={{ width: "290px", height: "210px", borderRadius: "12px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #e2e8f0", overflow: "hidden", position: "relative" }}>
       <div style={{ position: "absolute", left: "16px", top: "16px", width: "40px", height: "40px", borderRadius: "10px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #e7e7e7", display: "flex", flexDirection: "row", padding: "1px 1px 1px 1px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
         <svg width={24} height={24} viewBox="0 0 24 24" style={{ width: "24px", height: "24px", flexShrink: 0, color: "#1f1f21", display: "block" }}><path d="M.045 18.02c.072-.116.187-.124.348-.022 3.636 2.11 7.594 3.166 11.87 3.166 2.852 0 5.668-.533 8.447-1.595l.315-.14c.138-.06.234-.1.293-.13.226-.088.39-.046.525.13.12.174.09.336-.12.48-.256.19-.6.41-1.006.654-1.244.743-2.64 1.316-4.185 1.726a17.617 17.617 0 01-10.951-.577 17.88 17.88 0 01-5.43-3.35c-.1-.074-.151-.15-.151-.22 0-.047.021-.09.051-.13zm6.565-6.218c0-1.005.247-1.863.743-2.577.495-.71 1.17-1.25 2.04-1.615.796-.335 1.756-.575 2.912-.72.39-.046 1.033-.103 1.92-.174v-.37c0-.93-.105-1.558-.3-1.875-.302-.43-.78-.65-1.44-.65h-.182c-.48.046-.896.196-1.246.46-.35.27-.575.63-.675 1.096-.06.3-.206.465-.435.51l-2.52-.315c-.248-.06-.372-.18-.372-.39 0-.046.007-.09.022-.15.247-1.29.855-2.25 1.82-2.88.976-.616 2.1-.975 3.39-1.05h.54c1.65 0 2.957.434 3.888 1.29.135.15.27.3.405.48.12.165.224.314.283.45.075.134.15.33.195.57.06.254.105.42.135.51.03.104.062.3.076.615.01.313.02.493.02.553v5.28c0 .376.06.72.165 1.036.105.313.21.54.315.674l.51.674c.09.136.136.256.136.36 0 .12-.06.226-.18.314-1.2 1.05-1.86 1.62-1.963 1.71-.165.135-.375.15-.63.045a6.062 6.062 0 01-.526-.496l-.31-.347a9.391 9.391 0 01-.317-.42l-.3-.435c-.81.886-1.603 1.44-2.4 1.665-.494.15-1.093.227-1.83.227-1.11 0-2.04-.343-2.76-1.034-.72-.69-1.08-1.665-1.08-2.94l-.05-.076zm3.753-.438c0 .566.14 1.02.425 1.364.285.34.675.512 1.155.512.045 0 .106-.007.195-.02.09-.016.134-.023.166-.023.614-.16 1.08-.553 1.424-1.178.165-.28.285-.58.36-.91.09-.32.12-.59.135-.8.015-.195.015-.54.015-1.005v-.54c-.84 0-1.484.06-1.92.18-1.275.36-1.92 1.17-1.92 2.43l-.035-.02zm9.162 7.027c.03-.06.075-.11.132-.17.362-.243.714-.41 1.05-.5a8.094 8.094 0 011.612-.24c.14-.012.28 0 .41.03.65.06 1.05.168 1.172.33.063.09.099.228.099.39v.15c0 .51-.149 1.11-.424 1.8-.278.69-.664 1.248-1.156 1.68-.073.06-.14.09-.197.09-.03 0-.06 0-.09-.012-.09-.044-.107-.12-.064-.24.54-1.26.806-2.143.806-2.64 0-.15-.03-.27-.087-.344-.145-.166-.55-.257-1.224-.257-.243 0-.533.016-.87.046-.363.045-.7.09-1 .135-.09 0-.148-.014-.18-.044-.03-.03-.036-.047-.02-.077 0-.017.006-.03.02-.063v-.06z" fill="currentColor" /></svg>
       </div>
@@ -74,12 +74,12 @@ function fuInteract(root: HTMLElement | null) {
   };
   // the chart around a group of marks: the nearest ancestor that also holds text labels
   const chartOf = (el: Element) => { let c: Element | null = el.parentElement; while (c && c !== root.parentElement) { if (texts(c).length >= 3) return c; c = c.parentElement; } return root; };
-  const labelNear = (scope: Element, x: number, y: number, below: boolean) => {
+  const labelNear = (scope: Element, x: number, y: number, below: boolean, anyText = false) => {
     let best = "", d = 1e9;
     for (const t of texts(scope)) {
       const r = box(t);
       if (below ? r.top < y - 2 : r.right > x + 2) continue;
-      if (NUM.test((t.textContent || "").trim()) && !/[a-z]{3}/i.test(t.textContent || "")) continue;
+      if (!anyText && NUM.test((t.textContent || "").trim()) && !/[a-z]{3}/i.test(t.textContent || "")) continue;
       const dd = below ? Math.abs(r.left + r.width / 2 - x) + (r.top - y) * 0.2 : Math.abs(r.top + r.height / 2 - y) + (x - r.right) * 0.1;
       if (dd < d) { d = dd; best = (t.textContent || "").trim(); }
     }
@@ -158,6 +158,110 @@ function fuInteract(root: HTMLElement | null) {
       show([label, val ? val(sp.y) : ""].filter(Boolean).join(" · "), sp.x, sp.y);
     });
     area.addEventListener("mouseleave", () => { g.style.opacity = "0"; hide(); });
+  }
+
+  // cards: a small lift on hover (an extra drop shadow, the card's own shadows stay as they are)
+  for (const c of all("[data-fu=card]").concat(root.dataset.fu === "card" ? [root] : [])) {
+    c.addEventListener("mouseenter", () => { ease(c, "transform .18s ease, filter .18s ease"); c.style.transform = "translateY(-2px)"; c.style.filter = "drop-shadow(0 8px 16px rgba(17,17,19,.08))"; });
+    c.addEventListener("mouseleave", () => { c.style.transform = ""; c.style.filter = ""; });
+  }
+
+  // heatmap and calendar cells: an outline and the cell's own text
+  for (const c of all("[data-fu=cell]")) {
+    c.addEventListener("mouseenter", () => {
+      ease(c, "outline-color .12s");
+      c.style.outline = "2px solid rgba(17,17,19,.55)";
+      c.style.outlineOffset = "1px";
+      const r = box(c);
+      // its own text, or the row and column labels of the grid it sits in
+      let label = (c.textContent || "").trim();
+      if (!label) {
+        // walk outwards until a row label (left) and a column label (below) are in reach
+        let row = "", col = "";
+        for (let a: Element | null = c.parentElement; a && a !== root.parentElement && !(row && col); a = a.parentElement) {
+          if (!row) row = labelNear(a, r.left, r.top + r.height / 2, false, true);
+          if (!col) col = labelNear(a, r.left + r.width / 2, r.bottom, true, true);
+        }
+        label = [row, col].filter(Boolean).join(" · ");
+      }
+      show(label, r.left + r.width / 2, r.top);
+    });
+    c.addEventListener("mouseleave", () => { c.style.outline = ""; c.style.outlineOffset = ""; hide(); });
+  }
+
+  // fields: hover and focus states
+  for (const f of all("[data-fu=field]")) {
+    f.style.cursor = "text";
+    f.addEventListener("mouseenter", () => { ease(f, "filter .15s, outline-color .15s"); f.style.filter = "brightness(0.985)"; });
+    f.addEventListener("mouseleave", () => { f.style.filter = ""; });
+    f.addEventListener("mousedown", (ev) => {
+      ev.stopPropagation();
+      for (const o of all("[data-fu=field]")) o.style.outline = "";
+      f.style.outline = "3px solid rgba(17,17,19,.12)";
+      f.style.outlineOffset = "0px";
+    });
+  }
+  doc.addEventListener("mousedown", () => { for (const o of all("[data-fu=field]")) o.style.outline = ""; });
+
+  // donut and pie charts drawn as one vector per arc: the hovered arc stays, the others fade
+  const arcGroups = new Map<Element, HTMLElement[]>();
+  for (const a of all("[data-fu=arc]")) { const p = a.parentElement!; if (!arcGroups.has(p)) arcGroups.set(p, []); arcGroups.get(p)!.push(a); }
+  arcGroups.forEach((arcs) => {
+    const scope = chartOf(arcs[0]);
+    const hexOf = (c: string) => { const m = c.match(/\d+/g); return m && m.length >= 3 ? "#" + m.slice(0, 3).map((x) => (+x).toString(16).padStart(2, "0")).join("") : c.toLowerCase(); };
+    const legend = (color: string) => {
+      for (const el of all("*", scope)) {
+        if (el.children.length || (el.textContent || "").trim()) continue;
+        if (hexOf(getComputedStyle(el).backgroundColor) !== color.toLowerCase()) continue;
+        // climb to the legend row: the first ancestor that holds more than the swatch's label
+        let row: Element | null = el.parentElement;
+        while (row && row.parentElement && texts(row).length < 2 && row !== scope) row = row.parentElement;
+        const words = row ? texts(row).map((t) => (t.textContent || "").trim()) : [];
+        if (words.length && words.length <= 5) return words.join(" · ");
+        if (el.parentElement) return texts(el.parentElement).map((t) => (t.textContent || "").trim()).join(" · ");
+      }
+      return "";
+    };
+    // hit-test the whole stack under the pointer: labels or tracks drawn over the ring don't get in the way
+    const fills = new Map(arcs.map((a) => { const sh = a.querySelector("path"); return [a, (sh && (sh.getAttribute("fill") || sh.getAttribute("stroke"))) || ""] as [HTMLElement, string]; }));
+    let current: HTMLElement | null = null;
+    scope.addEventListener("mousemove", (ev) => {
+      const e = ev as MouseEvent;
+      // the arc whose drawn shape (not just its box) is under the pointer
+      const inside = (sh: SVGGeometryElement) => { const m = sh.getScreenCTM(); if (!m) return false; const q = new DOMPoint(e.clientX, e.clientY).matrixTransform(m.inverse()); return sh.isPointInFill(q) || sh.isPointInStroke(q); };
+      const arc = arcs.find((a) => (Array.from(a.querySelectorAll("path, circle, ellipse")) as SVGGeometryElement[]).some(inside)) || null;
+      if (!arc) { if (current) { undim(arcs); hide(); current = null; } return; }
+      if (arc !== current) { dim(arcs, [arc]); current = arc; }
+      show(legend(fills.get(arc) || ""), e.clientX, e.clientY);
+    });
+    scope.addEventListener("mouseleave", () => { undim(arcs); hide(); current = null; });
+  });
+
+  // donut and pie arcs in one drawing: the hovered arc stays, the others fade; the legend row with the same colour names it
+  for (const svg of all("svg[data-fu=donut]") as unknown as SVGSVGElement[]) {
+    const arcs = (Array.from(svg.querySelectorAll("path")) as SVGPathElement[]).filter((p) => { const f = p.getAttribute("fill"); return f && f !== "none" && !/^url/.test(f); });
+    const scope = chartOf(svg);
+    const hex = (c: string) => { const m = c.match(/\d+/g); return m && m.length >= 3 ? "#" + m.slice(0, 3).map((x) => (+x).toString(16).padStart(2, "0")).join("") : c.toLowerCase(); };
+    const legend = (color: string) => {
+      for (const el of all("*", scope)) {
+        if (el.children.length || (el.textContent || "").trim()) continue;
+        const bg = getComputedStyle(el).backgroundColor;
+        if (!bg || hex(bg) !== color.toLowerCase()) continue;
+        const row = el.parentElement;
+        const words = row ? texts(row).map((t) => (t.textContent || "").trim()) : [];
+        if (words.length) return words.join(" · ");
+      }
+      return "";
+    };
+    for (const a of arcs) {
+      a.addEventListener("mouseenter", (ev) => {
+        dim(arcs, [a]);
+        const e = ev as MouseEvent;
+        show(legend(a.getAttribute("fill") || ""), e.clientX, e.clientY);
+      });
+      a.addEventListener("mousemove", (ev) => { const e = ev as MouseEvent; tip.style.left = e.clientX + "px"; tip.style.top = e.clientY - 8 + "px"; });
+      a.addEventListener("mouseleave", () => { undim(arcs); hide(); });
+    }
   }
 
   // rows: a soft highlight under the pointer

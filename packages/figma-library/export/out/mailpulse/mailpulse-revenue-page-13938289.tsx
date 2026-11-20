@@ -402,73 +402,73 @@ export function RevenuePage() {
               <div style={{ position: "absolute", left: "0px", top: "11.14px", width: "30px", height: "17.61px", borderRadius: "4.57px", background: "#f6ba64" }} />
               <div style={{ position: "absolute", left: "0px", top: "0px", width: "30px", height: "8.4px", borderRadius: "4.57px", background: "rgba(82, 155, 254, 0.7)" }} />
             </div>
-            <p style={{ position: "absolute", left: "61.29px", top: "219.34px", margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "23px", lineHeight: "17px", fontFamily: "'Geist'", fontSize: "12.79px", fontWeight: 400, color: "#747474" }}>Jan</p>
+            <p data-fu="cell" style={{ position: "absolute", left: "61.29px", top: "219.34px", margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "23px", lineHeight: "17px", fontFamily: "'Geist'", fontSize: "12.79px", fontWeight: 400, color: "#747474" }}>Jan</p>
             <div style={{ position: "absolute", left: "111.38px", top: "125.73px", width: "30px", height: "86.3px" }}>
               <div style={{ position: "absolute", left: "0px", top: "31.09px", width: "30px", height: "55.21px", borderRadius: "4.57px", background: "linear-gradient(0deg, #a3e357 0%, #b0e770 85%, #d6ffa6 100%)" }} />
               <div style={{ position: "absolute", left: "0px", top: "12.77px", width: "30px", height: "15.58px", borderRadius: "4.57px", background: "#f6ba64" }} />
               <div style={{ position: "absolute", left: "0px", top: "0px", width: "30px", height: "10.03px", borderRadius: "4.57px", background: "rgba(82, 155, 254, 0.7)" }} />
             </div>
-            <p style={{ position: "absolute", left: "115.38px", top: "219.34px", margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "22px", lineHeight: "17px", fontFamily: "'Geist'", fontSize: "12.79px", fontWeight: 400, color: "#747474" }}>Feb</p>
+            <p data-fu="cell" style={{ position: "absolute", left: "115.38px", top: "219.34px", margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "22px", lineHeight: "17px", fontFamily: "'Geist'", fontSize: "12.79px", fontWeight: 400, color: "#747474" }}>Feb</p>
             <div style={{ position: "absolute", left: "164.97px", top: "117.19px", width: "30px", height: "94.84px" }}>
               <div style={{ position: "absolute", left: "0px", top: "34.95px", width: "30px", height: "59.89px", borderRadius: "4.57px", background: "linear-gradient(0deg, #a3e357 0%, #b0e770 85%, #d6ffa6 100%)" }} />
               <div style={{ position: "absolute", left: "0px", top: "10.53px", width: "30px", height: "21.68px", borderRadius: "4.57px", background: "#f6ba64" }} />
               <div style={{ position: "absolute", left: "0px", top: "0px", width: "30px", height: "7.79px", borderRadius: "4.57px", background: "rgba(82, 155, 254, 0.7)" }} />
             </div>
-            <p style={{ position: "absolute", left: "168.47px", top: "219.34px", margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "23px", lineHeight: "17px", fontFamily: "'Geist'", fontSize: "12.79px", fontWeight: 400, color: "#747474" }}>Mar</p>
+            <p data-fu="cell" style={{ position: "absolute", left: "168.47px", top: "219.34px", margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "23px", lineHeight: "17px", fontFamily: "'Geist'", fontSize: "12.79px", fontWeight: 400, color: "#747474" }}>Mar</p>
             <div style={{ position: "absolute", left: "218.56px", top: "113.32px", width: "30px", height: "98.71px" }}>
               <div style={{ position: "absolute", left: "0px", top: "35.36px", width: "30px", height: "63.35px", borderRadius: "4.57px", background: "linear-gradient(0deg, #a3e357 0%, #b0e770 85%, #d6ffa6 100%)" }} />
               <div style={{ position: "absolute", left: "0px", top: "13.99px", width: "30px", height: "18.63px", borderRadius: "4.57px", background: "#f6ba64" }} />
               <div style={{ position: "absolute", left: "0px", top: "0px", width: "30px", height: "11.25px", borderRadius: "4.57px", background: "rgba(82, 155, 254, 0.7)" }} />
             </div>
-            <p style={{ position: "absolute", left: "223.06px", top: "219.34px", margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "21px", lineHeight: "17px", fontFamily: "'Geist'", fontSize: "12.79px", fontWeight: 400, color: "#747474" }}>Apr</p>
+            <p data-fu="cell" style={{ position: "absolute", left: "223.06px", top: "219.34px", margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "21px", lineHeight: "17px", fontFamily: "'Geist'", fontSize: "12.79px", fontWeight: 400, color: "#747474" }}>Apr</p>
             <div style={{ position: "absolute", left: "272.15px", top: "102.94px", width: "30px", height: "109.09px" }}>
               <div style={{ position: "absolute", left: "0px", top: "40.85px", width: "30px", height: "68.24px", borderRadius: "4.57px", background: "linear-gradient(0deg, #a3e357 0%, #b0e770 85%, #d6ffa6 100%)" }} />
               <div style={{ position: "absolute", left: "0px", top: "12.36px", width: "30px", height: "25.75px", borderRadius: "4.57px", background: "#f6ba64" }} />
               <div style={{ position: "absolute", left: "0px", top: "0px", width: "30px", height: "9.62px", borderRadius: "4.57px", background: "rgba(82, 155, 254, 0.7)" }} />
             </div>
-            <p style={{ position: "absolute", left: "274.65px", top: "219.34px", margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "25px", lineHeight: "17px", fontFamily: "'Geist'", fontSize: "12.79px", fontWeight: 400, color: "#747474" }}>May</p>
+            <p data-fu="cell" style={{ position: "absolute", left: "274.65px", top: "219.34px", margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "25px", lineHeight: "17px", fontFamily: "'Geist'", fontSize: "12.79px", fontWeight: 400, color: "#747474" }}>May</p>
             <div style={{ position: "absolute", left: "325.74px", top: "98.87px", width: "30px", height: "113.16px" }}>
               <div style={{ position: "absolute", left: "0px", top: "41.06px", width: "30px", height: "72.1px", borderRadius: "4.57px", background: "linear-gradient(0deg, #a3e357 0%, #b0e770 85%, #d6ffa6 100%)" }} />
               <div style={{ position: "absolute", left: "0px", top: "15.62px", width: "30px", height: "22.7px", borderRadius: "4.57px", background: "#f6ba64" }} />
               <div style={{ position: "absolute", left: "0px", top: "0px", width: "30px", height: "12.88px", borderRadius: "4.57px", background: "rgba(82, 155, 254, 0.7)" }} />
             </div>
-            <p style={{ position: "absolute", left: "329.24px", top: "219.34px", margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "23px", lineHeight: "17px", fontFamily: "'Geist'", fontSize: "12.79px", fontWeight: 400, color: "#747474" }}>Jun</p>
+            <p data-fu="cell" style={{ position: "absolute", left: "329.24px", top: "219.34px", margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "23px", lineHeight: "17px", fontFamily: "'Geist'", fontSize: "12.79px", fontWeight: 400, color: "#747474" }}>Jun</p>
             <div style={{ position: "absolute", left: "379.33px", top: "91.95px", width: "30px", height: "120.08px" }}>
               <div style={{ position: "absolute", left: "0px", top: "44.31px", width: "30px", height: "75.77px", borderRadius: "4.57px", background: "linear-gradient(0deg, #a3e357 0%, #b0e770 85%, #d6ffa6 100%)" }} />
               <div style={{ position: "absolute", left: "0px", top: "13.79px", width: "30px", height: "27.79px", borderRadius: "4.57px", background: "#f6ba64" }} />
               <div style={{ position: "absolute", left: "0px", top: "0px", width: "30px", height: "11.05px", borderRadius: "4.57px", background: "rgba(82, 155, 254, 0.7)" }} />
             </div>
-            <p style={{ position: "absolute", left: "384.83px", top: "219.34px", margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "19px", lineHeight: "17px", fontFamily: "'Geist'", fontSize: "12.79px", fontWeight: 400, color: "#747474" }}>Jul</p>
+            <p data-fu="cell" style={{ position: "absolute", left: "384.83px", top: "219.34px", margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "19px", lineHeight: "17px", fontFamily: "'Geist'", fontSize: "12.79px", fontWeight: 400, color: "#747474" }}>Jul</p>
             <div style={{ position: "absolute", left: "432.92px", top: "89.1px", width: "30px", height: "122.93px" }}>
               <div style={{ position: "absolute", left: "0px", top: "43.3px", width: "30px", height: "79.63px", borderRadius: "4.57px", background: "linear-gradient(0deg, #a3e357 0%, #b0e770 85%, #d6ffa6 100%)" }} />
               <div style={{ position: "absolute", left: "0px", top: "16.84px", width: "30px", height: "23.72px", borderRadius: "4.57px", background: "#f6ba64" }} />
               <div style={{ position: "absolute", left: "0px", top: "0px", width: "30px", height: "14.1px", borderRadius: "4.57px", background: "rgba(82, 155, 254, 0.7)" }} />
             </div>
-            <p style={{ position: "absolute", left: "435.92px", top: "219.34px", margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "24px", lineHeight: "17px", fontFamily: "'Geist'", fontSize: "12.79px", fontWeight: 400, color: "#747474" }}>Aug</p>
+            <p data-fu="cell" style={{ position: "absolute", left: "435.92px", top: "219.34px", margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "24px", lineHeight: "17px", fontFamily: "'Geist'", fontSize: "12.79px", fontWeight: 400, color: "#747474" }}>Aug</p>
             <div style={{ position: "absolute", left: "486.51px", top: "73.22px", width: "30px", height: "138.81px" }}>
               <div style={{ position: "absolute", left: "0px", top: "53.68px", width: "30px", height: "85.13px", borderRadius: "4.57px", background: "linear-gradient(0deg, #a3e357 0%, #b0e770 85%, #d6ffa6 100%)" }} />
               <div style={{ position: "absolute", left: "0px", top: "18.06px", width: "30px", height: "32.88px", borderRadius: "4.57px", background: "#f6ba64" }} />
               <div style={{ position: "absolute", left: "0px", top: "0px", width: "30px", height: "15.32px", borderRadius: "4.57px", background: "#529bfe" }} />
             </div>
-            <p style={{ position: "absolute", left: "489.51px", top: "219.34px", margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "24px", lineHeight: "17px", fontFamily: "'Geist'", fontSize: "12.79px", fontWeight: 400, color: "#747474" }}>Sep</p>
+            <p data-fu="cell" style={{ position: "absolute", left: "489.51px", top: "219.34px", margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "24px", lineHeight: "17px", fontFamily: "'Geist'", fontSize: "12.79px", fontWeight: 400, color: "#747474" }}>Sep</p>
             <div style={{ position: "absolute", left: "540.1px", top: "65.9px", width: "30px", height: "146.13px" }}>
               <div style={{ position: "absolute", left: "0px", top: "55.51px", width: "30px", height: "90.63px", borderRadius: "4.57px", background: "linear-gradient(0deg, #a3e357 0%, #b0e770 85%, #d6ffa6 100%)" }} />
               <div style={{ position: "absolute", left: "0px", top: "16.84px", width: "30px", height: "35.93px", borderRadius: "4.57px", background: "#f6ba64" }} />
               <div style={{ position: "absolute", left: "0px", top: "0px", width: "30px", height: "14.1px", borderRadius: "4.57px", background: "rgba(82, 155, 254, 0.7)" }} />
             </div>
-            <p style={{ position: "absolute", left: "544.1px", top: "219.34px", margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "22px", lineHeight: "17px", fontFamily: "'Geist'", fontSize: "12.79px", fontWeight: 400, color: "#747474" }}>Oct</p>
+            <p data-fu="cell" style={{ position: "absolute", left: "544.1px", top: "219.34px", margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "22px", lineHeight: "17px", fontFamily: "'Geist'", fontSize: "12.79px", fontWeight: 400, color: "#747474" }}>Oct</p>
             <div style={{ position: "absolute", left: "593.69px", top: "49.21px", width: "30px", height: "162.82px" }}>
               <div style={{ position: "absolute", left: "0px", top: "63.85px", width: "30px", height: "98.97px", borderRadius: "4.57px", background: "linear-gradient(0deg, #a3e357 0%, #b0e770 85%, #d6ffa6 100%)" }} />
               <div style={{ position: "absolute", left: "0px", top: "22.13px", width: "30px", height: "38.98px", borderRadius: "4.57px", background: "#f6ba64" }} />
               <div style={{ position: "absolute", left: "0px", top: "0px", width: "30px", height: "19.39px", borderRadius: "4.57px", background: "#529bfe" }} />
             </div>
-            <p style={{ position: "absolute", left: "596.69px", top: "219.34px", margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "24px", lineHeight: "17px", fontFamily: "'Geist'", fontSize: "12.79px", fontWeight: 400, color: "#747474" }}>Nov</p>
+            <p data-fu="cell" style={{ position: "absolute", left: "596.69px", top: "219.34px", margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "24px", lineHeight: "17px", fontFamily: "'Geist'", fontSize: "12.79px", fontWeight: 400, color: "#747474" }}>Nov</p>
             <div style={{ position: "absolute", left: "647.28px", top: "39.84px", width: "30px", height: "172.19px" }}>
               <div style={{ position: "absolute", left: "0px", top: "66.91px", width: "30px", height: "105.28px", borderRadius: "4.57px", background: "linear-gradient(0deg, #a3e357 0%, #b0e770 85%, #d6ffa6 100%)" }} />
               <div style={{ position: "absolute", left: "0px", top: "22.54px", width: "30px", height: "41.63px", borderRadius: "4.57px", background: "#f6ba64" }} />
               <div style={{ position: "absolute", left: "0px", top: "0px", width: "30px", height: "19.8px", borderRadius: "4.57px", background: "#529bfe" }} />
             </div>
-            <p style={{ position: "absolute", left: "650.28px", top: "219.34px", margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "24px", lineHeight: "17px", fontFamily: "'Geist'", fontSize: "12.79px", fontWeight: 400, color: "#747474" }}>Dec</p>
+            <p data-fu="cell" style={{ position: "absolute", left: "650.28px", top: "219.34px", margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "24px", lineHeight: "17px", fontFamily: "'Geist'", fontSize: "12.79px", fontWeight: 400, color: "#747474" }}>Dec</p>
           </div>
         </div>
         <div style={{ position: "absolute", left: "738.42px", top: "257.72px", width: "318.03px", height: "310.78px", display: "flex", flexDirection: "column", gap: "14.62px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
@@ -811,12 +811,12 @@ function fuInteract(root: HTMLElement | null) {
   };
   // the chart around a group of marks: the nearest ancestor that also holds text labels
   const chartOf = (el: Element) => { let c: Element | null = el.parentElement; while (c && c !== root.parentElement) { if (texts(c).length >= 3) return c; c = c.parentElement; } return root; };
-  const labelNear = (scope: Element, x: number, y: number, below: boolean) => {
+  const labelNear = (scope: Element, x: number, y: number, below: boolean, anyText = false) => {
     let best = "", d = 1e9;
     for (const t of texts(scope)) {
       const r = box(t);
       if (below ? r.top < y - 2 : r.right > x + 2) continue;
-      if (NUM.test((t.textContent || "").trim()) && !/[a-z]{3}/i.test(t.textContent || "")) continue;
+      if (!anyText && NUM.test((t.textContent || "").trim()) && !/[a-z]{3}/i.test(t.textContent || "")) continue;
       const dd = below ? Math.abs(r.left + r.width / 2 - x) + (r.top - y) * 0.2 : Math.abs(r.top + r.height / 2 - y) + (x - r.right) * 0.1;
       if (dd < d) { d = dd; best = (t.textContent || "").trim(); }
     }
@@ -895,6 +895,110 @@ function fuInteract(root: HTMLElement | null) {
       show([label, val ? val(sp.y) : ""].filter(Boolean).join(" · "), sp.x, sp.y);
     });
     area.addEventListener("mouseleave", () => { g.style.opacity = "0"; hide(); });
+  }
+
+  // cards: a small lift on hover (an extra drop shadow, the card's own shadows stay as they are)
+  for (const c of all("[data-fu=card]").concat(root.dataset.fu === "card" ? [root] : [])) {
+    c.addEventListener("mouseenter", () => { ease(c, "transform .18s ease, filter .18s ease"); c.style.transform = "translateY(-2px)"; c.style.filter = "drop-shadow(0 8px 16px rgba(17,17,19,.08))"; });
+    c.addEventListener("mouseleave", () => { c.style.transform = ""; c.style.filter = ""; });
+  }
+
+  // heatmap and calendar cells: an outline and the cell's own text
+  for (const c of all("[data-fu=cell]")) {
+    c.addEventListener("mouseenter", () => {
+      ease(c, "outline-color .12s");
+      c.style.outline = "2px solid rgba(17,17,19,.55)";
+      c.style.outlineOffset = "1px";
+      const r = box(c);
+      // its own text, or the row and column labels of the grid it sits in
+      let label = (c.textContent || "").trim();
+      if (!label) {
+        // walk outwards until a row label (left) and a column label (below) are in reach
+        let row = "", col = "";
+        for (let a: Element | null = c.parentElement; a && a !== root.parentElement && !(row && col); a = a.parentElement) {
+          if (!row) row = labelNear(a, r.left, r.top + r.height / 2, false, true);
+          if (!col) col = labelNear(a, r.left + r.width / 2, r.bottom, true, true);
+        }
+        label = [row, col].filter(Boolean).join(" · ");
+      }
+      show(label, r.left + r.width / 2, r.top);
+    });
+    c.addEventListener("mouseleave", () => { c.style.outline = ""; c.style.outlineOffset = ""; hide(); });
+  }
+
+  // fields: hover and focus states
+  for (const f of all("[data-fu=field]")) {
+    f.style.cursor = "text";
+    f.addEventListener("mouseenter", () => { ease(f, "filter .15s, outline-color .15s"); f.style.filter = "brightness(0.985)"; });
+    f.addEventListener("mouseleave", () => { f.style.filter = ""; });
+    f.addEventListener("mousedown", (ev) => {
+      ev.stopPropagation();
+      for (const o of all("[data-fu=field]")) o.style.outline = "";
+      f.style.outline = "3px solid rgba(17,17,19,.12)";
+      f.style.outlineOffset = "0px";
+    });
+  }
+  doc.addEventListener("mousedown", () => { for (const o of all("[data-fu=field]")) o.style.outline = ""; });
+
+  // donut and pie charts drawn as one vector per arc: the hovered arc stays, the others fade
+  const arcGroups = new Map<Element, HTMLElement[]>();
+  for (const a of all("[data-fu=arc]")) { const p = a.parentElement!; if (!arcGroups.has(p)) arcGroups.set(p, []); arcGroups.get(p)!.push(a); }
+  arcGroups.forEach((arcs) => {
+    const scope = chartOf(arcs[0]);
+    const hexOf = (c: string) => { const m = c.match(/\d+/g); return m && m.length >= 3 ? "#" + m.slice(0, 3).map((x) => (+x).toString(16).padStart(2, "0")).join("") : c.toLowerCase(); };
+    const legend = (color: string) => {
+      for (const el of all("*", scope)) {
+        if (el.children.length || (el.textContent || "").trim()) continue;
+        if (hexOf(getComputedStyle(el).backgroundColor) !== color.toLowerCase()) continue;
+        // climb to the legend row: the first ancestor that holds more than the swatch's label
+        let row: Element | null = el.parentElement;
+        while (row && row.parentElement && texts(row).length < 2 && row !== scope) row = row.parentElement;
+        const words = row ? texts(row).map((t) => (t.textContent || "").trim()) : [];
+        if (words.length && words.length <= 5) return words.join(" · ");
+        if (el.parentElement) return texts(el.parentElement).map((t) => (t.textContent || "").trim()).join(" · ");
+      }
+      return "";
+    };
+    // hit-test the whole stack under the pointer: labels or tracks drawn over the ring don't get in the way
+    const fills = new Map(arcs.map((a) => { const sh = a.querySelector("path"); return [a, (sh && (sh.getAttribute("fill") || sh.getAttribute("stroke"))) || ""] as [HTMLElement, string]; }));
+    let current: HTMLElement | null = null;
+    scope.addEventListener("mousemove", (ev) => {
+      const e = ev as MouseEvent;
+      // the arc whose drawn shape (not just its box) is under the pointer
+      const inside = (sh: SVGGeometryElement) => { const m = sh.getScreenCTM(); if (!m) return false; const q = new DOMPoint(e.clientX, e.clientY).matrixTransform(m.inverse()); return sh.isPointInFill(q) || sh.isPointInStroke(q); };
+      const arc = arcs.find((a) => (Array.from(a.querySelectorAll("path, circle, ellipse")) as SVGGeometryElement[]).some(inside)) || null;
+      if (!arc) { if (current) { undim(arcs); hide(); current = null; } return; }
+      if (arc !== current) { dim(arcs, [arc]); current = arc; }
+      show(legend(fills.get(arc) || ""), e.clientX, e.clientY);
+    });
+    scope.addEventListener("mouseleave", () => { undim(arcs); hide(); current = null; });
+  });
+
+  // donut and pie arcs in one drawing: the hovered arc stays, the others fade; the legend row with the same colour names it
+  for (const svg of all("svg[data-fu=donut]") as unknown as SVGSVGElement[]) {
+    const arcs = (Array.from(svg.querySelectorAll("path")) as SVGPathElement[]).filter((p) => { const f = p.getAttribute("fill"); return f && f !== "none" && !/^url/.test(f); });
+    const scope = chartOf(svg);
+    const hex = (c: string) => { const m = c.match(/\d+/g); return m && m.length >= 3 ? "#" + m.slice(0, 3).map((x) => (+x).toString(16).padStart(2, "0")).join("") : c.toLowerCase(); };
+    const legend = (color: string) => {
+      for (const el of all("*", scope)) {
+        if (el.children.length || (el.textContent || "").trim()) continue;
+        const bg = getComputedStyle(el).backgroundColor;
+        if (!bg || hex(bg) !== color.toLowerCase()) continue;
+        const row = el.parentElement;
+        const words = row ? texts(row).map((t) => (t.textContent || "").trim()) : [];
+        if (words.length) return words.join(" · ");
+      }
+      return "";
+    };
+    for (const a of arcs) {
+      a.addEventListener("mouseenter", (ev) => {
+        dim(arcs, [a]);
+        const e = ev as MouseEvent;
+        show(legend(a.getAttribute("fill") || ""), e.clientX, e.clientY);
+      });
+      a.addEventListener("mousemove", (ev) => { const e = ev as MouseEvent; tip.style.left = e.clientX + "px"; tip.style.top = e.clientY - 8 + "px"; });
+      a.addEventListener("mouseleave", () => { undim(arcs); hide(); });
+    }
   }
 
   // rows: a soft highlight under the pointer

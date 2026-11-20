@@ -413,6 +413,7 @@ const spread = (xs) => Math.max(...xs) - Math.min(...xs);
 const NOT_MARK = /grid|divider|line|tick|guide|track|hatch|label|legend|dot|avatar|axis|gap|spacer|bg|background|shadow|border/i;
 const NOT_ROW = /cell|label|tick|legend|value|chip|tab|pill|segment|option|menu|nav|key|axis|grid|day|week|month|hour/i;
 const TAB = /\b(tab|tabs|segment|option|pill|chip|toggle|filter|period|range)\b/i;
+const FIELD = /\b(input|search|field|textarea|text area|combobox|search field|search bar)\b/i;
 const BTN = /button|\bbtn\b|\bcta\b|menu item|menu\/item|nav item|\bselect\b|dropdown|\blink\b|^action/i;
 // a group of marks that are all one pale grey is a skeleton or placeholder, not data
 const fillOf = (k) => (k.f || []).find((p) => p && p.k === "s")?.c?.toLowerCase() || (k.k || []).map(fillOf).find(Boolean) || "";
@@ -440,6 +441,20 @@ export function assignRoles(n, depth = 0, parent = null) {
     if (g.length >= 2 && g.length <= 10 && TAB.test(name) && g.every((k) => (hasTextNode(k) || (k.k || []).some(isIconNode)) && (k.h || 0) <= 48)) { for (const k of g) k._fu = "tab"; count += g.length; continue; }
     if (g.length >= 3 && !NOT_ROW.test(name) && g.every(hasTextNode) && spread(ws) <= 2 && Math.min(...ws) >= 0.55 * (n.w || 0) && new Set(g.map((k) => Math.round(k.y || 0))).size === g.length) { for (const k of g) k._fu = "row"; count += g.length; continue; }
   }
+  // more roles for components without marks or lists: card groups, heatmap/calendar cells, fields, donuts
+  for (const [name, g] of Object.entries(groups)) {
+    if (g.some((k) => k._fu)) continue;
+    const ws = g.map((k) => k.w || 0), hs = g.map((k) => k.h || 0);
+    if (g.length >= 6 && !NOT_MARK.test(name) && !/swatch|key|chip|badge|tag|pill|status|avatar|logo|star/i.test(name) && Math.min(...ws) >= 12 && Math.min(...hs) >= 12 && Math.max(...ws) <= 80 && Math.max(...hs) <= 80 && g.every((k) => k.w > 0 && k.h > 0 && k.w / k.h <= 3 && k.h / k.w <= 3 && !isIconNode(k) && !(k.k || []).some(isIconNode))) { for (const k of g) k._fu = "cell"; count += g.length; continue; }
+    if (g.length >= 2 && g.every((k) => (k.f?.length || k.s?.length) && (typeof k.r === "number" ? k.r > 0 : Array.isArray(k.r)) && (k.w || 0) >= 120 && (k.h || 0) >= 56 && hasTextNode(k))) { for (const k of g) k._fu = "card"; count += g.length; continue; }
+  }
+  // donut and pie charts drawn as one vector per arc
+  const arcs = ks.filter((k) => !k._fu && k.svg && /arc|segment|slice|ring|donut|pie|sector/i.test(k.n || "") && !/track|bg|background/i.test(k.n || ""));
+  if (arcs.length >= 2) { for (const k of arcs) k._fu = "arc"; count += arcs.length; }
+  for (const k of ks) {
+    if (!k._fu && FIELD.test(k.n || "") && (k.h || 0) >= 24 && (k.h || 0) <= 56 && (k.f?.length || k.s?.length)) { k._fu = "field"; count++; }
+    if (!k._fu && k.svg && k.w >= 60 && k.h >= 60 && k.w / k.h <= 1.5 && k.h / k.w <= 1.5 && new Set([...k.svg.matchAll(/<path[^>]*fill="(#[0-9a-fA-F]{3,8})"/g)].map((m) => m[1].toLowerCase())).size >= 3 && !/^(icon|logo|avatar|illustration|art|image)/i.test(k.n || "")) { k._fu = "donut"; count++; }
+  }
   for (const k of ks) {
     if (!k._fu && BTN.test(k.n || "") && (k.h || 0) <= 56 && (k.f?.length || k.s?.length) && (hasTextNode(k) || (k.k || []).some(isIconNode))) { k._fu = "btn"; count++; }
     count += assignRoles(k, depth + 1, n);
@@ -447,8 +462,11 @@ export function assignRoles(n, depth = 0, parent = null) {
   return count;
 }
 
+const CARD_CATS = /^(cards and panels|kpi and stats|charts|tables and lists)$/i;
 export function toTSX(tree, icons, meta) {
-  const roles = assignRoles(tree);
+  let roles = assignRoles(tree);
+  // a component that is one card lifts a little on hover
+  if (!tree._fu && CARD_CATS.test(meta.category || "") && (tree.f?.length || tree.s?.length) && (typeof tree.r === "number" ? tree.r > 0 : Array.isArray(tree.r)) && (tree.w || 0) <= 900) { tree._fu = "card"; roles++; }
   const el = build(tree);
   const fonts = [...new Set(JSON.stringify(tree).match(/"ff":"[^"]+"/g)?.map((m) => m.slice(6, -1)) || [])];
   const name = componentName(meta.name);

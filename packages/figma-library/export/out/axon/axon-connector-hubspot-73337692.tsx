@@ -20,7 +20,7 @@ export function ConnectorHubSpot() {
   const fuRef = useRef<any>(null);
   useEffect(() => fuInteract(fuRef.current), []);
   return (
-    <div ref={fuRef} style={{ width: "276.75px", height: "153px", borderRadius: "12px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #ededed", display: "flex", flexDirection: "column", padding: "17px 17px 17px 17px", gap: "12px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+    <div ref={fuRef} data-fu="card" style={{ width: "276.75px", height: "153px", borderRadius: "12px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #ededed", display: "flex", flexDirection: "column", padding: "17px 17px 17px 17px", gap: "12px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
       <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
         <div style={{ width: "40px", height: "40px", flexShrink: 0, borderRadius: "11px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #ededed, 0px 1px 2px 0px rgba(13, 13, 18, 0.06)", display: "flex", flexDirection: "row", padding: "1px 1px 1px 1px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
           <svg style={{ width: "22px", height: "22px", flexShrink: 0, display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0.503 0)" d="M16.1476 7.26914 L16.1476 4.66031 C16.4928 4.49888 16.7852 4.24283 16.9908 3.92189 C17.1964 3.60094 17.3067 3.22827 17.309 2.84714 L17.309 2.78573 C17.3075 2.25294 17.0953 1.74237 16.7187 1.36554 C16.342 0.988716 15.8315 0.776253 15.2987 0.77456 L15.2373 0.77456 C14.7047 0.776252 14.1944 0.988589 13.8177 1.36522 C13.4411 1.74185 13.2288 2.25218 13.2271 2.78481 L13.2271 2.84623 C13.2288 3.22515 13.3374 3.5959 13.5404 3.91584 C13.7434 4.23578 14.0326 4.49193 14.3747 4.65481 L14.3867 4.66031 L14.3867 7.27464 C13.3892 7.42704 12.45 7.84143 11.6651 8.47548 L11.6761 8.46631 L4.50041 2.87923 C4.63702 2.36741 4.59189 1.82406 4.37269 1.3418 C4.15349 0.859545 3.77381 0.468248 3.29838 0.234624 C2.82294 0.00100033 2.2812 -0.0604844 1.7655 0.0606527 C1.2498 0.18179 0.792086 0.478049 0.470392 0.898918 C0.148698 1.31979 -0.0170565 1.83921 0.00138887 2.36862 C0.0198342 2.89803 0.221338 3.40466 0.571543 3.80212 C0.921748 4.19957 1.39897 4.46326 1.92185 4.54821 C2.44473 4.63316 2.98088 4.53412 3.43891 4.26798 L3.42791 4.27348 L10.4835 9.76523 C9.85976 10.7004 9.52853 11.8 9.53199 12.9241 C9.53199 14.1551 9.92157 15.2964 10.5834 16.2305 L10.5715 16.2121 L8.42465 18.3599 C8.25279 18.3044 8.07357 18.2751 7.89299 18.2728 L7.89115 18.2728 C7.52257 18.2728 7.16227 18.3821 6.8558 18.5869 C6.54934 18.7917 6.31048 19.0827 6.16943 19.4232 C6.02838 19.7638 5.99147 20.1385 6.06338 20.5 C6.13529 20.8615 6.31278 21.1935 6.5734 21.4541 C6.83403 21.7148 7.16609 21.8923 7.52759 21.9642 C7.88909 22.0361 8.26379 21.9992 8.60432 21.8581 C8.94484 21.7171 9.23589 21.4782 9.44067 21.1717 C9.64544 20.8653 9.75474 20.505 9.75474 20.1364 C9.75225 19.951 9.72134 19.767 9.66307 19.591 L9.66765 19.6038 L11.7916 17.4799 C12.4838 18.0081 13.2875 18.3715 14.1413 18.5424 C14.9951 18.7134 15.8767 18.6873 16.719 18.4662 C17.5612 18.2452 18.342 17.835 19.0019 17.2668 C19.6617 16.6986 20.1833 15.9874 20.5269 15.1873 C20.8706 14.3872 21.0272 13.5192 20.985 12.6495 C20.9427 11.7797 20.7026 10.931 20.283 10.168 C19.8634 9.40501 19.2753 8.74773 18.5635 8.2462 C17.8516 7.74466 17.0348 7.41207 16.1751 7.27373 L16.1421 7.26914 L16.1476 7.26914 Z M15.2639 15.8656 C14.6831 15.864 14.1157 15.6903 13.6335 15.3664 C13.1513 15.0425 12.7759 14.583 12.5548 14.046 C12.3336 13.5089 12.2765 12.9183 12.3907 12.3488 C12.505 11.7793 12.7854 11.2564 13.1967 10.8462 C13.6079 10.436 14.1315 10.1568 14.7013 10.044 C15.2711 9.93114 15.8615 9.98968 16.3981 10.2122 C16.9346 10.4348 17.3932 10.8113 17.7158 11.2943 C18.0385 11.7773 18.2108 12.345 18.211 12.9259 L18.211 12.9277 C18.2111 13.3138 18.1352 13.6961 17.9875 14.0529 C17.8398 14.4096 17.6232 14.7337 17.3502 15.0067 C17.0772 15.2797 16.7531 15.4963 16.3964 15.6439 C16.0397 15.7916 15.6573 15.8676 15.2712 15.8675 L15.2639 15.8656 Z" fill="#ff7a59"/></svg>
@@ -98,12 +98,12 @@ function fuInteract(root: HTMLElement | null) {
   };
   // the chart around a group of marks: the nearest ancestor that also holds text labels
   const chartOf = (el: Element) => { let c: Element | null = el.parentElement; while (c && c !== root.parentElement) { if (texts(c).length >= 3) return c; c = c.parentElement; } return root; };
-  const labelNear = (scope: Element, x: number, y: number, below: boolean) => {
+  const labelNear = (scope: Element, x: number, y: number, below: boolean, anyText = false) => {
     let best = "", d = 1e9;
     for (const t of texts(scope)) {
       const r = box(t);
       if (below ? r.top < y - 2 : r.right > x + 2) continue;
-      if (NUM.test((t.textContent || "").trim()) && !/[a-z]{3}/i.test(t.textContent || "")) continue;
+      if (!anyText && NUM.test((t.textContent || "").trim()) && !/[a-z]{3}/i.test(t.textContent || "")) continue;
       const dd = below ? Math.abs(r.left + r.width / 2 - x) + (r.top - y) * 0.2 : Math.abs(r.top + r.height / 2 - y) + (x - r.right) * 0.1;
       if (dd < d) { d = dd; best = (t.textContent || "").trim(); }
     }
@@ -182,6 +182,110 @@ function fuInteract(root: HTMLElement | null) {
       show([label, val ? val(sp.y) : ""].filter(Boolean).join(" · "), sp.x, sp.y);
     });
     area.addEventListener("mouseleave", () => { g.style.opacity = "0"; hide(); });
+  }
+
+  // cards: a small lift on hover (an extra drop shadow, the card's own shadows stay as they are)
+  for (const c of all("[data-fu=card]").concat(root.dataset.fu === "card" ? [root] : [])) {
+    c.addEventListener("mouseenter", () => { ease(c, "transform .18s ease, filter .18s ease"); c.style.transform = "translateY(-2px)"; c.style.filter = "drop-shadow(0 8px 16px rgba(17,17,19,.08))"; });
+    c.addEventListener("mouseleave", () => { c.style.transform = ""; c.style.filter = ""; });
+  }
+
+  // heatmap and calendar cells: an outline and the cell's own text
+  for (const c of all("[data-fu=cell]")) {
+    c.addEventListener("mouseenter", () => {
+      ease(c, "outline-color .12s");
+      c.style.outline = "2px solid rgba(17,17,19,.55)";
+      c.style.outlineOffset = "1px";
+      const r = box(c);
+      // its own text, or the row and column labels of the grid it sits in
+      let label = (c.textContent || "").trim();
+      if (!label) {
+        // walk outwards until a row label (left) and a column label (below) are in reach
+        let row = "", col = "";
+        for (let a: Element | null = c.parentElement; a && a !== root.parentElement && !(row && col); a = a.parentElement) {
+          if (!row) row = labelNear(a, r.left, r.top + r.height / 2, false, true);
+          if (!col) col = labelNear(a, r.left + r.width / 2, r.bottom, true, true);
+        }
+        label = [row, col].filter(Boolean).join(" · ");
+      }
+      show(label, r.left + r.width / 2, r.top);
+    });
+    c.addEventListener("mouseleave", () => { c.style.outline = ""; c.style.outlineOffset = ""; hide(); });
+  }
+
+  // fields: hover and focus states
+  for (const f of all("[data-fu=field]")) {
+    f.style.cursor = "text";
+    f.addEventListener("mouseenter", () => { ease(f, "filter .15s, outline-color .15s"); f.style.filter = "brightness(0.985)"; });
+    f.addEventListener("mouseleave", () => { f.style.filter = ""; });
+    f.addEventListener("mousedown", (ev) => {
+      ev.stopPropagation();
+      for (const o of all("[data-fu=field]")) o.style.outline = "";
+      f.style.outline = "3px solid rgba(17,17,19,.12)";
+      f.style.outlineOffset = "0px";
+    });
+  }
+  doc.addEventListener("mousedown", () => { for (const o of all("[data-fu=field]")) o.style.outline = ""; });
+
+  // donut and pie charts drawn as one vector per arc: the hovered arc stays, the others fade
+  const arcGroups = new Map<Element, HTMLElement[]>();
+  for (const a of all("[data-fu=arc]")) { const p = a.parentElement!; if (!arcGroups.has(p)) arcGroups.set(p, []); arcGroups.get(p)!.push(a); }
+  arcGroups.forEach((arcs) => {
+    const scope = chartOf(arcs[0]);
+    const hexOf = (c: string) => { const m = c.match(/\d+/g); return m && m.length >= 3 ? "#" + m.slice(0, 3).map((x) => (+x).toString(16).padStart(2, "0")).join("") : c.toLowerCase(); };
+    const legend = (color: string) => {
+      for (const el of all("*", scope)) {
+        if (el.children.length || (el.textContent || "").trim()) continue;
+        if (hexOf(getComputedStyle(el).backgroundColor) !== color.toLowerCase()) continue;
+        // climb to the legend row: the first ancestor that holds more than the swatch's label
+        let row: Element | null = el.parentElement;
+        while (row && row.parentElement && texts(row).length < 2 && row !== scope) row = row.parentElement;
+        const words = row ? texts(row).map((t) => (t.textContent || "").trim()) : [];
+        if (words.length && words.length <= 5) return words.join(" · ");
+        if (el.parentElement) return texts(el.parentElement).map((t) => (t.textContent || "").trim()).join(" · ");
+      }
+      return "";
+    };
+    // hit-test the whole stack under the pointer: labels or tracks drawn over the ring don't get in the way
+    const fills = new Map(arcs.map((a) => { const sh = a.querySelector("path"); return [a, (sh && (sh.getAttribute("fill") || sh.getAttribute("stroke"))) || ""] as [HTMLElement, string]; }));
+    let current: HTMLElement | null = null;
+    scope.addEventListener("mousemove", (ev) => {
+      const e = ev as MouseEvent;
+      // the arc whose drawn shape (not just its box) is under the pointer
+      const inside = (sh: SVGGeometryElement) => { const m = sh.getScreenCTM(); if (!m) return false; const q = new DOMPoint(e.clientX, e.clientY).matrixTransform(m.inverse()); return sh.isPointInFill(q) || sh.isPointInStroke(q); };
+      const arc = arcs.find((a) => (Array.from(a.querySelectorAll("path, circle, ellipse")) as SVGGeometryElement[]).some(inside)) || null;
+      if (!arc) { if (current) { undim(arcs); hide(); current = null; } return; }
+      if (arc !== current) { dim(arcs, [arc]); current = arc; }
+      show(legend(fills.get(arc) || ""), e.clientX, e.clientY);
+    });
+    scope.addEventListener("mouseleave", () => { undim(arcs); hide(); current = null; });
+  });
+
+  // donut and pie arcs in one drawing: the hovered arc stays, the others fade; the legend row with the same colour names it
+  for (const svg of all("svg[data-fu=donut]") as unknown as SVGSVGElement[]) {
+    const arcs = (Array.from(svg.querySelectorAll("path")) as SVGPathElement[]).filter((p) => { const f = p.getAttribute("fill"); return f && f !== "none" && !/^url/.test(f); });
+    const scope = chartOf(svg);
+    const hex = (c: string) => { const m = c.match(/\d+/g); return m && m.length >= 3 ? "#" + m.slice(0, 3).map((x) => (+x).toString(16).padStart(2, "0")).join("") : c.toLowerCase(); };
+    const legend = (color: string) => {
+      for (const el of all("*", scope)) {
+        if (el.children.length || (el.textContent || "").trim()) continue;
+        const bg = getComputedStyle(el).backgroundColor;
+        if (!bg || hex(bg) !== color.toLowerCase()) continue;
+        const row = el.parentElement;
+        const words = row ? texts(row).map((t) => (t.textContent || "").trim()) : [];
+        if (words.length) return words.join(" · ");
+      }
+      return "";
+    };
+    for (const a of arcs) {
+      a.addEventListener("mouseenter", (ev) => {
+        dim(arcs, [a]);
+        const e = ev as MouseEvent;
+        show(legend(a.getAttribute("fill") || ""), e.clientX, e.clientY);
+      });
+      a.addEventListener("mousemove", (ev) => { const e = ev as MouseEvent; tip.style.left = e.clientX + "px"; tip.style.top = e.clientY - 8 + "px"; });
+      a.addEventListener("mouseleave", () => { undim(arcs); hide(); });
+    }
   }
 
   // rows: a soft highlight under the pointer

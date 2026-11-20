@@ -38,168 +38,168 @@ export function ReschedulePopover() {
           </div>
         </div>
         <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
-          <div style={{ flex: "1 1 0", minWidth: 0, height: "21.93px", flexShrink: 0, display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
+          <div data-fu="cell" style={{ flex: "1 1 0", minWidth: 0, height: "21.93px", flexShrink: 0, display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "14px", fontFamily: "'Geist'", fontSize: "10.97px", fontWeight: 400, color: "#989898" }}>Mo</p>
           </div>
-          <div style={{ flex: "1 1 0", minWidth: 0, height: "21.93px", flexShrink: 0, display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
+          <div data-fu="cell" style={{ flex: "1 1 0", minWidth: 0, height: "21.93px", flexShrink: 0, display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "14px", fontFamily: "'Geist'", fontSize: "10.97px", fontWeight: 400, color: "#989898" }}>Tu</p>
           </div>
-          <div style={{ flex: "1 1 0", minWidth: 0, height: "21.93px", flexShrink: 0, display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
+          <div data-fu="cell" style={{ flex: "1 1 0", minWidth: 0, height: "21.93px", flexShrink: 0, display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "14px", fontFamily: "'Geist'", fontSize: "10.97px", fontWeight: 400, color: "#989898" }}>We</p>
           </div>
-          <div style={{ flex: "1 1 0", minWidth: 0, height: "21.93px", flexShrink: 0, display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
+          <div data-fu="cell" style={{ flex: "1 1 0", minWidth: 0, height: "21.93px", flexShrink: 0, display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "14px", fontFamily: "'Geist'", fontSize: "10.97px", fontWeight: 400, color: "#989898" }}>Th</p>
           </div>
-          <div style={{ flex: "1 1 0", minWidth: 0, height: "21.93px", flexShrink: 0, display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
+          <div data-fu="cell" style={{ flex: "1 1 0", minWidth: 0, height: "21.93px", flexShrink: 0, display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "14px", fontFamily: "'Geist'", fontSize: "10.97px", fontWeight: 400, color: "#989898" }}>Fr</p>
           </div>
-          <div style={{ flex: "1 1 0", minWidth: 0, height: "21.93px", flexShrink: 0, display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
+          <div data-fu="cell" style={{ flex: "1 1 0", minWidth: 0, height: "21.93px", flexShrink: 0, display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "14px", fontFamily: "'Geist'", fontSize: "10.97px", fontWeight: 400, color: "#989898" }}>Sa</p>
           </div>
-          <div style={{ flex: "1 1 0", minWidth: 0, height: "21.93px", flexShrink: 0, display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
+          <div data-fu="cell" style={{ flex: "1 1 0", minWidth: 0, height: "21.93px", flexShrink: 0, display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "14px", fontFamily: "'Geist'", fontSize: "10.97px", fontWeight: 400, color: "#989898" }}>Su</p>
           </div>
         </div>
         <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
           <div style={{ flex: "1 1 0", minWidth: 0, height: "30.16px", flexShrink: 0, display: "flex", flexDirection: "column", gap: "1.83px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }} />
-          <div style={{ flex: "1 1 0", minWidth: 0, height: "30.16px", flexShrink: 0, display: "flex", flexDirection: "column", gap: "1.83px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
+          <div data-fu="cell" style={{ flex: "1 1 0", minWidth: 0, height: "30.16px", flexShrink: 0, display: "flex", flexDirection: "column", gap: "1.83px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
             <div style={{ width: "27.42px", height: "25.59px", flexShrink: 0, borderRadius: "7.31px", display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "15px", fontFamily: "'Geist'", fontSize: "11.88px", fontWeight: 400, color: "#c4c4c4" }}>1</p>
             </div>
           </div>
-          <div style={{ flex: "1 1 0", minWidth: 0, height: "30.16px", flexShrink: 0, display: "flex", flexDirection: "column", gap: "1.83px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
+          <div data-fu="cell" style={{ flex: "1 1 0", minWidth: 0, height: "30.16px", flexShrink: 0, display: "flex", flexDirection: "column", gap: "1.83px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
             <div style={{ width: "27.42px", height: "25.59px", flexShrink: 0, borderRadius: "7.31px", display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "15px", fontFamily: "'Geist'", fontSize: "11.88px", fontWeight: 400, color: "#c4c4c4" }}>2</p>
             </div>
           </div>
-          <div style={{ flex: "1 1 0", minWidth: 0, height: "30.16px", flexShrink: 0, display: "flex", flexDirection: "column", gap: "1.83px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
+          <div data-fu="cell" style={{ flex: "1 1 0", minWidth: 0, height: "30.16px", flexShrink: 0, display: "flex", flexDirection: "column", gap: "1.83px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
             <div style={{ width: "27.42px", height: "25.59px", flexShrink: 0, borderRadius: "7.31px", display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "15px", fontFamily: "'Geist'", fontSize: "11.88px", fontWeight: 400, color: "#c4c4c4" }}>3</p>
             </div>
           </div>
-          <div style={{ flex: "1 1 0", minWidth: 0, height: "30.16px", flexShrink: 0, display: "flex", flexDirection: "column", gap: "1.83px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
+          <div data-fu="cell" style={{ flex: "1 1 0", minWidth: 0, height: "30.16px", flexShrink: 0, display: "flex", flexDirection: "column", gap: "1.83px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
             <div style={{ width: "27.42px", height: "25.59px", flexShrink: 0, borderRadius: "7.31px", display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "15px", fontFamily: "'Geist'", fontSize: "11.88px", fontWeight: 400, color: "#c4c4c4" }}>4</p>
             </div>
           </div>
-          <div style={{ flex: "1 1 0", minWidth: 0, height: "30.16px", flexShrink: 0, display: "flex", flexDirection: "column", gap: "1.83px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
+          <div data-fu="cell" style={{ flex: "1 1 0", minWidth: 0, height: "30.16px", flexShrink: 0, display: "flex", flexDirection: "column", gap: "1.83px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
             <div style={{ width: "27.42px", height: "25.59px", flexShrink: 0, borderRadius: "7.31px", display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "15px", fontFamily: "'Geist'", fontSize: "11.88px", fontWeight: 400, color: "#c4c4c4" }}>5</p>
             </div>
           </div>
-          <div style={{ flex: "1 1 0", minWidth: 0, height: "30.16px", flexShrink: 0, display: "flex", flexDirection: "column", gap: "1.83px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
+          <div data-fu="cell" style={{ flex: "1 1 0", minWidth: 0, height: "30.16px", flexShrink: 0, display: "flex", flexDirection: "column", gap: "1.83px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
             <div style={{ width: "27.42px", height: "25.59px", flexShrink: 0, borderRadius: "7.31px", display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "15px", fontFamily: "'Geist'", fontSize: "11.88px", fontWeight: 400, color: "#c4c4c4" }}>6</p>
             </div>
           </div>
         </div>
         <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
-          <div style={{ flex: "1 1 0", minWidth: 0, height: "30.16px", flexShrink: 0, display: "flex", flexDirection: "column", gap: "1.83px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
+          <div data-fu="cell" style={{ flex: "1 1 0", minWidth: 0, height: "30.16px", flexShrink: 0, display: "flex", flexDirection: "column", gap: "1.83px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
             <div style={{ width: "27.42px", height: "25.59px", flexShrink: 0, borderRadius: "7.31px", display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "15px", fontFamily: "'Geist'", fontSize: "11.88px", fontWeight: 400, color: "#c4c4c4" }}>7</p>
             </div>
           </div>
-          <div style={{ flex: "1 1 0", minWidth: 0, height: "30.16px", flexShrink: 0, display: "flex", flexDirection: "column", gap: "1.83px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
+          <div data-fu="cell" style={{ flex: "1 1 0", minWidth: 0, height: "30.16px", flexShrink: 0, display: "flex", flexDirection: "column", gap: "1.83px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
             <div style={{ width: "27.42px", height: "25.59px", flexShrink: 0, borderRadius: "7.31px", display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "15px", fontFamily: "'Geist'", fontSize: "11.88px", fontWeight: 400, color: "#c4c4c4" }}>8</p>
             </div>
           </div>
-          <div style={{ flex: "1 1 0", minWidth: 0, height: "30.16px", flexShrink: 0, display: "flex", flexDirection: "column", gap: "1.83px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
+          <div data-fu="cell" style={{ flex: "1 1 0", minWidth: 0, height: "30.16px", flexShrink: 0, display: "flex", flexDirection: "column", gap: "1.83px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
             <div style={{ width: "27.42px", height: "25.59px", flexShrink: 0, borderRadius: "7.31px", display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "15px", fontFamily: "'Geist'", fontSize: "11.88px", fontWeight: 400, color: "#c4c4c4" }}>9</p>
             </div>
           </div>
-          <div style={{ flex: "1 1 0", minWidth: 0, height: "30.16px", flexShrink: 0, display: "flex", flexDirection: "column", gap: "1.83px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
+          <div data-fu="cell" style={{ flex: "1 1 0", minWidth: 0, height: "30.16px", flexShrink: 0, display: "flex", flexDirection: "column", gap: "1.83px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
             <div style={{ width: "27.42px", height: "25.59px", flexShrink: 0, borderRadius: "7.31px", display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "15px", fontFamily: "'Geist'", fontSize: "11.88px", fontWeight: 400, color: "#c4c4c4" }}>10</p>
             </div>
           </div>
-          <div style={{ flex: "1 1 0", minWidth: 0, height: "30.16px", flexShrink: 0, display: "flex", flexDirection: "column", gap: "1.83px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
+          <div data-fu="cell" style={{ flex: "1 1 0", minWidth: 0, height: "30.16px", flexShrink: 0, display: "flex", flexDirection: "column", gap: "1.83px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
             <div style={{ width: "27.42px", height: "25.59px", flexShrink: 0, borderRadius: "7.31px", display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "15px", fontFamily: "'Geist'", fontSize: "11.88px", fontWeight: 400, color: "#c4c4c4" }}>11</p>
             </div>
           </div>
-          <div style={{ flex: "1 1 0", minWidth: 0, height: "30.16px", flexShrink: 0, display: "flex", flexDirection: "column", gap: "1.83px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
+          <div data-fu="cell" style={{ flex: "1 1 0", minWidth: 0, height: "30.16px", flexShrink: 0, display: "flex", flexDirection: "column", gap: "1.83px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
             <div style={{ width: "27.42px", height: "25.59px", flexShrink: 0, borderRadius: "7.31px", display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "15px", fontFamily: "'Geist'", fontSize: "11.88px", fontWeight: 400, color: "#c4c4c4" }}>12</p>
             </div>
           </div>
-          <div style={{ flex: "1 1 0", minWidth: 0, height: "30.16px", flexShrink: 0, display: "flex", flexDirection: "column", gap: "1.83px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
+          <div data-fu="cell" style={{ flex: "1 1 0", minWidth: 0, height: "30.16px", flexShrink: 0, display: "flex", flexDirection: "column", gap: "1.83px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
             <div style={{ width: "27.42px", height: "25.59px", flexShrink: 0, borderRadius: "7.31px", display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "15px", fontFamily: "'Geist'", fontSize: "11.88px", fontWeight: 400, color: "#c4c4c4" }}>13</p>
             </div>
           </div>
         </div>
         <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
-          <div style={{ flex: "1 1 0", minWidth: 0, height: "30.16px", flexShrink: 0, display: "flex", flexDirection: "column", gap: "1.83px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
+          <div data-fu="cell" style={{ flex: "1 1 0", minWidth: 0, height: "30.16px", flexShrink: 0, display: "flex", flexDirection: "column", gap: "1.83px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
             <div style={{ width: "27.42px", height: "25.59px", flexShrink: 0, borderRadius: "7.31px", display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "15px", fontFamily: "'Geist'", fontSize: "11.88px", fontWeight: 400, color: "#c4c4c4" }}>14</p>
             </div>
           </div>
-          <div style={{ flex: "1 1 0", minWidth: 0, height: "30.16px", flexShrink: 0, display: "flex", flexDirection: "column", gap: "1.83px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
+          <div data-fu="cell" style={{ flex: "1 1 0", minWidth: 0, height: "30.16px", flexShrink: 0, display: "flex", flexDirection: "column", gap: "1.83px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
             <div style={{ width: "27.42px", height: "25.59px", flexShrink: 0, borderRadius: "7.31px", display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "15px", fontFamily: "'Geist'", fontSize: "11.88px", fontWeight: 400, color: "#c4c4c4" }}>15</p>
             </div>
           </div>
-          <div style={{ flex: "1 1 0", minWidth: 0, height: "30.16px", flexShrink: 0, display: "flex", flexDirection: "column", gap: "1.83px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
+          <div data-fu="cell" style={{ flex: "1 1 0", minWidth: 0, height: "30.16px", flexShrink: 0, display: "flex", flexDirection: "column", gap: "1.83px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
             <div style={{ width: "27.42px", height: "25.59px", flexShrink: 0, borderRadius: "7.31px", display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "15px", fontFamily: "'Geist'", fontSize: "11.88px", fontWeight: 400, color: "#c4c4c4" }}>16</p>
             </div>
           </div>
-          <div style={{ flex: "1 1 0", minWidth: 0, height: "30.16px", flexShrink: 0, display: "flex", flexDirection: "column", gap: "1.83px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
+          <div data-fu="cell" style={{ flex: "1 1 0", minWidth: 0, height: "30.16px", flexShrink: 0, display: "flex", flexDirection: "column", gap: "1.83px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
             <div style={{ width: "27.42px", height: "25.59px", flexShrink: 0, borderRadius: "7.31px", display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "15px", fontFamily: "'Geist'", fontSize: "11.88px", fontWeight: 400, color: "#c4c4c4" }}>17</p>
             </div>
           </div>
-          <div style={{ flex: "1 1 0", minWidth: 0, height: "30.16px", flexShrink: 0, display: "flex", flexDirection: "column", gap: "1.83px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
+          <div data-fu="cell" style={{ flex: "1 1 0", minWidth: 0, height: "30.16px", flexShrink: 0, display: "flex", flexDirection: "column", gap: "1.83px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
             <div style={{ width: "27.42px", height: "25.59px", flexShrink: 0, borderRadius: "7.31px", display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "15px", fontFamily: "'Geist'", fontSize: "11.88px", fontWeight: 400, color: "#c4c4c4" }}>18</p>
             </div>
           </div>
-          <div style={{ flex: "1 1 0", minWidth: 0, height: "30.16px", flexShrink: 0, display: "flex", flexDirection: "column", gap: "1.83px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
+          <div data-fu="cell" style={{ flex: "1 1 0", minWidth: 0, height: "30.16px", flexShrink: 0, display: "flex", flexDirection: "column", gap: "1.83px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
             <div style={{ width: "27.42px", height: "25.59px", flexShrink: 0, borderRadius: "7.31px", display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "15px", fontFamily: "'Geist'", fontSize: "11.88px", fontWeight: 400, color: "#c4c4c4" }}>19</p>
             </div>
           </div>
-          <div style={{ flex: "1 1 0", minWidth: 0, height: "30.16px", flexShrink: 0, display: "flex", flexDirection: "column", gap: "1.83px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
+          <div data-fu="cell" style={{ flex: "1 1 0", minWidth: 0, height: "30.16px", flexShrink: 0, display: "flex", flexDirection: "column", gap: "1.83px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
             <div style={{ width: "27.42px", height: "25.59px", flexShrink: 0, borderRadius: "7.31px", display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "15px", fontFamily: "'Geist'", fontSize: "11.88px", fontWeight: 400, color: "#c4c4c4" }}>20</p>
             </div>
           </div>
         </div>
         <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
-          <div style={{ flex: "1 1 0", minWidth: 0, height: "30.16px", flexShrink: 0, display: "flex", flexDirection: "column", gap: "1.83px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
+          <div data-fu="cell" style={{ flex: "1 1 0", minWidth: 0, height: "30.16px", flexShrink: 0, display: "flex", flexDirection: "column", gap: "1.83px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
             <div style={{ width: "27.42px", height: "25.59px", flexShrink: 0, borderRadius: "7.31px", display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "15px", fontFamily: "'Geist'", fontSize: "11.88px", fontWeight: 400, color: "#c4c4c4" }}>21</p>
             </div>
           </div>
-          <div style={{ flex: "1 1 0", minWidth: 0, height: "30.16px", flexShrink: 0, display: "flex", flexDirection: "column", gap: "1.83px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
+          <div data-fu="cell" style={{ flex: "1 1 0", minWidth: 0, height: "30.16px", flexShrink: 0, display: "flex", flexDirection: "column", gap: "1.83px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
             <div style={{ width: "27.42px", height: "25.59px", flexShrink: 0, borderRadius: "7.31px", display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "15px", fontFamily: "'Geist'", fontSize: "11.88px", fontWeight: 400, color: "#c4c4c4" }}>22</p>
             </div>
           </div>
-          <div style={{ flex: "1 1 0", minWidth: 0, height: "30.16px", flexShrink: 0, display: "flex", flexDirection: "column", gap: "1.83px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
+          <div data-fu="cell" style={{ flex: "1 1 0", minWidth: 0, height: "30.16px", flexShrink: 0, display: "flex", flexDirection: "column", gap: "1.83px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
             <div style={{ width: "27.42px", height: "25.59px", flexShrink: 0, borderRadius: "7.31px", background: "#f5f5f5", display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "15px", fontFamily: "'Geist'", fontSize: "11.88px", fontWeight: 500, color: "#222222" }}>23</p>
             </div>
           </div>
-          <div style={{ flex: "1 1 0", minWidth: 0, height: "30.16px", flexShrink: 0, display: "flex", flexDirection: "column", gap: "1.83px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
+          <div data-fu="cell" style={{ flex: "1 1 0", minWidth: 0, height: "30.16px", flexShrink: 0, display: "flex", flexDirection: "column", gap: "1.83px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
             <div style={{ width: "27.42px", height: "25.59px", flexShrink: 0, borderRadius: "7.31px", boxShadow: "inset 0 0 0 0.91px #7c53f9", display: "flex", flexDirection: "row", padding: "0.91px 0.91px 0.91px 0.91px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "15px", fontFamily: "'Geist'", fontSize: "11.88px", fontWeight: 400, color: "#222222" }}>24</p>
             </div>
           </div>
-          <div style={{ flex: "1 1 0", minWidth: 0, height: "30.16px", flexShrink: 0, display: "flex", flexDirection: "column", gap: "1.83px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
+          <div data-fu="cell" style={{ flex: "1 1 0", minWidth: 0, height: "30.16px", flexShrink: 0, display: "flex", flexDirection: "column", gap: "1.83px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
             <div style={{ width: "27.42px", height: "25.59px", flexShrink: 0, borderRadius: "7.31px", display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "15px", fontFamily: "'Geist'", fontSize: "11.88px", fontWeight: 400, color: "#222222" }}>25</p>
             </div>
           </div>
-          <div style={{ flex: "1 1 0", minWidth: 0, height: "30.16px", flexShrink: 0, display: "flex", flexDirection: "column", gap: "1.83px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
+          <div data-fu="cell" style={{ flex: "1 1 0", minWidth: 0, height: "30.16px", flexShrink: 0, display: "flex", flexDirection: "column", gap: "1.83px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
             <div style={{ width: "27.42px", height: "25.59px", flexShrink: 0, borderRadius: "7.31px", display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "15px", fontFamily: "'Geist'", fontSize: "11.88px", fontWeight: 400, color: "#222222" }}>26</p>
             </div>
             <svg style={{ width: "3.66px", height: "3.66px", flexShrink: 0, display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="3.66" height="3.66" viewBox="0 0 3.66 3.66" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M3.66 1.83 C3.66 2.84068 2.84068 3.66 1.83 3.66 C0.819319 3.66 0 2.84068 0 1.83 C0 0.819319 0.819319 0 1.83 0 C2.84068 0 3.66 0.819319 3.66 1.83 Z" fill="#ff9b22"/></svg>
           </div>
-          <div style={{ flex: "1 1 0", minWidth: 0, height: "30.16px", flexShrink: 0, display: "flex", flexDirection: "column", gap: "1.83px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
+          <div data-fu="cell" style={{ flex: "1 1 0", minWidth: 0, height: "30.16px", flexShrink: 0, display: "flex", flexDirection: "column", gap: "1.83px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
             <div style={{ width: "27.42px", height: "25.59px", flexShrink: 0, borderRadius: "7.31px", background: "#7c53f9", display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "15px", fontFamily: "'Geist'", fontSize: "11.88px", fontWeight: 500, color: "#ffffff" }}>27</p>
             </div>
@@ -237,7 +237,7 @@ export function ReschedulePopover() {
         <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", gap: "7.31px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
           <div style={{ flex: "1 1 0", minWidth: 0, flexShrink: 0, display: "flex", flexDirection: "column", gap: "5.48px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "15px", fontFamily: "'Geist'", fontSize: "11.88px", fontWeight: 500, color: "#222222" }}>Time</p>
-            <div style={{ alignSelf: "stretch", height: "32.9px", flexShrink: 0, borderRadius: "7.31px", background: "#ffffff", boxShadow: "inset 0 0 0 0.91px #e8e8e8", display: "flex", flexDirection: "row", padding: "0.91px 10.05px 0.91px 10.05px", gap: "7.31px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div data-fu="field" style={{ alignSelf: "stretch", height: "32.9px", flexShrink: 0, borderRadius: "7.31px", background: "#ffffff", boxShadow: "inset 0 0 0 0.91px #e8e8e8", display: "flex", flexDirection: "row", padding: "0.91px 10.05px 0.91px 10.05px", gap: "7.31px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <ClockBulk size={12.8} style={{ width: "12.79px", height: "12.79px", flexShrink: 0, color: "#6c6c6c", display: "block" }} />
               <p style={{ flex: "1 1 0", minWidth: 0, flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre-wrap", lineHeight: "17px", fontFamily: "'Geist'", fontSize: "12.79px", fontWeight: 400, color: "#222222" }}>8:00 AM</p>
               <ChevronDown size={12.8} strokeWidth={2.81} style={{ width: "12.79px", height: "12.79px", flexShrink: 0, color: "#6c6c6c", display: "block" }} />
@@ -245,7 +245,7 @@ export function ReschedulePopover() {
           </div>
           <div style={{ flex: "1 1 0", minWidth: 0, flexShrink: 0, display: "flex", flexDirection: "column", gap: "5.48px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "15px", fontFamily: "'Geist'", fontSize: "11.88px", fontWeight: 500, color: "#222222" }}>Time zone</p>
-            <div style={{ alignSelf: "stretch", height: "32.9px", flexShrink: 0, borderRadius: "7.31px", background: "#ffffff", boxShadow: "inset 0 0 0 0.91px #e8e8e8", display: "flex", flexDirection: "row", padding: "0.91px 10.05px 0.91px 10.05px", gap: "7.31px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div data-fu="field" style={{ alignSelf: "stretch", height: "32.9px", flexShrink: 0, borderRadius: "7.31px", background: "#ffffff", boxShadow: "inset 0 0 0 0.91px #e8e8e8", display: "flex", flexDirection: "row", padding: "0.91px 10.05px 0.91px 10.05px", gap: "7.31px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <WorldBulk size={12.8} style={{ width: "12.79px", height: "12.79px", flexShrink: 0, color: "#6c6c6c", display: "block" }} />
               <p style={{ flex: "1 1 0", minWidth: 0, flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre-wrap", lineHeight: "17px", fontFamily: "'Geist'", fontSize: "12.79px", fontWeight: 400, color: "#222222" }}>New York</p>
               <ChevronDown size={12.8} strokeWidth={2.81} style={{ width: "12.79px", height: "12.79px", flexShrink: 0, color: "#6c6c6c", display: "block" }} />
@@ -320,12 +320,12 @@ function fuInteract(root: HTMLElement | null) {
   };
   // the chart around a group of marks: the nearest ancestor that also holds text labels
   const chartOf = (el: Element) => { let c: Element | null = el.parentElement; while (c && c !== root.parentElement) { if (texts(c).length >= 3) return c; c = c.parentElement; } return root; };
-  const labelNear = (scope: Element, x: number, y: number, below: boolean) => {
+  const labelNear = (scope: Element, x: number, y: number, below: boolean, anyText = false) => {
     let best = "", d = 1e9;
     for (const t of texts(scope)) {
       const r = box(t);
       if (below ? r.top < y - 2 : r.right > x + 2) continue;
-      if (NUM.test((t.textContent || "").trim()) && !/[a-z]{3}/i.test(t.textContent || "")) continue;
+      if (!anyText && NUM.test((t.textContent || "").trim()) && !/[a-z]{3}/i.test(t.textContent || "")) continue;
       const dd = below ? Math.abs(r.left + r.width / 2 - x) + (r.top - y) * 0.2 : Math.abs(r.top + r.height / 2 - y) + (x - r.right) * 0.1;
       if (dd < d) { d = dd; best = (t.textContent || "").trim(); }
     }
@@ -404,6 +404,110 @@ function fuInteract(root: HTMLElement | null) {
       show([label, val ? val(sp.y) : ""].filter(Boolean).join(" · "), sp.x, sp.y);
     });
     area.addEventListener("mouseleave", () => { g.style.opacity = "0"; hide(); });
+  }
+
+  // cards: a small lift on hover (an extra drop shadow, the card's own shadows stay as they are)
+  for (const c of all("[data-fu=card]").concat(root.dataset.fu === "card" ? [root] : [])) {
+    c.addEventListener("mouseenter", () => { ease(c, "transform .18s ease, filter .18s ease"); c.style.transform = "translateY(-2px)"; c.style.filter = "drop-shadow(0 8px 16px rgba(17,17,19,.08))"; });
+    c.addEventListener("mouseleave", () => { c.style.transform = ""; c.style.filter = ""; });
+  }
+
+  // heatmap and calendar cells: an outline and the cell's own text
+  for (const c of all("[data-fu=cell]")) {
+    c.addEventListener("mouseenter", () => {
+      ease(c, "outline-color .12s");
+      c.style.outline = "2px solid rgba(17,17,19,.55)";
+      c.style.outlineOffset = "1px";
+      const r = box(c);
+      // its own text, or the row and column labels of the grid it sits in
+      let label = (c.textContent || "").trim();
+      if (!label) {
+        // walk outwards until a row label (left) and a column label (below) are in reach
+        let row = "", col = "";
+        for (let a: Element | null = c.parentElement; a && a !== root.parentElement && !(row && col); a = a.parentElement) {
+          if (!row) row = labelNear(a, r.left, r.top + r.height / 2, false, true);
+          if (!col) col = labelNear(a, r.left + r.width / 2, r.bottom, true, true);
+        }
+        label = [row, col].filter(Boolean).join(" · ");
+      }
+      show(label, r.left + r.width / 2, r.top);
+    });
+    c.addEventListener("mouseleave", () => { c.style.outline = ""; c.style.outlineOffset = ""; hide(); });
+  }
+
+  // fields: hover and focus states
+  for (const f of all("[data-fu=field]")) {
+    f.style.cursor = "text";
+    f.addEventListener("mouseenter", () => { ease(f, "filter .15s, outline-color .15s"); f.style.filter = "brightness(0.985)"; });
+    f.addEventListener("mouseleave", () => { f.style.filter = ""; });
+    f.addEventListener("mousedown", (ev) => {
+      ev.stopPropagation();
+      for (const o of all("[data-fu=field]")) o.style.outline = "";
+      f.style.outline = "3px solid rgba(17,17,19,.12)";
+      f.style.outlineOffset = "0px";
+    });
+  }
+  doc.addEventListener("mousedown", () => { for (const o of all("[data-fu=field]")) o.style.outline = ""; });
+
+  // donut and pie charts drawn as one vector per arc: the hovered arc stays, the others fade
+  const arcGroups = new Map<Element, HTMLElement[]>();
+  for (const a of all("[data-fu=arc]")) { const p = a.parentElement!; if (!arcGroups.has(p)) arcGroups.set(p, []); arcGroups.get(p)!.push(a); }
+  arcGroups.forEach((arcs) => {
+    const scope = chartOf(arcs[0]);
+    const hexOf = (c: string) => { const m = c.match(/\d+/g); return m && m.length >= 3 ? "#" + m.slice(0, 3).map((x) => (+x).toString(16).padStart(2, "0")).join("") : c.toLowerCase(); };
+    const legend = (color: string) => {
+      for (const el of all("*", scope)) {
+        if (el.children.length || (el.textContent || "").trim()) continue;
+        if (hexOf(getComputedStyle(el).backgroundColor) !== color.toLowerCase()) continue;
+        // climb to the legend row: the first ancestor that holds more than the swatch's label
+        let row: Element | null = el.parentElement;
+        while (row && row.parentElement && texts(row).length < 2 && row !== scope) row = row.parentElement;
+        const words = row ? texts(row).map((t) => (t.textContent || "").trim()) : [];
+        if (words.length && words.length <= 5) return words.join(" · ");
+        if (el.parentElement) return texts(el.parentElement).map((t) => (t.textContent || "").trim()).join(" · ");
+      }
+      return "";
+    };
+    // hit-test the whole stack under the pointer: labels or tracks drawn over the ring don't get in the way
+    const fills = new Map(arcs.map((a) => { const sh = a.querySelector("path"); return [a, (sh && (sh.getAttribute("fill") || sh.getAttribute("stroke"))) || ""] as [HTMLElement, string]; }));
+    let current: HTMLElement | null = null;
+    scope.addEventListener("mousemove", (ev) => {
+      const e = ev as MouseEvent;
+      // the arc whose drawn shape (not just its box) is under the pointer
+      const inside = (sh: SVGGeometryElement) => { const m = sh.getScreenCTM(); if (!m) return false; const q = new DOMPoint(e.clientX, e.clientY).matrixTransform(m.inverse()); return sh.isPointInFill(q) || sh.isPointInStroke(q); };
+      const arc = arcs.find((a) => (Array.from(a.querySelectorAll("path, circle, ellipse")) as SVGGeometryElement[]).some(inside)) || null;
+      if (!arc) { if (current) { undim(arcs); hide(); current = null; } return; }
+      if (arc !== current) { dim(arcs, [arc]); current = arc; }
+      show(legend(fills.get(arc) || ""), e.clientX, e.clientY);
+    });
+    scope.addEventListener("mouseleave", () => { undim(arcs); hide(); current = null; });
+  });
+
+  // donut and pie arcs in one drawing: the hovered arc stays, the others fade; the legend row with the same colour names it
+  for (const svg of all("svg[data-fu=donut]") as unknown as SVGSVGElement[]) {
+    const arcs = (Array.from(svg.querySelectorAll("path")) as SVGPathElement[]).filter((p) => { const f = p.getAttribute("fill"); return f && f !== "none" && !/^url/.test(f); });
+    const scope = chartOf(svg);
+    const hex = (c: string) => { const m = c.match(/\d+/g); return m && m.length >= 3 ? "#" + m.slice(0, 3).map((x) => (+x).toString(16).padStart(2, "0")).join("") : c.toLowerCase(); };
+    const legend = (color: string) => {
+      for (const el of all("*", scope)) {
+        if (el.children.length || (el.textContent || "").trim()) continue;
+        const bg = getComputedStyle(el).backgroundColor;
+        if (!bg || hex(bg) !== color.toLowerCase()) continue;
+        const row = el.parentElement;
+        const words = row ? texts(row).map((t) => (t.textContent || "").trim()) : [];
+        if (words.length) return words.join(" · ");
+      }
+      return "";
+    };
+    for (const a of arcs) {
+      a.addEventListener("mouseenter", (ev) => {
+        dim(arcs, [a]);
+        const e = ev as MouseEvent;
+        show(legend(a.getAttribute("fill") || ""), e.clientX, e.clientY);
+      });
+      a.addEventListener("mousemove", (ev) => { const e = ev as MouseEvent; tip.style.left = e.clientX + "px"; tip.style.top = e.clientY - 8 + "px"; });
+      a.addEventListener("mouseleave", () => { undim(arcs); hide(); });
+    }
   }
 
   // rows: a soft highlight under the pointer
