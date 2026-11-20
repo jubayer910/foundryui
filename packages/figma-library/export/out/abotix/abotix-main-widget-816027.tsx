@@ -1,6 +1,6 @@
 // MAIN widget (abotix, Charts) from Ingot UI (ingotui.com).
 // Generated from the Figma original and checked against it. Fonts: Geist, Inter. Icons: Ingot Icons.
-import { AiAgents, Circle, Reports, Settings, Sparkles } from "ingotui-icons/react/stroke-rounded";
+import { AiAgents, Book, Bug, Certificate, Database, FileShield, FileText, Gauge, Hammer, Key, LayoutGrid, PlugConnected, Puzzle, Reports, Route, Settings, Sparkles, Support, Target, Users } from "ingotui-icons/react/stroke-rounded";
 
 export function MAINWidget() {
   return (
@@ -18,19 +18,19 @@ export function MAINWidget() {
           </div>
           <div style={{ alignSelf: "stretch", height: "32px", flexShrink: 0, borderRadius: "8px", background: "#eaf1fe", overflow: "hidden", display: "flex", flexDirection: "row", padding: "0px 10px 0px 12px", justifyContent: "space-between", alignItems: "center", boxSizing: "border-box" }}>
             <div style={{ flexShrink: 0, overflow: "hidden", display: "flex", flexDirection: "row", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-              <Circle size={16} strokeWidth={1.8} style={{ width: "16px", height: "16px", flexShrink: 0, color: "#2563eb", display: "block" }} />
+              <FileShield size={16} strokeWidth={1.8} style={{ width: "16px", height: "16px", flexShrink: 0, color: "#2563eb", display: "block" }} />
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "62px", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 500, color: "#1e3a8a", lineHeight: "20px" }}>Overview</p>
             </div>
           </div>
           <div style={{ alignSelf: "stretch", height: "32px", flexShrink: 0, borderRadius: "8px", overflow: "hidden", display: "flex", flexDirection: "row", padding: "0px 10px 0px 12px", justifyContent: "space-between", alignItems: "center", boxSizing: "border-box" }}>
             <div style={{ flexShrink: 0, overflow: "hidden", display: "flex", flexDirection: "row", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-              <Circle size={16} strokeWidth={1.8} style={{ width: "16px", height: "16px", flexShrink: 0, color: "#5c5c5c", display: "block" }} />
+              <Gauge size={16} strokeWidth={1.8} style={{ width: "16px", height: "16px", flexShrink: 0, color: "#5c5c5c", display: "block" }} />
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "94px", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#2b2b2b", lineHeight: "20px" }}>Threat Monitor</p>
             </div>
           </div>
           <div style={{ alignSelf: "stretch", height: "32px", flexShrink: 0, borderRadius: "8px", overflow: "hidden", display: "flex", flexDirection: "row", padding: "0px 10px 0px 12px", justifyContent: "space-between", alignItems: "center", boxSizing: "border-box" }}>
             <div style={{ flexShrink: 0, overflow: "hidden", display: "flex", flexDirection: "row", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-              <Circle size={16} strokeWidth={1.8} style={{ width: "16px", height: "16px", flexShrink: 0, color: "#5c5c5c", display: "block" }} />
+              <Bug size={16} strokeWidth={1.8} style={{ width: "16px", height: "16px", flexShrink: 0, color: "#5c5c5c", display: "block" }} />
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "91px", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#2b2b2b", lineHeight: "20px" }}>Vulnerabilities</p>
             </div>
             <div style={{ flexShrink: 0, borderRadius: "999px", background: "#fde4e4", overflow: "hidden", display: "flex", flexDirection: "row", padding: "2px 8px 2px 8px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
@@ -39,7 +39,7 @@ export function MAINWidget() {
           </div>
           <div style={{ alignSelf: "stretch", height: "32px", flexShrink: 0, borderRadius: "8px", overflow: "hidden", display: "flex", flexDirection: "row", padding: "0px 10px 0px 12px", justifyContent: "space-between", alignItems: "center", boxSizing: "border-box" }}>
             <div style={{ flexShrink: 0, overflow: "hidden", display: "flex", flexDirection: "row", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-              <Circle size={16} strokeWidth={1.8} style={{ width: "16px", height: "16px", flexShrink: 0, color: "#5c5c5c", display: "block" }} />
+              <Route size={16} strokeWidth={1.8} style={{ width: "16px", height: "16px", flexShrink: 0, color: "#5c5c5c", display: "block" }} />
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "82px", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#2b2b2b", lineHeight: "20px" }}>Attack Paths</p>
             </div>
             <div style={{ flexShrink: 0, borderRadius: "999px", background: "#fde4e4", overflow: "hidden", display: "flex", flexDirection: "row", padding: "2px 8px 2px 8px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
@@ -48,13 +48,13 @@ export function MAINWidget() {
           </div>
           <div style={{ alignSelf: "stretch", height: "32px", flexShrink: 0, borderRadius: "8px", overflow: "hidden", display: "flex", flexDirection: "row", padding: "0px 10px 0px 12px", justifyContent: "space-between", alignItems: "center", boxSizing: "border-box" }}>
             <div style={{ flexShrink: 0, overflow: "hidden", display: "flex", flexDirection: "row", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-              <Circle size={16} strokeWidth={1.8} style={{ width: "16px", height: "16px", flexShrink: 0, color: "#5c5c5c", display: "block" }} />
+              <Target size={16} strokeWidth={1.8} style={{ width: "16px", height: "16px", flexShrink: 0, color: "#5c5c5c", display: "block" }} />
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "73px", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#2b2b2b", lineHeight: "20px" }}>AI Pentests</p>
             </div>
           </div>
           <div style={{ alignSelf: "stretch", height: "32px", flexShrink: 0, borderRadius: "8px", overflow: "hidden", display: "flex", flexDirection: "row", padding: "0px 10px 0px 12px", justifyContent: "space-between", alignItems: "center", boxSizing: "border-box" }}>
             <div style={{ flexShrink: 0, overflow: "hidden", display: "flex", flexDirection: "row", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-              <Circle size={16} strokeWidth={1.8} style={{ width: "16px", height: "16px", flexShrink: 0, color: "#5c5c5c", display: "block" }} />
+              <Hammer size={16} strokeWidth={1.8} style={{ width: "16px", height: "16px", flexShrink: 0, color: "#5c5c5c", display: "block" }} />
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "83px", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#2b2b2b", lineHeight: "20px" }}>Fix Requests</p>
             </div>
             <div style={{ flexShrink: 0, borderRadius: "999px", background: "#fde4e4", overflow: "hidden", display: "flex", flexDirection: "row", padding: "2px 8px 2px 8px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
@@ -80,25 +80,25 @@ export function MAINWidget() {
           </div>
           <div style={{ alignSelf: "stretch", height: "32px", flexShrink: 0, borderRadius: "8px", overflow: "hidden", display: "flex", flexDirection: "row", padding: "0px 10px 0px 12px", justifyContent: "space-between", alignItems: "center", boxSizing: "border-box" }}>
             <div style={{ flexShrink: 0, overflow: "hidden", display: "flex", flexDirection: "row", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-              <Circle size={16} strokeWidth={1.8} style={{ width: "16px", height: "16px", flexShrink: 0, color: "#5c5c5c", display: "block" }} />
+              <LayoutGrid size={16} strokeWidth={1.8} style={{ width: "16px", height: "16px", flexShrink: 0, color: "#5c5c5c", display: "block" }} />
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "124px", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#2b2b2b", lineHeight: "20px" }}>Applications & APIs</p>
             </div>
           </div>
           <div style={{ alignSelf: "stretch", height: "32px", flexShrink: 0, borderRadius: "8px", overflow: "hidden", display: "flex", flexDirection: "row", padding: "0px 10px 0px 12px", justifyContent: "space-between", alignItems: "center", boxSizing: "border-box" }}>
             <div style={{ flexShrink: 0, overflow: "hidden", display: "flex", flexDirection: "row", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-              <Circle size={16} strokeWidth={1.8} style={{ width: "16px", height: "16px", flexShrink: 0, color: "#5c5c5c", display: "block" }} />
+              <Database size={16} strokeWidth={1.8} style={{ width: "16px", height: "16px", flexShrink: 0, color: "#5c5c5c", display: "block" }} />
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "87px", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#2b2b2b", lineHeight: "20px" }}>Data Sources</p>
             </div>
           </div>
           <div style={{ alignSelf: "stretch", height: "32px", flexShrink: 0, borderRadius: "8px", overflow: "hidden", display: "flex", flexDirection: "row", padding: "0px 10px 0px 12px", justifyContent: "space-between", alignItems: "center", boxSizing: "border-box" }}>
             <div style={{ flexShrink: 0, overflow: "hidden", display: "flex", flexDirection: "row", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-              <Circle size={16} strokeWidth={1.8} style={{ width: "16px", height: "16px", flexShrink: 0, color: "#5c5c5c", display: "block" }} />
+              <Puzzle size={16} strokeWidth={1.8} style={{ width: "16px", height: "16px", flexShrink: 0, color: "#5c5c5c", display: "block" }} />
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "97px", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#2b2b2b", lineHeight: "20px" }}>Tools & Plugins</p>
             </div>
           </div>
           <div style={{ alignSelf: "stretch", height: "32px", flexShrink: 0, borderRadius: "8px", overflow: "hidden", display: "flex", flexDirection: "row", padding: "0px 10px 0px 12px", justifyContent: "space-between", alignItems: "center", boxSizing: "border-box" }}>
             <div style={{ flexShrink: 0, overflow: "hidden", display: "flex", flexDirection: "row", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-              <Circle size={16} strokeWidth={1.8} style={{ width: "16px", height: "16px", flexShrink: 0, color: "#5c5c5c", display: "block" }} />
+              <Key size={16} strokeWidth={1.8} style={{ width: "16px", height: "16px", flexShrink: 0, color: "#5c5c5c", display: "block" }} />
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "50px", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#2b2b2b", lineHeight: "20px" }}>Secrets</p>
             </div>
             <div style={{ flexShrink: 0, borderRadius: "999px", background: "#e3ecff", overflow: "hidden", display: "flex", flexDirection: "row", padding: "2px 8px 2px 8px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
@@ -115,13 +115,13 @@ export function MAINWidget() {
           </div>
           <div style={{ alignSelf: "stretch", height: "32px", flexShrink: 0, borderRadius: "8px", overflow: "hidden", display: "flex", flexDirection: "row", padding: "0px 10px 0px 12px", justifyContent: "space-between", alignItems: "center", boxSizing: "border-box" }}>
             <div style={{ flexShrink: 0, overflow: "hidden", display: "flex", flexDirection: "row", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-              <Circle size={16} strokeWidth={1.8} style={{ width: "16px", height: "16px", flexShrink: 0, color: "#5c5c5c", display: "block" }} />
+              <FileText size={16} strokeWidth={1.8} style={{ width: "16px", height: "16px", flexShrink: 0, color: "#5c5c5c", display: "block" }} />
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "50px", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#2b2b2b", lineHeight: "20px" }}>Policies</p>
             </div>
           </div>
           <div style={{ alignSelf: "stretch", height: "32px", flexShrink: 0, borderRadius: "8px", overflow: "hidden", display: "flex", flexDirection: "row", padding: "0px 10px 0px 12px", justifyContent: "space-between", alignItems: "center", boxSizing: "border-box" }}>
             <div style={{ flexShrink: 0, overflow: "hidden", display: "flex", flexDirection: "row", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-              <Circle size={16} strokeWidth={1.8} style={{ width: "16px", height: "16px", flexShrink: 0, color: "#5c5c5c", display: "block" }} />
+              <Certificate size={16} strokeWidth={1.8} style={{ width: "16px", height: "16px", flexShrink: 0, color: "#5c5c5c", display: "block" }} />
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "76px", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#2b2b2b", lineHeight: "20px" }}>Compliance</p>
             </div>
           </div>
@@ -133,13 +133,13 @@ export function MAINWidget() {
           </div>
           <div style={{ alignSelf: "stretch", height: "32px", flexShrink: 0, borderRadius: "8px", overflow: "hidden", display: "flex", flexDirection: "row", padding: "0px 10px 0px 12px", justifyContent: "space-between", alignItems: "center", boxSizing: "border-box" }}>
             <div style={{ flexShrink: 0, overflow: "hidden", display: "flex", flexDirection: "row", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-              <Circle size={16} strokeWidth={1.8} style={{ width: "16px", height: "16px", flexShrink: 0, color: "#5c5c5c", display: "block" }} />
+              <PlugConnected size={16} strokeWidth={1.8} style={{ width: "16px", height: "16px", flexShrink: 0, color: "#5c5c5c", display: "block" }} />
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "77px", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#2b2b2b", lineHeight: "20px" }}>Integrations</p>
             </div>
           </div>
           <div style={{ alignSelf: "stretch", height: "32px", flexShrink: 0, borderRadius: "8px", overflow: "hidden", display: "flex", flexDirection: "row", padding: "0px 10px 0px 12px", justifyContent: "space-between", alignItems: "center", boxSizing: "border-box" }}>
             <div style={{ flexShrink: 0, overflow: "hidden", display: "flex", flexDirection: "row", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-              <Circle size={16} strokeWidth={1.8} style={{ width: "16px", height: "16px", flexShrink: 0, color: "#5c5c5c", display: "block" }} />
+              <Users size={16} strokeWidth={1.8} style={{ width: "16px", height: "16px", flexShrink: 0, color: "#5c5c5c", display: "block" }} />
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "97px", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#2b2b2b", lineHeight: "20px" }}>Team & Access</p>
             </div>
           </div>
@@ -153,7 +153,7 @@ export function MAINWidget() {
           </div>
           <div style={{ alignSelf: "stretch", height: "32px", flexShrink: 0, borderRadius: "8px", overflow: "hidden", display: "flex", flexDirection: "row", padding: "0px 10px 0px 12px", justifyContent: "space-between", alignItems: "center", boxSizing: "border-box" }}>
             <div style={{ flexShrink: 0, overflow: "hidden", display: "flex", flexDirection: "row", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-              <Circle size={16} strokeWidth={1.8} style={{ width: "16px", height: "16px", flexShrink: 0, color: "#5c5c5c", display: "block" }} />
+              <Book size={16} strokeWidth={1.8} style={{ width: "16px", height: "16px", flexShrink: 0, color: "#5c5c5c", display: "block" }} />
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "107px", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#2b2b2b", lineHeight: "20px" }}>Knowledge Base</p>
             </div>
           </div>
@@ -165,7 +165,7 @@ export function MAINWidget() {
           </div>
           <div style={{ alignSelf: "stretch", height: "32px", flexShrink: 0, borderRadius: "8px", overflow: "hidden", display: "flex", flexDirection: "row", padding: "0px 10px 0px 12px", justifyContent: "space-between", alignItems: "center", boxSizing: "border-box" }}>
             <div style={{ flexShrink: 0, overflow: "hidden", display: "flex", flexDirection: "row", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-              <Circle size={16} strokeWidth={1.8} style={{ width: "16px", height: "16px", flexShrink: 0, color: "#5c5c5c", display: "block" }} />
+              <Support size={16} strokeWidth={1.8} style={{ width: "16px", height: "16px", flexShrink: 0, color: "#5c5c5c", display: "block" }} />
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "52px", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#2b2b2b", lineHeight: "20px" }}>Support</p>
             </div>
           </div>

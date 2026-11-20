@@ -13,6 +13,10 @@ const body = (style, name) => (style === "brand" ? `<path d="${brandPath(name)}"
 const swBody = (b, sw) => (sw ? b.replace(/stroke-width="([\d.]+)"/g, (_, w) => `stroke-width="${Math.round((Number(w) * sw) / 1.5 * 100) / 100}"`) : b);
 // common dashboard icon names -> Foundry names
 const ALIAS = {
+  // Abotix sidebar icons are named after their page: map each to the Ingot icon closest to the Figma drawing
+  overview: "file-shield", "threat-monitor": "gauge", vulnerabilities: "bug", "attack-paths": "route", "ai-pentests": "target",
+  "fix-requests": "hammer", "applications-apis": "layout-grid", "data-sources": "database", "tools-plugins": "puzzle", secrets: "key",
+  policies: "file-text", compliance: "certificate", integrations: "plug-connected", "team-access": "users", "knowledge-base": "book",
   spinner: "loader", buy: "shopping-cart", "ai-chat-02": "message-chatbot", "ai-chat": "message-chatbot",
   "arrow-right": "chevron-right", "arrow-left": "chevron-left", "arrow-down": "chevron-down", "arrow-up": "chevron-up",
   "arrow-up-right": "arrow-up-right", "arrow-down-right": "arrow-down-right", add: "plus", "plus-sign": "plus", cancel: "x", "multiplication-sign": "x",
