@@ -1,6 +1,15 @@
-// Block item, Referral widget (mailpulse, Cards and panels) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Foundry Icons.
-import { Share as ShareBulk } from "foundryui-icons/react/bulk";
+// Block item, Referral widget (mailpulse, Cards and panels) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
+import type { SVGProps } from "react";
+
+// Ingot Icons used here, inlined so this file needs no icon package.
+function icon(body: string) {
+  return function Icon({ size = 24, strokeWidth = 1.5, ...p }: { size?: number; strokeWidth?: number } & SVGProps<SVGSVGElement>) {
+    const html = strokeWidth == 1.5 ? body : body.replace(/stroke-width="([\d.]+)"/g, (_, w) => `stroke-width="${(Number(w) * Number(strokeWidth)) / 1.5}"`);
+    return <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden {...p} dangerouslySetInnerHTML={{ __html: html }} />;
+  };
+}
+const ShareBulk = icon("<path d=\"M15 6A3 3 0 1 0 21 6 3 3 0 1 0 15 6\" fill=\"currentColor\" fill-opacity=\"0.4\"/><path d=\"M3 12A3 3 0 1 0 9 12 3 3 0 1 0 3 12\" fill=\"currentColor\" fill-opacity=\"0.4\"/><path d=\"M15 18A3 3 0 1 0 21 18 3 3 0 1 0 15 18\" fill=\"currentColor\" fill-opacity=\"0.4\"/><g fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3 12a3 3 0 1 0 6 0a3 3 0 1 0 -6 0\" /><path d=\"M15 6a3 3 0 1 0 6 0a3 3 0 1 0 -6 0\" /><path d=\"M15 18a3 3 0 1 0 6 0a3 3 0 1 0 -6 0\" /><path d=\"M8.7 10.7l6.6 -3.4\" /><path d=\"M8.7 13.3l6.6 3.4\" /></g>");
 
 export function BlockItemReferralWidget() {
   return (

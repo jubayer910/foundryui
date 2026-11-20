@@ -1,5 +1,5 @@
-// Mini KPIs, MG1 · W30 (vantage, KPI and stats) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Foundry Icons.
+// Mini KPIs, MG1 · W30 (vantage, KPI and stats) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
 export function MiniKPIsMG1W30() {
   return (
     <div style={{ width: "438px", height: "106px", display: "flex", flexDirection: "row", padding: "16px 18px 16px 18px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>

@@ -1,5 +1,5 @@
-// Outcome (vantage, Cards and panels) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Foundry Icons.
+// Outcome (vantage, Cards and panels) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
 export function Outcome() {
   return (
     <div style={{ width: "375px", height: "56px", boxShadow: "inset 0 1px 0 0 #222222", display: "flex", flexDirection: "row", padding: "13px 0px 0px 0px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>

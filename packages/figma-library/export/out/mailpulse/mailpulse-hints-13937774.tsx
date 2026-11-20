@@ -1,5 +1,5 @@
-// Hints (mailpulse, Tables and lists) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist Mono, Geist. Icons: Foundry Icons.
+// Hints (mailpulse, Tables and lists) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist Mono, Geist. Icons: Ingot Icons.
 export function Hints() {
   return (
     <div style={{ width: "558.2px", height: "35.8px", background: "#fafafa", boxShadow: "inset 0 0.9px 0 0 #eeeeee", display: "flex", flexDirection: "row", padding: "10.1px 16.5px 9.1px 16.5px", gap: "12.8px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>

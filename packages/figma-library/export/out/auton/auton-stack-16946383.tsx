@@ -1,5 +1,5 @@
-// Stack (auton, Cards and panels) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist, Geist Mono. Icons: Foundry Icons.
+// Stack (auton, Cards and panels) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist, Geist Mono. Icons: Ingot Icons.
 export function Stack() {
   return (
     <div style={{ width: "281px", height: "54px", display: "flex", flexDirection: "column", gap: "12px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>

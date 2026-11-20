@@ -92,12 +92,12 @@ const rebrand = (s) =>
 
 // --- preview page
 const FONTS = "https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400..600&family=Inter:wght@300..700&display=swap";
-const page = (title, body) => `<!doctype html>
+const page = (title, body, script = "") => `<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex">
 <title>${title.replace(/[<&]/g, "")} preview</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="${FONTS}">
 <style>html,body{margin:0;padding:0;background:transparent}body{font-family:'Geist',ui-sans-serif,system-ui,sans-serif;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}*,*::before,*::after{box-sizing:border-box}#c{display:inline-block;padding:32px}</style>
-</head><body><div id="c">${body}</div></body></html>
+</head><body><div id="c">${body}</div>${script}</body></html>
 `;
 
 const React = await import(pathToFileURL(join(WEB, "node_modules/react/index.js")).href);
@@ -136,7 +136,14 @@ for (const sys of await readdir(CODE)) {
       const mod = await import(pathToFileURL(tmp).href + "?t=" + Date.now());
       const markup = renderToStaticMarkup(React.createElement(mod[fn]));
       const title = code.match(/^\/\/ (.+?) \(/m)?.[1] ?? slug;
-      await writeFile(html, page(title, markup));
+      // interactive components: the same helper the copied code runs, attached to the rendered markup
+      let script = "";
+      const at = code.indexOf("function fuInteract(");
+      if (at >= 0) {
+        const { code: helper } = await transform(code.slice(at), { loader: "ts", minifyWhitespace: true });
+        script = "<script>" + helper.replace(/<\/script/gi, "<\\/script") + ";(function(){var r=document.getElementById('c').firstElementChild;try{fuInteract(r)}catch(e){}})()</script>";
+      }
+      await writeFile(html, page(title, markup, script));
       rendered++;
     } catch (e) {
       failed.push(slug + " (" + String(e.message).slice(0, 80) + ")");
@@ -155,7 +162,9 @@ for (const sys of await readdir(CODE)) {
   const dir = join(CODE, sys);
   if (!(await stat(dir)).isDirectory()) continue;
   for (const file of (await readdir(dir)).filter((f) => f.endsWith(".txt"))) {
-    const code = await readFile(join(dir, file), "utf8");
+    const full = await readFile(join(dir, file), "utf8");
+    const cut = full.indexOf("\n// Interactions:");
+    const code = cut > 0 ? full.slice(0, cut) : full;
     const fn = code.match(/^export function (\w+)/m)?.[1];
     if (!fn) continue;
     const icons = [...new Set([...code.matchAll(/^const (\w+) = icon\(/gm)].map((m) => words(m[1])))];
@@ -165,7 +174,7 @@ for (const sys of await readdir(CODE)) {
     const colors = top([...code.matchAll(/#[0-9a-fA-F]{6}\b/g)].map((m) => m[0].toLowerCase()), 6).map(([c]) => c);
     const radii = [...new Set([...code.matchAll(/borderRadius: "([\d.]+)px"/g)].map((m) => px(m[1])).filter((r) => r > 0 && r < 999))].sort((a, b) => a - b).slice(0, 5);
     const lines = code.split("\n").length;
-    specs[file.slice(0, -4)] = [fn, icons, fonts, sizes, weights, colors, radii, lines];
+    specs[file.slice(0, -4)] = [fn, icons, fonts, sizes, weights, colors, radii, lines, cut > 0 ? 1 : 0];
   }
 }
 await writeFile(join(WEB, "lib/component-specs.generated.json"), JSON.stringify(specs));

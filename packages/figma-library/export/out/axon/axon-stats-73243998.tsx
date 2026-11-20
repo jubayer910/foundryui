@@ -1,5 +1,5 @@
-// Stats (axon, KPI and stats) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Foundry Icons.
+// Stats (axon, KPI and stats) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
 export function Stats() {
   return (
     <div style={{ width: "1155px", height: "77px", display: "flex", flexDirection: "row", gap: "14px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>

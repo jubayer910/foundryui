@@ -1,5 +1,5 @@
-// Link row, Cast Iron Skillet (loopo, Cards and panels) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Foundry Icons.
+// Link row, Cast Iron Skillet (loopo, Cards and panels) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
 export function LinkRowCastIronSkillet() {
   return (
     <div style={{ width: "407.57px", height: "48.58px", borderRadius: "7.67px", display: "flex", flexDirection: "column", padding: "6.57px 10.96px 6.57px 10.96px", gap: "5.48px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>

@@ -1,6 +1,6 @@
-// Callout Info (mailpulse, Feedback) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Foundry Icons.
-import { InfoCircle as InfoCircleBulk } from "foundryui-icons/react/bulk";
+// Callout Info (mailpulse, Feedback) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
+import { InfoCircle as InfoCircleBulk } from "ingotui-icons/react/bulk";
 
 export function CalloutInfo() {
   return (

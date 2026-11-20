@@ -1,5 +1,5 @@
-// Form row, Footer form (loopo, Forms) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Foundry Icons.
+// Form row, Footer form (loopo, Forms) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
 export function FormRowFooterForm() {
   return (
     <div style={{ width: "350.6px", height: "47.4px", borderRadius: "7.7px", display: "flex", flexDirection: "column", padding: "7.7px 11px 7.7px 11px", gap: "6.6px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>

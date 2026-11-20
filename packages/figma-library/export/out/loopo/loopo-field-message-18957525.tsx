@@ -1,5 +1,5 @@
-// Field, Message (loopo, Forms) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Foundry Icons.
+// Field, Message (loopo, Forms) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
 export function FieldMessage() {
   return (
     <div style={{ width: "329.8px", height: "139.5px", display: "flex", flexDirection: "column", gap: "6.6px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>

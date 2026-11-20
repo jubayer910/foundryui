@@ -1,5 +1,5 @@
-// Body modal, Post daily summary (axon, Modals) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Foundry Icons.
+// Body modal, Post daily summary (axon, Modals) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
 export function BodyModalPostDailySummary() {
   return (
     <div style={{ width: "518px", height: "299px", display: "flex", flexDirection: "column", padding: "6px 20px 20px 20px", gap: "16px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>

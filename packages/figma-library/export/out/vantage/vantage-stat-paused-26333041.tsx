@@ -1,5 +1,5 @@
-// Stat, Paused (vantage, KPI and stats) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Foundry Icons.
+// Stat, Paused (vantage, KPI and stats) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
 export function StatPaused() {
   return (
     <div style={{ width: "186px", height: "63px", display: "flex", flexDirection: "column", gap: "4px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>

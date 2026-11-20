@@ -1,5 +1,5 @@
-// Workspace, W (loopo, Cards and panels) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Foundry Icons.
+// Workspace, W (loopo, Cards and panels) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
 export function WorkspaceW() {
   return (
     <div style={{ width: "317.7px", height: "51.2px", borderRadius: "7.7px", display: "flex", flexDirection: "row", padding: "6.6px 8.8px 6.6px 8.8px", gap: "11px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>

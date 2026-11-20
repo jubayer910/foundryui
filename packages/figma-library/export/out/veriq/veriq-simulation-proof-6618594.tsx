@@ -1,5 +1,5 @@
-// Simulation proof (veriq, Cards and panels) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist, Geist Mono. Icons: Foundry Icons.
+// Simulation proof (veriq, Cards and panels) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist, Geist Mono. Icons: Ingot Icons.
 export function SimulationProof() {
   return (
     <div style={{ width: "446px", height: "126px", display: "flex", flexDirection: "column", padding: "0px 20px 16px 20px", gap: "10px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>

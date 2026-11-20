@@ -8,7 +8,7 @@
 import { readFile, writeFile, mkdir } from "node:fs/promises";
 import { existsSync } from "node:fs";
 import { createRequire } from "node:module";
-import { build, setImageUrl, iconBody } from "./convert.mjs";
+import { build, setImageUrl, iconBody, assignRoles } from "./convert.mjs";
 
 const WEB = new URL("../../../apps/web/", import.meta.url).pathname;
 const sharp = createRequire(WEB + "package.json")("sharp");
@@ -58,8 +58,9 @@ function emit(tree, tokens) {
       out.push(`${pad}<svg width={${el.icon.size}} height={${el.icon.size}} viewBox="0 0 24 24" style={${sref(el.st)}}>${jsxAttr(iconBody(el.icon))}</svg>`);
       return;
     }
-    if (el.svg) { out.push(pad + jsxAttr(el.svg).replace(/^<svg/, `<svg style={${sref(el.st)}}`)); return; }
-    const open = `${pad}<${el.tag} style={${sref(el.st)}}`;
+    const fu = ""; // showcase screens stay static until they are re-checked against Figma
+    if (el.svg) { out.push(pad + jsxAttr(el.svg).replace(/^<svg/, `<svg${fu} style={${sref(el.st)}}`)); return; }
+    const open = `${pad}<${el.tag}${fu} style={${sref(el.st)}}`;
     if (el.text !== undefined) { out.push(`${open}>${jsxText(el.text)}</${el.tag}>`); return; }
     if (!el.kids.length) { out.push(open + " />"); return; }
     out.push(open + ">");

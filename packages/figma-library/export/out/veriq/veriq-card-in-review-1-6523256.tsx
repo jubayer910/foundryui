@@ -1,5 +1,5 @@
-// Card In review 1 (veriq, Cards and panels) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist, Geist Mono. Icons: Foundry Icons.
+// Card In review 1 (veriq, Cards and panels) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist, Geist Mono. Icons: Ingot Icons.
 export function CardInReview1() {
   return (
     <div style={{ width: "262px", height: "121px", display: "flex", flexDirection: "column", padding: "14px 12px 14px 12px", gap: "7px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>

@@ -1,5 +1,5 @@
-// Title Block (vantage, Headers) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Foundry Icons.
+// Title Block (vantage, Headers) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
 export function TitleBlock() {
   return (
     <div style={{ width: "154px", height: "39px", overflow: "hidden", display: "flex", flexDirection: "column", gap: "7px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>

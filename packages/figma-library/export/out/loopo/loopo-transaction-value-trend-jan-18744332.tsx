@@ -1,5 +1,5 @@
-// Transaction value trend, Jan (loopo, Charts) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Foundry Icons.
+// Transaction value trend, Jan (loopo, Charts) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
 export function TransactionValueTrendJan() {
   return (
     <div style={{ width: "612.46px", height: "380.19px", borderRadius: "24.1px", background: "#fefefe", boxShadow: "inset 0 0 0 1.1px #eaeaea", overflow: "hidden", position: "relative" }}>

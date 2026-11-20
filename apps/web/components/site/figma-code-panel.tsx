@@ -6,7 +6,7 @@ import { pushRecent } from "@/lib/local-library";
 import { Icon } from "@/registry/components/icons";
 
 /** Copy and view the generated React code of a Figma component that passed visual QA. */
-export function FigmaCodePanel({ slug }: { slug: string; score?: number }) {
+export function FigmaCodePanel({ slug, compact = false }: { slug: string; score?: number; compact?: boolean }) {
   const router = useRouter();
   const [code, setCode] = useState<string | null>(null);
   const [locked, setLocked] = useState<null | "login_required" | "upgrade_required">(null);
@@ -47,12 +47,16 @@ export function FigmaCodePanel({ slug }: { slug: string; score?: number }) {
       <button onClick={copy} className="btn-ink w-full !justify-start !px-3">
         <Icon name="code" size={15} /> {note ?? "Copy React code"}
       </button>
-      <button onClick={() => setOpen((o) => !o)} className="flex h-8 w-full items-center gap-2 rounded-full bg-chip px-3 text-[13px] hover:bg-chip-2" aria-expanded={open}>
-        <Icon name="code" size={15} /> {open ? "Hide code" : "View code"}
-      </button>
-      <p className="mt-1 text-[12px] leading-snug text-mute">
-        Uses <Link href="/icons" className="underline underline-offset-2">Ingot Icons</Link>.
-      </p>
+      {!compact && (
+        <button onClick={() => setOpen((o) => !o)} className="flex h-8 w-full items-center gap-2 rounded-full bg-chip px-3 text-[13px] hover:bg-chip-2" aria-expanded={open}>
+          <Icon name="code" size={15} /> {open ? "Hide code" : "View code"}
+        </button>
+      )}
+      {!compact && (
+        <p className="mt-1 text-[12px] leading-snug text-mute">
+          Uses <Link href="/icons" className="underline underline-offset-2">Ingot Icons</Link>.
+        </p>
+      )}
       {open && locked && (
         <div className="card mt-2 p-3 text-[13px] leading-snug">
           <p className="font-medium">This component is in a Pro system</p>

@@ -1,5 +1,5 @@
-// Mini KPIs, Entered (vantage, KPI and stats) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Foundry Icons.
+// Mini KPIs, Entered (vantage, KPI and stats) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
 export function MiniKPIsEntered() {
   return (
     <div style={{ width: "418px", height: "102px", display: "flex", flexDirection: "row", padding: "14px 18px 14px 18px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>

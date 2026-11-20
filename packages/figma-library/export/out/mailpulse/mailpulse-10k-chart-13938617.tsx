@@ -1,5 +1,5 @@
-// $10k chart (mailpulse, Charts) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Foundry Icons.
+// $10k chart (mailpulse, Charts) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
 export function Component10kChart() {
   return (
     <div style={{ width: "689.1px", height: "237.6px", position: "relative" }}>

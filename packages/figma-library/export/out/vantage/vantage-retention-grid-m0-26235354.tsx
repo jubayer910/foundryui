@@ -1,5 +1,5 @@
-// Retention grid, M0 (vantage, Charts) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist, Geist Mono. Icons: Foundry Icons.
+// Retention grid, M0 (vantage, Charts) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist, Geist Mono. Icons: Ingot Icons.
 export function RetentionGridM0() {
   return (
     <div style={{ width: "776px", height: "260px", position: "relative" }}>

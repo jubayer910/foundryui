@@ -1,5 +1,5 @@
-// Tile Slack (veriq, Charts) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Foundry Icons.
+// Tile Slack (veriq, Charts) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
 export function TileSlack() {
   return (
     <div style={{ width: "331px", height: "151px", display: "flex", flexDirection: "column", justifyContent: "space-between", alignItems: "flex-start", boxSizing: "border-box" }}>

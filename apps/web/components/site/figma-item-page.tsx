@@ -7,7 +7,7 @@ import { figmaPath } from "@/lib/code-paths";
 import { ItemCard } from "./item-card";
 import { SaveButton } from "./save-button";
 import { categoryHref } from "@/lib/hubs";
-import { LivePreview } from "./live-preview";
+import { GeneratedStage } from "./generated-stage";
 import { ComponentSpecs } from "./component-specs";
 import { getSpecs } from "@/lib/component-specs";
 import { surfaceStyle } from "@/lib/system-surface";
@@ -34,9 +34,6 @@ export function FigmaItemPage({ item }: { item: FigmaItem }) {
     ["Figma", "In the " + (sys?.name ?? "") + " Figma kit"],
     ["Code", qa ? "React (TSX), checked" : "In progress"],
   ];
-  // layer text worth showing: words, not axis ticks, amounts or month labels
-  const MONTH = /^(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*$/i;
-  const inside = (item.keywords ?? "").split(", ").filter((k) => /[a-z]{3}/i.test(k) && !MONTH.test(k.trim())).slice(0, 10);
   const related = entries.filter((e) => e.slug !== item.slug && e.system === item.system && e.category === item.category).slice(0, 4);
   return (
     <div className="max-w-[1400px]">
@@ -64,36 +61,27 @@ export function FigmaItemPage({ item }: { item: FigmaItem }) {
               </div>
             ))}
           </dl>
-          {qa && <FigmaCodePanel slug={item.slug} score={qa.score} />}
-          {figmaPath(item.slug) && <FigmaCopy slug={item.slug} label={item.name} variant="wide" next={"/components/" + item.slug} />}
           <div className="flex flex-col gap-1.5">
+            {qa && <FigmaCodePanel slug={item.slug} score={qa.score} compact />}
+            {figmaPath(item.slug) && <FigmaCopy slug={item.slug} label={item.name} variant="wide" next={"/components/" + item.slug} />}
             <SaveButton slug={item.slug} quiet={!!qa} />
             <PlanCta pro={!free} href={free ? "/sign-up?next=/components/" + item.slug : "/pricing?from=" + item.slug} label={isFreeTemplate(item.slug) ? "Create a free account" : free ? "Get the free Loopo Figma kit" : "Unlock with Pro"} />
           </div>
           <p className="text-[12px] leading-snug text-mute">
-            {qa ? "Figma kit downloads open at launch." : "Figma kit downloads open at launch. React code for this component is being converted and checked against the Figma original; save it to see it first when it lands."}
+            {qa ? <>Uses <Link href="/icons" className="underline underline-offset-2">Ingot Icons</Link>. Figma kit downloads open at launch.</> : "Figma kit downloads open at launch. React code for this component is being converted and checked against the Figma original; save it to see it first when it lands."}
           </p>
-          {inside.length > 0 && (
-            <div>
-              <p className="text-[12px] text-mute">What’s inside</p>
-              <p className="mt-1 flex flex-wrap gap-1">
-                {inside.map((k) => (
-                  <span key={k} className="rounded-full bg-chip px-2 py-0.5 text-[12px]">{k}</span>
-                ))}
-              </p>
-            </div>
-          )}
         </aside>
-        <div className="min-w-0">
-          <div className="flex min-h-[520px] items-center justify-center rounded-[8px] bg-tile p-4 shadow-[inset_0_0_0_1px_var(--color-hair)] sm:p-8" style={surfaceStyle(item.system)}>
-            {qa ? (
-              <LivePreview src={`/library-preview/${item.system}/${item.slug}.html`} w={item.w} h={item.h} thumb={item.thumb} alt={item.name + ", rendered from its React code"} />
-            ) : (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img src={item.thumb} alt={item.name + ", " + item.category.toLowerCase() + " component from the " + (sys?.name ?? item.system) + " design system"} width={Math.min(item.w, 960)} className="h-auto max-h-[80vh] w-auto max-w-full rounded-[6px] shadow-[0_1px_3px_rgb(0_0_0/0.08),0_8px_24px_-12px_rgb(0_0_0/0.18)]" />
-            )}
-          </div>
-        </div>
+        <GeneratedStage
+          slug={item.slug}
+          src={qa ? `/library-preview/${item.system}/${item.slug}.html` : null}
+          w={item.w}
+          h={item.h}
+          thumb={item.thumb}
+          alt={qa ? item.name + ", rendered from its React code" : item.name + ", " + item.category.toLowerCase() + " component from the " + (sys?.name ?? item.system) + " design system"}
+          hasCode={!!qa}
+          interactive={!!specs?.interactive}
+          surface={surfaceStyle(item.system)}
+        />
       </div>
       <AgentPrompts slug={item.slug} name={item.name} systemName={sys?.name ?? item.system} category={item.category} template={item.category === "Templates"} hasCode={!!qa} hasFigma={item.slug in (figmaSteps as Record<string, number>)} mcpUrl={mcpUrlFor(SITE_URL)} />
       {specs && <ComponentSpecs s={specs} name={item.name} w={item.w} h={item.h} system={sys?.name ?? item.system} />}

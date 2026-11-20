@@ -1,7 +1,16 @@
-// Header modal, Start from a template (mailpulse, Modals) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Foundry Icons.
-import { Layout as LayoutBulk } from "foundryui-icons/react/bulk";
-import { X } from "foundryui-icons/react/stroke-rounded";
+// Header modal, Start from a template (mailpulse, Modals) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
+import type { SVGProps } from "react";
+
+// Ingot Icons used here, inlined so this file needs no icon package.
+function icon(body: string) {
+  return function Icon({ size = 24, strokeWidth = 1.5, ...p }: { size?: number; strokeWidth?: number } & SVGProps<SVGSVGElement>) {
+    const html = strokeWidth == 1.5 ? body : body.replace(/stroke-width="([\d.]+)"/g, (_, w) => `stroke-width="${(Number(w) * Number(strokeWidth)) / 1.5}"`);
+    return <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden {...p} dangerouslySetInnerHTML={{ __html: html }} />;
+  };
+}
+const LayoutBulk = icon("<path d=\"M14 6A2 2 0 0 1 16 4H18A2 2 0 0 1 20 6V18A2 2 0 0 1 18 20H16A2 2 0 0 1 14 18L14 6\" fill=\"currentColor\" fill-opacity=\"0.4\"/><g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M4 6A2 2 0 0 1 6 4H8A2 2 0 0 1 10 6V7A2 2 0 0 1 8 9H6A2 2 0 0 1 4 7L4 6\"/><path d=\"M4 15A2 2 0 0 1 6 13H8A2 2 0 0 1 10 15V18A2 2 0 0 1 8 20H6A2 2 0 0 1 4 18L4 15\"/></g>");
+const X = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M18 6l-12 12\" /><path d=\"M6 6l12 12\" /></g>");
 
 export function HeaderModalStartFromATemplate() {
   return (

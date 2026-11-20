@@ -1,5 +1,5 @@
-// Readability (loopo, Cards and panels) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Foundry Icons.
+// Readability (loopo, Cards and panels) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
 export function Readability() {
   return (
     <div style={{ width: "282.7px", height: "61.1px", display: "flex", flexDirection: "column", gap: "8.8px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>

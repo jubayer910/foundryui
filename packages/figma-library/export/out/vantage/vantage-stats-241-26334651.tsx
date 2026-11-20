@@ -1,5 +1,5 @@
-// Stats, 241 (vantage, KPI and stats) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Foundry Icons.
+// Stats, 241 (vantage, KPI and stats) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
 export function Stats241() {
   return (
     <div style={{ width: "200px", height: "34px", display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "flex-start", boxSizing: "border-box" }}>

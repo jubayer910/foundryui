@@ -1,5 +1,5 @@
-// Locations (loopo, Tables and lists) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist Mono, Geist. Icons: Foundry Icons.
+// Locations (loopo, Tables and lists) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist Mono, Geist. Icons: Ingot Icons.
 export function Locations() {
   return (
     <div style={{ width: "568.6px", height: "260.7px", display: "flex", flexDirection: "column", gap: "2.2px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>

@@ -1,5 +1,5 @@
-// Heat grid (vantage, Cards and panels) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist, Geist Mono. Icons: Foundry Icons.
+// Heat grid (vantage, Cards and panels) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist, Geist Mono. Icons: Ingot Icons.
 export function HeatGrid() {
   return (
     <div style={{ width: "776px", height: "274px", position: "relative" }}>

@@ -1,10 +1,14 @@
+"use client";
 // Spending Analysis page (montra, Templates) from Ingot UI (ingotui.com).
 // Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
+import { useEffect, useRef } from "react";
 import { AlertTriangle, ArrowDataTransferHorizontal, Bell, Building, Calendar, Car, ChartIncrease, ChartLine, ChartPie, ChevronDown, ChevronRight, Cloud, Copy, CreditCard, Currency, Dots, File, FileInvoice, HelpCircle, LayoutDashboard, Megaphone, Repeat, Search, Settings, Tag, Target, Users, Wallet } from "ingotui-icons/react/stroke-rounded";
 
 export function SpendingAnalysisPage() {
+  const fuRef = useRef<any>(null);
+  useEffect(() => fuInteract(fuRef.current), []);
   return (
-    <div style={{ width: "1316px", height: "1003px", background: "#f9f9f9", overflow: "hidden", position: "relative" }}>
+    <div ref={fuRef} style={{ width: "1316px", height: "1003px", background: "#f9f9f9", overflow: "hidden", position: "relative" }}>
       <div style={{ position: "absolute", left: "0px", top: "0px", width: "1316px", height: "1003px", overflow: "hidden" }}>
         <svg style={{ position: "absolute", left: "224.82px", top: "0px", width: "1px", height: "968.72px", display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="1" height="968.72" viewBox="0 0 1 968.72" fill="none" overflow="visible"><path transform="matrix(0 1 -1 0 0 0)" d="M0 -0.456944 L0 0 L968.722 0 L968.722 -0.456944 L968.722 -0.913889 L0 -0.913889 L0 -0.456944 Z" fill="#e8e8e8"/></svg>
         <div style={{ position: "absolute", left: "0px", top: "0px", width: "224.82px", height: "1019.9px", background: "#ffffff", overflow: "hidden" }}>
@@ -34,7 +38,7 @@ export function SpendingAnalysisPage() {
               </div>
             </div>
             <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", gap: "12.79px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
-              <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", gap: "3.66px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+              <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", gap: "3.66px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
                 <div style={{ alignSelf: "stretch", height: "32.9px", flexShrink: 0, borderRadius: "9.14px", display: "flex", flexDirection: "column", padding: "9.14px 9.14px 9.14px 9.14px", justifyContent: "center", alignItems: "flex-start", boxSizing: "border-box" }}>
                   <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "3.66px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                     <ArrowDataTransferHorizontal size={12.8} style={{ width: "12.79px", height: "12.79px", flexShrink: 0, color: "#646871", display: "block" }} />
@@ -66,7 +70,7 @@ export function SpendingAnalysisPage() {
                   </div>
                 </div>
               </div>
-              <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", gap: "3.66px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+              <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", gap: "3.66px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
                 <svg style={{ width: "193.74px", height: "1px", flexShrink: 0, display: "block", lineHeight: 0, overflow: "visible", marginBottom: "-1px" }} xmlns="http://www.w3.org/2000/svg" width="193.74" height="1" viewBox="0 0 193.74 1" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M0 -0.456944 L0 0 L193.744 0 L193.744 -0.456944 L193.744 -0.913889 L0 -0.913889 L0 -0.456944 Z" fill="#e8e8e8"/></svg>
                 <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
                   <div style={{ alignSelf: "stretch", height: "32.9px", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
@@ -75,7 +79,7 @@ export function SpendingAnalysisPage() {
                     </div>
                   </div>
                   <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
-                    <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+                    <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
                       <div style={{ alignSelf: "stretch", height: "32.9px", flexShrink: 0, borderRadius: "9.14px", display: "flex", flexDirection: "column", padding: "9.14px 9.14px 9.14px 9.14px", justifyContent: "center", alignItems: "flex-start", boxSizing: "border-box" }}>
                         <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "3.66px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                           <File size={12.8} style={{ width: "12.79px", height: "12.79px", flexShrink: 0, color: "#646871", display: "block" }} />
@@ -83,7 +87,7 @@ export function SpendingAnalysisPage() {
                         </div>
                       </div>
                     </div>
-                    <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+                    <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
                       <div style={{ alignSelf: "stretch", height: "32.9px", flexShrink: 0, borderRadius: "9.14px", display: "flex", flexDirection: "column", padding: "9.14px 9.14px 9.14px 9.14px", justifyContent: "center", alignItems: "flex-start", boxSizing: "border-box" }}>
                         <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "3.66px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                           <Currency size={12.8} style={{ width: "12.79px", height: "12.79px", flexShrink: 0, color: "#646871", display: "block" }} />
@@ -91,7 +95,7 @@ export function SpendingAnalysisPage() {
                         </div>
                       </div>
                     </div>
-                    <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+                    <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
                       <div style={{ alignSelf: "stretch", height: "32.9px", flexShrink: 0, borderRadius: "9.14px", background: "#f5f5f5", boxShadow: "inset 0 0 0 0.91px #eeeeee", display: "flex", flexDirection: "column", padding: "9.14px 9.14px 9.14px 9.14px", justifyContent: "center", alignItems: "flex-start", boxSizing: "border-box" }}>
                         <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "3.66px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                           <ChartIncrease size={12.8} style={{ width: "12.79px", height: "12.79px", flexShrink: 0, color: "#000000", display: "block" }} />
@@ -99,7 +103,7 @@ export function SpendingAnalysisPage() {
                         </div>
                       </div>
                     </div>
-                    <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+                    <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
                       <div style={{ alignSelf: "stretch", height: "32.9px", flexShrink: 0, borderRadius: "9.14px", display: "flex", flexDirection: "column", padding: "9.14px 9.14px 9.14px 9.14px", justifyContent: "center", alignItems: "flex-start", boxSizing: "border-box" }}>
                         <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "3.66px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                           <ChartLine size={12.8} style={{ width: "12.79px", height: "12.79px", flexShrink: 0, color: "#646871", display: "block" }} />
@@ -110,7 +114,7 @@ export function SpendingAnalysisPage() {
                   </div>
                 </div>
               </div>
-              <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", gap: "3.66px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+              <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", gap: "3.66px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
                 <svg style={{ width: "193.74px", height: "1px", flexShrink: 0, display: "block", lineHeight: 0, overflow: "visible", marginBottom: "-1px" }} xmlns="http://www.w3.org/2000/svg" width="193.74" height="1" viewBox="0 0 193.74 1" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M0 -0.456944 L0 0 L193.744 0 L193.744 -0.456944 L193.744 -0.913889 L0 -0.913889 L0 -0.456944 Z" fill="#e8e8e8"/></svg>
                 <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
                   <div style={{ alignSelf: "stretch", height: "32.9px", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
@@ -119,7 +123,7 @@ export function SpendingAnalysisPage() {
                     </div>
                   </div>
                   <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
-                    <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+                    <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
                       <div style={{ alignSelf: "stretch", height: "32.9px", flexShrink: 0, borderRadius: "9.14px", display: "flex", flexDirection: "column", padding: "9.14px 9.14px 9.14px 9.14px", justifyContent: "center", alignItems: "flex-start", boxSizing: "border-box" }}>
                         <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "3.66px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                           <Target size={12.8} style={{ width: "12.79px", height: "12.79px", flexShrink: 0, color: "#646871", display: "block" }} />
@@ -127,7 +131,7 @@ export function SpendingAnalysisPage() {
                         </div>
                       </div>
                     </div>
-                    <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+                    <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
                       <div style={{ alignSelf: "stretch", height: "32.9px", flexShrink: 0, borderRadius: "9.14px", display: "flex", flexDirection: "column", padding: "9.14px 9.14px 9.14px 9.14px", justifyContent: "center", alignItems: "flex-start", boxSizing: "border-box" }}>
                         <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "3.66px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                           <Repeat size={12.8} style={{ width: "12.79px", height: "12.79px", flexShrink: 0, color: "#646871", display: "block" }} />
@@ -135,7 +139,7 @@ export function SpendingAnalysisPage() {
                         </div>
                       </div>
                     </div>
-                    <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+                    <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
                       <div style={{ alignSelf: "stretch", height: "32.9px", flexShrink: 0, borderRadius: "9.14px", display: "flex", flexDirection: "column", padding: "9.14px 9.14px 9.14px 9.14px", justifyContent: "center", alignItems: "flex-start", boxSizing: "border-box" }}>
                         <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "3.66px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                           <Tag size={12.8} style={{ width: "12.79px", height: "12.79px", flexShrink: 0, color: "#646871", display: "block" }} />
@@ -146,7 +150,7 @@ export function SpendingAnalysisPage() {
                   </div>
                 </div>
               </div>
-              <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", gap: "3.66px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+              <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", gap: "3.66px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
                 <svg style={{ width: "193.74px", height: "1px", flexShrink: 0, display: "block", lineHeight: 0, overflow: "visible", marginBottom: "-1px" }} xmlns="http://www.w3.org/2000/svg" width="193.74" height="1" viewBox="0 0 193.74 1" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M0 -0.456944 L0 0 L193.744 0 L193.744 -0.456944 L193.744 -0.913889 L0 -0.913889 L0 -0.456944 Z" fill="#e8e8e8"/></svg>
                 <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
                   <div style={{ alignSelf: "stretch", height: "32.9px", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
@@ -277,7 +281,7 @@ export function SpendingAnalysisPage() {
         <div style={{ position: "absolute", left: "0px", top: "138px", width: "711px", height: "353.7px", borderRadius: "10.97px", background: "#fefefe", boxShadow: "inset 0 0 0 0.91px #ededed", overflow: "hidden" }}>
           <p style={{ position: "absolute", left: "18.28px", top: "18.28px", margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "93px", lineHeight: "19px", fontFamily: "'Geist'", fontSize: "14.62px", fontWeight: 500, color: "#000000" }}>Spend by day</p>
           <p style={{ position: "absolute", left: "18.28px", top: "43.87px", margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "225px", lineHeight: "17px", fontFamily: "'Geist'", fontSize: "12.79px", fontWeight: 400, color: "#6b6b6b" }}>Daily spend by weekday, last 13 weeks</p>
-          <div style={{ position: "absolute", left: "590.9px", top: "18.28px", width: "101.82px", height: "29.24px", borderRadius: "7.31px", background: "#ffffff", boxShadow: "inset 0 0 0 0.91px #e8e8e8, 0px 0.91px 1.83px 0px rgba(13, 13, 18, 0.06)", display: "flex", flexDirection: "row", padding: "0.91px 8.22px 0.91px 8.22px", gap: "5.48px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+          <div data-fu="btn" style={{ position: "absolute", left: "590.9px", top: "18.28px", width: "101.82px", height: "29.24px", borderRadius: "7.31px", background: "#ffffff", boxShadow: "inset 0 0 0 0.91px #e8e8e8, 0px 0.91px 1.83px 0px rgba(13, 13, 18, 0.06)", display: "flex", flexDirection: "row", padding: "0.91px 8.22px 0.91px 8.22px", gap: "5.48px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
             <Calendar size={16.5} style={{ width: "16.45px", height: "16.45px", flexShrink: 0, color: "#6c6c6c", display: "block" }} />
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "47px", lineHeight: "14px", fontFamily: "'Geist'", fontSize: "10.97px", fontWeight: 400, color: "#6c6c6c" }}>13 weeks</p>
             <ChevronDown size={11} strokeWidth={1.51} style={{ width: "10.97px", height: "10.97px", flexShrink: 0, color: "#6c6c6c", display: "block" }} />
@@ -414,7 +418,7 @@ export function SpendingAnalysisPage() {
           <p style={{ position: "absolute", left: "18.28px", top: "18.28px", margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "83px", lineHeight: "19px", fontFamily: "'Geist'", fontSize: "14.62px", fontWeight: 500, color: "#000000" }}>By category</p>
           <p style={{ position: "absolute", left: "18.28px", top: "43.87px", margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "134px", lineHeight: "17px", fontFamily: "'Geist'", fontSize: "12.79px", fontWeight: 400, color: "#6b6b6b" }}>Share of August spend</p>
           <div style={{ position: "absolute", left: "18.28px", top: "223.7px", width: "287.84px", height: "102.88px", display: "flex", flexDirection: "column", gap: "8.22px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
-            <div style={{ width: "287.84px", flexShrink: 0, display: "flex", flexDirection: "row", gap: "7.31px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div data-fu="row" style={{ width: "287.84px", flexShrink: 0, display: "flex", flexDirection: "row", gap: "7.31px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <div style={{ flex: "1 1 0", minWidth: 0, flexShrink: 0, display: "flex", flexDirection: "row", gap: "5.48px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                 <div style={{ width: "9.14px", height: "9.14px", flexShrink: 0, borderRadius: "1.83px", background: "#4996fe", boxShadow: "inset 0 0 0 0.91px rgba(214, 214, 214, 0.4), inset 0px 3.66px 3.66px 0px rgba(255, 255, 255, 0.29)" }} />
                 <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "55px", lineHeight: "14px", fontFamily: "'Geist'", fontSize: "10.97px", fontWeight: 400, color: "#6b6b6b" }}>Operations</p>
@@ -422,7 +426,7 @@ export function SpendingAnalysisPage() {
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "38px", lineHeight: "14px", fontFamily: "'Geist'", fontSize: "10.97px", fontWeight: 500, color: "#0f172a" }}>$6,989</p>
               <p style={{ width: "27.42px", flexShrink: 0, margin: 0, textAlign: "right", whiteSpace: "pre-wrap", lineHeight: "14px", fontFamily: "'Geist'", fontSize: "10.97px", fontWeight: 500, color: "#6b6b6b" }}>56%</p>
             </div>
-            <div style={{ width: "287.84px", flexShrink: 0, display: "flex", flexDirection: "row", gap: "7.31px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div data-fu="row" style={{ width: "287.84px", flexShrink: 0, display: "flex", flexDirection: "row", gap: "7.31px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <div style={{ flex: "1 1 0", minWidth: 0, flexShrink: 0, display: "flex", flexDirection: "row", gap: "5.48px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                 <div style={{ width: "9.14px", height: "9.14px", flexShrink: 0, borderRadius: "1.83px", background: "#8e83fd", boxShadow: "inset 0 0 0 0.91px rgba(214, 214, 214, 0.4), inset 0px 3.66px 3.66px 0px rgba(255, 255, 255, 0.29)" }} />
                 <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "34px", lineHeight: "14px", fontFamily: "'Geist'", fontSize: "10.97px", fontWeight: 400, color: "#6b6b6b" }}>Payroll</p>
@@ -430,7 +434,7 @@ export function SpendingAnalysisPage() {
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "37px", lineHeight: "14px", fontFamily: "'Geist'", fontSize: "10.97px", fontWeight: 500, color: "#0f172a" }}>$2,246</p>
               <p style={{ width: "27.42px", flexShrink: 0, margin: 0, textAlign: "right", whiteSpace: "pre-wrap", lineHeight: "14px", fontFamily: "'Geist'", fontSize: "10.97px", fontWeight: 500, color: "#6b6b6b" }}>18%</p>
             </div>
-            <div style={{ width: "287.84px", flexShrink: 0, display: "flex", flexDirection: "row", gap: "7.31px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div data-fu="row" style={{ width: "287.84px", flexShrink: 0, display: "flex", flexDirection: "row", gap: "7.31px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <div style={{ flex: "1 1 0", minWidth: 0, flexShrink: 0, display: "flex", flexDirection: "row", gap: "5.48px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                 <div style={{ width: "9.14px", height: "9.14px", flexShrink: 0, borderRadius: "1.83px", background: "#63c093", boxShadow: "inset 0 0 0 0.91px rgba(214, 214, 214, 0.4), inset 0px 3.66px 3.66px 0px rgba(255, 255, 255, 0.29)" }} />
                 <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "51px", lineHeight: "14px", fontFamily: "'Geist'", fontSize: "10.97px", fontWeight: 400, color: "#6b6b6b" }}>Marketing</p>
@@ -438,7 +442,7 @@ export function SpendingAnalysisPage() {
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "32px", lineHeight: "14px", fontFamily: "'Geist'", fontSize: "10.97px", fontWeight: 500, color: "#0f172a" }}>$1,747</p>
               <p style={{ width: "27.42px", flexShrink: 0, margin: 0, textAlign: "right", whiteSpace: "pre-wrap", lineHeight: "14px", fontFamily: "'Geist'", fontSize: "10.97px", fontWeight: 500, color: "#6b6b6b" }}>14%</p>
             </div>
-            <div style={{ width: "287.84px", flexShrink: 0, display: "flex", flexDirection: "row", gap: "7.31px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div data-fu="row" style={{ width: "287.84px", flexShrink: 0, display: "flex", flexDirection: "row", gap: "7.31px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <div style={{ flex: "1 1 0", minWidth: 0, flexShrink: 0, display: "flex", flexDirection: "row", gap: "5.48px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                 <div style={{ width: "9.14px", height: "9.14px", flexShrink: 0, borderRadius: "1.83px", background: "#fd872f", boxShadow: "inset 0 0 0 0.91px rgba(214, 214, 214, 0.4), inset 0px 3.66px 3.66px 0px rgba(255, 255, 255, 0.29)" }} />
                 <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "46px", lineHeight: "14px", fontFamily: "'Geist'", fontSize: "10.97px", fontWeight: 400, color: "#6b6b6b" }}>Software</p>
@@ -446,7 +450,7 @@ export function SpendingAnalysisPage() {
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "27px", lineHeight: "14px", fontFamily: "'Geist'", fontSize: "10.97px", fontWeight: 500, color: "#0f172a" }}>$874</p>
               <p style={{ width: "27.42px", flexShrink: 0, margin: 0, textAlign: "right", whiteSpace: "pre-wrap", lineHeight: "14px", fontFamily: "'Geist'", fontSize: "10.97px", fontWeight: 500, color: "#6b6b6b" }}>7%</p>
             </div>
-            <div style={{ width: "287.84px", flexShrink: 0, display: "flex", flexDirection: "row", gap: "7.31px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div data-fu="row" style={{ width: "287.84px", flexShrink: 0, display: "flex", flexDirection: "row", gap: "7.31px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <div style={{ flex: "1 1 0", minWidth: 0, flexShrink: 0, display: "flex", flexDirection: "row", gap: "5.48px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                 <div style={{ width: "9.14px", height: "9.14px", flexShrink: 0, borderRadius: "1.83px", background: "#d8d8d8", boxShadow: "inset 0 0 0 0.91px rgba(214, 214, 214, 0.4), inset 0px 3.66px 3.66px 0px rgba(255, 255, 255, 0.29)" }} />
                 <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "29px", lineHeight: "14px", fontFamily: "'Geist'", fontSize: "10.97px", fontWeight: 400, color: "#6b6b6b" }}>Other</p>
@@ -456,7 +460,7 @@ export function SpendingAnalysisPage() {
             </div>
           </div>
           <div style={{ position: "absolute", left: "93.66px", top: "72px", width: "137.08px", height: "137.08px" }}>
-            <svg style={{ position: "absolute", left: "5.94px", top: "5.94px", width: "125.2px", height: "125.2px", display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="125.2" height="125.2" viewBox="0 0 125.2 125.2" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M62.63 125.2 L62.6335 131.14 L62.6335 131.14 L62.63 125.2 Z M2.40932e-05 62.6501 L5.94002 62.6449 L5.94002 62.6449 L2.40932e-05 62.6501 Z M125.2 62.6001 L119.26 62.6001 C119.26 93.8801 93.9081 119.242 62.6266 119.26 L62.63 125.2 L62.6335 131.14 C100.472 131.118 131.14 100.44 131.14 62.6001 L125.2 62.6001 Z M62.63 125.2 L62.6266 119.26 C31.3378 119.278 5.96718 93.9363 5.94002 62.6449 L2.40932e-05 62.6501 L-5.93997 62.6552 C-5.90713 100.504 24.7823 131.162 62.6335 131.14 L62.63 125.2 Z M2.40932e-05 62.6501 L5.94002 62.6449 C5.91287 31.366 31.246 5.98532 62.5286 5.94006 L62.52 6.69078e-05 L62.5114 -5.93993 C24.674 -5.88519 -5.97282 24.8142 -5.93997 62.6552 L2.40932e-05 62.6501 Z M62.52 6.69078e-05 L62.5286 5.94006 C93.8076 5.89481 119.206 31.2191 119.26 62.5004 L125.2 62.4901 L131.14 62.4798 C131.074 24.641 100.352 -5.99467 62.5114 -5.93993 L62.52 6.69078e-05 Z" fill="#f1f1f3"/></svg>
+            <svg data-fu="plot" style={{ position: "absolute", left: "5.94px", top: "5.94px", width: "125.2px", height: "125.2px", display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="125.2" height="125.2" viewBox="0 0 125.2 125.2" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M62.63 125.2 L62.6335 131.14 L62.6335 131.14 L62.63 125.2 Z M2.40932e-05 62.6501 L5.94002 62.6449 L5.94002 62.6449 L2.40932e-05 62.6501 Z M125.2 62.6001 L119.26 62.6001 C119.26 93.8801 93.9081 119.242 62.6266 119.26 L62.63 125.2 L62.6335 131.14 C100.472 131.118 131.14 100.44 131.14 62.6001 L125.2 62.6001 Z M62.63 125.2 L62.6266 119.26 C31.3378 119.278 5.96718 93.9363 5.94002 62.6449 L2.40932e-05 62.6501 L-5.93997 62.6552 C-5.90713 100.504 24.7823 131.162 62.6335 131.14 L62.63 125.2 Z M2.40932e-05 62.6501 L5.94002 62.6449 C5.91287 31.366 31.246 5.98532 62.5286 5.94006 L62.52 6.69078e-05 L62.5114 -5.93993 C24.674 -5.88519 -5.97282 24.8142 -5.93997 62.6552 L2.40932e-05 62.6501 Z M62.52 6.69078e-05 L62.5286 5.94006 C93.8076 5.89481 119.206 31.2191 119.26 62.5004 L125.2 62.4901 L131.14 62.4798 C131.074 24.641 100.352 -5.99467 62.5114 -5.93993 L62.52 6.69078e-05 Z" fill="#f1f1f3"/></svg>
             <svg style={{ position: "absolute", left: "52.69px", top: "6.4px", width: "78.45px", height: "124.74px", display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="78.45" height="124.74" viewBox="0 0 78.45 124.74" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M24.1264 -5.89664 C20.8698 -6.29231 17.909 -3.97306 17.5134 -0.716438 C17.1177 2.54018 19.4369 5.50096 22.6936 5.89664 L23.41 0 L24.1264 -5.89664 Z M74.49 40.23 L80.0545 38.1516 L80.0542 38.1507 L74.49 40.23 Z M62.31 104.1 L66.7182 108.081 L66.7183 108.081 L62.31 104.1 Z M1.50456 116.954 C-1.66903 116.123 -4.91535 118.022 -5.74629 121.195 C-6.57724 124.369 -4.67815 127.615 -1.50456 128.446 L0 122.7 L1.50456 116.954 Z M23.41 0 L22.6936 5.89664 C43.6999 8.44889 61.5216 22.4954 68.9258 42.3093 L74.49 40.23 L80.0542 38.1507 C71.0984 14.1846 49.5401 -2.80889 24.1264 -5.89664 L23.41 0 Z M74.49 40.23 L68.9255 42.3084 C76.3298 62.1316 72.075 84.4249 57.9017 100.119 L62.31 104.1 L66.7183 108.081 C83.865 89.0951 89.0102 62.1284 80.0545 38.1516 L74.49 40.23 Z M62.31 104.1 L57.9018 100.119 C43.7187 115.822 21.9689 122.312 1.50456 116.954 L-0 122.7 L-1.50456 128.446 C23.2511 134.928 49.5613 127.078 66.7182 108.081 L62.31 104.1 Z" fill="#4996fe"/></svg>
             <svg style={{ position: "absolute", left: "7px", top: "79.99px", width: "31.63px", height: "43.54px", display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="31.63" height="43.54" viewBox="0 0 31.63 43.54" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M28.7911 48.7577 C31.6728 50.3256 35.2798 49.2605 36.8477 46.3789 C38.4156 43.4972 37.3505 39.8902 34.4689 38.3223 L31.63 43.54 L28.7911 48.7577 Z M5.83975 -1.08669 C5.23959 -4.31189 2.13852 -6.43991 -1.08669 -5.83975 C-4.31189 -5.23959 -6.43991 -2.13852 -5.83975 1.08669 L0 0 L5.83975 -1.08669 Z M31.63 43.54 L34.4689 38.3223 C19.4797 30.1669 8.9624 15.6942 5.83975 -1.08669 L0 0 L-5.83975 1.08669 C-2.0624 21.3858 10.6603 38.8931 28.7911 48.7577 L31.63 43.54 Z" fill="#8e83fd"/></svg>
             <svg style={{ position: "absolute", left: "6.05px", top: "28.43px", width: "14.44px", height: "36.48px", display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="14.44" height="36.48" viewBox="0 0 14.44 36.48" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M-5.92995 36.1346 C-6.12073 39.4096 -3.62045 42.2192 -0.345434 42.4099 C2.92959 42.6007 5.73917 40.1005 5.92995 36.8254 L0 36.48 L-5.92995 36.1346 Z M18.9996 3.80705 C21.1022 1.28885 20.7652 -2.45703 18.247 -4.5596 C15.7288 -6.66218 11.983 -6.32525 9.8804 -3.80705 L14.44 0 L18.9996 3.80705 Z M0 36.48 L5.92995 36.8254 C6.63595 24.7057 11.2159 13.1293 18.9996 3.80705 L14.44 0 L9.8804 -3.80705 C0.464054 7.47066 -5.07595 21.4743 -5.92995 36.1346 L0 36.48 Z" fill="#63c093"/></svg>
@@ -472,15 +476,15 @@ export function SpendingAnalysisPage() {
           <p style={{ position: "absolute", left: "18.28px", top: "18.28px", margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "101px", lineHeight: "19px", fontFamily: "'Geist'", fontSize: "14.62px", fontWeight: 500, color: "#000000" }}>Top merchants</p>
           <p style={{ position: "absolute", left: "18.28px", top: "43.87px", margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "236px", lineHeight: "17px", fontFamily: "'Geist'", fontSize: "12.79px", fontWeight: 400, color: "#6b6b6b" }}>Ranked by August spend · 42 merchants</p>
           <div style={{ position: "absolute", left: "562.71px", top: "18.28px", width: "130.01px", height: "31.07px", borderRadius: "9.14px", background: "#f5f5f5", display: "flex", flexDirection: "row", padding: "2.74px 2.74px 2.74px 2.74px", gap: "1.83px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-            <div style={{ height: "25.59px", flexShrink: 0, borderRadius: "7.31px", background: "#ffffff", boxShadow: "inset 0 0 0 0.91px #eeeeee, 0px 0.91px 1.83px 0px rgba(13, 13, 18, 0.06)", display: "flex", flexDirection: "row", padding: "0.91px 11.88px 0.91px 11.88px", gap: "5.48px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
+            <div data-fu="tab" style={{ height: "25.59px", flexShrink: 0, borderRadius: "7.31px", background: "#ffffff", boxShadow: "inset 0 0 0 0.91px #eeeeee, 0px 0.91px 1.83px 0px rgba(13, 13, 18, 0.06)", display: "flex", flexDirection: "row", padding: "0.91px 11.88px 0.91px 11.88px", gap: "5.48px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "44px", lineHeight: "15px", fontFamily: "'Geist'", fontSize: "11.88px", fontWeight: 500, color: "#000000" }}>Amount</p>
             </div>
-            <div style={{ height: "25.59px", flexShrink: 0, borderRadius: "7.31px", display: "flex", flexDirection: "row", padding: "0px 10.97px 0px 10.97px", gap: "5.48px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
+            <div data-fu="tab" style={{ height: "25.59px", flexShrink: 0, borderRadius: "7.31px", display: "flex", flexDirection: "row", padding: "0px 10.97px 0px 10.97px", gap: "5.48px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "33px", lineHeight: "15px", fontFamily: "'Geist'", fontSize: "11.88px", fontWeight: 400, color: "#646871" }}>Count</p>
             </div>
           </div>
           <div style={{ position: "absolute", left: "18.28px", top: "73.11px", width: "674.44px", height: "213.82px", display: "flex", flexDirection: "column", gap: "5.48px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
-            <div style={{ width: "674.44px", height: "31.07px", flexShrink: 0, display: "flex", flexDirection: "row", gap: "10.97px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div data-fu="row" style={{ width: "674.44px", height: "31.07px", flexShrink: 0, display: "flex", flexDirection: "row", gap: "10.97px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <div style={{ width: "22.85px", height: "22.85px", flexShrink: 0, borderRadius: "5.48px", background: "linear-gradient(180deg, #4a96fe 0%, #adcfff 100%)", boxShadow: "0px 0.91px 1.83px 0px rgba(0, 0, 0, 0.08)", display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
                 <Building size={11} strokeWidth={1.51} style={{ width: "10.97px", height: "10.97px", flexShrink: 0, color: "#ffffff", display: "block" }} />
               </div>
@@ -501,7 +505,7 @@ export function SpendingAnalysisPage() {
                 <Dots size={14.6} style={{ width: "14.62px", height: "14.62px", flexShrink: 0, color: "#808897", display: "block" }} />
               </div>
             </div>
-            <div style={{ width: "674.44px", height: "31.07px", flexShrink: 0, display: "flex", flexDirection: "row", gap: "10.97px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div data-fu="row" style={{ width: "674.44px", height: "31.07px", flexShrink: 0, display: "flex", flexDirection: "row", gap: "10.97px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <div style={{ width: "22.85px", height: "22.85px", flexShrink: 0, borderRadius: "5.48px", background: "linear-gradient(180deg, #8e83fd 0%, #d9d4ff 100%)", boxShadow: "0px 0.91px 1.83px 0px rgba(0, 0, 0, 0.08)", display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
                 <Users size={11} strokeWidth={1.51} style={{ width: "10.97px", height: "10.97px", flexShrink: 0, color: "#ffffff", display: "block" }} />
               </div>
@@ -525,7 +529,7 @@ export function SpendingAnalysisPage() {
                 <Dots size={14.6} style={{ width: "14.62px", height: "14.62px", flexShrink: 0, color: "#808897", display: "block" }} />
               </div>
             </div>
-            <div style={{ width: "674.44px", height: "31.07px", flexShrink: 0, display: "flex", flexDirection: "row", gap: "10.97px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div data-fu="row" style={{ width: "674.44px", height: "31.07px", flexShrink: 0, display: "flex", flexDirection: "row", gap: "10.97px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <div style={{ width: "22.85px", height: "22.85px", flexShrink: 0, borderRadius: "5.48px", background: "linear-gradient(180deg, #91d02b 0%, #e2ffb3 100%)", boxShadow: "0px 0.91px 1.83px 0px rgba(0, 0, 0, 0.08)", display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
                 <Megaphone size={11} strokeWidth={1.51} style={{ width: "10.97px", height: "10.97px", flexShrink: 0, color: "#ffffff", display: "block" }} />
               </div>
@@ -549,7 +553,7 @@ export function SpendingAnalysisPage() {
                 <Dots size={14.6} style={{ width: "14.62px", height: "14.62px", flexShrink: 0, color: "#808897", display: "block" }} />
               </div>
             </div>
-            <div style={{ width: "674.44px", height: "31.07px", flexShrink: 0, display: "flex", flexDirection: "row", gap: "10.97px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div data-fu="row" style={{ width: "674.44px", height: "31.07px", flexShrink: 0, display: "flex", flexDirection: "row", gap: "10.97px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <div style={{ width: "22.85px", height: "22.85px", flexShrink: 0, borderRadius: "5.48px", background: "linear-gradient(180deg, #fd872f 0%, #ffd3b0 100%)", boxShadow: "0px 0.91px 1.83px 0px rgba(0, 0, 0, 0.08)", display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
                 <Cloud size={11} strokeWidth={1.51} style={{ width: "10.97px", height: "10.97px", flexShrink: 0, color: "#ffffff", display: "block" }} />
               </div>
@@ -573,7 +577,7 @@ export function SpendingAnalysisPage() {
                 <Dots size={14.6} style={{ width: "14.62px", height: "14.62px", flexShrink: 0, color: "#808897", display: "block" }} />
               </div>
             </div>
-            <div style={{ width: "674.44px", height: "31.07px", flexShrink: 0, display: "flex", flexDirection: "row", gap: "10.97px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div data-fu="row" style={{ width: "674.44px", height: "31.07px", flexShrink: 0, display: "flex", flexDirection: "row", gap: "10.97px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <div style={{ width: "22.85px", height: "22.85px", flexShrink: 0, borderRadius: "5.48px", background: "linear-gradient(180deg, #1db9e2 0%, #a1ebff 100%)", boxShadow: "0px 0.91px 1.83px 0px rgba(0, 0, 0, 0.08)", display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
                 <Car size={11} strokeWidth={1.51} style={{ width: "10.97px", height: "10.97px", flexShrink: 0, color: "#ffffff", display: "block" }} />
               </div>
@@ -597,7 +601,7 @@ export function SpendingAnalysisPage() {
                 <Dots size={14.6} style={{ width: "14.62px", height: "14.62px", flexShrink: 0, color: "#808897", display: "block" }} />
               </div>
             </div>
-            <div style={{ width: "674.44px", height: "31.07px", flexShrink: 0, display: "flex", flexDirection: "row", gap: "10.97px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div data-fu="row" style={{ width: "674.44px", height: "31.07px", flexShrink: 0, display: "flex", flexDirection: "row", gap: "10.97px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <div style={{ width: "22.85px", height: "22.85px", flexShrink: 0, borderRadius: "5.48px", background: "linear-gradient(180deg, #8e83fd 0%, #d9d4ff 100%)", boxShadow: "0px 0.91px 1.83px 0px rgba(0, 0, 0, 0.08)", display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
                 <svg width={11} height={11} viewBox="0 0 24 24" style={{ width: "10.97px", height: "10.97px", flexShrink: 0, color: "#ffffff", display: "block" }}><path d="M15.852 8.981h-4.588V0h4.588c2.476 0 4.49 2.014 4.49 4.49s-2.014 4.491-4.49 4.491zM12.735 7.51h3.117c1.665 0 3.019-1.355 3.019-3.019s-1.355-3.019-3.019-3.019h-3.117V7.51zm0 1.471H8.148c-2.476 0-4.49-2.014-4.49-4.49S5.672 0 8.148 0h4.588v8.981zm-4.587-7.51c-1.665 0-3.019 1.355-3.019 3.019s1.354 3.02 3.019 3.02h3.117V1.471H8.148zm4.587 15.019H8.148c-2.476 0-4.49-2.014-4.49-4.49s2.014-4.49 4.49-4.49h4.588v8.98zM8.148 8.981c-1.665 0-3.019 1.355-3.019 3.019s1.355 3.019 3.019 3.019h3.117V8.981H8.148zM8.172 24c-2.489 0-4.515-2.014-4.515-4.49s2.014-4.49 4.49-4.49h4.588v4.441c0 2.503-2.047 4.539-4.563 4.539zm-.024-7.51a3.023 3.023 0 0 0-3.019 3.019c0 1.665 1.365 3.019 3.044 3.019 1.705 0 3.093-1.376 3.093-3.068v-2.97H8.148zm7.704 0h-.098c-2.476 0-4.49-2.014-4.49-4.49s2.014-4.49 4.49-4.49h.098c2.476 0 4.49 2.014 4.49 4.49s-2.014 4.49-4.49 4.49zm-.097-7.509c-1.665 0-3.019 1.355-3.019 3.019s1.355 3.019 3.019 3.019h.098c1.665 0 3.019-1.355 3.019-3.019s-1.355-3.019-3.019-3.019h-.098z" fill="currentColor" /></svg>
               </div>
@@ -631,7 +635,7 @@ export function SpendingAnalysisPage() {
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "32px", lineHeight: "14px", fontFamily: "'Geist'", fontSize: "10.97px", fontWeight: 500, color: "#e8711a" }}>3 new</p>
           </div>
           <div style={{ position: "absolute", left: "18.28px", top: "73.11px", width: "287.84px", height: "146.23px", display: "flex", flexDirection: "column", gap: "7.31px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
-            <div style={{ width: "287.84px", height: "43.87px", flexShrink: 0, borderRadius: "9.14px", boxShadow: "inset 0 0 0 0.91px #e8e8e8", display: "flex", flexDirection: "row", padding: "0.91px 8.22px 0.91px 8.22px", gap: "9.14px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div data-fu="row" style={{ width: "287.84px", height: "43.87px", flexShrink: 0, borderRadius: "9.14px", boxShadow: "inset 0 0 0 0.91px #e8e8e8", display: "flex", flexDirection: "row", padding: "0.91px 8.22px 0.91px 8.22px", gap: "9.14px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <div style={{ width: "31.07px", height: "31.07px", flexShrink: 0, borderRadius: "7.31px", background: "rgba(253, 135, 47, 0.12)", display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
                 <Megaphone size={15.5} style={{ width: "15.53px", height: "15.53px", flexShrink: 0, color: "#fd872f", display: "block" }} />
               </div>
@@ -641,7 +645,7 @@ export function SpendingAnalysisPage() {
               </div>
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "24px", lineHeight: "15px", fontFamily: "'Geist'", fontSize: "11.88px", fontWeight: 500, color: "#e8711a" }}>2.3×</p>
             </div>
-            <div style={{ width: "287.84px", height: "43.87px", flexShrink: 0, borderRadius: "9.14px", boxShadow: "inset 0 0 0 0.91px #e8e8e8", display: "flex", flexDirection: "row", padding: "0.91px 8.22px 0.91px 8.22px", gap: "9.14px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div data-fu="row" style={{ width: "287.84px", height: "43.87px", flexShrink: 0, borderRadius: "9.14px", boxShadow: "inset 0 0 0 0.91px #e8e8e8", display: "flex", flexDirection: "row", padding: "0.91px 8.22px 0.91px 8.22px", gap: "9.14px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <div style={{ width: "31.07px", height: "31.07px", flexShrink: 0, borderRadius: "7.31px", background: "rgba(253, 135, 47, 0.12)", display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
                 <Cloud size={15.5} style={{ width: "15.53px", height: "15.53px", flexShrink: 0, color: "#fd872f", display: "block" }} />
               </div>
@@ -651,7 +655,7 @@ export function SpendingAnalysisPage() {
               </div>
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "32px", lineHeight: "15px", fontFamily: "'Geist'", fontSize: "11.88px", fontWeight: 500, color: "#e8711a" }}>+38%</p>
             </div>
-            <div style={{ width: "287.84px", height: "43.87px", flexShrink: 0, borderRadius: "9.14px", boxShadow: "inset 0 0 0 0.91px #e8e8e8", display: "flex", flexDirection: "row", padding: "0.91px 8.22px 0.91px 8.22px", gap: "9.14px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div data-fu="row" style={{ width: "287.84px", height: "43.87px", flexShrink: 0, borderRadius: "9.14px", boxShadow: "inset 0 0 0 0.91px #e8e8e8", display: "flex", flexDirection: "row", padding: "0.91px 8.22px 0.91px 8.22px", gap: "9.14px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <div style={{ width: "31.07px", height: "31.07px", flexShrink: 0, borderRadius: "7.31px", background: "rgba(253, 135, 47, 0.12)", display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
                 <Copy size={15.5} style={{ width: "15.53px", height: "15.53px", flexShrink: 0, color: "#fd872f", display: "block" }} />
               </div>
@@ -662,7 +666,7 @@ export function SpendingAnalysisPage() {
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "14px", lineHeight: "15px", fontFamily: "'Geist'", fontSize: "11.88px", fontWeight: 500, color: "#e8711a" }}>2×</p>
             </div>
           </div>
-          <div style={{ position: "absolute", left: "18.28px", top: "258.73px", width: "287.84px", height: "31.99px", borderRadius: "7.31px", background: "#ffffff", boxShadow: "inset 0 0 0 0.91px #e8e8e8, 0px 0.91px 1.83px 0px rgba(79, 79, 79, 0.12)", display: "flex", flexDirection: "row", padding: "0.91px 0.91px 0.91px 0.91px", gap: "3.66px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
+          <div data-fu="btn" style={{ position: "absolute", left: "18.28px", top: "258.73px", width: "287.84px", height: "31.99px", borderRadius: "7.31px", background: "#ffffff", boxShadow: "inset 0 0 0 0.91px #e8e8e8, 0px 0.91px 1.83px 0px rgba(79, 79, 79, 0.12)", display: "flex", flexDirection: "row", padding: "0.91px 0.91px 0.91px 0.91px", gap: "3.66px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "99px", lineHeight: "17px", fontFamily: "'Geist'", fontSize: "12.79px", fontWeight: 500, color: "#686765" }}>Review all alerts</p>
           </div>
         </div>
@@ -673,19 +677,19 @@ export function SpendingAnalysisPage() {
           <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "198px", lineHeight: "19px", fontFamily: "'Geist'", fontSize: "14.62px", fontWeight: 400, color: "#6b6b6b", letterSpacing: "-0.02em" }}>Where $12,480 went in August</p>
         </div>
         <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "9.14px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-          <div style={{ height: "29.24px", flexShrink: 0, borderRadius: "7.31px", background: "#ffffff", boxShadow: "inset 0 0 0 0.91px #e8e8e8, 0px 0.91px 1.83px 0px rgba(13, 13, 18, 0.06)", display: "flex", flexDirection: "row", padding: "0.91px 11.88px 0.91px 11.88px", gap: "5.48px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+          <div data-fu="btn" style={{ height: "29.24px", flexShrink: 0, borderRadius: "7.31px", background: "#ffffff", boxShadow: "inset 0 0 0 0.91px #e8e8e8, 0px 0.91px 1.83px 0px rgba(13, 13, 18, 0.06)", display: "flex", flexDirection: "row", padding: "0.91px 11.88px 0.91px 11.88px", gap: "5.48px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
             <Wallet size={14.6} style={{ width: "14.62px", height: "14.62px", flexShrink: 0, color: "#6c6c6c", display: "block" }} />
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "72px", lineHeight: "17px", fontFamily: "'Geist'", fontSize: "12.79px", fontWeight: 400, color: "#6c6c6c" }}>All accounts</p>
             <ChevronDown size={12.8} style={{ width: "12.79px", height: "12.79px", flexShrink: 0, color: "#6c6c6c", display: "block" }} />
           </div>
-          <div style={{ height: "29.24px", flexShrink: 0, borderRadius: "7.31px", background: "#ffffff", boxShadow: "inset 0 0 0 0.91px #e8e8e8, 0px 0.91px 1.83px 0px rgba(13, 13, 18, 0.06)", display: "flex", flexDirection: "row", padding: "0.91px 11.88px 0.91px 11.88px", gap: "5.48px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+          <div data-fu="btn" style={{ height: "29.24px", flexShrink: 0, borderRadius: "7.31px", background: "#ffffff", boxShadow: "inset 0 0 0 0.91px #e8e8e8, 0px 0.91px 1.83px 0px rgba(13, 13, 18, 0.06)", display: "flex", flexDirection: "row", padding: "0.91px 11.88px 0.91px 11.88px", gap: "5.48px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
             <Calendar size={14.6} style={{ width: "14.62px", height: "14.62px", flexShrink: 0, color: "#6c6c6c", display: "block" }} />
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "65px", lineHeight: "17px", fontFamily: "'Geist'", fontSize: "12.79px", fontWeight: 400, color: "#6c6c6c" }}>This Month</p>
             <ChevronDown size={12.8} style={{ width: "12.79px", height: "12.79px", flexShrink: 0, color: "#6c6c6c", display: "block" }} />
             <div style={{ width: "0.91px", height: "29.24px", flexShrink: 0, background: "#e8e8e8" }} />
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "106px", lineHeight: "17px", fontFamily: "'Geist'", fontSize: "12.79px", fontWeight: 400, color: "#6c6c6c" }}>01 – 09 Aug 2026</p>
           </div>
-          <div style={{ height: "29.24px", flexShrink: 0, borderRadius: "7.31px", background: "linear-gradient(90deg, #222222 0%, #3a3a3a 50%, #222222 100%)", boxShadow: "inset 0 0 0 0.91px #dfe1e6", display: "flex", flexDirection: "row", padding: "0.91px 11.88px 0.91px 11.88px", gap: "3.66px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
+          <div data-fu="btn" style={{ height: "29.24px", flexShrink: 0, borderRadius: "7.31px", background: "linear-gradient(90deg, #222222 0%, #3a3a3a 50%, #222222 100%)", boxShadow: "inset 0 0 0 0.91px #dfe1e6", display: "flex", flexDirection: "row", padding: "0.91px 11.88px 0.91px 11.88px", gap: "3.66px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
             <Bell size={14.6} style={{ width: "14.62px", height: "14.62px", flexShrink: 0, color: "#ffffff", display: "block" }} />
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "71px", fontFamily: "'Geist'", fontSize: "12.79px", fontWeight: 500, color: "#ffffff", lineHeight: "1.4500000476837158" }}>Create alert</p>
           </div>
@@ -693,4 +697,181 @@ export function SpendingAnalysisPage() {
       </div>
     </div>
   );
+}
+
+// Interactions: hover and click states. Remove this function and the two lines above to get a static component.
+function fuInteract(root: HTMLElement | null) {
+  if (!root || root.dataset.fuOn) return;
+  root.dataset.fuOn = "1";
+  const doc = root.ownerDocument;
+  const all = (sel: string, el: Element = root): HTMLElement[] => Array.from(el.querySelectorAll(sel)) as HTMLElement[];
+  const box = (el: Element) => el.getBoundingClientRect();
+  const font = getComputedStyle(root).fontFamily;
+  const tip = doc.createElement("div");
+  tip.setAttribute("aria-hidden", "true");
+  Object.assign(tip.style, { position: "fixed", zIndex: "2147483647", pointerEvents: "none", background: "#111113", color: "#fff", font: "500 12px/16px " + font, padding: "5px 8px", borderRadius: "6px", whiteSpace: "nowrap", opacity: "0", transform: "translate(-50%, -100%)", transition: "opacity .12s", boxShadow: "0 4px 14px rgba(0,0,0,.18)" });
+  doc.body.appendChild(tip);
+  const show = (text: string, x: number, y: number) => { if (!text) return hide(); tip.textContent = text; tip.style.left = x + "px"; tip.style.top = y - 8 + "px"; tip.style.opacity = "1"; };
+  const hide = () => { tip.style.opacity = "0"; };
+  const ease = (el: HTMLElement | SVGElement, props: string) => { const s = (el as HTMLElement).style; if (!s.transition) s.transition = props; };
+  const texts = (scope: Element) => all("p, span", scope).filter((t) => t.children.length === 0 && (t.textContent || "").trim());
+  const NUM = /^([^\d\-+.]*)([-+]?[\d,]*\.?\d+)\s*([kKmMbB%]?)([^\d]*)$/;
+  // value axis: numeric labels along one edge of the chart, used to read a mark's value from its position
+  const axis = (scope: Element, vertical: boolean) => {
+    const pts: { v: number; p: number; pre: string; suf: string; dec: number }[] = [];
+    for (const t of texts(scope)) {
+      const m = (t.textContent || "").trim().match(NUM);
+      if (!m) continue;
+      const mult = { k: 1e3, K: 1e3, m: 1e6, M: 1e6, b: 1e9, B: 1e9 }[m[3] as "k"] || 1;
+      const r = box(t);
+      pts.push({ v: parseFloat(m[2].replace(/,/g, "")) * mult, p: vertical ? r.top + r.height / 2 : r.left + r.width / 2, pre: m[1], suf: m[3] + m[4], dec: (m[2].split(".")[1] || "").length });
+    }
+    const uniq = pts.filter((a, i) => pts.findIndex((b) => Math.abs(b.p - a.p) < 2) === i);
+    if (uniq.length < 2) return null;
+    uniq.sort((a, b) => a.p - b.p);
+    const a = uniq[0], b = uniq[uniq.length - 1];
+    if (a.v === b.v || Math.abs(b.p - a.p) < 10) return null;
+    return (pos: number) => {
+      const v = a.v + ((pos - a.p) * (b.v - a.v)) / (b.p - a.p);
+      const suf = a.suf || b.suf, pre = a.pre || b.pre;
+      const div = /^[kK]/.test(suf) ? 1e3 : /^[mM]/.test(suf) ? 1e6 : /^[bB]/.test(suf) ? 1e9 : 1;
+      const x = v / div;
+      const dec = Math.max(a.dec, b.dec, div > 1 && Math.abs(x) < 100 ? 1 : 0);
+      return pre + x.toLocaleString("en-US", { minimumFractionDigits: 0, maximumFractionDigits: dec }) + suf;
+    };
+  };
+  // the chart around a group of marks: the nearest ancestor that also holds text labels
+  const chartOf = (el: Element) => { let c: Element | null = el.parentElement; while (c && c !== root.parentElement) { if (texts(c).length >= 3) return c; c = c.parentElement; } return root; };
+  const labelNear = (scope: Element, x: number, y: number, below: boolean) => {
+    let best = "", d = 1e9;
+    for (const t of texts(scope)) {
+      const r = box(t);
+      if (below ? r.top < y - 2 : r.right > x + 2) continue;
+      if (NUM.test((t.textContent || "").trim()) && !/[a-z]{3}/i.test(t.textContent || "")) continue;
+      const dd = below ? Math.abs(r.left + r.width / 2 - x) + (r.top - y) * 0.2 : Math.abs(r.top + r.height / 2 - y) + (x - r.right) * 0.1;
+      if (dd < d) { d = dd; best = (t.textContent || "").trim(); }
+    }
+    return d < 80 ? best : "";
+  };
+  const dim = (els: (HTMLElement | SVGElement)[], keep: (HTMLElement | SVGElement)[]) => { for (const e of els) { ease(e, "opacity .15s"); (e as HTMLElement).style.opacity = keep.includes(e) ? "" : "0.35"; } };
+  const undim = (els: (HTMLElement | SVGElement)[]) => { for (const e of els) (e as HTMLElement).style.opacity = ""; };
+
+  // vertical bars: the hovered column (all stacked segments at that x) stays, the rest fade
+  const groups = new Map<Element, HTMLElement[]>();
+  for (const b of all("[data-fu=bar],[data-fu=hbar]")) { const p = b.parentElement!; if (!groups.has(p)) groups.set(p, []); groups.get(p)!.push(b); }
+  groups.forEach((bars) => {
+    const horiz = bars[0].dataset.fu === "hbar";
+    const scope = chartOf(bars[0]);
+    const val = axis(scope, !horiz);
+    const peers = (b: HTMLElement) => { const r = box(b), c = horiz ? r.top + r.height / 2 : r.left + r.width / 2; return bars.filter((o) => { const q = box(o); return Math.abs((horiz ? q.top + q.height / 2 : q.left + q.width / 2) - c) < Math.max(2, (horiz ? r.height : r.width) / 2); }); };
+    for (const b of bars) {
+      b.addEventListener("mouseenter", () => {
+        const col = peers(b);
+        dim(bars, col);
+        const rs = col.map(box);
+        const top = Math.min(...rs.map((r) => r.top)), right = Math.max(...rs.map((r) => r.right)), r0 = rs[0];
+        const label = horiz ? labelNear(scope, r0.left, r0.top + r0.height / 2, false) : labelNear(scope, r0.left + r0.width / 2, Math.max(...rs.map((r) => r.bottom)), true);
+        const v = val ? val(horiz ? right : top) : "";
+        show([label, v].filter(Boolean).join(" · "), horiz ? right : r0.left + r0.width / 2, horiz ? r0.top : top);
+      });
+      b.addEventListener("mouseleave", () => { undim(bars); hide(); });
+    }
+  });
+
+  // line and area plots: a guide line and a dot follow the pointer along the top edge of the plotted shape
+  for (const svg of all("svg[data-fu=plot]") as unknown as SVGSVGElement[]) {
+    const paths = Array.from(svg.querySelectorAll("path, polyline")) as SVGGeometryElement[];
+    if (!paths.length) continue;
+    const line = paths.reduce((a, b) => (b.getTotalLength() > a.getTotalLength() ? b : a));
+    const len = line.getTotalLength();
+    const pts: { x: number; y: number }[] = [];
+    for (let i = 0; i <= 800; i++) { const q = line.getPointAtLength((len * i) / 800); pts.push({ x: q.x, y: q.y }); }
+    const xs = pts.map((q) => q.x), minX = Math.min(...xs), maxX = Math.max(...xs);
+    const color = (line.getAttribute("stroke") && line.getAttribute("stroke") !== "none" ? line.getAttribute("stroke") : line.getAttribute("fill")) || "#111";
+    const NS = "http://www.w3.org/2000/svg";
+    const g = doc.createElementNS(NS, "g");
+    g.setAttribute("pointer-events", "none");
+    g.style.opacity = "0";
+    const guide = doc.createElementNS(NS, "line");
+    guide.setAttribute("stroke", /^url/.test(color) ? "#111" : color);
+    guide.setAttribute("stroke-dasharray", "3 3");
+    guide.setAttribute("stroke-opacity", "0.5");
+    const dot = doc.createElementNS(NS, "circle");
+    dot.setAttribute("r", "4");
+    dot.setAttribute("fill", "#fff");
+    dot.setAttribute("stroke", /^url/.test(color) ? "#111" : color);
+    dot.setAttribute("stroke-width", "2");
+    g.append(guide, dot);
+    svg.appendChild(g);
+    const scope = chartOf(svg);
+    const val = axis(scope, true);
+    const area = svg.parentElement || svg;
+    area.addEventListener("mousemove", (ev: Event) => {
+      const e = ev as MouseEvent;
+      const m = line.getScreenCTM();
+      if (!m) return;
+      const px = new DOMPoint(e.clientX, e.clientY).matrixTransform(m.inverse()).x;
+      if (px < minX - 4 || px > maxX + 4) { g.style.opacity = "0"; hide(); return; }
+      const step = (maxX - minX) / 400 || 1;
+      let y = Infinity, x = px;
+      for (const q of pts) if (Math.abs(q.x - px) <= step && q.y < y) { y = q.y; x = q.x; }
+      if (y === Infinity) return;
+      const bb = line.getBBox();
+      guide.setAttribute("x1", String(x)); guide.setAttribute("x2", String(x));
+      guide.setAttribute("y1", String(bb.y)); guide.setAttribute("y2", String(bb.y + bb.height));
+      dot.setAttribute("cx", String(x)); dot.setAttribute("cy", String(y));
+      g.style.opacity = "1";
+      const sp = new DOMPoint(x, y).matrixTransform(m);
+      const label = labelNear(scope, sp.x, box(svg).bottom, true);
+      show([label, val ? val(sp.y) : ""].filter(Boolean).join(" · "), sp.x, sp.y);
+    });
+    area.addEventListener("mouseleave", () => { g.style.opacity = "0"; hide(); });
+  }
+
+  // rows: a soft highlight under the pointer
+  for (const r of all("[data-fu=row]")) {
+    r.addEventListener("mouseenter", () => { ease(r, "filter .15s"); r.style.filter = "brightness(0.975)"; });
+    r.addEventListener("mouseleave", () => { r.style.filter = ""; });
+  }
+
+  // buttons: hover and press feedback
+  for (const b of all("[data-fu=btn],[data-fu=tab]")) {
+    b.style.cursor = "pointer";
+    b.addEventListener("mouseenter", () => { ease(b, "filter .15s, transform .1s"); if (!b.dataset.fuActive) b.style.filter = "brightness(0.96)"; });
+    b.addEventListener("mouseleave", () => { b.style.filter = ""; b.style.transform = ""; });
+    b.addEventListener("mousedown", () => { b.style.transform = "scale(0.98)"; });
+    b.addEventListener("mouseup", () => { b.style.transform = ""; });
+  }
+
+  // tabs and segmented controls: clicking a tab moves the selected look onto it
+  const VIS = ["background-color", "background-image", "box-shadow", "border-color", "color", "font-weight"];
+  const look = (el: HTMLElement) => VIS.map((k) => el.style.getPropertyValue(k)).join("|");
+  const tabGroups = new Map<Element, HTMLElement[]>();
+  for (const t of all("[data-fu=tab]")) { const p = t.parentElement!; if (!tabGroups.has(p)) tabGroups.set(p, []); tabGroups.get(p)!.push(t); }
+  tabGroups.forEach((tabs) => {
+    if (tabs.length < 2) return;
+    const counts = new Map<string, number>();
+    for (const t of tabs) counts.set(look(t), (counts.get(look(t)) || 0) + 1);
+    let active = tabs.find((t) => counts.get(look(t)) === 1 && counts.size > 1) || null;
+    if (!active) return;
+    active.dataset.fuActive = "1";
+    // read both looks first, then write: swapping one property at a time would let shorthands undo each other
+    const swapStyle = (a: HTMLElement, b: HTMLElement, props: string[]) => {
+      const va = props.map((k) => a.style.getPropertyValue(k)), vb = props.map((k) => b.style.getPropertyValue(k));
+      props.forEach((k, i) => { a.style.setProperty(k, vb[i]); b.style.setProperty(k, va[i]); });
+    };
+    const swap = (a: HTMLElement, b: HTMLElement) => {
+      swapStyle(a, b, VIS);
+      const ta = texts(a), tb = texts(b);
+      for (let i = 0; i < Math.min(ta.length, tb.length); i++) swapStyle(ta[i], tb[i], ["color", "font-weight"]);
+    };
+    for (const t of tabs) t.addEventListener("click", () => {
+      if (!active || t === active) return;
+      t.style.filter = "";
+      swap(active, t);
+      delete active.dataset.fuActive;
+      active = t;
+      t.dataset.fuActive = "1";
+    });
+  });
 }

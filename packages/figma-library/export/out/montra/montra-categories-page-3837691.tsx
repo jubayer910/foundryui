@@ -1,10 +1,14 @@
+"use client";
 // Categories page (montra, Templates) from Ingot UI (ingotui.com).
 // Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
+import { useEffect, useRef } from "react";
 import { ArrowDataTransferHorizontal, Bell, Building, Calendar, ChartIncrease, ChartLine, ChartPie, ChevronDown, ChevronRight, CreditCard, Currency, DeviceLaptop, File, FileInvoice, Folder, HelpCircle, LayoutDashboard, Megaphone, Plus, Repeat, Search, Settings, Tag, Tags, Target, Users, Wallet, Wand } from "ingotui-icons/react/stroke-rounded";
 
 export function CategoriesPage() {
+  const fuRef = useRef<any>(null);
+  useEffect(() => fuInteract(fuRef.current), []);
   return (
-    <div style={{ width: "1316px", height: "1003px", background: "#f9f9f9", overflow: "hidden", position: "relative" }}>
+    <div ref={fuRef} style={{ width: "1316px", height: "1003px", background: "#f9f9f9", overflow: "hidden", position: "relative" }}>
       <div style={{ position: "absolute", left: "0px", top: "0px", width: "1316px", height: "1003px", overflow: "hidden" }}>
         <svg style={{ position: "absolute", left: "224.82px", top: "0px", width: "1px", height: "968.72px", display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="1" height="968.72" viewBox="0 0 1 968.72" fill="none" overflow="visible"><path transform="matrix(0 1 -1 0 0 0)" d="M0 -0.456944 L0 0 L968.722 0 L968.722 -0.456944 L968.722 -0.913889 L0 -0.913889 L0 -0.456944 Z" fill="#e8e8e8"/></svg>
         <div style={{ position: "absolute", left: "0px", top: "0px", width: "224.82px", height: "1019.9px", background: "#ffffff", overflow: "hidden" }}>
@@ -34,7 +38,7 @@ export function CategoriesPage() {
               </div>
             </div>
             <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", gap: "12.79px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
-              <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", gap: "3.66px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+              <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", gap: "3.66px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
                 <div style={{ alignSelf: "stretch", height: "32.9px", flexShrink: 0, borderRadius: "9.14px", display: "flex", flexDirection: "column", padding: "9.14px 9.14px 9.14px 9.14px", justifyContent: "center", alignItems: "flex-start", boxSizing: "border-box" }}>
                   <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "3.66px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                     <ArrowDataTransferHorizontal size={12.8} style={{ width: "12.79px", height: "12.79px", flexShrink: 0, color: "#646871", display: "block" }} />
@@ -66,7 +70,7 @@ export function CategoriesPage() {
                   </div>
                 </div>
               </div>
-              <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", gap: "3.66px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+              <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", gap: "3.66px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
                 <svg style={{ width: "193.74px", height: "1px", flexShrink: 0, display: "block", lineHeight: 0, overflow: "visible", marginBottom: "-1px" }} xmlns="http://www.w3.org/2000/svg" width="193.74" height="1" viewBox="0 0 193.74 1" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M0 -0.456944 L0 0 L193.744 0 L193.744 -0.456944 L193.744 -0.913889 L0 -0.913889 L0 -0.456944 Z" fill="#e8e8e8"/></svg>
                 <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
                   <div style={{ alignSelf: "stretch", height: "32.9px", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
@@ -75,7 +79,7 @@ export function CategoriesPage() {
                     </div>
                   </div>
                   <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
-                    <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+                    <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
                       <div style={{ alignSelf: "stretch", height: "32.9px", flexShrink: 0, borderRadius: "9.14px", display: "flex", flexDirection: "column", padding: "9.14px 9.14px 9.14px 9.14px", justifyContent: "center", alignItems: "flex-start", boxSizing: "border-box" }}>
                         <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "3.66px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                           <File size={12.8} style={{ width: "12.79px", height: "12.79px", flexShrink: 0, color: "#646871", display: "block" }} />
@@ -83,7 +87,7 @@ export function CategoriesPage() {
                         </div>
                       </div>
                     </div>
-                    <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+                    <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
                       <div style={{ alignSelf: "stretch", height: "32.9px", flexShrink: 0, borderRadius: "9.14px", display: "flex", flexDirection: "column", padding: "9.14px 9.14px 9.14px 9.14px", justifyContent: "center", alignItems: "flex-start", boxSizing: "border-box" }}>
                         <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "3.66px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                           <Currency size={12.8} style={{ width: "12.79px", height: "12.79px", flexShrink: 0, color: "#646871", display: "block" }} />
@@ -91,7 +95,7 @@ export function CategoriesPage() {
                         </div>
                       </div>
                     </div>
-                    <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+                    <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
                       <div style={{ alignSelf: "stretch", height: "32.9px", flexShrink: 0, borderRadius: "9.14px", display: "flex", flexDirection: "column", padding: "9.14px 9.14px 9.14px 9.14px", justifyContent: "center", alignItems: "flex-start", boxSizing: "border-box" }}>
                         <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "3.66px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                           <ChartIncrease size={12.8} style={{ width: "12.79px", height: "12.79px", flexShrink: 0, color: "#646871", display: "block" }} />
@@ -99,7 +103,7 @@ export function CategoriesPage() {
                         </div>
                       </div>
                     </div>
-                    <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+                    <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
                       <div style={{ alignSelf: "stretch", height: "32.9px", flexShrink: 0, borderRadius: "9.14px", display: "flex", flexDirection: "column", padding: "9.14px 9.14px 9.14px 9.14px", justifyContent: "center", alignItems: "flex-start", boxSizing: "border-box" }}>
                         <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "3.66px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                           <ChartLine size={12.8} style={{ width: "12.79px", height: "12.79px", flexShrink: 0, color: "#646871", display: "block" }} />
@@ -110,7 +114,7 @@ export function CategoriesPage() {
                   </div>
                 </div>
               </div>
-              <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", gap: "3.66px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+              <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", gap: "3.66px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
                 <svg style={{ width: "193.74px", height: "1px", flexShrink: 0, display: "block", lineHeight: 0, overflow: "visible", marginBottom: "-1px" }} xmlns="http://www.w3.org/2000/svg" width="193.74" height="1" viewBox="0 0 193.74 1" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M0 -0.456944 L0 0 L193.744 0 L193.744 -0.456944 L193.744 -0.913889 L0 -0.913889 L0 -0.456944 Z" fill="#e8e8e8"/></svg>
                 <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
                   <div style={{ alignSelf: "stretch", height: "32.9px", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
@@ -119,7 +123,7 @@ export function CategoriesPage() {
                     </div>
                   </div>
                   <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
-                    <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+                    <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
                       <div style={{ alignSelf: "stretch", height: "32.9px", flexShrink: 0, borderRadius: "9.14px", display: "flex", flexDirection: "column", padding: "9.14px 9.14px 9.14px 9.14px", justifyContent: "center", alignItems: "flex-start", boxSizing: "border-box" }}>
                         <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "3.66px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                           <Target size={12.8} style={{ width: "12.79px", height: "12.79px", flexShrink: 0, color: "#646871", display: "block" }} />
@@ -127,7 +131,7 @@ export function CategoriesPage() {
                         </div>
                       </div>
                     </div>
-                    <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+                    <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
                       <div style={{ alignSelf: "stretch", height: "32.9px", flexShrink: 0, borderRadius: "9.14px", display: "flex", flexDirection: "column", padding: "9.14px 9.14px 9.14px 9.14px", justifyContent: "center", alignItems: "flex-start", boxSizing: "border-box" }}>
                         <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "3.66px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                           <Repeat size={12.8} style={{ width: "12.79px", height: "12.79px", flexShrink: 0, color: "#646871", display: "block" }} />
@@ -135,7 +139,7 @@ export function CategoriesPage() {
                         </div>
                       </div>
                     </div>
-                    <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+                    <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
                       <div style={{ alignSelf: "stretch", height: "32.9px", flexShrink: 0, borderRadius: "9.14px", background: "#f5f5f5", boxShadow: "inset 0 0 0 0.91px #eeeeee", display: "flex", flexDirection: "column", padding: "9.14px 9.14px 9.14px 9.14px", justifyContent: "center", alignItems: "flex-start", boxSizing: "border-box" }}>
                         <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "3.66px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                           <Tag size={12.8} style={{ width: "12.79px", height: "12.79px", flexShrink: 0, color: "#000000", display: "block" }} />
@@ -146,7 +150,7 @@ export function CategoriesPage() {
                   </div>
                 </div>
               </div>
-              <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", gap: "3.66px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+              <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", gap: "3.66px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
                 <svg style={{ width: "193.74px", height: "1px", flexShrink: 0, display: "block", lineHeight: 0, overflow: "visible", marginBottom: "-1px" }} xmlns="http://www.w3.org/2000/svg" width="193.74" height="1" viewBox="0 0 193.74 1" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M0 -0.456944 L0 0 L193.744 0 L193.744 -0.456944 L193.744 -0.913889 L0 -0.913889 L0 -0.456944 Z" fill="#e8e8e8"/></svg>
                 <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
                   <div style={{ alignSelf: "stretch", height: "32.9px", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
@@ -205,7 +209,7 @@ export function CategoriesPage() {
         <div style={{ position: "absolute", left: "0px", top: "0px", width: "711px", height: "260px", borderRadius: "10.97px", background: "#fefefe", boxShadow: "inset 0 0 0 0.91px #ededed", overflow: "hidden" }}>
           <p style={{ position: "absolute", left: "18.28px", top: "18.28px", margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "129px", lineHeight: "19px", fontFamily: "'Geist'", fontSize: "14.62px", fontWeight: 500, color: "#000000" }}>Spend by category</p>
           <p style={{ position: "absolute", left: "18.28px", top: "43.87px", margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "229px", lineHeight: "17px", fontFamily: "'Geist'", fontSize: "12.79px", fontWeight: 400, color: "#6b6b6b" }}>Jan – Aug 2026 · money out per month</p>
-          <div style={{ position: "absolute", left: "609.9px", top: "18.28px", width: "82.82px", height: "29.24px", borderRadius: "7.31px", background: "#ffffff", boxShadow: "inset 0 0 0 0.91px #e8e8e8, 0px 0.91px 1.83px 0px rgba(13, 13, 18, 0.06)", display: "flex", flexDirection: "row", padding: "0.91px 8.22px 0.91px 8.22px", gap: "5.48px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+          <div data-fu="btn" style={{ position: "absolute", left: "609.9px", top: "18.28px", width: "82.82px", height: "29.24px", borderRadius: "7.31px", background: "#ffffff", boxShadow: "inset 0 0 0 0.91px #e8e8e8, 0px 0.91px 1.83px 0px rgba(13, 13, 18, 0.06)", display: "flex", flexDirection: "row", padding: "0.91px 8.22px 0.91px 8.22px", gap: "5.48px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
             <Calendar size={16.5} style={{ width: "16.45px", height: "16.45px", flexShrink: 0, color: "#6c6c6c", display: "block" }} />
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "28px", lineHeight: "14px", fontFamily: "'Geist'", fontSize: "10.97px", fontWeight: 400, color: "#6c6c6c" }}>2026</p>
             <ChevronDown size={11} strokeWidth={1.51} style={{ width: "10.97px", height: "10.97px", flexShrink: 0, color: "#6c6c6c", display: "block" }} />
@@ -242,46 +246,46 @@ export function CategoriesPage() {
             <p style={{ position: "absolute", left: "4.59px", top: "88.4px", margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "21px", lineHeight: "14px", fontFamily: "'Geist'", fontSize: "10.97px", fontWeight: 400, color: "#6b6b6b" }}>$6K</p>
             <div style={{ position: "absolute", left: "32.9px", top: "138.95px", width: "641.54px", height: "1px", background: "#e2e2e5" }} />
             <p style={{ position: "absolute", left: "10.59px", top: "132.45px", margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "15px", lineHeight: "14px", fontFamily: "'Geist'", fontSize: "10.97px", fontWeight: 400, color: "#6b6b6b" }}>$0</p>
-            <div style={{ position: "absolute", left: "56.55px", top: "92.45px", width: "32.9px", height: "47px", borderRadius: "3.66px", background: "linear-gradient(180deg, #61a4fe 0%, #4996fe 100%)", boxShadow: "inset 0 0 0 1px rgba(57, 117, 198, 0.38), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.18), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
-            <div style={{ position: "absolute", left: "56.55px", top: "76.21px", width: "32.9px", height: "14.23px", borderRadius: "3.66px", background: "linear-gradient(180deg, #9d93fd 0%, #8e83fd 100%)", boxShadow: "inset 0 0 0 1px rgba(111, 102, 197, 0.38), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.18), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
-            <div style={{ position: "absolute", left: "56.55px", top: "65.11px", width: "32.9px", height: "9.1px", borderRadius: "3.66px", background: "linear-gradient(180deg, #77c8a1 0%, #63c093 100%)", boxShadow: "inset 0 0 0 1px rgba(77, 150, 115, 0.38), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.18), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
-            <div style={{ position: "absolute", left: "56.55px", top: "59.12px", width: "32.9px", height: "3.97px", borderRadius: "1.99px", background: "linear-gradient(180deg, #fd974a 0%, #fd872f 100%)", boxShadow: "inset 0 0 0 1px rgba(197, 105, 37, 0.38), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.18), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
-            <div style={{ position: "absolute", left: "56.55px", top: "54px", width: "32.9px", height: "3.11px", borderRadius: "1.56px", background: "linear-gradient(180deg, #dddddd 0%, #d8d8d8 100%)", boxShadow: "inset 0 0 0 1px rgba(168, 168, 168, 0.38), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.18), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
-            <div style={{ position: "absolute", left: "136.74px", top: "89.57px", width: "32.9px", height: "49.88px", borderRadius: "3.66px", background: "linear-gradient(180deg, #61a4fe 0%, #4996fe 100%)", boxShadow: "inset 0 0 0 1px rgba(57, 117, 198, 0.38), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.18), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
-            <div style={{ position: "absolute", left: "136.74px", top: "73.82px", width: "32.9px", height: "13.74px", borderRadius: "3.66px", background: "linear-gradient(180deg, #9d93fd 0%, #8e83fd 100%)", boxShadow: "inset 0 0 0 1px rgba(111, 102, 197, 0.38), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.18), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
-            <div style={{ position: "absolute", left: "136.74px", top: "63.32px", width: "32.9px", height: "8.49px", borderRadius: "3.66px", background: "linear-gradient(180deg, #77c8a1 0%, #63c093 100%)", boxShadow: "inset 0 0 0 1px rgba(77, 150, 115, 0.38), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.18), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
-            <div style={{ position: "absolute", left: "136.74px", top: "57.2px", width: "32.9px", height: "4.11px", borderRadius: "2.06px", background: "linear-gradient(180deg, #fd974a 0%, #fd872f 100%)", boxShadow: "inset 0 0 0 1px rgba(197, 105, 37, 0.38), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.18), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
-            <div style={{ position: "absolute", left: "136.74px", top: "51.94px", width: "32.9px", height: "3.25px", borderRadius: "1.62px", background: "linear-gradient(180deg, #dddddd 0%, #d8d8d8 100%)", boxShadow: "inset 0 0 0 1px rgba(168, 168, 168, 0.38), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.18), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
-            <div style={{ position: "absolute", left: "216.93px", top: "90.65px", width: "32.9px", height: "48.8px", borderRadius: "3.66px", background: "linear-gradient(180deg, #61a4fe 0%, #4996fe 100%)", boxShadow: "inset 0 0 0 1px rgba(57, 117, 198, 0.38), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.18), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
-            <div style={{ position: "absolute", left: "216.93px", top: "73.48px", width: "32.9px", height: "15.16px", borderRadius: "3.66px", background: "linear-gradient(180deg, #9d93fd 0%, #8e83fd 100%)", boxShadow: "inset 0 0 0 1px rgba(111, 102, 197, 0.38), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.18), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
-            <div style={{ position: "absolute", left: "216.93px", top: "59.92px", width: "32.9px", height: "11.55px", borderRadius: "3.66px", background: "linear-gradient(180deg, #77c8a1 0%, #63c093 100%)", boxShadow: "inset 0 0 0 1px rgba(77, 150, 115, 0.38), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.18), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
-            <div style={{ position: "absolute", left: "216.93px", top: "53.6px", width: "32.9px", height: "4.32px", borderRadius: "2.16px", background: "linear-gradient(180deg, #fd974a 0%, #fd872f 100%)", boxShadow: "inset 0 0 0 1px rgba(197, 105, 37, 0.38), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.18), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
-            <div style={{ position: "absolute", left: "216.93px", top: "49.08px", width: "32.9px", height: "2.5px", borderRadius: "1.25px", background: "linear-gradient(180deg, #dddddd 0%, #d8d8d8 100%)", boxShadow: "inset 0 0 0 1px rgba(168, 168, 168, 0.38), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.18), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
-            <div style={{ position: "absolute", left: "297.12px", top: "89.91px", width: "32.9px", height: "49.54px", borderRadius: "3.66px", background: "linear-gradient(180deg, #61a4fe 0%, #4996fe 100%)", boxShadow: "inset 0 0 0 1px rgba(57, 117, 198, 0.38), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.18), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
-            <div style={{ position: "absolute", left: "297.12px", top: "73.99px", width: "32.9px", height: "13.91px", borderRadius: "3.66px", background: "linear-gradient(180deg, #9d93fd 0%, #8e83fd 100%)", boxShadow: "inset 0 0 0 1px rgba(111, 102, 197, 0.38), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.18), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
-            <div style={{ position: "absolute", left: "297.12px", top: "61.6px", width: "32.9px", height: "10.37px", borderRadius: "3.66px", background: "linear-gradient(180deg, #77c8a1 0%, #63c093 100%)", boxShadow: "inset 0 0 0 1px rgba(77, 150, 115, 0.38), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.18), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
-            <div style={{ position: "absolute", left: "297.12px", top: "55.41px", width: "32.9px", height: "4.19px", borderRadius: "2.09px", background: "linear-gradient(180deg, #fd974a 0%, #fd872f 100%)", boxShadow: "inset 0 0 0 1px rgba(197, 105, 37, 0.38), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.18), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
-            <div style={{ position: "absolute", left: "297.12px", top: "50.99px", width: "32.9px", height: "2.41px", borderRadius: "1.2px", background: "linear-gradient(180deg, #dddddd 0%, #d8d8d8 100%)", boxShadow: "inset 0 0 0 1px rgba(168, 168, 168, 0.38), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.18), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
-            <div style={{ position: "absolute", left: "377.32px", top: "90.27px", width: "32.9px", height: "49.18px", borderRadius: "3.66px", background: "linear-gradient(180deg, #61a4fe 0%, #4996fe 100%)", boxShadow: "inset 0 0 0 1px rgba(57, 117, 198, 0.38), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.18), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
-            <div style={{ position: "absolute", left: "377.32px", top: "74.18px", width: "32.9px", height: "14.08px", borderRadius: "3.66px", background: "linear-gradient(180deg, #9d93fd 0%, #8e83fd 100%)", boxShadow: "inset 0 0 0 1px rgba(111, 102, 197, 0.38), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.18), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
-            <div style={{ position: "absolute", left: "377.32px", top: "60.77px", width: "32.9px", height: "11.4px", borderRadius: "3.66px", background: "linear-gradient(180deg, #77c8a1 0%, #63c093 100%)", boxShadow: "inset 0 0 0 1px rgba(77, 150, 115, 0.38), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.18), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
-            <div style={{ position: "absolute", left: "377.32px", top: "54.51px", width: "32.9px", height: "4.25px", borderRadius: "2.13px", background: "linear-gradient(180deg, #fd974a 0%, #fd872f 100%)", boxShadow: "inset 0 0 0 1px rgba(197, 105, 37, 0.38), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.18), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
-            <div style={{ position: "absolute", left: "377.32px", top: "50.04px", width: "32.9px", height: "2.46px", borderRadius: "1.23px", background: "linear-gradient(180deg, #dddddd 0%, #d8d8d8 100%)", boxShadow: "inset 0 0 0 1px rgba(168, 168, 168, 0.38), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.18), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
-            <div style={{ position: "absolute", left: "457.51px", top: "89.41px", width: "32.9px", height: "50.04px", borderRadius: "3.66px", background: "linear-gradient(180deg, #61a4fe 0%, #4996fe 100%)", boxShadow: "inset 0 0 0 1px rgba(57, 117, 198, 0.38), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.18), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
-            <div style={{ position: "absolute", left: "457.51px", top: "72.73px", width: "32.9px", height: "14.67px", borderRadius: "3.66px", background: "linear-gradient(180deg, #9d93fd 0%, #8e83fd 100%)", boxShadow: "inset 0 0 0 1px rgba(111, 102, 197, 0.38), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.18), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
-            <div style={{ position: "absolute", left: "457.51px", top: "62.19px", width: "32.9px", height: "8.52px", borderRadius: "3.66px", background: "linear-gradient(180deg, #77c8a1 0%, #63c093 100%)", boxShadow: "inset 0 0 0 1px rgba(77, 150, 115, 0.38), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.18), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
-            <div style={{ position: "absolute", left: "457.51px", top: "56.05px", width: "32.9px", height: "4.13px", borderRadius: "2.07px", background: "linear-gradient(180deg, #fd974a 0%, #fd872f 100%)", boxShadow: "inset 0 0 0 1px rgba(197, 105, 37, 0.38), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.18), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
-            <div style={{ position: "absolute", left: "457.51px", top: "51.65px", width: "32.9px", height: "2.39px", borderRadius: "1.19px", background: "linear-gradient(180deg, #dddddd 0%, #d8d8d8 100%)", boxShadow: "inset 0 0 0 1px rgba(168, 168, 168, 0.38), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.18), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
-            <div style={{ position: "absolute", left: "537.7px", top: "90.15px", width: "32.9px", height: "49.3px", borderRadius: "3.66px", background: "linear-gradient(180deg, #61a4fe 0%, #4996fe 100%)", boxShadow: "inset 0 0 0 1px rgba(57, 117, 198, 0.38), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.18), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
-            <div style={{ position: "absolute", left: "537.7px", top: "74.01px", width: "32.9px", height: "14.13px", borderRadius: "3.66px", background: "linear-gradient(180deg, #9d93fd 0%, #8e83fd 100%)", boxShadow: "inset 0 0 0 1px rgba(111, 102, 197, 0.38), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.18), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
-            <div style={{ position: "absolute", left: "537.7px", top: "60.56px", width: "32.9px", height: "11.44px", borderRadius: "3.66px", background: "linear-gradient(180deg, #77c8a1 0%, #63c093 100%)", boxShadow: "inset 0 0 0 1px rgba(77, 150, 115, 0.38), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.18), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
-            <div style={{ position: "absolute", left: "537.7px", top: "54.29px", width: "32.9px", height: "4.27px", borderRadius: "2.13px", background: "linear-gradient(180deg, #fd974a 0%, #fd872f 100%)", boxShadow: "inset 0 0 0 1px rgba(197, 105, 37, 0.38), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.18), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
-            <div style={{ position: "absolute", left: "537.7px", top: "49.82px", width: "32.9px", height: "2.46px", borderRadius: "1.23px", background: "linear-gradient(180deg, #dddddd 0%, #d8d8d8 100%)", boxShadow: "inset 0 0 0 1px rgba(168, 168, 168, 0.38), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.18), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
-            <div style={{ position: "absolute", left: "617.89px", top: "88.14px", width: "32.9px", height: "51.31px", borderRadius: "3.66px", background: "linear-gradient(180deg, #61a4fe 0%, #4996fe 100%)", boxShadow: "inset 0 0 0 1px rgba(57, 117, 198, 0.38), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.18), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
-            <div style={{ position: "absolute", left: "617.89px", top: "71.65px", width: "32.9px", height: "14.48px", borderRadius: "3.66px", background: "linear-gradient(180deg, #9d93fd 0%, #8e83fd 100%)", boxShadow: "inset 0 0 0 1px rgba(111, 102, 197, 0.38), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.18), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
-            <div style={{ position: "absolute", left: "617.89px", top: "58.83px", width: "32.9px", height: "10.81px", borderRadius: "3.66px", background: "linear-gradient(180deg, #77c8a1 0%, #63c093 100%)", boxShadow: "inset 0 0 0 1px rgba(77, 150, 115, 0.38), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.18), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
-            <div style={{ position: "absolute", left: "617.89px", top: "52.41px", width: "32.9px", height: "4.41px", borderRadius: "2.2px", background: "linear-gradient(180deg, #fd974a 0%, #fd872f 100%)", boxShadow: "inset 0 0 0 1px rgba(197, 105, 37, 0.38), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.18), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
-            <div style={{ position: "absolute", left: "617.89px", top: "47.83px", width: "32.9px", height: "2.57px", borderRadius: "1.29px", background: "linear-gradient(180deg, #dddddd 0%, #d8d8d8 100%)", boxShadow: "inset 0 0 0 1px rgba(168, 168, 168, 0.38), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.18), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+            <div data-fu="bar" style={{ position: "absolute", left: "56.55px", top: "92.45px", width: "32.9px", height: "47px", borderRadius: "3.66px", background: "linear-gradient(180deg, #61a4fe 0%, #4996fe 100%)", boxShadow: "inset 0 0 0 1px rgba(57, 117, 198, 0.38), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.18), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+            <div data-fu="bar" style={{ position: "absolute", left: "56.55px", top: "76.21px", width: "32.9px", height: "14.23px", borderRadius: "3.66px", background: "linear-gradient(180deg, #9d93fd 0%, #8e83fd 100%)", boxShadow: "inset 0 0 0 1px rgba(111, 102, 197, 0.38), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.18), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+            <div data-fu="bar" style={{ position: "absolute", left: "56.55px", top: "65.11px", width: "32.9px", height: "9.1px", borderRadius: "3.66px", background: "linear-gradient(180deg, #77c8a1 0%, #63c093 100%)", boxShadow: "inset 0 0 0 1px rgba(77, 150, 115, 0.38), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.18), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+            <div data-fu="bar" style={{ position: "absolute", left: "56.55px", top: "59.12px", width: "32.9px", height: "3.97px", borderRadius: "1.99px", background: "linear-gradient(180deg, #fd974a 0%, #fd872f 100%)", boxShadow: "inset 0 0 0 1px rgba(197, 105, 37, 0.38), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.18), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+            <div data-fu="bar" style={{ position: "absolute", left: "56.55px", top: "54px", width: "32.9px", height: "3.11px", borderRadius: "1.56px", background: "linear-gradient(180deg, #dddddd 0%, #d8d8d8 100%)", boxShadow: "inset 0 0 0 1px rgba(168, 168, 168, 0.38), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.18), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+            <div data-fu="bar" style={{ position: "absolute", left: "136.74px", top: "89.57px", width: "32.9px", height: "49.88px", borderRadius: "3.66px", background: "linear-gradient(180deg, #61a4fe 0%, #4996fe 100%)", boxShadow: "inset 0 0 0 1px rgba(57, 117, 198, 0.38), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.18), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+            <div data-fu="bar" style={{ position: "absolute", left: "136.74px", top: "73.82px", width: "32.9px", height: "13.74px", borderRadius: "3.66px", background: "linear-gradient(180deg, #9d93fd 0%, #8e83fd 100%)", boxShadow: "inset 0 0 0 1px rgba(111, 102, 197, 0.38), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.18), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+            <div data-fu="bar" style={{ position: "absolute", left: "136.74px", top: "63.32px", width: "32.9px", height: "8.49px", borderRadius: "3.66px", background: "linear-gradient(180deg, #77c8a1 0%, #63c093 100%)", boxShadow: "inset 0 0 0 1px rgba(77, 150, 115, 0.38), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.18), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+            <div data-fu="bar" style={{ position: "absolute", left: "136.74px", top: "57.2px", width: "32.9px", height: "4.11px", borderRadius: "2.06px", background: "linear-gradient(180deg, #fd974a 0%, #fd872f 100%)", boxShadow: "inset 0 0 0 1px rgba(197, 105, 37, 0.38), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.18), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+            <div data-fu="bar" style={{ position: "absolute", left: "136.74px", top: "51.94px", width: "32.9px", height: "3.25px", borderRadius: "1.62px", background: "linear-gradient(180deg, #dddddd 0%, #d8d8d8 100%)", boxShadow: "inset 0 0 0 1px rgba(168, 168, 168, 0.38), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.18), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+            <div data-fu="bar" style={{ position: "absolute", left: "216.93px", top: "90.65px", width: "32.9px", height: "48.8px", borderRadius: "3.66px", background: "linear-gradient(180deg, #61a4fe 0%, #4996fe 100%)", boxShadow: "inset 0 0 0 1px rgba(57, 117, 198, 0.38), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.18), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+            <div data-fu="bar" style={{ position: "absolute", left: "216.93px", top: "73.48px", width: "32.9px", height: "15.16px", borderRadius: "3.66px", background: "linear-gradient(180deg, #9d93fd 0%, #8e83fd 100%)", boxShadow: "inset 0 0 0 1px rgba(111, 102, 197, 0.38), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.18), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+            <div data-fu="bar" style={{ position: "absolute", left: "216.93px", top: "59.92px", width: "32.9px", height: "11.55px", borderRadius: "3.66px", background: "linear-gradient(180deg, #77c8a1 0%, #63c093 100%)", boxShadow: "inset 0 0 0 1px rgba(77, 150, 115, 0.38), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.18), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+            <div data-fu="bar" style={{ position: "absolute", left: "216.93px", top: "53.6px", width: "32.9px", height: "4.32px", borderRadius: "2.16px", background: "linear-gradient(180deg, #fd974a 0%, #fd872f 100%)", boxShadow: "inset 0 0 0 1px rgba(197, 105, 37, 0.38), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.18), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+            <div data-fu="bar" style={{ position: "absolute", left: "216.93px", top: "49.08px", width: "32.9px", height: "2.5px", borderRadius: "1.25px", background: "linear-gradient(180deg, #dddddd 0%, #d8d8d8 100%)", boxShadow: "inset 0 0 0 1px rgba(168, 168, 168, 0.38), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.18), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+            <div data-fu="bar" style={{ position: "absolute", left: "297.12px", top: "89.91px", width: "32.9px", height: "49.54px", borderRadius: "3.66px", background: "linear-gradient(180deg, #61a4fe 0%, #4996fe 100%)", boxShadow: "inset 0 0 0 1px rgba(57, 117, 198, 0.38), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.18), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+            <div data-fu="bar" style={{ position: "absolute", left: "297.12px", top: "73.99px", width: "32.9px", height: "13.91px", borderRadius: "3.66px", background: "linear-gradient(180deg, #9d93fd 0%, #8e83fd 100%)", boxShadow: "inset 0 0 0 1px rgba(111, 102, 197, 0.38), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.18), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+            <div data-fu="bar" style={{ position: "absolute", left: "297.12px", top: "61.6px", width: "32.9px", height: "10.37px", borderRadius: "3.66px", background: "linear-gradient(180deg, #77c8a1 0%, #63c093 100%)", boxShadow: "inset 0 0 0 1px rgba(77, 150, 115, 0.38), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.18), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+            <div data-fu="bar" style={{ position: "absolute", left: "297.12px", top: "55.41px", width: "32.9px", height: "4.19px", borderRadius: "2.09px", background: "linear-gradient(180deg, #fd974a 0%, #fd872f 100%)", boxShadow: "inset 0 0 0 1px rgba(197, 105, 37, 0.38), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.18), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+            <div data-fu="bar" style={{ position: "absolute", left: "297.12px", top: "50.99px", width: "32.9px", height: "2.41px", borderRadius: "1.2px", background: "linear-gradient(180deg, #dddddd 0%, #d8d8d8 100%)", boxShadow: "inset 0 0 0 1px rgba(168, 168, 168, 0.38), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.18), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+            <div data-fu="bar" style={{ position: "absolute", left: "377.32px", top: "90.27px", width: "32.9px", height: "49.18px", borderRadius: "3.66px", background: "linear-gradient(180deg, #61a4fe 0%, #4996fe 100%)", boxShadow: "inset 0 0 0 1px rgba(57, 117, 198, 0.38), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.18), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+            <div data-fu="bar" style={{ position: "absolute", left: "377.32px", top: "74.18px", width: "32.9px", height: "14.08px", borderRadius: "3.66px", background: "linear-gradient(180deg, #9d93fd 0%, #8e83fd 100%)", boxShadow: "inset 0 0 0 1px rgba(111, 102, 197, 0.38), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.18), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+            <div data-fu="bar" style={{ position: "absolute", left: "377.32px", top: "60.77px", width: "32.9px", height: "11.4px", borderRadius: "3.66px", background: "linear-gradient(180deg, #77c8a1 0%, #63c093 100%)", boxShadow: "inset 0 0 0 1px rgba(77, 150, 115, 0.38), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.18), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+            <div data-fu="bar" style={{ position: "absolute", left: "377.32px", top: "54.51px", width: "32.9px", height: "4.25px", borderRadius: "2.13px", background: "linear-gradient(180deg, #fd974a 0%, #fd872f 100%)", boxShadow: "inset 0 0 0 1px rgba(197, 105, 37, 0.38), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.18), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+            <div data-fu="bar" style={{ position: "absolute", left: "377.32px", top: "50.04px", width: "32.9px", height: "2.46px", borderRadius: "1.23px", background: "linear-gradient(180deg, #dddddd 0%, #d8d8d8 100%)", boxShadow: "inset 0 0 0 1px rgba(168, 168, 168, 0.38), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.18), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+            <div data-fu="bar" style={{ position: "absolute", left: "457.51px", top: "89.41px", width: "32.9px", height: "50.04px", borderRadius: "3.66px", background: "linear-gradient(180deg, #61a4fe 0%, #4996fe 100%)", boxShadow: "inset 0 0 0 1px rgba(57, 117, 198, 0.38), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.18), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+            <div data-fu="bar" style={{ position: "absolute", left: "457.51px", top: "72.73px", width: "32.9px", height: "14.67px", borderRadius: "3.66px", background: "linear-gradient(180deg, #9d93fd 0%, #8e83fd 100%)", boxShadow: "inset 0 0 0 1px rgba(111, 102, 197, 0.38), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.18), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+            <div data-fu="bar" style={{ position: "absolute", left: "457.51px", top: "62.19px", width: "32.9px", height: "8.52px", borderRadius: "3.66px", background: "linear-gradient(180deg, #77c8a1 0%, #63c093 100%)", boxShadow: "inset 0 0 0 1px rgba(77, 150, 115, 0.38), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.18), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+            <div data-fu="bar" style={{ position: "absolute", left: "457.51px", top: "56.05px", width: "32.9px", height: "4.13px", borderRadius: "2.07px", background: "linear-gradient(180deg, #fd974a 0%, #fd872f 100%)", boxShadow: "inset 0 0 0 1px rgba(197, 105, 37, 0.38), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.18), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+            <div data-fu="bar" style={{ position: "absolute", left: "457.51px", top: "51.65px", width: "32.9px", height: "2.39px", borderRadius: "1.19px", background: "linear-gradient(180deg, #dddddd 0%, #d8d8d8 100%)", boxShadow: "inset 0 0 0 1px rgba(168, 168, 168, 0.38), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.18), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+            <div data-fu="bar" style={{ position: "absolute", left: "537.7px", top: "90.15px", width: "32.9px", height: "49.3px", borderRadius: "3.66px", background: "linear-gradient(180deg, #61a4fe 0%, #4996fe 100%)", boxShadow: "inset 0 0 0 1px rgba(57, 117, 198, 0.38), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.18), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+            <div data-fu="bar" style={{ position: "absolute", left: "537.7px", top: "74.01px", width: "32.9px", height: "14.13px", borderRadius: "3.66px", background: "linear-gradient(180deg, #9d93fd 0%, #8e83fd 100%)", boxShadow: "inset 0 0 0 1px rgba(111, 102, 197, 0.38), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.18), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+            <div data-fu="bar" style={{ position: "absolute", left: "537.7px", top: "60.56px", width: "32.9px", height: "11.44px", borderRadius: "3.66px", background: "linear-gradient(180deg, #77c8a1 0%, #63c093 100%)", boxShadow: "inset 0 0 0 1px rgba(77, 150, 115, 0.38), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.18), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+            <div data-fu="bar" style={{ position: "absolute", left: "537.7px", top: "54.29px", width: "32.9px", height: "4.27px", borderRadius: "2.13px", background: "linear-gradient(180deg, #fd974a 0%, #fd872f 100%)", boxShadow: "inset 0 0 0 1px rgba(197, 105, 37, 0.38), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.18), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+            <div data-fu="bar" style={{ position: "absolute", left: "537.7px", top: "49.82px", width: "32.9px", height: "2.46px", borderRadius: "1.23px", background: "linear-gradient(180deg, #dddddd 0%, #d8d8d8 100%)", boxShadow: "inset 0 0 0 1px rgba(168, 168, 168, 0.38), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.18), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+            <div data-fu="bar" style={{ position: "absolute", left: "617.89px", top: "88.14px", width: "32.9px", height: "51.31px", borderRadius: "3.66px", background: "linear-gradient(180deg, #61a4fe 0%, #4996fe 100%)", boxShadow: "inset 0 0 0 1px rgba(57, 117, 198, 0.38), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.18), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+            <div data-fu="bar" style={{ position: "absolute", left: "617.89px", top: "71.65px", width: "32.9px", height: "14.48px", borderRadius: "3.66px", background: "linear-gradient(180deg, #9d93fd 0%, #8e83fd 100%)", boxShadow: "inset 0 0 0 1px rgba(111, 102, 197, 0.38), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.18), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+            <div data-fu="bar" style={{ position: "absolute", left: "617.89px", top: "58.83px", width: "32.9px", height: "10.81px", borderRadius: "3.66px", background: "linear-gradient(180deg, #77c8a1 0%, #63c093 100%)", boxShadow: "inset 0 0 0 1px rgba(77, 150, 115, 0.38), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.18), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+            <div data-fu="bar" style={{ position: "absolute", left: "617.89px", top: "52.41px", width: "32.9px", height: "4.41px", borderRadius: "2.2px", background: "linear-gradient(180deg, #fd974a 0%, #fd872f 100%)", boxShadow: "inset 0 0 0 1px rgba(197, 105, 37, 0.38), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.18), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+            <div data-fu="bar" style={{ position: "absolute", left: "617.89px", top: "47.83px", width: "32.9px", height: "2.57px", borderRadius: "1.29px", background: "linear-gradient(180deg, #dddddd 0%, #d8d8d8 100%)", boxShadow: "inset 0 0 0 1px rgba(168, 168, 168, 0.38), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.18), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
             <p style={{ position: "absolute", left: "63.5px", top: "148.59px", margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "19px", lineHeight: "14px", fontFamily: "'Geist'", fontSize: "10.97px", fontWeight: 400, color: "#6b6b6b" }}>Jan</p>
             <p style={{ position: "absolute", left: "143.69px", top: "148.59px", margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "19px", lineHeight: "14px", fontFamily: "'Geist'", fontSize: "10.97px", fontWeight: 400, color: "#6b6b6b" }}>Feb</p>
             <p style={{ position: "absolute", left: "223.38px", top: "148.59px", margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "20px", lineHeight: "14px", fontFamily: "'Geist'", fontSize: "10.97px", fontWeight: 400, color: "#6b6b6b" }}>Mar</p>
@@ -303,13 +307,13 @@ export function CategoriesPage() {
         <div style={{ position: "absolute", left: "0px", top: "278.28px", width: "711px", height: "540.72px", borderRadius: "14.62px", background: "#fefefe", overflow: "hidden" }}>
           <p style={{ position: "absolute", left: "18.28px", top: "21.93px", margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "95px", lineHeight: "19px", fontFamily: "'Geist'", fontSize: "14.62px", fontWeight: 500, color: "#000000" }}>Category tree</p>
           <div style={{ position: "absolute", left: "150px", top: "15.54px", width: "192.89px", height: "31.07px", borderRadius: "9.14px", background: "#f5f5f5", display: "flex", flexDirection: "row", padding: "2.74px 2.74px 2.74px 2.74px", gap: "1.83px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-            <div style={{ height: "25.59px", flexShrink: 0, borderRadius: "7.31px", background: "#ffffff", boxShadow: "inset 0 0 0 0.91px #eeeeee, 0px 0.91px 1.83px 0px rgba(13, 13, 18, 0.06)", display: "flex", flexDirection: "row", padding: "0.91px 11.88px 0.91px 11.88px", gap: "5.48px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
+            <div data-fu="tab" style={{ height: "25.59px", flexShrink: 0, borderRadius: "7.31px", background: "#ffffff", boxShadow: "inset 0 0 0 0.91px #eeeeee, 0px 0.91px 1.83px 0px rgba(13, 13, 18, 0.06)", display: "flex", flexDirection: "row", padding: "0.91px 11.88px 0.91px 11.88px", gap: "5.48px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "48px", lineHeight: "15px", fontFamily: "'Geist'", fontSize: "11.88px", fontWeight: 500, color: "#000000" }}>Expense</p>
               <div style={{ height: "16.45px", flexShrink: 0, borderRadius: "999px", background: "#222222", display: "flex", flexDirection: "row", padding: "0px 5.48px 0px 5.48px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
                 <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "11px", lineHeight: "13px", fontFamily: "'Geist'", fontSize: "10.05px", fontWeight: 500, color: "#ffffff" }}>18</p>
               </div>
             </div>
-            <div style={{ height: "25.59px", flexShrink: 0, borderRadius: "7.31px", display: "flex", flexDirection: "row", padding: "0px 10.97px 0px 10.97px", gap: "5.48px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
+            <div data-fu="tab" style={{ height: "25.59px", flexShrink: 0, borderRadius: "7.31px", display: "flex", flexDirection: "row", padding: "0px 10.97px 0px 10.97px", gap: "5.48px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "41px", lineHeight: "15px", fontFamily: "'Geist'", fontSize: "11.88px", fontWeight: 400, color: "#646871" }}>Income</p>
               <div style={{ height: "16.45px", flexShrink: 0, borderRadius: "999px", background: "#f0f0f2", display: "flex", flexDirection: "row", padding: "0px 5.48px 0px 5.48px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
                 <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "7px", lineHeight: "13px", fontFamily: "'Geist'", fontSize: "10.05px", fontWeight: 500, color: "#6c6c6c" }}>6</p>
@@ -338,7 +342,7 @@ export function CategoriesPage() {
                 <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "44px", lineHeight: "17px", fontFamily: "'Geist'", fontSize: "12.79px", fontWeight: 500, color: "#818892" }}>Budget</p>
               </div>
             </div>
-            <div style={{ width: "711px", height: "47.52px", flexShrink: 0, boxShadow: "inset 0 -0.91px 0 0 #ededed", display: "flex", flexDirection: "row", padding: "0px 0px 0.91px 0px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div data-fu="row" style={{ width: "711px", height: "47.52px", flexShrink: 0, boxShadow: "inset 0 -0.91px 0 0 #ededed", display: "flex", flexDirection: "row", padding: "0px 0px 0.91px 0px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <div style={{ width: "250px", height: "46.61px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 0px 0px 14.62px", gap: "7.31px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                 <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "7.31px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                   <ChevronDown size={12.8} style={{ width: "12.79px", height: "12.79px", flexShrink: 0, color: "#a6a6a6", display: "block" }} />
@@ -383,7 +387,7 @@ export function CategoriesPage() {
                 </div>
               </div>
             </div>
-            <div style={{ width: "711px", height: "47.52px", flexShrink: 0, boxShadow: "inset 0 -0.91px 0 0 #ededed", display: "flex", flexDirection: "row", padding: "0px 0px 0.91px 0px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div data-fu="row" style={{ width: "711px", height: "47.52px", flexShrink: 0, boxShadow: "inset 0 -0.91px 0 0 #ededed", display: "flex", flexDirection: "row", padding: "0px 0px 0.91px 0px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <div style={{ width: "250px", height: "46.61px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 0px 0px 14.62px", gap: "7.31px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                 <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "7.31px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                   <div style={{ width: "20.11px", height: "9.14px", flexShrink: 0, display: "flex", flexDirection: "row", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }} />
@@ -424,7 +428,7 @@ export function CategoriesPage() {
                 </div>
               </div>
             </div>
-            <div style={{ width: "711px", height: "47.52px", flexShrink: 0, boxShadow: "inset 0 -0.91px 0 0 #ededed", display: "flex", flexDirection: "row", padding: "0px 0px 0.91px 0px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div data-fu="row" style={{ width: "711px", height: "47.52px", flexShrink: 0, boxShadow: "inset 0 -0.91px 0 0 #ededed", display: "flex", flexDirection: "row", padding: "0px 0px 0.91px 0px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <div style={{ width: "250px", height: "46.61px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 0px 0px 14.62px", gap: "7.31px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                 <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "7.31px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                   <div style={{ width: "20.11px", height: "9.14px", flexShrink: 0, display: "flex", flexDirection: "row", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }} />
@@ -465,7 +469,7 @@ export function CategoriesPage() {
                 </div>
               </div>
             </div>
-            <div style={{ width: "711px", height: "47.52px", flexShrink: 0, boxShadow: "inset 0 -0.91px 0 0 #ededed", display: "flex", flexDirection: "row", padding: "0px 0px 0.91px 0px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div data-fu="row" style={{ width: "711px", height: "47.52px", flexShrink: 0, boxShadow: "inset 0 -0.91px 0 0 #ededed", display: "flex", flexDirection: "row", padding: "0px 0px 0.91px 0px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <div style={{ width: "250px", height: "46.61px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 0px 0px 14.62px", gap: "7.31px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                 <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "7.31px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                   <div style={{ width: "20.11px", height: "9.14px", flexShrink: 0, display: "flex", flexDirection: "row", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }} />
@@ -506,7 +510,7 @@ export function CategoriesPage() {
                 </div>
               </div>
             </div>
-            <div style={{ width: "711px", height: "47.52px", flexShrink: 0, boxShadow: "inset 0 -0.91px 0 0 #ededed", display: "flex", flexDirection: "row", padding: "0px 0px 0.91px 0px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div data-fu="row" style={{ width: "711px", height: "47.52px", flexShrink: 0, boxShadow: "inset 0 -0.91px 0 0 #ededed", display: "flex", flexDirection: "row", padding: "0px 0px 0.91px 0px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <div style={{ width: "250px", height: "46.61px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 0px 0px 14.62px", gap: "7.31px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                 <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "7.31px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                   <div style={{ width: "20.11px", height: "9.14px", flexShrink: 0, display: "flex", flexDirection: "row", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }} />
@@ -547,7 +551,7 @@ export function CategoriesPage() {
                 </div>
               </div>
             </div>
-            <div style={{ width: "711px", height: "47.52px", flexShrink: 0, boxShadow: "inset 0 -0.91px 0 0 #ededed", display: "flex", flexDirection: "row", padding: "0px 0px 0.91px 0px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div data-fu="row" style={{ width: "711px", height: "47.52px", flexShrink: 0, boxShadow: "inset 0 -0.91px 0 0 #ededed", display: "flex", flexDirection: "row", padding: "0px 0px 0.91px 0px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <div style={{ width: "250px", height: "46.61px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 0px 0px 14.62px", gap: "7.31px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                 <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "7.31px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                   <ChevronRight size={12.8} style={{ width: "12.79px", height: "12.79px", flexShrink: 0, color: "#a6a6a6", display: "block" }} />
@@ -592,7 +596,7 @@ export function CategoriesPage() {
                 </div>
               </div>
             </div>
-            <div style={{ width: "711px", height: "47.52px", flexShrink: 0, boxShadow: "inset 0 -0.91px 0 0 #ededed", display: "flex", flexDirection: "row", padding: "0px 0px 0.91px 0px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div data-fu="row" style={{ width: "711px", height: "47.52px", flexShrink: 0, boxShadow: "inset 0 -0.91px 0 0 #ededed", display: "flex", flexDirection: "row", padding: "0px 0px 0.91px 0px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <div style={{ width: "250px", height: "46.61px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 0px 0px 14.62px", gap: "7.31px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                 <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "7.31px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                   <ChevronRight size={12.8} style={{ width: "12.79px", height: "12.79px", flexShrink: 0, color: "#a6a6a6", display: "block" }} />
@@ -637,7 +641,7 @@ export function CategoriesPage() {
                 </div>
               </div>
             </div>
-            <div style={{ width: "711px", height: "47.52px", flexShrink: 0, boxShadow: "inset 0 -0.91px 0 0 #ededed", display: "flex", flexDirection: "row", padding: "0px 0px 0.91px 0px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div data-fu="row" style={{ width: "711px", height: "47.52px", flexShrink: 0, boxShadow: "inset 0 -0.91px 0 0 #ededed", display: "flex", flexDirection: "row", padding: "0px 0px 0.91px 0px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <div style={{ width: "250px", height: "46.61px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 0px 0px 14.62px", gap: "7.31px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                 <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "7.31px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                   <ChevronRight size={12.8} style={{ width: "12.79px", height: "12.79px", flexShrink: 0, color: "#a6a6a6", display: "block" }} />
@@ -682,7 +686,7 @@ export function CategoriesPage() {
                 </div>
               </div>
             </div>
-            <div style={{ width: "711px", height: "47.52px", flexShrink: 0, boxShadow: "inset 0 0 0 0px #ededed", display: "flex", flexDirection: "row", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div data-fu="row" style={{ width: "711px", height: "47.52px", flexShrink: 0, boxShadow: "inset 0 0 0 0px #ededed", display: "flex", flexDirection: "row", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <div style={{ width: "250px", height: "46.61px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 0px 0px 14.62px", gap: "7.31px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                 <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "7.31px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                   <ChevronRight size={12.8} style={{ width: "12.79px", height: "12.79px", flexShrink: 0, color: "#a6a6a6", display: "block" }} />
@@ -732,12 +736,12 @@ export function CategoriesPage() {
         <div style={{ position: "absolute", left: "729.3px", top: "0px", width: "324.4px", height: "520px", borderRadius: "10.97px", background: "#fefefe", boxShadow: "inset 0 0 0 0.91px #ededed", overflow: "hidden" }}>
           <p style={{ position: "absolute", left: "18.28px", top: "18.28px", margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "71px", lineHeight: "19px", fontFamily: "'Geist'", fontSize: "14.62px", fontWeight: 500, color: "#000000" }}>Auto rules</p>
           <p style={{ position: "absolute", left: "18.28px", top: "43.87px", margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "167px", lineHeight: "17px", fontFamily: "'Geist'", fontSize: "12.79px", fontWeight: 400, color: "#6b6b6b" }}>9 rules · 141 sorted in August</p>
-          <div style={{ position: "absolute", left: "223.57px", top: "18.28px", width: "82.55px", height: "25.59px", borderRadius: "7.31px", background: "#ffffff", boxShadow: "inset 0 0 0 0.91px #e8e8e8, 0px 0.91px 1.83px 0px rgba(79, 79, 79, 0.12)", display: "flex", flexDirection: "row", padding: "0.91px 10.05px 0.91px 10.05px", gap: "3.66px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+          <div data-fu="btn" style={{ position: "absolute", left: "223.57px", top: "18.28px", width: "82.55px", height: "25.59px", borderRadius: "7.31px", background: "#ffffff", boxShadow: "inset 0 0 0 0.91px #e8e8e8, 0px 0.91px 1.83px 0px rgba(79, 79, 79, 0.12)", display: "flex", flexDirection: "row", padding: "0.91px 10.05px 0.91px 10.05px", gap: "3.66px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
             <Plus size={12.8} style={{ width: "12.79px", height: "12.79px", flexShrink: 0, color: "#686765", display: "block" }} />
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "46px", lineHeight: "14px", fontFamily: "'Geist'", fontSize: "10.97px", fontWeight: 500, color: "#686765" }}>New rule</p>
           </div>
           <div style={{ position: "absolute", left: "18.28px", top: "78px", width: "287.84px", height: "371.99px", display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
-            <div style={{ alignSelf: "stretch", flexShrink: 0, boxShadow: "inset 0 -0.91px 0 0 #ededed", display: "flex", flexDirection: "column", padding: "9.14px 0px 10.05px 0px", gap: "6.4px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+            <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, boxShadow: "inset 0 -0.91px 0 0 #ededed", display: "flex", flexDirection: "column", padding: "9.14px 0px 10.05px 0px", gap: "6.4px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
               <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", gap: "7.31px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                 <Wand size={13.7} strokeWidth={1.51} style={{ width: "13.71px", height: "13.71px", flexShrink: 0, color: "#646871", display: "block" }} />
                 <p style={{ flex: "1 1 0", minWidth: 0, flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre-wrap", lineHeight: "15px", fontFamily: "'Geist'", fontSize: "11.88px", fontWeight: 400, color: "#6b6b6b" }}>
@@ -759,7 +763,7 @@ export function CategoriesPage() {
                 <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "60px", lineHeight: "14px", fontFamily: "'Geist'", fontSize: "10.97px", fontWeight: 400, color: "#666d80" }}>24 matches</p>
               </div>
             </div>
-            <div style={{ alignSelf: "stretch", flexShrink: 0, boxShadow: "inset 0 -0.91px 0 0 #ededed", display: "flex", flexDirection: "column", padding: "9.14px 0px 10.05px 0px", gap: "6.4px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+            <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, boxShadow: "inset 0 -0.91px 0 0 #ededed", display: "flex", flexDirection: "column", padding: "9.14px 0px 10.05px 0px", gap: "6.4px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
               <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", gap: "7.31px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                 <Wand size={13.7} strokeWidth={1.51} style={{ width: "13.71px", height: "13.71px", flexShrink: 0, color: "#646871", display: "block" }} />
                 <p style={{ flex: "1 1 0", minWidth: 0, flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre-wrap", lineHeight: "15px", fontFamily: "'Geist'", fontSize: "11.88px", fontWeight: 400, color: "#6b6b6b" }}>
@@ -781,7 +785,7 @@ export function CategoriesPage() {
                 <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "53px", lineHeight: "14px", fontFamily: "'Geist'", fontSize: "10.97px", fontWeight: 400, color: "#666d80" }}>3 matches</p>
               </div>
             </div>
-            <div style={{ alignSelf: "stretch", flexShrink: 0, boxShadow: "inset 0 -0.91px 0 0 #ededed", display: "flex", flexDirection: "column", padding: "9.14px 0px 10.05px 0px", gap: "6.4px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+            <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, boxShadow: "inset 0 -0.91px 0 0 #ededed", display: "flex", flexDirection: "column", padding: "9.14px 0px 10.05px 0px", gap: "6.4px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
               <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", gap: "7.31px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                 <Wand size={13.7} strokeWidth={1.51} style={{ width: "13.71px", height: "13.71px", flexShrink: 0, color: "#646871", display: "block" }} />
                 <p style={{ flex: "1 1 0", minWidth: 0, flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre-wrap", lineHeight: "15px", fontFamily: "'Geist'", fontSize: "11.88px", fontWeight: 400, color: "#6b6b6b" }}>
@@ -803,7 +807,7 @@ export function CategoriesPage() {
                 <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "57px", lineHeight: "14px", fontFamily: "'Geist'", fontSize: "10.97px", fontWeight: 400, color: "#666d80" }}>18 matches</p>
               </div>
             </div>
-            <div style={{ alignSelf: "stretch", flexShrink: 0, boxShadow: "inset 0 -0.91px 0 0 #ededed", display: "flex", flexDirection: "column", padding: "9.14px 0px 10.05px 0px", gap: "6.4px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+            <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, boxShadow: "inset 0 -0.91px 0 0 #ededed", display: "flex", flexDirection: "column", padding: "9.14px 0px 10.05px 0px", gap: "6.4px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
               <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", gap: "7.31px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                 <Wand size={13.7} strokeWidth={1.51} style={{ width: "13.71px", height: "13.71px", flexShrink: 0, color: "#646871", display: "block" }} />
                 <p style={{ flex: "1 1 0", minWidth: 0, flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre-wrap", lineHeight: "15px", fontFamily: "'Geist'", fontSize: "11.88px", fontWeight: 400, color: "#6b6b6b" }}>
@@ -825,7 +829,7 @@ export function CategoriesPage() {
                 <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "57px", lineHeight: "14px", fontFamily: "'Geist'", fontSize: "10.97px", fontWeight: 400, color: "#666d80" }}>31 matches</p>
               </div>
             </div>
-            <div style={{ alignSelf: "stretch", flexShrink: 0, boxShadow: "inset 0 -0.91px 0 0 #ededed", display: "flex", flexDirection: "column", padding: "9.14px 0px 10.05px 0px", gap: "6.4px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+            <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, boxShadow: "inset 0 -0.91px 0 0 #ededed", display: "flex", flexDirection: "column", padding: "9.14px 0px 10.05px 0px", gap: "6.4px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
               <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", gap: "7.31px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                 <Wand size={13.7} strokeWidth={1.51} style={{ width: "13.71px", height: "13.71px", flexShrink: 0, color: "#646871", display: "block" }} />
                 <p style={{ flex: "1 1 0", minWidth: 0, flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre-wrap", lineHeight: "15px", fontFamily: "'Geist'", fontSize: "11.88px", fontWeight: 400, color: "#6b6b6b" }}>
@@ -847,7 +851,7 @@ export function CategoriesPage() {
                 <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "53px", lineHeight: "14px", fontFamily: "'Geist'", fontSize: "10.97px", fontWeight: 400, color: "#666d80" }}>4 matches</p>
               </div>
             </div>
-            <div style={{ alignSelf: "stretch", flexShrink: 0, opacity: 0.75, boxShadow: "inset 0 0 0 0px #ededed", display: "flex", flexDirection: "column", padding: "9.14px 0px 9.14px 0px", gap: "6.4px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+            <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, opacity: 0.75, boxShadow: "inset 0 0 0 0px #ededed", display: "flex", flexDirection: "column", padding: "9.14px 0px 9.14px 0px", gap: "6.4px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
               <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", gap: "7.31px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                 <Wand size={13.7} strokeWidth={1.51} style={{ width: "13.71px", height: "13.71px", flexShrink: 0, color: "#a6a6a6", display: "block" }} />
                 <p style={{ flex: "1 1 0", minWidth: 0, flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre-wrap", lineHeight: "15px", fontFamily: "'Geist'", fontSize: "11.88px", fontWeight: 400, color: "#6b6b6b" }}>
@@ -870,7 +874,7 @@ export function CategoriesPage() {
               </div>
             </div>
           </div>
-          <div style={{ position: "absolute", left: "18.28px", top: "469.73px", width: "287.84px", height: "31.99px", borderRadius: "7.31px", background: "#ffffff", boxShadow: "inset 0 0 0 0.91px #e8e8e8, 0px 0.91px 1.83px 0px rgba(79, 79, 79, 0.12)", display: "flex", flexDirection: "row", padding: "0.91px 0.91px 0.91px 0.91px", gap: "3.66px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
+          <div data-fu="btn" style={{ position: "absolute", left: "18.28px", top: "469.73px", width: "287.84px", height: "31.99px", borderRadius: "7.31px", background: "#ffffff", boxShadow: "inset 0 0 0 0.91px #e8e8e8, 0px 0.91px 1.83px 0px rgba(79, 79, 79, 0.12)", display: "flex", flexDirection: "row", padding: "0.91px 0.91px 0.91px 0.91px", gap: "3.66px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "91px", lineHeight: "17px", fontFamily: "'Geist'", fontSize: "12.79px", fontWeight: 500, color: "#686765" }}>View all 9 rules</p>
           </div>
         </div>
@@ -888,26 +892,26 @@ export function CategoriesPage() {
           <div style={{ position: "absolute", left: "18.28px", top: "112px", width: "287.84px", height: "87.73px" }}>
             <div style={{ position: "absolute", left: "7.04px", top: "7.31px", width: "17.91px", height: "56.66px", borderRadius: "8.96px", background: "#f6f6f4" }} />
             <div style={{ position: "absolute", left: "39.02px", top: "7.31px", width: "17.91px", height: "56.66px", borderRadius: "8.96px", background: "#f6f6f4" }} />
-            <div style={{ position: "absolute", left: "39.02px", top: "52.64px", width: "17.91px", height: "11.33px", borderRadius: "5.67px", background: "linear-gradient(180deg, #fee0c9 0%, #fed6b8 100%)", boxShadow: "inset 0 0 0 1px rgba(240, 128, 45, 0.22), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.55), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.35), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.04)", overflow: "hidden" }} />
+            <div data-fu="bar" style={{ position: "absolute", left: "39.02px", top: "52.64px", width: "17.91px", height: "11.33px", borderRadius: "5.67px", background: "linear-gradient(180deg, #fee0c9 0%, #fed6b8 100%)", boxShadow: "inset 0 0 0 1px rgba(240, 128, 45, 0.22), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.55), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.35), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.04)", overflow: "hidden" }} />
             <div style={{ position: "absolute", left: "71px", top: "7.31px", width: "17.91px", height: "56.66px", borderRadius: "8.96px", background: "#f6f6f4" }} />
             <div style={{ position: "absolute", left: "102.98px", top: "7.31px", width: "17.91px", height: "56.66px", borderRadius: "8.96px", background: "#f6f6f4" }} />
-            <div style={{ position: "absolute", left: "102.98px", top: "41.31px", width: "17.91px", height: "22.66px", borderRadius: "8.96px", background: "linear-gradient(180deg, #fee0c9 0%, #fed6b8 100%)", boxShadow: "inset 0 0 0 1px rgba(240, 128, 45, 0.22), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.55), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.35), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.04)", overflow: "hidden" }} />
+            <div data-fu="bar" style={{ position: "absolute", left: "102.98px", top: "41.31px", width: "17.91px", height: "22.66px", borderRadius: "8.96px", background: "linear-gradient(180deg, #fee0c9 0%, #fed6b8 100%)", boxShadow: "inset 0 0 0 1px rgba(240, 128, 45, 0.22), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.55), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.35), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.04)", overflow: "hidden" }} />
             <div style={{ position: "absolute", left: "134.96px", top: "7.31px", width: "17.91px", height: "56.66px", borderRadius: "8.96px", background: "#f6f6f4" }} />
-            <div style={{ position: "absolute", left: "134.96px", top: "52.64px", width: "17.91px", height: "11.33px", borderRadius: "5.67px", background: "linear-gradient(180deg, #fee0c9 0%, #fed6b8 100%)", boxShadow: "inset 0 0 0 1px rgba(240, 128, 45, 0.22), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.55), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.35), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.04)", overflow: "hidden" }} />
+            <div data-fu="bar" style={{ position: "absolute", left: "134.96px", top: "52.64px", width: "17.91px", height: "11.33px", borderRadius: "5.67px", background: "linear-gradient(180deg, #fee0c9 0%, #fed6b8 100%)", boxShadow: "inset 0 0 0 1px rgba(240, 128, 45, 0.22), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.55), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.35), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.04)", overflow: "hidden" }} />
             <div style={{ position: "absolute", left: "166.95px", top: "7.31px", width: "17.91px", height: "56.66px", borderRadius: "8.96px", background: "#f6f6f4" }} />
-            <div style={{ position: "absolute", left: "166.95px", top: "29.97px", width: "17.91px", height: "34px", borderRadius: "8.96px", background: "linear-gradient(180deg, #fee0c9 0%, #fed6b8 100%)", boxShadow: "inset 0 0 0 1px rgba(240, 128, 45, 0.22), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.55), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.35), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.04)", overflow: "hidden" }} />
+            <div data-fu="bar" style={{ position: "absolute", left: "166.95px", top: "29.97px", width: "17.91px", height: "34px", borderRadius: "8.96px", background: "linear-gradient(180deg, #fee0c9 0%, #fed6b8 100%)", boxShadow: "inset 0 0 0 1px rgba(240, 128, 45, 0.22), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.55), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.35), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.04)", overflow: "hidden" }} />
             <div style={{ position: "absolute", left: "198.93px", top: "7.31px", width: "17.91px", height: "56.66px", borderRadius: "8.96px", background: "#f6f6f4" }} />
             <div style={{ position: "absolute", left: "230.91px", top: "7.31px", width: "17.91px", height: "56.66px", borderRadius: "8.96px", background: "#f6f6f4" }} />
-            <div style={{ position: "absolute", left: "230.91px", top: "18.64px", width: "17.91px", height: "45.33px", borderRadius: "8.96px", background: "linear-gradient(180deg, #fd974a 0%, #fd872f 100%)", boxShadow: "inset 0 0 0 1px rgba(197, 105, 37, 0.38), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.18), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+            <div data-fu="bar" style={{ position: "absolute", left: "230.91px", top: "18.64px", width: "17.91px", height: "45.33px", borderRadius: "8.96px", background: "linear-gradient(180deg, #fd974a 0%, #fd872f 100%)", boxShadow: "inset 0 0 0 1px rgba(197, 105, 37, 0.38), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.18), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
             <div style={{ position: "absolute", left: "262.89px", top: "7.31px", width: "17.91px", height: "56.66px", borderRadius: "8.96px", background: "#f6f6f4" }} />
-            <div style={{ position: "absolute", left: "262.89px", top: "52.64px", width: "17.91px", height: "11.33px", borderRadius: "5.67px", background: "linear-gradient(180deg, #fee0c9 0%, #fed6b8 100%)", boxShadow: "inset 0 0 0 1px rgba(240, 128, 45, 0.22), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.55), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.35), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.04)", overflow: "hidden" }} />
+            <div data-fu="bar" style={{ position: "absolute", left: "262.89px", top: "52.64px", width: "17.91px", height: "11.33px", borderRadius: "5.67px", background: "linear-gradient(180deg, #fee0c9 0%, #fed6b8 100%)", boxShadow: "inset 0 0 0 1px rgba(240, 128, 45, 0.22), inset 0px 0.91px 0px 0px rgba(255, 255, 255, 0.55), inset 0px 0px 5.48px 0px rgba(255, 255, 255, 0.35), 0px 0.91px 1.37px 0px rgba(13, 13, 18, 0.04)", overflow: "hidden" }} />
             <p style={{ position: "absolute", left: "2.49px", top: "73.11px", margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "27px", lineHeight: "14px", fontFamily: "'Geist'", fontSize: "10.97px", fontWeight: 400, color: "#6b6b6b" }}>Aug 1</p>
             <p style={{ position: "absolute", left: "76.46px", top: "73.11px", margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "7px", lineHeight: "14px", fontFamily: "'Geist'", fontSize: "10.97px", fontWeight: 400, color: "#6b6b6b" }}>3</p>
             <p style={{ position: "absolute", left: "140.42px", top: "73.11px", margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "7px", lineHeight: "14px", fontFamily: "'Geist'", fontSize: "10.97px", fontWeight: 400, color: "#6b6b6b" }}>5</p>
             <p style={{ position: "absolute", left: "204.88px", top: "73.11px", margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "6px", lineHeight: "14px", fontFamily: "'Geist'", fontSize: "10.97px", fontWeight: 400, color: "#6b6b6b" }}>7</p>
             <p style={{ position: "absolute", left: "268.35px", top: "73.11px", margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "7px", lineHeight: "14px", fontFamily: "'Geist'", fontSize: "10.97px", fontWeight: 400, color: "#6b6b6b" }}>9</p>
           </div>
-          <div style={{ position: "absolute", left: "18.28px", top: "230.45px", width: "287.84px", height: "31.99px", borderRadius: "7.31px", background: "#ffffff", boxShadow: "inset 0 0 0 0.91px #e8e8e8, 0px 0.91px 1.83px 0px rgba(79, 79, 79, 0.12)", display: "flex", flexDirection: "row", padding: "0.91px 0.91px 0.91px 0.91px", gap: "3.66px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
+          <div data-fu="btn" style={{ position: "absolute", left: "18.28px", top: "230.45px", width: "287.84px", height: "31.99px", borderRadius: "7.31px", background: "#ffffff", boxShadow: "inset 0 0 0 0.91px #e8e8e8, 0px 0.91px 1.83px 0px rgba(79, 79, 79, 0.12)", display: "flex", flexDirection: "row", padding: "0.91px 0.91px 0.91px 0.91px", gap: "3.66px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
             <Tags size={14.6} style={{ width: "14.62px", height: "14.62px", flexShrink: 0, color: "#686765", display: "block" }} />
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "139px", lineHeight: "17px", fontFamily: "'Geist'", fontSize: "12.79px", fontWeight: 500, color: "#686765" }}>Review 12 transactions</p>
           </div>
@@ -919,11 +923,11 @@ export function CategoriesPage() {
           <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "271px", lineHeight: "19px", fontFamily: "'Geist'", fontSize: "14.62px", fontWeight: 400, color: "#6b6b6b", letterSpacing: "-0.02em" }}>24 categories · 9 auto-categorisation rules</p>
         </div>
         <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "9.14px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-          <div style={{ height: "29.24px", flexShrink: 0, borderRadius: "7.31px", background: "#ffffff", boxShadow: "inset 0 0 0 0.91px #e8e8e8, 0px 0.91px 1.83px 0px rgba(13, 13, 18, 0.06)", display: "flex", flexDirection: "row", padding: "0.91px 11.88px 0.91px 11.88px", gap: "5.48px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+          <div data-fu="btn" style={{ height: "29.24px", flexShrink: 0, borderRadius: "7.31px", background: "#ffffff", boxShadow: "inset 0 0 0 0.91px #e8e8e8, 0px 0.91px 1.83px 0px rgba(13, 13, 18, 0.06)", display: "flex", flexDirection: "row", padding: "0.91px 11.88px 0.91px 11.88px", gap: "5.48px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
             <ArrowDataTransferHorizontal size={14.6} style={{ width: "14.62px", height: "14.62px", flexShrink: 0, color: "#6c6c6c", display: "block" }} />
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "38px", lineHeight: "17px", fontFamily: "'Geist'", fontSize: "12.79px", fontWeight: 400, color: "#6c6c6c" }}>Merge</p>
           </div>
-          <div style={{ height: "29.24px", flexShrink: 0, borderRadius: "7.31px", background: "linear-gradient(90deg, #222222 0%, #3a3a3a 50%, #222222 100%)", boxShadow: "inset 0 0 0 0.91px #dfe1e6", display: "flex", flexDirection: "row", padding: "0.91px 11.88px 0.91px 11.88px", gap: "3.66px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
+          <div data-fu="btn" style={{ height: "29.24px", flexShrink: 0, borderRadius: "7.31px", background: "linear-gradient(90deg, #222222 0%, #3a3a3a 50%, #222222 100%)", boxShadow: "inset 0 0 0 0.91px #dfe1e6", display: "flex", flexDirection: "row", padding: "0.91px 11.88px 0.91px 11.88px", gap: "3.66px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
             <Plus size={14.6} style={{ width: "14.62px", height: "14.62px", flexShrink: 0, color: "#ffffff", display: "block" }} />
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "84px", fontFamily: "'Geist'", fontSize: "12.79px", fontWeight: 500, color: "#ffffff", lineHeight: "1.4500000476837158" }}>New category</p>
           </div>
@@ -931,4 +935,181 @@ export function CategoriesPage() {
       </div>
     </div>
   );
+}
+
+// Interactions: hover and click states. Remove this function and the two lines above to get a static component.
+function fuInteract(root: HTMLElement | null) {
+  if (!root || root.dataset.fuOn) return;
+  root.dataset.fuOn = "1";
+  const doc = root.ownerDocument;
+  const all = (sel: string, el: Element = root): HTMLElement[] => Array.from(el.querySelectorAll(sel)) as HTMLElement[];
+  const box = (el: Element) => el.getBoundingClientRect();
+  const font = getComputedStyle(root).fontFamily;
+  const tip = doc.createElement("div");
+  tip.setAttribute("aria-hidden", "true");
+  Object.assign(tip.style, { position: "fixed", zIndex: "2147483647", pointerEvents: "none", background: "#111113", color: "#fff", font: "500 12px/16px " + font, padding: "5px 8px", borderRadius: "6px", whiteSpace: "nowrap", opacity: "0", transform: "translate(-50%, -100%)", transition: "opacity .12s", boxShadow: "0 4px 14px rgba(0,0,0,.18)" });
+  doc.body.appendChild(tip);
+  const show = (text: string, x: number, y: number) => { if (!text) return hide(); tip.textContent = text; tip.style.left = x + "px"; tip.style.top = y - 8 + "px"; tip.style.opacity = "1"; };
+  const hide = () => { tip.style.opacity = "0"; };
+  const ease = (el: HTMLElement | SVGElement, props: string) => { const s = (el as HTMLElement).style; if (!s.transition) s.transition = props; };
+  const texts = (scope: Element) => all("p, span", scope).filter((t) => t.children.length === 0 && (t.textContent || "").trim());
+  const NUM = /^([^\d\-+.]*)([-+]?[\d,]*\.?\d+)\s*([kKmMbB%]?)([^\d]*)$/;
+  // value axis: numeric labels along one edge of the chart, used to read a mark's value from its position
+  const axis = (scope: Element, vertical: boolean) => {
+    const pts: { v: number; p: number; pre: string; suf: string; dec: number }[] = [];
+    for (const t of texts(scope)) {
+      const m = (t.textContent || "").trim().match(NUM);
+      if (!m) continue;
+      const mult = { k: 1e3, K: 1e3, m: 1e6, M: 1e6, b: 1e9, B: 1e9 }[m[3] as "k"] || 1;
+      const r = box(t);
+      pts.push({ v: parseFloat(m[2].replace(/,/g, "")) * mult, p: vertical ? r.top + r.height / 2 : r.left + r.width / 2, pre: m[1], suf: m[3] + m[4], dec: (m[2].split(".")[1] || "").length });
+    }
+    const uniq = pts.filter((a, i) => pts.findIndex((b) => Math.abs(b.p - a.p) < 2) === i);
+    if (uniq.length < 2) return null;
+    uniq.sort((a, b) => a.p - b.p);
+    const a = uniq[0], b = uniq[uniq.length - 1];
+    if (a.v === b.v || Math.abs(b.p - a.p) < 10) return null;
+    return (pos: number) => {
+      const v = a.v + ((pos - a.p) * (b.v - a.v)) / (b.p - a.p);
+      const suf = a.suf || b.suf, pre = a.pre || b.pre;
+      const div = /^[kK]/.test(suf) ? 1e3 : /^[mM]/.test(suf) ? 1e6 : /^[bB]/.test(suf) ? 1e9 : 1;
+      const x = v / div;
+      const dec = Math.max(a.dec, b.dec, div > 1 && Math.abs(x) < 100 ? 1 : 0);
+      return pre + x.toLocaleString("en-US", { minimumFractionDigits: 0, maximumFractionDigits: dec }) + suf;
+    };
+  };
+  // the chart around a group of marks: the nearest ancestor that also holds text labels
+  const chartOf = (el: Element) => { let c: Element | null = el.parentElement; while (c && c !== root.parentElement) { if (texts(c).length >= 3) return c; c = c.parentElement; } return root; };
+  const labelNear = (scope: Element, x: number, y: number, below: boolean) => {
+    let best = "", d = 1e9;
+    for (const t of texts(scope)) {
+      const r = box(t);
+      if (below ? r.top < y - 2 : r.right > x + 2) continue;
+      if (NUM.test((t.textContent || "").trim()) && !/[a-z]{3}/i.test(t.textContent || "")) continue;
+      const dd = below ? Math.abs(r.left + r.width / 2 - x) + (r.top - y) * 0.2 : Math.abs(r.top + r.height / 2 - y) + (x - r.right) * 0.1;
+      if (dd < d) { d = dd; best = (t.textContent || "").trim(); }
+    }
+    return d < 80 ? best : "";
+  };
+  const dim = (els: (HTMLElement | SVGElement)[], keep: (HTMLElement | SVGElement)[]) => { for (const e of els) { ease(e, "opacity .15s"); (e as HTMLElement).style.opacity = keep.includes(e) ? "" : "0.35"; } };
+  const undim = (els: (HTMLElement | SVGElement)[]) => { for (const e of els) (e as HTMLElement).style.opacity = ""; };
+
+  // vertical bars: the hovered column (all stacked segments at that x) stays, the rest fade
+  const groups = new Map<Element, HTMLElement[]>();
+  for (const b of all("[data-fu=bar],[data-fu=hbar]")) { const p = b.parentElement!; if (!groups.has(p)) groups.set(p, []); groups.get(p)!.push(b); }
+  groups.forEach((bars) => {
+    const horiz = bars[0].dataset.fu === "hbar";
+    const scope = chartOf(bars[0]);
+    const val = axis(scope, !horiz);
+    const peers = (b: HTMLElement) => { const r = box(b), c = horiz ? r.top + r.height / 2 : r.left + r.width / 2; return bars.filter((o) => { const q = box(o); return Math.abs((horiz ? q.top + q.height / 2 : q.left + q.width / 2) - c) < Math.max(2, (horiz ? r.height : r.width) / 2); }); };
+    for (const b of bars) {
+      b.addEventListener("mouseenter", () => {
+        const col = peers(b);
+        dim(bars, col);
+        const rs = col.map(box);
+        const top = Math.min(...rs.map((r) => r.top)), right = Math.max(...rs.map((r) => r.right)), r0 = rs[0];
+        const label = horiz ? labelNear(scope, r0.left, r0.top + r0.height / 2, false) : labelNear(scope, r0.left + r0.width / 2, Math.max(...rs.map((r) => r.bottom)), true);
+        const v = val ? val(horiz ? right : top) : "";
+        show([label, v].filter(Boolean).join(" · "), horiz ? right : r0.left + r0.width / 2, horiz ? r0.top : top);
+      });
+      b.addEventListener("mouseleave", () => { undim(bars); hide(); });
+    }
+  });
+
+  // line and area plots: a guide line and a dot follow the pointer along the top edge of the plotted shape
+  for (const svg of all("svg[data-fu=plot]") as unknown as SVGSVGElement[]) {
+    const paths = Array.from(svg.querySelectorAll("path, polyline")) as SVGGeometryElement[];
+    if (!paths.length) continue;
+    const line = paths.reduce((a, b) => (b.getTotalLength() > a.getTotalLength() ? b : a));
+    const len = line.getTotalLength();
+    const pts: { x: number; y: number }[] = [];
+    for (let i = 0; i <= 800; i++) { const q = line.getPointAtLength((len * i) / 800); pts.push({ x: q.x, y: q.y }); }
+    const xs = pts.map((q) => q.x), minX = Math.min(...xs), maxX = Math.max(...xs);
+    const color = (line.getAttribute("stroke") && line.getAttribute("stroke") !== "none" ? line.getAttribute("stroke") : line.getAttribute("fill")) || "#111";
+    const NS = "http://www.w3.org/2000/svg";
+    const g = doc.createElementNS(NS, "g");
+    g.setAttribute("pointer-events", "none");
+    g.style.opacity = "0";
+    const guide = doc.createElementNS(NS, "line");
+    guide.setAttribute("stroke", /^url/.test(color) ? "#111" : color);
+    guide.setAttribute("stroke-dasharray", "3 3");
+    guide.setAttribute("stroke-opacity", "0.5");
+    const dot = doc.createElementNS(NS, "circle");
+    dot.setAttribute("r", "4");
+    dot.setAttribute("fill", "#fff");
+    dot.setAttribute("stroke", /^url/.test(color) ? "#111" : color);
+    dot.setAttribute("stroke-width", "2");
+    g.append(guide, dot);
+    svg.appendChild(g);
+    const scope = chartOf(svg);
+    const val = axis(scope, true);
+    const area = svg.parentElement || svg;
+    area.addEventListener("mousemove", (ev: Event) => {
+      const e = ev as MouseEvent;
+      const m = line.getScreenCTM();
+      if (!m) return;
+      const px = new DOMPoint(e.clientX, e.clientY).matrixTransform(m.inverse()).x;
+      if (px < minX - 4 || px > maxX + 4) { g.style.opacity = "0"; hide(); return; }
+      const step = (maxX - minX) / 400 || 1;
+      let y = Infinity, x = px;
+      for (const q of pts) if (Math.abs(q.x - px) <= step && q.y < y) { y = q.y; x = q.x; }
+      if (y === Infinity) return;
+      const bb = line.getBBox();
+      guide.setAttribute("x1", String(x)); guide.setAttribute("x2", String(x));
+      guide.setAttribute("y1", String(bb.y)); guide.setAttribute("y2", String(bb.y + bb.height));
+      dot.setAttribute("cx", String(x)); dot.setAttribute("cy", String(y));
+      g.style.opacity = "1";
+      const sp = new DOMPoint(x, y).matrixTransform(m);
+      const label = labelNear(scope, sp.x, box(svg).bottom, true);
+      show([label, val ? val(sp.y) : ""].filter(Boolean).join(" · "), sp.x, sp.y);
+    });
+    area.addEventListener("mouseleave", () => { g.style.opacity = "0"; hide(); });
+  }
+
+  // rows: a soft highlight under the pointer
+  for (const r of all("[data-fu=row]")) {
+    r.addEventListener("mouseenter", () => { ease(r, "filter .15s"); r.style.filter = "brightness(0.975)"; });
+    r.addEventListener("mouseleave", () => { r.style.filter = ""; });
+  }
+
+  // buttons: hover and press feedback
+  for (const b of all("[data-fu=btn],[data-fu=tab]")) {
+    b.style.cursor = "pointer";
+    b.addEventListener("mouseenter", () => { ease(b, "filter .15s, transform .1s"); if (!b.dataset.fuActive) b.style.filter = "brightness(0.96)"; });
+    b.addEventListener("mouseleave", () => { b.style.filter = ""; b.style.transform = ""; });
+    b.addEventListener("mousedown", () => { b.style.transform = "scale(0.98)"; });
+    b.addEventListener("mouseup", () => { b.style.transform = ""; });
+  }
+
+  // tabs and segmented controls: clicking a tab moves the selected look onto it
+  const VIS = ["background-color", "background-image", "box-shadow", "border-color", "color", "font-weight"];
+  const look = (el: HTMLElement) => VIS.map((k) => el.style.getPropertyValue(k)).join("|");
+  const tabGroups = new Map<Element, HTMLElement[]>();
+  for (const t of all("[data-fu=tab]")) { const p = t.parentElement!; if (!tabGroups.has(p)) tabGroups.set(p, []); tabGroups.get(p)!.push(t); }
+  tabGroups.forEach((tabs) => {
+    if (tabs.length < 2) return;
+    const counts = new Map<string, number>();
+    for (const t of tabs) counts.set(look(t), (counts.get(look(t)) || 0) + 1);
+    let active = tabs.find((t) => counts.get(look(t)) === 1 && counts.size > 1) || null;
+    if (!active) return;
+    active.dataset.fuActive = "1";
+    // read both looks first, then write: swapping one property at a time would let shorthands undo each other
+    const swapStyle = (a: HTMLElement, b: HTMLElement, props: string[]) => {
+      const va = props.map((k) => a.style.getPropertyValue(k)), vb = props.map((k) => b.style.getPropertyValue(k));
+      props.forEach((k, i) => { a.style.setProperty(k, vb[i]); b.style.setProperty(k, va[i]); });
+    };
+    const swap = (a: HTMLElement, b: HTMLElement) => {
+      swapStyle(a, b, VIS);
+      const ta = texts(a), tb = texts(b);
+      for (let i = 0; i < Math.min(ta.length, tb.length); i++) swapStyle(ta[i], tb[i], ["color", "font-weight"]);
+    };
+    for (const t of tabs) t.addEventListener("click", () => {
+      if (!active || t === active) return;
+      t.style.filter = "";
+      swap(active, t);
+      delete active.dataset.fuActive;
+      active = t;
+      t.dataset.fuActive = "1";
+    });
+  });
 }

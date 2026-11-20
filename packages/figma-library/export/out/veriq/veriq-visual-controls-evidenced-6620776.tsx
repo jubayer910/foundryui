@@ -1,5 +1,5 @@
-// Visual, Controls evidenced (veriq, Cards and panels) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Foundry Icons.
+// Visual, Controls evidenced (veriq, Cards and panels) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
 export function VisualControlsEvidenced() {
   return (
     <div style={{ width: "238px", height: "82px", display: "flex", flexDirection: "column", gap: "10px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>

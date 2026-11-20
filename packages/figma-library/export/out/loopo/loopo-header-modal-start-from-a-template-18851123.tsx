@@ -1,7 +1,7 @@
-// Header modal, Start from a template (loopo, Modals) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Foundry Icons.
-import { Layout as LayoutBulk } from "foundryui-icons/react/bulk";
-import { X } from "foundryui-icons/react/stroke-rounded";
+// Header modal, Start from a template (loopo, Modals) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
+import { Layout as LayoutBulk } from "ingotui-icons/react/bulk";
+import { X } from "ingotui-icons/react/stroke-rounded";
 
 export function HeaderModalStartFromATemplate() {
   return (

@@ -1,11 +1,29 @@
-// Notifications popover (mailpulse, Popovers) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Foundry Icons.
-import { AlertTriangle as AlertTriangleBulk, Crown as CrownBulk, HandCoins as HandCoinsBulk, Send as SendBulk, Settings as SettingsBulk, Upload as UploadBulk } from "foundryui-icons/react/bulk";
+"use client";
+// Notifications popover (mailpulse, Popovers) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
+import { useEffect, useRef } from "react";
+import type { SVGProps } from "react";
+
+// Ingot Icons used here, inlined so this file needs no icon package.
+function icon(body: string) {
+  return function Icon({ size = 24, strokeWidth = 1.5, ...p }: { size?: number; strokeWidth?: number } & SVGProps<SVGSVGElement>) {
+    const html = strokeWidth == 1.5 ? body : body.replace(/stroke-width="([\d.]+)"/g, (_, w) => `stroke-width="${(Number(w) * Number(strokeWidth)) / 1.5}"`);
+    return <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden {...p} dangerouslySetInnerHTML={{ __html: html }} />;
+  };
+}
+const AlertTriangleBulk = icon("<path d=\"M10.363 3.591L2.2569999999999997 17.125A1.914 1.914 0 0 0 3.893 19.996H20.107A1.914 1.914 0 0 0 21.743 17.125999999999998L13.636999999999999 3.589999999999998A1.914 1.914 0 0 0 10.363 3.589999999999998\" fill=\"currentColor\" fill-opacity=\"0.4\"/><g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 9V13\"/><path d=\"M12 16H12.01\"/></g>");
+const CrownBulk = icon("<path d=\"M12 6L16 12 21 8 19 18H5L3 8 8 12 12 6\" fill=\"currentColor\" fill-opacity=\"0.4\"/>");
+const HandCoinsBulk = icon("<path d=\"M3 5a3 3 0 1 0 6 0a3 3 0 1 0 -6 0z\" fill=\"currentColor\" fill-opacity=\"0.4\"/><path d=\"M13.1 9a2.9 2.9 0 1 0 5.8 0a2.9 2.9 0 1 0 -5.8 0z\" fill=\"currentColor\" fill-opacity=\"0.4\"/><g fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M11 15h2a2 2 0 1 0 0-4h-3c-.6 0-1.1.2-1.4.6L3 17\" /><path d=\"m7 21 1.6-1.4c.3-.4.8-.6 1.4-.6h4c1.1 0 2.1-.4 2.8-1.2l4.6-4.4a2 2 0 0 0-2.75-2.91l-4.2 3.9\" /><path d=\"m2 16 6 6\" /><circle cx=\"16\" cy=\"9\" r=\"2.9\" /><circle cx=\"6\" cy=\"5\" r=\"3\" /></g>");
+const SendBulk = icon("<path d=\"M21 3L14.5 21A0.55 0.55 0 0 1 13.5 21L10 14 3 10.5A0.55 0.55 0 0 1 3 9.5L21 3\" fill=\"currentColor\" fill-opacity=\"0.4\"/><g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M10 14L21 3\"/></g>");
+const SettingsBulk = icon("<path d=\"M10.325 4.317C10.751 2.561 13.248999999999999 2.561 13.674999999999999 4.317A1.724 1.724 0 0 0 16.247999999999998 5.383C17.790999999999997 4.443 19.557999999999996 6.209 18.618 7.753A1.724 1.724 0 0 0 19.683 10.325C21.439 10.751 21.439 13.248999999999999 19.683 13.674999999999999A1.724 1.724 0 0 0 18.617 16.247999999999998C19.557000000000002 17.790999999999997 17.791 19.557999999999996 16.247 18.618A1.724 1.724 0 0 0 13.675 19.683C13.249 21.439 10.751000000000001 21.439 10.325000000000001 19.683A1.724 1.724 0 0 0 7.752000000000001 18.617C6.2090000000000005 19.557000000000002 4.442 17.791 5.382000000000001 16.247A1.724 1.724 0 0 0 4.317 13.675C2.561 13.249 2.561 10.751000000000001 4.317 10.325000000000001A1.724 1.724 0 0 0 5.383 7.752000000000001C4.443 6.2090000000000005 6.209 4.442 7.753 5.382000000000001 8.753 5.99 10.049 5.452000000000001 10.325 4.317\" fill=\"currentColor\" fill-opacity=\"0.4\"/><g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M9 12A3 3 0 1 0 15 12 3 3 0 0 0 9 12\"/></g>");
+const UploadBulk = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2\" /><path d=\"M7 9l5 -5l5 5\" /><path d=\"M12 4l0 12\" /></g>");
 
 export function NotificationsPopover() {
+  const fuRef = useRef<any>(null);
+  useEffect(() => fuInteract(fuRef.current), []);
   return (
-    <div style={{ width: "372px", height: "436.77px", borderRadius: "12.79px", background: "#ffffff", boxShadow: "inset 0 0 0 0.91px #e8e8e8, 0px 14.62px 29.24px -10.97px rgba(13, 13, 18, 0.1), 0px 0.91px 1.83px 0px rgba(13, 13, 18, 0.06)", display: "flex", flexDirection: "column", padding: "0.91px 0.91px 0.91px 0.91px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
-      <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", padding: "12.79px 12.79px 9.14px 12.79px", justifyContent: "space-between", alignItems: "center", boxSizing: "border-box" }}>
+    <div ref={fuRef} style={{ width: "372px", height: "436.77px", borderRadius: "12.79px", background: "#ffffff", boxShadow: "inset 0 0 0 0.91px #e8e8e8, 0px 14.62px 29.24px -10.97px rgba(13, 13, 18, 0.1), 0px 0.91px 1.83px 0px rgba(13, 13, 18, 0.06)", display: "flex", flexDirection: "column", padding: "0.91px 0.91px 0.91px 0.91px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+      <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", padding: "12.79px 12.79px 9.14px 12.79px", justifyContent: "space-between", alignItems: "center", boxSizing: "border-box" }}>
         <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "7.31px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
           <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "19px", fontFamily: "'Geist'", fontSize: "14.62px", fontWeight: 500, color: "#000000" }}>Notifications</p>
           <div style={{ flexShrink: 0, borderRadius: "999px", background: "#7c53f9", display: "flex", flexDirection: "row", padding: "0.91px 6.4px 0.91px 6.4px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
@@ -14,25 +32,25 @@ export function NotificationsPopover() {
         </div>
         <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "15px", fontFamily: "'Geist'", fontSize: "11.88px", fontWeight: 500, color: "#6c6c6c" }}>Mark all as read</p>
       </div>
-      <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 12.79px 9.14px 12.79px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+      <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 12.79px 9.14px 12.79px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
         <div style={{ flexShrink: 0, borderRadius: "8.22px", background: "#f5f5f5", display: "flex", flexDirection: "row", padding: "2.74px 2.74px 2.74px 2.74px", gap: "1.83px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-          <div style={{ flexShrink: 0, borderRadius: "6.4px", background: "#ffffff", boxShadow: "0px 0px 0.91px 0px rgba(0, 0, 0, 0.25)", display: "flex", flexDirection: "row", padding: "4.57px 9.14px 4.57px 9.14px", gap: "5.48px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+          <div data-fu="tab" style={{ flexShrink: 0, borderRadius: "6.4px", background: "#ffffff", boxShadow: "0px 0px 0.91px 0px rgba(0, 0, 0, 0.25)", display: "flex", flexDirection: "row", padding: "4.57px 9.14px 4.57px 9.14px", gap: "5.48px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "15px", fontFamily: "'Geist'", fontSize: "11.88px", fontWeight: 500, color: "#000000" }}>All</p>
           </div>
-          <div style={{ flexShrink: 0, borderRadius: "6.4px", display: "flex", flexDirection: "row", padding: "4.57px 9.14px 4.57px 9.14px", gap: "5.48px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+          <div data-fu="tab" style={{ flexShrink: 0, borderRadius: "6.4px", display: "flex", flexDirection: "row", padding: "4.57px 9.14px 4.57px 9.14px", gap: "5.48px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "15px", fontFamily: "'Geist'", fontSize: "11.88px", fontWeight: 400, color: "#6c6c6c" }}>Campaigns</p>
           </div>
-          <div style={{ flexShrink: 0, borderRadius: "6.4px", display: "flex", flexDirection: "row", padding: "4.57px 9.14px 4.57px 9.14px", gap: "5.48px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+          <div data-fu="tab" style={{ flexShrink: 0, borderRadius: "6.4px", display: "flex", flexDirection: "row", padding: "4.57px 9.14px 4.57px 9.14px", gap: "5.48px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "15px", fontFamily: "'Geist'", fontSize: "11.88px", fontWeight: 400, color: "#6c6c6c" }}>Revenue</p>
           </div>
-          <div style={{ flexShrink: 0, borderRadius: "6.4px", display: "flex", flexDirection: "row", padding: "4.57px 9.14px 4.57px 9.14px", gap: "5.48px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+          <div data-fu="tab" style={{ flexShrink: 0, borderRadius: "6.4px", display: "flex", flexDirection: "row", padding: "4.57px 9.14px 4.57px 9.14px", gap: "5.48px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "15px", fontFamily: "'Geist'", fontSize: "11.88px", fontWeight: 400, color: "#6c6c6c" }}>System</p>
           </div>
         </div>
       </div>
       <div style={{ alignSelf: "stretch", height: "0.91px", flexShrink: 0, background: "#eeeeee" }} />
       <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", padding: "4.57px 3.66px 4.57px 3.66px", gap: "1.83px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
-        <div style={{ width: "362.86px", flexShrink: 0, borderRadius: "7.31px", background: "#f4f4f5", boxShadow: "inset 0 0 0 0.91px #e8e8eb", display: "flex", flexDirection: "row", padding: "9.14px 9.14px 9.14px 9.14px", gap: "10.97px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+        <div data-fu="row" style={{ width: "362.86px", flexShrink: 0, borderRadius: "7.31px", background: "#f4f4f5", boxShadow: "inset 0 0 0 0.91px #e8e8eb", display: "flex", flexDirection: "row", padding: "9.14px 9.14px 9.14px 9.14px", gap: "10.97px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
           <div style={{ width: "29.24px", height: "29.24px", flexShrink: 0, borderRadius: "7.31px", background: "rgba(45, 212, 17, 0.12)", display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
             <SendBulk size={15.5} style={{ width: "15.54px", height: "15.54px", flexShrink: 0, color: "#2dd411", display: "block" }} />
           </div>
@@ -42,7 +60,7 @@ export function NotificationsPopover() {
           </div>
           <svg style={{ width: "7px", height: "18px", flexShrink: 0, display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="7" height="18" viewBox="0 0 7 18" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 5.801)" d="M6.4 3.2 C6.4 4.96731 4.96731 6.4 3.2 6.4 C1.43269 6.4 0 4.96731 0 3.2 C0 1.43269 1.43269 0 3.2 0 C4.96731 0 6.4 1.43269 6.4 3.2 Z" fill="#7c53f9"/></svg>
         </div>
-        <div style={{ width: "362.86px", flexShrink: 0, borderRadius: "7.31px", display: "flex", flexDirection: "row", padding: "9.14px 9.14px 9.14px 9.14px", gap: "10.97px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+        <div data-fu="row" style={{ width: "362.86px", flexShrink: 0, borderRadius: "7.31px", display: "flex", flexDirection: "row", padding: "9.14px 9.14px 9.14px 9.14px", gap: "10.97px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
           <div style={{ width: "29.24px", height: "29.24px", flexShrink: 0, borderRadius: "7.31px", background: "rgba(255, 155, 34, 0.12)", display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
             <CrownBulk size={15.5} style={{ width: "15.54px", height: "15.54px", flexShrink: 0, color: "#ff9b22", display: "block" }} />
           </div>
@@ -52,7 +70,7 @@ export function NotificationsPopover() {
           </div>
           <svg style={{ width: "7px", height: "18px", flexShrink: 0, display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="7" height="18" viewBox="0 0 7 18" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 5.801)" d="M6.4 3.2 C6.4 4.96731 4.96731 6.4 3.2 6.4 C1.43269 6.4 0 4.96731 0 3.2 C0 1.43269 1.43269 0 3.2 0 C4.96731 0 6.4 1.43269 6.4 3.2 Z" fill="#7c53f9"/></svg>
         </div>
-        <div style={{ width: "362.86px", flexShrink: 0, borderRadius: "7.31px", display: "flex", flexDirection: "row", padding: "9.14px 9.14px 9.14px 9.14px", gap: "10.97px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+        <div data-fu="row" style={{ width: "362.86px", flexShrink: 0, borderRadius: "7.31px", display: "flex", flexDirection: "row", padding: "9.14px 9.14px 9.14px 9.14px", gap: "10.97px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
           <div style={{ width: "29.24px", height: "29.24px", flexShrink: 0, borderRadius: "7.31px", background: "rgba(124, 83, 249, 0.12)", display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
             <HandCoinsBulk size={15.5} style={{ width: "15.54px", height: "15.54px", flexShrink: 0, color: "#7c53f9", display: "block" }} />
           </div>
@@ -81,7 +99,7 @@ export function NotificationsPopover() {
           </div>
         </div>
       </div>
-      <div style={{ alignSelf: "stretch", flexShrink: 0, background: "#fafafa", boxShadow: "inset 0 0.91px 0 0 #eeeeee", display: "flex", flexDirection: "row", padding: "10.05px 12.79px 9.14px 12.79px", justifyContent: "space-between", alignItems: "center", boxSizing: "border-box" }}>
+      <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, background: "#fafafa", boxShadow: "inset 0 0.91px 0 0 #eeeeee", display: "flex", flexDirection: "row", padding: "10.05px 12.79px 9.14px 12.79px", justifyContent: "space-between", alignItems: "center", boxSizing: "border-box" }}>
         <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "5.48px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
           <SettingsBulk size={13.7} style={{ width: "13.71px", height: "13.71px", flexShrink: 0, color: "#6c6c6c", display: "block" }} />
           <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "15px", fontFamily: "'Geist'", fontSize: "11.88px", fontWeight: 500, color: "#6c6c6c" }}>Notification settings</p>
@@ -90,4 +108,181 @@ export function NotificationsPopover() {
       </div>
     </div>
   );
+}
+
+// Interactions: hover and click states. Remove this function and the two lines above to get a static component.
+function fuInteract(root: HTMLElement | null) {
+  if (!root || root.dataset.fuOn) return;
+  root.dataset.fuOn = "1";
+  const doc = root.ownerDocument;
+  const all = (sel: string, el: Element = root): HTMLElement[] => Array.from(el.querySelectorAll(sel)) as HTMLElement[];
+  const box = (el: Element) => el.getBoundingClientRect();
+  const font = getComputedStyle(root).fontFamily;
+  const tip = doc.createElement("div");
+  tip.setAttribute("aria-hidden", "true");
+  Object.assign(tip.style, { position: "fixed", zIndex: "2147483647", pointerEvents: "none", background: "#111113", color: "#fff", font: "500 12px/16px " + font, padding: "5px 8px", borderRadius: "6px", whiteSpace: "nowrap", opacity: "0", transform: "translate(-50%, -100%)", transition: "opacity .12s", boxShadow: "0 4px 14px rgba(0,0,0,.18)" });
+  doc.body.appendChild(tip);
+  const show = (text: string, x: number, y: number) => { if (!text) return hide(); tip.textContent = text; tip.style.left = x + "px"; tip.style.top = y - 8 + "px"; tip.style.opacity = "1"; };
+  const hide = () => { tip.style.opacity = "0"; };
+  const ease = (el: HTMLElement | SVGElement, props: string) => { const s = (el as HTMLElement).style; if (!s.transition) s.transition = props; };
+  const texts = (scope: Element) => all("p, span", scope).filter((t) => t.children.length === 0 && (t.textContent || "").trim());
+  const NUM = /^([^\d\-+.]*)([-+]?[\d,]*\.?\d+)\s*([kKmMbB%]?)([^\d]*)$/;
+  // value axis: numeric labels along one edge of the chart, used to read a mark's value from its position
+  const axis = (scope: Element, vertical: boolean) => {
+    const pts: { v: number; p: number; pre: string; suf: string; dec: number }[] = [];
+    for (const t of texts(scope)) {
+      const m = (t.textContent || "").trim().match(NUM);
+      if (!m) continue;
+      const mult = { k: 1e3, K: 1e3, m: 1e6, M: 1e6, b: 1e9, B: 1e9 }[m[3] as "k"] || 1;
+      const r = box(t);
+      pts.push({ v: parseFloat(m[2].replace(/,/g, "")) * mult, p: vertical ? r.top + r.height / 2 : r.left + r.width / 2, pre: m[1], suf: m[3] + m[4], dec: (m[2].split(".")[1] || "").length });
+    }
+    const uniq = pts.filter((a, i) => pts.findIndex((b) => Math.abs(b.p - a.p) < 2) === i);
+    if (uniq.length < 2) return null;
+    uniq.sort((a, b) => a.p - b.p);
+    const a = uniq[0], b = uniq[uniq.length - 1];
+    if (a.v === b.v || Math.abs(b.p - a.p) < 10) return null;
+    return (pos: number) => {
+      const v = a.v + ((pos - a.p) * (b.v - a.v)) / (b.p - a.p);
+      const suf = a.suf || b.suf, pre = a.pre || b.pre;
+      const div = /^[kK]/.test(suf) ? 1e3 : /^[mM]/.test(suf) ? 1e6 : /^[bB]/.test(suf) ? 1e9 : 1;
+      const x = v / div;
+      const dec = Math.max(a.dec, b.dec, div > 1 && Math.abs(x) < 100 ? 1 : 0);
+      return pre + x.toLocaleString("en-US", { minimumFractionDigits: 0, maximumFractionDigits: dec }) + suf;
+    };
+  };
+  // the chart around a group of marks: the nearest ancestor that also holds text labels
+  const chartOf = (el: Element) => { let c: Element | null = el.parentElement; while (c && c !== root.parentElement) { if (texts(c).length >= 3) return c; c = c.parentElement; } return root; };
+  const labelNear = (scope: Element, x: number, y: number, below: boolean) => {
+    let best = "", d = 1e9;
+    for (const t of texts(scope)) {
+      const r = box(t);
+      if (below ? r.top < y - 2 : r.right > x + 2) continue;
+      if (NUM.test((t.textContent || "").trim()) && !/[a-z]{3}/i.test(t.textContent || "")) continue;
+      const dd = below ? Math.abs(r.left + r.width / 2 - x) + (r.top - y) * 0.2 : Math.abs(r.top + r.height / 2 - y) + (x - r.right) * 0.1;
+      if (dd < d) { d = dd; best = (t.textContent || "").trim(); }
+    }
+    return d < 80 ? best : "";
+  };
+  const dim = (els: (HTMLElement | SVGElement)[], keep: (HTMLElement | SVGElement)[]) => { for (const e of els) { ease(e, "opacity .15s"); (e as HTMLElement).style.opacity = keep.includes(e) ? "" : "0.35"; } };
+  const undim = (els: (HTMLElement | SVGElement)[]) => { for (const e of els) (e as HTMLElement).style.opacity = ""; };
+
+  // vertical bars: the hovered column (all stacked segments at that x) stays, the rest fade
+  const groups = new Map<Element, HTMLElement[]>();
+  for (const b of all("[data-fu=bar],[data-fu=hbar]")) { const p = b.parentElement!; if (!groups.has(p)) groups.set(p, []); groups.get(p)!.push(b); }
+  groups.forEach((bars) => {
+    const horiz = bars[0].dataset.fu === "hbar";
+    const scope = chartOf(bars[0]);
+    const val = axis(scope, !horiz);
+    const peers = (b: HTMLElement) => { const r = box(b), c = horiz ? r.top + r.height / 2 : r.left + r.width / 2; return bars.filter((o) => { const q = box(o); return Math.abs((horiz ? q.top + q.height / 2 : q.left + q.width / 2) - c) < Math.max(2, (horiz ? r.height : r.width) / 2); }); };
+    for (const b of bars) {
+      b.addEventListener("mouseenter", () => {
+        const col = peers(b);
+        dim(bars, col);
+        const rs = col.map(box);
+        const top = Math.min(...rs.map((r) => r.top)), right = Math.max(...rs.map((r) => r.right)), r0 = rs[0];
+        const label = horiz ? labelNear(scope, r0.left, r0.top + r0.height / 2, false) : labelNear(scope, r0.left + r0.width / 2, Math.max(...rs.map((r) => r.bottom)), true);
+        const v = val ? val(horiz ? right : top) : "";
+        show([label, v].filter(Boolean).join(" · "), horiz ? right : r0.left + r0.width / 2, horiz ? r0.top : top);
+      });
+      b.addEventListener("mouseleave", () => { undim(bars); hide(); });
+    }
+  });
+
+  // line and area plots: a guide line and a dot follow the pointer along the top edge of the plotted shape
+  for (const svg of all("svg[data-fu=plot]") as unknown as SVGSVGElement[]) {
+    const paths = Array.from(svg.querySelectorAll("path, polyline")) as SVGGeometryElement[];
+    if (!paths.length) continue;
+    const line = paths.reduce((a, b) => (b.getTotalLength() > a.getTotalLength() ? b : a));
+    const len = line.getTotalLength();
+    const pts: { x: number; y: number }[] = [];
+    for (let i = 0; i <= 800; i++) { const q = line.getPointAtLength((len * i) / 800); pts.push({ x: q.x, y: q.y }); }
+    const xs = pts.map((q) => q.x), minX = Math.min(...xs), maxX = Math.max(...xs);
+    const color = (line.getAttribute("stroke") && line.getAttribute("stroke") !== "none" ? line.getAttribute("stroke") : line.getAttribute("fill")) || "#111";
+    const NS = "http://www.w3.org/2000/svg";
+    const g = doc.createElementNS(NS, "g");
+    g.setAttribute("pointer-events", "none");
+    g.style.opacity = "0";
+    const guide = doc.createElementNS(NS, "line");
+    guide.setAttribute("stroke", /^url/.test(color) ? "#111" : color);
+    guide.setAttribute("stroke-dasharray", "3 3");
+    guide.setAttribute("stroke-opacity", "0.5");
+    const dot = doc.createElementNS(NS, "circle");
+    dot.setAttribute("r", "4");
+    dot.setAttribute("fill", "#fff");
+    dot.setAttribute("stroke", /^url/.test(color) ? "#111" : color);
+    dot.setAttribute("stroke-width", "2");
+    g.append(guide, dot);
+    svg.appendChild(g);
+    const scope = chartOf(svg);
+    const val = axis(scope, true);
+    const area = svg.parentElement || svg;
+    area.addEventListener("mousemove", (ev: Event) => {
+      const e = ev as MouseEvent;
+      const m = line.getScreenCTM();
+      if (!m) return;
+      const px = new DOMPoint(e.clientX, e.clientY).matrixTransform(m.inverse()).x;
+      if (px < minX - 4 || px > maxX + 4) { g.style.opacity = "0"; hide(); return; }
+      const step = (maxX - minX) / 400 || 1;
+      let y = Infinity, x = px;
+      for (const q of pts) if (Math.abs(q.x - px) <= step && q.y < y) { y = q.y; x = q.x; }
+      if (y === Infinity) return;
+      const bb = line.getBBox();
+      guide.setAttribute("x1", String(x)); guide.setAttribute("x2", String(x));
+      guide.setAttribute("y1", String(bb.y)); guide.setAttribute("y2", String(bb.y + bb.height));
+      dot.setAttribute("cx", String(x)); dot.setAttribute("cy", String(y));
+      g.style.opacity = "1";
+      const sp = new DOMPoint(x, y).matrixTransform(m);
+      const label = labelNear(scope, sp.x, box(svg).bottom, true);
+      show([label, val ? val(sp.y) : ""].filter(Boolean).join(" · "), sp.x, sp.y);
+    });
+    area.addEventListener("mouseleave", () => { g.style.opacity = "0"; hide(); });
+  }
+
+  // rows: a soft highlight under the pointer
+  for (const r of all("[data-fu=row]")) {
+    r.addEventListener("mouseenter", () => { ease(r, "filter .15s"); r.style.filter = "brightness(0.975)"; });
+    r.addEventListener("mouseleave", () => { r.style.filter = ""; });
+  }
+
+  // buttons: hover and press feedback
+  for (const b of all("[data-fu=btn],[data-fu=tab]")) {
+    b.style.cursor = "pointer";
+    b.addEventListener("mouseenter", () => { ease(b, "filter .15s, transform .1s"); if (!b.dataset.fuActive) b.style.filter = "brightness(0.96)"; });
+    b.addEventListener("mouseleave", () => { b.style.filter = ""; b.style.transform = ""; });
+    b.addEventListener("mousedown", () => { b.style.transform = "scale(0.98)"; });
+    b.addEventListener("mouseup", () => { b.style.transform = ""; });
+  }
+
+  // tabs and segmented controls: clicking a tab moves the selected look onto it
+  const VIS = ["background-color", "background-image", "box-shadow", "border-color", "color", "font-weight"];
+  const look = (el: HTMLElement) => VIS.map((k) => el.style.getPropertyValue(k)).join("|");
+  const tabGroups = new Map<Element, HTMLElement[]>();
+  for (const t of all("[data-fu=tab]")) { const p = t.parentElement!; if (!tabGroups.has(p)) tabGroups.set(p, []); tabGroups.get(p)!.push(t); }
+  tabGroups.forEach((tabs) => {
+    if (tabs.length < 2) return;
+    const counts = new Map<string, number>();
+    for (const t of tabs) counts.set(look(t), (counts.get(look(t)) || 0) + 1);
+    let active = tabs.find((t) => counts.get(look(t)) === 1 && counts.size > 1) || null;
+    if (!active) return;
+    active.dataset.fuActive = "1";
+    // read both looks first, then write: swapping one property at a time would let shorthands undo each other
+    const swapStyle = (a: HTMLElement, b: HTMLElement, props: string[]) => {
+      const va = props.map((k) => a.style.getPropertyValue(k)), vb = props.map((k) => b.style.getPropertyValue(k));
+      props.forEach((k, i) => { a.style.setProperty(k, vb[i]); b.style.setProperty(k, va[i]); });
+    };
+    const swap = (a: HTMLElement, b: HTMLElement) => {
+      swapStyle(a, b, VIS);
+      const ta = texts(a), tb = texts(b);
+      for (let i = 0; i < Math.min(ta.length, tb.length); i++) swapStyle(ta[i], tb[i], ["color", "font-weight"]);
+    };
+    for (const t of tabs) t.addEventListener("click", () => {
+      if (!active || t === active) return;
+      t.style.filter = "";
+      swap(active, t);
+      delete active.dataset.fuActive;
+      active = t;
+      t.dataset.fuActive = "1";
+    });
+  });
 }

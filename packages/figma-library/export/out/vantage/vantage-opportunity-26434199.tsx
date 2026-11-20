@@ -1,6 +1,6 @@
-// Opportunity (vantage, Cards and panels) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Foundry Icons.
-import { Bulb } from "foundryui-icons/react/stroke-rounded";
+// Opportunity (vantage, Cards and panels) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
+import { Bulb } from "ingotui-icons/react/stroke-rounded";
 
 export function Opportunity() {
   return (

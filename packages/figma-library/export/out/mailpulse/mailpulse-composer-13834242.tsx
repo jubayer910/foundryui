@@ -1,6 +1,6 @@
-// Composer (mailpulse, Cards and panels) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Foundry Icons.
-import { Paperclip as PaperclipBulk, Send as SendBulk } from "foundryui-icons/react/bulk";
+// Composer (mailpulse, Cards and panels) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
+import { Paperclip as PaperclipBulk, Send as SendBulk } from "ingotui-icons/react/bulk";
 
 export function Composer() {
   return (

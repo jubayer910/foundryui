@@ -1,5 +1,5 @@
-// Unauth row (veriq, Cards and panels) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist Mono, Geist. Icons: Foundry Icons.
+// Unauth row (veriq, Cards and panels) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist Mono, Geist. Icons: Ingot Icons.
 export function UnauthRow() {
   return (
     <div style={{ width: "155px", height: "41px", display: "flex", flexDirection: "column", gap: "5px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>

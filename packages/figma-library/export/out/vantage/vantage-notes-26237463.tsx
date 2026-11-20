@@ -1,5 +1,5 @@
-// Notes (vantage, Cards and panels) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Foundry Icons.
+// Notes (vantage, Cards and panels) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
 export function Notes() {
   return (
     <div style={{ width: "440px", height: "187px", boxShadow: "inset 0 -1px 0 0 #262626", display: "flex", flexDirection: "column", padding: "16px 16px 17px 16px", gap: "12px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>

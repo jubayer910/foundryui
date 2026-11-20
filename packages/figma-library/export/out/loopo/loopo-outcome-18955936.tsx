@@ -1,5 +1,5 @@
-// Outcome (loopo, Cards and panels) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Foundry Icons.
+// Outcome (loopo, Cards and panels) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
 export function Outcome() {
   return (
     <div style={{ width: "407.6px", height: "49.7px", display: "flex", flexDirection: "column", padding: "6.6px 11px 6.6px 11px", gap: "6.6px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>

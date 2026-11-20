@@ -1,5 +1,5 @@
-// Header row (veriq, Headers) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Inter. Icons: Foundry Icons.
+// Header row (veriq, Headers) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Inter. Icons: Ingot Icons.
 export function HeaderRow() {
   return (
     <div style={{ width: "1074px", height: "32px", boxShadow: "inset 0 -1px 0 0 #ebebeb", display: "flex", flexDirection: "row", padding: "0px 0px 1px 0px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>

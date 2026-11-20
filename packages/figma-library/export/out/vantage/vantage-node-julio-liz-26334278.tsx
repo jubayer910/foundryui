@@ -1,5 +1,5 @@
-// Node, Julio & Liz (vantage, Forms) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Foundry Icons.
+// Node, Julio & Liz (vantage, Forms) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
 export function NodeJulioLiz() {
   return (
     <div style={{ width: "296px", height: "60px", borderRadius: "10px", background: "#262626", boxShadow: "inset 0 0 0 1px rgba(123, 91, 255, 0.55), 0px 0px 4.6px 0px rgba(0, 0, 0, 0.5), 0px 0px 0px 3px rgba(123, 91, 255, 0.22)", display: "flex", flexDirection: "row", padding: "9px 13px 9px 9px", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>

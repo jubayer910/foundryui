@@ -1,6 +1,6 @@
-// Nav item Sending domain (mailpulse, Cards and panels) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Foundry Icons.
-import { World as WorldBulk } from "foundryui-icons/react/bulk";
+// Nav item Sending domain (mailpulse, Cards and panels) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
+import { World as WorldBulk } from "ingotui-icons/react/bulk";
 
 export function NavItemSendingDomain() {
   return (

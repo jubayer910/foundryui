@@ -1,6 +1,6 @@
-// Code scan menu (veriq, Menus) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Foundry Icons.
-import { Brain, Check, Code, Stack2 } from "foundryui-icons/react/stroke-rounded";
+// Code scan menu (veriq, Menus) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
+import { Brain, Check, Code, Stack2 } from "ingotui-icons/react/stroke-rounded";
 
 export function CodeScanMenu() {
   return (

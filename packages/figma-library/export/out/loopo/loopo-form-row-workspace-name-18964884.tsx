@@ -1,5 +1,5 @@
-// Form row, Workspace name (loopo, Forms) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Foundry Icons.
+// Form row, Workspace name (loopo, Forms) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
 export function FormRowWorkspaceName() {
   return (
     <div style={{ width: "914.9px", height: "102.8px", display: "flex", flexDirection: "row", padding: "19.7px 0px 19.7px 0px", gap: "26.3px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>

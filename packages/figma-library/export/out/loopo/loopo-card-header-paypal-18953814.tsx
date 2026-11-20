@@ -1,5 +1,5 @@
-// Card header, PayPal (loopo, Headers) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Foundry Icons.
+// Card header, PayPal (loopo, Headers) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
 export function CardHeaderPayPal() {
   return (
     <div style={{ width: "390.5px", height: "39.2px", display: "flex", flexDirection: "row", padding: "0px 6.6px 0px 6.6px", gap: "11px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>

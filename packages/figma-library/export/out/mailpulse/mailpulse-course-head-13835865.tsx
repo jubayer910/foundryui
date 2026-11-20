@@ -1,5 +1,5 @@
-// Course head (mailpulse, Headers) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Foundry Icons.
+// Course head (mailpulse, Headers) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
 export function CourseHead() {
   return (
     <div style={{ width: "336.31px", height: "78.41px", display: "flex", flexDirection: "column", padding: "0px 9.14px 0px 9.14px", gap: "12.79px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>

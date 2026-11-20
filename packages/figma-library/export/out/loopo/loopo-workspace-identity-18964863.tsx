@@ -1,5 +1,5 @@
-// Workspace identity (loopo, Cards and panels) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Foundry Icons.
+// Workspace identity (loopo, Cards and panels) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
 export function WorkspaceIdentity() {
   return (
     <div style={{ width: "241px", height: "61.2px", borderRadius: "11px", background: "#ffffff", boxShadow: "inset 0 0 0 1.1px #eeeeee", display: "flex", flexDirection: "row", padding: "12.1px 12.1px 12.1px 12.1px", gap: "11px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>

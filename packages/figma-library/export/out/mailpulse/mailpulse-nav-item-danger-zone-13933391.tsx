@@ -1,6 +1,6 @@
-// Nav item Danger zone (mailpulse, Cards and panels) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Foundry Icons.
-import { AlertTriangle as AlertTriangleBulk } from "foundryui-icons/react/bulk";
+// Nav item Danger zone (mailpulse, Cards and panels) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
+import { AlertTriangle as AlertTriangleBulk } from "ingotui-icons/react/bulk";
 
 export function NavItemDangerZone() {
   return (

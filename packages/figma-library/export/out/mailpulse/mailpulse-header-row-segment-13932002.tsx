@@ -1,5 +1,5 @@
-// Header row, Segment (mailpulse, Headers) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Foundry Icons.
+// Header row, Segment (mailpulse, Headers) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
 export function HeaderRowSegment() {
   return (
     <div style={{ width: "1072.9px", height: "45.7px", background: "#fafafa", boxShadow: "inset 0 0.9px 0 0 #ededed, inset 0 -0.9px 0 0 #ededed", display: "flex", flexDirection: "row", padding: "0.9px 0px 0.9px 0px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>

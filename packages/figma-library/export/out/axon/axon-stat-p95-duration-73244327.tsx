@@ -1,5 +1,5 @@
-// Stat p95 duration (axon, KPI and stats) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Foundry Icons.
+// Stat p95 duration (axon, KPI and stats) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
 export function StatP95Duration() {
   return (
     <div style={{ width: "278.25px", height: "77px", borderRadius: "12px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #ededed", display: "flex", flexDirection: "row", padding: "15px 17px 15px 17px", gap: "12px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>

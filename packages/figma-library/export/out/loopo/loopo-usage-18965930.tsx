@@ -1,5 +1,5 @@
-// Usage (loopo, Cards and panels) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Foundry Icons.
+// Usage (loopo, Cards and panels) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
 export function Usage() {
   return (
     <div style={{ width: "514px", height: "168px", display: "flex", flexDirection: "column", gap: "15.3px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>

@@ -1,6 +1,6 @@
-// Nav item General (mailpulse, Cards and panels) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Foundry Icons.
-import { Settings as SettingsBulk } from "foundryui-icons/react/bulk";
+// Nav item General (mailpulse, Cards and panels) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
+import { Settings as SettingsBulk } from "ingotui-icons/react/bulk";
 
 export function NavItemGeneral() {
   return (

@@ -1,5 +1,5 @@
-// Stats, People (vantage, KPI and stats) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Foundry Icons.
+// Stats, People (vantage, KPI and stats) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
 export function StatsPeople() {
   return (
     <div style={{ width: "292px", height: "176px", display: "flex", flexDirection: "column", padding: "14px 14px 14px 14px", gap: "14px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>

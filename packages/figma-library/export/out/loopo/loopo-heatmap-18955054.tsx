@@ -1,5 +1,5 @@
-// Heatmap (loopo, Charts) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Foundry Icons.
+// Heatmap (loopo, Charts) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
 export function Heatmap() {
   return (
     <div style={{ width: "808.6px", height: "271.5px", position: "relative" }}>

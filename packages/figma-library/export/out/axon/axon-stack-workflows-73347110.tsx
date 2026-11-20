@@ -1,5 +1,5 @@
-// Stack, Workflows (axon, Cards and panels) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist, Geist Mono. Icons: Foundry Icons.
+// Stack, Workflows (axon, Cards and panels) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist, Geist Mono. Icons: Ingot Icons.
 export function StackWorkflows() {
   return (
     <div style={{ width: "318px", height: "100px", display: "flex", flexDirection: "column", padding: "10px 16px 10px 16px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>

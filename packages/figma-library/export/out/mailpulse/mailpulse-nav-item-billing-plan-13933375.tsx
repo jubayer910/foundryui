@@ -1,6 +1,6 @@
-// Nav item Billing & plan (mailpulse, Cards and panels) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Foundry Icons.
-import { CreditCard as CreditCardBulk } from "foundryui-icons/react/bulk";
+// Nav item Billing & plan (mailpulse, Cards and panels) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
+import { CreditCard as CreditCardBulk } from "ingotui-icons/react/bulk";
 
 export function NavItemBillingPlan() {
   return (

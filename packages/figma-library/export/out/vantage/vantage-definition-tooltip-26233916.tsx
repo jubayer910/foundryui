@@ -1,5 +1,5 @@
-// Definition tooltip (vantage, Popovers) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Foundry Icons.
+// Definition tooltip (vantage, Popovers) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
 export function DefinitionTooltip() {
   return (
     <div style={{ width: "248px", height: "107.74px", borderRadius: "7px", background: "#000000", boxShadow: "inset 0 0 0 0.87px #3a3a3a, 0px 10.5px 48.13px 0px rgba(123, 91, 255, 0.1)", display: "flex", flexDirection: "column", padding: "9.87px 10.87px 9.87px 10.87px", gap: "5px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>

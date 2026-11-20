@@ -1,5 +1,5 @@
-// Metric selector (mailpulse, KPI and stats) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Foundry Icons.
+// Metric selector (mailpulse, KPI and stats) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
 export function MetricSelector() {
   return (
     <div style={{ width: "1072.9px", height: "98.7px", boxShadow: "inset 0 -0.9px 0 0 #eeeeee", display: "flex", flexDirection: "row", padding: "12.8px 16.5px 13.7px 16.5px", gap: "9.1px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>

@@ -1,5 +1,5 @@
-// Settings group Brand (mailpulse, Forms) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist, Geist Mono. Icons: Foundry Icons.
+// Settings group Brand (mailpulse, Forms) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist, Geist Mono. Icons: Ingot Icons.
 export function SettingsGroupBrand() {
   return (
     <div style={{ width: "814.3px", height: "146px", display: "flex", flexDirection: "row", gap: "36.6px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>

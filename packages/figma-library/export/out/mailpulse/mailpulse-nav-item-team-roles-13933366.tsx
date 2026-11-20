@@ -1,6 +1,6 @@
-// Nav item Team & roles (mailpulse, Cards and panels) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Foundry Icons.
-import { Users as UsersBulk } from "foundryui-icons/react/bulk";
+// Nav item Team & roles (mailpulse, Cards and panels) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
+import { Users as UsersBulk } from "ingotui-icons/react/bulk";
 
 export function NavItemTeamRoles() {
   return (

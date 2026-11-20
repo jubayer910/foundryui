@@ -1,5 +1,5 @@
-// 120 chart, 120 (mailpulse, Charts) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Foundry Icons.
+// 120 chart, 120 (mailpulse, Charts) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
 export function Component120Chart120() {
   return (
     <div style={{ width: "685.39px", height: "215.64px", display: "flex", flexDirection: "row", gap: "10.97px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>

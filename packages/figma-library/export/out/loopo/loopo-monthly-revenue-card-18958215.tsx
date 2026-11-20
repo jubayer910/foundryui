@@ -1,10 +1,24 @@
-// Monthly revenue card (loopo, Charts) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Foundry Icons.
-import { Calendar, ChevronDown } from "foundryui-icons/react/stroke-rounded";
+"use client";
+// Monthly revenue card (loopo, Charts) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
+import { useEffect, useRef } from "react";
+import type { SVGProps } from "react";
+
+// Ingot Icons used here, inlined so this file needs no icon package.
+function icon(body: string) {
+  return function Icon({ size = 24, strokeWidth = 1.5, ...p }: { size?: number; strokeWidth?: number } & SVGProps<SVGSVGElement>) {
+    const html = strokeWidth == 1.5 ? body : body.replace(/stroke-width="([\d.]+)"/g, (_, w) => `stroke-width="${(Number(w) * Number(strokeWidth)) / 1.5}"`);
+    return <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden {...p} dangerouslySetInnerHTML={{ __html: html }} />;
+  };
+}
+const Calendar = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12\" /><path d=\"M16 3v4\" /><path d=\"M8 3v4\" /><path d=\"M4 11h16\" /></g>");
+const ChevronDown = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M6 9l6 6l6 -6\" /></g>");
 
 export function MonthlyRevenueCard() {
+  const fuRef = useRef<any>(null);
+  useEffect(() => fuInteract(fuRef.current), []);
   return (
-    <div style={{ width: "852.4px", height: "380.19px", borderRadius: "24.1px", background: "#fefefe", boxShadow: "inset 0 0 0 1.1px #eaeaea", overflow: "hidden", display: "flex", flexDirection: "column", padding: "23.01px 23.01px 23.01px 23.01px", gap: "17.53px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+    <div ref={fuRef} style={{ width: "852.4px", height: "380.19px", borderRadius: "24.1px", background: "#fefefe", boxShadow: "inset 0 0 0 1.1px #eaeaea", overflow: "hidden", display: "flex", flexDirection: "column", padding: "23.01px 23.01px 23.01px 23.01px", gap: "17.53px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
       <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "flex-start", boxSizing: "border-box" }}>
         <div style={{ flexShrink: 0, display: "flex", flexDirection: "column", gap: "4.38px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
           <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "17.53px", fontWeight: 500, color: "#141417", lineHeight: "1.5" }}>Monthly revenue</p>
@@ -24,7 +38,7 @@ export function MonthlyRevenueCard() {
             </div>
           </div>
         </div>
-        <div style={{ height: "35.06px", flexShrink: 0, borderRadius: "8.77px", background: "#ffffff", boxShadow: "inset 0 0 0 1.1px #e8e8e8", display: "flex", flexDirection: "row", padding: "8.77px 8.77px 8.77px 8.77px", gap: "6.57px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
+        <div data-fu="btn" style={{ height: "35.06px", flexShrink: 0, borderRadius: "8.77px", background: "#ffffff", boxShadow: "inset 0 0 0 1.1px #e8e8e8", display: "flex", flexDirection: "row", padding: "8.77px 8.77px 8.77px 8.77px", gap: "6.57px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
           <Calendar size={19.7} style={{ width: "19.72px", height: "19.72px", flexShrink: 0, color: "#8b8b8b", display: "block" }} />
           <p style={{ flexShrink: 0, margin: 0, textAlign: "center", whiteSpace: "pre", lineHeight: "17px", fontFamily: "'Geist'", fontSize: "13.15px", fontWeight: 400, color: "#6c6c6c" }}>2026</p>
           <ChevronDown size={15.3} strokeWidth={2.35} style={{ width: "15.34px", height: "15.34px", flexShrink: 0, color: "#6c6c6c", display: "block" }} />
@@ -42,55 +56,55 @@ export function MonthlyRevenueCard() {
         <div style={{ position: "absolute", left: "48.21px", top: "239.01px", width: "760.37px", height: "1px", background: "#e2e2e5" }} />
         <p style={{ position: "absolute", left: "30.44px", top: "231.01px", margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "17px", fontFamily: "'Geist'", fontSize: "13.15px", fontWeight: 400, color: "#8b8b91" }}>0</p>
         <svg style={{ position: "absolute", left: "79.89px", top: "8.77px", width: "0px", height: "230.74px", display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="1" height="230.74" viewBox="0 0 1 230.74" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M 0 0 L 0 230.74000549316406" fill="none" stroke="#ececee" strokeWidth="1" strokeDasharray="3.2899999618530273 3.2899999618530273" strokeLinecap="butt"/></svg>
-        <div style={{ position: "absolute", left: "65.65px", top: "197.34px", width: "28.49px", height: "42.17px", borderRadius: "4.38px", background: "linear-gradient(180deg, #fd6240 0%, #fd4b23 100%)", boxShadow: "inset 0 0 0 1px rgba(197, 59, 27, 0.38), inset 0px 1.1px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 6.57px 0px rgba(255, 255, 255, 0.18), 0px 1.1px 1.64px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
-        <div style={{ position: "absolute", left: "65.65px", top: "164.81px", width: "28.49px", height: "30.12px", borderRadius: "4.38px", background: "linear-gradient(180deg, #ff84b6 0%, #ff72ab 100%)", boxShadow: "inset 0 0 0 1px rgba(199, 89, 133, 0.38), inset 0px 1.1px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 6.57px 0px rgba(255, 255, 255, 0.18), 0px 1.1px 1.64px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
-        <div style={{ position: "absolute", left: "65.65px", top: "143.93px", width: "28.49px", height: "18.47px", borderRadius: "4.38px", background: "linear-gradient(180deg, #64a5fe 0%, #4d98fe 100%)", boxShadow: "inset 0 0 0 1px rgba(60, 119, 198, 0.38), inset 0px 1.1px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 6.57px 0px rgba(255, 255, 255, 0.18), 0px 1.1px 1.64px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+        <div data-fu="bar" style={{ position: "absolute", left: "65.65px", top: "197.34px", width: "28.49px", height: "42.17px", borderRadius: "4.38px", background: "linear-gradient(180deg, #fd6240 0%, #fd4b23 100%)", boxShadow: "inset 0 0 0 1px rgba(197, 59, 27, 0.38), inset 0px 1.1px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 6.57px 0px rgba(255, 255, 255, 0.18), 0px 1.1px 1.64px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+        <div data-fu="bar" style={{ position: "absolute", left: "65.65px", top: "164.81px", width: "28.49px", height: "30.12px", borderRadius: "4.38px", background: "linear-gradient(180deg, #ff84b6 0%, #ff72ab 100%)", boxShadow: "inset 0 0 0 1px rgba(199, 89, 133, 0.38), inset 0px 1.1px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 6.57px 0px rgba(255, 255, 255, 0.18), 0px 1.1px 1.64px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+        <div data-fu="bar" style={{ position: "absolute", left: "65.65px", top: "143.93px", width: "28.49px", height: "18.47px", borderRadius: "4.38px", background: "linear-gradient(180deg, #64a5fe 0%, #4d98fe 100%)", boxShadow: "inset 0 0 0 1px rgba(60, 119, 198, 0.38), inset 0px 1.1px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 6.57px 0px rgba(255, 255, 255, 0.18), 0px 1.1px 1.64px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
         <svg style={{ position: "absolute", left: "143.26px", top: "8.77px", width: "0px", height: "230.74px", display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="1" height="230.74" viewBox="0 0 1 230.74" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M 0 0 L 0 230.74000549316406" fill="none" stroke="#ececee" strokeWidth="1" strokeDasharray="3.2899999618530273 3.2899999618530273" strokeLinecap="butt"/></svg>
-        <div style={{ position: "absolute", left: "129.01px", top: "199.48px", width: "28.49px", height: "40.03px", borderRadius: "4.38px", background: "linear-gradient(180deg, #fd6240 0%, #fd4b23 100%)", boxShadow: "inset 0 0 0 1px rgba(197, 59, 27, 0.38), inset 0px 1.1px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 6.57px 0px rgba(255, 255, 255, 0.18), 0px 1.1px 1.64px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
-        <div style={{ position: "absolute", left: "129.01px", top: "165.9px", width: "28.49px", height: "31.16px", borderRadius: "4.38px", background: "linear-gradient(180deg, #ff84b6 0%, #ff72ab 100%)", boxShadow: "inset 0 0 0 1px rgba(199, 89, 133, 0.38), inset 0px 1.1px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 6.57px 0px rgba(255, 255, 255, 0.18), 0px 1.1px 1.64px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
-        <div style={{ position: "absolute", left: "129.01px", top: "146.06px", width: "28.49px", height: "17.43px", borderRadius: "4.38px", background: "linear-gradient(180deg, #64a5fe 0%, #4d98fe 100%)", boxShadow: "inset 0 0 0 1px rgba(60, 119, 198, 0.38), inset 0px 1.1px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 6.57px 0px rgba(255, 255, 255, 0.18), 0px 1.1px 1.64px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+        <div data-fu="bar" style={{ position: "absolute", left: "129.01px", top: "199.48px", width: "28.49px", height: "40.03px", borderRadius: "4.38px", background: "linear-gradient(180deg, #fd6240 0%, #fd4b23 100%)", boxShadow: "inset 0 0 0 1px rgba(197, 59, 27, 0.38), inset 0px 1.1px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 6.57px 0px rgba(255, 255, 255, 0.18), 0px 1.1px 1.64px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+        <div data-fu="bar" style={{ position: "absolute", left: "129.01px", top: "165.9px", width: "28.49px", height: "31.16px", borderRadius: "4.38px", background: "linear-gradient(180deg, #ff84b6 0%, #ff72ab 100%)", boxShadow: "inset 0 0 0 1px rgba(199, 89, 133, 0.38), inset 0px 1.1px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 6.57px 0px rgba(255, 255, 255, 0.18), 0px 1.1px 1.64px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+        <div data-fu="bar" style={{ position: "absolute", left: "129.01px", top: "146.06px", width: "28.49px", height: "17.43px", borderRadius: "4.38px", background: "linear-gradient(180deg, #64a5fe 0%, #4d98fe 100%)", boxShadow: "inset 0 0 0 1px rgba(60, 119, 198, 0.38), inset 0px 1.1px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 6.57px 0px rgba(255, 255, 255, 0.18), 0px 1.1px 1.64px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
         <svg style={{ position: "absolute", left: "206.62px", top: "8.77px", width: "0px", height: "230.74px", display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="1" height="230.74" viewBox="0 0 1 230.74" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M 0 0 L 0 230.74000549316406" fill="none" stroke="#ececee" strokeWidth="1" strokeDasharray="3.2899999618530273 3.2899999618530273" strokeLinecap="butt"/></svg>
-        <div style={{ position: "absolute", left: "192.38px", top: "192.67px", width: "28.49px", height: "46.84px", borderRadius: "4.38px", background: "linear-gradient(180deg, #fd6240 0%, #fd4b23 100%)", boxShadow: "inset 0 0 0 1px rgba(197, 59, 27, 0.38), inset 0px 1.1px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 6.57px 0px rgba(255, 255, 255, 0.18), 0px 1.1px 1.64px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
-        <div style={{ position: "absolute", left: "192.38px", top: "157.54px", width: "28.49px", height: "32.72px", borderRadius: "4.38px", background: "linear-gradient(180deg, #ff84b6 0%, #ff72ab 100%)", boxShadow: "inset 0 0 0 1px rgba(199, 89, 133, 0.38), inset 0px 1.1px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 6.57px 0px rgba(255, 255, 255, 0.18), 0px 1.1px 1.64px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
-        <div style={{ position: "absolute", left: "192.38px", top: "134.58px", width: "28.49px", height: "20.55px", borderRadius: "4.38px", background: "linear-gradient(180deg, #64a5fe 0%, #4d98fe 100%)", boxShadow: "inset 0 0 0 1px rgba(60, 119, 198, 0.38), inset 0px 1.1px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 6.57px 0px rgba(255, 255, 255, 0.18), 0px 1.1px 1.64px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+        <div data-fu="bar" style={{ position: "absolute", left: "192.38px", top: "192.67px", width: "28.49px", height: "46.84px", borderRadius: "4.38px", background: "linear-gradient(180deg, #fd6240 0%, #fd4b23 100%)", boxShadow: "inset 0 0 0 1px rgba(197, 59, 27, 0.38), inset 0px 1.1px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 6.57px 0px rgba(255, 255, 255, 0.18), 0px 1.1px 1.64px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+        <div data-fu="bar" style={{ position: "absolute", left: "192.38px", top: "157.54px", width: "28.49px", height: "32.72px", borderRadius: "4.38px", background: "linear-gradient(180deg, #ff84b6 0%, #ff72ab 100%)", boxShadow: "inset 0 0 0 1px rgba(199, 89, 133, 0.38), inset 0px 1.1px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 6.57px 0px rgba(255, 255, 255, 0.18), 0px 1.1px 1.64px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+        <div data-fu="bar" style={{ position: "absolute", left: "192.38px", top: "134.58px", width: "28.49px", height: "20.55px", borderRadius: "4.38px", background: "linear-gradient(180deg, #64a5fe 0%, #4d98fe 100%)", boxShadow: "inset 0 0 0 1px rgba(60, 119, 198, 0.38), inset 0px 1.1px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 6.57px 0px rgba(255, 255, 255, 0.18), 0px 1.1px 1.64px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
         <svg style={{ position: "absolute", left: "269.98px", top: "8.77px", width: "0px", height: "230.74px", display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="1" height="230.74" viewBox="0 0 1 230.74" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M 0 0 L 0 230.74000549316406" fill="none" stroke="#ececee" strokeWidth="1" strokeDasharray="3.2899999618530273 3.2899999618530273" strokeLinecap="butt"/></svg>
-        <div style={{ position: "absolute", left: "255.74px", top: "189.47px", width: "28.49px", height: "50.04px", borderRadius: "4.38px", background: "linear-gradient(180deg, #fd6240 0%, #fd4b23 100%)", boxShadow: "inset 0 0 0 1px rgba(197, 59, 27, 0.38), inset 0px 1.1px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 6.57px 0px rgba(255, 255, 255, 0.18), 0px 1.1px 1.64px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
-        <div style={{ position: "absolute", left: "255.74px", top: "153.1px", width: "28.49px", height: "33.96px", borderRadius: "4.38px", background: "linear-gradient(180deg, #ff84b6 0%, #ff72ab 100%)", boxShadow: "inset 0 0 0 1px rgba(199, 89, 133, 0.38), inset 0px 1.1px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 6.57px 0px rgba(255, 255, 255, 0.18), 0px 1.1px 1.64px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
-        <div style={{ position: "absolute", left: "255.74px", top: "128.52px", width: "28.49px", height: "22.16px", borderRadius: "4.38px", background: "linear-gradient(180deg, #64a5fe 0%, #4d98fe 100%)", boxShadow: "inset 0 0 0 1px rgba(60, 119, 198, 0.38), inset 0px 1.1px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 6.57px 0px rgba(255, 255, 255, 0.18), 0px 1.1px 1.64px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+        <div data-fu="bar" style={{ position: "absolute", left: "255.74px", top: "189.47px", width: "28.49px", height: "50.04px", borderRadius: "4.38px", background: "linear-gradient(180deg, #fd6240 0%, #fd4b23 100%)", boxShadow: "inset 0 0 0 1px rgba(197, 59, 27, 0.38), inset 0px 1.1px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 6.57px 0px rgba(255, 255, 255, 0.18), 0px 1.1px 1.64px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+        <div data-fu="bar" style={{ position: "absolute", left: "255.74px", top: "153.1px", width: "28.49px", height: "33.96px", borderRadius: "4.38px", background: "linear-gradient(180deg, #ff84b6 0%, #ff72ab 100%)", boxShadow: "inset 0 0 0 1px rgba(199, 89, 133, 0.38), inset 0px 1.1px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 6.57px 0px rgba(255, 255, 255, 0.18), 0px 1.1px 1.64px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+        <div data-fu="bar" style={{ position: "absolute", left: "255.74px", top: "128.52px", width: "28.49px", height: "22.16px", borderRadius: "4.38px", background: "linear-gradient(180deg, #64a5fe 0%, #4d98fe 100%)", boxShadow: "inset 0 0 0 1px rgba(60, 119, 198, 0.38), inset 0px 1.1px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 6.57px 0px rgba(255, 255, 255, 0.18), 0px 1.1px 1.64px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
         <svg style={{ position: "absolute", left: "333.35px", top: "8.77px", width: "0px", height: "230.74px", display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="1" height="230.74" viewBox="0 0 1 230.74" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M 0 0 L 0 230.74000549316406" fill="none" stroke="#ececee" strokeWidth="1" strokeDasharray="3.2899999618530273 3.2899999618530273" strokeLinecap="butt"/></svg>
-        <div style={{ position: "absolute", left: "319.1px", top: "184.82px", width: "28.49px", height: "54.69px", borderRadius: "4.38px", background: "linear-gradient(180deg, #fd6240 0%, #fd4b23 100%)", boxShadow: "inset 0 0 0 1px rgba(197, 59, 27, 0.38), inset 0px 1.1px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 6.57px 0px rgba(255, 255, 255, 0.18), 0px 1.1px 1.64px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
-        <div style={{ position: "absolute", left: "319.1px", top: "147.27px", width: "28.49px", height: "35.14px", borderRadius: "4.38px", background: "linear-gradient(180deg, #ff84b6 0%, #ff72ab 100%)", boxShadow: "inset 0 0 0 1px rgba(199, 89, 133, 0.38), inset 0px 1.1px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 6.57px 0px rgba(255, 255, 255, 0.18), 0px 1.1px 1.64px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
-        <div style={{ position: "absolute", left: "319.1px", top: "120.42px", width: "28.49px", height: "24.44px", borderRadius: "4.38px", background: "linear-gradient(180deg, #64a5fe 0%, #4d98fe 100%)", boxShadow: "inset 0 0 0 1px rgba(60, 119, 198, 0.38), inset 0px 1.1px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 6.57px 0px rgba(255, 255, 255, 0.18), 0px 1.1px 1.64px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+        <div data-fu="bar" style={{ position: "absolute", left: "319.1px", top: "184.82px", width: "28.49px", height: "54.69px", borderRadius: "4.38px", background: "linear-gradient(180deg, #fd6240 0%, #fd4b23 100%)", boxShadow: "inset 0 0 0 1px rgba(197, 59, 27, 0.38), inset 0px 1.1px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 6.57px 0px rgba(255, 255, 255, 0.18), 0px 1.1px 1.64px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+        <div data-fu="bar" style={{ position: "absolute", left: "319.1px", top: "147.27px", width: "28.49px", height: "35.14px", borderRadius: "4.38px", background: "linear-gradient(180deg, #ff84b6 0%, #ff72ab 100%)", boxShadow: "inset 0 0 0 1px rgba(199, 89, 133, 0.38), inset 0px 1.1px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 6.57px 0px rgba(255, 255, 255, 0.18), 0px 1.1px 1.64px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+        <div data-fu="bar" style={{ position: "absolute", left: "319.1px", top: "120.42px", width: "28.49px", height: "24.44px", borderRadius: "4.38px", background: "linear-gradient(180deg, #64a5fe 0%, #4d98fe 100%)", boxShadow: "inset 0 0 0 1px rgba(60, 119, 198, 0.38), inset 0px 1.1px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 6.57px 0px rgba(255, 255, 255, 0.18), 0px 1.1px 1.64px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
         <svg style={{ position: "absolute", left: "396.71px", top: "8.77px", width: "0px", height: "230.74px", display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="1" height="230.74" viewBox="0 0 1 230.74" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M 0 0 L 0 230.74000549316406" fill="none" stroke="#ececee" strokeWidth="1" strokeDasharray="3.2899999618530273 3.2899999618530273" strokeLinecap="butt"/></svg>
-        <div style={{ position: "absolute", left: "382.47px", top: "189.27px", width: "28.49px", height: "50.24px", borderRadius: "4.38px", background: "linear-gradient(180deg, #fd6240 0%, #fd4b23 100%)", boxShadow: "inset 0 0 0 1px rgba(197, 59, 27, 0.38), inset 0px 1.1px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 6.57px 0px rgba(255, 255, 255, 0.18), 0px 1.1px 1.64px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
-        <div style={{ position: "absolute", left: "382.47px", top: "150.65px", width: "28.49px", height: "36.21px", borderRadius: "4.38px", background: "linear-gradient(180deg, #ff84b6 0%, #ff72ab 100%)", boxShadow: "inset 0 0 0 1px rgba(199, 89, 133, 0.38), inset 0px 1.1px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 6.57px 0px rgba(255, 255, 255, 0.18), 0px 1.1px 1.64px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
-        <div style={{ position: "absolute", left: "382.47px", top: "122.84px", width: "28.49px", height: "25.39px", borderRadius: "4.38px", background: "linear-gradient(180deg, #64a5fe 0%, #4d98fe 100%)", boxShadow: "inset 0 0 0 1px rgba(60, 119, 198, 0.38), inset 0px 1.1px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 6.57px 0px rgba(255, 255, 255, 0.18), 0px 1.1px 1.64px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+        <div data-fu="bar" style={{ position: "absolute", left: "382.47px", top: "189.27px", width: "28.49px", height: "50.24px", borderRadius: "4.38px", background: "linear-gradient(180deg, #fd6240 0%, #fd4b23 100%)", boxShadow: "inset 0 0 0 1px rgba(197, 59, 27, 0.38), inset 0px 1.1px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 6.57px 0px rgba(255, 255, 255, 0.18), 0px 1.1px 1.64px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+        <div data-fu="bar" style={{ position: "absolute", left: "382.47px", top: "150.65px", width: "28.49px", height: "36.21px", borderRadius: "4.38px", background: "linear-gradient(180deg, #ff84b6 0%, #ff72ab 100%)", boxShadow: "inset 0 0 0 1px rgba(199, 89, 133, 0.38), inset 0px 1.1px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 6.57px 0px rgba(255, 255, 255, 0.18), 0px 1.1px 1.64px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+        <div data-fu="bar" style={{ position: "absolute", left: "382.47px", top: "122.84px", width: "28.49px", height: "25.39px", borderRadius: "4.38px", background: "linear-gradient(180deg, #64a5fe 0%, #4d98fe 100%)", boxShadow: "inset 0 0 0 1px rgba(60, 119, 198, 0.38), inset 0px 1.1px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 6.57px 0px rgba(255, 255, 255, 0.18), 0px 1.1px 1.64px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
         <svg style={{ position: "absolute", left: "460.08px", top: "8.77px", width: "0px", height: "230.74px", display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="1" height="230.74" viewBox="0 0 1 230.74" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M 0 0 L 0 230.74000549316406" fill="none" stroke="#ececee" strokeWidth="1" strokeDasharray="3.2899999618530273 3.2899999618530273" strokeLinecap="butt"/></svg>
-        <div style={{ position: "absolute", left: "445.83px", top: "191.11px", width: "28.49px", height: "48.4px", borderRadius: "4.38px", background: "linear-gradient(180deg, #fd6240 0%, #fd4b23 100%)", boxShadow: "inset 0 0 0 1px rgba(197, 59, 27, 0.38), inset 0px 1.1px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 6.57px 0px rgba(255, 255, 255, 0.18), 0px 1.1px 1.64px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
-        <div style={{ position: "absolute", left: "445.83px", top: "151.6px", width: "28.49px", height: "37.1px", borderRadius: "4.38px", background: "linear-gradient(180deg, #ff84b6 0%, #ff72ab 100%)", boxShadow: "inset 0 0 0 1px rgba(199, 89, 133, 0.38), inset 0px 1.1px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 6.57px 0px rgba(255, 255, 255, 0.18), 0px 1.1px 1.64px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
-        <div style={{ position: "absolute", left: "445.83px", top: "125.12px", width: "28.49px", height: "24.07px", borderRadius: "4.38px", background: "linear-gradient(180deg, #64a5fe 0%, #4d98fe 100%)", boxShadow: "inset 0 0 0 1px rgba(60, 119, 198, 0.38), inset 0px 1.1px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 6.57px 0px rgba(255, 255, 255, 0.18), 0px 1.1px 1.64px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+        <div data-fu="bar" style={{ position: "absolute", left: "445.83px", top: "191.11px", width: "28.49px", height: "48.4px", borderRadius: "4.38px", background: "linear-gradient(180deg, #fd6240 0%, #fd4b23 100%)", boxShadow: "inset 0 0 0 1px rgba(197, 59, 27, 0.38), inset 0px 1.1px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 6.57px 0px rgba(255, 255, 255, 0.18), 0px 1.1px 1.64px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+        <div data-fu="bar" style={{ position: "absolute", left: "445.83px", top: "151.6px", width: "28.49px", height: "37.1px", borderRadius: "4.38px", background: "linear-gradient(180deg, #ff84b6 0%, #ff72ab 100%)", boxShadow: "inset 0 0 0 1px rgba(199, 89, 133, 0.38), inset 0px 1.1px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 6.57px 0px rgba(255, 255, 255, 0.18), 0px 1.1px 1.64px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+        <div data-fu="bar" style={{ position: "absolute", left: "445.83px", top: "125.12px", width: "28.49px", height: "24.07px", borderRadius: "4.38px", background: "linear-gradient(180deg, #64a5fe 0%, #4d98fe 100%)", boxShadow: "inset 0 0 0 1px rgba(60, 119, 198, 0.38), inset 0px 1.1px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 6.57px 0px rgba(255, 255, 255, 0.18), 0px 1.1px 1.64px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
         <svg style={{ position: "absolute", left: "523.44px", top: "8.77px", width: "0px", height: "230.74px", display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="1" height="230.74" viewBox="0 0 1 230.74" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M 0 0 L 0 230.74000549316406" fill="none" stroke="#ececee" strokeWidth="1" strokeDasharray="3.2899999618530273 3.2899999618530273" strokeLinecap="butt"/></svg>
-        <div style={{ position: "absolute", left: "509.2px", top: "190.54px", width: "28.49px", height: "48.97px", borderRadius: "4.38px", background: "linear-gradient(180deg, #fd6240 0%, #fd4b23 100%)", boxShadow: "inset 0 0 0 1px rgba(197, 59, 27, 0.38), inset 0px 1.1px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 6.57px 0px rgba(255, 255, 255, 0.18), 0px 1.1px 1.64px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
-        <div style={{ position: "absolute", left: "509.2px", top: "149.72px", width: "28.49px", height: "38.4px", borderRadius: "4.38px", background: "linear-gradient(180deg, #ff84b6 0%, #ff72ab 100%)", boxShadow: "inset 0 0 0 1px rgba(199, 89, 133, 0.38), inset 0px 1.1px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 6.57px 0px rgba(255, 255, 255, 0.18), 0px 1.1px 1.64px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
-        <div style={{ position: "absolute", left: "509.2px", top: "123.56px", width: "28.49px", height: "23.75px", borderRadius: "4.38px", background: "linear-gradient(180deg, #64a5fe 0%, #4d98fe 100%)", boxShadow: "inset 0 0 0 1px rgba(60, 119, 198, 0.38), inset 0px 1.1px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 6.57px 0px rgba(255, 255, 255, 0.18), 0px 1.1px 1.64px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+        <div data-fu="bar" style={{ position: "absolute", left: "509.2px", top: "190.54px", width: "28.49px", height: "48.97px", borderRadius: "4.38px", background: "linear-gradient(180deg, #fd6240 0%, #fd4b23 100%)", boxShadow: "inset 0 0 0 1px rgba(197, 59, 27, 0.38), inset 0px 1.1px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 6.57px 0px rgba(255, 255, 255, 0.18), 0px 1.1px 1.64px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+        <div data-fu="bar" style={{ position: "absolute", left: "509.2px", top: "149.72px", width: "28.49px", height: "38.4px", borderRadius: "4.38px", background: "linear-gradient(180deg, #ff84b6 0%, #ff72ab 100%)", boxShadow: "inset 0 0 0 1px rgba(199, 89, 133, 0.38), inset 0px 1.1px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 6.57px 0px rgba(255, 255, 255, 0.18), 0px 1.1px 1.64px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+        <div data-fu="bar" style={{ position: "absolute", left: "509.2px", top: "123.56px", width: "28.49px", height: "23.75px", borderRadius: "4.38px", background: "linear-gradient(180deg, #64a5fe 0%, #4d98fe 100%)", boxShadow: "inset 0 0 0 1px rgba(60, 119, 198, 0.38), inset 0px 1.1px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 6.57px 0px rgba(255, 255, 255, 0.18), 0px 1.1px 1.64px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
         <svg style={{ position: "absolute", left: "586.81px", top: "8.77px", width: "0px", height: "230.74px", display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="1" height="230.74" viewBox="0 0 1 230.74" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M 0 0 L 0 230.74000549316406" fill="none" stroke="#ececee" strokeWidth="1" strokeDasharray="3.2899999618530273 3.2899999618530273" strokeLinecap="butt"/></svg>
-        <div style={{ position: "absolute", left: "572.56px", top: "188.63px", width: "28.49px", height: "50.88px", borderRadius: "4.38px", background: "linear-gradient(180deg, #fd6240 0%, #fd4b23 100%)", boxShadow: "inset 0 0 0 1px rgba(197, 59, 27, 0.38), inset 0px 1.1px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 6.57px 0px rgba(255, 255, 255, 0.18), 0px 1.1px 1.64px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
-        <div style={{ position: "absolute", left: "572.56px", top: "146.18px", width: "28.49px", height: "40.05px", borderRadius: "4.38px", background: "linear-gradient(180deg, #ff84b6 0%, #ff72ab 100%)", boxShadow: "inset 0 0 0 1px rgba(199, 89, 133, 0.38), inset 0px 1.1px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 6.57px 0px rgba(255, 255, 255, 0.18), 0px 1.1px 1.64px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
-        <div style={{ position: "absolute", left: "572.56px", top: "118.83px", width: "28.49px", height: "24.93px", borderRadius: "4.38px", background: "linear-gradient(180deg, #64a5fe 0%, #4d98fe 100%)", boxShadow: "inset 0 0 0 1px rgba(60, 119, 198, 0.38), inset 0px 1.1px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 6.57px 0px rgba(255, 255, 255, 0.18), 0px 1.1px 1.64px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+        <div data-fu="bar" style={{ position: "absolute", left: "572.56px", top: "188.63px", width: "28.49px", height: "50.88px", borderRadius: "4.38px", background: "linear-gradient(180deg, #fd6240 0%, #fd4b23 100%)", boxShadow: "inset 0 0 0 1px rgba(197, 59, 27, 0.38), inset 0px 1.1px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 6.57px 0px rgba(255, 255, 255, 0.18), 0px 1.1px 1.64px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+        <div data-fu="bar" style={{ position: "absolute", left: "572.56px", top: "146.18px", width: "28.49px", height: "40.05px", borderRadius: "4.38px", background: "linear-gradient(180deg, #ff84b6 0%, #ff72ab 100%)", boxShadow: "inset 0 0 0 1px rgba(199, 89, 133, 0.38), inset 0px 1.1px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 6.57px 0px rgba(255, 255, 255, 0.18), 0px 1.1px 1.64px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+        <div data-fu="bar" style={{ position: "absolute", left: "572.56px", top: "118.83px", width: "28.49px", height: "24.93px", borderRadius: "4.38px", background: "linear-gradient(180deg, #64a5fe 0%, #4d98fe 100%)", boxShadow: "inset 0 0 0 1px rgba(60, 119, 198, 0.38), inset 0px 1.1px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 6.57px 0px rgba(255, 255, 255, 0.18), 0px 1.1px 1.64px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
         <svg style={{ position: "absolute", left: "650.17px", top: "8.77px", width: "0px", height: "230.74px", display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="1" height="230.74" viewBox="0 0 1 230.74" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M 0 0 L 0 230.74000549316406" fill="none" stroke="#ececee" strokeWidth="1" strokeDasharray="3.2899999618530273 3.2899999618530273" strokeLinecap="butt"/></svg>
-        <div style={{ position: "absolute", left: "635.92px", top: "170px", width: "28.49px", height: "69.51px", borderRadius: "4.38px", background: "linear-gradient(180deg, #fd6240 0%, #fd4b23 100%)", boxShadow: "inset 0 0 0 1px rgba(197, 59, 27, 0.38), inset 0px 1.1px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 6.57px 0px rgba(255, 255, 255, 0.18), 0px 1.1px 1.64px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
-        <div style={{ position: "absolute", left: "635.92px", top: "125.73px", width: "28.49px", height: "41.86px", borderRadius: "4.38px", background: "linear-gradient(180deg, #ff84b6 0%, #ff72ab 100%)", boxShadow: "inset 0 0 0 1px rgba(199, 89, 133, 0.38), inset 0px 1.1px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 6.57px 0px rgba(255, 255, 255, 0.18), 0px 1.1px 1.64px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
-        <div style={{ position: "absolute", left: "635.92px", top: "94.29px", width: "28.49px", height: "29.03px", borderRadius: "4.38px", background: "linear-gradient(180deg, #64a5fe 0%, #4d98fe 100%)", boxShadow: "inset 0 0 0 1px rgba(60, 119, 198, 0.38), inset 0px 1.1px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 6.57px 0px rgba(255, 255, 255, 0.18), 0px 1.1px 1.64px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+        <div data-fu="bar" style={{ position: "absolute", left: "635.92px", top: "170px", width: "28.49px", height: "69.51px", borderRadius: "4.38px", background: "linear-gradient(180deg, #fd6240 0%, #fd4b23 100%)", boxShadow: "inset 0 0 0 1px rgba(197, 59, 27, 0.38), inset 0px 1.1px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 6.57px 0px rgba(255, 255, 255, 0.18), 0px 1.1px 1.64px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+        <div data-fu="bar" style={{ position: "absolute", left: "635.92px", top: "125.73px", width: "28.49px", height: "41.86px", borderRadius: "4.38px", background: "linear-gradient(180deg, #ff84b6 0%, #ff72ab 100%)", boxShadow: "inset 0 0 0 1px rgba(199, 89, 133, 0.38), inset 0px 1.1px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 6.57px 0px rgba(255, 255, 255, 0.18), 0px 1.1px 1.64px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+        <div data-fu="bar" style={{ position: "absolute", left: "635.92px", top: "94.29px", width: "28.49px", height: "29.03px", borderRadius: "4.38px", background: "linear-gradient(180deg, #64a5fe 0%, #4d98fe 100%)", boxShadow: "inset 0 0 0 1px rgba(60, 119, 198, 0.38), inset 0px 1.1px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 6.57px 0px rgba(255, 255, 255, 0.18), 0px 1.1px 1.64px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
         <svg style={{ position: "absolute", left: "713.53px", top: "8.77px", width: "0px", height: "230.74px", display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="1" height="230.74" viewBox="0 0 1 230.74" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M 0 0 L 0 230.74000549316406" fill="none" stroke="#ececee" strokeWidth="1" strokeDasharray="3.2899999618530273 3.2899999618530273" strokeLinecap="butt"/></svg>
-        <div style={{ position: "absolute", left: "699.29px", top: "156.73px", width: "28.49px", height: "82.78px", borderRadius: "4.38px", background: "linear-gradient(180deg, #fd6240 0%, #fd4b23 100%)", boxShadow: "inset 0 0 0 1px rgba(197, 59, 27, 0.38), inset 0px 1.1px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 6.57px 0px rgba(255, 255, 255, 0.18), 0px 1.1px 1.64px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
-        <div style={{ position: "absolute", left: "699.29px", top: "110.87px", width: "28.49px", height: "43.45px", borderRadius: "4.38px", background: "linear-gradient(180deg, #ff84b6 0%, #ff72ab 100%)", boxShadow: "inset 0 0 0 1px rgba(199, 89, 133, 0.38), inset 0px 1.1px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 6.57px 0px rgba(255, 255, 255, 0.18), 0px 1.1px 1.64px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
-        <div style={{ position: "absolute", left: "699.29px", top: "75.97px", width: "28.49px", height: "32.49px", borderRadius: "4.38px", background: "linear-gradient(180deg, #64a5fe 0%, #4d98fe 100%)", boxShadow: "inset 0 0 0 1px rgba(60, 119, 198, 0.38), inset 0px 1.1px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 6.57px 0px rgba(255, 255, 255, 0.18), 0px 1.1px 1.64px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+        <div data-fu="bar" style={{ position: "absolute", left: "699.29px", top: "156.73px", width: "28.49px", height: "82.78px", borderRadius: "4.38px", background: "linear-gradient(180deg, #fd6240 0%, #fd4b23 100%)", boxShadow: "inset 0 0 0 1px rgba(197, 59, 27, 0.38), inset 0px 1.1px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 6.57px 0px rgba(255, 255, 255, 0.18), 0px 1.1px 1.64px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+        <div data-fu="bar" style={{ position: "absolute", left: "699.29px", top: "110.87px", width: "28.49px", height: "43.45px", borderRadius: "4.38px", background: "linear-gradient(180deg, #ff84b6 0%, #ff72ab 100%)", boxShadow: "inset 0 0 0 1px rgba(199, 89, 133, 0.38), inset 0px 1.1px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 6.57px 0px rgba(255, 255, 255, 0.18), 0px 1.1px 1.64px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+        <div data-fu="bar" style={{ position: "absolute", left: "699.29px", top: "75.97px", width: "28.49px", height: "32.49px", borderRadius: "4.38px", background: "linear-gradient(180deg, #64a5fe 0%, #4d98fe 100%)", boxShadow: "inset 0 0 0 1px rgba(60, 119, 198, 0.38), inset 0px 1.1px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 6.57px 0px rgba(255, 255, 255, 0.18), 0px 1.1px 1.64px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
         <svg style={{ position: "absolute", left: "776.9px", top: "8.77px", width: "0px", height: "230.74px", display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="1" height="230.74" viewBox="0 0 1 230.74" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M 0 0 L 0 230.74000549316406" fill="none" stroke="#ececee" strokeWidth="1" strokeDasharray="3.2899999618530273 3.2899999618530273" strokeLinecap="butt"/></svg>
         <div style={{ position: "absolute", left: "762.65px", top: "207.21px", width: "28.49px", height: "32.3px", borderRadius: "4.38px", background: "linear-gradient(180deg, #fed0c6 0%, #fec2b4 100%)", boxShadow: "inset 0 0 0 1px rgba(240, 71, 33, 0.22), inset 0px 1.1px 0px 0px rgba(255, 255, 255, 0.55), inset 0px 0px 6.57px 0px rgba(255, 255, 255, 0.35), 0px 1.1px 1.64px 0px rgba(13, 13, 18, 0.04)", overflow: "hidden" }}>
           <svg style={{ position: "absolute", left: "-32.3px", top: "0px", width: "119.98px", height: "32.3px", display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="119.98" height="32.3" viewBox="0 0 119.98 32.3" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M0 32.3 L0.540937 32.8409 L32.8409 0.540937 L32.3 0 L31.7591 -0.540937 L-0.540937 31.7591 L0 32.3 Z M5.48 32.3 L6.02094 32.8409 L38.3209 0.540937 L37.78 0 L37.2391 -0.540937 L4.93906 31.7591 L5.48 32.3 Z M10.96 32.3 L11.5009 32.8409 L43.8009 0.540937 L43.26 0 L42.7191 -0.540937 L10.4191 31.7591 L10.96 32.3 Z M16.44 32.3 L16.9809 32.8409 L49.2809 0.540937 L48.74 0 L48.1991 -0.540937 L15.8991 31.7591 L16.44 32.3 Z M21.92 32.3 L22.4609 32.8409 L54.7609 0.540937 L54.22 0 L53.6791 -0.540937 L21.3791 31.7591 L21.92 32.3 Z M27.4 32.3 L27.9409 32.8409 L60.2409 0.540937 L59.7 0 L59.1591 -0.540937 L26.8591 31.7591 L27.4 32.3 Z M32.88 32.3 L33.4209 32.8409 L65.7209 0.540937 L65.18 0 L64.6391 -0.540937 L32.3391 31.7591 L32.88 32.3 Z M38.36 32.3 L38.9009 32.8409 L71.2009 0.540937 L70.66 0 L70.1191 -0.540937 L37.8191 31.7591 L38.36 32.3 Z M43.84 32.3 L44.3809 32.8409 L76.6809 0.540937 L76.14 0 L75.5991 -0.540937 L43.2991 31.7591 L43.84 32.3 Z M49.32 32.3 L49.8609 32.8409 L82.1609 0.540937 L81.62 0 L81.0791 -0.540937 L48.7791 31.7591 L49.32 32.3 Z M54.8 32.3 L55.3409 32.8409 L87.6409 0.540937 L87.1 0 L86.5591 -0.540937 L54.2591 31.7591 L54.8 32.3 Z M60.28 32.3 L60.8209 32.8409 L93.1209 0.540937 L92.58 0 L92.0391 -0.540937 L59.7391 31.7591 L60.28 32.3 Z M65.76 32.3 L66.3009 32.8409 L98.6009 0.540937 L98.06 0 L97.5191 -0.540937 L65.2191 31.7591 L65.76 32.3 Z M71.24 32.3 L71.7809 32.8409 L104.081 0.540937 L103.54 0 L102.999 -0.540937 L70.6991 31.7591 L71.24 32.3 Z M76.72 32.3 L77.2609 32.8409 L109.561 0.540937 L109.02 0 L108.479 -0.540937 L76.1791 31.7591 L76.72 32.3 Z M82.2 32.3 L82.7409 32.8409 L115.041 0.540937 L114.5 0 L113.959 -0.540937 L81.6591 31.7591 L82.2 32.3 Z M87.68 32.3 L88.2209 32.8409 L120.521 0.540937 L119.98 0 L119.439 -0.540937 L87.1391 31.7591 L87.68 32.3 Z" fill="#ffffff" fillOpacity="0.6"/></svg>
         </div>
         <div style={{ position: "absolute", left: "762.65px", top: "159.9px", width: "28.49px", height: "44.89px", borderRadius: "4.38px", background: "linear-gradient(180deg, #ffdae9 0%, #ffcfe2 100%)", boxShadow: "inset 0 0 0 1px rgba(242, 108, 162, 0.22), inset 0px 1.1px 0px 0px rgba(255, 255, 255, 0.55), inset 0px 0px 6.57px 0px rgba(255, 255, 255, 0.35), 0px 1.1px 1.64px 0px rgba(13, 13, 18, 0.04)", overflow: "hidden" }}>
-          <svg style={{ position: "absolute", left: "-44.89px", top: "0px", width: "159.97px", height: "44.89px", display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="159.97" height="44.89" viewBox="0 0 159.97 44.89" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M0 44.89 L0.540937 45.4309 L45.4309 0.540937 L44.89 0 L44.3491 -0.540937 L-0.540937 44.3491 L0 44.89 Z M5.48 44.89 L6.02094 45.4309 L50.9109 0.540937 L50.37 0 L49.8291 -0.540937 L4.93906 44.3491 L5.48 44.89 Z M10.96 44.89 L11.5009 45.4309 L56.3909 0.540937 L55.85 0 L55.3091 -0.540937 L10.4191 44.3491 L10.96 44.89 Z M16.44 44.89 L16.9809 45.4309 L61.8709 0.540937 L61.33 0 L60.7891 -0.540937 L15.8991 44.3491 L16.44 44.89 Z M21.92 44.89 L22.4609 45.4309 L67.3509 0.540937 L66.81 0 L66.2691 -0.540937 L21.3791 44.3491 L21.92 44.89 Z M27.4 44.89 L27.9409 45.4309 L72.8309 0.540937 L72.29 0 L71.7491 -0.540937 L26.8591 44.3491 L27.4 44.89 Z M32.88 44.89 L33.4209 45.4309 L78.3109 0.540937 L77.77 0 L77.2291 -0.540937 L32.3391 44.3491 L32.88 44.89 Z M38.36 44.89 L38.9009 45.4309 L83.7909 0.540937 L83.25 0 L82.7091 -0.540937 L37.8191 44.3491 L38.36 44.89 Z M43.84 44.89 L44.3809 45.4309 L89.2709 0.540937 L88.73 0 L88.1891 -0.540937 L43.2991 44.3491 L43.84 44.89 Z M49.32 44.89 L49.8609 45.4309 L94.7509 0.540937 L94.21 0 L93.6691 -0.540937 L48.7791 44.3491 L49.32 44.89 Z M54.8 44.89 L55.3409 45.4309 L100.231 0.540937 L99.69 0 L99.1491 -0.540937 L54.2591 44.3491 L54.8 44.89 Z M60.28 44.89 L60.8209 45.4309 L105.711 0.540937 L105.17 0 L104.629 -0.540937 L59.7391 44.3491 L60.28 44.89 Z M65.76 44.89 L66.3009 45.4309 L111.191 0.540937 L110.65 0 L110.109 -0.540937 L65.2191 44.3491 L65.76 44.89 Z M71.24 44.89 L71.7809 45.4309 L116.671 0.540937 L116.13 0 L115.589 -0.540937 L70.6991 44.3491 L71.24 44.89 Z M76.72 44.89 L77.2609 45.4309 L122.151 0.540937 L121.61 0 L121.069 -0.540937 L76.1791 44.3491 L76.72 44.89 Z M82.2 44.89 L82.7409 45.4309 L127.631 0.540937 L127.09 0 L126.549 -0.540937 L81.6591 44.3491 L82.2 44.89 Z M87.68 44.89 L88.2209 45.4309 L133.111 0.540937 L132.57 0 L132.029 -0.540937 L87.1391 44.3491 L87.68 44.89 Z M93.16 44.89 L93.7009 45.4309 L138.591 0.540937 L138.05 0 L137.509 -0.540937 L92.6191 44.3491 L93.16 44.89 Z M98.64 44.89 L99.1809 45.4309 L144.071 0.540937 L143.53 0 L142.989 -0.540937 L98.0991 44.3491 L98.64 44.89 Z M104.12 44.89 L104.661 45.4309 L149.551 0.540937 L149.01 0 L148.469 -0.540937 L103.579 44.3491 L104.12 44.89 Z M109.6 44.89 L110.141 45.4309 L155.031 0.540937 L154.49 0 L153.949 -0.540937 L109.059 44.3491 L109.6 44.89 Z M115.08 44.89 L115.621 45.4309 L160.511 0.540937 L159.97 0 L159.429 -0.540937 L114.539 44.3491 L115.08 44.89 Z" fill="#ffffff" fillOpacity="0.6"/></svg>
+          <svg data-fu="plot" style={{ position: "absolute", left: "-44.89px", top: "0px", width: "159.97px", height: "44.89px", display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="159.97" height="44.89" viewBox="0 0 159.97 44.89" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M0 44.89 L0.540937 45.4309 L45.4309 0.540937 L44.89 0 L44.3491 -0.540937 L-0.540937 44.3491 L0 44.89 Z M5.48 44.89 L6.02094 45.4309 L50.9109 0.540937 L50.37 0 L49.8291 -0.540937 L4.93906 44.3491 L5.48 44.89 Z M10.96 44.89 L11.5009 45.4309 L56.3909 0.540937 L55.85 0 L55.3091 -0.540937 L10.4191 44.3491 L10.96 44.89 Z M16.44 44.89 L16.9809 45.4309 L61.8709 0.540937 L61.33 0 L60.7891 -0.540937 L15.8991 44.3491 L16.44 44.89 Z M21.92 44.89 L22.4609 45.4309 L67.3509 0.540937 L66.81 0 L66.2691 -0.540937 L21.3791 44.3491 L21.92 44.89 Z M27.4 44.89 L27.9409 45.4309 L72.8309 0.540937 L72.29 0 L71.7491 -0.540937 L26.8591 44.3491 L27.4 44.89 Z M32.88 44.89 L33.4209 45.4309 L78.3109 0.540937 L77.77 0 L77.2291 -0.540937 L32.3391 44.3491 L32.88 44.89 Z M38.36 44.89 L38.9009 45.4309 L83.7909 0.540937 L83.25 0 L82.7091 -0.540937 L37.8191 44.3491 L38.36 44.89 Z M43.84 44.89 L44.3809 45.4309 L89.2709 0.540937 L88.73 0 L88.1891 -0.540937 L43.2991 44.3491 L43.84 44.89 Z M49.32 44.89 L49.8609 45.4309 L94.7509 0.540937 L94.21 0 L93.6691 -0.540937 L48.7791 44.3491 L49.32 44.89 Z M54.8 44.89 L55.3409 45.4309 L100.231 0.540937 L99.69 0 L99.1491 -0.540937 L54.2591 44.3491 L54.8 44.89 Z M60.28 44.89 L60.8209 45.4309 L105.711 0.540937 L105.17 0 L104.629 -0.540937 L59.7391 44.3491 L60.28 44.89 Z M65.76 44.89 L66.3009 45.4309 L111.191 0.540937 L110.65 0 L110.109 -0.540937 L65.2191 44.3491 L65.76 44.89 Z M71.24 44.89 L71.7809 45.4309 L116.671 0.540937 L116.13 0 L115.589 -0.540937 L70.6991 44.3491 L71.24 44.89 Z M76.72 44.89 L77.2609 45.4309 L122.151 0.540937 L121.61 0 L121.069 -0.540937 L76.1791 44.3491 L76.72 44.89 Z M82.2 44.89 L82.7409 45.4309 L127.631 0.540937 L127.09 0 L126.549 -0.540937 L81.6591 44.3491 L82.2 44.89 Z M87.68 44.89 L88.2209 45.4309 L133.111 0.540937 L132.57 0 L132.029 -0.540937 L87.1391 44.3491 L87.68 44.89 Z M93.16 44.89 L93.7009 45.4309 L138.591 0.540937 L138.05 0 L137.509 -0.540937 L92.6191 44.3491 L93.16 44.89 Z M98.64 44.89 L99.1809 45.4309 L144.071 0.540937 L143.53 0 L142.989 -0.540937 L98.0991 44.3491 L98.64 44.89 Z M104.12 44.89 L104.661 45.4309 L149.551 0.540937 L149.01 0 L148.469 -0.540937 L103.579 44.3491 L104.12 44.89 Z M109.6 44.89 L110.141 45.4309 L155.031 0.540937 L154.49 0 L153.949 -0.540937 L109.059 44.3491 L109.6 44.89 Z M115.08 44.89 L115.621 45.4309 L160.511 0.540937 L159.97 0 L159.429 -0.540937 L114.539 44.3491 L115.08 44.89 Z" fill="#ffffff" fillOpacity="0.6"/></svg>
         </div>
         <div style={{ position: "absolute", left: "762.65px", top: "142.89px", width: "28.49px", height: "14.61px", borderRadius: "4.38px", background: "linear-gradient(180deg, #d1e4ff 0%, #c2dcff 100%)", boxShadow: "inset 0 0 0 1px rgba(73, 144, 241, 0.22), inset 0px 1.1px 0px 0px rgba(255, 255, 255, 0.55), inset 0px 0px 6.57px 0px rgba(255, 255, 255, 0.35), 0px 1.1px 1.64px 0px rgba(13, 13, 18, 0.04)", overflow: "hidden" }}>
           <svg style={{ position: "absolute", left: "-14.61px", top: "0px", width: "69.41px", height: "14.61px", display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="69.41" height="14.61" viewBox="0 0 69.41 14.61" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M0 14.61 L0.540937 15.1509 L15.1509 0.540937 L14.61 0 L14.0691 -0.540937 L-0.540937 14.0691 L0 14.61 Z M5.48 14.61 L6.02094 15.1509 L20.6309 0.540937 L20.09 0 L19.5491 -0.540937 L4.93906 14.0691 L5.48 14.61 Z M10.96 14.61 L11.5009 15.1509 L26.1109 0.540937 L25.57 0 L25.0291 -0.540937 L10.4191 14.0691 L10.96 14.61 Z M16.44 14.61 L16.9809 15.1509 L31.5909 0.540937 L31.05 0 L30.5091 -0.540937 L15.8991 14.0691 L16.44 14.61 Z M21.92 14.61 L22.4609 15.1509 L37.0709 0.540937 L36.53 0 L35.9891 -0.540937 L21.3791 14.0691 L21.92 14.61 Z M27.4 14.61 L27.9409 15.1509 L42.5509 0.540937 L42.01 0 L41.4691 -0.540937 L26.8591 14.0691 L27.4 14.61 Z M32.88 14.61 L33.4209 15.1509 L48.0309 0.540937 L47.49 0 L46.9491 -0.540937 L32.3391 14.0691 L32.88 14.61 Z M38.36 14.61 L38.9009 15.1509 L53.5109 0.540937 L52.97 0 L52.4291 -0.540937 L37.8191 14.0691 L38.36 14.61 Z M43.84 14.61 L44.3809 15.1509 L58.9909 0.540937 L58.45 0 L57.9091 -0.540937 L43.2991 14.0691 L43.84 14.61 Z M49.32 14.61 L49.8609 15.1509 L64.4709 0.540937 L63.93 0 L63.3891 -0.540937 L48.7791 14.0691 L49.32 14.61 Z M54.8 14.61 L55.3409 15.1509 L69.9509 0.540937 L69.41 0 L68.8691 -0.540937 L54.2591 14.0691 L54.8 14.61 Z" fill="#ffffff" fillOpacity="0.6"/></svg>
@@ -113,4 +127,181 @@ export function MonthlyRevenueCard() {
       </div>
     </div>
   );
+}
+
+// Interactions: hover and click states. Remove this function and the two lines above to get a static component.
+function fuInteract(root: HTMLElement | null) {
+  if (!root || root.dataset.fuOn) return;
+  root.dataset.fuOn = "1";
+  const doc = root.ownerDocument;
+  const all = (sel: string, el: Element = root): HTMLElement[] => Array.from(el.querySelectorAll(sel)) as HTMLElement[];
+  const box = (el: Element) => el.getBoundingClientRect();
+  const font = getComputedStyle(root).fontFamily;
+  const tip = doc.createElement("div");
+  tip.setAttribute("aria-hidden", "true");
+  Object.assign(tip.style, { position: "fixed", zIndex: "2147483647", pointerEvents: "none", background: "#111113", color: "#fff", font: "500 12px/16px " + font, padding: "5px 8px", borderRadius: "6px", whiteSpace: "nowrap", opacity: "0", transform: "translate(-50%, -100%)", transition: "opacity .12s", boxShadow: "0 4px 14px rgba(0,0,0,.18)" });
+  doc.body.appendChild(tip);
+  const show = (text: string, x: number, y: number) => { if (!text) return hide(); tip.textContent = text; tip.style.left = x + "px"; tip.style.top = y - 8 + "px"; tip.style.opacity = "1"; };
+  const hide = () => { tip.style.opacity = "0"; };
+  const ease = (el: HTMLElement | SVGElement, props: string) => { const s = (el as HTMLElement).style; if (!s.transition) s.transition = props; };
+  const texts = (scope: Element) => all("p, span", scope).filter((t) => t.children.length === 0 && (t.textContent || "").trim());
+  const NUM = /^([^\d\-+.]*)([-+]?[\d,]*\.?\d+)\s*([kKmMbB%]?)([^\d]*)$/;
+  // value axis: numeric labels along one edge of the chart, used to read a mark's value from its position
+  const axis = (scope: Element, vertical: boolean) => {
+    const pts: { v: number; p: number; pre: string; suf: string; dec: number }[] = [];
+    for (const t of texts(scope)) {
+      const m = (t.textContent || "").trim().match(NUM);
+      if (!m) continue;
+      const mult = { k: 1e3, K: 1e3, m: 1e6, M: 1e6, b: 1e9, B: 1e9 }[m[3] as "k"] || 1;
+      const r = box(t);
+      pts.push({ v: parseFloat(m[2].replace(/,/g, "")) * mult, p: vertical ? r.top + r.height / 2 : r.left + r.width / 2, pre: m[1], suf: m[3] + m[4], dec: (m[2].split(".")[1] || "").length });
+    }
+    const uniq = pts.filter((a, i) => pts.findIndex((b) => Math.abs(b.p - a.p) < 2) === i);
+    if (uniq.length < 2) return null;
+    uniq.sort((a, b) => a.p - b.p);
+    const a = uniq[0], b = uniq[uniq.length - 1];
+    if (a.v === b.v || Math.abs(b.p - a.p) < 10) return null;
+    return (pos: number) => {
+      const v = a.v + ((pos - a.p) * (b.v - a.v)) / (b.p - a.p);
+      const suf = a.suf || b.suf, pre = a.pre || b.pre;
+      const div = /^[kK]/.test(suf) ? 1e3 : /^[mM]/.test(suf) ? 1e6 : /^[bB]/.test(suf) ? 1e9 : 1;
+      const x = v / div;
+      const dec = Math.max(a.dec, b.dec, div > 1 && Math.abs(x) < 100 ? 1 : 0);
+      return pre + x.toLocaleString("en-US", { minimumFractionDigits: 0, maximumFractionDigits: dec }) + suf;
+    };
+  };
+  // the chart around a group of marks: the nearest ancestor that also holds text labels
+  const chartOf = (el: Element) => { let c: Element | null = el.parentElement; while (c && c !== root.parentElement) { if (texts(c).length >= 3) return c; c = c.parentElement; } return root; };
+  const labelNear = (scope: Element, x: number, y: number, below: boolean) => {
+    let best = "", d = 1e9;
+    for (const t of texts(scope)) {
+      const r = box(t);
+      if (below ? r.top < y - 2 : r.right > x + 2) continue;
+      if (NUM.test((t.textContent || "").trim()) && !/[a-z]{3}/i.test(t.textContent || "")) continue;
+      const dd = below ? Math.abs(r.left + r.width / 2 - x) + (r.top - y) * 0.2 : Math.abs(r.top + r.height / 2 - y) + (x - r.right) * 0.1;
+      if (dd < d) { d = dd; best = (t.textContent || "").trim(); }
+    }
+    return d < 80 ? best : "";
+  };
+  const dim = (els: (HTMLElement | SVGElement)[], keep: (HTMLElement | SVGElement)[]) => { for (const e of els) { ease(e, "opacity .15s"); (e as HTMLElement).style.opacity = keep.includes(e) ? "" : "0.35"; } };
+  const undim = (els: (HTMLElement | SVGElement)[]) => { for (const e of els) (e as HTMLElement).style.opacity = ""; };
+
+  // vertical bars: the hovered column (all stacked segments at that x) stays, the rest fade
+  const groups = new Map<Element, HTMLElement[]>();
+  for (const b of all("[data-fu=bar],[data-fu=hbar]")) { const p = b.parentElement!; if (!groups.has(p)) groups.set(p, []); groups.get(p)!.push(b); }
+  groups.forEach((bars) => {
+    const horiz = bars[0].dataset.fu === "hbar";
+    const scope = chartOf(bars[0]);
+    const val = axis(scope, !horiz);
+    const peers = (b: HTMLElement) => { const r = box(b), c = horiz ? r.top + r.height / 2 : r.left + r.width / 2; return bars.filter((o) => { const q = box(o); return Math.abs((horiz ? q.top + q.height / 2 : q.left + q.width / 2) - c) < Math.max(2, (horiz ? r.height : r.width) / 2); }); };
+    for (const b of bars) {
+      b.addEventListener("mouseenter", () => {
+        const col = peers(b);
+        dim(bars, col);
+        const rs = col.map(box);
+        const top = Math.min(...rs.map((r) => r.top)), right = Math.max(...rs.map((r) => r.right)), r0 = rs[0];
+        const label = horiz ? labelNear(scope, r0.left, r0.top + r0.height / 2, false) : labelNear(scope, r0.left + r0.width / 2, Math.max(...rs.map((r) => r.bottom)), true);
+        const v = val ? val(horiz ? right : top) : "";
+        show([label, v].filter(Boolean).join(" · "), horiz ? right : r0.left + r0.width / 2, horiz ? r0.top : top);
+      });
+      b.addEventListener("mouseleave", () => { undim(bars); hide(); });
+    }
+  });
+
+  // line and area plots: a guide line and a dot follow the pointer along the top edge of the plotted shape
+  for (const svg of all("svg[data-fu=plot]") as unknown as SVGSVGElement[]) {
+    const paths = Array.from(svg.querySelectorAll("path, polyline")) as SVGGeometryElement[];
+    if (!paths.length) continue;
+    const line = paths.reduce((a, b) => (b.getTotalLength() > a.getTotalLength() ? b : a));
+    const len = line.getTotalLength();
+    const pts: { x: number; y: number }[] = [];
+    for (let i = 0; i <= 800; i++) { const q = line.getPointAtLength((len * i) / 800); pts.push({ x: q.x, y: q.y }); }
+    const xs = pts.map((q) => q.x), minX = Math.min(...xs), maxX = Math.max(...xs);
+    const color = (line.getAttribute("stroke") && line.getAttribute("stroke") !== "none" ? line.getAttribute("stroke") : line.getAttribute("fill")) || "#111";
+    const NS = "http://www.w3.org/2000/svg";
+    const g = doc.createElementNS(NS, "g");
+    g.setAttribute("pointer-events", "none");
+    g.style.opacity = "0";
+    const guide = doc.createElementNS(NS, "line");
+    guide.setAttribute("stroke", /^url/.test(color) ? "#111" : color);
+    guide.setAttribute("stroke-dasharray", "3 3");
+    guide.setAttribute("stroke-opacity", "0.5");
+    const dot = doc.createElementNS(NS, "circle");
+    dot.setAttribute("r", "4");
+    dot.setAttribute("fill", "#fff");
+    dot.setAttribute("stroke", /^url/.test(color) ? "#111" : color);
+    dot.setAttribute("stroke-width", "2");
+    g.append(guide, dot);
+    svg.appendChild(g);
+    const scope = chartOf(svg);
+    const val = axis(scope, true);
+    const area = svg.parentElement || svg;
+    area.addEventListener("mousemove", (ev: Event) => {
+      const e = ev as MouseEvent;
+      const m = line.getScreenCTM();
+      if (!m) return;
+      const px = new DOMPoint(e.clientX, e.clientY).matrixTransform(m.inverse()).x;
+      if (px < minX - 4 || px > maxX + 4) { g.style.opacity = "0"; hide(); return; }
+      const step = (maxX - minX) / 400 || 1;
+      let y = Infinity, x = px;
+      for (const q of pts) if (Math.abs(q.x - px) <= step && q.y < y) { y = q.y; x = q.x; }
+      if (y === Infinity) return;
+      const bb = line.getBBox();
+      guide.setAttribute("x1", String(x)); guide.setAttribute("x2", String(x));
+      guide.setAttribute("y1", String(bb.y)); guide.setAttribute("y2", String(bb.y + bb.height));
+      dot.setAttribute("cx", String(x)); dot.setAttribute("cy", String(y));
+      g.style.opacity = "1";
+      const sp = new DOMPoint(x, y).matrixTransform(m);
+      const label = labelNear(scope, sp.x, box(svg).bottom, true);
+      show([label, val ? val(sp.y) : ""].filter(Boolean).join(" · "), sp.x, sp.y);
+    });
+    area.addEventListener("mouseleave", () => { g.style.opacity = "0"; hide(); });
+  }
+
+  // rows: a soft highlight under the pointer
+  for (const r of all("[data-fu=row]")) {
+    r.addEventListener("mouseenter", () => { ease(r, "filter .15s"); r.style.filter = "brightness(0.975)"; });
+    r.addEventListener("mouseleave", () => { r.style.filter = ""; });
+  }
+
+  // buttons: hover and press feedback
+  for (const b of all("[data-fu=btn],[data-fu=tab]")) {
+    b.style.cursor = "pointer";
+    b.addEventListener("mouseenter", () => { ease(b, "filter .15s, transform .1s"); if (!b.dataset.fuActive) b.style.filter = "brightness(0.96)"; });
+    b.addEventListener("mouseleave", () => { b.style.filter = ""; b.style.transform = ""; });
+    b.addEventListener("mousedown", () => { b.style.transform = "scale(0.98)"; });
+    b.addEventListener("mouseup", () => { b.style.transform = ""; });
+  }
+
+  // tabs and segmented controls: clicking a tab moves the selected look onto it
+  const VIS = ["background-color", "background-image", "box-shadow", "border-color", "color", "font-weight"];
+  const look = (el: HTMLElement) => VIS.map((k) => el.style.getPropertyValue(k)).join("|");
+  const tabGroups = new Map<Element, HTMLElement[]>();
+  for (const t of all("[data-fu=tab]")) { const p = t.parentElement!; if (!tabGroups.has(p)) tabGroups.set(p, []); tabGroups.get(p)!.push(t); }
+  tabGroups.forEach((tabs) => {
+    if (tabs.length < 2) return;
+    const counts = new Map<string, number>();
+    for (const t of tabs) counts.set(look(t), (counts.get(look(t)) || 0) + 1);
+    let active = tabs.find((t) => counts.get(look(t)) === 1 && counts.size > 1) || null;
+    if (!active) return;
+    active.dataset.fuActive = "1";
+    // read both looks first, then write: swapping one property at a time would let shorthands undo each other
+    const swapStyle = (a: HTMLElement, b: HTMLElement, props: string[]) => {
+      const va = props.map((k) => a.style.getPropertyValue(k)), vb = props.map((k) => b.style.getPropertyValue(k));
+      props.forEach((k, i) => { a.style.setProperty(k, vb[i]); b.style.setProperty(k, va[i]); });
+    };
+    const swap = (a: HTMLElement, b: HTMLElement) => {
+      swapStyle(a, b, VIS);
+      const ta = texts(a), tb = texts(b);
+      for (let i = 0; i < Math.min(ta.length, tb.length); i++) swapStyle(ta[i], tb[i], ["color", "font-weight"]);
+    };
+    for (const t of tabs) t.addEventListener("click", () => {
+      if (!active || t === active) return;
+      t.style.filter = "";
+      swap(active, t);
+      delete active.dataset.fuActive;
+      active = t;
+      t.dataset.fuActive = "1";
+    });
+  });
 }

@@ -1,5 +1,5 @@
-// Stats (mailpulse, KPI and stats) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Foundry Icons.
+// Stats (mailpulse, KPI and stats) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
 export function Stats() {
   return (
     <div style={{ width: "298.2px", height: "64.1px", display: "flex", flexDirection: "row", padding: "0px 12.8px 12.8px 12.8px", gap: "7.3px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>

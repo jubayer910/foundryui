@@ -1,6 +1,6 @@
-// Nav item Notifications (mailpulse, Cards and panels) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Foundry Icons.
-import { Bell as BellBulk } from "foundryui-icons/react/bulk";
+// Nav item Notifications (mailpulse, Cards and panels) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
+import { Bell as BellBulk } from "ingotui-icons/react/bulk";
 
 export function NavItemNotifications() {
   return (

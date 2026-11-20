@@ -1,7 +1,7 @@
-// Related, Why is my instant payout delayed? (loopo, Cards and panels) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Foundry Icons.
-import { Book as BookBulk } from "foundryui-icons/react/bulk";
-import { ChevronRight } from "foundryui-icons/react/stroke-rounded";
+// Related, Why is my instant payout delayed? (loopo, Cards and panels) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
+import { Book as BookBulk } from "ingotui-icons/react/bulk";
+import { ChevronRight } from "ingotui-icons/react/stroke-rounded";
 
 export function RelatedWhyIsMyInstantPayoutDelayed() {
   return (

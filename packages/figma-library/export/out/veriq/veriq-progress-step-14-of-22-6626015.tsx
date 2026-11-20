@@ -1,5 +1,5 @@
-// Progress, Step 14 of 22 (veriq, Cards and panels) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Foundry Icons.
+// Progress, Step 14 of 22 (veriq, Cards and panels) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
 export function ProgressStep14Of22() {
   return (
     <div style={{ width: "518px", height: "65px", boxShadow: "inset 0 -1px 0 0 #ebebeb", display: "flex", flexDirection: "column", padding: "0px 20px 17px 20px", gap: "8px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>

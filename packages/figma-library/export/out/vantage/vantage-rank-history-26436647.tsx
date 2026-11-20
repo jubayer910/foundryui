@@ -1,5 +1,5 @@
-// Rank history (vantage, Tables and lists) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Foundry Icons.
+// Rank history (vantage, Tables and lists) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
 export function RankHistory() {
   return (
     <div style={{ width: "440px", height: "123px", display: "flex", flexDirection: "column", padding: "16px 20px 16px 20px", gap: "12px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>

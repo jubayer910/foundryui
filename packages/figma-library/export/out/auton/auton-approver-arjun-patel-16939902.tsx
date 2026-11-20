@@ -1,5 +1,5 @@
-// Approver, Arjun Patel (auton, Cards and panels) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Foundry Icons.
+// Approver, Arjun Patel (auton, Cards and panels) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
 export function ApproverArjunPatel() {
   return (
     <div style={{ width: "290px", height: "44px", opacity: 0.5, borderRadius: "8px", display: "flex", flexDirection: "row", padding: "8px 10px 8px 10px", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>

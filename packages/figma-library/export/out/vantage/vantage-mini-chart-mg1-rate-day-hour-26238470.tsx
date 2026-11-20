@@ -1,5 +1,5 @@
-// Mini chart, MG1 rate · day × hour (vantage, Charts) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Foundry Icons.
+// Mini chart, MG1 rate · day × hour (vantage, Charts) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
 export function MiniChartMG1RateDayHour() {
   return (
     <div style={{ width: "236px", height: "118px", display: "flex", flexDirection: "column", gap: "10px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>

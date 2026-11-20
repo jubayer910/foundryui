@@ -1,5 +1,5 @@
-// Toggle grid (mailpulse, Forms) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Foundry Icons.
+// Toggle grid (mailpulse, Forms) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
 export function ToggleGrid() {
   return (
     <div style={{ width: "814.3px", height: "58.5px", display: "flex", flexDirection: "row", flexWrap: "wrap", rowGap: "11px", columnGap: "11px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>

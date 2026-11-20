@@ -1,5 +1,5 @@
-// Approver, Omar Haddad (auton, Cards and panels) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Foundry Icons.
+// Approver, Omar Haddad (auton, Cards and panels) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
 export function ApproverOmarHaddad() {
   return (
     <div style={{ width: "290px", height: "44px", borderRadius: "8px", background: "#f5f5f5", display: "flex", flexDirection: "row", padding: "8px 10px 8px 10px", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>

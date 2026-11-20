@@ -80,6 +80,9 @@ async function text(o) {
   t.textAutoResize = o.ar === "WIDTH_AND_HEIGHT" ? "WIDTH_AND_HEIGHT" : "NONE";
   if (o.ar !== "WIDTH_AND_HEIGHT") t.resize(Math.max(o.w, 1), Math.max(o.h, 1));
   if (o.ar === "HEIGHT") t.textAutoResize = "HEIGHT";
+  // text box trim (cap height): the source saved a single line shorter than its line height
+  const lhPx = typeof first.lh === "number" ? first.lh : first.lh ? (first.fs * parseFloat(first.lh)) / 100 : first.fs * 1.2;
+  if (first.fs && o.h > 0 && !t.characters.includes("\n") && o.h < lhPx * 0.8) { try { t.leadingTrim = "CAP_HEIGHT"; } catch (e) {} }
   if (o.ar === "TRUNCATE" || o.trunc) { try { t.textTruncation = "ENDING"; } catch (e) {} }
   return t;
 }
@@ -88,6 +91,8 @@ function svgNode(svg, o, color) {
   const n = figma.createNodeFromSvg(s);
   n.name = o.n;
   if (Math.abs(n.width - o.w) > 0.01 || Math.abs(n.height - o.h) > 0.01) n.resize(Math.max(o.w, 0.01), Math.max(o.h, 0.01));
+  // hairlines (dividers) are drawn as a stroke-shaped path just outside a 0-wide box: never clip them away
+  if (o.w < 1 || o.h < 1) n.clipsContent = false;
   return n;
 }
 async function build(o, parent, icons) {
@@ -96,6 +101,8 @@ async function build(o, parent, icons) {
     const svg = icons[(o.icon || "") + "|" + (o.istyle || "")] || icons[o.icon + "|"];
     n = svg ? svgNode(svg, o, o.ic) : figma.createFrame();
     if (!svg) { n.resize(o.w, o.h); n.fills = []; }
+    // house rule: every stroke icon renders at exactly 1.5px, whatever size it is drawn at
+    if (svg && !/solid|bulk|brand/.test(o.istyle || "")) for (const v of n.findAll((x) => x.type === "VECTOR")) if (v.strokes.length) v.strokeWeight = 1.5;
     n.name = "Icon/" + o.icon;
   } else if (o.svg) n = svgNode(o.svg, o);
   else if (o.t === "TEXT") n = await text(o);

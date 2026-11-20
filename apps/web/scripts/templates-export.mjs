@@ -19,6 +19,7 @@ import { fileURLToPath } from "node:url";
 
 const WEB = join(dirname(fileURLToPath(import.meta.url)), "..");
 const SITE = "https://ingotui.com";
+const INTERACT = readFileSync(join(WEB, "../../packages/figma-library/export/interact.ts"), "utf8");
 const generated = JSON.parse(readFileSync(join(WEB, "components/showcase/generated.json"), "utf8"));
 const itemsRaw = JSON.parse(readFileSync(join(WEB, "lib/figma-items.json"), "utf8"));
 const items = Array.isArray(itemsRaw) ? itemsRaw : itemsRaw.items ?? Object.values(itemsRaw);
@@ -42,6 +43,15 @@ for (const g of generated) {
     // a named export (the site's preview renderer and most imports want one) plus the default export
     .replace(/^export default function (\w+)/m, "export function $1");
   const fn = code.match(/^export function (\w+)/m)?.[1];
+  // interactive: the screen marks bars, plots, rows, tabs and buttons (data-fu); the copy-ready file runs the
+  // same small helper the generated components use. Nothing changes at rest.
+  if (fn && /data-fu="/.test(code)) {
+    code = code
+      .replace(/^(import type \{ CSSProperties \} from "react";)/m, '$1\nimport { useEffect, useRef } from "react";')
+      .replace(new RegExp("^(export function " + fn + "\\(\\) \\{\\n)"), "$1  const fuRef = useRef<any>(null);\n  useEffect(() => fuInteract(fuRef.current), []);\n")
+      .replace(/(return \(\n\s*<[A-Za-z]+)/, "$1 ref={fuRef}");
+    code = '"use client";\n' + code + "\n// Interactions: hover and click states. Remove this function and the two lines above to get a static screen.\n" + INTERACT.replace(/^\/\*[\s\S]*?\*\/\n/, "").trim() + "\n";
+  }
   if (fn) code += "\nexport default " + fn + ";\n";
   const header = [
     `// ${item.name} (${g.system} dashboard template) from Ingot UI (ingotui.com).`,

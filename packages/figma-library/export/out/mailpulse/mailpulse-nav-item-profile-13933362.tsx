@@ -1,6 +1,6 @@
-// Nav item Profile (mailpulse, Cards and panels) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Foundry Icons.
-import { User as UserBulk } from "foundryui-icons/react/bulk";
+// Nav item Profile (mailpulse, Cards and panels) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
+import { User as UserBulk } from "ingotui-icons/react/bulk";
 
 export function NavItemProfile() {
   return (

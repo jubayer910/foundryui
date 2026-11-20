@@ -35,15 +35,21 @@ export function ComponentSpecs({ s, name, w, h, system }: { s: Specs; name: stri
       <p className="mt-1 max-w-3xl text-[13px] leading-snug text-mute">
         {name} is {s.lines} lines of React with {icons.length ? icons.length + " Ingot icon" + (icons.length > 1 ? "s" : "") : "no icons"}, set in {s.fonts.length ? list(s.fonts) : "the system font"}. It needs no packages beyond React, so it works in Next.js, Vite or Remix as pasted, and its colours can be swapped for your {system} tokens.
       </p>
-      <dl className="mt-3 max-w-3xl border-t border-hair">
-        {rows.map(([k, v]) => (
-          <div key={k} className="flex justify-between gap-6 border-b border-hair py-1.5 text-[13px]">
-            <dt className="shrink-0 text-mute">{k}</dt>
-            <dd className="text-right">{v}</dd>
-          </div>
-        ))}
-      </dl>
-      <pre className="mt-3 max-w-3xl overflow-x-auto rounded-[8px] bg-tile p-3 font-fu-mono text-[12px] leading-relaxed">{`import { ${s.fn} } from "./${file}";\n\nexport default function Page() {\n  return <${s.fn} />;\n}`}</pre>
+      {/* two columns on wide screens: the facts table and the usage snippet side by side, no empty half-page */}
+      <div className="mt-3 grid gap-x-8 gap-y-3 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+        <dl className="border-t border-hair">
+          {rows.map(([k, v]) => (
+            <div key={k} className="flex justify-between gap-6 border-b border-hair py-1.5 text-[13px]">
+              <dt className="shrink-0 text-mute">{k}</dt>
+              <dd className="text-right">{v}</dd>
+            </div>
+          ))}
+        </dl>
+        <div className="flex flex-col gap-1.5">
+          <p className="text-[12px] text-mute">Use it</p>
+          <pre className="overflow-x-auto rounded-[8px] bg-tile p-3 font-fu-mono text-[12px] leading-relaxed">{`import { ${s.fn} } from "./${file}";\n\nexport default function Page() {\n  return <${s.fn} />;\n}`}</pre>
+        </div>
+      </div>
     </section>
   );
 }

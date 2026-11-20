@@ -1,7 +1,7 @@
-// Header modal, Pause Abandoned cart? (loopo, Modals) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Foundry Icons.
-import { PauseCircle as PauseCircleBulk } from "foundryui-icons/react/bulk";
-import { X } from "foundryui-icons/react/stroke-rounded";
+// Header modal, Pause Abandoned cart? (loopo, Modals) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
+import { PauseCircle as PauseCircleBulk } from "ingotui-icons/react/bulk";
+import { X } from "ingotui-icons/react/stroke-rounded";
 
 export function HeaderModalPauseAbandonedCart() {
   return (

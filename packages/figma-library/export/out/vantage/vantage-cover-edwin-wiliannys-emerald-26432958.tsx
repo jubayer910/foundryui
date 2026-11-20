@@ -1,5 +1,5 @@
-// Cover, Edwin & Wiliannys → Emerald (vantage, Cards and panels) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Foundry Icons.
+// Cover, Edwin & Wiliannys → Emerald (vantage, Cards and panels) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
 export function CoverEdwinWiliannysEmerald() {
   return (
     <div style={{ width: "369.3px", height: "132px", borderRadius: "7px", background: "#191919", boxShadow: "inset 0px 2px 8px 0px rgba(0, 0, 0, 0.25)", overflow: "hidden", position: "relative" }}>

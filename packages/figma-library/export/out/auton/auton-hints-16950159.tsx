@@ -1,5 +1,5 @@
-// Hints (auton, Tables and lists) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Foundry Icons.
+// Hints (auton, Tables and lists) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
 export function Hints() {
   return (
     <div style={{ width: "638px", height: "41px", background: "#fafafa", boxShadow: "inset 0 1px 0 0 #e2e4e5", display: "flex", flexDirection: "row", padding: "11px 16px 10px 16px", gap: "14px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>

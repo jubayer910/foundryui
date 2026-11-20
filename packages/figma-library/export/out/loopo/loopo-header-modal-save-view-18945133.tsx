@@ -1,7 +1,7 @@
-// Header modal, Save view (loopo, Modals) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Foundry Icons.
-import { Bookmark as BookmarkBulk } from "foundryui-icons/react/bulk";
-import { X } from "foundryui-icons/react/stroke-rounded";
+// Header modal, Save view (loopo, Modals) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
+import { Bookmark as BookmarkBulk } from "ingotui-icons/react/bulk";
+import { X } from "ingotui-icons/react/stroke-rounded";
 
 export function HeaderModalSaveView() {
   return (

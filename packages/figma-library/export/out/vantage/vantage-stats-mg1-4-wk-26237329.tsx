@@ -1,5 +1,5 @@
-// Stats, MG1 · 4 wk (vantage, KPI and stats) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Foundry Icons.
+// Stats, MG1 · 4 wk (vantage, KPI and stats) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
 export function StatsMG14Wk() {
   return (
     <div style={{ width: "440px", height: "103px", boxShadow: "inset 0 -1px 0 0 #262626", display: "flex", flexDirection: "row", padding: "14px 16px 15px 16px", gap: "14px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>

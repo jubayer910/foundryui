@@ -1,7 +1,7 @@
-// Header modal, Install Homepage pop-up (loopo, Modals) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Foundry Icons.
-import { Code as CodeBulk } from "foundryui-icons/react/bulk";
-import { X } from "foundryui-icons/react/stroke-rounded";
+// Header modal, Install Homepage pop-up (loopo, Modals) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
+import { Code as CodeBulk } from "ingotui-icons/react/bulk";
+import { X } from "ingotui-icons/react/stroke-rounded";
 
 export function HeaderModalInstallHomepagePopUp() {
   return (

@@ -1,5 +1,5 @@
-// Policy published (auton, Cards and panels) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist, Geist Mono. Icons: Foundry Icons.
+// Policy published (auton, Cards and panels) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist, Geist Mono. Icons: Ingot Icons.
 export function PolicyPublished() {
   return (
     <div style={{ width: "310px", height: "34px", borderRadius: "8px", display: "flex", flexDirection: "row", padding: "0px 10px 0px 34px", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>

@@ -1,5 +1,5 @@
-// Findings so far, Findings so far (veriq, Cards and panels) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist, Geist Mono. Icons: Foundry Icons.
+// Findings so far, Findings so far (veriq, Cards and panels) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist, Geist Mono. Icons: Ingot Icons.
 export function FindingsSoFarFindingsSoFar() {
   return (
     <div style={{ width: "518px", height: "114px", display: "flex", flexDirection: "column", padding: "0px 20px 16px 20px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>

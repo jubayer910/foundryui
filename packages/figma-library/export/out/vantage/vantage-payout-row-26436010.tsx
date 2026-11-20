@@ -1,5 +1,5 @@
-// Payout row (vantage, Cards and panels) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Foundry Icons.
+// Payout row (vantage, Cards and panels) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
 export function PayoutRow() {
   return (
     <div style={{ width: "375px", height: "50px", boxShadow: "inset 0 1px 0 0 #222222", display: "flex", flexDirection: "row", padding: "1px 0px 0px 0px", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>

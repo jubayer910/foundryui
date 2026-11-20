@@ -1,5 +1,5 @@
-// Toggle row (loopo, Forms) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Foundry Icons.
+// Toggle row (loopo, Forms) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
 export function ToggleRow() {
   return (
     <div style={{ width: "252px", height: "45.8px", display: "flex", flexDirection: "row", padding: "4.4px 8.8px 4.4px 8.8px", gap: "8.8px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>

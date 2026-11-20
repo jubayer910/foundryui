@@ -1,6 +1,17 @@
-// Your progress (mailpulse, Cards and panels) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Foundry Icons.
-import { Award as AwardBulk, Book as BookBulk, Flame as FlameBulk } from "foundryui-icons/react/bulk";
+// Your progress (mailpulse, Cards and panels) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
+import type { SVGProps } from "react";
+
+// Ingot Icons used here, inlined so this file needs no icon package.
+function icon(body: string) {
+  return function Icon({ size = 24, strokeWidth = 1.5, ...p }: { size?: number; strokeWidth?: number } & SVGProps<SVGSVGElement>) {
+    const html = strokeWidth == 1.5 ? body : body.replace(/stroke-width="([\d.]+)"/g, (_, w) => `stroke-width="${(Number(w) * Number(strokeWidth)) / 1.5}"`);
+    return <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden {...p} dangerouslySetInnerHTML={{ __html: html }} />;
+  };
+}
+const AwardBulk = icon("<path d=\"M6 9A6 6 0 1 0 18 9 6 6 0 1 0 6 9\" fill=\"currentColor\" fill-opacity=\"0.4\"/><g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 15L15.4 20.89 16.998 17.657 20.596 17.889 17.196 12\"/><path d=\"M6.802 12L3.4019999999999997 17.89 7 17.657 8.598 20.889 11.998000000000001 15\"/></g>");
+const BookBulk = icon("<path d=\"M3 19A9 9 0 0 1 12 19A9 9 0 0 1 21 19L21 6A9 9 0 0 0 12 6A9 9 0 0 0 3 6L3 19Z\" fill=\"currentColor\" fill-opacity=\"0.4\"/><g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 6L12 19\"/></g>");
+const FlameBulk = icon("<path d=\"M12 10.941C14.333 7.633000000000001 12.167 3.1180000000000003 11 2 11 5.395 8.765 7.299 7.333 8.706 5.9030000000000005 10.113999999999999 5 12 5 14.294 5 17.998 8.134 21 12 21 15.866 21 19 17.998 19 14.294 19 12.582 17.768 9.891000000000002 16.667 8.706 14.583000000000002 12.059 13.410000000000002 12.059 12.000000000000002 10.940999999999999\" fill=\"currentColor\" fill-opacity=\"0.4\"/>");
 
 export function YourProgress() {
   return (

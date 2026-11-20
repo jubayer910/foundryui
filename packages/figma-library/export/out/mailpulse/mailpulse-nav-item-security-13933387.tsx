@@ -1,6 +1,6 @@
-// Nav item Security (mailpulse, Cards and panels) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Foundry Icons.
-import { Shield as ShieldBulk } from "foundryui-icons/react/bulk";
+// Nav item Security (mailpulse, Cards and panels) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
+import { Shield as ShieldBulk } from "ingotui-icons/react/bulk";
 
 export function NavItemSecurity() {
   return (

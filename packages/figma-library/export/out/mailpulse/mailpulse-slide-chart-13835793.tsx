@@ -1,5 +1,5 @@
-// Slide chart (mailpulse, Charts) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: none. Icons: Foundry Icons.
+// Slide chart (mailpulse, Charts) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: none. Icons: Ingot Icons.
 export function SlideChart() {
   return (
     <div style={{ width: "213.8px", height: "93.2px", display: "flex", flexDirection: "row", gap: "5.5px", justifyContent: "flex-start", alignItems: "flex-end", boxSizing: "border-box" }}>

@@ -1,5 +1,5 @@
-// Usage legend (veriq, Cards and panels) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Foundry Icons.
+// Usage legend (veriq, Cards and panels) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
 export function UsageLegend() {
   return (
     <div style={{ width: "261px", height: "60px", display: "flex", flexDirection: "row", flexWrap: "wrap", rowGap: "6px", columnGap: "10px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>

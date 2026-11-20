@@ -1,5 +1,5 @@
-// Member, Yokasta Rosario (vantage, Cards and panels) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Foundry Icons.
+// Member, Yokasta Rosario (vantage, Cards and panels) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
 export function MemberYokastaRosario() {
   return (
     <div style={{ width: "196px", height: "52px", borderRadius: "10px", background: "#232323", boxShadow: "inset 0 0 0 1px #2e2e2e, 0px 0px 4.6px 0px rgba(0, 0, 0, 0.5)", display: "flex", flexDirection: "row", padding: "9px 11px 9px 11px", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>

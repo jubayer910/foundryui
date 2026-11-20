@@ -1,11 +1,35 @@
-// Canvas (axon, Editors) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist, Geist Mono. Icons: Foundry Icons.
-import { Activity, Checklist, CircleCheck, Dots, GitBranch, Minus, Plus, Sparkles, Target, Timer, Users, ZoomInArea } from "foundryui-icons/react/stroke-rounded";
+"use client";
+// Canvas (axon, Editors) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist, Geist Mono. Icons: Ingot Icons.
+import { useEffect, useRef } from "react";
+import type { SVGProps } from "react";
+
+// Ingot Icons used here, inlined so this file needs no icon package.
+function icon(body: string) {
+  return function Icon({ size = 24, strokeWidth = 1.5, ...p }: { size?: number; strokeWidth?: number } & SVGProps<SVGSVGElement>) {
+    const html = strokeWidth == 1.5 ? body : body.replace(/stroke-width="([\d.]+)"/g, (_, w) => `stroke-width="${(Number(w) * Number(strokeWidth)) / 1.5}"`);
+    return <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden {...p} dangerouslySetInnerHTML={{ __html: html }} />;
+  };
+}
+const Activity = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3 12h4l3 8l4 -16l3 8h4\" /></g>");
+const Checklist = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M9.615 20h-2.615a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v8\" /><path d=\"M14 19l2 2l4 -4\" /><path d=\"M9 8h4\" /><path d=\"M9 12h2\" /></g>");
+const CircleCheck = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0\" /><path d=\"M9 12l2 2l4 -4\" /></g>");
+const Dots = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M4 12a1 1 0 1 0 2 0a1 1 0 1 0 -2 0\" /><path d=\"M11 12a1 1 0 1 0 2 0a1 1 0 1 0 -2 0\" /><path d=\"M18 12a1 1 0 1 0 2 0a1 1 0 1 0 -2 0\" /></g>");
+const GitBranch = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M5 18a2 2 0 1 0 4 0a2 2 0 1 0 -4 0\" /><path d=\"M5 6a2 2 0 1 0 4 0a2 2 0 1 0 -4 0\" /><path d=\"M15 6a2 2 0 1 0 4 0a2 2 0 1 0 -4 0\" /><path d=\"M7 8l0 8\" /><path d=\"M9 18h6a2 2 0 0 0 2 -2v-5\" /><path d=\"M14 14l3 -3l3 3\" /></g>");
+const Minus = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M5 12l14 0\" /></g>");
+const Plus = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 5l0 14\" /><path d=\"M5 12l14 0\" /></g>");
+const Sparkles = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M16 18a2 2 0 0 1 2 2a2 2 0 0 1 2 -2a2 2 0 0 1 -2 -2a2 2 0 0 1 -2 2m0 -12a2 2 0 0 1 2 2a2 2 0 0 1 2 -2a2 2 0 0 1 -2 -2a2 2 0 0 1 -2 2m-7 12a6 6 0 0 1 6 -6a6 6 0 0 1 -6 -6a6 6 0 0 1 -6 6a6 6 0 0 1 6 6\" /></g>");
+const Target = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M11 12a1 1 0 1 0 2 0a1 1 0 1 0 -2 0\" /><path d=\"M7 12a5 5 0 1 0 10 0a5 5 0 1 0 -10 0\" /><path d=\"M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0\" /></g>");
+const Timer = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><line x1=\"10\" x2=\"14\" y1=\"2\" y2=\"2\" /><line x1=\"12\" x2=\"15\" y1=\"14\" y2=\"11\" /><circle cx=\"12\" cy=\"14\" r=\"8\" /></g>");
+const Users = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M5 7a4 4 0 1 0 8 0a4 4 0 1 0 -8 0\" /><path d=\"M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2\" /><path d=\"M16 3.13a4 4 0 0 1 0 7.75\" /><path d=\"M21 21v-2a4 4 0 0 0 -3 -3.85\" /></g>");
+const ZoomInArea = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M15 13v4\" /><path d=\"M13 15h4\" /><path d=\"M10 15a5 5 0 1 0 10 0a5 5 0 1 0 -10 0\" /><path d=\"M22 22l-3 -3\" /><path d=\"M6 18h-1a2 2 0 0 1 -2 -2v-1\" /><path d=\"M3 11v-1\" /><path d=\"M3 6v-1a2 2 0 0 1 2 -2h1\" /><path d=\"M10 3h1\" /><path d=\"M15 3h1a2 2 0 0 1 2 2v1\" /></g>");
 
 export function Canvas() {
+  const fuRef = useRef<any>(null);
+  useEffect(() => fuInteract(fuRef.current), []);
   return (
-    <div style={{ width: "633px", height: "889px", background: "#f9f9f9", overflow: "hidden", position: "relative" }}>
-      <svg style={{ position: "absolute", left: "0px", top: "0px", width: "633px", height: "889px", display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="633" height="889" viewBox="0 0 633 889" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 316 688)" d="M159.75 0 C159.75 -0.414214 159.414 -0.75 159 -0.75 C158.586 -0.75 158.25 -0.414214 158.25 0 L159 0 L159.75 0 Z M-0.75 58 C-0.75 58.4142 -0.414214 58.75 0 58.75 C0.414214 58.75 0.75 58.4142 0.75 58 L0 58 L-0.75 58 Z M159 0 L158.25 0 L158.25 20 L159 20 L159.75 20 L159.75 0 L159 0 Z M159 20 L158.25 20 C158.25 23.2177 157.446 25.4933 155.97 26.9697 C154.493 28.4461 152.218 29.25 149 29.25 L149 30 L149 30.75 C152.449 30.75 155.173 29.8873 157.03 28.0303 C158.887 26.1734 159.75 23.4489 159.75 20 L159 20 Z M149 30 L149 29.25 L10 29.25 L10 30 L10 30.75 L149 30.75 L149 30 Z M10 30 L10 29.25 C6.55106 29.25 3.8266 30.1127 1.96967 31.9697 C0.112743 33.8266 -0.75 36.5511 -0.75 40 L0 40 L0.75 40 C0.75 36.7823 1.55392 34.5067 3.03033 33.0303 C4.50674 31.5539 6.78228 30.75 10 30.75 L10 30 Z M0 40 L-0.75 40 L-0.75 58 L0 58 L0.75 58 L0.75 40 L0 40 Z" fill="#cdd0d6"/></svg>
+    <div ref={fuRef} style={{ width: "633px", height: "889px", background: "#f9f9f9", overflow: "hidden", position: "relative" }}>
+      <svg data-fu="plot" style={{ position: "absolute", left: "0px", top: "0px", width: "633px", height: "889px", display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="633" height="889" viewBox="0 0 633 889" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 316 688)" d="M159.75 0 C159.75 -0.414214 159.414 -0.75 159 -0.75 C158.586 -0.75 158.25 -0.414214 158.25 0 L159 0 L159.75 0 Z M-0.75 58 C-0.75 58.4142 -0.414214 58.75 0 58.75 C0.414214 58.75 0.75 58.4142 0.75 58 L0 58 L-0.75 58 Z M159 0 L158.25 0 L158.25 20 L159 20 L159.75 20 L159.75 0 L159 0 Z M159 20 L158.25 20 C158.25 23.2177 157.446 25.4933 155.97 26.9697 C154.493 28.4461 152.218 29.25 149 29.25 L149 30 L149 30.75 C152.449 30.75 155.173 29.8873 157.03 28.0303 C158.887 26.1734 159.75 23.4489 159.75 20 L159 20 Z M149 30 L149 29.25 L10 29.25 L10 30 L10 30.75 L149 30.75 L149 30 Z M10 30 L10 29.25 C6.55106 29.25 3.8266 30.1127 1.96967 31.9697 C0.112743 33.8266 -0.75 36.5511 -0.75 40 L0 40 L0.75 40 C0.75 36.7823 1.55392 34.5067 3.03033 33.0303 C4.50674 31.5539 6.78228 30.75 10 30.75 L10 30 Z M0 40 L-0.75 40 L-0.75 58 L0 58 L0.75 58 L0.75 40 L0 40 Z" fill="#cdd0d6"/></svg>
       <svg style={{ position: "absolute", left: "0px", top: "0px", width: "633px", height: "889px", display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="633" height="889" viewBox="0 0 633 889" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 158 688)" d="M0.75 0 C0.75 -0.414214 0.414214 -0.75 0 -0.75 C-0.414214 -0.75 -0.75 -0.414214 -0.75 0 L0 0 L0.75 0 Z M157.25 58 C157.25 58.4142 157.586 58.75 158 58.75 C158.414 58.75 158.75 58.4142 158.75 58 L158 58 L157.25 58 Z M0 0 L-0.75 0 L-0.75 20 L0 20 L0.75 20 L0.75 0 L0 0 Z M0 20 L-0.75 20 C-0.75 23.4489 0.112743 26.1734 1.96967 28.0303 C3.8266 29.8873 6.55106 30.75 10 30.75 L10 30 L10 29.25 C6.78228 29.25 4.50674 28.4461 3.03033 26.9697 C1.55392 25.4933 0.75 23.2177 0.75 20 L0 20 Z M10 30 L10 30.75 L148 30.75 L148 30 L148 29.25 L10 29.25 L10 30 Z M148 30 L148 30.75 C151.218 30.75 153.493 31.5539 154.97 33.0303 C156.446 34.5067 157.25 36.7823 157.25 40 L158 40 L158.75 40 C158.75 36.5511 157.887 33.8266 156.03 31.9697 C154.173 30.1127 151.449 29.25 148 29.25 L148 30 Z M158 40 L157.25 40 L157.25 58 L158 58 L158.75 58 L158.75 40 L158 40 Z" fill="#cdd0d6"/></svg>
       <svg style={{ position: "absolute", left: "0px", top: "0px", width: "633px", height: "889px", display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="633" height="889" viewBox="0 0 633 889" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 316 495)" d="M0.75 0 C0.75 -0.414214 0.414214 -0.75 0 -0.75 C-0.414214 -0.75 -0.75 -0.414214 -0.75 0 L0 0 L0.75 0 Z M158.25 58 C158.25 58.4142 158.586 58.75 159 58.75 C159.414 58.75 159.75 58.4142 159.75 58 L159 58 L158.25 58 Z M0 0 L-0.75 0 L-0.75 18 L0 18 L0.75 18 L0.75 0 L0 0 Z M0 18 L-0.75 18 C-0.75 21.4489 0.112743 24.1734 1.96967 26.0303 C3.8266 27.8873 6.55106 28.75 10 28.75 L10 28 L10 27.25 C6.78228 27.25 4.50674 26.4461 3.03033 24.9697 C1.55392 23.4933 0.75 21.2177 0.75 18 L0 18 Z M10 28 L10 28.75 L149 28.75 L149 28 L149 27.25 L10 27.25 L10 28 Z M149 28 L149 28.75 C152.218 28.75 154.493 29.5539 155.97 31.0303 C157.446 32.5067 158.25 34.7823 158.25 38 L159 38 L159.75 38 C159.75 34.5511 158.887 31.8266 157.03 29.9697 C155.173 28.1127 152.449 27.25 149 27.25 L149 28 Z M159 38 L158.25 38 L158.25 58 L159 58 L159.75 58 L159.75 38 L159 38 Z" fill="#cdd0d6"/></svg>
       <svg style={{ position: "absolute", left: "0px", top: "0px", width: "633px", height: "889px", display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="633" height="889" viewBox="0 0 633 889" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 158 495)" d="M158.75 0 C158.75 -0.414214 158.414 -0.75 158 -0.75 C157.586 -0.75 157.25 -0.414214 157.25 0 L158 0 L158.75 0 Z M-0.75 58 C-0.75 58.4142 -0.414214 58.75 0 58.75 C0.414214 58.75 0.75 58.4142 0.75 58 L0 58 L-0.75 58 Z M158 0 L157.25 0 L157.25 18 L158 18 L158.75 18 L158.75 0 L158 0 Z M158 18 L157.25 18 C157.25 21.2177 156.446 23.4933 154.97 24.9697 C153.493 26.4461 151.218 27.25 148 27.25 L148 28 L148 28.75 C151.449 28.75 154.173 27.8873 156.03 26.0303 C157.887 24.1734 158.75 21.4489 158.75 18 L158 18 Z M148 28 L148 27.25 L10 27.25 L10 28 L10 28.75 L148 28.75 L148 28 Z M10 28 L10 27.25 C6.55106 27.25 3.8266 28.1127 1.96967 29.9697 C0.112743 31.8266 -0.75 34.5511 -0.75 38 L0 38 L0.75 38 C0.75 34.7823 1.55392 32.5067 3.03033 31.0303 C4.50674 29.5539 6.78228 28.75 10 28.75 L10 28 Z M0 38 L-0.75 38 L-0.75 58 L0 58 L0.75 58 L0.75 38 L0 38 Z" fill="#cdd0d6"/></svg>
@@ -166,4 +190,181 @@ export function Canvas() {
       </div>
     </div>
   );
+}
+
+// Interactions: hover and click states. Remove this function and the two lines above to get a static component.
+function fuInteract(root: HTMLElement | null) {
+  if (!root || root.dataset.fuOn) return;
+  root.dataset.fuOn = "1";
+  const doc = root.ownerDocument;
+  const all = (sel: string, el: Element = root): HTMLElement[] => Array.from(el.querySelectorAll(sel)) as HTMLElement[];
+  const box = (el: Element) => el.getBoundingClientRect();
+  const font = getComputedStyle(root).fontFamily;
+  const tip = doc.createElement("div");
+  tip.setAttribute("aria-hidden", "true");
+  Object.assign(tip.style, { position: "fixed", zIndex: "2147483647", pointerEvents: "none", background: "#111113", color: "#fff", font: "500 12px/16px " + font, padding: "5px 8px", borderRadius: "6px", whiteSpace: "nowrap", opacity: "0", transform: "translate(-50%, -100%)", transition: "opacity .12s", boxShadow: "0 4px 14px rgba(0,0,0,.18)" });
+  doc.body.appendChild(tip);
+  const show = (text: string, x: number, y: number) => { if (!text) return hide(); tip.textContent = text; tip.style.left = x + "px"; tip.style.top = y - 8 + "px"; tip.style.opacity = "1"; };
+  const hide = () => { tip.style.opacity = "0"; };
+  const ease = (el: HTMLElement | SVGElement, props: string) => { const s = (el as HTMLElement).style; if (!s.transition) s.transition = props; };
+  const texts = (scope: Element) => all("p, span", scope).filter((t) => t.children.length === 0 && (t.textContent || "").trim());
+  const NUM = /^([^\d\-+.]*)([-+]?[\d,]*\.?\d+)\s*([kKmMbB%]?)([^\d]*)$/;
+  // value axis: numeric labels along one edge of the chart, used to read a mark's value from its position
+  const axis = (scope: Element, vertical: boolean) => {
+    const pts: { v: number; p: number; pre: string; suf: string; dec: number }[] = [];
+    for (const t of texts(scope)) {
+      const m = (t.textContent || "").trim().match(NUM);
+      if (!m) continue;
+      const mult = { k: 1e3, K: 1e3, m: 1e6, M: 1e6, b: 1e9, B: 1e9 }[m[3] as "k"] || 1;
+      const r = box(t);
+      pts.push({ v: parseFloat(m[2].replace(/,/g, "")) * mult, p: vertical ? r.top + r.height / 2 : r.left + r.width / 2, pre: m[1], suf: m[3] + m[4], dec: (m[2].split(".")[1] || "").length });
+    }
+    const uniq = pts.filter((a, i) => pts.findIndex((b) => Math.abs(b.p - a.p) < 2) === i);
+    if (uniq.length < 2) return null;
+    uniq.sort((a, b) => a.p - b.p);
+    const a = uniq[0], b = uniq[uniq.length - 1];
+    if (a.v === b.v || Math.abs(b.p - a.p) < 10) return null;
+    return (pos: number) => {
+      const v = a.v + ((pos - a.p) * (b.v - a.v)) / (b.p - a.p);
+      const suf = a.suf || b.suf, pre = a.pre || b.pre;
+      const div = /^[kK]/.test(suf) ? 1e3 : /^[mM]/.test(suf) ? 1e6 : /^[bB]/.test(suf) ? 1e9 : 1;
+      const x = v / div;
+      const dec = Math.max(a.dec, b.dec, div > 1 && Math.abs(x) < 100 ? 1 : 0);
+      return pre + x.toLocaleString("en-US", { minimumFractionDigits: 0, maximumFractionDigits: dec }) + suf;
+    };
+  };
+  // the chart around a group of marks: the nearest ancestor that also holds text labels
+  const chartOf = (el: Element) => { let c: Element | null = el.parentElement; while (c && c !== root.parentElement) { if (texts(c).length >= 3) return c; c = c.parentElement; } return root; };
+  const labelNear = (scope: Element, x: number, y: number, below: boolean) => {
+    let best = "", d = 1e9;
+    for (const t of texts(scope)) {
+      const r = box(t);
+      if (below ? r.top < y - 2 : r.right > x + 2) continue;
+      if (NUM.test((t.textContent || "").trim()) && !/[a-z]{3}/i.test(t.textContent || "")) continue;
+      const dd = below ? Math.abs(r.left + r.width / 2 - x) + (r.top - y) * 0.2 : Math.abs(r.top + r.height / 2 - y) + (x - r.right) * 0.1;
+      if (dd < d) { d = dd; best = (t.textContent || "").trim(); }
+    }
+    return d < 80 ? best : "";
+  };
+  const dim = (els: (HTMLElement | SVGElement)[], keep: (HTMLElement | SVGElement)[]) => { for (const e of els) { ease(e, "opacity .15s"); (e as HTMLElement).style.opacity = keep.includes(e) ? "" : "0.35"; } };
+  const undim = (els: (HTMLElement | SVGElement)[]) => { for (const e of els) (e as HTMLElement).style.opacity = ""; };
+
+  // vertical bars: the hovered column (all stacked segments at that x) stays, the rest fade
+  const groups = new Map<Element, HTMLElement[]>();
+  for (const b of all("[data-fu=bar],[data-fu=hbar]")) { const p = b.parentElement!; if (!groups.has(p)) groups.set(p, []); groups.get(p)!.push(b); }
+  groups.forEach((bars) => {
+    const horiz = bars[0].dataset.fu === "hbar";
+    const scope = chartOf(bars[0]);
+    const val = axis(scope, !horiz);
+    const peers = (b: HTMLElement) => { const r = box(b), c = horiz ? r.top + r.height / 2 : r.left + r.width / 2; return bars.filter((o) => { const q = box(o); return Math.abs((horiz ? q.top + q.height / 2 : q.left + q.width / 2) - c) < Math.max(2, (horiz ? r.height : r.width) / 2); }); };
+    for (const b of bars) {
+      b.addEventListener("mouseenter", () => {
+        const col = peers(b);
+        dim(bars, col);
+        const rs = col.map(box);
+        const top = Math.min(...rs.map((r) => r.top)), right = Math.max(...rs.map((r) => r.right)), r0 = rs[0];
+        const label = horiz ? labelNear(scope, r0.left, r0.top + r0.height / 2, false) : labelNear(scope, r0.left + r0.width / 2, Math.max(...rs.map((r) => r.bottom)), true);
+        const v = val ? val(horiz ? right : top) : "";
+        show([label, v].filter(Boolean).join(" · "), horiz ? right : r0.left + r0.width / 2, horiz ? r0.top : top);
+      });
+      b.addEventListener("mouseleave", () => { undim(bars); hide(); });
+    }
+  });
+
+  // line and area plots: a guide line and a dot follow the pointer along the top edge of the plotted shape
+  for (const svg of all("svg[data-fu=plot]") as unknown as SVGSVGElement[]) {
+    const paths = Array.from(svg.querySelectorAll("path, polyline")) as SVGGeometryElement[];
+    if (!paths.length) continue;
+    const line = paths.reduce((a, b) => (b.getTotalLength() > a.getTotalLength() ? b : a));
+    const len = line.getTotalLength();
+    const pts: { x: number; y: number }[] = [];
+    for (let i = 0; i <= 800; i++) { const q = line.getPointAtLength((len * i) / 800); pts.push({ x: q.x, y: q.y }); }
+    const xs = pts.map((q) => q.x), minX = Math.min(...xs), maxX = Math.max(...xs);
+    const color = (line.getAttribute("stroke") && line.getAttribute("stroke") !== "none" ? line.getAttribute("stroke") : line.getAttribute("fill")) || "#111";
+    const NS = "http://www.w3.org/2000/svg";
+    const g = doc.createElementNS(NS, "g");
+    g.setAttribute("pointer-events", "none");
+    g.style.opacity = "0";
+    const guide = doc.createElementNS(NS, "line");
+    guide.setAttribute("stroke", /^url/.test(color) ? "#111" : color);
+    guide.setAttribute("stroke-dasharray", "3 3");
+    guide.setAttribute("stroke-opacity", "0.5");
+    const dot = doc.createElementNS(NS, "circle");
+    dot.setAttribute("r", "4");
+    dot.setAttribute("fill", "#fff");
+    dot.setAttribute("stroke", /^url/.test(color) ? "#111" : color);
+    dot.setAttribute("stroke-width", "2");
+    g.append(guide, dot);
+    svg.appendChild(g);
+    const scope = chartOf(svg);
+    const val = axis(scope, true);
+    const area = svg.parentElement || svg;
+    area.addEventListener("mousemove", (ev: Event) => {
+      const e = ev as MouseEvent;
+      const m = line.getScreenCTM();
+      if (!m) return;
+      const px = new DOMPoint(e.clientX, e.clientY).matrixTransform(m.inverse()).x;
+      if (px < minX - 4 || px > maxX + 4) { g.style.opacity = "0"; hide(); return; }
+      const step = (maxX - minX) / 400 || 1;
+      let y = Infinity, x = px;
+      for (const q of pts) if (Math.abs(q.x - px) <= step && q.y < y) { y = q.y; x = q.x; }
+      if (y === Infinity) return;
+      const bb = line.getBBox();
+      guide.setAttribute("x1", String(x)); guide.setAttribute("x2", String(x));
+      guide.setAttribute("y1", String(bb.y)); guide.setAttribute("y2", String(bb.y + bb.height));
+      dot.setAttribute("cx", String(x)); dot.setAttribute("cy", String(y));
+      g.style.opacity = "1";
+      const sp = new DOMPoint(x, y).matrixTransform(m);
+      const label = labelNear(scope, sp.x, box(svg).bottom, true);
+      show([label, val ? val(sp.y) : ""].filter(Boolean).join(" · "), sp.x, sp.y);
+    });
+    area.addEventListener("mouseleave", () => { g.style.opacity = "0"; hide(); });
+  }
+
+  // rows: a soft highlight under the pointer
+  for (const r of all("[data-fu=row]")) {
+    r.addEventListener("mouseenter", () => { ease(r, "filter .15s"); r.style.filter = "brightness(0.975)"; });
+    r.addEventListener("mouseleave", () => { r.style.filter = ""; });
+  }
+
+  // buttons: hover and press feedback
+  for (const b of all("[data-fu=btn],[data-fu=tab]")) {
+    b.style.cursor = "pointer";
+    b.addEventListener("mouseenter", () => { ease(b, "filter .15s, transform .1s"); if (!b.dataset.fuActive) b.style.filter = "brightness(0.96)"; });
+    b.addEventListener("mouseleave", () => { b.style.filter = ""; b.style.transform = ""; });
+    b.addEventListener("mousedown", () => { b.style.transform = "scale(0.98)"; });
+    b.addEventListener("mouseup", () => { b.style.transform = ""; });
+  }
+
+  // tabs and segmented controls: clicking a tab moves the selected look onto it
+  const VIS = ["background-color", "background-image", "box-shadow", "border-color", "color", "font-weight"];
+  const look = (el: HTMLElement) => VIS.map((k) => el.style.getPropertyValue(k)).join("|");
+  const tabGroups = new Map<Element, HTMLElement[]>();
+  for (const t of all("[data-fu=tab]")) { const p = t.parentElement!; if (!tabGroups.has(p)) tabGroups.set(p, []); tabGroups.get(p)!.push(t); }
+  tabGroups.forEach((tabs) => {
+    if (tabs.length < 2) return;
+    const counts = new Map<string, number>();
+    for (const t of tabs) counts.set(look(t), (counts.get(look(t)) || 0) + 1);
+    let active = tabs.find((t) => counts.get(look(t)) === 1 && counts.size > 1) || null;
+    if (!active) return;
+    active.dataset.fuActive = "1";
+    // read both looks first, then write: swapping one property at a time would let shorthands undo each other
+    const swapStyle = (a: HTMLElement, b: HTMLElement, props: string[]) => {
+      const va = props.map((k) => a.style.getPropertyValue(k)), vb = props.map((k) => b.style.getPropertyValue(k));
+      props.forEach((k, i) => { a.style.setProperty(k, vb[i]); b.style.setProperty(k, va[i]); });
+    };
+    const swap = (a: HTMLElement, b: HTMLElement) => {
+      swapStyle(a, b, VIS);
+      const ta = texts(a), tb = texts(b);
+      for (let i = 0; i < Math.min(ta.length, tb.length); i++) swapStyle(ta[i], tb[i], ["color", "font-weight"]);
+    };
+    for (const t of tabs) t.addEventListener("click", () => {
+      if (!active || t === active) return;
+      t.style.filter = "";
+      swap(active, t);
+      delete active.dataset.fuActive;
+      active = t;
+      t.dataset.fuActive = "1";
+    });
+  });
 }

@@ -1,11 +1,15 @@
+"use client";
 // Unusual amount popover (spendix, Popovers) from Ingot UI (ingotui.com).
 // Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
+import { useEffect, useRef } from "react";
 import { AlertCircle as AlertCircleSolid } from "ingotui-icons/react/solid";
 import { ChevronRight } from "ingotui-icons/react/stroke-rounded";
 
 export function UnusualAmountPopover() {
+  const fuRef = useRef<any>(null);
+  useEffect(() => fuInteract(fuRef.current), []);
   return (
-    <div style={{ width: "320px", height: "326px", borderRadius: "12px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #e8e8eb, 0px 12px 32px -8px rgba(13, 13, 18, 0.1), 0px 1px 2px 0px rgba(13, 13, 18, 0.05)", overflow: "hidden", display: "flex", flexDirection: "column", padding: "1px 1px 1px 1px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+    <div ref={fuRef} style={{ width: "320px", height: "326px", borderRadius: "12px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #e8e8eb, 0px 12px 32px -8px rgba(13, 13, 18, 0.1), 0px 1px 2px 0px rgba(13, 13, 18, 0.05)", overflow: "hidden", display: "flex", flexDirection: "column", padding: "1px 1px 1px 1px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
       <div style={{ alignSelf: "stretch", flexShrink: 0, boxShadow: "inset 0 -1px 0 0 #ededed", display: "flex", flexDirection: "row", padding: "12px 14px 13px 14px", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
         <div style={{ width: "30px", height: "30px", flexShrink: 0, borderRadius: "10px", background: "rgba(229, 72, 77, 0.12)", display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
           <AlertCircleSolid size={15} style={{ width: "15px", height: "15px", flexShrink: 0, color: "#e5484d", display: "block" }} />
@@ -24,22 +28,22 @@ export function UnusualAmountPopover() {
           <p style={{ position: "absolute", left: "0px", top: "42px", margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "30px", lineHeight: "16px", fontFamily: "'Geist'", fontSize: "12px", fontWeight: 400, color: "#7d818c" }}>$700</p>
           <div style={{ position: "absolute", left: "34px", top: "91.5px", width: "258px", height: "1px", background: "#e2e2e5" }} />
           <p style={{ position: "absolute", left: "18px", top: "84px", margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "8px", lineHeight: "16px", fontFamily: "'Geist'", fontSize: "12px", fontWeight: 400, color: "#7d818c" }}>0</p>
-          <div style={{ position: "absolute", left: "44.5px", top: "71.72px", width: "22px", height: "20.28px", borderRadius: "5px", background: "linear-gradient(180deg, #f8cfd1 0%, #f6c1c2 100%)", boxShadow: "inset 0 0 0 1px rgba(218, 68, 73, 0.22), inset 0px 1px 0px 0px rgba(255, 255, 255, 0.55), inset 0px 0px 6px 0px rgba(255, 255, 255, 0.35), 0px 1px 1.5px 0px rgba(13, 13, 18, 0.04)", overflow: "hidden" }}>
+          <div data-fu="bar" style={{ position: "absolute", left: "44.5px", top: "71.72px", width: "22px", height: "20.28px", borderRadius: "5px", background: "linear-gradient(180deg, #f8cfd1 0%, #f6c1c2 100%)", boxShadow: "inset 0 0 0 1px rgba(218, 68, 73, 0.22), inset 0px 1px 0px 0px rgba(255, 255, 255, 0.55), inset 0px 0px 6px 0px rgba(255, 255, 255, 0.35), 0px 1px 1.5px 0px rgba(13, 13, 18, 0.04)", overflow: "hidden" }}>
             <svg style={{ position: "absolute", left: "-20.28px", top: "0px", width: "80.28px", height: "20.28px", display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="80.28" height="20.28" viewBox="0 0 80.28 20.28" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M0 20.28 L0.494975 20.775 L20.775 0.494975 L20.28 0 L19.785 -0.494975 L-0.494975 19.785 L0 20.28 Z M5 20.28 L5.49497 20.775 L25.775 0.494975 L25.28 0 L24.785 -0.494975 L4.50503 19.785 L5 20.28 Z M10 20.28 L10.495 20.775 L30.775 0.494975 L30.28 0 L29.785 -0.494975 L9.50502 19.785 L10 20.28 Z M15 20.28 L15.495 20.775 L35.775 0.494975 L35.28 0 L34.785 -0.494975 L14.505 19.785 L15 20.28 Z M20 20.28 L20.495 20.775 L40.775 0.494975 L40.28 0 L39.785 -0.494975 L19.505 19.785 L20 20.28 Z M25 20.28 L25.495 20.775 L45.775 0.494975 L45.28 0 L44.785 -0.494975 L24.505 19.785 L25 20.28 Z M30 20.28 L30.495 20.775 L50.775 0.494975 L50.28 0 L49.785 -0.494975 L29.505 19.785 L30 20.28 Z M35 20.28 L35.495 20.775 L55.775 0.494975 L55.28 0 L54.785 -0.494975 L34.505 19.785 L35 20.28 Z M40 20.28 L40.495 20.775 L60.775 0.494975 L60.28 0 L59.785 -0.494975 L39.505 19.785 L40 20.28 Z M45 20.28 L45.495 20.775 L65.775 0.494975 L65.28 0 L64.785 -0.494975 L44.505 19.785 L45 20.28 Z M50 20.28 L50.495 20.775 L70.775 0.494975 L70.28 0 L69.785 -0.494975 L49.505 19.785 L50 20.28 Z M55 20.28 L55.495 20.775 L75.775 0.494975 L75.28 0 L74.785 -0.494975 L54.505 19.785 L55 20.28 Z M60 20.28 L60.495 20.775 L80.775 0.494975 L80.28 0 L79.785 -0.494975 L59.505 19.785 L60 20.28 Z" fill="#ffffff" fillOpacity="0.6"/></svg>
           </div>
-          <div style={{ position: "absolute", left: "87.5px", top: "70.28px", width: "22px", height: "21.72px", borderRadius: "5px", background: "linear-gradient(180deg, #f8cfd1 0%, #f6c1c2 100%)", boxShadow: "inset 0 0 0 1px rgba(218, 68, 73, 0.22), inset 0px 1px 0px 0px rgba(255, 255, 255, 0.55), inset 0px 0px 6px 0px rgba(255, 255, 255, 0.35), 0px 1px 1.5px 0px rgba(13, 13, 18, 0.04)", overflow: "hidden" }}>
+          <div data-fu="bar" style={{ position: "absolute", left: "87.5px", top: "70.28px", width: "22px", height: "21.72px", borderRadius: "5px", background: "linear-gradient(180deg, #f8cfd1 0%, #f6c1c2 100%)", boxShadow: "inset 0 0 0 1px rgba(218, 68, 73, 0.22), inset 0px 1px 0px 0px rgba(255, 255, 255, 0.55), inset 0px 0px 6px 0px rgba(255, 255, 255, 0.35), 0px 1px 1.5px 0px rgba(13, 13, 18, 0.04)", overflow: "hidden" }}>
             <svg style={{ position: "absolute", left: "-21.72px", top: "0px", width: "86.72px", height: "21.72px", display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="86.72" height="21.72" viewBox="0 0 86.72 21.72" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M0 21.72 L0.494975 22.215 L22.215 0.494975 L21.72 0 L21.225 -0.494975 L-0.494975 21.225 L0 21.72 Z M5 21.72 L5.49497 22.215 L27.215 0.494975 L26.72 0 L26.225 -0.494975 L4.50503 21.225 L5 21.72 Z M10 21.72 L10.495 22.215 L32.215 0.494975 L31.72 0 L31.225 -0.494975 L9.50502 21.225 L10 21.72 Z M15 21.72 L15.495 22.215 L37.215 0.494975 L36.72 0 L36.225 -0.494975 L14.505 21.225 L15 21.72 Z M20 21.72 L20.495 22.215 L42.215 0.494975 L41.72 0 L41.225 -0.494975 L19.505 21.225 L20 21.72 Z M25 21.72 L25.495 22.215 L47.215 0.494975 L46.72 0 L46.225 -0.494975 L24.505 21.225 L25 21.72 Z M30 21.72 L30.495 22.215 L52.215 0.494975 L51.72 0 L51.225 -0.494975 L29.505 21.225 L30 21.72 Z M35 21.72 L35.495 22.215 L57.215 0.494975 L56.72 0 L56.225 -0.494975 L34.505 21.225 L35 21.72 Z M40 21.72 L40.495 22.215 L62.215 0.494975 L61.72 0 L61.225 -0.494975 L39.505 21.225 L40 21.72 Z M45 21.72 L45.495 22.215 L67.215 0.494975 L66.72 0 L66.225 -0.494975 L44.505 21.225 L45 21.72 Z M50 21.72 L50.495 22.215 L72.215 0.494975 L71.72 0 L71.225 -0.494975 L49.505 21.225 L50 21.72 Z M55 21.72 L55.495 22.215 L77.215 0.494975 L76.72 0 L76.225 -0.494975 L54.505 21.225 L55 21.72 Z M60 21.72 L60.495 22.215 L82.215 0.494975 L81.72 0 L81.225 -0.494975 L59.505 21.225 L60 21.72 Z M65 21.72 L65.495 22.215 L87.215 0.494975 L86.72 0 L86.225 -0.494975 L64.505 21.225 L65 21.72 Z" fill="#ffffff" fillOpacity="0.6"/></svg>
           </div>
-          <div style={{ position: "absolute", left: "130.5px", top: "70.94px", width: "22px", height: "21.06px", borderRadius: "5px", background: "linear-gradient(180deg, #f8cfd1 0%, #f6c1c2 100%)", boxShadow: "inset 0 0 0 1px rgba(218, 68, 73, 0.22), inset 0px 1px 0px 0px rgba(255, 255, 255, 0.55), inset 0px 0px 6px 0px rgba(255, 255, 255, 0.35), 0px 1px 1.5px 0px rgba(13, 13, 18, 0.04)", overflow: "hidden" }}>
+          <div data-fu="bar" style={{ position: "absolute", left: "130.5px", top: "70.94px", width: "22px", height: "21.06px", borderRadius: "5px", background: "linear-gradient(180deg, #f8cfd1 0%, #f6c1c2 100%)", boxShadow: "inset 0 0 0 1px rgba(218, 68, 73, 0.22), inset 0px 1px 0px 0px rgba(255, 255, 255, 0.55), inset 0px 0px 6px 0px rgba(255, 255, 255, 0.35), 0px 1px 1.5px 0px rgba(13, 13, 18, 0.04)", overflow: "hidden" }}>
             <svg style={{ position: "absolute", left: "-21.06px", top: "0px", width: "81.06px", height: "21.06px", display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="81.06" height="21.06" viewBox="0 0 81.06 21.06" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M0 21.06 L0.494975 21.555 L21.555 0.494975 L21.06 0 L20.565 -0.494975 L-0.494975 20.565 L0 21.06 Z M5 21.06 L5.49497 21.555 L26.555 0.494975 L26.06 0 L25.565 -0.494975 L4.50503 20.565 L5 21.06 Z M10 21.06 L10.495 21.555 L31.555 0.494975 L31.06 0 L30.565 -0.494975 L9.50502 20.565 L10 21.06 Z M15 21.06 L15.495 21.555 L36.555 0.494975 L36.06 0 L35.565 -0.494975 L14.505 20.565 L15 21.06 Z M20 21.06 L20.495 21.555 L41.555 0.494975 L41.06 0 L40.565 -0.494975 L19.505 20.565 L20 21.06 Z M25 21.06 L25.495 21.555 L46.555 0.494975 L46.06 0 L45.565 -0.494975 L24.505 20.565 L25 21.06 Z M30 21.06 L30.495 21.555 L51.555 0.494975 L51.06 0 L50.565 -0.494975 L29.505 20.565 L30 21.06 Z M35 21.06 L35.495 21.555 L56.555 0.494975 L56.06 0 L55.565 -0.494975 L34.505 20.565 L35 21.06 Z M40 21.06 L40.495 21.555 L61.555 0.494975 L61.06 0 L60.565 -0.494975 L39.505 20.565 L40 21.06 Z M45 21.06 L45.495 21.555 L66.555 0.494975 L66.06 0 L65.565 -0.494975 L44.505 20.565 L45 21.06 Z M50 21.06 L50.495 21.555 L71.555 0.494975 L71.06 0 L70.565 -0.494975 L49.505 20.565 L50 21.06 Z M55 21.06 L55.495 21.555 L76.555 0.494975 L76.06 0 L75.565 -0.494975 L54.505 20.565 L55 21.06 Z M60 21.06 L60.495 21.555 L81.555 0.494975 L81.06 0 L80.565 -0.494975 L59.505 20.565 L60 21.06 Z" fill="#ffffff" fillOpacity="0.6"/></svg>
           </div>
-          <div style={{ position: "absolute", left: "173.5px", top: "69.74px", width: "22px", height: "22.26px", borderRadius: "5px", background: "linear-gradient(180deg, #f8cfd1 0%, #f6c1c2 100%)", boxShadow: "inset 0 0 0 1px rgba(218, 68, 73, 0.22), inset 0px 1px 0px 0px rgba(255, 255, 255, 0.55), inset 0px 0px 6px 0px rgba(255, 255, 255, 0.35), 0px 1px 1.5px 0px rgba(13, 13, 18, 0.04)", overflow: "hidden" }}>
+          <div data-fu="bar" style={{ position: "absolute", left: "173.5px", top: "69.74px", width: "22px", height: "22.26px", borderRadius: "5px", background: "linear-gradient(180deg, #f8cfd1 0%, #f6c1c2 100%)", boxShadow: "inset 0 0 0 1px rgba(218, 68, 73, 0.22), inset 0px 1px 0px 0px rgba(255, 255, 255, 0.55), inset 0px 0px 6px 0px rgba(255, 255, 255, 0.35), 0px 1px 1.5px 0px rgba(13, 13, 18, 0.04)", overflow: "hidden" }}>
             <svg style={{ position: "absolute", left: "-22.26px", top: "0px", width: "87.26px", height: "22.26px", display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="87.26" height="22.26" viewBox="0 0 87.26 22.26" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M0 22.26 L0.494975 22.755 L22.755 0.494975 L22.26 0 L21.765 -0.494975 L-0.494975 21.765 L0 22.26 Z M5 22.26 L5.49497 22.755 L27.755 0.494975 L27.26 0 L26.765 -0.494975 L4.50503 21.765 L5 22.26 Z M10 22.26 L10.495 22.755 L32.755 0.494975 L32.26 0 L31.765 -0.494975 L9.50502 21.765 L10 22.26 Z M15 22.26 L15.495 22.755 L37.755 0.494975 L37.26 0 L36.765 -0.494975 L14.505 21.765 L15 22.26 Z M20 22.26 L20.495 22.755 L42.755 0.494975 L42.26 0 L41.765 -0.494975 L19.505 21.765 L20 22.26 Z M25 22.26 L25.495 22.755 L47.755 0.494975 L47.26 0 L46.765 -0.494975 L24.505 21.765 L25 22.26 Z M30 22.26 L30.495 22.755 L52.755 0.494975 L52.26 0 L51.765 -0.494975 L29.505 21.765 L30 22.26 Z M35 22.26 L35.495 22.755 L57.755 0.494975 L57.26 0 L56.765 -0.494975 L34.505 21.765 L35 22.26 Z M40 22.26 L40.495 22.755 L62.755 0.494975 L62.26 0 L61.765 -0.494975 L39.505 21.765 L40 22.26 Z M45 22.26 L45.495 22.755 L67.755 0.494975 L67.26 0 L66.765 -0.494975 L44.505 21.765 L45 22.26 Z M50 22.26 L50.495 22.755 L72.755 0.494975 L72.26 0 L71.765 -0.494975 L49.505 21.765 L50 22.26 Z M55 22.26 L55.495 22.755 L77.755 0.494975 L77.26 0 L76.765 -0.494975 L54.505 21.765 L55 22.26 Z M60 22.26 L60.495 22.755 L82.755 0.494975 L82.26 0 L81.765 -0.494975 L59.505 21.765 L60 22.26 Z M65 22.26 L65.495 22.755 L87.755 0.494975 L87.26 0 L86.765 -0.494975 L64.505 21.765 L65 22.26 Z" fill="#ffffff" fillOpacity="0.6"/></svg>
           </div>
-          <div style={{ position: "absolute", left: "216.5px", top: "71.06px", width: "22px", height: "20.94px", borderRadius: "5px", background: "linear-gradient(180deg, #f8cfd1 0%, #f6c1c2 100%)", boxShadow: "inset 0 0 0 1px rgba(218, 68, 73, 0.22), inset 0px 1px 0px 0px rgba(255, 255, 255, 0.55), inset 0px 0px 6px 0px rgba(255, 255, 255, 0.35), 0px 1px 1.5px 0px rgba(13, 13, 18, 0.04)", overflow: "hidden" }}>
+          <div data-fu="bar" style={{ position: "absolute", left: "216.5px", top: "71.06px", width: "22px", height: "20.94px", borderRadius: "5px", background: "linear-gradient(180deg, #f8cfd1 0%, #f6c1c2 100%)", boxShadow: "inset 0 0 0 1px rgba(218, 68, 73, 0.22), inset 0px 1px 0px 0px rgba(255, 255, 255, 0.55), inset 0px 0px 6px 0px rgba(255, 255, 255, 0.35), 0px 1px 1.5px 0px rgba(13, 13, 18, 0.04)", overflow: "hidden" }}>
             <svg style={{ position: "absolute", left: "-20.94px", top: "0px", width: "80.94px", height: "20.94px", display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="80.94" height="20.94" viewBox="0 0 80.94 20.94" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M0 20.94 L0.494975 21.435 L21.435 0.494975 L20.94 0 L20.445 -0.494975 L-0.494975 20.445 L0 20.94 Z M5 20.94 L5.49497 21.435 L26.435 0.494975 L25.94 0 L25.445 -0.494975 L4.50503 20.445 L5 20.94 Z M10 20.94 L10.495 21.435 L31.435 0.494975 L30.94 0 L30.445 -0.494975 L9.50502 20.445 L10 20.94 Z M15 20.94 L15.495 21.435 L36.435 0.494975 L35.94 0 L35.445 -0.494975 L14.505 20.445 L15 20.94 Z M20 20.94 L20.495 21.435 L41.435 0.494975 L40.94 0 L40.445 -0.494975 L19.505 20.445 L20 20.94 Z M25 20.94 L25.495 21.435 L46.435 0.494975 L45.94 0 L45.445 -0.494975 L24.505 20.445 L25 20.94 Z M30 20.94 L30.495 21.435 L51.435 0.494975 L50.94 0 L50.445 -0.494975 L29.505 20.445 L30 20.94 Z M35 20.94 L35.495 21.435 L56.435 0.494975 L55.94 0 L55.445 -0.494975 L34.505 20.445 L35 20.94 Z M40 20.94 L40.495 21.435 L61.435 0.494975 L60.94 0 L60.445 -0.494975 L39.505 20.445 L40 20.94 Z M45 20.94 L45.495 21.435 L66.435 0.494975 L65.94 0 L65.445 -0.494975 L44.505 20.445 L45 20.94 Z M50 20.94 L50.495 21.435 L71.435 0.494975 L70.94 0 L70.445 -0.494975 L49.505 20.445 L50 20.94 Z M55 20.94 L55.495 21.435 L76.435 0.494975 L75.94 0 L75.445 -0.494975 L54.505 20.445 L55 20.94 Z M60 20.94 L60.495 21.435 L81.435 0.494975 L80.94 0 L80.445 -0.494975 L59.505 20.445 L60 20.94 Z" fill="#ffffff" fillOpacity="0.6"/></svg>
           </div>
-          <div style={{ position: "absolute", left: "259.5px", top: "19.25px", width: "22px", height: "72.75px", borderRadius: "5px", background: "linear-gradient(180deg, #e86064 0%, #e5484d 100%)", boxShadow: "inset 0 0 0 1px rgba(179, 56, 60, 0.38), inset 0px 1px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 6px 0px rgba(255, 255, 255, 0.18), 0px 1px 1.5px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
+          <div data-fu="bar" style={{ position: "absolute", left: "259.5px", top: "19.25px", width: "22px", height: "72.75px", borderRadius: "5px", background: "linear-gradient(180deg, #e86064 0%, #e5484d 100%)", boxShadow: "inset 0 0 0 1px rgba(179, 56, 60, 0.38), inset 0px 1px 0px 0px rgba(255, 255, 255, 0.32), inset 0px 0px 6px 0px rgba(255, 255, 255, 0.18), 0px 1px 1.5px 0px rgba(13, 13, 18, 0.09)", overflow: "hidden" }} />
           <p style={{ position: "absolute", left: "45px", top: "102px", margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "21px", lineHeight: "16px", fontFamily: "'Geist'", fontSize: "12px", fontWeight: 400, color: "#7d818c" }}>Jan</p>
           <p style={{ position: "absolute", left: "88px", top: "102px", margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "21px", lineHeight: "16px", fontFamily: "'Geist'", fontSize: "12px", fontWeight: 400, color: "#7d818c" }}>Feb</p>
           <p style={{ position: "absolute", left: "130.5px", top: "102px", margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "22px", lineHeight: "16px", fontFamily: "'Geist'", fontSize: "12px", fontWeight: 400, color: "#7d818c" }}>Mar</p>
@@ -63,11 +67,188 @@ export function UnusualAmountPopover() {
       </div>
       <div style={{ alignSelf: "stretch", flexShrink: 0, background: "#fafafa", boxShadow: "inset 0 1px 0 0 #ededed", display: "flex", flexDirection: "row", padding: "11px 14px 10px 14px", justifyContent: "space-between", alignItems: "center", boxSizing: "border-box" }}>
         <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "143px", lineHeight: "16px", fontFamily: "'Geist'", fontSize: "12px", fontWeight: 400, color: "#64748b" }}>Avg. AWS charge $354.20</p>
-        <div style={{ height: "28px", flexShrink: 0, borderRadius: "8px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #dfe1e6, 0px 1px 2px 0px rgba(13, 13, 18, 0.06)", display: "flex", flexDirection: "row", padding: "1px 11px 1px 11px", gap: "4px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+        <div data-fu="btn" style={{ height: "28px", flexShrink: 0, borderRadius: "8px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #dfe1e6, 0px 1px 2px 0px rgba(13, 13, 18, 0.06)", display: "flex", flexDirection: "row", padding: "1px 11px 1px 11px", gap: "4px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
           <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "47px", lineHeight: "16px", fontFamily: "'Geist'", fontSize: "12px", fontWeight: 500, color: "#0f172a" }}>Edit rule</p>
           <ChevronRight size={12} style={{ width: "12px", height: "12px", flexShrink: 0, color: "#7d818c", display: "block" }} />
         </div>
       </div>
     </div>
   );
+}
+
+// Interactions: hover and click states. Remove this function and the two lines above to get a static component.
+function fuInteract(root: HTMLElement | null) {
+  if (!root || root.dataset.fuOn) return;
+  root.dataset.fuOn = "1";
+  const doc = root.ownerDocument;
+  const all = (sel: string, el: Element = root): HTMLElement[] => Array.from(el.querySelectorAll(sel)) as HTMLElement[];
+  const box = (el: Element) => el.getBoundingClientRect();
+  const font = getComputedStyle(root).fontFamily;
+  const tip = doc.createElement("div");
+  tip.setAttribute("aria-hidden", "true");
+  Object.assign(tip.style, { position: "fixed", zIndex: "2147483647", pointerEvents: "none", background: "#111113", color: "#fff", font: "500 12px/16px " + font, padding: "5px 8px", borderRadius: "6px", whiteSpace: "nowrap", opacity: "0", transform: "translate(-50%, -100%)", transition: "opacity .12s", boxShadow: "0 4px 14px rgba(0,0,0,.18)" });
+  doc.body.appendChild(tip);
+  const show = (text: string, x: number, y: number) => { if (!text) return hide(); tip.textContent = text; tip.style.left = x + "px"; tip.style.top = y - 8 + "px"; tip.style.opacity = "1"; };
+  const hide = () => { tip.style.opacity = "0"; };
+  const ease = (el: HTMLElement | SVGElement, props: string) => { const s = (el as HTMLElement).style; if (!s.transition) s.transition = props; };
+  const texts = (scope: Element) => all("p, span", scope).filter((t) => t.children.length === 0 && (t.textContent || "").trim());
+  const NUM = /^([^\d\-+.]*)([-+]?[\d,]*\.?\d+)\s*([kKmMbB%]?)([^\d]*)$/;
+  // value axis: numeric labels along one edge of the chart, used to read a mark's value from its position
+  const axis = (scope: Element, vertical: boolean) => {
+    const pts: { v: number; p: number; pre: string; suf: string; dec: number }[] = [];
+    for (const t of texts(scope)) {
+      const m = (t.textContent || "").trim().match(NUM);
+      if (!m) continue;
+      const mult = { k: 1e3, K: 1e3, m: 1e6, M: 1e6, b: 1e9, B: 1e9 }[m[3] as "k"] || 1;
+      const r = box(t);
+      pts.push({ v: parseFloat(m[2].replace(/,/g, "")) * mult, p: vertical ? r.top + r.height / 2 : r.left + r.width / 2, pre: m[1], suf: m[3] + m[4], dec: (m[2].split(".")[1] || "").length });
+    }
+    const uniq = pts.filter((a, i) => pts.findIndex((b) => Math.abs(b.p - a.p) < 2) === i);
+    if (uniq.length < 2) return null;
+    uniq.sort((a, b) => a.p - b.p);
+    const a = uniq[0], b = uniq[uniq.length - 1];
+    if (a.v === b.v || Math.abs(b.p - a.p) < 10) return null;
+    return (pos: number) => {
+      const v = a.v + ((pos - a.p) * (b.v - a.v)) / (b.p - a.p);
+      const suf = a.suf || b.suf, pre = a.pre || b.pre;
+      const div = /^[kK]/.test(suf) ? 1e3 : /^[mM]/.test(suf) ? 1e6 : /^[bB]/.test(suf) ? 1e9 : 1;
+      const x = v / div;
+      const dec = Math.max(a.dec, b.dec, div > 1 && Math.abs(x) < 100 ? 1 : 0);
+      return pre + x.toLocaleString("en-US", { minimumFractionDigits: 0, maximumFractionDigits: dec }) + suf;
+    };
+  };
+  // the chart around a group of marks: the nearest ancestor that also holds text labels
+  const chartOf = (el: Element) => { let c: Element | null = el.parentElement; while (c && c !== root.parentElement) { if (texts(c).length >= 3) return c; c = c.parentElement; } return root; };
+  const labelNear = (scope: Element, x: number, y: number, below: boolean) => {
+    let best = "", d = 1e9;
+    for (const t of texts(scope)) {
+      const r = box(t);
+      if (below ? r.top < y - 2 : r.right > x + 2) continue;
+      if (NUM.test((t.textContent || "").trim()) && !/[a-z]{3}/i.test(t.textContent || "")) continue;
+      const dd = below ? Math.abs(r.left + r.width / 2 - x) + (r.top - y) * 0.2 : Math.abs(r.top + r.height / 2 - y) + (x - r.right) * 0.1;
+      if (dd < d) { d = dd; best = (t.textContent || "").trim(); }
+    }
+    return d < 80 ? best : "";
+  };
+  const dim = (els: (HTMLElement | SVGElement)[], keep: (HTMLElement | SVGElement)[]) => { for (const e of els) { ease(e, "opacity .15s"); (e as HTMLElement).style.opacity = keep.includes(e) ? "" : "0.35"; } };
+  const undim = (els: (HTMLElement | SVGElement)[]) => { for (const e of els) (e as HTMLElement).style.opacity = ""; };
+
+  // vertical bars: the hovered column (all stacked segments at that x) stays, the rest fade
+  const groups = new Map<Element, HTMLElement[]>();
+  for (const b of all("[data-fu=bar],[data-fu=hbar]")) { const p = b.parentElement!; if (!groups.has(p)) groups.set(p, []); groups.get(p)!.push(b); }
+  groups.forEach((bars) => {
+    const horiz = bars[0].dataset.fu === "hbar";
+    const scope = chartOf(bars[0]);
+    const val = axis(scope, !horiz);
+    const peers = (b: HTMLElement) => { const r = box(b), c = horiz ? r.top + r.height / 2 : r.left + r.width / 2; return bars.filter((o) => { const q = box(o); return Math.abs((horiz ? q.top + q.height / 2 : q.left + q.width / 2) - c) < Math.max(2, (horiz ? r.height : r.width) / 2); }); };
+    for (const b of bars) {
+      b.addEventListener("mouseenter", () => {
+        const col = peers(b);
+        dim(bars, col);
+        const rs = col.map(box);
+        const top = Math.min(...rs.map((r) => r.top)), right = Math.max(...rs.map((r) => r.right)), r0 = rs[0];
+        const label = horiz ? labelNear(scope, r0.left, r0.top + r0.height / 2, false) : labelNear(scope, r0.left + r0.width / 2, Math.max(...rs.map((r) => r.bottom)), true);
+        const v = val ? val(horiz ? right : top) : "";
+        show([label, v].filter(Boolean).join(" · "), horiz ? right : r0.left + r0.width / 2, horiz ? r0.top : top);
+      });
+      b.addEventListener("mouseleave", () => { undim(bars); hide(); });
+    }
+  });
+
+  // line and area plots: a guide line and a dot follow the pointer along the top edge of the plotted shape
+  for (const svg of all("svg[data-fu=plot]") as unknown as SVGSVGElement[]) {
+    const paths = Array.from(svg.querySelectorAll("path, polyline")) as SVGGeometryElement[];
+    if (!paths.length) continue;
+    const line = paths.reduce((a, b) => (b.getTotalLength() > a.getTotalLength() ? b : a));
+    const len = line.getTotalLength();
+    const pts: { x: number; y: number }[] = [];
+    for (let i = 0; i <= 800; i++) { const q = line.getPointAtLength((len * i) / 800); pts.push({ x: q.x, y: q.y }); }
+    const xs = pts.map((q) => q.x), minX = Math.min(...xs), maxX = Math.max(...xs);
+    const color = (line.getAttribute("stroke") && line.getAttribute("stroke") !== "none" ? line.getAttribute("stroke") : line.getAttribute("fill")) || "#111";
+    const NS = "http://www.w3.org/2000/svg";
+    const g = doc.createElementNS(NS, "g");
+    g.setAttribute("pointer-events", "none");
+    g.style.opacity = "0";
+    const guide = doc.createElementNS(NS, "line");
+    guide.setAttribute("stroke", /^url/.test(color) ? "#111" : color);
+    guide.setAttribute("stroke-dasharray", "3 3");
+    guide.setAttribute("stroke-opacity", "0.5");
+    const dot = doc.createElementNS(NS, "circle");
+    dot.setAttribute("r", "4");
+    dot.setAttribute("fill", "#fff");
+    dot.setAttribute("stroke", /^url/.test(color) ? "#111" : color);
+    dot.setAttribute("stroke-width", "2");
+    g.append(guide, dot);
+    svg.appendChild(g);
+    const scope = chartOf(svg);
+    const val = axis(scope, true);
+    const area = svg.parentElement || svg;
+    area.addEventListener("mousemove", (ev: Event) => {
+      const e = ev as MouseEvent;
+      const m = line.getScreenCTM();
+      if (!m) return;
+      const px = new DOMPoint(e.clientX, e.clientY).matrixTransform(m.inverse()).x;
+      if (px < minX - 4 || px > maxX + 4) { g.style.opacity = "0"; hide(); return; }
+      const step = (maxX - minX) / 400 || 1;
+      let y = Infinity, x = px;
+      for (const q of pts) if (Math.abs(q.x - px) <= step && q.y < y) { y = q.y; x = q.x; }
+      if (y === Infinity) return;
+      const bb = line.getBBox();
+      guide.setAttribute("x1", String(x)); guide.setAttribute("x2", String(x));
+      guide.setAttribute("y1", String(bb.y)); guide.setAttribute("y2", String(bb.y + bb.height));
+      dot.setAttribute("cx", String(x)); dot.setAttribute("cy", String(y));
+      g.style.opacity = "1";
+      const sp = new DOMPoint(x, y).matrixTransform(m);
+      const label = labelNear(scope, sp.x, box(svg).bottom, true);
+      show([label, val ? val(sp.y) : ""].filter(Boolean).join(" · "), sp.x, sp.y);
+    });
+    area.addEventListener("mouseleave", () => { g.style.opacity = "0"; hide(); });
+  }
+
+  // rows: a soft highlight under the pointer
+  for (const r of all("[data-fu=row]")) {
+    r.addEventListener("mouseenter", () => { ease(r, "filter .15s"); r.style.filter = "brightness(0.975)"; });
+    r.addEventListener("mouseleave", () => { r.style.filter = ""; });
+  }
+
+  // buttons: hover and press feedback
+  for (const b of all("[data-fu=btn],[data-fu=tab]")) {
+    b.style.cursor = "pointer";
+    b.addEventListener("mouseenter", () => { ease(b, "filter .15s, transform .1s"); if (!b.dataset.fuActive) b.style.filter = "brightness(0.96)"; });
+    b.addEventListener("mouseleave", () => { b.style.filter = ""; b.style.transform = ""; });
+    b.addEventListener("mousedown", () => { b.style.transform = "scale(0.98)"; });
+    b.addEventListener("mouseup", () => { b.style.transform = ""; });
+  }
+
+  // tabs and segmented controls: clicking a tab moves the selected look onto it
+  const VIS = ["background-color", "background-image", "box-shadow", "border-color", "color", "font-weight"];
+  const look = (el: HTMLElement) => VIS.map((k) => el.style.getPropertyValue(k)).join("|");
+  const tabGroups = new Map<Element, HTMLElement[]>();
+  for (const t of all("[data-fu=tab]")) { const p = t.parentElement!; if (!tabGroups.has(p)) tabGroups.set(p, []); tabGroups.get(p)!.push(t); }
+  tabGroups.forEach((tabs) => {
+    if (tabs.length < 2) return;
+    const counts = new Map<string, number>();
+    for (const t of tabs) counts.set(look(t), (counts.get(look(t)) || 0) + 1);
+    let active = tabs.find((t) => counts.get(look(t)) === 1 && counts.size > 1) || null;
+    if (!active) return;
+    active.dataset.fuActive = "1";
+    // read both looks first, then write: swapping one property at a time would let shorthands undo each other
+    const swapStyle = (a: HTMLElement, b: HTMLElement, props: string[]) => {
+      const va = props.map((k) => a.style.getPropertyValue(k)), vb = props.map((k) => b.style.getPropertyValue(k));
+      props.forEach((k, i) => { a.style.setProperty(k, vb[i]); b.style.setProperty(k, va[i]); });
+    };
+    const swap = (a: HTMLElement, b: HTMLElement) => {
+      swapStyle(a, b, VIS);
+      const ta = texts(a), tb = texts(b);
+      for (let i = 0; i < Math.min(ta.length, tb.length); i++) swapStyle(ta[i], tb[i], ["color", "font-weight"]);
+    };
+    for (const t of tabs) t.addEventListener("click", () => {
+      if (!active || t === active) return;
+      t.style.filter = "";
+      swap(active, t);
+      delete active.dataset.fuActive;
+      active = t;
+      t.dataset.fuActive = "1";
+    });
+  });
 }

@@ -1,5 +1,5 @@
-// Metric Subscribers (mailpulse, KPI and stats) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Foundry Icons.
+// Metric Subscribers (mailpulse, KPI and stats) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
 export function MetricSubscribers() {
   return (
     <div style={{ width: "253.2px", height: "72.2px", borderRadius: "11px", background: "#ffffff", boxShadow: "inset 0 0 0 0.9px #dfe1e6", display: "flex", flexDirection: "column", padding: "11.9px 13.7px 11.9px 13.7px", gap: "5.5px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>

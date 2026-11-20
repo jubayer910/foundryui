@@ -176,6 +176,11 @@ function textStyle(seg) {
 let ABS_STROKE = false;
 export const setAbsStroke = (v) => { ABS_STROKE = !!v; };
 export function build(n, parentLm = null, root = true, parent = null) {
+  const el = buildRaw(n, parentLm, root, parent);
+  if (n && n._fu && el) el.role = n._fu;
+  return el;
+}
+function buildRaw(n, parentLm = null, root = true, parent = null) {
   // a rotated child inside auto layout takes the space of its rotated bounding box (e.g. vertical grid lines drawn as
   // rotated lines): lay out a wrapper of that size and rotate the real node inside it
   if (!root && parentLm && !n.abs && n.rot) {
@@ -382,13 +387,14 @@ export function toJSX(el, icons = {}, depth = 2, used = new Map()) {
     used.set(C, el.icon);
     return `${pad}<${C} size={${el.icon.size}}${el.icon.sw ? ` strokeWidth={${el.icon.sw}}` : ""} style=${jsStyle(el.st)} />`;
   }
+  const fu = el.role ? ` data-fu="${el.role}"` : "";
   if (el.svg) {
     const raw = el.svg.startsWith("@") ? icons[el.svg.slice(1)] || "" : el.svg;
-    return pad + jsxAttr(raw).replace(/^<svg/, `<svg style=${jsStyle(el.st)}`);
+    return pad + jsxAttr(raw).replace(/^<svg/, `<svg${fu} style=${jsStyle(el.st)}`);
   }
-  const open = `${pad}<${el.tag} style=${jsStyle(el.st)}>`;
+  const open = `${pad}<${el.tag}${fu} style=${jsStyle(el.st)}>`;
   if (el.text !== undefined) return `${open}${jsxText(el.text)}</${el.tag}>`;
-  if (!el.kids.length) return `${pad}<${el.tag} style=${jsStyle(el.st)} />`;
+  if (!el.kids.length) return `${pad}<${el.tag}${fu} style=${jsStyle(el.st)} />`;
   return `${open}\n${el.kids.map((k) => toJSX(k, icons, depth + 2, used)).join("\n")}\n${pad}</${el.tag}>`;
 }
 
@@ -397,21 +403,83 @@ export function componentName(name) {
   return /^[A-Z]/.test(base) ? base : "Component" + base;
 }
 
+// ---------- interactions ----------
+// Roles for hover and click behaviour, read from the Figma tree: names plus geometry. Invisible at rest.
+const INTERACT_SRC = readFileSync(new URL("./interact.ts", import.meta.url), "utf8");
+const hasTextNode = (n) => !!n && (n.t === "TEXT" || (n.k || []).some(hasTextNode));
+const isIconNode = (n) => !!n && (!!n.icon || /^(icon|logo|avatar)\b/i.test(n.n || ""));
+const baseName = (s) => (s || "").replace(/\s*[·/]\s*(on|off|active|inactive|selected|default|hover)\b.*$/i, "").replace(/\s+(on|off|active|inactive|selected)$/i, "").replace(/\d+/g, "#").trim().toLowerCase();
+const spread = (xs) => Math.max(...xs) - Math.min(...xs);
+const NOT_MARK = /grid|divider|line|tick|guide|track|hatch|label|legend|dot|avatar|axis|gap|spacer|bg|background|shadow|border/i;
+const NOT_ROW = /cell|label|tick|legend|value|chip|tab|pill|segment|option|menu|nav|key|axis|grid|day|week|month|hour/i;
+const TAB = /\b(tab|tabs|segment|option|pill|chip|toggle|filter|period|range)\b/i;
+const BTN = /button|\bbtn\b|\bcta\b|menu item|menu\/item|nav item|\bselect\b|dropdown|\blink\b|^action/i;
+// a group of marks that are all one pale grey is a skeleton or placeholder, not data
+const fillOf = (k) => (k.f || []).find((p) => p && p.k === "s")?.c?.toLowerCase() || (k.k || []).map(fillOf).find(Boolean) || "";
+const paleGrey = (c) => { if (!/^#[0-9a-f]{6}$/.test(c)) return false; const [r, g, b] = [1, 3, 5].map((i) => parseInt(c.slice(i, i + 2), 16)); return Math.max(r, g, b) - Math.min(r, g, b) < 14 && r > 190; };
+const skeleton = (g) => g.map(fillOf).every(paleGrey);
+export function assignRoles(n, depth = 0, parent = null) {
+  if (!n || isIconNode(n) || n.svg && depth > 0 && !(n.w >= 120 && n.h >= 40)) return 0;
+  let count = 0;
+  const ks = (n.k || []).filter(Boolean);
+  // one plotted line per chart: wide vector drawings, preferring the series line over area fills and comparisons
+  const plots = ks.filter((k) => k.svg && k.w >= 120 && k.h >= 30 && /<path/.test(k.svg) && !/^(icon|logo|grid|guide|axis)/i.test(k.n || ""));
+  if (plots.length) {
+    const score = (k) => (/line|period|series|trend|current|this|revenue|value/i.test(k.n || "") ? 3 : 0) - (/area|fill|gradient|shade|band|previous|prior|compare|last|baseline/i.test(k.n || "") ? 2 : 0) + (/stroke="(?!none)/.test(k.svg) ? 1 : 0);
+    const best = plots.reduce((a, b) => (score(b) > score(a) ? b : a));
+    best._fu = "plot"; count++;
+  }
+  const groups = {};
+  for (const k of ks) (groups[baseName(k.n)] ||= []).push(k);
+  for (const [name, g] of Object.entries(groups)) {
+    const ws = g.map((k) => k.w || 0), hs = g.map((k) => k.h || 0);
+    if (g.length >= 4 && (hasTextNode(n) || hasTextNode(parent)) && !skeleton(g) && !NOT_MARK.test(name) && g.every((k) => !hasTextNode(k) && !isIconNode(k) && k.w > 0 && k.h > 0)) {
+      if (Math.max(...ws) <= 64 && spread(hs) > 1 && Math.max(...ws) / Math.max(0.1, Math.min(...ws)) <= 1.6) { for (const k of g) k._fu = "bar"; count += g.length; continue; }
+      if (Math.max(...hs) <= 40 && Math.min(...hs) >= 6 && spread(ws) > 1 && spread(g.map((k) => k.x || 0)) <= 3 && spread(hs) <= 2) { for (const k of g) k._fu = "hbar"; count += g.length; continue; }
+    }
+    if (g.length >= 2 && g.length <= 10 && TAB.test(name) && g.every((k) => (hasTextNode(k) || (k.k || []).some(isIconNode)) && (k.h || 0) <= 48)) { for (const k of g) k._fu = "tab"; count += g.length; continue; }
+    if (g.length >= 3 && !NOT_ROW.test(name) && g.every(hasTextNode) && spread(ws) <= 2 && Math.min(...ws) >= 0.55 * (n.w || 0) && new Set(g.map((k) => Math.round(k.y || 0))).size === g.length) { for (const k of g) k._fu = "row"; count += g.length; continue; }
+  }
+  for (const k of ks) {
+    if (!k._fu && BTN.test(k.n || "") && (k.h || 0) <= 56 && (k.f?.length || k.s?.length) && (hasTextNode(k) || (k.k || []).some(isIconNode))) { k._fu = "btn"; count++; }
+    count += assignRoles(k, depth + 1, n);
+  }
+  return count;
+}
+
 export function toTSX(tree, icons, meta) {
+  const roles = assignRoles(tree);
   const el = build(tree);
   const fonts = [...new Set(JSON.stringify(tree).match(/"ff":"[^"]+"/g)?.map((m) => m.slice(6, -1)) || [])];
   const name = componentName(meta.name);
   const used = new Map();
-  const jsx = toJSX(el, icons, 4, used);
+  let jsx = toJSX(el, icons, 4, used);
   const byStyle = {};
   for (const [C, ic] of used) (byStyle[ic.style] ||= []).push(C !== pascal(ic.name) ? pascal(ic.name) + " as " + C : C);
   const imports = Object.entries(byStyle).map(([style, cs]) => `import { ${[...new Set(cs)].sort().join(", ")} } from "ingotui-icons/react/${style}";`).join("\n");
-  return `// ${meta.name} (${meta.system}, ${meta.category}) from Ingot UI (ingotui.com).
+  const head = `// ${meta.name} (${meta.system}, ${meta.category}) from Ingot UI (ingotui.com).
 // Generated from the Figma original and checked against it. Fonts: ${fonts.join(", ") || "none"}. Icons: Ingot Icons.
-${imports}${imports ? "\n\n" : ""}export function ${name}() {
+`;
+  if (!roles) return `${head}${imports}${imports ? "\n\n" : ""}export function ${name}() {
   return (
 ${jsx}
   );
 }
+`;
+  // interactive: hover and click states live in a small helper at the end of the file, nothing changes at rest
+  jsx = jsx.replace(/^(\s*<[A-Za-z]+)/, "$1 ref={fuRef}");
+  return `"use client";
+${head}import { useEffect, useRef } from "react";
+${imports}${imports ? "\n" : ""}
+export function ${name}() {
+  const fuRef = useRef<any>(null);
+  useEffect(() => fuInteract(fuRef.current), []);
+  return (
+${jsx}
+  );
+}
+
+// Interactions: hover and click states. Remove this function and the two lines above to get a static component.
+${INTERACT_SRC.replace(/^\/\*[\s\S]*?\*\/\n/, "").trim()}
 `;
 }

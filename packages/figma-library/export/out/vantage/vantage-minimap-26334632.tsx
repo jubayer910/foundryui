@@ -1,5 +1,5 @@
-// Minimap (vantage, Cards and panels) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: none. Icons: Foundry Icons.
+// Minimap (vantage, Cards and panels) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: none. Icons: Ingot Icons.
 export function Minimap() {
   return (
     <div style={{ width: "168px", height: "112px", borderRadius: "8px", background: "#1a1a1a", boxShadow: "inset 0 0 0 1px #2e2e2e, 0px 0px 4.6px 0px rgba(0, 0, 0, 0.5)", overflow: "hidden", position: "relative" }}>

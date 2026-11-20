@@ -1,5 +1,5 @@
-// Note (loopo, Cards and panels) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Foundry Icons.
+// Note (loopo, Cards and panels) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
 export function Note() {
   return (
     <div style={{ width: "298px", height: "143.8px", display: "flex", flexDirection: "column", padding: "6.6px 11px 6.6px 11px", gap: "11px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>

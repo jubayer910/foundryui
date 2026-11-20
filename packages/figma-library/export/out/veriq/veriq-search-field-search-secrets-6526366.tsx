@@ -1,6 +1,6 @@
-// Search field, Search secrets… (veriq, Forms) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Foundry Icons.
-import { Search } from "foundryui-icons/react/stroke-rounded";
+// Search field, Search secrets… (veriq, Forms) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
+import { Search } from "ingotui-icons/react/stroke-rounded";
 
 export function SearchFieldSearchSecrets() {
   return (

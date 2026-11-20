@@ -35,7 +35,7 @@ export function LivePreview({ src, w: cw, h: ch, thumb, alt }: { src: string; w:
           title={alt}
           loading="lazy"
           onLoad={() => setLoaded(true)}
-          sandbox="allow-same-origin"
+          sandbox="allow-scripts"
           scrolling="no"
           className="absolute left-0 top-0 origin-top-left border-0 bg-transparent"
           style={{ width: w, height: h, transform: `scale(${scale})`, opacity: loaded ? 1 : 0, transition: "opacity .2s" }}

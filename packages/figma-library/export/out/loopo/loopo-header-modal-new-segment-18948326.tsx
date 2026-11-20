@@ -1,7 +1,7 @@
-// Header modal, New segment (loopo, Modals) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Foundry Icons.
-import { Filter as FilterBulk } from "foundryui-icons/react/bulk";
-import { X } from "foundryui-icons/react/stroke-rounded";
+// Header modal, New segment (loopo, Modals) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
+import { Filter as FilterBulk } from "ingotui-icons/react/bulk";
+import { X } from "ingotui-icons/react/stroke-rounded";
 
 export function HeaderModalNewSegment() {
   return (

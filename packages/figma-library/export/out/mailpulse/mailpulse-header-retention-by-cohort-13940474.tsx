@@ -1,5 +1,5 @@
-// Header, Retention by cohort (mailpulse, Headers) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Foundry Icons.
+// Header, Retention by cohort (mailpulse, Headers) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
 export function HeaderRetentionByCohort() {
   return (
     <div style={{ width: "640px", height: "39.7px", display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "flex-start", boxSizing: "border-box" }}>

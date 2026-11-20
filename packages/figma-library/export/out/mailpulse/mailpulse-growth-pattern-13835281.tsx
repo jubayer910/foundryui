@@ -1,5 +1,5 @@
-// Growth pattern (mailpulse, Charts) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: none. Icons: Foundry Icons.
+// Growth pattern (mailpulse, Charts) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: none. Icons: Ingot Icons.
 export function GrowthPattern() {
   return (
     <div style={{ width: "214.7px", height: "90.4px", display: "flex", flexDirection: "row", gap: "2.7px", justifyContent: "flex-start", alignItems: "flex-end", boxSizing: "border-box" }}>

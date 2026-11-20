@@ -1,6 +1,6 @@
-// Settings nav (axon, Forms) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Foundry Icons.
-import { Archive, Key, Settings, ShieldCheck, Stack2, Trash, Webhook, World } from "foundryui-icons/react/stroke-rounded";
+// Settings nav (axon, Forms) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
+import { Archive, Key, Settings, ShieldCheck, Stack2, Trash, Webhook, World } from "ingotui-icons/react/stroke-rounded";
 
 export function SettingsNav() {
   return (

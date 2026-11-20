@@ -1,6 +1,6 @@
-// Draft note (loopo, Cards and panels) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Foundry Icons.
-import { InfoCircle } from "foundryui-icons/react/stroke-rounded";
+// Draft note (loopo, Cards and panels) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
+import { InfoCircle } from "ingotui-icons/react/stroke-rounded";
 
 export function DraftNote() {
   return (

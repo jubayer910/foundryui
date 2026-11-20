@@ -1,5 +1,5 @@
-// Current step (veriq, Cards and panels) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Inter, Geist Mono. Icons: Foundry Icons.
+// Current step (veriq, Cards and panels) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Inter, Geist Mono. Icons: Ingot Icons.
 export function CurrentStep() {
   return (
     <div style={{ width: "266px", height: "39px", display: "flex", flexDirection: "column", gap: "6px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>

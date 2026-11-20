@@ -1,5 +1,5 @@
-// August target (vantage, Cards and panels) from Foundry UI.
-// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Foundry Icons.
+// August target (vantage, Cards and panels) from Ingot UI (ingotui.com).
+// Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
 export function AugustTarget() {
   return (
     <div style={{ width: "438px", height: "88px", display: "flex", flexDirection: "column", padding: "14px 18px 14px 18px", gap: "10px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
