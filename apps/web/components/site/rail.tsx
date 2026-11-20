@@ -36,8 +36,10 @@ export function Rail() {
       </div>
       <div className="mt-4 flex flex-col gap-3">
         <SignupCard />
-        <FreeMeter />
-        <FollowX />
+        <div className="flex items-center gap-3 border-t border-hair px-2 pt-3">
+          <FollowX />
+          <FreeMeter />
+        </div>
         <p className="flex flex-wrap gap-x-3 px-2 text-[12px] text-mute">
           <Link href="/about" className="inline-flex min-h-6 items-center hover:text-ink">About</Link>
           <Link href="/changelog" className="inline-flex min-h-6 items-center hover:text-ink">Changelog</Link>

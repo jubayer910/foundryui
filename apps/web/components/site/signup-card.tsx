@@ -2,8 +2,10 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-type Card = { title: string; note: string; button: string; avatars: string[]; initials: string[] };
-const TONES = ["#4b55e6", "#0ea5a3", "#f2705a", "#8a5cf0", "#e0a21b"];
+type Card = { title: string; note: string; button: string; avatars: string[] };
+// placeholder faces (Unsplash portraits) until the owner sets their own in admin → Announcement
+const FACES = ["/avatars/1.jpg", "/avatars/2.jpg", "/avatars/3.jpg", "/avatars/4.jpg", "/avatars/5.jpg"];
+const NOTE = "Join 2,000+ members, including 30+ who signed up today";
 
 /**
  * Sidebar sign-up card for signed-out visitors. Every word and picture comes from admin → Announcement
@@ -26,30 +28,23 @@ export function SignupCard() {
     };
   }, []);
   if (!card) return null;
-  const faces = card.avatars.length ? card.avatars.map((src) => ({ src, letter: "" })) : card.initials.map((letter) => ({ src: "", letter }));
+  const faces = (card.avatars.length ? card.avatars : FACES).slice(0, 5);
+  const note = card.note || NOTE;
   return (
     <div className="px-2">
-      {card.title && <p className="text-[13px] font-medium leading-snug text-ink">{card.title}</p>}
-      <div className="mt-2.5 flex items-center gap-2.5">
-        <Link href="/sign-up" className="btn-ink !h-8 !px-3.5 !text-[12.5px]">
+      {card.title && <p className="text-[15px] leading-[1.35] text-ink">{card.title}</p>}
+      <div className="mt-3 flex items-center gap-3">
+        <Link href="/sign-up" className="inline-flex h-9 shrink-0 items-center whitespace-nowrap rounded-full bg-ink px-4 text-[14px] text-white hover:opacity-90">
           {card.button}
         </Link>
-        {faces.length > 0 && (
-          <span className="flex items-center" aria-hidden="true">
-            {faces.slice(0, 5).map((f, i) =>
-              f.src ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img key={i} src={f.src} alt="" width={24} height={24} className={"size-6 rounded-full object-cover ring-2 ring-white" + (i ? " -ml-1.5" : "")} />
-              ) : (
-                <span key={i} className={"grid size-6 place-items-center rounded-full text-[10.5px] font-medium text-white ring-2 ring-white" + (i ? " -ml-1.5" : "")} style={{ background: TONES[i % TONES.length] }}>
-                  {f.letter}
-                </span>
-              ),
-            )}
-          </span>
-        )}
+        <span className="flex items-center" aria-hidden="true">
+          {faces.map((src, i) => (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img key={i} src={src} alt="" width={26} height={26} className={"size-[26px] rounded-full object-cover ring-2 ring-white" + (i ? " -ml-2" : "")} />
+          ))}
+        </span>
       </div>
-      {card.note && <p className="mt-2 text-[12px] leading-snug text-mute">{card.note}</p>}
+      <p className="mt-3 text-[13px] leading-snug text-mute">{note}</p>
     </div>
   );
 }

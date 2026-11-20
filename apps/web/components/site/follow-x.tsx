@@ -11,23 +11,18 @@ function XMark({ size = 14 }: { size?: number }) {
   );
 }
 
-/** Sidebar card: follow Ingot UI on X for daily updates. */
+/** Sidebar: small X link for daily updates. */
 export function FollowX() {
   return (
     <a
       href={X_URL}
       target="_blank"
       rel="me noopener"
-      className="group flex items-center gap-2.5 rounded-[8px] px-2 py-2 transition-colors hover:bg-tile"
+      className="inline-flex min-h-7 items-center gap-1.5 text-[12px] text-mute hover:text-ink"
       aria-label={"Follow @" + X_HANDLE + " on X for daily updates (opens in a new tab)"}
     >
-      <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-ink text-white">
-        <XMark size={13} />
-      </span>
-      <span className="min-w-0 leading-tight">
-        <span className="block text-[12.5px] font-medium text-ink">Follow @{X_HANDLE}</span>
-        <span className="block text-[11.5px] text-mute">Daily updates on X</span>
-      </span>
+      <XMark size={12} />
+      <span>@{X_HANDLE}</span>
     </a>
   );
 }
