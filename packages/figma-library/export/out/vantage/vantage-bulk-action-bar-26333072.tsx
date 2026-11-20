@@ -36,7 +36,7 @@ export function BulkActionBar() {
       </div>
       <div style={{ width: "4px", height: "1px", flexShrink: 0 }} />
       <div style={{ width: "28px", height: "28px", flexShrink: 0, borderRadius: "6px", background: "#191919", boxShadow: "inset 0 0 0 1px #2e2e2e", display: "flex", flexDirection: "row", padding: "1px 1px 1px 1px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
-        <X size={14} style={{ width: "14px", height: "14px", flexShrink: 0, color: "#8a8a8a", display: "block" }} />
+        <X size={14} strokeWidth={2.14} style={{ width: "14px", height: "14px", flexShrink: 0, color: "#8a8a8a", display: "block" }} />
       </div>
     </div>
   );

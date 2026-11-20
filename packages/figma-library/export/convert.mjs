@@ -252,6 +252,7 @@ function buildNode(n, parentLm = null, root = true) {
       return `<svg${a} width="${W}" height="${H}" viewBox="0 0 ${Math.max(Number(vw), Number(vw) < 1 ? 1 : 0)} ${Math.max(Number(vh), Number(vh) < 1 ? 1 : 0)}"`;
     });
     st.display = "block"; st.lineHeight = 0; st.overflow = "visible";
+    if (n.fx && n.fx.length) shadows(n, st);
     // a frame or instance holding a sprite (e.g. a logo sheet where only one logo sits in the box) clips in Figma:
     // when shapes start well outside the box, clip the drawing to its box
     if ((n.t === "INSTANCE" || n.t === "FRAME") && [...el.svg.matchAll(/matrix\(1 0 0 1 (-?[\d.]+) (-?[\d.]+)\)/g)].some(([, x, y]) => Number(x) < -n.w || Number(y) < -n.h || Number(x) > 2 * n.w || Number(y) > 2 * n.h)) {
@@ -278,7 +279,14 @@ function buildNode(n, parentLm = null, root = true) {
     // along a hugging row), so keep it as a minimum width
     if (n.ar === "WIDTH_AND_HEIGHT") { st.whiteSpace = "pre"; delete st.width; st.minWidth = px(n.w); }
     else st.whiteSpace = "pre-wrap";
-    if (n.trunc) { st.overflow = "hidden"; st.textOverflow = "ellipsis"; st.whiteSpace = "nowrap"; }
+    if (n.trunc) {
+      st.overflow = "hidden"; st.textOverflow = "ellipsis"; st.whiteSpace = "nowrap";
+      // truncation after several lines (Figma max lines): a box taller than one line clamps to that many lines
+      const g0 = (n.seg || []).find((g) => g && g.fs) || {};
+      const lhPx = typeof g0.lh === "number" ? g0.lh : typeof g0.lh === "string" && g0.lh.endsWith("%") ? (parseFloat(g0.lh) / 100) * g0.fs : (g0.fs || 14) * 1.2;
+      const lines = lhPx ? Math.round(n.h / lhPx) : 1;
+      if (lines >= 2) { st.whiteSpace = "pre-wrap"; st.display = "-webkit-box"; st.WebkitLineClamp = String(lines); st.WebkitBoxOrient = "vertical"; }
+    }
     const segs = (n.seg || []).filter((g) => g && g.ff);
     if (!segs.length) { el.text = ""; return el; }
     // "auto" line height differs between Figma and browsers: pin it to Figma's box height per line
@@ -308,6 +316,15 @@ function buildNode(n, parentLm = null, root = true) {
     if (t || r || b || l) st.padding = [t, r, b, l].map(px).join(" ");
     if (n.gap && n.pa !== "SPACE_BETWEEN") st[n.wrap ? "columnGap" : "gap"] = px(n.gap);
     st.justifyContent = JUST[n.pa] || "flex-start";
+    // a lone child under SPACE_BETWEEN: follow where Figma actually put it (start, centre or end)
+    const flow = (n.k || []).filter((k) => !k.abs);
+    if (n.pa === "SPACE_BETWEEN" && flow.length === 1 && n.pad && !flow[0].icon) {
+      const c = flow[0], [pt, pr, pb, pl] = n.pad, H = n.lm === "H";
+      const pos = H ? c.x : c.y, size = H ? c.w : c.h, inner = (H ? n.w - pl - pr : n.h - pt - pb), lead = H ? pl : pt;
+      const centre = lead + (inner - size) / 2, end = lead + inner - size;
+      if (Math.abs(pos - centre) < 1 && Math.abs(pos - lead) > 1) st.justifyContent = "center";
+      else if (Math.abs(pos - end) < 1 && Math.abs(pos - lead) > 1) st.justifyContent = "flex-end";
+    }
     st.alignItems = ALIGN[n.ca] || "flex-start";
     st.boxSizing = "border-box";
     if ((n.k || []).some((k) => k.abs)) st.position = st.position || "relative";

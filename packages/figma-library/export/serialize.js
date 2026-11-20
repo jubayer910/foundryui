@@ -103,7 +103,22 @@ function shapes(n, rootInv, out, defs) {
       const cr = typeof n.cornerRadius === "number" ? n.cornerRadius : 0;
       const ds = n.type === "LINE" ? [{ data: `M0 0L${n.width} 0` }] : (n.vectorPaths || []).map((g) => (cr > 0 ? { data: roundPoly(g.data, cr) } : g));
       for (const g of ds) out.push(`<path transform="${tr}" d="${g.data}" fill="none" stroke${val}${alpha ? ` stroke-opacity="${alpha}"` : ""} stroke-width="${n.strokeWeight}" stroke-dasharray="${n.dashPattern.join(" ")}" stroke-linecap="${String(n.strokeCap || "NONE") === "ROUND" ? "round" : "butt"}"${op}/>`);
-    } else if (k && n.strokeGeometry) put(n.strokeGeometry, k);
+    } else if (k && n.strokeGeometry) {
+      // strokeGeometry is a band twice the weight, centred on the outline; Figma clips it to the shape for INSIDE
+      // strokes and cuts the shape out for OUTSIDE ones (a 3px inside ring would otherwise draw 6px wide)
+      const closed = n.fillGeometry && n.fillGeometry.length && n.type !== "LINE" && n.type !== "VECTOR";
+      const fg = closed ? n.fillGeometry.map((g) => `<path transform="${tr}" d="${g.data}"${g.windingRule === "EVENODD" ? ' clip-rule="evenodd"' : ""}/>`).join("") : "";
+      if (closed && n.strokeAlign === "INSIDE") {
+        const id = "s" + (++GID) + "_" + Date.now().toString(36).slice(-4);
+        defs.push(`<clipPath id="${id}">${fg}</clipPath>`);
+        out.push(`<g clip-path="url(#${id})">`); put(n.strokeGeometry, k); out.push("</g>");
+      } else if (closed && n.strokeAlign === "OUTSIDE") {
+        const id = "s" + (++GID) + "_" + Date.now().toString(36).slice(-4);
+        const pad = (n.strokeWeight === figma.mixed ? 8 : n.strokeWeight * 2) + Math.max(n.width, n.height);
+        defs.push(`<mask id="${id}" maskUnits="userSpaceOnUse" x="-100000" y="-100000" width="200000" height="200000"><rect x="-100000" y="-100000" width="200000" height="200000" fill="#fff"/>${fg.replace(/<path /g, '<path fill="#000" ')}</mask>`);
+        out.push(`<g mask="url(#${id})">`); put(n.strokeGeometry, k); out.push("</g>");
+      } else put(n.strokeGeometry, k);
+    }
     return;
   }
   if ("children" in n) {
@@ -164,6 +179,9 @@ async function ser(n, parent) {
     const bb = n.absoluteBoundingBox;
     const bake = parent && bb && (Math.abs(n.rotation || 0) > 0.01 || det < 0) && Math.abs(parent.absoluteTransform[0][1]) < 1e-6;
     const s = bake ? svgOf(n, bb) : svgOf(n);
+    // drawings keep their own layout role and effects (an absolute glow shape, a blurred highlight)
+    if (s && n.layoutPositioning === "ABSOLUTE") o.abs = 1;
+    if (s && "effects" in n && n.effects.length) { const fx = n.effects.filter((e) => e.visible !== false).map((e) => (e.type === "LAYER_BLUR" || e.type === "BACKGROUND_BLUR" ? [e.type, e.radius] : [e.type, e.offset.x, e.offset.y, e.radius, e.spread || 0, hex(e.color), r2(e.color.a)])); if (fx.length) o.fx = fx; }
     if (s && bake) { o.svg = s; o.w = r2(bb.width); o.h = r2(bb.height); o.x = r2(bb.x - parent.absoluteTransform[0][2]); o.y = r2(bb.y - parent.absoluteTransform[1][2]); delete o.rot; return o; }
     if (s) { o.svg = s; return o; }
   }
