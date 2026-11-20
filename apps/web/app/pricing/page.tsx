@@ -12,6 +12,7 @@ import iconStats from "@/lib/icon-stats.json";
 import { PricingNotice } from "./notice";
 import { BillingToggle } from "./billing-toggle";
 import { LifetimeCountdown } from "./countdown";
+import { ed } from "@/lib/content/edit";
 
 /** Spots left and admin price changes show within a minute. */
 // Dynamic on purpose: the static-assets page cache never revalidates, and prices + real deal spots come from D1.
@@ -119,6 +120,9 @@ function faq(pb: PriceBook): [string, string][] {
   return out;
 }
 
+/** Stable key for a question: its first words, so the edit stays on the same question when others are added. */
+const faqId = (q: string) => q.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").split("-").slice(0, 6).join("-");
+
 const TABLE = (pb: PriceBook): [string, string, string, string, string][] => [
   ["Price", "$0", (pb.monthly ? usd(pb.proMonthly) + " a month or " : "") + usd(pb.proYearly) + " a year", (pb.monthly ? usd(pb.teamMonthly) + " a month or " : "") + usd(pb.teamYearly) + " a year", pb.lifetime === null ? "Closed" : usd(pb.lifetime) + " once"],
   ["People", "1", "1", "Up to " + pb.teamSeats, "1"],
@@ -184,7 +188,7 @@ export default async function PricingPage() {
           faqLd(questions.map(([q, a]) => ({ q, a }))),
         ]}
       />
-      <PageHead title="Pricing" sub="Start free. Pro for one founder, Team for up to 5 people, or pay once with Lifetime." />
+      <PageHead edit="pricing" title="Pricing" sub="Start free. Pro for one founder, Team for up to 5 people, or pay once with Lifetime." />
       <Suspense fallback={null}>
         <PricingNotice labels={labels} />
       </Suspense>
@@ -304,7 +308,7 @@ export default async function PricingPage() {
       <p className="mt-3 text-[12px] text-mute">Tax is added at checkout where it applies. Payments through Contra.</p>
 
       <section className="mt-12" aria-labelledby="compare-h">
-        <h2 id="compare-h" className="text-[13px] font-medium">
+        <h2 id="compare-h" className="text-[13px] font-medium" {...ed("pricing.compare.h")}>
           Compare plans
         </h2>
         <div className="card mt-3 overflow-x-auto">
@@ -340,17 +344,17 @@ export default async function PricingPage() {
       </section>
 
       <section className="mt-12" aria-labelledby="faq-h">
-        <h2 id="faq-h" className="text-[13px] font-medium">
+        <h2 id="faq-h" className="text-[13px] font-medium" {...ed("pricing.faq.h")}>
           Questions
         </h2>
         <div className="mt-3 border-t border-hair">
           {questions.map(([q, a]) => (
             <details key={q} className="group border-b border-hair">
               <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-3 text-[13px] font-medium">
-                {q}
+                <span {...ed(`pricing.faq.${faqId(q)}.q`)}>{q}</span>
                 <Icon name="plus" size={14} className="shrink-0 text-mute transition-transform group-open:rotate-45 motion-reduce:transition-none" />
               </summary>
-              <p className="pb-3 pr-8 text-[13px] leading-snug text-mute">{a}</p>
+              <p className="pb-3 pr-8 text-[13px] leading-snug text-mute" {...ed(`pricing.faq.${faqId(q)}.a`)}>{a}</p>
             </details>
           ))}
         </div>

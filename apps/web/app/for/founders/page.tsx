@@ -10,6 +10,7 @@ import { ShowcaseSwitcher, type SwitcherSystem } from "@/components/site/showcas
 import { IlloTile } from "@/components/site/illo";
 import { JsonLd, ORG_ID, STATS, abs, breadcrumbLd, faqLd, fmt, pageMeta } from "@/lib/seo";
 import { Crumbs, Faq, LinkCards, P, PillLinks, Section, Steps } from "../_ui";
+import { ed } from "@/lib/content/edit";
 
 const PATH = "/for/founders";
 
@@ -61,10 +62,10 @@ export default function ForFounders() {
 
       <header className="mt-3 grid items-center gap-6 lg:grid-cols-[minmax(0,1fr)_420px]">
         <div>
-          <p className="eyebrow">For founders</p>
-          <h1 className="display mt-1 text-[28px] sm:text-[36px]">A dashboard that looks finished, without a designer</h1>
-          <p className="mt-3 max-w-xl text-[15px] leading-relaxed text-ink-2">
-            Pick one of {systems.length} complete dashboard design systems, connect your AI coding agent, and it builds your screens with real components and tokens instead of improvising. Or copy the components yourself, in React or Figma.
+          <p className="eyebrow" {...ed("founders.hero.eyebrow")}>For founders</p>
+          <h1 className="display mt-1 text-[28px] sm:text-[36px]" {...ed("founders.hero.title")}>A dashboard that looks finished, without a designer</h1>
+          <p className="mt-3 max-w-xl text-[15px] leading-relaxed text-ink-2" {...ed("founders.hero.sub")}>
+            {`Pick one of ${systems.length} complete dashboard design systems, connect your AI coding agent, and it builds your screens with real components and tokens instead of improvising. Or copy the components yourself, in React or Figma.`}
           </p>
           <div className="mt-5 flex flex-wrap gap-1.5">
             <Link href="/mcp" className="btn-ink">Connect your agent</Link>
@@ -75,7 +76,7 @@ export default function ForFounders() {
         <IlloTile scene="founders" label="A founder's product built from one design system" className="h-[200px] sm:h-[260px]" />
       </header>
 
-      <Section id="problem" title="Why AI-built dashboards all look the same">
+      <Section edit="founders" id="problem" title="Why AI-built dashboards all look the same">
         <div className="mt-3 grid gap-3 md:grid-cols-3">
           {[
             ["exploded", "Same defaults everywhere", <>Coding agents reach for the same starter components and colours, so many new products share one look. Our guide explains <Link href="/blog/ai-generated-dashboard-design" className={A}>why AI dashboards look generic</Link>.</>],
@@ -93,7 +94,7 @@ export default function ForFounders() {
         </div>
       </Section>
 
-      <Section id="how" title="How Ingot UI solves it" sub="Three steps, or skip the agent and copy.">
+      <Section edit="founders" id="how" title="How Ingot UI solves it" sub="Three steps, or skip the agent and copy.">
         <div className="mt-3 grid gap-6 lg:grid-cols-[minmax(0,1fr)_360px]">
           <Steps
             steps={[
@@ -107,11 +108,11 @@ export default function ForFounders() {
         </div>
       </Section>
 
-      <Section id="showcase" title="What your agent builds" sub="Real dashboards made from the components. Pick a system.">
+      <Section edit="founders" id="showcase" title="What your agent builds" sub="Real dashboards made from the components. Pick a system.">
         <ShowcaseSwitcher systems={showcase} />
       </Section>
 
-      <Section id="proof" title="What is in the library today" sub="Counted from the library data at every release.">
+      <Section edit="founders" id="proof" title="What is in the library today" sub="Counted from the library data at every release.">
         <dl className="mt-3 grid grid-cols-2 gap-3 md:grid-cols-3 xl:grid-cols-6">
           {[
             [fmt(systems.length), "complete design systems"],
@@ -152,7 +153,7 @@ export default function ForFounders() {
         </ul>
       </Section>
 
-      <Section id="pricing" title="Pricing">
+      <Section edit="founders" id="pricing" title="Pricing">
         <div className="mt-3 grid gap-3 md:grid-cols-2">
           <div className="card p-4">
             <h3 className="text-[13px] font-medium">Free</h3>
@@ -171,11 +172,11 @@ export default function ForFounders() {
 
       <Faq faq={faq} title="Questions founders ask" />
 
-      <Section id="guides" title="Guides for founders">
+      <Section edit="founders" id="guides" title="Guides for founders">
         <LinkCards links={guides} />
       </Section>
 
-      <Section id="compare" title="Comparing options?">
+      <Section edit="founders" id="compare" title="Comparing options?">
         <PillLinks
           label="Comparisons"
           links={[

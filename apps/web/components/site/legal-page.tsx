@@ -1,17 +1,18 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
 import { PageHead } from "./page-head";
+import { ed } from "@/lib/content/edit";
 
 export const LEGAL_UPDATED = "2026-11-15";
 const H = "mt-10 scroll-mt-6 text-[15px] font-medium";
 export const LP = "mt-2 text-[14px] leading-relaxed text-ink-2";
 
 /** Shared shell for Terms, Privacy and Refund: title row, on-this-page nav, readable column. */
-export function LegalPage({ title, sub, sections }: { title: string; sub: string; sections: { id: string; h: string; body: ReactNode }[] }) {
+export function LegalPage({ title, sub, sections, edit }: { title: string; sub: string; sections: { id: string; h: string; body: ReactNode }[]; edit?: string }) {
   const date = new Date(LEGAL_UPDATED + "T00:00:00Z").toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" });
   return (
     <div className="max-w-[1100px]">
-      <PageHead title={title} sub={sub} />
+      <PageHead edit={edit} title={title} sub={sub} />
       <div className="mt-6 grid gap-10 lg:grid-cols-[180px_1fr]">
         <aside className="hidden lg:block">
           <nav className="sticky top-5 flex flex-col text-[13px]" aria-label="On this page">
@@ -24,7 +25,7 @@ export function LegalPage({ title, sub, sections }: { title: string; sub: string
           <p className="text-[13px] text-mute">Last updated {date}</p>
           {sections.map((s, i) => (
             <section key={s.id}>
-              <h2 id={s.id} className={H + (i === 0 ? " !mt-6" : "")}>{s.h}</h2>
+              <h2 id={s.id} className={H + (i === 0 ? " !mt-6" : "")} {...(edit ? ed(`${edit}.sections.${s.id}`) : {})}>{s.h}</h2>
               {s.body}
             </section>
           ))}

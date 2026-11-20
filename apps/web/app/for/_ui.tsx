@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { Rich } from "@/components/site/blog/rich";
+import { ed } from "@/lib/content/edit";
 
 /** Shared, server-only building blocks for the /for and /compare landing pages. */
 
@@ -22,12 +23,13 @@ export function Crumbs({ trail }: { trail: [string, string][] }) {
   );
 }
 
-export function Section({ id, title, sub, children, className = "mt-14" }: { id: string; title: string; sub?: string; children: ReactNode; className?: string }) {
+export function Section({ id, title, sub, children, className = "mt-14", edit }: { id: string; title: string; sub?: string; children: ReactNode; className?: string; edit?: string }) {
+  const e = (k: string) => (edit ? ed(`${edit}.${id}.${k}`) : {});
   return (
     <section aria-labelledby={id} className={className}>
       <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
-        <h2 id={id} className={H2}>{title}</h2>
-        {sub && <p className="page-sub">{sub}</p>}
+        <h2 id={id} className={H2} {...e("h")}>{title}</h2>
+        {sub && <p className="page-sub" {...e("sub")}>{sub}</p>}
       </div>
       {children}
     </section>

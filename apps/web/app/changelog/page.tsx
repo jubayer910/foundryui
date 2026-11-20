@@ -21,7 +21,7 @@ export default async function ChangelogPage() {
   }
   return (
     <div className="max-w-3xl">
-      <PageHead title="Changelog" sub="What shipped, newest first.">
+      <PageHead edit="changelog" title="Changelog" sub="What shipped, newest first.">
         <a href="/changelog/rss.xml" className="pill">RSS</a>
         <a href="/roadmap" className="pill">Roadmap</a>
       </PageHead>

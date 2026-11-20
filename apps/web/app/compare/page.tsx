@@ -5,6 +5,7 @@ import { getPost } from "@/lib/blog";
 import { IlloTile } from "@/components/site/illo";
 import { JsonLd, ORG_ID, abs, breadcrumbLd, faqLd, pageMeta } from "@/lib/seo";
 import { Crumbs, Faq, LinkCards, Section } from "@/app/for/_ui";
+import { ed } from "@/lib/content/edit";
 
 export const metadata: Metadata = pageMeta({
   title: "Dashboard UI kit comparisons",
@@ -38,8 +39,8 @@ export default function CompareIndex() {
       />
       <Crumbs trail={[["Ingot UI", "/"], ["Compare", "/compare"]]} />
       <header className="mt-3 flex flex-wrap items-baseline gap-x-2 gap-y-1">
-        <h1 className="page-title">Compare Ingot UI</h1>
-        <p className="page-sub">Where each tool is the better pick, with sources.</p>
+        <h1 className="page-title" {...ed("compare.head.title")}>Compare Ingot UI</h1>
+        <p className="page-sub" {...ed("compare.head.sub")}>Where each tool is the better pick, with sources.</p>
       </header>
       <IlloTile scene="podium" label="Three tools on a podium, compared side by side" className="mt-5 h-[160px] sm:h-[200px]" />
       <p className="mt-4 max-w-2xl text-[13px] leading-relaxed text-mute">

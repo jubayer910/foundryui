@@ -45,7 +45,7 @@ export default function SystemsPage() {
   return (
     <div className="max-w-[1400px]">
       <JsonLd data={ld} />
-      <PageHead title="Dashboard design systems" sub="Pick the one that matches your product, then build every screen in it." />
+      <PageHead edit="systems" title="Dashboard design systems" sub="Pick the one that matches your product, then build every screen in it." />
       <p className="mt-3 max-w-2xl text-[13px] leading-snug text-mute">
         Each system comes from a real dashboard product, so its tokens, components and screens already work together. The screen on each card is what you get. {fmt(FIGMA_TOTAL)} components are in the Figma libraries; every piece of code is checked against its Figma original before it appears here.{" "}
         <a href="#which-system" className="text-ink underline underline-offset-2">Which system fits my product?</a>

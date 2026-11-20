@@ -5,6 +5,7 @@ import { SupportWidget } from "./support-widget";
 import { AnnouncementBar } from "./announcement-bar";
 import { TrackBeacon } from "./track-beacon";
 import { CookieConsent } from "./cookie-consent";
+import { ContentPatch } from "./content-patch";
 
 // GA4 property id: used to switch GA off when a tab moves into /admin. GA and Clarity themselves are loaded
 // by CookieConsent, only after the visitor accepts.
@@ -42,6 +43,7 @@ export function SiteChrome({ rail, mobileBar, children }: { rail: ReactNode; mob
       <SupportWidget />
       <TrackBeacon />
       <CookieConsent />
+      <ContentPatch />
     </>
   );
 }

@@ -3,6 +3,7 @@ import { NOINDEX } from "@/lib/seo";
 import { AuthForm } from "@/components/site/auth-form";
 import { Icon } from "@/registry/components/icons";
 import { IlloTile } from "@/components/site/illo";
+import { ed } from "@/lib/content/edit";
 
 export const metadata: Metadata = { title: "Create account", robots: NOINDEX };
 
@@ -15,8 +16,8 @@ export default async function SignUp({ searchParams }: PageProps<"/sign-up">) {
   return (
     <div className="mx-auto grid max-w-[760px] gap-8 pt-12 md:grid-cols-[1fr_340px] lg:pt-20">
       <div>
-        <h1 className="page-title">Create your free account</h1>
-        <p className="page-sub mt-1">Takes 20 seconds. No card.</p>
+        <h1 className="page-title" {...ed("signup.head.title")}>Create your free account</h1>
+        <p className="page-sub mt-1" {...ed("signup.head.sub")}>Takes 20 seconds. No card.</p>
         <ul className="mt-5 flex flex-col gap-2.5">
           {GETS.map((g) => (
             <li key={g} className="flex items-start gap-2 text-[13px]">

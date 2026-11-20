@@ -8,6 +8,7 @@ export const metadata: Metadata = pageMeta({ title: "Refund Policy", description
 export default function RefundPage() {
   return (
     <LegalPage
+      edit="refund"
       title="Refund Policy"
       sub="7 days on every paid plan, no questions asked."
       sections={[

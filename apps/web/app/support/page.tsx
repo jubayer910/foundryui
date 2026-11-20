@@ -31,7 +31,7 @@ export default async function SupportPage() {
     <div className="max-w-[1100px]">
       <JsonLd data={[breadcrumbLd([["Ingot UI", "/"], ["Support", "/support"]]), ...(articles.length ? [faqLd(articles.map((a) => ({ q: a.question, a: plainAnswer(a.answer) })))] : [])]} />
       <OpenHash />
-      <PageHead title="Support" sub="Search the answers, or write to us. A person replies, usually within a day." />
+      <PageHead edit="support" title="Support" sub="Search the answers, or write to us. A person replies, usually within a day." />
 
       <div className="mt-5 grid items-stretch gap-3 md:grid-cols-[1fr_300px]">
         <div className="card flex flex-col justify-center p-5 sm:p-6">

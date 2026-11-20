@@ -19,7 +19,7 @@ export default function RoadmapPage() {
   return (
     <div className="max-w-[1100px]">
       <JsonLd data={breadcrumbLd([["Ingot UI", "/"], ["Roadmap", "/roadmap"]])} />
-      <PageHead title="Roadmap" sub="What we are building, in order.">
+      <PageHead edit="roadmap" title="Roadmap" sub="What we are building, in order.">
         <Link href="/changelog" className="btn-line">
           <CIcon name="history" size={14} /> Changelog
         </Link>

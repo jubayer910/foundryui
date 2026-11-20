@@ -14,7 +14,7 @@ const C = "card mt-3 overflow-x-auto p-3 font-fu-mono text-[12px] leading-relaxe
 export default function DocsPage() {
   return (
     <div className="max-w-[1100px]">
-      <PageHead title="CLI and docs" sub="Install, theme and use Ingot UI in your project." />
+      <PageHead edit="docs" title="CLI and docs" sub="Install, theme and use Ingot UI in your project." />
       <ul className="mt-5 grid grid-cols-2 gap-3 md:grid-cols-4">
         {[["install", "Install", "terminal"], ["tokens", "Tokens & theming", "tokens"], ["figma", "Figma", "frames"], ["agents", "AI agents", "server"]].map(([id, l, scene]) => (
           <li key={id}>

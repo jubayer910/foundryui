@@ -9,7 +9,7 @@ export const metadata: Metadata = pageMeta({ title: "Free icons for dashboards: 
 export default function IconsPage() {
   return (
     <div className="max-w-[1400px]">
-      <PageHead title="Icons" sub={iconStats.line.toLocaleString("en-US") + " icons in six styles on one 24px grid. Copy SVG or JSX, or download."} />
+      <PageHead edit="icons" title="Icons" sub={iconStats.line.toLocaleString("en-US") + " icons in six styles on one 24px grid. Copy SVG or JSX, or download."} />
       <div className="mt-5">
         <IconBrowser />
       </div>

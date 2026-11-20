@@ -10,6 +10,7 @@ import { ProofStrip, HOME_PROOF } from "./proof-strip";
 import { posts, readingTime } from "@/lib/blog";
 import { clientEntries } from "@/lib/seo-entries";
 import { HUBS } from "@/lib/hubs";
+import { ed } from "@/lib/content/edit";
 
 const MORE = [
   { href: "/mcp", scene: "server", h: "Connect your AI agent", b: "One line in Claude Code or Cursor, and your agent builds with the system." },
@@ -26,8 +27,8 @@ export function LibraryPage({ q = "", c = "all", s = "all", intro = true, home =
         <HomeHeroV2 />
       ) : (
         <header className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
-          <h1 className="page-title">Components</h1>
-          <p className="page-sub">Dashboard components that look finished, in code, Figma and for your AI agent.</p>
+          <h1 className="page-title" {...ed("components.head.title")}>Components</h1>
+          <p className="page-sub" {...ed("components.head.sub")}>Dashboard components that look finished, in code, Figma and for your AI agent.</p>
         </header>
       )}
 

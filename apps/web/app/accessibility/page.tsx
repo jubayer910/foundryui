@@ -48,7 +48,7 @@ export default function Accessibility() {
           { "@context": "https://schema.org", "@type": "WebPage", name: "Accessibility statement", url: abs("/accessibility"), dateModified: S.date, about: { "@id": ORG_ID }, publisher: { "@id": ORG_ID } },
         ]}
       />
-      <PageHead title="Accessibility statement" sub={"Last tested " + date(S.date) + "."} />
+      <PageHead edit="accessibility" title="Accessibility statement" sub={"Last tested " + date(S.date) + "."} />
       <div className="mt-6 grid gap-10 lg:grid-cols-[180px_1fr]">
         <aside className="hidden lg:block">
           <nav className="sticky top-5 flex flex-col text-[13px]" aria-label="On this page">

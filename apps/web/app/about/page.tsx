@@ -26,7 +26,7 @@ export default function About() {
           { "@context": "https://schema.org", "@type": "AboutPage", name: "About Ingot UI", url: abs("/about"), about: { "@id": ORG_ID }, publisher: { "@id": ORG_ID } },
         ]}
       />
-      <PageHead title="About" sub="What Ingot UI is, how it is made, and how we write about it." />
+      <PageHead edit="about" title="About" sub="What Ingot UI is, how it is made, and how we write about it." />
       <IlloTile scene="pipeline" label="Product screen to Figma component to React code to a passed check" className="mt-5 h-[170px] sm:h-[210px]" />
       <div className="mt-6 grid gap-10 lg:grid-cols-[180px_1fr]">
         <aside className="hidden lg:block">

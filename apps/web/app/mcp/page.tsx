@@ -6,6 +6,7 @@ import { IlloTile } from "@/components/site/illo";
 import { CopyBlock } from "@/components/site/copy-block";
 import { ConnectAgent } from "@/components/site/connect-agent";
 import { CLIENTS, configText, mcpUrlFor } from "@/components/site/connect-agent-config";
+import { ed } from "@/lib/content/edit";
 
 export const metadata: Metadata = pageMeta({
   title: "MCP server for UI components: Claude Code, Cursor, Codex",
@@ -80,10 +81,10 @@ export default function McpPage() {
       />
 
       <header className="max-w-[720px]">
-        <p className="eyebrow">MCP server for UI components</p>
-        <h1 className="display mt-1.5 text-[26px] md:text-[32px]">Your agent builds with real components instead of guessing</h1>
-        <p className="mt-2.5 text-[14px] leading-relaxed text-ink-2">
-          Connect Claude Code, Cursor, VS Code or Codex once. Your agent gets {fmt(STATS.coded)} React components checked against Figma, the design tokens and an audit, so the screens it writes look like one product, not a template.
+        <p className="eyebrow" {...ed("mcp.hero.eyebrow")}>MCP server for UI components</p>
+        <h1 className="display mt-1.5 text-[26px] md:text-[32px]" {...ed("mcp.hero.title")}>Your agent builds with real components instead of guessing</h1>
+        <p className="mt-2.5 text-[14px] leading-relaxed text-ink-2" {...ed("mcp.hero.sub")}>
+          {`Connect Claude Code, Cursor, VS Code or Codex once. Your agent gets ${fmt(STATS.coded)} React components checked against Figma, the design tokens and an audit, so the screens it writes look like one product, not a template.`}
         </p>
       </header>
 
@@ -100,8 +101,8 @@ export default function McpPage() {
       </div>
 
       <section className="mt-12" aria-labelledby="prompt-h">
-        <h2 id="prompt-h" className={H2}>Then ask for a screen</h2>
-        <p className="mt-1 text-[13px] text-mute">Describe the page you need. The agent picks the components, writes them into your project and checks the result.</p>
+        <h2 id="prompt-h" className={H2} {...ed("mcp.prompt.h")}>Then ask for a screen</h2>
+        <p className="mt-1 text-[13px] text-mute" {...ed("mcp.prompt.p")}>Describe the page you need. The agent picks the components, writes them into your project and checks the result.</p>
         <div className="mt-3">
           <CopyBlock blocks={[{ label: "Prompt", code: "Set this project up with the Ingot UI Loopo system, then build an analytics overview page with KPI cards, a capsule bar chart for monthly revenue and a transactions table. Run audit_ui before you finish." }]} />
         </div>
@@ -125,7 +126,7 @@ export default function McpPage() {
       </section>
 
       <section id="manual" className="mt-12 scroll-mt-6" aria-labelledby="manual-h">
-        <h2 id="manual-h" className={H2}>Set it up by hand</h2>
+        <h2 id="manual-h" className={H2} {...ed("mcp.manual.h")}>Set it up by hand</h2>
         <p className="mt-1 text-[13px] text-mute">
           Endpoint <code className="font-fu-mono text-[12px]">{MCP_URL}</code>, sent with <code className="font-fu-mono text-[12px]">Authorization: Bearer</code> and a key from <Link href="/account" className="underline underline-offset-2">Account</Link>. Replace YOUR_API_KEY below.
         </p>
@@ -136,8 +137,8 @@ export default function McpPage() {
       </section>
 
       <section id="cli" className="mt-12 scroll-mt-6" aria-labelledby="cli-h">
-        <h2 id="cli-h" className={H2}>Prefer a CLI?</h2>
-        <p className="mt-1 text-[13px] text-mute">Same components, no agent needed.</p>
+        <h2 id="cli-h" className={H2} {...ed("mcp.cli.h")}>Prefer a CLI?</h2>
+        <p className="mt-1 text-[13px] text-mute" {...ed("mcp.cli.p")}>Same components, no agent needed.</p>
         <div className="mt-3">
           <CopyBlock blocks={[{ label: "ingotui", code: "npx ingotui init                 # tokens + theme bridge\nnpx ingotui add kpi-card donut    # components + their dependencies\nnpx ingotui list                 # everything available" }, { label: "shadcn", code: "npx shadcn add " + SITE_URL + "/r/kpi-card.json" }]} />
         </div>

@@ -45,3 +45,4 @@ next-env.d.ts
 
 # OG visuals generated before each build (scripts/og-visuals.mjs)
 /.og-cache/
+.dev.vars.admin-test

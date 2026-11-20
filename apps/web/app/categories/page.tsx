@@ -20,7 +20,7 @@ export default function Categories() {
   return (
     <div className="max-w-[1100px]">
       <JsonLd data={breadcrumbLd([["Components", "/"], ["Categories", "/categories"]])} />
-      <PageHead title="Categories" sub="Every dashboard component, grouped by what it does." />
+      <PageHead edit="categories" title="Categories" sub="Every dashboard component, grouped by what it does." />
       <ul className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {rows.map((r) => (
           <li key={r.href}>

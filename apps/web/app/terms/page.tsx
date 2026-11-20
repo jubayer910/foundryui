@@ -10,6 +10,7 @@ const A = "font-medium text-ink underline underline-offset-2";
 export default function TermsPage() {
   return (
     <LegalPage
+      edit="terms"
       title="Terms of Service"
       sub="The rules for using Ingot UI, in plain language."
       sections={[

@@ -42,7 +42,7 @@ export default function Templates() {
           },
         ]}
       />
-      <PageHead title="Free templates" sub="Full dashboard screens to start from, free with an account." />
+      <PageHead edit="templates" title="Free templates" sub="Full dashboard screens to start from, free with an account." />
       <p className="mt-3 max-w-2xl text-[13px] leading-snug text-mute">
         Complete dashboard screens built from the nine Ingot UI systems, each made from that system&rsquo;s own components, charts and tokens.{" "}
         {coded === TEMPLATES.length

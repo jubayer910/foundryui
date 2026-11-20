@@ -4,6 +4,7 @@ import { CATEGORIES, entries } from "@/lib/library";
 import { Browser } from "@/components/site/browser";
 import { clientEntries } from "@/lib/seo-entries";
 import { pageMeta, fmt } from "@/lib/seo";
+import { ed } from "@/lib/content/edit";
 
 const charts = entries.filter((e) => e.category === "Charts");
 
@@ -16,8 +17,8 @@ export const metadata: Metadata = pageMeta({
 export default function ChartsPage() {
   return (
     <div className="max-w-[1400px]">
-      <h1 className="page-title">Dashboard charts</h1>
-      <p className="mt-2 max-w-xl text-sm leading-relaxed text-fu-muted">
+      <h1 className="page-title" {...ed("charts.head.title")}>Dashboard charts</h1>
+      <p className="mt-2 max-w-xl text-sm leading-relaxed text-fu-muted" {...ed("charts.head.sub")}>
         No plain bars, no smooth sine waves. Every bar has a gradient, an inside stroke and a highlight; every line is dense and real-looking; every chart has a hover state.
       </p>
       <div className="mt-8">

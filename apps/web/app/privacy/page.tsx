@@ -11,6 +11,7 @@ const A = "font-medium text-ink underline underline-offset-2";
 export default function PrivacyPage() {
   return (
     <LegalPage
+      edit="privacy"
       title="Privacy Policy"
       sub="What we collect, why, and how to get it deleted."
       sections={[

@@ -221,7 +221,7 @@ export default function LicensePage() {
           },
         ]}
       />
-      <PageHead title="License" sub="What you can build with Ingot UI, in plain English." />
+      <PageHead edit="license" title="License" sub="What you can build with Ingot UI, in plain English." />
 
       <section aria-labelledby="short" className="card mt-5 p-5 sm:p-6">
         <h2 id="short" className="text-[15px] font-medium">The short version</h2>

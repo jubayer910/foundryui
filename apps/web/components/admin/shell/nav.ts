@@ -38,6 +38,7 @@ export const NAV: NavGroup[] = [
   {
     label: "Content",
     items: [
+      { href: "/admin/pages", label: "Pages", icon: "file-pencil", perm: "content" },
       { href: "/admin/posts", label: "Posts", icon: "article", perm: "content" },
       { href: "/admin/changelog", label: "Changelog", icon: "history", perm: "content" },
       { href: "/admin/kb", label: "Knowledge base", icon: "book", perm: "kb" },

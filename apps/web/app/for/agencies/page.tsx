@@ -6,6 +6,7 @@ import { getPost } from "@/lib/blog";
 import { IlloTile } from "@/components/site/illo";
 import { JsonLd, ORG_ID, abs, breadcrumbLd, faqLd, fmt, pageMeta } from "@/lib/seo";
 import { Crumbs, Faq, LinkCards, PillLinks, Section } from "../_ui";
+import { ed } from "@/lib/content/edit";
 
 const PATH = "/for/agencies";
 
@@ -49,10 +50,10 @@ export default function ForAgencies() {
 
       <header className="mt-3 grid items-center gap-6 lg:grid-cols-[minmax(0,1fr)_380px]">
         <div>
-          <p className="eyebrow">For agencies</p>
-          <h1 className="display mt-1 text-[28px] sm:text-[36px]">Client dashboards that don’t look like the last one</h1>
-          <p className="mt-3 max-w-xl text-[15px] leading-relaxed text-ink-2">
-            Start each client on one of {systems.length} complete dashboard systems, rebrand it with tokens, and ship React code that matches the Figma file your client signed off.
+          <p className="eyebrow" {...ed("agencies.hero.eyebrow")}>For agencies</p>
+          <h1 className="display mt-1 text-[28px] sm:text-[36px]" {...ed("agencies.hero.title")}>Client dashboards that don’t look like the last one</h1>
+          <p className="mt-3 max-w-xl text-[15px] leading-relaxed text-ink-2" {...ed("agencies.hero.sub")}>
+            {`Start each client on one of ${systems.length} complete dashboard systems, rebrand it with tokens, and ship React code that matches the Figma file your client signed off.`}
           </p>
           <div className="mt-5 flex flex-wrap gap-1.5">
             <Link href="/license" className="btn-ink">Read the licence</Link>
@@ -62,7 +63,7 @@ export default function ForAgencies() {
         <IlloTile scene="six" label="Nine design systems, one per client look" className="h-[200px] sm:h-[240px]" />
       </header>
 
-      <Section id="why" title="Why agencies use Ingot UI">
+      <Section edit="agencies" id="why" title="Why agencies use Ingot UI">
         <div className="mt-3 grid gap-3 md:grid-cols-3">
           {[
             ["tokens", "Rebrand with tokens", <>Every system is a set of <code className={mono}>--fu-*</code> CSS variables. Swap colour, radius and type in one file and the whole product follows. <Link href="/docs#tokens" className={A}>How tokens work</Link>.</>],
@@ -80,7 +81,7 @@ export default function ForAgencies() {
         </div>
       </Section>
 
-      <Section id="licence-and-seats" title="Licence and team seats">
+      <Section edit="agencies" id="licence-and-seats" title="Licence and team seats">
         <div className="mt-3 grid gap-3 md:grid-cols-2">
           <Link href="/license" className="card block p-4 transition-colors hover:bg-tile">
             <h3 className="text-[13px] font-medium">Client work licence</h3>
@@ -93,13 +94,13 @@ export default function ForAgencies() {
         </div>
       </Section>
 
-      <Section id="systems" title="Pick a starting look per client">
+      <Section edit="agencies" id="systems" title="Pick a starting look per client">
         <PillLinks label="Design systems" links={systems.map((s) => ({ href: "/systems/" + s.slug, label: s.name + ": " + s.tagline }))} />
       </Section>
 
       <Faq faq={faq} title="Questions agencies ask" />
 
-      <Section id="guides" title="Guides">
+      <Section edit="agencies" id="guides" title="Guides">
         <LinkCards links={[...guides, { href: "/for/founders", title: "Ingot UI for founders", note: "The full story: problem, how it works, proof." }, { href: "/compare", title: "Compare Ingot UI", note: "Against shadcn/ui, Untitled UI, Tremor and Tailwind Plus." }]} />
       </Section>
     </div>

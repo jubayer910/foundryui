@@ -50,7 +50,7 @@ export default function ThemePage() {
           faqLd(FAQ),
         ]}
       />
-      <PageHead title="Dashboard theme generator" sub="Make an Ingot system look like your product, not like every other AI-built app." />
+      <PageHead edit="theme" title="Dashboard theme generator" sub="Make an Ingot system look like your product, not like every other AI-built app." />
       <p className="mt-2 max-w-3xl text-[13px] leading-relaxed text-mute">
         Pick your brand colour, greys, corners, font and density. The preview below is built from real Ingot components, so what you see is what your app gets. Every text colour is checked to WCAG AA, then you export the tokens or hand them to your agent. Free, no account.
       </p>
