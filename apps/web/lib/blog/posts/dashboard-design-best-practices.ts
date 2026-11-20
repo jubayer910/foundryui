@@ -2,16 +2,16 @@ import type { Post } from "../types";
 
 export const post: Post = {
   slug: "dashboard-design-best-practices",
-  title: "Dashboard design best practices: 14 rules from six real product dashboards",
+  title: "Dashboard design best practices: 14 rules from real product dashboards",
   metaTitle: "Dashboard design best practices: 14 rules that hold up",
-  description: "14 dashboard design best practices from six production dashboards: the first screen, KPI rows, charts, tables, drawers, states, density, colour and tokens.",
+  description: "14 dashboard design best practices from real production dashboards: the first screen, KPI rows, charts, tables, drawers, states, density, colour and tokens.",
   date: "2026-11-20",
   category: "Guides",
   keyword: "dashboard design best practices",
   intent: "informational",
   lede: "A good dashboard answers one question per screen, puts the three to five numbers that answer it in a KPI row at the top, explains each number with one well-chosen chart, and lets people act on the rows behind it without leaving the page. The rest of the rules below (states, density, colour, tokens) exist to keep that promise as the product grows.",
   body: [
-    { t: "p", x: "These rules come from rebuilding six product dashboards as design systems: audience analytics (Loopo), email marketing (MailPulse), AI agent governance (Auton), workflow automation (Axon), security (Veriq) and business admin (Vantage). Together they hold {screens} source screens and {components} components, so every rule below has a real screen behind it, and most link to one you can open." },
+    { t: "p", x: "These rules come from rebuilding real product dashboards as {systems} design systems, among them audience analytics (Loopo), email marketing (MailPulse), AI agent governance (Auton), workflow automation (Axon), security (Veriq) and business admin (Vantage). Together they hold {screens} source screens and {components} components, so every rule below has a real screen behind it, and most link to one you can open." },
     { t: "p", x: "This is a long guide. If you only have five minutes, read rules 1, 2, 5, 9 and 12. They fix most dashboards we see." },
 
     { t: "h2", x: "Start with the job, not the layout" },
@@ -48,7 +48,7 @@ export const post: Post = {
       ["Where do people drop out?", "Funnel", "[Vantage funnel](/components/vantage-funnel-26237416)"],
       ["Do cohorts stay?", "Retention grid", "[Vantage retention grid](/components/vantage-retention-grid-26234875)"],
     ] },
-    { t: "p", x: "There are {cat:all:Charts} chart components across the six systems, and the [charts page](/charts) groups them by type. For a full decision guide, read [dashboard chart types](/blog/dashboard-chart-types-react)." },
+    { t: "p", x: "There are {cat:all:Charts} chart components across the {systems} systems, and the [charts page](/charts) groups them by type. For a full decision guide, read [dashboard chart types](/blog/dashboard-chart-types-react)." },
     { t: "h3", x: "7. One idea per chart, with a title that says it" },
     { t: "p", x: "Give each chart a title that states what it shows and a subtitle with the period: “Revenue by channel, last 30 days”. Two y-axes, more than five colours, and a legend people have to match by colour are the usual signs that one chart is trying to be three. Split it." },
     { t: "h3", x: "8. Tooltips should finish the sentence" },
@@ -57,7 +57,7 @@ export const post: Post = {
     { t: "h2", x: "Tables, drawers and actions" },
     { t: "h3", x: "9. The table is where the work happens" },
     { t: "p", x: "Charts get attention, tables get used. Once someone sees a number move, they want the rows behind it: which customers, which campaigns, which findings. Design the table as carefully as the chart: a toolbar with search and filters, columns in order of importance, status chips, right-aligned numbers, a row menu, and an empty state for when filters match nothing." },
-    { t: "p", x: "The six systems include {cat:all:Tables and lists} table and list components. The [Vantage customers table](/components/vantage-customers-table-26332895) and the [Veriq secrets table](/components/veriq-secrets-table-6526326) show two very different densities. Our [data table design guide](/blog/react-data-table-design) covers columns, states and bulk actions in detail." },
+    { t: "p", x: "The {systems} systems include {cat:all:Tables and lists} table and list components. The [Vantage customers table](/components/vantage-customers-table-26332895) and the [Veriq secrets table](/components/veriq-secrets-table-6526326) show two very different densities. Our [data table design guide](/blog/react-data-table-design) covers columns, states and bulk actions in detail." },
     { t: "h3", x: "10. Open details in a drawer, confirm in a modal" },
     { t: "p", x: "Clicking a row should open a drawer that keeps the list visible, so people can move through records without losing their place. Use a modal for short, blocking decisions: confirm a delete, set a target, name a segment. The rule of thumb: if people need to compare the detail with the list, it’s a drawer; if they must decide before continuing, it’s a modal. More in [modal vs drawer](/blog/modal-vs-drawer)." },
     { t: "components", slugs: ["vantage-customers-table-26332895", "loopo-olivia-bennett-drawer-18946722", "vantage-set-a-revenue-target-modal-26231083", "loopo-row-actions-menu-18849430"], caption: "The table, its drawer, a modal and a row menu: one flow, four components." },
@@ -72,8 +72,8 @@ export const post: Post = {
     { t: "p", x: "Compare the airy [Vantage business page](/components/vantage-business-page-26230048) with the dense [Axon runs and logs page](/components/axon-runs-logs-page-73243953). Both are right for their visitors." },
     { t: "h3", x: "14. Use colour for meaning, and put it in tokens" },
     { t: "p", x: "Pick one accent colour for primary actions and selection, a neutral scale for everything structural, and a small set of status colours (success, warning, danger, info) used only for status. Charts get their own palette. Then store all of it as tokens, not hex values in components, so changing the brand or adding dark mode is a token change instead of a rewrite." },
-    { t: "p", x: "Check text contrast against [WCAG 2.2 contrast guidance](https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html): 4.5:1 for normal text and 3:1 for large text. Pale grey labels on white are the most common failure on dashboards. Our [design tokens guide](/blog/dashboard-design-system-tailwind-tokens) shows how the six systems share one token structure with different values." },
-    { t: "cta", h: "See the rules on real screens", x: "Every page template in the six systems follows these rules. Open one, copy the components you need, or connect your AI agent through MCP.", href: "/systems", label: "Browse the six systems" },
+    { t: "p", x: "Check text contrast against [WCAG 2.2 contrast guidance](https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html): 4.5:1 for normal text and 3:1 for large text. Pale grey labels on white are the most common failure on dashboards. Our [design tokens guide](/blog/dashboard-design-system-tailwind-tokens) shows how the systems share one token structure with different values." },
+    { t: "cta", h: "See the rules on real screens", x: "Every page template in the {systems} systems follows these rules. Open one, copy the components you need, or connect your AI agent through MCP.", href: "/systems", label: "Browse the design systems" },
 
     { t: "h2", x: "Navigation and page structure" },
     { t: "p", x: "Rules 1 to 14 are about a single page. A dashboard is a set of pages, and the way people move between them matters just as much." },
@@ -146,7 +146,7 @@ export const post: Post = {
       ["Security or compliance", "[Veriq](/systems/veriq)", "[Vulnerabilities](/components/veriq-vulnerabilities-page-6518508), [Overview](/components/veriq-overview-page-6519969)"],
       ["Subscriptions or business admin", "[Vantage](/systems/vantage)", "[Subscriptions](/components/vantage-subscriptions-page-26336728), [Customers](/components/vantage-customers-page-26332368)"],
     ] },
-    { t: "p", x: "For more inspiration across all six, see [SaaS dashboard examples](/blog/saas-dashboard-examples). If your team builds with Claude Code or Cursor, the [MCP server](/mcp) lets the agent use these components instead of generating generic ones." },
+    { t: "p", x: "For more inspiration across the systems, see [SaaS dashboard examples](/blog/saas-dashboard-examples). If your team builds with Claude Code or Cursor, the [MCP server](/mcp) lets the agent use these components instead of generating generic ones." },
   ],
   faq: [
     { q: "What are the most important dashboard design principles?", a: "Answer one question per screen, put three to five KPIs with comparisons at the top, explain them with one well-chosen chart, give people a usable table to act on, and design empty, loading and error states. Density and colour should follow how often people use the page." },

@@ -9,7 +9,7 @@ export const post: Post = {
   category: "Lists",
   keyword: "saas dashboard examples",
   intent: "informational",
-  lede: "The best SaaS dashboard examples are built around one daily decision and a short list of supporting screens: an overview, a main table, a detail drawer, create and edit flows, settings and an audit trail. Below are six real examples from different domains, with {screens} product screens between them, and what each one teaches.",
+  lede: "The best SaaS dashboard examples are built around one daily decision and a short list of supporting screens: an overview, a main table, a detail drawer, create and edit flows, settings and an audit trail. Below are six real examples from different domains, and what each one teaches.",
   body: [
     { t: "p", x: "Inspiration galleries show you hero shots; they rarely show the twentieth screen, which is where a product feels finished or not. These six examples are the product files the Ingot UI systems were built from, so every screen below exists, down to the confirm modal." },
     { t: "h2", x: "What every SaaS dashboard needs" },

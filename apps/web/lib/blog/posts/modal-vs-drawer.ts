@@ -11,7 +11,7 @@ export const post: Post = {
   intent: "informational",
   lede: "Use a modal when the user must make a decision before continuing: confirm, create, connect or delete. Use a drawer (side panel) to inspect or edit one record while keeping the list in view. Use a popover for small optional controls tied to one element, and a full page when the task is long or needs its own URL.",
   body: [
-    { t: "p", x: "The six Ingot UI systems contain {cat:all:Modals} modals and {cat:all:Drawers} drawers, which gave us a lot of real cases to test this rule against. It holds up." },
+    { t: "p", x: "The {systems} Ingot UI systems contain {cat:all:Modals} modals and {cat:all:Drawers} drawers, which gave us a lot of real cases to test this rule against. It holds up." },
     { t: "h2", x: "The rule in one table" },
     { t: "table", head: ["Pattern", "Use it for", "Blocks the page?", "Example"], rows: [
       ["Modal", "A decision: confirm, create, connect, destroy", "Yes", "[Pause Customer Refunds?](/components/axon-pause-customer-refunds-modal-73237727)"],

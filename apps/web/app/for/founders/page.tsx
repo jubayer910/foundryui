@@ -185,6 +185,7 @@ export default function ForFounders() {
             { href: "/compare/ingot-ui-vs-tremor", label: "vs Tremor" },
             { href: "/compare/tailwind-plus-alternative", label: "Tailwind Plus alternative" },
             { href: "/for/agencies", label: "Ingot UI for agencies" },
+            { href: "/why-ingot-ui", label: "Why Ingot UI" },
           ]}
         />
       </Section>

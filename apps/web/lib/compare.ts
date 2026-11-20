@@ -67,7 +67,7 @@ export const COMPARISONS: Comparison[] = [
     rows: [
       { aspect: "What it is", ingot: "{systems} dashboard design systems, each drawn from a complete product: tokens, components, charts and page templates.", other: "Describes itself as “a set of beautifully-designed, accessible components and a code distribution platform”, and as “not a component library” but how you build yours.", src: [1] },
       { aspect: "Blocks and screens", ingot: "{figma} components taken from {screens} real product screens, including full page templates.", other: "Blocks for dashboards, sidebars and logins; the dashboard block has a sidebar, charts and a data table.", src: [2] },
-      { aspect: "Look", ingot: "Six distinct looks (Loopo, MailPulse, Auton, Axon, Veriq, Vantage), so your product does not look like the default.", other: "One set of default styles you are expected to edit, since you own the code.", src: [1] },
+      { aspect: "Look", ingot: "{systems} distinct looks (Loopo, MailPulse, Auton, Axon, Veriq, Vantage, Montra, Spendix, Abotix), so your product does not look like the default.", other: "One set of default styles you are expected to edit, since you own the code.", src: [1] },
       { aspect: "Code", ingot: "React 19 and Tailwind CSS v4. {code} components have code, each checked against its Figma original before it is published.", other: "Copy-paste code that works with all React frameworks, added with `npx shadcn add`.", src: [2] },
       { aspect: "Charts", ingot: "{cat:all:Charts} chart components styled per system.", other: "Ready-to-use chart components built with Recharts.", src: [3] },
       { aspect: "Figma", ingot: "Every component lives in its system's Figma library; “Copy to Figma” on any component page.", other: "Not covered on the pages we read." },
@@ -142,7 +142,7 @@ export const COMPARISONS: Comparison[] = [
     rows: [
       { aspect: "What it is", ingot: "{systems} dashboard design systems, each drawn from a complete product.", other: "Calls its Figma file “the world’s largest Figma UI kit and design system”, with 10,000+ components and variants.", src: [1] },
       { aspect: "React code", ingot: "React 19 and Tailwind CSS v4; {code} components have code checked against Figma.", other: "An open-source React library built with React Aria and Tailwind CSS (v4.3); PRO adds hundreds more components.", src: [1, 2] },
-      { aspect: "Pages and screens", ingot: "{screens} real product screens across six dashboards, with page templates per system.", other: "PRO lists 250+ page examples.", src: [2] },
+      { aspect: "Pages and screens", ingot: "{screens} real product screens across {systems} dashboards, with page templates per system.", other: "PRO lists 250+ page examples.", src: [2] },
       { aspect: "Dark mode", ingot: "Light mode today; dark mode is the first update.", other: "Light and dark modes with CSS variables.", src: [1] },
       { aspect: "Icons", ingot: "{icons} icons in the Ingot icon set.", other: "4,600+ icons in the Figma library, plus a free SVG icon package.", src: [1] },
       { aspect: "AI agents", ingot: "MCP server with `scaffold_screen`, `get_tokens` and `audit_ui` alongside component search.", other: "An MCP server for AI assistants with semantic component and template search.", src: [1] },

@@ -11,7 +11,7 @@ export const post: Post = {
   intent: "commercial",
   lede: "For most React dashboards, Recharts is the safe default: declarative, SVG, and what shadcn/ui wraps. Choose Visx when you want full control, ECharts when you plot very large datasets, Nivo for many chart types with server rendering, Chart.js for simple canvas charts, and Tremor for Tailwind dashboard blocks. Check the licence: Highcharts needs a commercial licence for commercial products. If your charts are a fixed set of dashboard visuals, plain SVG chart components can replace a library entirely.",
   body: [
-    { t: "p", x: "Across the six Ingot UI systems there are {cat:all:Charts} chart components, and we chose to build them as plain React and SVG. That choice is not right for everyone, so this comparison covers the main libraries and when each one wins." },
+    { t: "p", x: "Across the {systems} Ingot UI systems there are {cat:all:Charts} chart components, and we chose to build them as plain React and SVG. That choice is not right for everyone, so this comparison covers the main libraries and when each one wins." },
     { t: "h2", x: "How we compared them" },
     { t: "ul", items: [
       "**Rendering:** SVG is easy to style and accessible; canvas handles more points.",

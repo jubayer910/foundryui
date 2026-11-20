@@ -20,7 +20,7 @@ export const HUBS: Hub[] = [
     category: "KPI and stats",
     title: "KPI card and stat components for React and Figma",
     h1: "KPI cards and stats",
-    intro: "Metric cards, KPI strips and compact stat rows drawn from six real dashboards. Each one pairs a value with a comparison, so the number says whether it is good or bad.",
+    intro: "Metric cards, KPI strips and compact stat rows drawn from nine real dashboards. Each one pairs a value with a comparison, so the number says whether it is good or bad.",
     uses: ["Top row of an overview page", "Targets and progress against plan", "Health and status counts in admin consoles"],
     faq: [
       { q: "What makes a good KPI card?", a: "A plain label, one value with its unit, a comparison against a stated baseline, a status colour backed by text, and optionally a sparkline and a link to the detail." },
@@ -117,7 +117,7 @@ export const HUBS: Hub[] = [
     category: "Templates",
     title: "Dashboard page templates in Figma (with React components)",
     h1: "Page templates",
-    intro: "Full pages from the six products: overview, audience, agents, approvals, attack paths, business and more. Every block inside a template is also its own component.",
+    intro: "Full pages from nine real products: overview, audience, agents, approvals, attack paths, business and more. Every block inside a template is also its own component.",
     uses: ["Starting point for a new product area", "Reference for layout and hierarchy", "Handoff between design and code"],
     faq: [
       { q: "Are page templates available as React code?", a: "Templates are in Figma today. The blocks inside them are separate components, and most of those already have React code." },

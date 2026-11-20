@@ -62,7 +62,7 @@ export const post: Post = {
     { t: "p", x: "**Best for:** teams committed to Material UI. [MUI](https://mui.com) offers official dashboard templates on its component library. You get breadth and stability, with the Material look unless you invest in theming." },
     { t: "h3", x: "10. Refine" },
     { t: "p", x: "**Best for:** data-heavy CRUD admins where the plumbing matters more than the look. [Refine](https://refine.dev) is a React framework for admin panels with data providers and auth built in, and it pairs with several UI libraries, including Tailwind-based ones." },
-    { t: "cta", h: "Open a template, not a demo", x: "Every Ingot page template links to the components inside it, so you can copy the table or the drawer on its own.", href: "/systems", label: "See the six systems" },
+    { t: "cta", h: "Open a template, not a demo", x: "Every Ingot page template links to the components inside it, so you can copy the table or the drawer on its own.", href: "/systems", label: "See the design systems" },
     { t: "h2", x: "Template or design system: which do you need?" },
     { t: "p", x: "A **template** is a finished app you fork. It is fastest on day one and slowest on day ninety, because every change means editing someone else’s pages. A **design system** is a set of tokens and components you assemble. It is slower on day one and faster for the life of the product." },
     { t: "p", x: "Ingot systems sit in between: page templates in Figma for the overview, plus every block inside them as its own component, with {coded} of them available as React code. Fork the layout, keep the parts." },

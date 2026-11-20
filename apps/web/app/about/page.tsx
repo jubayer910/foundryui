@@ -86,6 +86,7 @@ export default function About() {
           <p className="mt-10 flex flex-wrap gap-1.5">
             <Link href="/systems" className="btn-ink">See the systems</Link>
             <Link href="/blog" className="btn-line">Read the guides</Link>
+            <Link href="/why-ingot-ui" className="btn-line">Why Ingot UI</Link>
           </p>
         </article>
       </div>

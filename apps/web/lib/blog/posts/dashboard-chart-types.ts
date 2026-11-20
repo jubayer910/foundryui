@@ -11,7 +11,7 @@ export const post: Post = {
   intent: "informational",
   lede: "Pick a dashboard chart by the question it answers. Comparing categories: bars. Change over time: a line or columns. Part of a whole with two to four parts: a donut or a stacked bar. Steps where people drop off: a funnel. Patterns by day and hour: a heatmap. Cohorts over time: a retention grid. Then make it honest (bars start at zero, label the axis, highlight one series) and give it a hover state.",
   body: [
-    { t: "p", x: "Charts are where dashboards win or lose trust. The six Ingot UI systems contain {cat:all:Charts} chart components, {codecat:all:Charts} of them with React code so far, and each was drawn for a real question in a real product. This guide maps those questions to chart types." },
+    { t: "p", x: "Charts are where dashboards win or lose trust. The {systems} Ingot UI systems contain {cat:all:Charts} chart components, {codecat:all:Charts} of them with React code so far, and each was drawn for a real question in a real product. This guide maps those questions to chart types." },
     { t: "h2", x: "Match the chart to the question" },
     { t: "table", head: ["Question", "Chart", "Example component"], rows: [
       ["Which is biggest?", "Horizontal bars, sorted", "[Sources card](/components/loopo-sources-card-18845034)"],
