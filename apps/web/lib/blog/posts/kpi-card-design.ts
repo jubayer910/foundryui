@@ -34,7 +34,7 @@ export const post: Post = {
     { t: "h2", x: "Sparklines: when they help and when they lie" },
     { t: "p", x: "A sparkline shows shape: rising, falling, spiky, flat. Use it when the trend changes the decision. Leave it out when the series has fewer than about six points, when the axis would need to start far from zero to show any movement, or when every card would show the same gentle slope. A row of identical squiggles is decoration." },
     { t: "h2", x: "KPI rows and strips" },
-    { t: "p", x: "Three to five cards is the useful range. Order them by the decision they drive, left to right, and give the most important one either more width or the first position. When you need more than five, use a compact strip or mini KPIs and move detail to the page below." },
+    { t: "p", x: "Three to five cards is the useful range. Order them by the decision they drive, left to right, and give the most important one either more width or the first position. When you need more than five, use a compact strip or mini KPIs and move detail to the page below. For where the KPI row sits in the whole page, see [dashboard design best practices](/blog/dashboard-design-best-practices)." },
     { t: "components", slugs: ["vantage-kpi-strip-26230470", "vantage-mini-kpis-26231345", "mailpulse-stats-13830397", "veriq-sla-stats-6526104"], caption: "KPI strips and compact stat rows for screens that track more than five numbers." },
     { t: "h2", x: "KPI cards by product type" },
     { t: "table", head: ["Product", "Typical top-row KPIs", "System to start from"], rows: [
