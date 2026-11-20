@@ -89,9 +89,9 @@ export function ConnectAgentModal() {
               <span style={{ fontFamily: "'Geist Mono'", fontSize: "12px", fontWeight: 400, color: "#8b8b91", lineHeight: "1.5" }}>$</span>
               <span style={{ fontFamily: "'Geist Mono'", fontSize: "12px", fontWeight: 400, color: "#e4e4e7", lineHeight: "1.5" }}>{" pip install abotix"}</span>
             </p>
-            <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "0px" }}></p>
+            <p style={{ flexShrink: 0, height: "18px", margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "0px" }}></p>
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "310px", fontFamily: "'Geist Mono'", fontSize: "12px", fontWeight: 400, color: "#e4e4e7", lineHeight: "1.5" }}>from abotix.langchain import AbotixCallback</p>
-            <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "0px" }}></p>
+            <p style={{ flexShrink: 0, height: "18px", margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "0px" }}></p>
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "303px", fontFamily: "'Geist Mono'", fontSize: "12px", fontWeight: 400, color: "#e4e4e7", lineHeight: "1.5" }}>{"agent.invoke(input, config={\"callbacks\": ["}</p>
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "303px", fontFamily: "'Geist Mono'", fontSize: "12px", fontWeight: 400, color: "#e4e4e7", lineHeight: "1.5" }}>{"    AbotixCallback(key=\"abx_stg_••••7f3a\","}</p>
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "403px", fontFamily: "'Geist Mono'", fontSize: "12px", fontWeight: 400, color: "#e4e4e7", lineHeight: "1.5" }}>{"                   env=\"staging\", policies=\"default\")]})"}</p>

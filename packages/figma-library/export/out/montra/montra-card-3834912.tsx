@@ -38,13 +38,13 @@ export function Card() {
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "50px", lineHeight: "13px", fontFamily: "'Geist'", fontSize: "10.05px", fontWeight: 500, color: "#a6a6a6", letterSpacing: "0.04em", textTransform: "uppercase" }}>Revenue</p>
           </div>
           <div style={{ width: "91.39px", height: "29.24px", flexShrink: 0, display: "flex", flexDirection: "row", justifyContent: "flex-end", alignItems: "center", boxSizing: "border-box" }}>
-            <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "0px" }}></p>
+            <p style={{ flexShrink: 0, height: "13px", margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "0px" }}></p>
           </div>
           <div style={{ width: "91.39px", height: "29.24px", flexShrink: 0, display: "flex", flexDirection: "row", justifyContent: "flex-end", alignItems: "center", boxSizing: "border-box" }}>
-            <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "0px" }}></p>
+            <p style={{ flexShrink: 0, height: "13px", margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "0px" }}></p>
           </div>
           <div style={{ width: "91.39px", height: "29.24px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 7.31px 0px 0px", justifyContent: "flex-end", alignItems: "center", boxSizing: "border-box" }}>
-            <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "0px" }}></p>
+            <p style={{ flexShrink: 0, height: "13px", margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "0px" }}></p>
           </div>
         </div>
         <div style={{ width: "601.34px", height: "26.5px", flexShrink: 0, display: "flex", flexDirection: "row", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
@@ -108,13 +108,13 @@ export function Card() {
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "98px", lineHeight: "13px", fontFamily: "'Geist'", fontSize: "10.05px", fontWeight: 500, color: "#a6a6a6", letterSpacing: "0.04em", textTransform: "uppercase" }}>Cost of revenue</p>
           </div>
           <div style={{ width: "91.39px", height: "29.24px", flexShrink: 0, display: "flex", flexDirection: "row", justifyContent: "flex-end", alignItems: "center", boxSizing: "border-box" }}>
-            <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "0px" }}></p>
+            <p style={{ flexShrink: 0, height: "13px", margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "0px" }}></p>
           </div>
           <div style={{ width: "91.39px", height: "29.24px", flexShrink: 0, display: "flex", flexDirection: "row", justifyContent: "flex-end", alignItems: "center", boxSizing: "border-box" }}>
-            <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "0px" }}></p>
+            <p style={{ flexShrink: 0, height: "13px", margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "0px" }}></p>
           </div>
           <div style={{ width: "91.39px", height: "29.24px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 7.31px 0px 0px", justifyContent: "flex-end", alignItems: "center", boxSizing: "border-box" }}>
-            <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "0px" }}></p>
+            <p style={{ flexShrink: 0, height: "13px", margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "0px" }}></p>
           </div>
         </div>
         <div style={{ width: "601.34px", height: "26.5px", flexShrink: 0, display: "flex", flexDirection: "row", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
@@ -164,13 +164,13 @@ export function Card() {
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "116px", lineHeight: "13px", fontFamily: "'Geist'", fontSize: "10.05px", fontWeight: 500, color: "#a6a6a6", letterSpacing: "0.04em", textTransform: "uppercase" }}>Operating expenses</p>
           </div>
           <div style={{ width: "91.39px", height: "29.24px", flexShrink: 0, display: "flex", flexDirection: "row", justifyContent: "flex-end", alignItems: "center", boxSizing: "border-box" }}>
-            <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "0px" }}></p>
+            <p style={{ flexShrink: 0, height: "13px", margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "0px" }}></p>
           </div>
           <div style={{ width: "91.39px", height: "29.24px", flexShrink: 0, display: "flex", flexDirection: "row", justifyContent: "flex-end", alignItems: "center", boxSizing: "border-box" }}>
-            <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "0px" }}></p>
+            <p style={{ flexShrink: 0, height: "13px", margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "0px" }}></p>
           </div>
           <div style={{ width: "91.39px", height: "29.24px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 7.31px 0px 0px", justifyContent: "flex-end", alignItems: "center", boxSizing: "border-box" }}>
-            <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "0px" }}></p>
+            <p style={{ flexShrink: 0, height: "13px", margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "0px" }}></p>
           </div>
         </div>
         <div style={{ width: "601.34px", height: "26.5px", flexShrink: 0, display: "flex", flexDirection: "row", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>

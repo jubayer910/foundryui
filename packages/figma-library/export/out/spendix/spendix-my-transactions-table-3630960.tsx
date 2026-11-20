@@ -22,7 +22,7 @@ export function MyTransactionsTable() {
           <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "44px", lineHeight: "16px", fontFamily: "'Geist'", fontSize: "12px", fontWeight: 500, color: "#818892" }}>Receipt</p>
         </div>
         <div style={{ width: "184px", height: "42px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 16px 0px 0px", gap: "12px", justifyContent: "flex-end", alignItems: "center", boxSizing: "border-box" }}>
-          <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "0px" }}></p>
+          <p style={{ flexShrink: 0, height: "16px", margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "0px" }}></p>
         </div>
       </div>
       <div style={{ width: "1154px", height: "58px", flexShrink: 0, boxShadow: "inset 0 -1px 0 0 #ededed", display: "flex", flexDirection: "row", padding: "0px 0px 1px 0px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>

@@ -28,7 +28,9 @@ await mkdir(OUT, { recursive: true });
 const meta = JSON.parse(await readFile(new URL("../../../apps/web/lib/figma-items.json", import.meta.url), "utf8")).filter((m) => m.system === sys);
 // whole-screen copies made for the site showcase are not library items: their metadata is in showcase.json
 meta.push(...JSON.parse(await readFile(new URL("./showcase.json", import.meta.url), "utf8")).filter((m) => m.system === sys));
-const byId = new Map(meta.map((m) => [m.id.replace(/[:;]/g, "-"), m]));
+// a node can be both a library item and a showcase screen: the library item (listed first) keeps its slug
+const byId = new Map();
+for (const m of meta) { const k = m.id.replace(/[:;]/g, "-"); if (!byId.has(k)) byId.set(k, m); }
 const onlySet = process.env.ONLY_FILE ? new Set(JSON.parse(await readFile(process.env.ONLY_FILE, "utf8")).filter((k) => k.startsWith(sys + ":")).map((k) => k.split(":")[1])) : null;
 const ids = (await readdir(DATA)).filter((f) => /^\d+-\d+\.json$/.test(f)).map((f) => f.slice(0, -5)).filter((id) => (!only || id === only) && (!onlySet || onlySet.has(id))).slice(0, limit);
 

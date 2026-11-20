@@ -39,7 +39,7 @@ export function RoleMenu() {
       </div>
       <div style={{ height: "34px", flexShrink: 0, borderRadius: "8px", display: "flex", flexDirection: "row", padding: "0px 10px 0px 10px", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
         <UserMinus size={16} style={{ width: "16px", height: "16px", flexShrink: 0, color: "#e5484d", display: "block" }} />
-        <p style={{ flex: "1 1 0", minWidth: "159px", flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "18px", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#e5484d" }}>Remove from workspace</p>
+        <p style={{ flex: "1 1 auto", minWidth: "159px", flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "18px", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#e5484d" }}>Remove from workspace</p>
       </div>
     </div>
   );

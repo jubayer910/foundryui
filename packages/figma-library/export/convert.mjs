@@ -209,13 +209,15 @@ function buildNode(n, parentLm = null, root = true) {
   const inFlow = !root && parentLm && !n.abs;
   const fillW = inFlow && n.sh === "FILL", fillH = inFlow && n.sv === "FILL";
   const hugW = inFlow ? n.sh === "HUG" : false, hugH = inFlow ? n.sv === "HUG" : false;
-  if (fillW) { if (parentLm === "H") { st.flex = "1 1 0"; st.minWidth = 0; } else st.alignSelf = "stretch"; } else if (!hugW || n.t !== "TEXT") st.width = px(n.w);
-  if (fillH) { if (parentLm === "V") { st.flex = "1 1 0"; st.minHeight = 0; } else st.alignSelf = "stretch"; } else if (!hugH && !(n.t === "TEXT" && n.ar !== "NONE")) st.height = px(n.h);
+  if (fillW) { if (parentLm === "H") { st.flex = n._hugMain ? "1 1 auto" : "1 1 0"; st.minWidth = 0; } else st.alignSelf = "stretch"; } else if (!hugW || n.t !== "TEXT") st.width = px(n.w);
+  if (fillH) { if (parentLm === "V") { st.flex = n._hugMain ? "1 1 auto" : "1 1 0"; st.minHeight = 0; } else st.alignSelf = "stretch"; } else if (!hugH && !(n.t === "TEXT" && n.ar !== "NONE")) st.height = px(n.h);
   // a rotated child makes Figma hug differently from CSS: keep the measured size
   const rotKid = (n.k || []).some((k) => k.rot && !k.abs);
   if (hugW && n.t !== "TEXT" && n.lm && !rotKid) delete st.width;
   if (hugH && n.lm && !rotKid) delete st.height;
   if (inFlow) st.flexShrink = 0;
+  // an empty text layer (a blank line in a code block) still takes its line in Figma; an empty <p> collapses
+  if (n.t === "TEXT" && !(n.seg || []).some((g) => g.c)) st.height = px(n.h);
   if (n.op !== undefined) st.opacity = n.op;
   if (n.rot) {
     st.transform = `rotate(${-n.rot}deg)`;
@@ -250,6 +252,12 @@ function buildNode(n, parentLm = null, root = true) {
       return `<svg${a} width="${W}" height="${H}" viewBox="0 0 ${Math.max(Number(vw), Number(vw) < 1 ? 1 : 0)} ${Math.max(Number(vh), Number(vh) < 1 ? 1 : 0)}"`;
     });
     st.display = "block"; st.lineHeight = 0; st.overflow = "visible";
+    // a frame or instance holding a sprite (e.g. a logo sheet where only one logo sits in the box) clips in Figma:
+    // when shapes start well outside the box, clip the drawing to its box
+    if ((n.t === "INSTANCE" || n.t === "FRAME") && [...el.svg.matchAll(/matrix\(1 0 0 1 (-?[\d.]+) (-?[\d.]+)\)/g)].some(([, x, y]) => Number(x) < -n.w || Number(y) < -n.h || Number(x) > 2 * n.w || Number(y) > 2 * n.h)) {
+      st.overflow = "hidden";
+      el.svg = el.svg.replace(/^(<svg[^>]*?) overflow="visible"/, '$1 overflow="hidden"');
+    }
     // a 0px CSS box scales the drawing to nothing: give hairlines 1px and take the pixel back from the layout
     // (anything under 1px, e.g. a baked rotated line 0.01px tall, scales the same way)
     const thin = (v) => typeof v === "string" && /px$/.test(v) && parseFloat(v) < 1;
@@ -306,7 +314,9 @@ function buildNode(n, parentLm = null, root = true) {
   } else if (n.k && n.k.length) {
     st.position = st.position || "relative";
   }
-  for (const k of n.k || []) el.kids.push(build(k, n.lm || null, false, n));
+  // a FILL child of a parent that hugs on that axis has nothing to fill: it keeps its content size (Figma), so its
+  // flex basis must be auto, not 0 (a 0 basis collapses it, e.g. a truncated title becoming invisible)
+  for (const k of n.k || []) el.kids.push(build(n.psm === "AUTO" ? { ...k, _hugMain: 1 } : k, n.lm || null, false, n));
   // negative spacing (overlapping items) is not valid CSS gap: pull every later item back with a negative margin
   if (n.lm && n.gap < 0 && n.pa !== "SPACE_BETWEEN" && !n.wrap) {
     let first = true;
