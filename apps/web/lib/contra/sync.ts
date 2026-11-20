@@ -120,6 +120,30 @@ const cleanEmail = (e: unknown) => {
  * the result, collect email strings under keys that name the payer side (client, payer, customer, buyer,
  * billed, recipient, purchaser), never the seller's own addresses. Returns null unless exactly one remains.
  */
+/** Why the last invoice lookup found no email, per Contra invoice id (shown in the sale's note for staff). */
+const invoiceMisses = new Map<string, string>();
+const saleInvoice = new Map<string, string>();
+
+/** Field paths of an invoice result (no values), for the note when no email was found. */
+function shapeOf(data: unknown): string {
+  const keys = new Set<string>();
+  const walk = (v: unknown, path: string, depth: number) => {
+    if (depth > 6 || v == null) return;
+    if (typeof v === "string") {
+      if ((v.startsWith("{") || v.startsWith("[")) && depth < 3) {
+        try { return walk(JSON.parse(v), path, depth + 1); } catch {}
+      }
+      keys.add(path.replace(/\.\d+/g, "[]"));
+      return;
+    }
+    if (Array.isArray(v)) return v.slice(0, 2).forEach((x, i) => walk(x, path + "." + i, depth + 1));
+    if (typeof v === "object") for (const [k, x] of Object.entries(v as Record<string, unknown>)) walk(x, path ? path + "." + k : k, depth + 1);
+    else keys.add(path);
+  };
+  walk(data, "", 0);
+  return [...keys].slice(0, 40).join(", ").slice(0, 600);
+}
+
 export function invoicePayerEmail(data: unknown, exclude: Set<string>): string | null {
   const payerish = /(client|payer|customer|buyer|billed|bill_to|billto|recipient|purchaser|paidby|paid_by)/i;
   const preferred = new Set<string>();
@@ -331,7 +355,13 @@ async function storePage(txs: ContraTx[], link: Link, settings: Settings, now: D
         const [row] = await db.select({ status: S.status, payerEmail: S.payerEmail }).from(S).where(eq(S.id, id)).limit(1);
         needs = !!row && row.status === "unmatched" && !row.payerEmail;
       }
-      if (needs) payerEmail = await lookupEmail(String(t.invoice.id)).catch(() => null);
+      if (needs) {
+        saleInvoice.set(id, String(t.invoice.id));
+        payerEmail = await lookupEmail(String(t.invoice.id)).catch((e) => {
+          invoiceMisses.set(String(t.invoice!.id), "error: " + (e instanceof Error ? e.message : String(e)).slice(0, 200));
+          return null;
+        });
+      }
     }
     const fields = {
       payerEmail,
@@ -425,7 +455,12 @@ export async function syncContraSales(opts: { callTool?: ToolCaller; now?: Date;
             if (!txs.length || ids === prevIds) break;
             prevIds = ids;
             out.fetched += txs.length;
-            const r = await storePage(txs, link, settings, now, async (invoiceId) => invoicePayerEmail(await call("get_invoice_status", { invoiceId }), ownEmails));
+            const r = await storePage(txs, link, settings, now, async (invoiceId) => {
+              const data = await call("get_invoice_status", { invoiceId });
+              const e = invoicePayerEmail(data, ownEmails);
+              if (!e) invoiceMisses.set(invoiceId, "no buyer email in fields: " + shapeOf(data));
+              return e;
+            });
             out.added += r.added;
             if (r.allKnown || txs.length < PAGE_SIZE) break;
           }
@@ -632,7 +667,9 @@ export async function matchSale(sale: Sale, now = new Date()): Promise<MatchOutc
     await setNote(sale.id, "One request gives this name, but it was sent before the sale; check by hand", now);
     return { status: "unmatched" };
   }
-  await setNote(sale.id, hits.length ? `${hits.length} requests give this name; match by hand` : "Email not shared and no request gives this name yet", now);
+  const inv = saleInvoice.get(sale.id);
+  const miss = inv ? invoiceMisses.get(inv) : undefined;
+  await setNote(sale.id, (hits.length ? `${hits.length} requests give this name; match by hand` : "Email not shared and no request gives this name yet") + (miss ? `. Invoice check: ${miss}` : ""), now);
   return { status: "unmatched" };
 }
 
@@ -643,9 +680,9 @@ export const INVITE_WITHIN_DAYS = 2;
  * Emails the buyer a claim link for a sale no proven account can take. At most once per sale: invitedAt is
  * claimed in the database before the mail goes out. Only for recent sales (older ones stay silent).
  */
-async function inviteBuyer(sale: Sale, email: string, hasAccount: boolean, now: Date): Promise<boolean> {
+async function inviteBuyer(sale: Sale, email: string, hasAccount: boolean, now: Date, byStaff = false): Promise<boolean> {
   if (sale.invitedAt) return true;
-  if (now.getTime() - saleStart(sale) > (INVITE_WITHIN_DAYS + 1) * 86_400_000) return false;
+  if (!byStaff && now.getTime() - saleStart(sale) > (INVITE_WITHIN_DAYS + 1) * 86_400_000) return false;
   const db = await getDb();
   const S = schema.contraSale;
   const won = await db
@@ -756,7 +793,19 @@ export async function manualMatch(saleId: string, accountEmail: string, actor: s
   const email = cleanEmail(accountEmail);
   if (!email) return { ok: false, message: "Enter the account email." };
   const [u] = await db.select({ id: schema.user.id, email: schema.user.email, plan: schema.user.plan }).from(schema.user).where(sql`lower(${schema.user.email}) = ${email}`).limit(1);
-  if (!u) return { ok: false, message: `No account uses ${email}. Ask the buyer to sign up first.` };
+  if (!u) {
+    // Staff read the buyer's email on Contra (the sales list hides it): record it and send the
+    // "purchase confirmed, create your account" email now. The claim link switches the plan on.
+    if (sale.payerEmail && sale.payerEmail !== email) return { ok: false, message: `This sale was paid as ${sale.payerEmail}. Use that email, or ask the buyer.` };
+    await db.update(schema.contraSale).set({ payerEmail: email, status: "unmatched", invitedAt: null, updatedAt: now }).where(eq(schema.contraSale.id, saleId));
+    const fresh = { ...sale, payerEmail: email, status: "unmatched", invitedAt: null } as Sale;
+    const sent = await inviteBuyer(fresh, email, false, now, true);
+    await setNote(sale.id, sent ? `No account yet; ${actor} added the buyer email; claim link emailed` : "No account yet; buyer email added, but the invite could not be sent", now);
+    await audit(actor, "contra.invite_manual", sale.id, { email, sent });
+    return sent
+      ? { ok: true, message: `No account uses ${email} yet. Sent them the purchase email with a link to create their account; ${grantOf(sale.option).plan} switches on when they do.` }
+      : { ok: false, message: "Saved the email, but the purchase email could not be sent." };
+  }
   if (sale.status === "ignored") await db.update(schema.contraSale).set({ status: "unmatched", updatedAt: now }).where(eq(schema.contraSale.id, saleId));
   if (await alreadyHas(u, sale.option as CheckoutOption)) {
     if (!(await claim(sale.id, { userId: u.id, activationId: null, matchedBy: "manual", note: `Account already had ${grantOf(sale.option).plan}` }, now))) return { ok: false, message: "This sale changed. Reload and try again." };

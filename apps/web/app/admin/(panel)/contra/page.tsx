@@ -186,7 +186,7 @@ function SaleActions({ s, big = false }: { s: Sale; big?: boolean }) {
         <form action={matchToUser} className="mt-2 flex w-[min(320px,calc(100vw-64px))] flex-col gap-2 rounded-[8px] bg-white p-3 text-left shadow-[0_0_0_1px_var(--color-hair-2),0_8px_24px_rgb(0_0_0/0.08)] max-lg:w-full lg:absolute lg:right-3 lg:z-10">
           <input type="hidden" name="id" value={s.id} />
           <label className="flex flex-col gap-1 text-[12px] text-mute">
-            Account email
+            Buyer email
             <input
               name="email"
               type="email"
@@ -196,7 +196,7 @@ function SaleActions({ s, big = false }: { s: Sale; big?: boolean }) {
               className="h-10 w-full rounded-[6px] bg-white px-2.5 text-[14px] text-ink shadow-[inset_0_0_0_1px_var(--color-hair-2)] outline-none focus:shadow-[inset_0_0_0_1px_var(--color-ink)]"
             />
           </label>
-          <p className="text-[12px] text-faint">Switches the plan on for that account and emails them that it is active.</p>
+          <p className="text-[12px] text-faint">With an account: switches the plan on and emails them. No account yet: emails them the purchase confirmation with a link to create one, and the plan switches on when they do. Find the buyer email on the Contra invoice.</p>
           <SubmitButton busy="Matching…" className={"btn-ink " + h}>
             Match and activate
           </SubmitButton>
