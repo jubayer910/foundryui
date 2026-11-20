@@ -2,7 +2,12 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-/** Secondary hero CTA. The home page is prerendered, so the live deal price comes from /api/site (admin-controlled). */
+/**
+ * Secondary hero CTA. The home page is prerendered, so the live deal price comes from /api/site (admin-controlled).
+ * While the Lifetime deal runs it goes straight to checkout (POST /api/checkout, option lifetime), the same as the
+ * Lifetime button on /pricing: signed-out visitors land on the Contra payment page, no sign-up first.
+ * With no deal it links to pricing.
+ */
 export function HeroDealButton({ fallbackPrice }: { fallbackPrice: number }) {
   const [deal, setDeal] = useState<{ price: number } | null | undefined>(undefined);
   useEffect(() => {
@@ -16,15 +21,19 @@ export function HeroDealButton({ fallbackPrice }: { fallbackPrice: number }) {
     };
   }, []);
   const price = deal === undefined ? fallbackPrice : deal?.price;
+  if (!price) {
+    return (
+      <Link href="/pricing" className="hero-btn hero-btn-line">
+        See pricing
+      </Link>
+    );
+  }
   return (
-    <Link href="/pricing#lifetime-h" className="hero-btn hero-btn-line">
-      {price ? (
-        <>
-          Buy lifetime deal at <span className="text-[#4b55e6]">${price}</span>
-        </>
-      ) : (
-        "See pricing"
-      )}
-    </Link>
+    <form action="/api/checkout" method="post" className="contents">
+      <input type="hidden" name="option" value="lifetime" />
+      <button type="submit" className="hero-btn hero-btn-line cursor-pointer">
+        Buy lifetime deal at <span className="text-[#4b55e6]">${price}</span>
+      </button>
+    </form>
   );
 }
