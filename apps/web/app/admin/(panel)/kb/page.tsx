@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { asc, desc, eq } from "drizzle-orm";
+import { asc, count, desc, eq } from "drizzle-orm";
 import { getDb, schema } from "@/lib/db";
 import { matchArticles } from "@/lib/support/match";
 import { sp } from "@/components/admin/guard";
 import { requireStaff } from "@/lib/admin";
-import { AdminHead, Confirm, Field, Flash, Section, Table, Tag, day, input, textarea, td } from "@/components/admin/ui";
+import { AdminHead, Confirm, Field, Flash, LinkTabs, Section, Table, Tag, day, input, textarea, td } from "@/components/admin/ui";
+import { botGap } from "@/lib/support/assistant/gaps";
 import { Icon } from "@/registry/components/icons";
 import { deleteArticle, saveArticle, togglePublished } from "./actions";
 
@@ -17,11 +18,17 @@ export default async function AdminKb({ searchParams }: PageProps<"/admin/kb">) 
   const editId = sp(q.edit);
   const fromTicket = sp(q.from);
   const isNew = sp(q.new) === "1" || !!fromTicket;
+  // "Write answer" from /admin/kb/gaps: the visitor's question prefilled, the gap closed on save
+  const prefill = sp(q.q).slice(0, 300);
+  const gapId = sp(q.gap).slice(0, 200);
   const test = sp(q.test).trim();
   const cat = sp(q.cat);
   const db = await getDb();
   const A = schema.kbArticle;
-  const all = await db.select().from(A).orderBy(asc(A.category), asc(A.question));
+  const [all, gapCount] = await Promise.all([
+    db.select().from(A).orderBy(asc(A.category), asc(A.question)),
+    db.select({ n: count() }).from(botGap).where(eq(botGap.dismissed, false)).then((r) => r[0]?.n ?? 0).catch(() => 0),
+  ]);
   const categories = [...new Set(all.map((a) => a.category))].sort();
   const rows = cat ? all.filter((a) => a.category === cat) : all;
 
@@ -35,7 +42,7 @@ export default async function AdminKb({ searchParams }: PageProps<"/admin/kb">) 
     const reply = msgs.find((m) => m.author === "admin");
     draft = { question: t?.subject ?? "", answer: reply?.body ?? "", keywords: "", category: "General", slug: "", published: false };
   } else if (isNew) {
-    draft = { question: "", answer: "", keywords: "", category: "General", slug: "", published: true };
+    draft = { question: prefill, answer: "", keywords: "", category: "General", slug: "", published: true };
   }
 
   const published = all.filter((a) => a.published);
@@ -50,6 +57,14 @@ export default async function AdminKb({ searchParams }: PageProps<"/admin/kb">) 
           New article
         </Link>
       </AdminHead>
+      <div className="mt-5">
+        <LinkTabs
+        tabs={[
+          { href: "/admin/kb", label: "Articles", count: all.length, on: true },
+          { href: "/admin/kb/gaps", label: "Unanswered", count: gapCount, on: false },
+        ]}
+        />
+      </div>
       <Flash ok={q.ok} err={q.err} />
 
       {draft && (
@@ -62,6 +77,7 @@ export default async function AdminKb({ searchParams }: PageProps<"/admin/kb">) 
           </div>
           {draft.id && <input type="hidden" name="id" value={draft.id} />}
           {fromTicket && <input type="hidden" name="fromTicket" value={fromTicket} />}
+          {gapId && !draft.id && <input type="hidden" name="gap" value={gapId} />}
           <Field label="Question" hint="Write it the way a customer would ask it.">
             <input name="question" required defaultValue={draft.question} className={input} />
           </Field>
@@ -94,7 +110,7 @@ export default async function AdminKb({ searchParams }: PageProps<"/admin/kb">) 
         </form>
       )}
 
-      <Section title="Test the matcher" sub="Runs the same matcher as the support widget over published articles.">
+      <Section title="Test the matcher" sub="Runs the knowledge-base matcher over published articles. The help assistant blends it with its own search.">
         <form method="get" className="flex gap-2">
           {cat && <input type="hidden" name="cat" value={cat} />}
           <input name="test" defaultValue={test} placeholder="Type a customer question, e.g. can I get a refund?" className={input + " max-w-[520px]"} />
