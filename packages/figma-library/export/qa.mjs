@@ -114,8 +114,13 @@ for (const id of ids) {
     const bl = expectedBleed(tree);
     PAD = Math.max(bl[0], bl[1]) + 16;
     EXP = [PAD - bl[0], PAD - bl[1]];
-    const html = `<!doctype html><html><head><meta charset="utf-8">${links}<style>*{box-sizing:border-box}html,body{margin:0;background:#fff;-webkit-font-smoothing:antialiased}#root{display:inline-block}</style></head><body><div id="root" style="padding:${PAD}px">${toHTML(build(tree))}</div></body></html>`;
     const ref = PNG.sync.read(await readFile(join(DATA, id + ".png")));
+    // Figma exports frames without a fill as transparent PNGs, and draws their text edges against transparency.
+    // Render the code the same way (transparent page) and flatten both onto white identically, so text edges compare
+    // like with like instead of failing on antialiasing alone.
+    let clear = false;
+    for (let i = 3; i < ref.data.length; i += 4) if (ref.data[i] < 250) { clear = true; break; }
+    const html = `<!doctype html><html><head><meta charset="utf-8">${links}<style>*{box-sizing:border-box}html,body{margin:0;background:${clear ? "transparent" : "#fff"};-webkit-font-smoothing:antialiased}#root{display:inline-block}</style></head><body><div id="root" style="padding:${PAD}px">${toHTML(build(tree))}</div></body></html>`;
     await page.setViewport({ width: Math.max(ref.width + 2 * PAD, 50), height: Math.max(ref.height + 2 * PAD, 50), deviceScaleFactor: 1 });
     await page.setContent(html, { waitUntil: "load", timeout: 20000 });
     // wait until every family is really loaded (a fallback font would fail the comparison for the wrong reason)
@@ -127,7 +132,8 @@ for (const id of ids) {
         await new Promise((r) => setTimeout(r, 150));
       }
     }, fonts.filter((f) => FONTS[f]));
-    const big = PNG.sync.read(await page.screenshot({ clip: { x: 0, y: 0, width: ref.width + 2 * PAD, height: ref.height + 2 * PAD }, omitBackground: false }));
+    const big = PNG.sync.read(await page.screenshot({ clip: { x: 0, y: 0, width: ref.width + 2 * PAD, height: ref.height + 2 * PAD }, omitBackground: clear }));
+    if (clear) for (let i = 0; i < big.data.length; i += 4) { const a = big.data[i + 3] / 255; for (let c = 0; c < 3; c++) big.data[i + c] = Math.round(big.data[i + c] * a + 255 * (1 - a)); big.data[i + 3] = 255; }
     // flatten the Figma PNG first so alignment compares like with like
     for (let i = 0; i < ref.data.length; i += 4) { const a = ref.data[i + 3] / 255; for (let c = 0; c < 3; c++) ref.data[i + c] = Math.round(ref.data[i + c] * a + 255 * (1 - a)); ref.data[i + 3] = 255; }
     const [ox, oy] = align(ref, big);
