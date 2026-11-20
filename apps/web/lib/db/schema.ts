@@ -386,3 +386,9 @@ export const contraSale = sqliteTable(
     uniqueIndex("contra_sale_activation_unique").on(t.activationId).where(sql`"activationId" IS NOT NULL`),
   ],
 );
+
+/* ---- Offer-email opt-outs (migrations/0012_email_optout.sql, lib/emails/welcome.ts) ---- */
+export const emailOptout = sqliteTable("email_optout", {
+  email: text("email").primaryKey(),
+  createdAt: integer("createdAt", { mode: "timestamp" }).notNull(),
+});

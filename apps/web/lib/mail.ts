@@ -3,7 +3,8 @@ import { getEnv } from "./db";
 
 export type Sender = { email: string; name: string };
 /** `from` picks the sender address (all on ingotui.com, verified in Resend). Default: noreply. */
-export type Mail = { to: string; subject: string; text: string; replyTo?: string; from?: Sender };
+/** `html` (optional) is sent alongside `text` through Resend; `headers` adds e.g. List-Unsubscribe. */
+export type Mail = { to: string; subject: string; text: string; html?: string; headers?: Record<string, string>; replyTo?: string; from?: Sender };
 export type MailResult = { sent: boolean; reason?: string };
 
 export const MAIL_FROM = "noreply@ingotui.com";
@@ -77,6 +78,8 @@ async function sendViaResend(apiKey: string, mail: Mail): Promise<MailResult> {
       to: [oneLine(mail.to)],
       subject: oneLine(mail.subject),
       text: mail.text,
+      ...(mail.html ? { html: mail.html } : {}),
+      ...(mail.headers ? { headers: mail.headers } : {}),
       ...(mail.replyTo ? { reply_to: oneLine(mail.replyTo) } : {}),
     }),
   });

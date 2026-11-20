@@ -30,7 +30,15 @@ export async function getAuth() {
     // Contra sales paid with this email switch the plan on as soon as the buyer signs up or signs in
     // (lib/contra/sync.ts matchForEmail: local D1 only, never throws, never blocks the sign-up).
     databaseHooks: {
-      user: { create: { after: async (u) => contraMatch(u.email) } },
+      // new account: match a Contra sale, then the welcome email (never blocks or fails the sign-up)
+      user: {
+        create: {
+          after: async (u) => {
+            await contraMatch(u.email);
+            try { const { sendWelcome } = await import("./emails/welcome"); await sendWelcome(u); } catch {}
+          },
+        },
+      },
       session: {
         create: {
           after: async (s) => {
