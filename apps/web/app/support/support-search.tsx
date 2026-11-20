@@ -1,45 +1,48 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { Icon } from "@/registry/components/icons";
-import { AnswerText } from "@/lib/support/answer-text";
+import type { ChatResponse, Reply } from "@/lib/support/assistant/types";
+import { ReplyBody } from "@/lib/support/assistant/ui/cards";
 
-export type Answer = { slug: string; question: string; answer: string; category: string; score: number };
-
-/** Instant answers from the knowledge base (GET /api/support/answers). */
+/** Instant answers: the same engine as the help widget (POST /api/support/chat, search mode, nothing logged). */
 export function SupportSearch() {
   const [q, setQ] = useState("");
-  const [answers, setAnswers] = useState<Answer[] | null>(null);
+  const [reply, setReply] = useState<Reply | null>(null);
   const [loading, setLoading] = useState(false);
   const seq = useRef(0);
-
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
-  useEffect(() => () => {
-    if (timer.current) clearTimeout(timer.current);
-  }, []);
+  useEffect(
+    () => () => {
+      if (timer.current) clearTimeout(timer.current);
+    },
+    [],
+  );
 
-  function onChange(value: string) {
+  function run(value: string, delay = 280) {
     setQ(value);
     if (timer.current) clearTimeout(timer.current);
     const query = value.trim();
     const n = ++seq.current;
     if (query.length < 3) {
-      setAnswers(null);
+      setReply(null);
       setLoading(false);
       return;
     }
     setLoading(true);
     timer.current = setTimeout(async () => {
       try {
-        const r = await fetch("/api/support/answers?q=" + encodeURIComponent(query));
-        const j = (await r.json()) as { answers: Answer[] };
-        if (n === seq.current) setAnswers(j.answers ?? []);
+        const r = await fetch("/api/support/chat", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ message: query, mode: "search" }) });
+        const j = (await r.json()) as ChatResponse;
+        if (n === seq.current) setReply(j.reply ?? null);
       } catch {
-        if (n === seq.current) setAnswers([]);
+        if (n === seq.current) setReply(null);
       } finally {
         if (n === seq.current) setLoading(false);
       }
-    }, 180);
+    }, delay);
   }
+
+  const empty = reply && (reply.intent === "unknown" || reply.intent === "clarify") && !reply.cards?.length;
 
   return (
     <div className="mt-3">
@@ -50,28 +53,31 @@ export function SupportSearch() {
           id="support-q"
           type="search"
           value={q}
-          onChange={(e) => onChange(e.target.value)}
-          placeholder="Try “refund” or “connect Cursor”"
+          onChange={(e) => run(e.target.value)}
+          placeholder="Try “refund”, “connect Cursor” or “kanban board”"
           autoComplete="off"
           aria-controls="support-results"
           className="h-10 w-full rounded-[8px] bg-chip pl-9 pr-3 text-[14px] outline-none transition-[background-color,box-shadow] placeholder:text-mute focus:bg-white focus:shadow-[inset_0_0_0_1.5px_var(--color-ink)]"
         />
       </form>
       <div id="support-results" aria-live="polite" className="empty:hidden">
-        {answers && answers.length > 0 && (
-          <ul className="mt-3 flex flex-col gap-2">
-            {answers.map((a) => (
-              <li key={a.slug} className="rounded-[8px] bg-tile p-3.5">
-                <p className="text-[11px] text-mute">{a.category}</p>
-                <p className="mt-0.5 text-[13px] font-medium">{a.question}</p>
-                <p className="mt-1 text-[13px] leading-relaxed text-ink-2">
-                  <AnswerText text={a.answer} />
-                </p>
-              </li>
-            ))}
-          </ul>
+        {reply && !empty && (
+          <div className="mt-3 flex flex-col gap-2 rounded-[8px] bg-tile p-3.5 text-[13px] leading-relaxed">
+            <ReplyBody reply={reply} />
+            {!!reply.chips?.length && (
+              <div className="flex flex-wrap gap-1.5 pt-1">
+                {reply.chips
+                  .filter((c) => !/talk to a human/i.test(c))
+                  .map((c) => (
+                    <button key={c} type="button" onClick={() => run(c, 0)} className="pill !h-7 !text-[12px]">
+                      {c}
+                    </button>
+                  ))}
+              </div>
+            )}
+          </div>
         )}
-        {answers && answers.length === 0 && !loading && (
+        {empty && !loading && (
           <p className="mt-3 rounded-[8px] bg-tile p-3.5 text-[13px] text-mute">
             No saved answer matches that yet.{" "}
             <a href="#contact" className="font-medium text-ink underline underline-offset-2">Send us a message</a> and a person will reply.

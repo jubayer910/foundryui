@@ -4,6 +4,7 @@ import { and, eq, ne } from "drizzle-orm";
 import { audit, requireStaff } from "@/lib/admin";
 import { getDb, schema } from "@/lib/db";
 import { back, str } from "@/components/admin/back";
+import { botGap } from "@/lib/support/assistant/gaps";
 
 const slugify = (s: string) =>
   s
@@ -17,6 +18,7 @@ const slugify = (s: string) =>
 
 function refresh() {
   revalidatePath("/admin/kb");
+  revalidatePath("/admin/kb/gaps");
   revalidatePath("/support");
 }
 
@@ -53,6 +55,9 @@ export async function saveArticle(f: FormData) {
   }
   const newId = crypto.randomUUID();
   await db.insert(A).values({ id: newId, slug, question, answer, keywords, category, published, updatedAt: now });
+  // written from an unanswered question: close that gap
+  const gap = str(f, "gap", 200);
+  if (gap) await db.update(botGap).set({ dismissed: true }).where(eq(botGap.id, gap)).catch(() => {});
   await audit(me.email, "kb.create", newId, { slug, category, published, fromTicket: fromTicket || null });
   refresh();
   back(`/admin/kb?edit=${newId}`, { ok: "Article created." });

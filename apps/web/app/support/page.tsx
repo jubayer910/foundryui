@@ -6,7 +6,7 @@ import { Icon } from "@/registry/components/icons";
 import { getSessionUser } from "@/lib/auth";
 import { getSettings } from "@/lib/settings";
 import { getPublishedArticles, groupByCategory } from "@/lib/support/kb";
-import { AnswerText, plainAnswer } from "@/lib/support/answer-text";
+import { AnswerBlocks, plainAnswer } from "@/lib/support/answer-text";
 import { SupportSearch } from "./support-search";
 import { ContactForm } from "./contact-form";
 import { OpenHash } from "./open-hash";
@@ -68,9 +68,7 @@ export default async function SupportPage() {
                     {a.question}
                     <Icon name="plus" size={14} className="shrink-0 text-mute transition-transform group-open:rotate-45" />
                   </summary>
-                  <p className="pb-3 pr-8 text-[13px] leading-relaxed text-mute">
-                    <AnswerText text={a.answer} />
-                  </p>
+                  <AnswerBlocks text={a.answer} className="pb-3 pr-8 text-[13px] leading-relaxed text-mute" />
                 </details>
               ))}
             </div>

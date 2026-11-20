@@ -583,3 +583,21 @@ html[data-ingot-cursor] :is(:disabled, [aria-disabled=true], :is([class^="cursor
 .site-main > [class*="max-w-"] {
   margin-inline: auto;
 }
+
+/* Help assistant typing line (lib/support/widget-panel.tsx): a soft pulse, static with reduced motion */
+.help-typing {
+  animation: help-typing 1.1s ease-in-out infinite alternate;
+}
+@keyframes help-typing {
+  from {
+    opacity: 0.45;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .help-typing {
+    animation: none;
+  }
+}

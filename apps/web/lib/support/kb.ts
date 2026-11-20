@@ -4,7 +4,25 @@ import { getDb, getEnv, schema } from "../db";
 import type { KbLike } from "./match";
 
 /** Category order on /support and in the widget. Anything else sorts after, alphabetically. */
-export const KB_CATEGORIES = ["Billing", "Licence", "Install", "MCP and agents", "Figma", "Account"] as const;
+export const KB_CATEGORIES = [
+  "Getting started",
+  "Components",
+  "Design systems",
+  "Code and install",
+  "Figma",
+  "Icons",
+  "MCP and AI agents",
+  "CLI",
+  "Pricing and plans",
+  "Payments and activation",
+  "Licence",
+  "Account and security",
+  "Team",
+  "Support",
+  "Troubleshooting",
+  "Roadmap and updates",
+  "Privacy and legal",
+] as const;
 
 /** KV cache of the published articles (60 s). Admin edits should delete this key (W3). */
 export const KB_CACHE_KEY = "kb:published:v1";
