@@ -14,6 +14,10 @@ import { surfaceStyle } from "@/lib/system-surface";
 import { QaBadge } from "./qa-badge";
 import { A11yNotes } from "./a11y-notes";
 import { PlanCta } from "./plan-cta";
+import { AgentPrompts } from "./agent-prompts";
+import { mcpUrlFor } from "./connect-agent-config";
+import { SITE_URL } from "@/lib/catalog";
+import figmaSteps from "@/lib/figma-steps.generated.json";
 
 /** Page for a component that lives in a system's Figma library (code still in progress). */
 export function FigmaItemPage({ item }: { item: FigmaItem }) {
@@ -91,6 +95,7 @@ export function FigmaItemPage({ item }: { item: FigmaItem }) {
           </div>
         </div>
       </div>
+      <AgentPrompts slug={item.slug} name={item.name} systemName={sys?.name ?? item.system} category={item.category} template={item.category === "Templates"} hasCode={!!qa} hasFigma={item.slug in (figmaSteps as Record<string, number>)} mcpUrl={mcpUrlFor(SITE_URL)} />
       {specs && <ComponentSpecs s={specs} name={item.name} w={item.w} h={item.h} system={sys?.name ?? item.system} />}
       <A11yNotes slug={item.slug} category={item.category} handBuilt={false} />
       {related.length > 0 && (
