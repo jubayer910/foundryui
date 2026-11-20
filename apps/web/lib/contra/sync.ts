@@ -120,6 +120,98 @@ const cleanEmail = (e: unknown) => {
  * the result, collect email strings under keys that name the payer side (client, payer, customer, buyer,
  * billed, recipient, purchaser), never the seller's own addresses. Returns null unless exactly one remains.
  */
+/**
+ * Text of a PDF good enough to find an email. Contra's invoice PDFs draw text as 2-byte glyph codes in TJ
+ * arrays (CID fonts), so each FlateDecode stream is inflated, every ToUnicode CMap is parsed, and the hex
+ * strings are decoded with each map (wrong maps give garbage, never an email). Plain literals are kept too.
+ */
+async function pdfText(buf: Uint8Array): Promise<string> {
+  const latin = (b: Uint8Array) => { let t = ""; for (let i = 0; i < b.length; i++) t += String.fromCharCode(b[i]); return t; };
+  const raw = latin(buf);
+  const streams: string[] = [];
+  const re = /stream\r?\n/g;
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(raw))) {
+    const start = m.index + m[0].length;
+    // Exact byte count from the stream dictionary: trailing bytes make DecompressionStream fail or stall.
+    const before = raw.slice(Math.max(0, m.index - 400), m.index);
+    const dict = before.slice(before.lastIndexOf("<<"));
+    const len = /\/Length (\d+)(?!\s+\d+\s+R)/.exec(dict);
+    if (!len || !dict.includes("FlateDecode")) {
+      re.lastIndex = start;
+      continue;
+    }
+    const n = Number(len[1]);
+    try {
+      const ds = new Response(buf.slice(start, start + n)).body!.pipeThrough(new DecompressionStream("deflate"));
+      streams.push(latin(new Uint8Array(await new Response(ds).arrayBuffer())));
+    } catch {
+      // not a readable deflate stream: skip
+    }
+    re.lastIndex = start + n;
+  }
+  const maps: Map<number, string>[] = [];
+  for (const st of streams) {
+    if (!st.includes("beginbf")) continue;
+    const map = new Map<number, string>();
+    const u16 = (h: string) => { let t = ""; for (let k = 0; k + 3 < h.length; k += 4) t += String.fromCharCode(parseInt(h.slice(k, k + 4), 16)); return t; };
+    for (const blk of st.match(/beginbfchar[\s\S]*?endbfchar/g) ?? [])
+      for (const p of blk.matchAll(/<([0-9A-Fa-f]+)>\s*<([0-9A-Fa-f]+)>/g)) map.set(parseInt(p[1], 16), u16(p[2]));
+    for (const blk of st.match(/beginbfrange[\s\S]*?endbfrange/g) ?? [])
+      for (const p of blk.matchAll(/<([0-9A-Fa-f]+)>\s*<([0-9A-Fa-f]+)>\s*<([0-9A-Fa-f]+)>/g)) {
+        const a = parseInt(p[1], 16), z = parseInt(p[2], 16), base = parseInt(p[3], 16);
+        for (let k = a; k <= z && k - a < 5000; k++) map.set(k, String.fromCharCode(base + k - a));
+      }
+    maps.push(map);
+  }
+  const out: string[] = [];
+  for (const st of streams) {
+    if (!/T[Jj]/.test(st)) continue;
+    for (const lit of st.match(/\((?:\\.|[^\\)])*\)/g) ?? []) out.push(lit.slice(1, -1).replace(/\\(.)/g, "$1"));
+    const arrays = st.match(/\[[^\]]*\]\s*TJ|<[0-9A-Fa-f]+>\s*Tj/g) ?? [];
+    for (const map of maps) {
+      const lines: string[] = [];
+      for (const arr of arrays) {
+        let t = "";
+        for (const h of arr.match(/<([0-9A-Fa-f]+)>/g) ?? []) {
+          const hex = h.slice(1, -1);
+          for (let k = 0; k + 3 < hex.length; k += 4) t += map.get(parseInt(hex.slice(k, k + 4), 16)) ?? "";
+        }
+        lines.push(t);
+      }
+      out.push(lines.join("\n"));
+    }
+  }
+  return out.join("\n");
+}
+
+/**
+ * The invoice MCP result has no "Bill to", but its invoiceUrl (the invoice Contra mails and lets you download)
+ * shows the buyer's name and email. Fetch it and pick the one email that is not the seller's.
+ */
+export async function emailFromInvoiceUrl(url: string, exclude: Set<string>): Promise<{ email: string | null; diag: string }> {
+  if (!/^https:\/\/([a-z0-9-]+\.)*contra\.com\//i.test(url)) return { email: null, diag: "invoiceUrl is not on contra.com" };
+  const res = await fetch(url, { redirect: "follow", headers: { accept: "application/pdf,text/html,application/json;q=0.9,*/*;q=0.8" } });
+  const type = res.headers.get("content-type") ?? "";
+  if (!res.ok) return { email: null, diag: `invoiceUrl answered ${res.status} (${type})` };
+  const buf = new Uint8Array(await res.arrayBuffer());
+  const text = type.includes("pdf") || (buf[0] === 0x25 && buf[1] === 0x50) ? await pdfText(buf) : new TextDecoder().decode(buf);
+  const found = new Set<string>();
+  for (const m of text.match(/[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/g) ?? []) {
+    const e = cleanEmail(m);
+    if (e && !exclude.has(e) && !e.endsWith("@contra.com") && !e.endsWith("@ingotui.com")) found.add(e);
+  }
+  if (found.size === 1) return { email: [...found][0], diag: "" };
+  return { email: null, diag: `invoiceUrl ${type || "unknown type"}, ${buf.length} bytes, ${found.size} candidate emails` };
+}
+
+/** The invoiceUrl inside a get_invoice_status result, if any. */
+function invoiceUrlOf(data: unknown): string | null {
+  const d = data as { invoiceUrl?: unknown; invoice?: { invoiceUrl?: unknown } } | null;
+  const u = d?.invoice?.invoiceUrl ?? d?.invoiceUrl;
+  return typeof u === "string" && u ? u : null;
+}
+
 /** Why the last invoice lookup found no email, per Contra invoice id (shown in the sale's note for staff). */
 const invoiceMisses = new Map<string, string>();
 const saleInvoice = new Map<string, string>();
@@ -458,8 +550,17 @@ export async function syncContraSales(opts: { callTool?: ToolCaller; now?: Date;
             const r = await storePage(txs, link, settings, now, async (invoiceId) => {
               const data = await call("get_invoice_status", { invoiceId });
               const e = invoicePayerEmail(data, ownEmails);
-              if (!e) invoiceMisses.set(invoiceId, "no buyer email in fields: " + shapeOf(data));
-              return e;
+              if (e) return e;
+              // The MCP invoice has no "Bill to"; the invoice document behind invoiceUrl does.
+              const url = invoiceUrlOf(data);
+              if (url) {
+                const r = await emailFromInvoiceUrl(url, ownEmails).catch((err) => ({ email: null, diag: "invoiceUrl fetch failed: " + (err instanceof Error ? err.message : String(err)).slice(0, 120) }));
+                if (r.email) return r.email;
+                invoiceMisses.set(invoiceId, r.diag);
+                return null;
+              }
+              invoiceMisses.set(invoiceId, "no buyer email and no invoiceUrl in fields: " + shapeOf(data));
+              return null;
             });
             out.added += r.added;
             if (r.allKnown || txs.length < PAGE_SIZE) break;
