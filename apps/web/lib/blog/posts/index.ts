@@ -21,6 +21,11 @@ import { post as tailwindComps } from "./tailwind-dashboard-components";
 import { post as untitledAlt } from "./untitled-ui-alternatives";
 import { post as agentDash } from "./ai-agent-dashboard-design";
 import { post as emailDash } from "./email-marketing-dashboard";
+import { post as bestPractices } from "./dashboard-design-best-practices";
+import { post as analyticsDash } from "./analytics-dashboard-design";
+import { post as saasMetrics } from "./saas-metrics-dashboard";
+import { post as securityDash } from "./security-dashboard-design";
+import { post as workflowUi } from "./workflow-automation-ui-design";
 
 /** Display order for posts that share a date. */
-export const POSTS: Post[] = [uiKits, admin, shadcn, mcp, figma, aiDesign, saas, kpi, charts, tokens, shadcnDash, chartLibs, freeFigma, tailwindComps, untitledAlt, tables, modalDrawer, empty, claudeCode, cursorRules, agentDash, emailDash];
+export const POSTS: Post[] = [uiKits, admin, shadcn, mcp, figma, aiDesign, saas, kpi, charts, tokens, shadcnDash, chartLibs, freeFigma, tailwindComps, untitledAlt, tables, modalDrawer, empty, claudeCode, cursorRules, agentDash, emailDash, bestPractices, analyticsDash, saasMetrics, securityDash, workflowUi];
