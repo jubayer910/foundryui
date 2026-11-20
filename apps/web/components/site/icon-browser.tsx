@@ -97,7 +97,7 @@ export function IconBrowser({ initialQuery = "" }: { initialQuery?: string }) {
         <div className="sticky top-14 z-10 -mx-1 mb-4 flex flex-wrap items-center gap-3 bg-paper/90 px-1 py-2 backdrop-blur">
           <label className="field-pill flex h-11 min-w-0 flex-1 basis-full items-center gap-2.5 rounded-[12px] bg-card px-3.5 shadow-[inset_0_0_0_1px_var(--color-hair-2)] xl:basis-0 xl:min-w-[240px]">
             <Icon name="search" size={16} className="text-mute" />
-            <input value={q} onChange={(e) => setQ(e.target.value)} placeholder={`Search ${meta ? meta.length.toLocaleString("en-US") : "11,000+"} icons, e.g. invoice`} className="w-full bg-transparent text-[14px] placeholder:text-faint" aria-label="Search icons" />
+            <input value={q} onChange={(e) => setQ(e.target.value)} placeholder={`Search ${meta ? meta.length.toLocaleString("en-US") : "16,000+"} icons, e.g. invoice`} className="w-full bg-transparent text-[14px] placeholder:text-faint" aria-label="Search icons" />
           </label>
           <div className="no-scrollbar flex h-11 max-w-full items-center gap-0.5 overflow-x-auto rounded-[12px] bg-card p-1 shadow-[inset_0_0_0_1px_var(--color-hair-2)]">
             {STYLES.map((s) => (

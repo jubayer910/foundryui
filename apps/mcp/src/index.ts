@@ -399,7 +399,7 @@ function buildServer(env: Env, user: User) {
   server.registerTool(
     "search_icons",
     {
-      description: "Search the Ingot icon library (11,000+ icons, AI icons included, on a 24px grid, each in six styles: stroke-rounded, stroke-sharp, solid, duotone, twotone, bulk) by name or meaning. Returns names, JSX from ingotui-icons/react/<style>, and the SVG.",
+      description: "Search the Ingot icon library (16,000+ icons, AI icons included, on a 24px grid, each in six styles: stroke-rounded, stroke-sharp, solid, duotone, twotone, bulk) by name or meaning. Returns names, JSX from ingotui-icons/react/<style>, and the SVG.",
       inputSchema: { query: z.string(), style: z.enum(["stroke-rounded", "stroke-sharp", "solid", "duotone", "twotone", "bulk"]).optional(), limit: z.number().int().min(1).max(50).optional() },
     },
     guard("search_icons", async ({ query, style = "stroke-rounded", limit = 12 }: { query: string; style?: string; limit?: number }) => {

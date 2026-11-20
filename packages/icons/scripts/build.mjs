@@ -22,7 +22,9 @@ import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { createHash } from "node:crypto";
 import { STYLES, deriveStyles } from "./styles.mjs";
+import svgpath from "svgpath";
 import { isBrand, rename, isAI, aiTags, wordCategory } from "./hugeicons.mjs";
+import { SETS, isBrandName, fixName } from "./extra-sets.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const nm = join(root, "node_modules");
@@ -90,7 +92,7 @@ function hugeInner(body) {
       const f = /\sfill="(currentColor)"/.exec(attrs);
       return f ? kids.replace(/<(path|circle|rect|ellipse|polygon)\b(?![^>]*\sfill=)/g, '<$1 fill="currentColor"') : kids;
     });
-  b = b.replace(/\s(stroke-width|stroke-linecap|stroke-linejoin|class)="[^"]*"/g, "").replace(/\sfill="none"/g, "");
+  b = b.replace(/\s(stroke-width|stroke-linecap|stroke-linejoin|stroke-miterlimit|class)="[^"]*"/g, "").replace(/\sfill="none"/g, "");
   // a filled shape without its own stroke must not pick up the style wrapper's stroke
   b = b.replace(/<(path|circle|rect|ellipse|polygon)\b([^>]*)>/g, (m, tag, a) => (/\sfill="currentColor"/.test(a) && !/\sstroke=/.test(a) ? `<${tag}${a.replace(/\s*\/$/, "")} stroke="none"/>` : m));
   b = b.replace(/\sstroke="currentColor"/g, "");
@@ -119,10 +121,56 @@ for (const up of hNames) {
 }
 const nHuge = hugeAdded.length;
 
+/** Scale a drawing from another grid to 24: path data and the geometry attributes of primitives. */
+function scaleBody(body, k) {
+  const num = (v) => String(+(Number(v) * k).toFixed(3));
+  return body
+    .replace(/\sd="([^"]*)"/g, (_m, d) => ` d="${svgpath(d).scale(k).round(3).toString()}"`)
+    .replace(/\s(cx|cy|r|rx|ry|x|y|width|height|x1|y1|x2|y2)="([-\d.]+)"/g, (_m, a, v) => ` ${a}="${num(v)}"`)
+    .replace(/\spoints="([^"]*)"/g, (_m, p) => ` points="${p.trim().split(/[\s,]+/).map(num).join(" ")}"`);
+}
+
+// 5. More open-licence line sets (scripts/extra-sets.mjs), in priority order, for names still missing.
+const EXTRA_CAP = 5000; // how many the extra sets add, at most
+const extraAdded = [];
+const bySource = {};
+const cands = [];
+for (const set of SETS) {
+  const j = JSON.parse(read(join(nm, "@iconify-json", set.prefix, "icons.json")));
+  const W = j.width ?? j.height ?? 16;
+  const hidden = new Set(j.hidden ?? []);
+  for (const [up, ic] of Object.entries(j.icons)) {
+    const grid = set.size ?? 24;
+    if (hidden.has(up) || (ic.width ?? W) !== grid || (ic.height ?? j.height ?? W) !== grid) continue;
+    if (set.keep && !set.keep.test(up)) continue;
+    if (!/stroke=/.test(ic.body) || /fill="currentColor"|transform=|<use\b|<defs\b|mask=|clip-path=|opacity=/.test(ic.body)) continue; // line drawings only
+    const raw = set.strip ? up.replace(set.strip, "") : up;
+    if (!/^[a-z0-9]+(-[a-z0-9]+)*$/.test(raw) || isBrand(raw) || isBrandName(raw)) continue;
+    const name = fixName(raw);
+    cands.push({ name, set, body: grid === 24 ? ic.body : scaleBody(ic.body, 24 / grid) });
+  }
+}
+// AI first, then concepts the library has no icon for at all (new first word), then the rest; set order within each.
+const firstWords = new Set([...line.keys()].map((n) => n.split("-")[0]));
+const rank = (c) => (isAI(c.name) ? 0 : firstWords.has(c.name.split("-")[0]) ? 2 : 1);
+cands.forEach((c, i) => (c.i = i));
+cands.sort((x, y) => rank(x) - rank(y) || x.i - y.i);
+for (const c of cands) {
+  if (extraAdded.length >= EXTRA_CAP) break;
+  if (taken(c.name)) continue;
+  const ai = isAI(c.name);
+  if (add(c.name, hugeInner(c.body), ai ? "AI" : wordCategory(c.name) || "", ai ? aiTags(c.name) : [], c.set.prefix)) {
+    extraAdded.push(c.name);
+    ids.add(jsxId(c.name));
+    bySource[c.set.prefix] = (bySource[c.set.prefix] ?? 0) + 1;
+  }
+}
+const nExtra = extraAdded.length;
+
 // Category for non-Tabler icons: borrow from a Tabler icon sharing the first name word.
 const firstWordCat = new Map();
 for (const [n, v] of line) if (v.src === "tabler" && !firstWordCat.has(n.split("-")[0])) firstWordCat.set(n.split("-")[0], v.c);
-for (const [n, v] of line) if (!v.c) v.c = firstWordCat.get(n.split("-")[0]) || (v.src === "hugeicons" && n.split("-").map((w) => firstWordCat.get(w)).find(Boolean)) || "General";
+for (const [n, v] of line) if (!v.c) v.c = firstWordCat.get(n.split("-")[0]) || (!["tabler", "lucide", "iconoir"].includes(v.src) && n.split("-").map((w) => firstWordCat.get(w)).find(Boolean)) || "General";
 
 // Fill style: Tabler filled
 const fill = new Map();
@@ -165,13 +213,16 @@ const words = new Set([...line.keys()].flatMap((n) => n.split("-")).concat([...l
 const exact = concepts.filter((c) => line.has(c));
 const byWords = concepts.filter((c) => !line.has(c) && c.split("-").every((w) => words.has(w)));
 const missing = concepts.filter((c) => !line.has(c) && !c.split("-").every((w) => words.has(w)));
-const hugeCats = {};
-for (const n of hugeAdded) hugeCats[line.get(n).c] = (hugeCats[line.get(n).c] ?? 0) + 1;
-writeFileSync(join(root, "hugeicons-added.json"), JSON.stringify({ total: nHuge, byCategory: Object.fromEntries(Object.entries(hugeCats).sort((a, b) => b[1] - a[1])), names: hugeAdded }, null, 1));
+const catCount = (names) => {
+  const m = {};
+  for (const n of names) m[line.get(n).c] = (m[line.get(n).c] ?? 0) + 1;
+  return Object.fromEntries(Object.entries(m).sort((a, b) => b[1] - a[1]));
+};
+writeFileSync(join(root, "added-icons.json"), JSON.stringify({ hugeicons: { total: nHuge, byCategory: catCount(hugeAdded) }, extraSets: { total: nExtra, bySource, byCategory: catCount(extraAdded) }, names: { hugeicons: hugeAdded, extraSets: extraAdded } }, null, 1));
 writeFileSync(join(root, "coverage.json"), JSON.stringify({ concepts: concepts.length, exactName: exact.length, coveredByParts: byWords.length, missing }, null, 1));
 
 const cats = [...new Set(index.map((i) => i.c))];
-console.log(`line ${line.size} (tabler ${nTabler}, lucide ${nLucide}, iconoir ${nIconoir}, hugeicons ${nHuge}) · fill ${fill.size} · ${cats.length} categories`);
+console.log(`line ${line.size} (tabler ${nTabler}, lucide ${nLucide}, iconoir ${nIconoir}, hugeicons ${nHuge}, more sets ${nExtra}) · fill ${fill.size} · ${cats.length} categories`);
 console.log(`hugeicons concepts ${concepts.length}: exact ${exact.length}, by parts ${byWords.length}, missing ${missing.length}`);
 
 // React entries: ingotui-icons/react/<style> (tree-shakeable), and /react = stroke-rounded.

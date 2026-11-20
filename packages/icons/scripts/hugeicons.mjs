@@ -135,6 +135,17 @@ const WORD = {
   backward: "Media", underpants: "E-commerce", kurta: "E-commerce", suit: "E-commerce", badminton: "Sport", billiard: "Sport", boxing: "Sport",
   node: "Development", web: "Development", online: "Development", global: "Map", coordinate: "Map", navigator: "Map", profile: "System",
   group: "System", appointment: "System", sent: "Communication", calling: "Communication", look: "System", eco: "Nature", soil: "Nature",
+  // third wave, for the extra line sets
+  left: "Arrows", right: "Arrows", up: "Arrows", down: "Arrows", turn: "Arrows", expand: "Arrows", fullscreen: "System", exit: "System",
+  alignment: "Design", panel: "Design", widget: "Design", component: "Design", split: "Design", title: "Text", selection: "Design",
+  card: "E-commerce", bag: "E-commerce", shop: "E-commerce", hat: "E-commerce", envelope: "Communication", telephone: "Communication",
+  sound: "Media", soundwave: "Media", speaker: "Media", reel: "Media", desktop: "Computers", gamepad: "Games", smiley: "Mood",
+  emoji: "Mood", face: "Mood", uncomfortable: "Mood", unhappy: "Mood", letters: "Letters", museum: "Buildings", palace: "Buildings",
+  bridge: "Buildings", dam: "Buildings", flight: "Vehicles", wifi: "Devices", sim: "Devices", socket: "Electrical", magnifier: "System",
+  molecule: "Health", experiment: "Health", tube: "Health", pregnancy: "Health", fitness: "Sport", dumbbell: "Sport", dumbbells: "Sport",
+  lightning: "Weather", sunny: "Weather", speedometer: "Vehicles", scanner: "Devices", sensors: "Devices", mirror: "General",
+  level: "Charts", bars: "Charts", trend: "Charts", preview: "System", mode: "System", swap: "Arrows", rotation: "Arrows", onion: "Food",
+  goblet: "Food", earbuds: "Devices", airbuds: "Devices", textformat: "Text", text: "Text", cog: "System", spinner: "System",
 };
 /** First name word with a category wins; then the caller's fallback. */
 const FRAME = new Set(["square", "circle", "triangle", "hexagon"]); // a frame around the real subject: lowest priority
