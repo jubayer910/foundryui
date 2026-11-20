@@ -1,0 +1,247 @@
+/**
+ * Help bot accuracy set (workstream K). Realistic visitor questions with the answer we expect.
+ * `article`: the KB slug (migrations/0013_kb_expand.sql) that should come first.
+ * `intent`: an intent id from INTENT_PHRASES in ./vocab.ts, for questions a tool or canned reply handles.
+ * `alt`: other answers that are also acceptable (close neighbours), optional.
+ * Wording is deliberately varied: typos, fragments, long messages and a few Bangla-English mixes.
+ */
+export type EvalCase = { q: string; article?: string; intent?: string; alt?: string[] };
+
+export const EVAL: EvalCase[] = [
+  // Conversation
+  { q: "hi", intent: "greet" },
+  { q: "hello there, anyone around?", intent: "greet" },
+  { q: "assalamu alaikum", intent: "greet" },
+  { q: "thanks that fixed it", intent: "thanks" },
+  { q: "ok dhonnobad", intent: "thanks" },
+  { q: "bye", intent: "goodbye" },
+
+  // Getting started
+  { q: "what is ingot ui exactly?", article: "what-is-ingot-ui" },
+  { q: "eta ki jinish?", article: "what-is-ingot-ui" },
+  { q: "is this for designers or developers", article: "who-is-it-for" },
+  { q: "how do i get started", article: "how-to-start" },
+  { q: "how to create an account", article: "create-account" },
+  { q: "can i look around without signing up", article: "need-account-to-browse" },
+  { q: "is this the old foundry ui?", article: "formerly-foundry-ui" },
+  { q: "where did my saved items go", article: "save-items" },
+  { q: "are dashboard templates free", article: "templates-free" },
+  { q: "is ingot open source on github", article: "is-it-open-source" },
+  { q: "ingot vs shadcn which is better", article: "compare-tools", alt: ["shadcn-registry"] },
+  { q: "how is this different from untitled ui", article: "compare-tools" },
+  { q: "what do i get if i pay", article: "what-is-in-pro", alt: ["pro-plan"] },
+
+  // Components
+  { q: "how many components do you have", article: "component-count" },
+  { q: "show me a pricing table", intent: "find_component" },
+  { q: "do you have a kanban board?", intent: "find_component" },
+  { q: "need a date picker component", intent: "find_component" },
+  { q: "is there a notification dropdown", intent: "find_component" },
+  { q: "why is there no code for this component, only figma", article: "code-or-figma-only" },
+  { q: "what does the 98% match score mean", article: "qa-score" },
+  { q: "how do i copy the code of a component", article: "copy-code-website" },
+  { q: "do you have charts? i dont want recharts", article: "component-charts" },
+  { q: "data table with pagination?", article: "component-tables" },
+  { q: "can i edit the components after copying", article: "component-customise" },
+  { q: "do components use radix or base ui", article: "component-dependencies" },
+  { q: "are they typescript or javascript", article: "typescript-support" },
+  { q: "do you have landing page hero sections", article: "marketing-pages" },
+  { q: "are components responsive on mobile", article: "component-responsive" },
+  { q: "can you add a file upload component please", article: "request-component", alt: ["feature-request"] },
+
+  // Design systems
+  { q: "which design systems are included", article: "design-systems" },
+  { q: "list all systems", article: "design-systems" },
+  { q: "what is loopo", article: "loopo-system" },
+  { q: "is there a finance dashboard system", article: "montra-system" },
+  { q: "system for cybersecurity product", article: "abotix-system" },
+  { q: "newsletter app design system", article: "mailpulse-system" },
+  { q: "which system should i choose for my crm", article: "which-system", alt: ["vantage-system"] },
+  { q: "can i mix two systems in one app", article: "switch-systems" },
+  { q: "will you add more systems", article: "new-systems" },
+  { q: "spend management expenses approvals system", article: "spendix-system" },
+
+  // Code and install
+  { q: "how do I install it", article: "install-cli" },
+  { q: "install korbo kivabe?", article: "install-cli" },
+  { q: "does it work with shadcn", article: "shadcn-registry" },
+  { q: "does it support vue", article: "frameworks", alt: ["vue-support"] },
+  { q: "how do the design tokens work", article: "tokens-theming" },
+  { q: "do i need tailwind v4 or does v3 work", article: "tailwind-v4-required" },
+  { q: "react 18 supported?", article: "react-version" },
+  { q: "setup with next.js app router", article: "nextjs-setup" },
+  { q: "using it with vite", article: "vite-setup" },
+  { q: "where do the files get installed", article: "file-locations" },
+  { q: "how do i install pro components", article: "pro-code-install", alt: ["cli-pro"] },
+  { q: "change colors to my brand", article: "theme-generator" },
+  { q: "can i use without tailwind", article: "without-tailwind" },
+  { q: "components show up with no styles at all", article: "global-css-missing" },
+
+  // Figma
+  { q: "how do I paste into figma", article: "copy-to-figma" },
+  { q: "figma te kivabe nibo", article: "copy-to-figma" },
+  { q: "is there a figma kit to download", article: "figma-kit" },
+  { q: "figma paste not working", article: "figma-paste-issue" },
+  { q: "can claude build the design in my figma file", article: "figma-agent-build" },
+  { q: "does it use figma variables", article: "figma-variables" },
+  { q: "fonts missing after paste in figma", article: "figma-missing-fonts" },
+  { q: "does it work in figjam or sketch", article: "figjam" },
+
+  // Icons
+  { q: "how many icons", article: "icons-overview" },
+  { q: "are icons free for commercial", article: "icons-free", alt: ["icons-licence"] },
+  { q: "how to use an icon in react", article: "icons-copy" },
+  { q: "npm install ingotui-icons fails", article: "icons-package" },
+  { q: "do you have a bell icon", intent: "find_icon" },
+  { q: "can i paste icons in figma as vectors", article: "icons-in-figma" },
+
+  // MCP and AI agents
+  { q: "how do I connect it to cursor", article: "mcp-cursor", alt: ["connect-mcp"] },
+  { q: "set up the MCP server in Claude Code", article: "mcp-claude-code", alt: ["connect-mcp"] },
+  { q: "vs code copilot mcp config", article: "mcp-vscode" },
+  { q: "codex config.toml for ingot", article: "mcp-codex" },
+  { q: "does it work with windsurf", article: "mcp-other-clients" },
+  { q: "what is mcp and why would i use it", article: "mcp-what-is" },
+  { q: "connect my ai agent", article: "connect-mcp" },
+  { q: "mcp setup kivabe korbo", article: "connect-mcp" },
+  { q: "where do I find my api key", article: "api-key" },
+  { q: "api key kothay pabo", article: "api-key" },
+  { q: "i pushed my api key to github by mistake", article: "revoke-key" },
+  { q: "is the api key safe, can it see my code", article: "mcp-key-safety" },
+  { q: "how many MCP calls do I get on free", article: "mcp-limits" },
+  { q: "agent says daily limit reached", article: "mcp-limit-reached" },
+  { q: "getting 401 missing or invalid api key", article: "mcp-401" },
+  { q: "it says Card Grid is a Pro component", article: "mcp-pro-locked" },
+  { q: "ingot tools not showing in cursor", article: "mcp-not-connecting" },
+  { q: "which mcp tools are there", article: "mcp-tools" },
+  { q: "what should I ask my agent first", article: "agent-first-steps" },
+  { q: "how does the agent remember the design system next session", article: "mcp-rules-files" },
+  { q: "can it build a whole page from a description", article: "scaffold-screen" },
+  { q: "what is audit_ui", article: "audit-ui" },
+  { q: "how do i test the mcp works", article: "mcp-test" },
+
+  // CLI
+  { q: "what commands does npx ingotui have", article: "cli-commands" },
+  { q: "npx ingotui init gives 404 not found", article: "cli-not-found" },
+  { q: "can the cli add pro components", article: "cli-pro" },
+  { q: "cli says skip file exists", article: "cli-overwrite" },
+  { q: "install into a monorepo subfolder", article: "cli-options" },
+  { q: "npm ERESOLVE peer dependency error", article: "eresolve" },
+  { q: "shadcn says components.json not found", article: "shadcn-components-json" },
+  { q: "Module not found: Can't resolve '@base-ui/react/dialog'", article: "module-not-found" },
+
+  // Pricing and plans
+  { q: "how much does it cost?", article: "pricing-plans" },
+  { q: "whats the price of pro", article: "pricing-plans", alt: ["pro-plan"] },
+  { q: "koto taka lagbe?", article: "pricing-plans" },
+  { q: "what do I get for free", article: "free-components" },
+  { q: "lifetime deal how many spots left", article: "lifetime-deal" },
+  { q: "is there a one time payment option", article: "lifetime-deal" },
+  { q: "does lifetime really last forever", article: "lifetime-meaning" },
+  { q: "when does the launch deal end", article: "deal-end" },
+  { q: "why no monthly plan", article: "why-yearly" },
+  { q: "pro or lifetime which should i buy", article: "which-plan" },
+  { q: "i have pro, can i switch to lifetime", article: "pro-to-lifetime" },
+  { q: "is there a free trial", article: "try-before-buy" },
+  { q: "any student discount or coupon code", article: "discounts" },
+  { q: "do you have an enterprise plan with sso", article: "agency-enterprise" },
+  { q: "prices in usd? is vat included", article: "currency-tax" },
+  { q: "will the price go up after i buy", article: "price-changes" },
+
+  // Payments and activation
+  { q: "how do I pay", article: "checkout-opening" },
+  { q: "kibhabe kinbo?", article: "checkout-opening" },
+  { q: "i want to buy the lifetime plan", intent: "buy" },
+  { q: "why is checkout on contra", article: "payment-provider" },
+  { q: "can I pay with paypal or bkash", article: "payment-methods" },
+  { q: "i paid on contra, how do i activate", article: "activate-plan" },
+  { q: "payment korsi kintu plan active hoy nai", article: "activate-plan", alt: ["activation-wait", "plan-not-showing"] },
+  { q: "how long does activation take", article: "activation-wait" },
+  { q: "activation says we couldn't match this payment", article: "activation-rejected" },
+  { q: "I bought before making an account", article: "paid-without-account" },
+  { q: "claim link says sign in with the email you paid with", article: "claim-link" },
+  { q: "paid using my work email but account is personal", article: "paid-wrong-email" },
+  { q: "payment fail hocche card declined", article: "payment-failed" },
+  { q: "activate page says i already have lifetime", article: "already-have-plan" },
+  { q: "can I get a refund", article: "refund-policy" },
+  { q: "I want my money back", article: "refund-policy" },
+  { q: "taka ferot paoa jabe?", article: "refund-policy" },
+  { q: "refund after two weeks possible?", article: "refund-after-7-days" },
+  { q: "how do I cancel my subscription", article: "cancel-subscription" },
+  { q: "does pro renew automatically", article: "renewal" },
+  { q: "where is my receipt", article: "invoices-receipts" },
+  { q: "I need an invoice with VAT for my company", article: "invoices-receipts" },
+  { q: "i was charged twice", article: "double-charged" },
+  { q: "activation too many tries error", article: "activation-rate-limit" },
+
+  // Licence
+  { q: "can I use this for client projects", article: "commercial-use", alt: ["client-handover"] },
+  { q: "is a commercial license included", article: "commercial-use" },
+  { q: "what happens to my code if I stop paying", article: "stop-paying" },
+  { q: "can I resell the components on a marketplace", article: "resell-library" },
+  { q: "can i sell a nextjs template made with it on themeforest", article: "sell-templates", alt: ["resell-library"] },
+  { q: "can my client own the code i deliver", article: "client-handover" },
+  { q: "use in my open source project", article: "open-source-use" },
+  { q: "can my teammates share my account", article: "licence-teammates" },
+  { q: "is ai generated code from mcp covered by licence", article: "licence-ai-code" },
+  { q: "do i need to credit ingot ui", article: "licence-name-logo" },
+  { q: "client er kaj e use kora jabe?", article: "commercial-use", alt: ["client-handover"] },
+
+  // Account and security
+  { q: "why do I have to sign up after 5 copies", article: "free-copy-limit" },
+  { q: "forgot my password", article: "forgot-password" },
+  { q: "can't sign in", article: "forgot-password" },
+  { q: "login with google?", article: "sign-in-methods" },
+  { q: "change my account email", article: "change-email" },
+  { q: "do you have 2fa", article: "two-factor" },
+  { q: "delete my account", article: "delete-account" },
+  { q: "account delete korbo kivabe", article: "delete-account" },
+  { q: "paid but pro items still locked", article: "plan-not-showing", alt: ["activate-plan"] },
+
+  // Team
+  { q: "do you have a team plan for 5 seats", article: "team-plan" },
+  { q: "how do i invite my cofounder", article: "team-invite" },
+  { q: "team invite link is not valid", article: "team-invite-errors" },
+  { q: "remove a member from my team", article: "team-remove" },
+  { q: "how to leave a team", article: "team-leave" },
+  { q: "all seats are in use, need 6 people", article: "team-seats-full" },
+  { q: "what happens to members if i cancel team", article: "team-ends" },
+  { q: "i have lifetime, can i add team for others", article: "team-existing-plan" },
+
+  // Support
+  { q: "how can I talk to a human", article: "contact-support" },
+  { q: "manush er sathe kotha bolte chai", article: "contact-support" },
+  { q: "how long until you reply", article: "response-time" },
+  { q: "i found a bug on the site", article: "bug-report" },
+  { q: "feature request: kanban", article: "feature-request", alt: ["request-component"] },
+  { q: "screen reader cant read the menu", article: "accessibility-report", alt: ["accessibility"] },
+
+  // Troubleshooting
+  { q: "copy button says blocked by the browser", article: "copy-blocked" },
+  { q: "does it work in safari", article: "browser-support" },
+  { q: "site is very slow", article: "site-slow" },
+  { q: "my component looks different than the preview", article: "component-looks-different" },
+  { q: "which font do i need", article: "font-setup" },
+  { q: "code panel says this component is in a pro system", article: "code-copy-locked" },
+
+  // Roadmap and updates
+  { q: "is there dark mode", article: "dark-mode" },
+  { q: "dark mode kobe asbe", article: "dark-mode" },
+  { q: "whats on the roadmap", article: "roadmap" },
+  { q: "what's new this week", article: "changelog" },
+  { q: "how do i update components i already copied", article: "get-updates" },
+  { q: "figma dev mode code connect", article: "code-connect" },
+  { q: "connect agent without api key oauth", article: "mcp-oauth" },
+
+  // Privacy and legal
+  { q: "what data do you collect", article: "privacy-data" },
+  { q: "do you sell my data", article: "privacy-sell" },
+  { q: "what cookies do you use", article: "cookies" },
+  { q: "gdpr data export request", article: "data-export" },
+  { q: "are the components wcag accessible", article: "accessibility" },
+  { q: "where are your terms of service", article: "terms" },
+
+  // Nothing should match
+  { q: "asdfgh qwerty" },
+  { q: "the weather in paris" },
+];
