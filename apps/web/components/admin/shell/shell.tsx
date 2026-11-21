@@ -5,15 +5,15 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
 import type { Perm } from "@/lib/admin";
 import { AIcon } from "../admin-icons";
 import { AccountMenu, type ShellUser } from "./account-menu";
-import { crumbsFor, type BadgeKey } from "./nav";
+import { crumbsFor, locate, visibleAreas, type BadgeKey } from "./nav";
 import { QuickSearch } from "./quick-search";
-import { Sidebar } from "./sidebar";
+import { AreaTabs, Sidebar } from "./sidebar";
 
 const KEY = "ingot:admin-sidebar";
 
 /**
- * The admin backend frame: sidebar (240px, collapsible to icons on lg, a drawer below lg), top bar with
- * breadcrumb, quick search, View site and the account menu, and the content area (up to 1280px).
+ * The admin backend frame: sidebar of areas (216px, collapsible to icons on lg, a drawer below lg), top bar with
+ * breadcrumb, quick search, View site and the account menu, the current area's tab row, and the content (up to 1280px).
  */
 export function AdminShell({ user, perms, badges, children }: { user: ShellUser; perms: readonly Perm[]; badges: Partial<Record<BadgeKey, number>>; children: ReactNode }) {
   const path = usePathname();
@@ -76,16 +76,18 @@ export function AdminShell({ user, perms, badges, children }: { user: ShellUser;
   }, [drawer]);
 
   const crumbs = crumbsFor(path);
+  // Sticky things below the top bar (table headers) sit at --admin-top: the bar is 56px, plus 40px when the area has tabs.
+  const hasTabs = (locate(path, visibleAreas(perms))?.area.tabs.length ?? 0) > 1;
 
   return (
-    <div className="min-h-dvh bg-white">
+    <div className="min-h-dvh bg-white" style={{ ["--admin-top" as string]: hasTabs ? "97px" : "57px" }}>
       <a href="#admin-main" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[60] focus:rounded-[6px] focus:bg-ink focus:px-3 focus:py-2 focus:text-[13px] focus:text-white">
         Skip to content
       </a>
 
       {/* Desktop sidebar */}
       <aside
-        className={"fixed inset-y-0 left-0 z-30 hidden border-r border-hair bg-[#fafafa] transition-[width] duration-200 ease-out lg:block " + (collapsed ? "w-[60px]" : "w-[240px]")}
+        className={"fixed inset-y-0 left-0 z-30 hidden border-r border-hair bg-[#fafafa] transition-[width] duration-200 ease-out lg:block " + (collapsed ? "w-[56px]" : "w-[216px]")}
         aria-label="Admin navigation"
       >
         <Sidebar perms={perms} badges={badges} collapsed={collapsed} onToggleCollapse={toggle} />
@@ -109,7 +111,7 @@ export function AdminShell({ user, perms, badges, children }: { user: ShellUser;
         </div>
       </div>
 
-      <div className={"flex min-h-dvh min-w-0 flex-col transition-[padding] duration-200 ease-out " + (collapsed ? "lg:pl-[60px]" : "lg:pl-[240px]")}>
+      <div className={"flex min-h-dvh min-w-0 flex-col transition-[padding] duration-200 ease-out " + (collapsed ? "lg:pl-[56px]" : "lg:pl-[216px]")}>
         <header className="sticky top-0 z-20 border-b border-hair bg-white/90 backdrop-blur">
           <div className="flex h-14 items-center gap-2 px-4 sm:px-6">
             <button
@@ -167,6 +169,7 @@ export function AdminShell({ user, perms, badges, children }: { user: ShellUser;
               <AccountMenu user={user} />
             </div>
           </div>
+          <AreaTabs perms={perms} badges={badges} />
         </header>
 
         <main id="admin-main" tabIndex={-1} className="w-full max-w-[1328px] flex-1 px-4 pt-6 pb-16 outline-none sm:px-6">

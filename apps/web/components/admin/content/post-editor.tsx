@@ -354,7 +354,7 @@ export function PostEditor({ post, categories, systems, components, codeSlugs }:
         </div>
 
         <div className={"min-w-0 " + (view === "write" ? "max-xl:hidden" : "")}>
-          <div className="card sticky top-[72px] max-h-[calc(100dvh-152px)] overflow-y-auto">
+          <div className="card sticky top-[calc(var(--admin-top)+16px)] max-h-[calc(100dvh-var(--admin-top)-96px)] overflow-y-auto">
             <p className="sticky top-0 z-10 flex items-center gap-2 border-b border-hair bg-white/95 px-4 py-2 text-[12px] text-mute backdrop-blur">
               <CIco name="eye" size={15} />
               Live preview with the site&apos;s post components
