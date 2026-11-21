@@ -29,8 +29,8 @@ export type Comparison = {
   /** meta description, 140–160 characters once filled */
   description: string;
   h1: string;
-  /** the other tool, as named on its own site */
-  other: { name: string; url: string };
+  /** the other tool, as named on its own site; logo in public/logos, used only to identify it (nominative use) */
+  other: { name: string; url: string; logo: string };
   /** short line for the /compare index */
   card: string;
   /** answer-first paragraph */
@@ -60,7 +60,7 @@ export const COMPARISONS: Comparison[] = [
     description:
       "Ingot UI vs shadcn/ui blocks: what each gives a founder building a dashboard, where shadcn/ui is the better pick, and how to use both. Sources linked.",
     h1: "Ingot UI vs shadcn/ui blocks",
-    other: { name: "shadcn/ui", url: "https://ui.shadcn.com" },
+    other: { name: "shadcn/ui", url: "https://ui.shadcn.com", logo: "/logos/shadcn-ui.svg" },
     card: "Free open-source base and blocks, or nine finished dashboard systems on top of the same stack.",
     answer:
       "Choose **shadcn/ui** when you want a free, open-source base and are happy to design the look yourself. Choose **Ingot UI** when you want a finished dashboard look across every screen, with Figma files that match the code and an agent that stays on one system. They are not rivals: Ingot UI's free components install with the shadcn CLI, so you can use both.",
@@ -72,7 +72,7 @@ export const COMPARISONS: Comparison[] = [
       { aspect: "Charts", ingot: "{cat:all:Charts} chart components styled per system.", other: "Ready-to-use chart components built with Recharts.", src: [3] },
       { aspect: "Figma", ingot: "Every component lives in its system's Figma library; “Copy to Figma” on any component page.", other: "Not covered on the pages we read." },
       { aspect: "AI agents", ingot: "An MCP server with tools that scaffold whole screens (`scaffold_screen`), return tokens and audit output (`audit_ui`).", other: "An MCP server to browse, search and install components from registries, with setup for Claude Code, Cursor, VS Code and Codex.", src: [4] },
-      { aspect: "Cost", ingot: "Loopo system and free components cost nothing; the other five systems are in Pro. See [pricing](/pricing).", other: "Blocks are listed as “Open Source. Free forever.”", src: [2] },
+      { aspect: "Cost", ingot: "Loopo system and free components cost nothing; the other eight systems are in Pro. See [pricing](/pricing).", other: "Blocks are listed as “Open Source. Free forever.”", src: [2] },
     ],
     bestFor: {
       ingot: [
@@ -107,7 +107,7 @@ export const COMPARISONS: Comparison[] = [
         id: "where-ingot-falls-short",
         h2: "Where Ingot UI falls short today",
         paras: [
-          "Ingot UI is dashboard-only: no marketing sites. It ships light mode today; dark mode is the first update. It is React and Tailwind CSS v4 only. And five of the nine systems are paid, where shadcn/ui is free.",
+          "Ingot UI is dashboard-only: no marketing sites. It ships light mode today; dark mode is the first update. It is React and Tailwind CSS v4 only. And eight of the nine systems are paid, where shadcn/ui is free.",
         ],
       },
     ],
@@ -135,7 +135,7 @@ export const COMPARISONS: Comparison[] = [
     description:
       "Ingot UI vs Untitled UI for a product dashboard: Figma, React code, AI agents and licence, where Untitled UI is the better pick, with every source linked.",
     h1: "Ingot UI vs Untitled UI",
-    other: { name: "Untitled UI", url: "https://www.untitledui.com" },
+    other: { name: "Untitled UI", url: "https://www.untitledui.com", logo: "/logos/untitled-ui.png" },
     card: "A very broad Figma kit and React library, or nine focused dashboard systems with checked code.",
     answer:
       "Choose **Untitled UI** for breadth: a very large Figma kit, a React library built on React Aria, dark mode and marketing pages as well as app UI. Choose **Ingot UI** when you only need the dashboard and want it to look like one finished product, with code checked against Figma and an MCP server that builds whole screens on one system.",
@@ -200,7 +200,7 @@ export const COMPARISONS: Comparison[] = [
     description:
       "Tailwind Plus closed to new customers in September 2026. What that means, and the dashboard alternatives worth a look, each with a Best for line and source.",
     h1: "A Tailwind Plus alternative for dashboards",
-    other: { name: "Tailwind Plus", url: "https://tailwindcss.com/plus" },
+    other: { name: "Tailwind Plus", url: "https://tailwindcss.com/plus", logo: "/logos/tailwind.svg" },
     card: "Tailwind Plus closed to new customers in September 2026. Options for dashboard work.",
     answer:
       "On 9 September 2026 Tailwind Labs announced it is joining Shopify and closing sign-ups for new Tailwind Plus customers; existing customers keep their access. If you already own Tailwind Plus, keep using it. If you are new and need dashboard UI, look at **Ingot UI** for complete dashboard systems, **shadcn/ui** for a free base, **Tremor** for free chart-first components or **Untitled UI** for a broad kit.",
@@ -273,7 +273,7 @@ export const COMPARISONS: Comparison[] = [
     description:
       "Ingot UI vs Tremor for React dashboards: charts, blocks, Figma and AI agents, where Tremor is the better pick and how the two differ. Every source is linked.",
     h1: "Ingot UI vs Tremor",
-    other: { name: "Tremor", url: "https://www.tremor.so" },
+    other: { name: "Tremor", url: "https://www.tremor.so", logo: "/logos/tremor.png" },
     card: "Free, MIT chart-first components, or nine full dashboard systems with charts included.",
     answer:
       "Choose **Tremor** when you mainly need charts and want free, open-source React components under MIT. Choose **Ingot UI** when you need the whole dashboard, not only the charts: tables, drawers, forms, settings and page templates in one finished look, in code and Figma, with an MCP server for your agent.",
