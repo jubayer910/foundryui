@@ -107,3 +107,36 @@ Content      KPIs (max 4) -> one chart -> table
 - Icons: admin-icons (Ingot stroke-rounded set), 1.5px stroke, each depicts its label.
 - No decorative dots anywhere (badges, bullets, separators, legends use squares or text).
 - Mobile 375: sidebar is a drawer, tab row scrolls sideways, tables become stacked rows, toolbars wrap.
+
+## 3. Building blocks (where they live)
+
+| Need | Use |
+|---|---|
+| Page header, toolbar, section, KPI, table, empty state, pager | `components/admin/ui.tsx` (`AdminHead`, `Toolbar`, `Section`, `Kpi`, `Table` + `td` / `tdNum` + `right`, `Empty`, `Pager`, `pageOf`) |
+| Definition next to a label | `Info` (`components/admin/reports/info.tsx`); `AdminHead`, `Section` and `Kpi` take `info` / a string `hint` |
+| Row detail | `Drawer` + `Facts` (`components/admin/drawer.tsx`), opened by a search param |
+| Secondary actions, exports | `Menu` (`components/admin/menu.tsx`); report exports from `exportItems()` |
+| Period selection | `PeriodBar` (`components/admin/reports/period-bar.tsx`); server side `parseState(searchParams, undefined, { gran })` |
+| Report numbers | `loadReport(state, { revenue }, datasets)`; hour-by-hour `loadHourly(state, { revenue })` + `hourlyFor()` |
+| A dataset block | `DatasetSection` (KPIs, trend, hourly, two breakdowns, disclosures) |
+| Charts | `Trend` (per period), `HourlyChart` (24 hours); both have a readout and a data-table toggle |
+| Collapsed extras | `More` (`components/admin/reports/view.tsx`) |
+| Icons | `AIcon` (`components/admin/admin-icons.tsx`); add icons from `public/icons/stroke-rounded.json` |
+
+Sticky table headers sit at `--admin-top` (set by the shell: 57px, or 97px when the area has a tab row).
+
+## 4. After (2026-11-22, 1440 wide, local seed data)
+
+| Screen | Before | After |
+|---|---|---|
+| Sidebar | 21 items, 6 groups | 7 areas, badges on Revenue and Support only |
+| Home | 11 KPIs, 3 charts, 3 feeds | 4 KPIs, 1 trend, Needs attention, 1 feed |
+| Analytics | 3814px, 22 KPIs | Overview 900px (4 KPIs, trend, funnel) + 5 tabs |
+| Reports | 15475px | 7519px (month), datasets collapse to KPIs + trend |
+| Revenue | 2298px, setup block first | 1829px, setup one line, 8 KPIs in two rows of 4 |
+| Orders | 13572px, all rows | 2405px, tabs, 50 per page, drawer |
+| Waitlist | 4512px | 2116px, 50 per page |
+
+Not yet changed: the knowledge base article list (one long table, filter by category pills), bot questions
+(up to 200 rows, not paged), the post and changelog editors, pricing form, team and settings bodies (only
+their headers follow the pattern). Activations has no drawer: approving happens inline in its short queue.
