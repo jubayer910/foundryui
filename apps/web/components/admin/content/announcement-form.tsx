@@ -1,7 +1,7 @@
 "use client";
 import { useActionState, useState } from "react";
 import { saveAnnouncement, type AnnouncementState } from "@/app/admin/(panel)/announcement/actions";
-import { input } from "@/components/admin/ui";
+import { input, saveBar } from "@/components/admin/ui";
 import { CIco } from "./icons";
 
 type Props = { initial: { enabled: boolean; text: string; href: string }; deal: { left: number; total: number } | null };
@@ -80,7 +80,7 @@ export function AnnouncementForm({ initial, deal }: Props) {
           <input name="href" value={href} onChange={(e) => setHref(e.target.value)} placeholder="/pricing" className={input + " font-fu-mono text-[12px]" + ring("href")} spellCheck={false} />
           <span className="text-[12px] text-faint">{err("href") ? <span className="text-[#9b1c1c]">{err("href")}</span> : "Empty: the bar is plain text. A page on the site (/pricing) or a full https:// address."}</span>
         </label>
-        <div className="flex flex-wrap items-center gap-3 border-t border-hair pt-3">
+        <div className={"flex flex-wrap items-center gap-3 border-t border-hair pt-3 " + saveBar}>
           <p role="status" aria-live="polite" className={"mr-auto flex items-center gap-1.5 text-[13px] " + (state.err ? "text-[#9b1c1c]" : "text-mute")}>
             {state.ok && (
               <>

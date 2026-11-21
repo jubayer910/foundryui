@@ -8,6 +8,8 @@ import {
   Flash,
   Kpi,
   LinkTabs,
+  PhoneList,
+  PhoneRow,
   Section,
   Table,
   Tag,
@@ -161,7 +163,7 @@ export default async function AdminRevenue({
         action={
           <Link
             href="/admin/orders"
-            className="text-[13px] text-mute hover:text-ink hover:underline"
+            className="tap inline-flex items-center justify-end text-[13px] text-mute hover:text-ink hover:underline max-md:text-[14px]"
           >
             All orders
           </Link>
@@ -409,6 +411,10 @@ const lsLink = (path: string, text: ReactNode) =>
     </a>
   );
 
+/** Where a phone row goes: the customer's account when there is one, else the order in Lemon Squeezy (or Contra). */
+const rowHref = (path: string, userId: string | null) =>
+  userId ? { href: `/admin/users/${userId}` } : /\/act_/.test(path) ? { href: "/admin/activations?tab=approved" } : { href: `${LS}/${path}`, external: true };
+
 const who = (email: string, userId: string | null) =>
   userId ? (
     <Link href={`/admin/users/${userId}`} className="hover:underline">
@@ -423,6 +429,26 @@ function OrdersTable({ orders }: { orders: Order[] }) {
     <Table
       head={["Date", "Customer", "Plan", "Amount", "Status", "Order"]}
       empty="No orders in this range."
+      mobile={
+        <PhoneList label="Latest orders">
+          {orders.map((o) => (
+            <PhoneRow
+              key={o.id}
+              {...rowHref(`orders/${encodeURIComponent(o.orderId)}`, o.userId)}
+              title={o.email || "No email"}
+              meta={
+                <>
+                  <span>{o.plan ? PLAN_NAME[o.plan] : "Unknown"}</span>
+                  <span className="tabular-nums">{day(o.at)}</span>
+                  {o.test && <Tag>test</Tag>}
+                </>
+              }
+              value={money(o.amount, o.currency)}
+              valueSub={o.refundUsd ? `${money(-o.refundUsd, CUR)} refunded` : <Tag tone={statusTone(o.status)}>{o.status.replace("_", " ")}</Tag>}
+            />
+          ))}
+        </PhoneList>
+      }
     >
       {orders.map((o) => (
         <tr key={o.id}>
@@ -478,6 +504,39 @@ function SubsTable({
         kind === "renewal"
           ? "No renewals in the next 30 days."
           : "Nothing needs attention."
+      }
+      mobile={
+        <PhoneList label={kind === "renewal" ? "Upcoming renewals" : "Needs attention"}>
+          {subs.map((s) => (
+            <PhoneRow
+              key={s.id}
+              {...rowHref(`subscriptions/${encodeURIComponent(s.subId)}`, s.userId)}
+              title={s.email || "No email"}
+              meta={
+                <>
+                  <span>Pro {s.interval}</span>
+                  <span className="tabular-nums">{day(kind === "renewal" ? s.renewsAt : (s.renewsAt ?? s.createdAt))}</span>
+                </>
+              }
+              value={kind === "renewal" ? `${money(s.priceUsd, CUR)}${s.priceFrom === "settings" ? " est." : ""}` : undefined}
+              valueSub={kind === "renewal" ? undefined : <Tag tone={statusTone(s.status)}>{s.status.replace("_", " ")}</Tag>}
+            />
+          ))}
+          {failed.map((o) => (
+            <PhoneRow
+              key={o.id}
+              {...rowHref(`orders/${encodeURIComponent(o.orderId)}`, o.userId)}
+              title={o.email || "No email"}
+              meta={
+                <>
+                  <span>{o.plan ? PLAN_NAME[o.plan] : "Order"}</span>
+                  <span className="tabular-nums">{day(o.at)}</span>
+                </>
+              }
+              valueSub={<Tag tone="bad">{cap(o.status)}</Tag>}
+            />
+          ))}
+        </PhoneList>
       }
     >
       {[
@@ -576,7 +635,7 @@ function StoreCompare({ r }: { r: Revenue }) {
     : [];
   return (
     <div className="card overflow-x-auto">
-      <table className="w-full min-w-[480px] border-collapse text-left text-[13px]">
+      <table className="w-full border-collapse text-left text-[13px] md:min-w-[480px] max-md:[&_td]:px-2 max-md:[&_th]:px-2">
         <thead>
           <tr className="border-b border-hair text-[12px] text-faint">
             <th className="px-3 py-2 font-normal" />

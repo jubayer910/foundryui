@@ -77,7 +77,7 @@ export function TrafficChart({ views, visitors, label }: { views: { day: string;
         })}
         {n > 1 && tv > 0 && <polyline points={line} fill="none" stroke="var(--color-ink)" strokeWidth="2" strokeLinejoin="round" strokeLinecap="round" vectorEffect="non-scaling-stroke" />}
       </svg>
-      <div className="mt-1.5 flex justify-between text-[11px] text-faint tabular-nums">
+      <div className="mt-1.5 flex justify-between text-[11px] max-md:text-[12px] text-faint tabular-nums">
         <span>{views[0]?.day.slice(5)}</span>
         <span>{tp + tv ? `peak ${num(max)} / day` : "no data"}</span>
         <span>{views[n - 1]?.day.slice(5)}</span>

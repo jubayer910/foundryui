@@ -1,7 +1,7 @@
 "use client";
 import { useActionState, useRef, useState } from "react";
 import { saveSignupCard, type SignupCardState } from "@/app/admin/(panel)/announcement/actions";
-import { input } from "@/components/admin/ui";
+import { input, pageSaveBar } from "@/components/admin/ui";
 
 type Card = { enabled: boolean; title: string; note: string; button: string; avatars: string[] };
 
@@ -61,7 +61,7 @@ function Slot({ value, onChange, n }: { value: string; onChange: (v: string) => 
             onChange(text);
           }
         }}
-        className={"grid size-14 place-items-center overflow-hidden rounded-full border border-dashed text-[11px] text-mute outline-offset-2 focus-visible:outline-2 focus-visible:outline-ink " + (err ? "border-[#c0392b]" : "border-hair")}
+        className={"grid size-14 place-items-center overflow-hidden rounded-full border border-dashed text-[11px] text-mute max-md:text-[12px] outline-offset-2 focus-visible:outline-2 focus-visible:outline-ink " + (err ? "border-[#c0392b]" : "border-hair")}
       >
         {value ? (
           // eslint-disable-next-line @next/next/no-img-element
@@ -110,7 +110,7 @@ export function SignupCardForm({ initial }: { initial: Card }) {
           <label className="text-[12px] text-mute">Note under the button<input name="note" value={c.note} onChange={(e) => setC({ ...c, note: e.target.value })} maxLength={140} placeholder={NOTE} className={input + " mt-1 w-full"} /></label>
           <label className="text-[12px] text-mute">Button<input name="button" value={c.button} onChange={(e) => setC({ ...c, button: e.target.value })} maxLength={24} className={input + " mt-1 w-full"} /></label>
           <label className="text-[12px] text-mute">Title above the button (optional, empty hides it)<input name="title" value={c.title} onChange={(e) => setC({ ...c, title: e.target.value })} maxLength={120} className={input + " mt-1 w-full"} /></label>
-          <div className="flex items-center gap-3">
+          <div className={"flex items-center gap-3 " + pageSaveBar}>
             <button type="submit" disabled={pending} className="btn-ink">{pending ? "Saving…" : "Save card"}</button>
             {state.ok && <span className="text-[12.5px] text-[#18794e]">{state.ok}</span>}
             {state.err && <span className="text-[12.5px] text-[#c0392b]">{state.err}</span>}

@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
 import { Icon } from "@/registry/components/icons";
+import { AIcon } from "./admin-icons";
 import { Info } from "./reports/info";
 
 /** Shared admin building blocks. Server-safe (no client JS). */
@@ -29,14 +30,14 @@ export const planLabel = (p: string) => PLAN_LABEL[p] ?? p;
 export function AdminHead({ title, sub, info, children }: { title: string; sub?: string; info?: string; children?: ReactNode }) {
   return (
     <header className="flex flex-wrap items-center gap-x-4 gap-y-3">
-      <div className="min-w-0 flex-1 basis-[280px]">
-        <h1 className="flex items-center gap-1 text-[20px] leading-[28px] font-medium tracking-[-0.015em] text-ink">
+      <div className="min-w-0 flex-1 basis-[240px]">
+        <h1 className="flex items-center gap-1 text-[22px] leading-[28px] font-medium tracking-[-0.015em] text-ink md:text-[20px]">
           {title}
           {info && <Info label={title} text={info} />}
         </h1>
         {sub && <p className="mt-0.5 text-[13px] text-mute">{sub}</p>}
       </div>
-      {children && <div className="flex flex-wrap items-center gap-2">{children}</div>}
+      {children && <div className="flex flex-wrap items-center gap-2 max-md:w-full">{children}</div>}
     </header>
   );
 }
@@ -58,7 +59,7 @@ export function Section({ title, sub, info, children, action }: { title: string;
         <h2 className="text-[15px] font-medium tracking-[-0.01em]">{title}</h2>
         {info && <Info label={title} text={info} />}
         {sub && <p className="text-[13px] text-mute">{sub}</p>}
-        {action && <div className="ml-auto flex items-center gap-2">{action}</div>}
+        {action && <div className="ml-auto flex max-w-full min-w-0 items-center gap-2">{action}</div>}
       </div>
       {children}
     </section>
@@ -71,18 +72,23 @@ export function Section({ title, sub, info, children, action }: { title: string;
  */
 export function Kpi({ label, value, hint, delta }: { label: string; value: string; hint?: ReactNode; delta?: ReactNode }) {
   return (
-    <div className="card min-w-0 p-4">
+    <div className={kpiCard}>
       <p className="flex min-w-0 items-center gap-0.5 text-[13px] text-mute">
         <span className="truncate">{label}</span>
         {typeof hint === "string" && <Info label={label} text={hint} />}
       </p>
-      <div className="mt-1 flex flex-wrap items-baseline gap-x-2">
-        <p className="text-[22px] leading-[30px] font-medium tracking-[-0.02em] tabular-nums">{value}</p>
+      <div className={kpiRow}>
+        <p className={kpiValue}>{value}</p>
         {delta}
       </div>
     </div>
   );
 }
+
+/** KPI layout shared with MetricKpi: on phones the change sits under the number and the number never truncates. */
+export const kpiCard = "card min-w-0 p-3 md:p-4";
+export const kpiRow = "mt-1 flex flex-col items-start gap-0.5 md:flex-row md:flex-wrap md:items-baseline md:gap-x-2 md:gap-y-0";
+export const kpiValue = "text-[clamp(17px,5.3vw,22px)] leading-[28px] font-medium tracking-[-0.02em] tabular-nums [overflow-wrap:anywhere] md:text-[22px] md:leading-[30px]";
 
 /** Empty state: one line and at most one action. */
 export function Empty({ children, action }: { children: ReactNode; action?: ReactNode }) {
@@ -167,13 +173,18 @@ export function statusTone(s: string): "plain" | "ink" | "good" | "warn" | "bad"
 
 /**
  * Data table in a card. From md up: sticky header under the top bar, row hover, columns listed in `right`
- * right-aligned (use `tdNum` on their cells). Below md the header hides and each row stacks its cells, so
- * there is no sideways scroll on a phone.
+ * right-aligned (use `tdNum` on their cells). Below md, `mobile` (a `PhoneList` of `PhoneRow`s) replaces the
+ * table: one tappable row per item, who or what first, the key number on the right. Without `mobile` the header
+ * hides and each row stacks its cells, so there is never a sideways scroll on a phone.
  */
-export function Table({ head, children, empty, right = [] }: { head: string[]; children: ReactNode; empty?: string; right?: number[] }) {
+export function Table({ head, children, empty, right = [], mobile }: { head: string[]; children: ReactNode; empty?: string; right?: number[]; mobile?: ReactNode }) {
   const rows = Array.isArray(children) ? children.filter(Boolean) : children ? [children] : [];
   return (
-    <div className="card relative">
+    <>
+    {mobile !== undefined && (
+      <div className="md:hidden">{rows.length ? mobile : <p className="card px-4 py-8 text-center text-[13px] text-mute">{empty ?? "Nothing here yet."}</p>}</div>
+    )}
+    <div className={"card relative " + (mobile !== undefined ? "max-md:hidden" : "")}>
       <table className="admin-table w-full border-collapse text-left text-[13px]">
         <thead className="max-md:sr-only">
           <tr className="text-[12px] text-faint">
@@ -204,8 +215,95 @@ export function Table({ head, children, empty, right = [] }: { head: string[]; c
         </tbody>
       </table>
     </div>
+    </>
   );
 }
+
+/** Phone list (below md): a card of `PhoneRow`s. Pass it to Table as `mobile`, or use it on its own. */
+export function PhoneList({ children, label, className = "" }: { children: ReactNode; label?: string; className?: string }) {
+  return (
+    <ul aria-label={label} className={"card divide-y divide-hair overflow-hidden " + className}>
+      {children}
+    </ul>
+  );
+}
+
+/**
+ * One phone row: `title` (who or what) over `meta` (status, date, plan), `value` (the key number) and `valueSub`
+ * on the right, a chevron when it opens something. With `href` the whole row is the link (detail drawer or page).
+ * `actions` render under the text, outside the link (approve / reject buttons).
+ */
+export function PhoneRow({
+  href,
+  title,
+  meta,
+  value,
+  valueSub,
+  lead,
+  actions,
+  selected,
+  scroll = true,
+  external,
+}: {
+  href?: string;
+  title: ReactNode;
+  meta?: ReactNode;
+  value?: ReactNode;
+  valueSub?: ReactNode;
+  lead?: ReactNode;
+  actions?: ReactNode;
+  selected?: boolean;
+  scroll?: boolean;
+  external?: boolean;
+}) {
+  const body = (
+    <>
+      {lead && <span className="shrink-0">{lead}</span>}
+      <span className="min-w-0 flex-1">
+        <span className="block truncate text-[15px] leading-5 text-ink">{title}</span>
+        {meta && <span className="mt-1 flex min-w-0 flex-wrap items-center gap-x-2 gap-y-1 text-[13px] leading-[18px] text-mute">{meta}</span>}
+      </span>
+      {(value !== undefined || valueSub) && (
+        <span className="flex shrink-0 flex-col items-end gap-1 text-right">
+          {value !== undefined && <span className="text-[15px] leading-5 whitespace-nowrap tabular-nums">{value}</span>}
+          {valueSub && <span className="text-[13px] leading-[18px] whitespace-nowrap text-mute">{valueSub}</span>}
+        </span>
+      )}
+      {href && <AIcon name={external ? "arrow-up-right" : "chevron-right"} size={16} className="-mr-1 shrink-0 text-faint" />}
+    </>
+  );
+  const row = "flex min-h-[60px] items-center gap-3 px-4 py-3";
+  return (
+    <li aria-current={selected || undefined} className="aria-[current]:bg-tile">
+      {href ? (
+        external ? (
+          <a href={href} target="_blank" rel="noreferrer" className={row + " transition-colors duration-150 active:bg-wash"}>
+            {body}
+            <span className="sr-only">(opens in a new tab)</span>
+          </a>
+        ) : (
+          <Link href={href} scroll={scroll} className={row + " transition-colors duration-150 active:bg-wash"}>
+            {body}
+          </Link>
+        )
+      ) : (
+        <div className={row}>{body}</div>
+      )}
+      {actions && <div className="-mt-1 flex flex-wrap gap-2 px-4 pb-3">{actions}</div>}
+    </li>
+  );
+}
+
+/**
+ * Save row of a form card on phones: sticks to the bottom (above the tab bar, or the keyboard), full bleed inside
+ * the card (which has 16px padding), hairline on top. From md up it is an ordinary row. Put it last in the form.
+ */
+export const saveBar =
+  "max-md:sticky max-md:bottom-[var(--admin-bottom,0px)] max-md:z-10 max-md:-mx-4 max-md:-mb-4 max-md:rounded-b-[8px] max-md:border-t max-md:border-hair max-md:bg-white max-md:px-4 max-md:py-3 max-md:shadow-[0_-8px_16px_rgb(255_255_255/0.9)]";
+
+/** Save row of a form that is not a card (page-level forms): sticky above the tab bar on phones, full bleed. */
+export const pageSaveBar =
+  "max-md:sticky max-md:bottom-[var(--admin-bottom,0px)] max-md:z-10 max-md:-mx-4 max-md:border-t max-md:border-hair max-md:bg-white/95 max-md:px-4 max-md:py-3 max-md:backdrop-blur";
 
 export const td = "px-3 py-2 align-middle";
 /** Cell for a number: right-aligned, tabular figures. Pair with `right` on Table. */
@@ -215,7 +313,7 @@ export const tdNum = "px-3 py-2 align-middle text-right tabular-nums whitespace-
 export function Field({ label, hint, children, className }: { label: string; hint?: string; children: ReactNode; className?: string }) {
   return (
     <label className={"flex flex-col gap-1 " + (className ?? "")}>
-      <span className="text-[12px] text-mute">{label}</span>
+      <span className="text-[13px] text-mute md:text-[12px]">{label}</span>
       {children}
       {hint && <span className="text-[12px] text-faint">{hint}</span>}
     </label>
@@ -230,9 +328,9 @@ export const textarea =
 /** Pill tabs rendered as links (no client JS). */
 export function LinkTabs({ tabs }: { tabs: { href: string; label: string; count?: number; on: boolean }[] }) {
   return (
-    <div className="flex flex-wrap gap-1.5" role="tablist">
+    <div className="flex flex-wrap gap-1.5 max-md:max-w-full max-md:flex-nowrap max-md:overflow-x-auto max-md:[scrollbar-width:none] [&::-webkit-scrollbar]:hidden" role="tablist">
       {tabs.map((t) => (
-        <Link key={t.href} href={t.href} role="tab" aria-selected={t.on} data-on={t.on} className="pill">
+        <Link key={t.href} href={t.href} role="tab" aria-selected={t.on} data-on={t.on} className="pill shrink-0">
           {t.label}
           {t.count !== undefined && <span className={"tabular-nums " + (t.on ? "text-white/70" : "text-faint")}>{num(t.count)}</span>}
         </Link>
@@ -269,7 +367,7 @@ export function Bars({ data, label }: { data: { day: string; n: number }[]; labe
           );
         })}
       </svg>
-      <div className="mt-1.5 flex justify-between text-[11px] text-faint tabular-nums">
+      <div className="mt-1.5 flex justify-between text-[12px] text-faint tabular-nums md:text-[11px]">
         <span>{data[0]?.day.slice(5)}</span>
         <span>{total ? `peak ${num(max)} / day` : "no data"}</span>
         <span>{data[data.length - 1]?.day.slice(5)}</span>
@@ -283,7 +381,7 @@ export function Confirm({ label, children, tone = "line" }: { label: string; chi
   return (
     <details className="group inline-block text-left">
       <summary className={"btn-line !h-7 cursor-pointer list-none !px-3 [&::-webkit-details-marker]:hidden group-open:!bg-tile " + (tone === "bad" ? "!text-[#9b1c1c]" : "")}>{label}</summary>
-      <div className="mt-1.5 w-[260px] rounded-[8px] bg-white p-3 shadow-[0_0_0_1px_var(--color-hair-2),0_8px_24px_rgb(0_0_0/0.06)]">{children}</div>
+      <div className="mt-1.5 w-[260px] max-w-[calc(100vw-32px)] rounded-[8px] bg-white p-3 shadow-[0_0_0_1px_var(--color-hair-2),0_8px_24px_rgb(0_0_0/0.06)]">{children}</div>
     </details>
   );
 }

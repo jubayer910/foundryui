@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
 import type { Perm } from "@/lib/admin";
 import { Logo } from "@/components/site/logo";
 import { AIcon } from "../admin-icons";
@@ -58,7 +59,7 @@ export function Sidebar({ perms, badges, collapsed = false, onToggleCollapse, on
                         {n > 99 ? "99+" : n}
                       </span>
                     ) : (
-                      <span className="rounded-full bg-chip-2 px-1.5 text-[11px] leading-[18px] font-normal text-ink tabular-nums">
+                      <span className="rounded-full bg-chip-2 px-1.5 text-[11px] leading-[18px] font-normal text-ink tabular-nums max-md:text-[12px]">
                         {n}
                         <span className="sr-only"> need action</span>
                       </span>
@@ -87,13 +88,40 @@ export function Sidebar({ perms, badges, collapsed = false, onToggleCollapse, on
   );
 }
 
-/** Tabs of the current area, as one row under the top bar. Hidden for areas with a single tab. */
+/**
+ * Tabs of the current area, as one row under the top bar. Hidden for areas with a single tab. On a narrow screen
+ * the row scrolls sideways: the active tab is scrolled into view and the edges fade where more tabs hide.
+ */
 export function AreaTabs({ perms, badges }: { perms: readonly Perm[]; badges: Partial<Record<BadgeKey, number>> }) {
   const path = usePathname();
   const hit = locate(path, visibleAreas(perms));
+  const row = useRef<HTMLElement>(null);
+  const [edges, setEdges] = useState({ left: false, right: false });
+  const active = hit?.tab.href;
+  useEffect(() => {
+    const el = row.current;
+    if (!el) return;
+    const measure = () => setEdges({ left: el.scrollLeft > 2, right: el.scrollLeft + el.clientWidth < el.scrollWidth - 2 });
+    const on = el.querySelector<HTMLElement>("[aria-current=page]");
+    if (on) {
+      const left = on.offsetLeft - (el.clientWidth - on.offsetWidth) / 2;
+      el.scrollTo({ left: Math.max(0, left), behavior: "instant" as ScrollBehavior });
+    }
+    measure();
+    el.addEventListener("scroll", measure, { passive: true });
+    window.addEventListener("resize", measure);
+    return () => {
+      el.removeEventListener("scroll", measure);
+      window.removeEventListener("resize", measure);
+    };
+  }, [active]);
   if (!hit || hit.area.tabs.length < 2) return null;
+  const fade = "pointer-events-none absolute inset-y-0 z-[1] w-8 transition-opacity duration-150";
   return (
-    <nav aria-label={`${hit.area.label} sections`} className="-mb-px overflow-x-auto px-4 [scrollbar-width:none] sm:px-6">
+    <div className="relative">
+      <span aria-hidden="true" className={fade + " left-0 bg-gradient-to-r from-white to-transparent " + (edges.left ? "opacity-100" : "opacity-0")} />
+      <span aria-hidden="true" className={fade + " right-0 bg-gradient-to-l from-white to-transparent " + (edges.right ? "opacity-100" : "opacity-0")} />
+    <nav ref={row} aria-label={`${hit.area.label} sections`} className="-mb-px overflow-x-auto scroll-px-4 px-4 [scrollbar-width:none] sm:px-6 [&::-webkit-scrollbar]:hidden">
       <ul className="flex min-w-max gap-5">
         {hit.area.tabs.map((t) => {
           const on = t.href === hit.tab.href;
@@ -104,13 +132,13 @@ export function AreaTabs({ perms, badges }: { perms: readonly Perm[]; badges: Pa
                 href={t.href}
                 aria-current={on ? "page" : undefined}
                 className={
-                  "flex h-10 items-center gap-1.5 border-b-2 text-[13px] whitespace-nowrap transition-colors duration-150 " +
+                  "flex h-11 min-w-11 items-center justify-center gap-1.5 border-b-2 text-[14px] whitespace-nowrap transition-colors duration-150 md:h-10 md:min-w-0 md:text-[13px] " +
                   (on ? "border-ink font-medium text-ink" : "border-transparent text-mute hover:text-ink")
                 }
               >
                 {t.label}
                 {n > 0 && (
-                  <span className="rounded-full bg-chip-2 px-1.5 text-[11px] leading-[18px] font-normal text-ink tabular-nums">
+                  <span className="rounded-full bg-chip-2 px-1.5 text-[11px] leading-[18px] font-normal text-ink tabular-nums max-md:text-[12px]">
                     {n}
                     <span className="sr-only"> need action</span>
                   </span>
@@ -121,5 +149,6 @@ export function AreaTabs({ perms, badges }: { perms: readonly Perm[]; badges: Pa
         })}
       </ul>
     </nav>
+    </div>
   );
 }

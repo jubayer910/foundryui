@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { requireStaff } from "@/lib/admin";
 import { sp } from "@/components/admin/guard";
-import { AdminHead, Confirm, Field, Flash, Table, Tag, input, td, textarea, when } from "@/components/admin/ui";
+import { AdminHead, Confirm, Field, Flash, PhoneList, PhoneRow, Table, Tag, input, saveBar, td, textarea, when } from "@/components/admin/ui";
 import { IlloTile } from "@/components/site/illo";
 import { CIco } from "@/components/admin/content/icons";
 import { ScenePicker } from "@/components/admin/content/scene-picker";
@@ -37,11 +37,12 @@ export default async function AdminChangelog({ searchParams }: PageProps<"/admin
       <Flash ok={q.ok} err={q.err} />
 
       {draft && (
+        <>
         <form action={saveEntry} className="card mt-5 grid gap-4 p-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-3 max-md:contents">
             <div className="flex items-center gap-2">
               <p className="text-[13px] font-medium">{draft.id ? "Edit entry" : "New entry"}</p>
-              <Link href="/admin/changelog" className="ml-auto text-[12px] text-faint hover:text-ink">
+              <Link href="/admin/changelog" className="tap ml-auto inline-flex items-center justify-end text-[12px] text-faint hover:text-ink max-md:-my-2 max-md:text-[14px] max-md:text-mute">
                 Close
               </Link>
             </div>
@@ -57,8 +58,8 @@ export default async function AdminChangelog({ searchParams }: PageProps<"/admin
             <Field label="What shipped" hint="One line each. Each line shows with a plus icon.">
               <textarea name="items" required rows={7} defaultValue={draft.items.join("\n")} placeholder={"New Kargo system: 240 components\nMCP get_chart returns the data shape"} className={textarea} />
             </Field>
-            <div className="flex flex-wrap items-center gap-3">
-              <label className="flex cursor-pointer items-center gap-2 text-[13px]">
+            <div className={"flex flex-wrap items-center gap-3 max-md:order-last " + saveBar}>
+              <label className="flex cursor-pointer items-center gap-2 text-[13px] max-md:min-h-11 max-md:text-[14px]">
                 <input type="checkbox" name="published" defaultChecked={draft.published} className="size-4 accent-[#0b0b0b]" />
                 Show on /changelog
               </label>
@@ -73,10 +74,47 @@ export default async function AdminChangelog({ searchParams }: PageProps<"/admin
             <ScenePicker name="scene" defaultValue={draft.scene} />
           </div>
         </form>
+        {draft.id && (
+          <div className="mt-3 md:hidden">
+            <Confirm label="Delete entry" tone="bad">
+              <form action={deleteEntry} className="flex flex-col gap-2 text-left whitespace-normal">
+                <input type="hidden" name="id" value={draft.id} />
+                <p className="text-[13px] text-mute">Delete &quot;{draft.title}&quot;? It leaves /changelog right away. The full entry stays in the audit log.</p>
+                <button className="btn-ink">Delete entry</button>
+              </form>
+            </Confirm>
+          </div>
+        )}
+        </>
       )}
 
       <div className="mt-5">
-        <Table head={["", "Date", "Title", "Lines", "Status", "Updated", ""]} empty="No entries yet.">
+        <Table
+          head={["", "Date", "Title", "Lines", "Status", "Updated", ""]}
+          empty="No entries yet."
+          mobile={
+            <PhoneList label="Changelog entries">
+              {all.map((e) => (
+                <PhoneRow
+                  key={e.id}
+                  href={`/admin/changelog?edit=${e.id}`}
+                  selected={e.id === editId}
+                  lead={<IlloTile scene={e.scene} label={e.title} className="h-[40px] w-[54px]" />}
+                  title={e.title}
+                  meta={
+                    <>
+                      <Tag tone={e.published ? "good" : "plain"}>{e.published ? "Shown" : "Hidden"}</Tag>
+                      <span className="tabular-nums">{fmtChangelogDate(e.date)}</span>
+                      <span className="tabular-nums">
+                        {e.items.length} {e.items.length === 1 ? "line" : "lines"}
+                      </span>
+                    </>
+                  }
+                />
+              ))}
+            </PhoneList>
+          }
+        >
           {all.map((e) => (
             <tr key={e.id} className={e.id === editId ? "bg-wash" : ""}>
               <td className={td + " w-[76px]"}>

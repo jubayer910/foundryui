@@ -1,5 +1,5 @@
 "use client";
-import { useId, useState } from "react";
+import { useId, useState, type PointerEvent as RPointerEvent } from "react";
 import { show } from "@/lib/reports/format";
 import type { Unit } from "@/lib/reports/types";
 import { RIcon } from "./icons";
@@ -23,6 +23,12 @@ export function HourlyChart({ series, day, cmp, tz }: { series: HourlySeriesView
   const max = Math.max(1, ...m.cur, ...(m.prev ?? []));
   const peak = m.cur.indexOf(Math.max(...m.cur));
   const focus = hover ?? (m.total ? peak : null);
+  // Touch: tap or drag across the hours to read each one (the readout keeps the last).
+  const scrub = (e: RPointerEvent<HTMLDivElement>) => {
+    if (e.pointerType === "mouse") return;
+    const box = e.currentTarget.getBoundingClientRect();
+    setHover(Math.min(23, Math.max(0, Math.floor(((e.clientX - box.left) / box.width) * 24))));
+  };
 
   return (
     <figure className="card min-w-0 p-4">
@@ -32,15 +38,15 @@ export function HourlyChart({ series, day, cmp, tz }: { series: HourlySeriesView
           <Info label={`${m.label} by hour`} text={`${m.def} Hours are in ${tz}.${cmp ? ` The outline is ${cmp}.` : ""}`} />
         </span>
         {series.length > 1 && (
-          <div className="flex flex-wrap gap-1" role="group" aria-label="Series shown by hour">
+          <div className="-mx-4 flex gap-1 overflow-x-auto px-4 [scrollbar-width:none] max-md:order-last max-md:w-[calc(100%+32px)] md:mx-0 md:flex-wrap md:overflow-visible md:px-0 [&::-webkit-scrollbar]:hidden" role="group" aria-label="Series shown by hour">
             {series.map((x) => (
-              <button key={x.id} type="button" aria-pressed={x.id === m.id} onClick={() => setSid(x.id)} className="pill !h-6 !px-2.5 text-[12px]" data-on={x.id === m.id}>
+              <button key={x.id} type="button" aria-pressed={x.id === m.id} onClick={() => setSid(x.id)} className="pill shrink-0 !h-6 !px-2.5 text-[12px] max-md:!px-3.5" data-on={x.id === m.id}>
                 {x.label}
               </button>
             ))}
           </div>
         )}
-        <button type="button" onClick={() => setTable((t) => !t)} aria-expanded={table} aria-controls={tableId} className="ml-auto inline-flex h-7 items-center gap-1.5 rounded-[6px] px-2 text-[12px] text-mute hover:bg-tile hover:text-ink">
+        <button type="button" onClick={() => setTable((t) => !t)} aria-expanded={table} aria-controls={tableId} className="tap ml-auto inline-flex h-7 items-center justify-center gap-1.5 rounded-[6px] px-2 text-[12px] text-mute hover:bg-tile hover:text-ink max-md:-mr-2 max-md:text-[13px]">
           <RIcon name={table ? "chart-bar" : "table"} size={14} />
           {table ? "Hide data table" : "Show data table"}
         </button>
@@ -62,7 +68,14 @@ export function HourlyChart({ series, day, cmp, tz }: { series: HourlySeriesView
         )}
       </p>
 
-      <div className="mt-2 flex h-[120px] items-end gap-[3px]" role="group" aria-label={`${m.label} by hour on ${day}`} onMouseLeave={() => setHover(null)}>
+      <div
+        className="mt-2 flex h-[120px] touch-pan-y items-end gap-[2px] md:gap-[3px]"
+        role="group"
+        aria-label={`${m.label} by hour on ${day}`}
+        onMouseLeave={() => setHover(null)}
+        onPointerDown={scrub}
+        onPointerMove={(e) => e.buttons && scrub(e)}
+      >
         {m.cur.map((v, i) => {
           const h = v === 0 ? 1.5 : Math.max(3, (v / max) * 116);
           const ph = m.prev ? (m.prev[i] / max) * 116 : 0;
@@ -72,7 +85,8 @@ export function HourlyChart({ series, day, cmp, tz }: { series: HourlySeriesView
               type="button"
               onMouseEnter={() => setHover(i)}
               onFocus={() => setHover(i)}
-              onBlur={() => setHover(null)}
+              onBlur={(e) => e.relatedTarget && setHover(null)}
+              data-tap-exempt=""
               aria-label={`${hh(i)}: ${show(m.unit, v)}${m.prev ? `, ${show(m.unit, m.prev[i])} on ${cmp}` : ""}`}
               className="group relative flex h-full min-w-0 flex-1 items-end justify-center rounded-[3px] outline-offset-2"
             >
@@ -85,14 +99,14 @@ export function HourlyChart({ series, day, cmp, tz }: { series: HourlySeriesView
           );
         })}
       </div>
-      <div className="mt-1.5 flex gap-[3px] border-t border-hair-2 pt-1.5 text-[11px] text-faint tabular-nums" aria-hidden="true">
+      <div className="mt-1.5 flex gap-[2px] border-t border-hair-2 pt-1.5 text-[12px] text-faint tabular-nums md:gap-[3px] md:text-[11px]" aria-hidden="true">
         {m.cur.map((_, i) => (
-          <span key={i} className="min-w-0 flex-1 text-center">
-            {i % 6 === 0 ? hh(i) : ""}
+          <span key={i} className={"flex min-w-0 flex-1 whitespace-nowrap " + (i === 0 ? "justify-start" : "justify-center")}>
+            {i % 6 === 0 ? hh(i) : i === 23 ? <span className="flex w-full justify-end">23</span> : ""}
           </span>
         ))}
       </div>
-      <p className="mt-2 text-[12px] text-mute tabular-nums">
+      <p className="mt-2 text-[13px] text-mute tabular-nums md:text-[12px]">
         Day total {show(m.unit, m.total)}
         {m.prevTotal !== null && cmp ? `, ${show(m.unit, m.prevTotal)} on ${cmp}` : ""}
       </p>

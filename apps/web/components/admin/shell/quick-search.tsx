@@ -74,7 +74,7 @@ export function QuickSearch({ className = "", autoFocus = false, onDone }: { cla
       <label htmlFor={id + "-q"} className="sr-only">
         Search users, orders and tickets
       </label>
-      <div className="flex h-8 items-center gap-2 rounded-[6px] bg-tile px-2.5 shadow-[inset_0_0_0_1px_var(--color-hair)] focus-within:bg-white focus-within:shadow-[inset_0_0_0_1px_var(--color-ink)]">
+      <div className="flex h-8 items-center gap-2 rounded-[6px] bg-tile px-2.5 max-md:h-11 max-md:rounded-full max-md:px-3.5 shadow-[inset_0_0_0_1px_var(--color-hair)] focus-within:bg-white focus-within:shadow-[inset_0_0_0_1px_var(--color-ink)]">
         <AIcon name="search" size={15} className="shrink-0 text-faint" />
         <input
           ref={input}
@@ -118,14 +118,14 @@ export function QuickSearch({ className = "", autoFocus = false, onDone }: { cla
         <kbd className="hidden shrink-0 rounded-[4px] bg-white px-1 font-sans text-[11px] leading-4 text-faint shadow-[inset_0_0_0_1px_var(--color-hair-2)] xl:inline">/</kbd>
       </div>
       {show && (
-        <div className="absolute inset-x-0 top-[calc(100%+6px)] z-50 max-h-[min(420px,70vh)] overflow-y-auto rounded-[8px] bg-white p-1 shadow-[0_0_0_1px_var(--color-hair-2),0_12px_32px_rgb(0_0_0/0.10)]">
+        <div className="absolute inset-x-0 top-[calc(100%+6px)] z-50 max-h-[min(420px,70vh)] max-md:fixed max-md:inset-x-2 max-md:top-[60px] max-md:max-h-[calc(100dvh-76px)] overflow-y-auto rounded-[8px] bg-white p-1 shadow-[0_0_0_1px_var(--color-hair-2),0_12px_32px_rgb(0_0_0/0.10)]">
           <ul id={id + "-list"} role="listbox" aria-label="Search results">
             {(["user", "order", "ticket"] as const).map((k) => {
               const rows = list.filter((h) => h.kind === k);
               if (!rows.length) return null;
               return (
                 <li key={k} role="presentation">
-                  <p className="px-2 pt-2 pb-1 text-[11px] font-medium tracking-[0.02em] text-faint uppercase">{KIND[k].label}</p>
+                  <p className="px-2 pt-2 pb-1 text-[11px] font-medium tracking-[0.02em] text-faint uppercase max-md:text-[12px]">{KIND[k].label}</p>
                   <ul role="presentation">
                     {rows.map((h) => {
                       const i = list.indexOf(h);
@@ -138,7 +138,7 @@ export function QuickSearch({ className = "", autoFocus = false, onDone }: { cla
                           onMouseDown={(e) => e.preventDefault()}
                           onMouseEnter={() => setActive(i)}
                           onClick={() => go(h)}
-                          className={"flex cursor-pointer items-center gap-2.5 rounded-[6px] px-2 py-1.5 " + (i === active ? "bg-tile" : "")}
+                          className={"flex cursor-pointer items-center gap-2.5 rounded-[6px] px-2 py-1.5 max-md:min-h-12 " + (i === active ? "bg-tile" : "")}
                         >
                           <AIcon name={KIND[k].icon} size={15} className="shrink-0 text-mute" />
                           <span className="min-w-0 flex-1">

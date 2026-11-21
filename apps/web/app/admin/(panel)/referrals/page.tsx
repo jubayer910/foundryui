@@ -53,7 +53,43 @@ export default async function AdminReferrals() {
         {rows.length === 0 ? (
           <p className="text-[13px] text-mute">No links yet. Make the first one above.</p>
         ) : (
-          <div className="card overflow-x-auto bg-white">
+          <>
+          {/* Phones: one card per link, the four numbers in a row, copy and remove at the thumb. */}
+          <ul className="flex flex-col gap-3 md:hidden" aria-label="Referral links">
+            {rows.map((r) => (
+              <li key={r.name} className="card p-4">
+                <p className="text-[15px] font-medium">{r.name}</p>
+                {r.link?.note && <p className="mt-0.5 text-[13px] text-mute">{r.link.note}</p>}
+                <dl className="mt-3 grid grid-cols-4 gap-2">
+                  {(
+                    [
+                      ["Visits", num(r.v)],
+                      ["Sign-ups", num(r.s)],
+                      ["Paying", num(r.p)],
+                      ["Revenue", money(r.cents)],
+                    ] as const
+                  ).map(([k, v]) => (
+                    <div key={k} className="min-w-0">
+                      <dt className="truncate text-[12px] text-mute">{k}</dt>
+                      <dd className="truncate text-[15px] tabular-nums">{v}</dd>
+                    </div>
+                  ))}
+                </dl>
+                <div className="mt-3 flex items-center gap-2 border-t border-hair pt-3">
+                  <div className="min-w-0 flex-1">
+                    <CopyLink url={r.url} />
+                  </div>
+                  {r.link && (
+                    <form action={removeRefLink}>
+                      <input type="hidden" name="name" value={r.name} />
+                      <button className="btn-line !text-[#9b1c1c]">Remove</button>
+                    </form>
+                  )}
+                </div>
+              </li>
+            ))}
+          </ul>
+          <div className="card overflow-x-auto bg-white max-md:hidden">
             <table className="w-full min-w-[640px] text-[13px]">
               <thead>
                 <tr className="text-left text-mute">
@@ -93,6 +129,7 @@ export default async function AdminReferrals() {
               </tbody>
             </table>
           </div>
+          </>
         )}
         <p className="mt-3 text-[12px] text-mute">Visitors who turn on Do Not Track or Global Privacy Control are not counted. Removing a link keeps the sign-ups it already brought.</p>
       </Section>

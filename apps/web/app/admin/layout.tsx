@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   other: { "apple-mobile-web-app-capable": "yes" },
 };
 
-export const viewport: Viewport = { themeColor: "#0b0b0b" };
+export const viewport: Viewport = { themeColor: "#0b0b0b", viewportFit: "cover" };
 
 /** Everything under /admin: noindex, no public chrome (see components/site/site-chrome.tsx). Guards live in (panel)/layout.tsx. */
 export default function AdminRoot({ children }: LayoutProps<"/admin">) {

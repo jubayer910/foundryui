@@ -1,6 +1,7 @@
 "use client";
 import { useActionState, useEffect, useState, useSyncExternalStore } from "react";
 import { Icon } from "@/registry/components/icons";
+import { pageSaveBar } from "@/components/admin/ui";
 import { CIcon } from "@/components/site/chrome-icon";
 import { BarView } from "@/components/site/announcement-bar";
 import { DealCountdown, msLeft } from "@/components/site/deal-countdown";
@@ -178,11 +179,11 @@ export function PricingForm({ initial, sold, action }: { initial: Values; sold: 
             {num("spotsTotal", "Spots total", undefined, `Shown as ${left} of ${total || "TOTAL"} left; can't go below the ${sold} already sold`)}
             <div className="grid grid-cols-2 gap-2 self-start" aria-live="polite">
               <div className="rounded-[6px] bg-tile px-3 py-2">
-                <p className="text-[11px] text-mute">Sold</p>
+                <p className="text-[11px] max-md:text-[12px] text-mute max-md:text-[12px]">Sold</p>
                 <p className="text-[18px] font-medium tabular-nums">{sold}</p>
               </div>
               <div className={"rounded-[6px] px-3 py-2 " + (belowSold ? "bg-[#fdecea] text-[#c62828]" : "bg-tile")}>
-                <p className={"text-[11px] " + (belowSold ? "" : "text-mute")}>Left</p>
+                <p className={"text-[11px] max-md:text-[12px] " + (belowSold ? "" : "text-mute")}>Left</p>
                 <p className="text-[18px] font-medium tabular-nums">{belowSold ? "Too low" : left}</p>
               </div>
             </div>
@@ -282,8 +283,8 @@ export function PricingForm({ initial, sold, action }: { initial: Values; sold: 
           <a href="/admin/announcement" className="btn-line ml-auto">Edit in Content</a>
         </div>
 
-        <div className="flex flex-wrap items-center gap-3">
-          <button type="submit" disabled={pending} className="btn-ink disabled:opacity-60">
+        <div className={"flex flex-wrap items-center gap-3 " + pageSaveBar}>
+          <button type="submit" disabled={pending} className="btn-ink disabled:opacity-60 max-md:flex-1">
             {pending ? "Saving…" : "Save pricing"}
           </button>
           <button type="button" onClick={() => setV(initial)} className="btn-line">
@@ -375,7 +376,7 @@ function PreviewCard({ name, price, per, note, strike, meter, timer, highlight, 
         {per && <span className={"text-[12px] " + (highlight ? "text-white/60" : "text-faint")}>{per}</span>}
       </p>
       {timer && (
-        <p className="mt-2 flex items-center gap-1 rounded-[6px] bg-white/10 px-2 py-1 text-[11px]">
+        <p className="mt-2 flex items-center gap-1 rounded-[6px] bg-white/10 px-2 py-1 text-[11px] max-md:text-[12px]">
           <CIcon name="clock" size={12} className="shrink-0" />
           <DealCountdown key={timer} endsAt={timer} prefix="Ends in" />
         </p>
@@ -386,7 +387,7 @@ function PreviewCard({ name, price, per, note, strike, meter, timer, highlight, 
         </div>
       )}
       <p className={"mt-2 text-[12px] " + (highlight ? "text-white/70" : "text-mute")}>{note}</p>
-      {missing && <p className={"mt-auto pt-2 text-[11px] " + (highlight ? "text-white/50" : "text-faint")}>No variant ID: shows the waitlist</p>}
+      {missing && <p className={"mt-auto pt-2 text-[11px] max-md:text-[12px] " + (highlight ? "text-white/50" : "text-faint")}>No variant ID: shows the waitlist</p>}
     </div>
   );
 }

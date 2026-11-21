@@ -182,7 +182,7 @@ function Editor({ pages, page, content, history }: Props) {
 
         <div className="flex flex-wrap items-center gap-3">
           <h2 className="text-[15px] font-medium">{page.label}</h2>
-          <a href={page.path} target="_blank" rel="noreferrer" className="text-[12.5px] text-mute underline underline-offset-2 hover:text-ink">
+          <a href={page.path} target="_blank" rel="noreferrer" className="text-[12.5px] text-mute underline underline-offset-2 hover:text-ink max-md:inline-flex max-md:min-h-11 max-md:items-center max-md:text-[13px]">
             Open {page.path} in a new tab
           </a>
         </div>
@@ -217,7 +217,7 @@ function Editor({ pages, page, content, history }: Props) {
           </>
         )}
 
-        <div className="sticky bottom-0 z-10 -mx-1 mt-6 flex flex-wrap items-center gap-3 bg-[var(--color-page,#fff)]/95 px-1 py-3 backdrop-blur">
+        <div className="sticky bottom-[var(--admin-bottom,0px)] z-10 -mx-1 mt-6 flex max-md:-mx-4 max-md:border-t max-md:border-hair max-md:px-4 flex-wrap items-center gap-3 bg-[var(--color-page,#fff)]/95 px-1 py-3 backdrop-blur">
           <button type="button" onClick={save} disabled={!dirty || pending} className="btn-ink disabled:opacity-50">
             {pending ? "Saving…" : dirty ? `Save ${dirty} ${dirty === 1 ? "change" : "changes"}` : "Saved"}
           </button>

@@ -100,7 +100,7 @@ export function MoneyBars({
           />
         </svg>
       </div>
-      <div className="mt-1.5 flex justify-between gap-1 overflow-hidden text-[11px] whitespace-nowrap text-faint tabular-nums">
+      <div className="mt-1.5 flex justify-between gap-1 overflow-hidden text-[11px] max-md:text-[12px] whitespace-nowrap text-faint tabular-nums">
         {data.map((d, i) =>
           i % step === 0 || i === n - 1 ? (
             <span key={d.key}>{d.label}</span>
@@ -193,7 +193,7 @@ export function FlowBars({
           })}
         </svg>
       </div>
-      <div className="mt-1.5 flex justify-between gap-1 overflow-hidden text-[11px] whitespace-nowrap text-faint tabular-nums">
+      <div className="mt-1.5 flex justify-between gap-1 overflow-hidden text-[11px] max-md:text-[12px] whitespace-nowrap text-faint tabular-nums">
         {data.map((d, i) =>
           i % step === 0 || i === n - 1 ? (
             <span key={d.key}>{d.label}</span>

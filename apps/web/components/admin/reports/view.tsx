@@ -7,6 +7,7 @@ import { HourlyChart, type HourlySeriesView } from "./hourly-chart";
 import { RIcon } from "./icons";
 import { Info } from "./info";
 import { Trend } from "./trend";
+import { kpiCard, kpiRow, kpiValue } from "../ui";
 
 /** Server-rendered parts of Reports and Insights. Client islands: Info (definitions), Trend and HourlyChart. */
 
@@ -47,13 +48,13 @@ export function ChangeBadge({ m, cur, prev, versus }: { m: Pick<MetricDef, "unit
 /** KPI card for a report metric: label with its definition, the value for the selected period, the change. */
 export function MetricKpi({ m, d, r }: { m: MetricDef; d: DatasetResult; r: Report }) {
   return (
-    <div className="card min-w-0 p-4">
+    <div className={kpiCard}>
       <p className="flex min-w-0 items-center gap-0.5 text-[13px] text-mute">
         <span className="truncate">{m.label}</span>
         <Info label={m.label} text={`${m.def}${r.cmp ? ` Compared with ${r.cmp.name}: ${show(m.unit, d.compare?.[m.id])}.` : ""}`} />
       </p>
-      <div className="mt-1 flex flex-wrap items-baseline gap-x-2">
-        <p className="text-[22px] leading-[30px] font-medium tracking-[-0.02em] tabular-nums">{show(m.unit, d.selected[m.id])}</p>
+      <div className={kpiRow}>
+        <p className={kpiValue}>{show(m.unit, d.selected[m.id])}</p>
         {r.cmp && <ChangeBadge m={m} cur={d.selected[m.id]} prev={d.compare?.[m.id]} versus={r.cmp.name} />}
       </div>
     </div>
@@ -75,7 +76,7 @@ export function PeriodTable({ d, r }: { d: DatasetResult; r: Report }) {
   const rangeText = `${r.buckets[0].name} to ${r.sel.name}`;
   return (
     <div className="card relative overflow-x-auto">
-      <table className="w-full min-w-[720px] border-collapse text-left text-[13px]">
+      <table className="w-full min-w-[560px] border-collapse text-left text-[13px] md:min-w-[720px]">
         <caption className="sr-only">
           {d.title} per {r.state.gran}, {rangeText}, newest first
         </caption>
@@ -202,7 +203,7 @@ export function BreakdownCard({ b, r }: { b: Breakdown; r: Report }) {
 export function More({ label, children, className = "" }: { label: string; children: ReactNode; className?: string }) {
   return (
     <details className={"group mt-3 " + className}>
-      <summary className="inline-flex cursor-pointer list-none items-center gap-1.5 rounded-[6px] px-2 py-1 text-[12px] text-mute hover:bg-tile hover:text-ink [&::-webkit-details-marker]:hidden">
+      <summary className="inline-flex cursor-pointer list-none items-center gap-1.5 rounded-[6px] px-2 py-1 text-[12px] text-mute hover:bg-tile hover:text-ink max-md:-ml-2 max-md:text-[13px] [&::-webkit-details-marker]:hidden">
         <RIcon name="chevron-down" size={13} className="-rotate-90 transition-transform duration-150 group-open:rotate-0" />
         {label}
       </summary>
@@ -266,7 +267,7 @@ export function DatasetSection({ d, r, hourly, heading = "h2", srTitle = false }
           </span>
         ))}
         {!d.error && (
-          <a href={csv} download className="ml-auto inline-flex h-7 items-center gap-1.5 rounded-[6px] px-2 text-[12px] text-mute hover:bg-tile hover:text-ink">
+          <a href={csv} download className="tap ml-auto inline-flex h-7 items-center justify-center gap-1.5 rounded-[6px] px-2 text-[12px] text-mute hover:bg-tile hover:text-ink max-md:text-[13px]">
             <RIcon name="download" size={14} />
             CSV<span className="sr-only"> of {d.title}, one row per {s.gran}</span>
           </a>

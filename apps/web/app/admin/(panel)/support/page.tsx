@@ -4,7 +4,7 @@ import { and, asc, count, desc, eq, inArray, like, or, type SQL } from "drizzle-
 import { getDb, schema } from "@/lib/db";
 import { sp } from "@/components/admin/guard";
 import { requireStaff } from "@/lib/admin";
-import { AdminHead, Flash, LinkTabs, Tag, Toolbar, input, statusTone, when } from "@/components/admin/ui";
+import { AdminHead, Flash, LinkTabs, Tag, Toolbar, day, input, statusTone, when } from "@/components/admin/ui";
 import { AIcon } from "@/components/admin/admin-icons";
 import { Drawer, Facts } from "@/components/admin/drawer";
 import { ticketRef } from "@/components/admin/thread";
@@ -43,7 +43,7 @@ export default async function AdminSupport({ searchParams }: PageProps<"/admin/s
       <Flash ok={q.ok} err={q.err} />
       <Toolbar>
         <LinkTabs tabs={STATUSES.map((s) => ({ href: `/admin/support?status=${s}`, label: s[0].toUpperCase() + s.slice(1), count: c[s] ?? 0, on: s === status }))} />
-        <form method="get" className="w-full sm:ml-auto sm:w-auto" role="search">
+        <form method="get" className="w-full sm:ml-auto sm:w-auto max-sm:order-first" role="search">
           <input type="hidden" name="status" value={status} />
           <label className="relative block w-full sm:w-[260px]">
             <span className="sr-only">Search tickets</span>
@@ -62,22 +62,23 @@ export default async function AdminSupport({ searchParams }: PageProps<"/admin/s
                 href={`/admin/support?${new URLSearchParams({ status, ...(search ? { q: search } : {}), view: t.id }).toString()}`}
                 scroll={false}
                 aria-current={t.id === open ? "true" : undefined}
-                className="flex flex-col gap-1 px-4 py-3 transition-colors duration-150 hover:bg-wash aria-[current]:bg-tile sm:flex-row sm:items-center sm:gap-4"
+                className="flex flex-col gap-1 px-4 py-3 transition-colors duration-150 hover:bg-wash active:bg-wash aria-[current]:bg-tile sm:flex-row sm:items-center sm:gap-4"
               >
                 <span className="min-w-0 flex-1">
                   <span className="flex items-center gap-2">
-                    <span className="truncate font-medium">{t.subject}</span>
-                    <span className="shrink-0 text-[12px] text-faint">{t.source}</span>
+                    <span className="truncate font-medium max-sm:text-[15px]">{t.subject}</span>
+                    <span className="shrink-0 text-[12px] text-faint max-sm:hidden">{t.source}</span>
+                    <span className="ml-auto shrink-0 text-[13px] text-mute tabular-nums sm:hidden">{day(status === "open" ? t.createdAt : t.updatedAt).replace(/, \d{4}$/, "")}</span>
                   </span>
-                  <span className="mt-0.5 block truncate text-[12px] text-mute">{t.name ? `${t.name}, ${t.email}` : t.email}</span>
+                  <span className="mt-0.5 block truncate text-[12px] text-mute max-sm:text-[13px]">{t.name ? `${t.name}, ${t.email}` : t.email}</span>
                   {m && (
-                    <span className="mt-0.5 block truncate text-[12px] text-faint">
+                    <span className="mt-0.5 block truncate text-[12px] text-faint max-sm:line-clamp-2 max-sm:text-[13px] max-sm:whitespace-normal max-sm:text-mute">
                       {m.author === "admin" ? "You: " : m.author === "bot" ? "Bot: " : ""}
                       {m.body.slice(0, 140)}
                     </span>
                   )}
                 </span>
-                <span className="flex shrink-0 items-center gap-3 text-[12px] text-faint tabular-nums">
+                <span className="flex shrink-0 items-center gap-3 text-[12px] text-faint tabular-nums max-sm:hidden">
                   <span>{nMsg.get(t.id) ?? 0} msg</span>
                   <span>{when(status === "open" ? t.createdAt : t.updatedAt)}</span>
                 </span>
@@ -110,17 +111,17 @@ async function TicketDrawer({ id, closeHref }: { id: string; closeHref: string }
       />
       <ol className="mt-5 flex flex-col gap-2">
         {msgs.map((m) => (
-          <li key={m.id} className={"rounded-[8px] p-3 " + (m.author === "admin" ? "bg-tile" : "card")}>
+          <li key={m.id} className={"rounded-[8px] p-3 max-md:max-w-[88%] max-md:rounded-[14px] " + (m.author === "admin" ? "bg-tile max-md:self-end" : "card max-md:self-start")}>
             <p className="flex items-center gap-2 text-[12px] text-mute">
               <span className="font-medium text-ink">{m.author === "admin" ? "Support" : m.author === "bot" ? "Help bot" : t.name || t.email}</span>
               <span className="ml-auto tabular-nums">{when(m.createdAt)}</span>
             </p>
-            <div className="mt-1.5 text-[13px] leading-[1.55] whitespace-pre-wrap">{m.body}</div>
+            <div className="mt-1.5 text-[13px] leading-[1.55] whitespace-pre-wrap [overflow-wrap:anywhere] max-md:text-[15px] max-md:leading-[1.45]">{m.body}</div>
           </li>
         ))}
         {!msgs.length && <li className="text-[13px] text-mute">This ticket has no messages.</li>}
       </ol>
-      <Link href={`/admin/support/${t.id}`} className="btn-ink mt-4">
+      <Link href={`/admin/support/${t.id}`} className="btn-ink mt-4 max-md:w-full">
         <AIcon name="message" size={15} />
         Reply
       </Link>

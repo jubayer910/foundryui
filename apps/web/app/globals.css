@@ -168,7 +168,105 @@ body {
     padding: 16px 0 !important;
     text-align: center !important;
   }
+  .admin-table > tbody > tr {
+    min-height: 52px;
+    padding: 12px 16px;
+  }
 }
+}
+
+/* Admin on phones (app/admin/DESIGN.md, "Mobile"). [data-admin] is the admin shell and the login / invite cards.
+   --admin-bottom is the height of the bottom tab bar (0 while the on-screen keyboard is up): sticky save bars and
+   the reply box sit on it. Sheets rise from the bottom; reduced motion drops the movement. */
+@keyframes admin-sheet-in {
+  from {
+    transform: translateY(100%);
+  }
+}
+@keyframes admin-fade-in {
+  from {
+    opacity: 0;
+  }
+}
+.admin-sheet {
+  animation: admin-sheet-in 280ms cubic-bezier(0.32, 0.72, 0, 1);
+}
+.admin-fade {
+  animation: admin-fade-in 200ms ease-out;
+}
+.admin-bottombar {
+  transition: transform 200ms cubic-bezier(0.32, 0.72, 0, 1);
+}
+@media (max-width: 767px) {
+  .admin-drawer {
+    animation: admin-sheet-in 280ms cubic-bezier(0.32, 0.72, 0, 1);
+  }
+}
+html[data-sheet] .admin-bottombar,
+[data-admin][data-kb] .admin-bottombar {
+  transform: translateY(100%);
+}
+@media (prefers-reduced-motion: reduce) {
+  .admin-sheet,
+  .admin-drawer,
+  .admin-fade {
+    animation: none;
+  }
+  .admin-bottombar {
+    transition: none;
+  }
+}
+@media (max-width: 767px) {
+  [data-admin] {
+    --admin-bottom: calc(56px + env(safe-area-inset-bottom));
+  }
+  [data-admin][data-kb] {
+    --admin-bottom: 0px;
+  }
+  /* 16px text in fields so iOS does not zoom on focus; 44px tall fields and buttons, 40px chips. min-height and
+     min-width win over the fixed !h-8 / !size-8 sizes the desktop layout uses. */
+  [data-admin] :is(input:not([type="checkbox"], [type="radio"], [type="range"], [type="color"], [type="file"], [type="hidden"]), select, textarea) {
+    font-size: 16px;
+  }
+  [data-admin] :is(input:not([type="checkbox"], [type="radio"], [type="range"], [type="color"], [type="file"], [type="hidden"]), select) {
+    min-height: 44px;
+  }
+  [data-admin] :is(.btn-line, .btn-ink) {
+    min-height: 44px;
+    min-width: 44px;
+    font-size: 14px;
+  }
+  [data-admin] .pill {
+    min-height: 40px;
+    padding-inline: 14px;
+    font-size: 14px;
+  }
+  [data-admin] .tap {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  [data-admin] details > summary {
+    min-height: 44px;
+  }
+  [data-admin] input[type="checkbox"],
+  [data-admin] input[type="radio"] {
+    width: 20px;
+    height: 20px;
+  }
+  [data-admin] label:has(> input[type="checkbox"], > input[type="radio"]) {
+    min-height: 44px;
+  }
+  /* Selects in the filter sheet: a chevron (the Ingot chevron-down path) so they read as pickers. */
+  .admin-filter-body select {
+    appearance: none;
+    padding-right: 40px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23737373' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6l6 -6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 16px;
+  }
+}
+@layer components {
 
 /* Old gallery grids now render as spaced cards */
 .hairgrid {

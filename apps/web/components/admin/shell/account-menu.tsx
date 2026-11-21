@@ -50,13 +50,13 @@ export function AccountMenu({ user }: { user: ShellUser }) {
         aria-expanded={open}
         aria-controls={id}
         onClick={() => setOpen((o) => !o)}
-        className="flex h-8 items-center gap-1.5 rounded-full pr-1.5 pl-0.5 hover:bg-tile aria-expanded:bg-tile"
+        className="flex h-8 items-center gap-1.5 rounded-full pr-1.5 pl-0.5 hover:bg-tile aria-expanded:bg-tile max-md:size-11 max-md:justify-center max-md:p-0"
       >
-        <span className="flex size-7 items-center justify-center rounded-full bg-ink text-[12px] font-medium text-white" aria-hidden="true">
+        <span className="flex size-7 items-center justify-center rounded-full bg-ink text-[12px] font-medium text-white max-md:size-8 max-md:text-[13px]" aria-hidden="true">
           {initial}
         </span>
         <span className="sr-only">Account: {user.name || user.email}</span>
-        <AIcon name="selector" size={14} className="text-faint" />
+        <AIcon name="selector" size={14} className="text-faint max-md:hidden" />
       </button>
       {open && (
         <div id={id} role="menu" aria-label="Account" className="absolute top-[calc(100%+6px)] right-0 z-50 w-[248px] rounded-[8px] bg-white p-1 shadow-[0_0_0_1px_var(--color-hair-2),0_12px_32px_rgb(0_0_0/0.10)]">
@@ -68,7 +68,7 @@ export function AccountMenu({ user }: { user: ShellUser }) {
             <p className="mt-0.5 truncate text-[12px] text-mute">{user.email}</p>
           </div>
           <div className="border-t border-hair pt-1">
-            <a role="menuitem" href="/account" className="flex h-8 items-center gap-2 rounded-[6px] px-2.5 text-[13px] outline-none hover:bg-tile focus-visible:bg-tile">
+            <a role="menuitem" href="/account" className="flex h-8 items-center gap-2 rounded-[6px] px-2.5 text-[13px] outline-none max-md:h-11 max-md:text-[15px] hover:bg-tile focus-visible:bg-tile">
               <AIcon name="user" size={15} className="text-mute" />
               Your account on the site
             </a>
@@ -77,7 +77,7 @@ export function AccountMenu({ user }: { user: ShellUser }) {
               type="button"
               onClick={signOut}
               disabled={busy}
-              className="flex h-8 w-full items-center gap-2 rounded-[6px] px-2.5 text-left text-[13px] outline-none hover:bg-tile focus-visible:bg-tile disabled:opacity-60"
+              className="flex h-8 w-full items-center gap-2 rounded-[6px] px-2.5 text-left text-[13px] outline-none max-md:h-11 max-md:text-[15px] hover:bg-tile focus-visible:bg-tile disabled:opacity-60"
             >
               <AIcon name="logout" size={15} className="text-mute" />
               {busy ? "Signing out…" : "Sign out"}

@@ -4,7 +4,8 @@ import { and, count, desc, eq, inArray, like, or, sql, type SQL } from "drizzle-
 import { getDb, schema } from "@/lib/db";
 import { sp } from "@/components/admin/guard";
 import { requireStaff } from "@/lib/admin";
-import { AdminHead, Pager, Table, Tag, Toolbar, cap, day, input, money, num, statusTone, td, tdNum, when } from "@/components/admin/ui";
+import { AdminHead, Pager, PhoneList, PhoneRow, Table, Tag, Toolbar, cap, day, input, money, num, statusTone, td, tdNum, when } from "@/components/admin/ui";
+import { FilterSheet } from "@/components/admin/filter-sheet";
 import { AIcon } from "@/components/admin/admin-icons";
 import { Drawer, Facts } from "@/components/admin/drawer";
 
@@ -51,11 +52,12 @@ export default async function AdminUsers({ searchParams }: PageProps<"/admin/use
       <AdminHead title="Users" sub={`${num(total?.n ?? 0)} ${search || plan ? "match" : "accounts"}`} />
       <Toolbar>
         <form method="get" className="flex w-full flex-wrap items-center gap-2" role="search">
-          <label className="relative block w-full sm:w-[280px]">
+          <label className="relative block min-w-0 flex-1 sm:w-[280px] sm:flex-none">
             <span className="sr-only">Email or name</span>
             <AIcon name="search" size={15} className="pointer-events-none absolute top-1/2 left-2.5 -translate-y-1/2 text-faint" />
             <input name="q" defaultValue={search} placeholder="Search email or name" className={input + " pl-8"} />
           </label>
+          <FilterSheet active={plan ? 1 : 0} clearHref="/admin/users">
           <label>
             <span className="sr-only">Plan</span>
             <select name="plan" defaultValue={plan} className={input + " !w-auto pr-7"}>
@@ -65,16 +67,43 @@ export default async function AdminUsers({ searchParams }: PageProps<"/admin/use
               <option value="lifetime">Lifetime</option>
             </select>
           </label>
-          <button className="btn-line !h-8 !px-3">Apply</button>
+          </FilterSheet>
+          <button className="btn-line !h-8 !px-3 max-md:!hidden">Apply</button>
           {(search || plan) && (
-            <Link href="/admin/users" className="text-[13px] text-mute hover:text-ink hover:underline">
+            <Link href="/admin/users" className="text-[13px] text-mute hover:text-ink hover:underline max-md:hidden">
               Clear
             </Link>
           )}
         </form>
       </Toolbar>
       <div className="mt-4">
-        <Table head={["Name", "Email", "Plan", "Role", "Uses", "Joined"]} right={[4]} empty="No users match.">
+        <Table
+          head={["Name", "Email", "Plan", "Role", "Uses", "Joined"]}
+          right={[4]}
+          empty="No users match."
+          mobile={
+            <PhoneList label="Users">
+              {rows.map((u) => (
+                <PhoneRow
+                  key={u.id}
+                  href={link(page, u.id)}
+                  scroll={false}
+                  selected={u.id === open}
+                  title={u.name || u.email}
+                  meta={
+                    <>
+                      <Tag tone={u.plan === "free" ? "plain" : "good"}>{u.plan}</Tag>
+                      {u.role === "admin" && <Tag tone="ink">admin</Tag>}
+                      <span className="min-w-0 truncate">{u.name ? u.email : `Joined ${day(u.createdAt)}`}</span>
+                    </>
+                  }
+                  value={num(uses.get(u.id) ?? 0)}
+                  valueSub="uses"
+                />
+              ))}
+            </PhoneList>
+          }
+        >
           {rows.map((u) => (
             <tr key={u.id} aria-selected={u.id === open || undefined} className="aria-selected:bg-tile">
               <td className={td}>

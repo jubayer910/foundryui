@@ -51,11 +51,11 @@ export function LoginForm({ next }: { next: string }) {
   return (
     <form onSubmit={submit} noValidate className="flex flex-col gap-3.5">
       <label className="flex flex-col gap-1.5">
-        <span className="text-[12px] font-medium text-ink-2">Email</span>
+        <span className="text-[13px] font-medium text-ink-2 md:text-[12px]">Email</span>
         <input name="email" type="email" autoComplete="username" required autoFocus aria-invalid={!!err} className={authInput} placeholder="you@company.com" />
       </label>
       <label className="flex flex-col gap-1.5">
-        <span className="text-[12px] font-medium text-ink-2">Password</span>
+        <span className="text-[13px] font-medium text-ink-2 md:text-[12px]">Password</span>
         <input name="password" type="password" autoComplete="current-password" required aria-invalid={!!err} className={authInput} />
       </label>
       {err && <FormError>{err}</FormError>}

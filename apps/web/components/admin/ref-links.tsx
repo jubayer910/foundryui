@@ -16,13 +16,13 @@ export function RefLinkForm() {
   return (
     <form action={action} className="flex flex-col gap-3">
       <div className="grid gap-3 md:grid-cols-[1fr_1fr_1.2fr]">
-        <label className="text-[12px] text-mute">Name<input name="name" value={name} onChange={(e) => setName(e.target.value)} placeholder="x-reply" required className={input + " mt-1"} /></label>
-        <label className="text-[12px] text-mute">Page it opens<input name="to" value={to} onChange={(e) => setTo(e.target.value)} placeholder="/ or /pricing" className={input + " mt-1"} /></label>
-        <label className="text-[12px] text-mute">Note (only you see it)<input name="note" placeholder="Reply under UI posts" maxLength={120} className={input + " mt-1"} /></label>
+        <label className="text-[13px] text-mute md:text-[12px]">Name<input name="name" value={name} onChange={(e) => setName(e.target.value)} placeholder="x-reply" required className={input + " mt-1"} /></label>
+        <label className="text-[13px] text-mute md:text-[12px]">Page it opens<input name="to" value={to} onChange={(e) => setTo(e.target.value)} placeholder="/ or /pricing" className={input + " mt-1"} /></label>
+        <label className="text-[13px] text-mute md:text-[12px]">Note (only you see it)<input name="note" placeholder="Reply under UI posts" maxLength={120} className={input + " mt-1"} /></label>
       </div>
       <div className="flex flex-wrap items-center gap-3">
         <button type="submit" disabled={pending} className="btn-ink">{pending ? "Adding…" : "Add link"}</button>
-        {clean.length >= 2 && <code className="font-fu-mono text-[12px] text-mute">https://ingotui.com{path === "/" ? "/" : path}?ref={clean}</code>}
+        {clean.length >= 2 && <code className="font-fu-mono text-[12px] break-all text-mute">https://ingotui.com{path === "/" ? "/" : path}?ref={clean}</code>}
         {state.ok && <span className="text-[12.5px] text-[#18794e]">{state.ok}</span>}
         {state.err && <span className="text-[12.5px] text-[#c0392b]">{state.err}</span>}
       </div>
@@ -40,10 +40,10 @@ export function CopyLink({ url }: { url: string }) {
         setDone(true);
         setTimeout(() => setDone(false), 1500);
       }}
-      className="mt-1 max-w-full truncate text-left font-fu-mono text-[11.5px] text-mute underline underline-offset-2 hover:text-ink"
+      className="mt-1 max-w-full truncate text-left font-fu-mono text-[11.5px] text-mute underline underline-offset-2 hover:text-ink max-md:mt-0 max-md:flex max-md:min-h-11 max-md:w-full max-md:items-center max-md:text-[13px]"
       title="Copy link"
     >
-      <span aria-live="polite">{done ? "Copied" : url}</span>
+      <span aria-live="polite" className="min-w-0 truncate">{done ? "Copied" : url}</span>
     </button>
   );
 }
