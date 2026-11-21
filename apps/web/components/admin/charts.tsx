@@ -140,8 +140,10 @@ export function Funnel({ steps, period }: { steps: { label: string; n: number; p
   return (
     <ol className="grid grid-cols-2 gap-3 lg:grid-cols-4">
       {steps.map((s, i) => {
-        const before = i > 0 ? steps[i - 1].n : 0;
-        const conv = i > 0 ? (before > 0 ? (s.n / before) * 100 : null) : null;
+        // Steps aren't strictly nested (people sign up without copying), so each step is shown as a share of
+        // the first step instead of the step before: it never reads above 100% of a smaller step.
+        const base = steps[0]?.n ?? 0;
+        const conv = i > 0 ? (base > 0 ? (s.n / base) * 100 : null) : null;
         return (
           <li key={s.label} className="card p-4">
             <div className="flex items-start gap-2">
@@ -156,7 +158,7 @@ export function Funnel({ steps, period }: { steps: { label: string; n: number; p
               <div className="h-1.5 rounded-full bg-ink" style={{ width: `${Math.min(100, Math.max(s.n ? 2 : 0, (s.n / top) * 100))}%` }} />
             </div>
             <p className="mt-1.5 text-[12px] text-faint">
-              {i === 0 ? "Unique visitors, estimated" : conv === null ? "Nothing to convert yet" : `${fmtPct(conv)} of ${steps[i - 1].label.toLowerCase()}`}
+              {i === 0 ? "Unique visitors, estimated" : conv === null ? "Nothing to convert yet" : `${fmtPct(conv)} of ${steps[0].label.toLowerCase()}`}
             </p>
           </li>
         );

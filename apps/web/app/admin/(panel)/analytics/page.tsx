@@ -75,7 +75,7 @@ export default async function InsightsOverview({ searchParams }: PageProps<"/adm
         {hourSeries.length > 0 && <HourlyChart series={hourSeries} day={r.sel.name} cmp={r.cmp?.name ?? null} tz={s.tz === "UTC" ? "UTC" : "Dhaka time (UTC+6)"} />}
       </div>
 
-      <Section title="Funnel" info="Visitors are unique per day, summed. Used a component counts distinct accounts and anonymous browsers with a copy, download or install. Signed up counts new accounts; Orders counts orders that took money. Each step shows its share of the step before.">
+      <Section title="Funnel" info="Visitors are unique per day, summed. Used a component counts distinct accounts and anonymous browsers with a copy, download or install. Signed up counts new accounts; Orders counts orders that took money. Steps are not strictly nested (people can sign up without copying a component), so each step shows its share of visitors.">
         <Funnel steps={steps} period={r.cmp ? r.cmp.name : "the comparison period"} />
       </Section>
     </div>
