@@ -6,6 +6,7 @@ import { IlloTile } from "@/components/site/illo";
 import { CopyBlock } from "@/components/site/copy-block";
 import { ConnectAgent } from "@/components/site/connect-agent";
 import { CLIENTS, configText, mcpUrlFor } from "@/components/site/connect-agent-config";
+import { ClientLogo } from "@/components/site/client-logo";
 import { ed } from "@/lib/content/edit";
 
 export const metadata: Metadata = pageMeta({
@@ -80,63 +81,70 @@ export default function McpPage() {
         ]}
       />
 
-      <header className="max-w-[720px]">
+      <header className="max-w-[760px]">
         <p className="eyebrow" {...ed("mcp.hero.eyebrow")}>MCP server for UI components</p>
-        <h1 className="display mt-1.5 text-[26px] md:text-[32px]" {...ed("mcp.hero.title")}>Your agent builds with real components instead of guessing</h1>
+        <h1 className="display mt-1.5 text-[26px] md:text-[34px]" {...ed("mcp.hero.title")}>Your agent builds with real components instead of guessing</h1>
         <p className="mt-2.5 text-[14px] leading-relaxed text-ink-2" {...ed("mcp.hero.sub")}>
-          {`Connect Claude Code, Cursor, VS Code or Codex once. Your agent gets ${fmt(STATS.coded)} React components checked against Figma, the design tokens and an audit, so the screens it writes look like one product, not a template.`}
+          {`Connect your AI agent once. It gets ${fmt(STATS.coded)} React components checked against Figma, the design tokens and an audit, so the screens it writes look like one product, not a template.`}
         </p>
+        <div className="mt-5 flex flex-wrap items-center gap-2">
+          <a href="#connect" className="btn-ink">Connect your agent</a>
+          <a href="#tools" className="btn-line">See what it can do</a>
+          <span className="text-[12px] text-mute">Free account · 50 calls a day · no card</span>
+        </div>
+        <div className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2">
+          <span className="text-[12px] text-mute">Works with</span>
+          {CLIENTS.map((c) => (
+            <a key={c.id} href={"?client=" + c.id + "#connect"} className="flex items-center gap-1.5 text-[13px] font-medium text-ink-2 hover:text-ink">
+              <ClientLogo id={c.id} size={18} />
+              {c.name}
+            </a>
+          ))}
+          <span className="text-[12px] text-mute">and any MCP client</span>
+        </div>
       </header>
 
-      <div className="mt-6 grid grid-cols-[minmax(0,1fr)] gap-6 lg:grid-cols-[minmax(0,1fr)_300px]">
+      <div className="mt-8 grid grid-cols-[minmax(0,1fr)] gap-6 lg:grid-cols-[minmax(0,1fr)_280px]">
         <ConnectAgent siteUrl={SITE_URL} systemCount={systems.length} />
         <aside className="hidden lg:block">
-          <IlloTile scene="plug" label="An AI agent plugged into the Ingot UI library" className="h-[190px]" />
-          <ul className="mt-4 flex flex-col gap-2.5 text-[13px] text-ink-2">
-            <li>Free account, 50 calls a day. <Link href="/pricing" className="font-medium text-ink underline underline-offset-2">Pro</Link> is unlimited.</li>
-            <li>The key only reads the library. Revoke it any time in <Link href="/account" className="font-medium text-ink underline underline-offset-2">Account</Link>.</li>
-            <li>Prefer files over an agent? Use the <a href="#cli" className="font-medium text-ink underline underline-offset-2">CLI</a>.</li>
+          <IlloTile scene="plug" label="An AI agent plugged into the Ingot UI library" className="h-[170px]" />
+          <ul className="mt-4 flex flex-col gap-3 text-[13px] text-ink-2">
+            <li><span className="font-medium text-ink">Free to start.</span> 50 calls a day on a free account. <Link href="/pricing" className="underline underline-offset-2">Pro</Link> is unlimited.</li>
+            <li><span className="font-medium text-ink">Read-only key.</span> It only reads the library. Revoke it any time in <Link href="/account" className="underline underline-offset-2">Account</Link>.</li>
+            <li><span className="font-medium text-ink">Remembers the system.</span> init_project writes rules files, so every new session stays on your design system.</li>
+            <li><span className="font-medium text-ink">No agent?</span> The <a href="#cli" className="underline underline-offset-2">CLI</a> adds the same components.</li>
           </ul>
         </aside>
       </div>
 
-      <section className="mt-12" aria-labelledby="prompt-h">
-        <h2 id="prompt-h" className={H2} {...ed("mcp.prompt.h")}>Then ask for a screen</h2>
-        <p className="mt-1 text-[13px] text-mute" {...ed("mcp.prompt.p")}>Describe the page you need. The agent picks the components, writes them into your project and checks the result.</p>
-        <div className="mt-3">
-          <CopyBlock blocks={[{ label: "Prompt", code: "Set this project up with the Ingot UI Loopo system, then build an analytics overview page with KPI cards, a capsule bar chart for monthly revenue and a transactions table. Run audit_ui before you finish." }]} />
-        </div>
-        <p className="mt-2 text-[12px] text-mute">
-          See what that builds in the <Link href="/systems" className="underline underline-offset-2">systems</Link>, or browse the <Link href="/" className="underline underline-offset-2">component library</Link>.
-        </p>
-      </section>
-
-      <section className="mt-12" aria-labelledby="tools-h">
+      <section id="tools" className="mt-14 scroll-mt-6" aria-labelledby="tools-h">
         <h2 id="tools-h" className={H2}>
-          Tools your agent gets <span className="font-normal text-mute">{TOOLS.length}</span>
+          What your agent can do <span className="font-normal text-mute">{TOOLS.length} tools</span>
         </h2>
-        <div className="card mt-3">
+        <p className="mt-1 text-[13px] text-mute">You never call these yourself. Ask in plain words and the agent picks the right one.</p>
+        <div className="mt-3 grid gap-px overflow-hidden rounded-[10px] border border-hair bg-hair sm:grid-cols-2">
           {TOOLS.map(([n, d]) => (
-            <div key={n} className="flex flex-col gap-1 border-b border-hair px-4 py-2.5 last:border-0 sm:flex-row sm:gap-6">
-              <code className="w-52 shrink-0 font-fu-mono text-[12px]">{n}</code>
-              <span className="text-[13px] text-mute">{d}</span>
+            <div key={n} className="bg-white px-4 py-3">
+              <code className="font-fu-mono text-[12px]">{n}</code>
+              <p className="mt-0.5 text-[13px] text-mute">{d}</p>
             </div>
           ))}
+          {TOOLS.length % 2 === 1 && <div className="bg-white max-sm:hidden" aria-hidden="true" />}
         </div>
       </section>
 
-      <section id="manual" className="mt-12 scroll-mt-6" aria-labelledby="manual-h">
+      <section id="manual" className="mt-14 scroll-mt-6" aria-labelledby="manual-h">
         <h2 id="manual-h" className={H2} {...ed("mcp.manual.h")}>Set it up by hand</h2>
         <p className="mt-1 text-[13px] text-mute">
           Endpoint <code className="font-fu-mono text-[12px]">{MCP_URL}</code>, sent with <code className="font-fu-mono text-[12px]">Authorization: Bearer</code> and a key from <Link href="/account" className="underline underline-offset-2">Account</Link>. Replace YOUR_API_KEY below.
         </p>
         <div className="mt-3">
-          <CopyBlock blocks={CLIENTS.map((c) => ({ label: c.name, code: configText(c.id, MCP_URL, "YOUR_API_KEY").code }))} />
+          <CopyBlock blocks={CLIENTS.map((c) => ({ label: c.name, icon: <ClientLogo id={c.id} size={13} />, code: configText(c.id, MCP_URL, "YOUR_API_KEY").code }))} />
         </div>
         <p className="mt-2 text-[12px] text-mute">Where it goes: {CLIENTS.map((c) => c.name + " → " + configText(c.id, MCP_URL, "").label).join(", ")}.</p>
       </section>
 
-      <section id="cli" className="mt-12 scroll-mt-6" aria-labelledby="cli-h">
+      <section id="cli" className="mt-14 scroll-mt-6" aria-labelledby="cli-h">
         <h2 id="cli-h" className={H2} {...ed("mcp.cli.h")}>Prefer a CLI?</h2>
         <p className="mt-1 text-[13px] text-mute" {...ed("mcp.cli.p")}>Same components, no agent needed.</p>
         <div className="mt-3">
@@ -144,16 +152,32 @@ export default function McpPage() {
         </div>
       </section>
 
-      <section className="mt-12 max-w-[760px]" aria-labelledby="faq-h">
+      <section className="mt-14 max-w-[760px]" aria-labelledby="faq-h">
         <h2 id="faq-h" className={H2}>Questions</h2>
-        <div className="mt-3 flex flex-col">
-          {FAQ.map((f) => (
-            <div key={f.q} className="border-b border-hair py-4 first:pt-0 last:border-0">
-              <h3 className="text-[13px] font-medium">{f.q}</h3>
-              <p className="mt-1 text-[13px] leading-relaxed text-ink-2">{f.a}</p>
-            </div>
+        <div className="mt-3 flex flex-col gap-2">
+          {FAQ.map((f, i) => (
+            <details key={f.q} open={i === 0} className="group rounded-[10px] bg-tile px-4 py-3 open:pb-4">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-[13px] font-medium [&::-webkit-details-marker]:hidden">
+                {f.q}
+                <svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true" className="shrink-0 text-mute transition-transform group-open:rotate-180"><path d="M6 9l6 6l6 -6" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
+              </summary>
+              <p className="mt-2 text-[13px] leading-relaxed text-ink-2">{f.a}</p>
+            </details>
           ))}
         </div>
+      </section>
+
+      <section className="card mt-14 flex flex-col items-start gap-4 p-6 sm:flex-row sm:items-center">
+        <div className="flex-1">
+          <h2 className="text-[16px] font-medium tracking-[-0.01em]">Give your agent a design system</h2>
+          <p className="mt-1 text-[13px] text-mute">One minute to connect. Every screen after that is built from components that match.</p>
+        </div>
+        <div className="flex items-center gap-1.5">
+          {CLIENTS.map((c) => (
+            <ClientLogo key={c.id} id={c.id} size={20} />
+          ))}
+        </div>
+        <a href="#connect" className="btn-ink">Connect your agent</a>
       </section>
     </div>
   );

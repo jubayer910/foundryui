@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { CLIENTS, configText, type ClientId } from "./connect-agent-config";
+import { ClientLogo } from "./client-logo";
 
 /**
  * "Build it with your agent": two ready-to-copy prompts on every component and template page.
@@ -87,6 +88,7 @@ export function AgentPrompts({
           text={setup}
           head={
             <label className="select-pill relative inline-flex items-center gap-1.5">
+              <ClientLogo id={client} size={14} />
               <span className="truncate">{CLIENTS.find((c) => c.id === client)!.name}</span>
               <svg width="12" height="12" viewBox="0 0 24 24" aria-hidden="true" className="shrink-0 text-mute"><path d="M6 9l6 6l6 -6" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
               <select aria-label="Your agent" value={client} onChange={(e) => setClient(e.target.value as ClientId)} className="absolute inset-0 h-full w-full cursor-pointer appearance-none rounded-full opacity-0">

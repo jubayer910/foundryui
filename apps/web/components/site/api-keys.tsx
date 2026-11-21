@@ -3,6 +3,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { Icon } from "@/registry/components/icons";
 import { CLIENTS, clientFromKeyName, clientName, type ClientId } from "./connect-agent-config";
+import { ClientLogo } from "./client-logo";
 
 type Key = { id: string; name: string; prefix: string; createdAt: string; lastUsedAt: string | null };
 
@@ -63,7 +64,7 @@ export function ApiKeys({ initial }: { initial: Key[] }) {
           return (
             <div key={k.id} className="flex flex-wrap items-center gap-x-4 gap-y-1.5 border-b border-hair px-4 py-3 text-[13px] last:border-0">
               <div className="w-full min-w-0 sm:w-auto sm:flex-1">
-                <p className="font-medium">{k.name}</p>
+                <p className="flex items-center gap-1.5 font-medium">{client && <ClientLogo id={client} size={14} />}{k.name}</p>
                 <p className="flex flex-wrap gap-x-3 text-[12px] text-mute">
                   <span className="font-fu-mono">{k.prefix}…</span>
                   {client && k.name !== clientName(client) && <span>For {clientName(client)}</span>}
