@@ -112,7 +112,7 @@ function make(gran: Gran, firstMs: number, endMs: number, offset: number): Perio
     key = isoDay(firstMs);
     name = `${WEEKDAYS[d.getUTCDay()].slice(0, 3)}, ${fmtDay(firstMs, true)}`;
     tick = `${MONTHS[d.getUTCMonth()]} ${d.getUTCDate()}`;
-    return { gran, key, startDay: key, lastDay: key, endDay: isoDay(endMs), start: firstMs / 1000 - offset, end: endMs / 1000 - offset, name, dates: `${WEEKDAYS[d.getUTCDay()]}, ${fmtDay(firstMs, true)}`, tick };
+    return { gran, key, startDay: key, lastDay: key, endDay: isoDay(endMs), start: firstMs / 1000 - offset, end: endMs / 1000 - offset, name, dates: fmtDay(firstMs, true), tick };
   }
   if (gran === "week") {
     const w = isoWeek(firstMs);
@@ -304,9 +304,9 @@ const read = (p: Params, k: string) => {
 const clean = (s: string) => s.trim().slice(0, 80);
 
 /** Reads the report selection from search params, falling back to safe defaults for anything invalid. */
-export function parseState(p: Params, now = Date.now()): ReportState {
+export function parseState(p: Params, now = Date.now(), defaults: { gran?: Gran } = {}): ReportState {
   const g = read(p, "g");
-  const gran: Gran = (GRANS as string[]).includes(g) ? (g as Gran) : "month";
+  const gran: Gran = (GRANS as string[]).includes(g) ? (g as Gran) : (defaults.gran ?? "month");
   const t = read(p, "tz");
   const tz: TzId = isTz(t) ? t : "UTC";
   const offset = TZS[tz].offset;

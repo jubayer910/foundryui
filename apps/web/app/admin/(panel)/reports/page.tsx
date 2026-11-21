@@ -2,30 +2,24 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import { can, requireStaff } from "@/lib/admin";
 import { FILTER_CHOICES } from "@/lib/reports/datasets";
-import { tzLine } from "@/lib/reports/format";
+import { loadHourly, hourlyFor } from "@/lib/reports/hourly";
 import { loadReport } from "@/lib/reports/load";
-import { DATASETS, MONEY_DATASETS, dayText, isoDay, parseState, periodOfInstant, stateQuery, type DatasetId, type Gran } from "@/lib/reports/period";
+import { DATASETS, MONEY_DATASETS, dayText, isoDay, parseState, type DatasetId } from "@/lib/reports/period";
 import { AdminHead } from "@/components/admin/ui";
-import { Controls, CustomExport, type FilterChoice } from "@/components/admin/reports/controls";
-import { RIcon } from "@/components/admin/reports/icons";
+import { Menu } from "@/components/admin/menu";
+import { Controls, type FilterChoice } from "@/components/admin/reports/controls";
+import { exportItems } from "@/components/admin/reports/export-items";
+import { PeriodBar } from "@/components/admin/reports/period-bar";
 import { DatasetSection, periodText } from "@/components/admin/reports/view";
 
 export const metadata: Metadata = { title: "Reports" };
-
-const QUICK: { g: Gran; label: string }[] = [
-  { g: "week", label: "This week" },
-  { g: "month", label: "This month" },
-  { g: "quarter", label: "This quarter" },
-  { g: "year", label: "This year" },
-];
 
 export default async function ReportsPage({ searchParams }: PageProps<"/admin/reports">) {
   const { role } = await requireStaff("analytics", "/admin/reports");
   const money = can(role, "revenue");
   const s = parseState(await searchParams);
-  const r = await loadReport(s, { revenue: money });
+  const [r, hourly] = await Promise.all([loadReport(s, { revenue: money }), loadHourly(s, { revenue: money })]);
   const visible: DatasetId[] = DATASETS.filter((d) => money || !MONEY_DATASETS.includes(d));
-  const q = stateQuery(s);
 
   const traffic = r.datasets.find((d) => d.id === "traffic");
   const audience = r.datasets.find((d) => d.id === "audience");
@@ -47,54 +41,25 @@ export default async function ReportsPage({ searchParams }: PageProps<"/admin/re
 
   return (
     <div>
-      <AdminHead title="Reports" sub={`Every number by week, month, quarter and year, with its definition and the rows behind it. ${tzLine(s)}.`}>
-        <a href={`/admin/reports/export/xlsx?${q}`} download className="btn-ink !h-8 !px-3">
-          <RIcon name="file-spreadsheet" size={15} />
-          Excel workbook
-        </a>
-        <a href={`/admin/reports/print?${q}`} target="_blank" className="btn-line !h-8 !px-3">
-          <RIcon name="printer" size={15} />
-          Print or PDF<span className="sr-only"> (opens in a new tab)</span>
-        </a>
+      <AdminHead
+        title="Reports"
+        sub={`${periodText(r.sel)}${s.partial ? `, in progress through ${dayText(today)}` : ""}${r.cmp ? ` vs ${r.cmp.name}` : ""}`}
+        info="Every dataset by day, week, month, quarter or year, with the definition of each number and the rows behind it. Weeks are ISO weeks starting Monday; quarters are calendar quarters. Money is in USD; amounts in other currencies without a USD figure are left out and named under Revenue."
+      >
+        <Menu label="Export" icon="download" items={exportItems(s)} />
       </AdminHead>
 
-      <div className="mt-4 flex flex-wrap items-center gap-1.5" role="group" aria-labelledby="quick-export">
-        <span id="quick-export" className="mr-1 inline-flex items-center gap-1.5 text-[12px] text-mute">
-          <RIcon name="download" size={14} />
-          Quick export, Excel
-        </span>
-        {QUICK.map((x) => {
-          const cur = periodOfInstant(x.g, s.now, s.offset);
-          return (
-            <a key={x.g} href={`/admin/reports/export/xlsx?${stateQuery(s, { gran: x.g, p: "current" })}`} download className="btn-line !h-8 !px-3" title={`${periodText(cur)}, ${s.tz === "UTC" ? "UTC" : "Asia/Dhaka"}`}>
-              {x.label}
-              <span className="sr-only">: {periodText(cur)}</span>
-            </a>
-          );
-        })}
-        <CustomExport />
-      </div>
-
       <Suspense>
+        <PeriodBar />
         <Controls datasets={visible} filters={filters} />
       </Suspense>
 
-      <div className="mt-4 flex flex-wrap items-start gap-x-6 gap-y-2 rounded-[8px] bg-tile px-4 py-3 text-[13px]" role="status">
-        <p className="min-w-0 flex-1 basis-[320px]">
-          <span className="font-medium">{periodText(r.sel)}</span>
-          {s.partial && <span className="text-mute">, in progress: data through {dayText(today)}</span>}
-          <span className="block text-mute">
-            {r.cmp ? `Compared with ${periodText(r.cmp)}${s.partial ? ", a full period" : ""}.` : "No comparison."} Trend: {r.buckets[0].name} to {r.sel.name}. {tzLine(s)}; weeks are ISO weeks starting Monday.
-          </span>
-        </p>
-      </div>
-
       {r.datasets.map((d) => (
-        <DatasetSection key={d.id} d={d} r={r} />
+        <DatasetSection key={d.id} d={d} r={r} hourly={hourlyFor(hourly, d.id, s)} />
       ))}
 
       <p className="mt-10 text-[12px] text-faint">
-        Built from {r.queries} grouped database queries for this view. Money is in USD; amounts in other currencies without a USD figure are left out and named under Revenue.
+        {r.queries + (hourly?.queries ?? 0)} grouped database queries for this view.
       </p>
     </div>
   );

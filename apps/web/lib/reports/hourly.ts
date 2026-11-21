@@ -66,5 +66,16 @@ export async function loadHourly(s: ReportState, opts: { revenue: boolean }): Pr
   return { day: c.sel, cmp: c.cmp, series, queries: statements.length };
 }
 
+/** Hourly series that belong under each dataset (Insights and Reports show them next to the dataset's trend). */
+export const HOURLY_OF: Partial<Record<string, string[]>> = { audience: ["signups"], usage: ["events"], agents: ["agents"], support: ["tickets"], revenue: ["net", "orders"] };
+
+/** The hourly block for one dataset, or null. */
+export function hourlyFor(h: Hourly | null, dataset: string, s: ReportState) {
+  if (!h) return null;
+  const ids = HOURLY_OF[dataset] ?? [];
+  const series = h.series.filter((x) => ids.includes(x.id));
+  return series.length ? { series, tz: s.tz === "UTC" ? "UTC" : "Dhaka time (UTC+6)" } : null;
+}
+
 /** "07:00" */
 export const hourLabel = (h: number) => `${String(h).padStart(2, "0")}:00`;
