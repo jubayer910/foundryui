@@ -84,7 +84,7 @@ function summarySheet(r: Report): Sheet {
   kv("Period", txt(`${r.sel.name} (${r.sel.dates})`));
   kv("First day", date(r.sel.startDay));
   kv("Last day", date(r.sel.lastDay));
-  kv("Granularity", txt(s.gran === "week" ? "Weekly, ISO weeks (Monday to Sunday)" : s.gran === "quarter" ? "Quarterly, calendar quarters" : GRAN_ADJ[s.gran][0].toUpperCase() + GRAN_ADJ[s.gran].slice(1)));
+  kv("Granularity", txt(s.gran === "day" ? `Daily, local days (${TZS[s.tz].label})` : s.gran === "week" ? "Weekly, ISO weeks (Monday to Sunday)" : s.gran === "quarter" ? "Quarterly, calendar quarters" : GRAN_ADJ[s.gran][0].toUpperCase() + GRAN_ADJ[s.gran].slice(1)));
   kv("Time zone", txt(`${TZS[s.tz].label}. ${tzLine(s)}.`));
   kv("Period status", txt(s.partial ? `In progress: data up to ${stamp(r.generatedAt, s)}` : "Complete"));
   kv("Compared with", txt(r.cmp ? `${r.cmp.name} (${r.cmp.dates})${s.compare === "yoy" ? ", same period last year" : ", previous period"}` : "No comparison"));
@@ -126,3 +126,14 @@ export function reportXlsx(r: Report): Uint8Array {
 }
 
 export const xlsxName = (r: Report) => `${fileBase(r.state)}.xlsx`;
+
+/* ---- Hourly CSV (day granularity) ---- */
+
+/** One row per hour of the selected day, in the report time zone; one column per hourly series. */
+export function hourlyCsv(h: { day: Period; series: { label: string; unit: Unit; cur: number[] }[] }, s: { tz: string }): string {
+  const head = ["Day", "Hour", ...h.series.map((x) => headOf({ label: x.label, unit: x.unit })), "Time zone"];
+  const lines: (string | number | null)[][] = [head];
+  for (let i = 0; i < 24; i++) lines.push([h.day.key, `${String(i).padStart(2, "0")}:00`, ...h.series.map((x) => exportNum(x.unit, x.cur[i])), s.tz]);
+  lines.push(["Day total", "", ...h.series.map((x) => exportNum(x.unit, x.cur.reduce((a, b) => a + b, 0))), s.tz]);
+  return "﻿" + lines.map((l) => l.map((c) => csvCell(c)).join(",")).join("\r\n") + "\r\n";
+}

@@ -301,7 +301,7 @@ const REVENUE: MetricDef[] = [
 ];
 
 /** Charged orders with USD amounts and refunds, mirroring the Revenue page (app/admin/(panel)/revenue/data.ts). */
-function ordersCte(c: Ctx, q: Q, w: string) {
+export function ordersCte(c: Ctx, q: Q, w: string) {
   const provider = valid("provider", c.s.filters.provider);
   const intOf = (e: string) => `(case when typeof(${e}) in ('integer', 'real') then cast(round(${e}) as integer) when typeof(${e}) = 'text' and ${e} != '' and ${e} not glob '*[^0-9-]*' then cast(${e} as integer) end)`;
   const j = (path: string) => `(case when json_valid(raw) then json_extract(raw, '${path}') end)`;
