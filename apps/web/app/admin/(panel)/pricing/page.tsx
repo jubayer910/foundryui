@@ -15,7 +15,7 @@ export default async function AdminPricing() {
   const str = (n: number) => String(n);
   return (
     <div>
-      <AdminHead title="Pricing & deal" sub="Prices and the Lifetime launch deal with its spots and end date." />
+      <AdminHead title="Pricing & deal" info="Prices and the Lifetime launch deal with its spots and end date." />
       <PricingForm
         sold={deal.sold}
         action={savePricing}

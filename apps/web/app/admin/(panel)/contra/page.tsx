@@ -7,7 +7,8 @@ import { productName } from "@/lib/activation";
 import { getConnection, isConnected } from "@/lib/contra/oauth";
 import { listSales, PRICE_MISMATCH, type Sale } from "@/lib/contra/sync";
 import { AIcon } from "@/components/admin/admin-icons";
-import { AdminHead, Flash, Section, Table, Tag, cap, money, td, when } from "@/components/admin/ui";
+import { AdminHead, Empty, Flash, LinkTabs, Table, Tag, Toolbar, cap, money, td, tdNum, when } from "@/components/admin/ui";
+import { sp } from "@/components/admin/guard";
 import { SubmitButton } from "../activations/buttons";
 import { ignore, matchToUser, syncNow } from "./actions";
 
@@ -26,53 +27,58 @@ export default async function AdminContra({ searchParams }: PageProps<"/admin/co
   const users = userIds.length ? await (await getDb()).select({ id: schema.user.id, email: schema.user.email }).from(schema.user).where(inArray(schema.user.id, userIds)) : [];
   const emailOf = new Map(users.map((u) => [u.id, u.email]));
   const unmatched = sales.filter((s) => s.status === "unmatched").length;
+  const STATUS = ["unmatched", "matched", "ignored"];
+  const filter = STATUS.includes(sp(q.status)) ? sp(q.status) : "";
+  const shown = filter ? sales.filter((s) => s.status === filter) : sales;
+  const countOf = (st: string) => sales.filter((s) => s.status === st).length;
 
   return (
     <div>
-      <AdminHead title="Contra sales" sub="Sales from your Contra payment links. Each one switches the buyer's plan on by itself when it matches an account or a request." />
+      <AdminHead title="Contra sales" sub={`${sales.length} sales, ${unmatched} unmatched`} info="Sales from your Contra payment links. Each one switches the buyer's plan on by itself when it matches an account or a request. Unmatched sales need you: match them to an account, or ignore them." />
       <Flash ok={q.ok} err={q.err} />
 
-      <section className="card mt-5 p-4" aria-label="Contra connection">
-        <div className="flex items-start gap-3">
-          <span className={"flex size-9 shrink-0 items-center justify-center rounded-full " + (connected ? "bg-ink text-white" : "bg-tile text-ink")}>
-            <AIcon name="plug-connected" size={18} />
-          </span>
-          <div className="min-w-0 flex-1">
-            <p className="text-[15px] font-medium">{connected ? "Connected to Contra" : "Contra is not connected"}</p>
-            <p className="mt-0.5 text-[13px] text-mute">
+      <section className="card mt-5 flex flex-wrap items-center gap-x-4 gap-y-3 p-4" aria-label="Contra connection">
+        <div className="flex min-w-0 flex-1 basis-[320px] items-start gap-3">
+          <AIcon name={connected && conn.lastError ? "alert-triangle" : "plug-connected"} size={18} className={"mt-px shrink-0 " + (connected && conn.lastError ? "text-[#9b1c1c]" : "text-mute")} />
+          <div className="min-w-0 text-[13px]">
+            <p className="font-medium">{connected ? "Connected to Contra" : "Contra is not connected"}</p>
+            <p className="mt-0.5 text-mute">
               {connected
-                ? `By ${conn.connectedBy ?? "unknown"}, ${when(conn.connectedAt)}. Checks for new sales every minute.`
-                : "Connect once with the Contra account that owns the payment links. We only read sales, never change anything on Contra."}
+                ? `Last sync ${conn.lastSyncAt ? when(conn.lastSyncAt) : "not yet"}. Connected by ${conn.connectedBy ?? "unknown"}, ${when(conn.connectedAt)}.`
+                : "Connect the Contra account that owns the payment links. Read only."}
             </p>
+            {connected && conn.lastError && <p className="mt-0.5 text-[#9b1c1c]">{conn.lastError}</p>}
           </div>
         </div>
-        {connected && (
-          <dl className="mt-3 grid grid-cols-[auto_minmax(0,1fr)] gap-x-4 gap-y-1.5 rounded-[8px] bg-tile px-4 py-3 text-[13px]">
-            <dt className="text-mute">Last sync</dt>
-            <dd>{conn.lastSyncAt ? when(conn.lastSyncAt) : "Not yet"}</dd>
-            <dt className="text-mute">Last error</dt>
-            <dd className={conn.lastError ? "text-[#9b1c1c]" : "text-mute"}>{conn.lastError ?? "None"}</dd>
-          </dl>
-        )}
-        <div className="mt-4 grid gap-2 sm:flex">
+        <div className="flex flex-wrap gap-2">
           {connected && (
             <form action={syncNow}>
-              <SubmitButton busy="Syncing…" className="btn-ink !h-11 w-full !px-5 sm:w-auto">
-                <AIcon name="refresh" size={16} />
+              <SubmitButton busy="Syncing…" className="btn-ink !h-8 !px-3">
+                <AIcon name="refresh" size={15} />
                 Sync now
               </SubmitButton>
             </form>
           )}
           {/* A full navigation: the route redirects to Contra's sign-in page. */}
-          <a href="/api/admin/contra/connect" className={(connected ? "btn-line" : "btn-ink") + " !h-11 w-full !px-5 sm:w-auto"}>
-            <AIcon name="plug-connected" size={16} />
+          <a href="/api/admin/contra/connect" className={(connected ? "btn-line" : "btn-ink") + " !h-8 !px-3"}>
+            <AIcon name="plug-connected" size={15} />
             {connected ? "Reconnect" : "Connect Contra"}
           </a>
         </div>
       </section>
 
-      <Section title="Sales" sub={sales.length ? `${sales.length} sale${sales.length === 1 ? "" : "s"}, ${unmatched} unmatched. Unmatched sales need you: match them to an account, or ignore them.` : undefined}>
-        {sales.length === 0 ? (
+      <Toolbar>
+        <LinkTabs
+          tabs={[
+            { href: "/admin/contra", label: "All", count: sales.length, on: !filter },
+            ...STATUS.map((st) => ({ href: `/admin/contra?status=${st}`, label: cap(st), count: countOf(st), on: filter === st })),
+          ]}
+        />
+      </Toolbar>
+      <div className="mt-4">
+        {shown.length === 0 && sales.length > 0 ? (
+          <Empty>No {filter} sales.</Empty>
+        ) : sales.length === 0 ? (
           <div className="card flex flex-col items-start gap-1 p-5 text-[13px]">
             <AIcon name="receipt" size={20} className="text-faint" />
             <p className="mt-1 font-medium">No sales yet</p>
@@ -81,23 +87,23 @@ export default async function AdminContra({ searchParams }: PageProps<"/admin/co
         ) : (
           <>
             <ul className="grid gap-3 lg:hidden">
-              {sales.map((s) => (
+              {shown.map((s) => (
                 <li key={s.id}>
                   <SaleCard s={s} account={s.userId ? emailOf.get(s.userId) : undefined} />
                 </li>
               ))}
             </ul>
             <div className="hidden lg:block">
-              <Table head={["Paid", "Product", "Buyer", "Email", "Amount", "Status", "Linked to", ""]}>
-                {sales.map((s) => (
+              <Table head={["Paid", "Product", "Buyer", "Email", "Amount", "Status", "Linked to", ""]} right={[4]}>
+                {shown.map((s) => (
                   <tr key={s.id}>
-                    <td className={td + " whitespace-nowrap text-mute"}>{s.paidOn ?? "Unknown"}</td>
+                    <td className={td + " whitespace-nowrap text-mute tabular-nums"}>{s.paidOn ?? "Unknown"}</td>
                     <td className={td + " whitespace-nowrap"}>{productName(s.variantKey)}</td>
                     <td className={td}>{buyer(s)}</td>
                     <td className={td}>
                       <span className={"block max-w-[220px] truncate " + (s.payerEmail ? "" : "text-faint")}>{s.payerEmail ?? "Not shared"}</span>
                     </td>
-                    <td className={td + " tabular-nums"}>{money(s.amountCents, s.currency)}</td>
+                    <td className={tdNum}>{money(s.amountCents, s.currency)}</td>
                     <td className={td}>
                       <Tag tone={tone(s.status)}>{cap(s.status)}</Tag>
                       {s.note && <span className="mt-1 block max-w-[240px] text-[12px] text-faint" title={s.note}>{s.note}</span>}
@@ -112,7 +118,7 @@ export default async function AdminContra({ searchParams }: PageProps<"/admin/co
             </div>
           </>
         )}
-      </Section>
+      </div>
     </div>
   );
 }

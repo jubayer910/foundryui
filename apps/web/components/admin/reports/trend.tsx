@@ -30,7 +30,7 @@ export function Trend({ title, metrics, rows, selected, compare }: { title: stri
   const empty = vals.every((v) => !v);
 
   return (
-    <figure className="card p-4">
+    <figure className="card min-w-0 p-4">
       <figcaption className="flex flex-wrap items-center gap-x-3 gap-y-2">
         <span className="text-[13px] text-mute">{title}</span>
         {metrics.length > 1 && (
@@ -54,7 +54,7 @@ export function Trend({ title, metrics, rows, selected, compare }: { title: stri
             <span className="font-medium">{show(m.unit, fv)}</span>
             <span className="text-mute">
               {" "}
-              {m.label.toLowerCase()} in {focus.name} ({focus.dates})
+              {m.label.toLowerCase()} in {focus.name.includes(focus.dates) ? focus.name : `${focus.name} (${focus.dates})`}
               {focus.key === selected ? ", selected period" : focus.key === compare ? ", comparison period" : ""}
             </span>
           </>
@@ -93,9 +93,9 @@ export function Trend({ title, metrics, rows, selected, compare }: { title: stri
             );
           })}
         </div>
-        <div className="mt-1.5 flex gap-[3px] border-t border-hair-2 pt-1.5 text-[11px] text-faint tabular-nums" aria-hidden="true">
+        <div className="mt-1.5 flex gap-[3px] overflow-hidden border-t border-hair-2 pt-1.5 text-[11px] text-faint tabular-nums" aria-hidden="true">
           {rows.map((r, i) => (
-            <span key={r.key} className="min-w-0 flex-1 truncate text-center">
+            <span key={r.key} className="min-w-0 flex-1 overflow-visible text-center whitespace-nowrap">
               {(rows.length - 1 - i) % every === 0 ? r.tick : ""}
             </span>
           ))}

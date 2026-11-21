@@ -1,17 +1,19 @@
+import type { ReactNode } from "react";
 import Link from "next/link";
 import { changeOf, headOf, show } from "@/lib/reports/format";
-import { dayText, stateQuery, type Period, type ReportState } from "@/lib/reports/period";
+import { dayText, rangeLabel, stateQuery, type Period, type ReportState } from "@/lib/reports/period";
 import type { Breakdown, DatasetResult, MetricDef, Report } from "@/lib/reports/types";
+import { HourlyChart, type HourlySeriesView } from "./hourly-chart";
 import { RIcon } from "./icons";
 import { Info } from "./info";
 import { Trend } from "./trend";
 
-/** Server-rendered parts of /admin/reports. Client islands: Info (definitions) and Trend (chart). */
+/** Server-rendered parts of Reports and Insights. Client islands: Info (definitions), Trend and HourlyChart. */
 
 const GOOD = "text-[#17663a]";
 const BAD = "text-[#9b1c1c]";
 
-export const periodText = (p: Period) => `${p.name} (${p.dates})`;
+export const periodText = (p: Period) => (p.gran === "day" ? p.name : `${p.name} (${p.dates})`);
 
 /** Change line: arrow icon and signed text, coloured by whether the change is good; full sentence for screen readers. */
 export function ChangeText({ m, cur, prev, versus, className = "" }: { m: Pick<MetricDef, "unit" | "invert">; cur: unknown; prev: unknown; versus: string; className?: string }) {
@@ -27,27 +29,33 @@ export function ChangeText({ m, cur, prev, versus, className = "" }: { m: Pick<M
   );
 }
 
-function Kpi({ m, d, r }: { m: MetricDef; d: DatasetResult; r: Report }) {
-  const versus = r.cmp ? r.cmp.name : "";
+/** Compact change for KPI cards: arrow and percent (or points), coloured by good or bad; the full sentence is the title and screen-reader text. */
+export function ChangeBadge({ m, cur, prev, versus }: { m: Pick<MetricDef, "unit" | "invert">; cur: unknown; prev: unknown; versus: string }) {
+  const c = changeOf(m, cur, prev, versus);
+  if (!c) return null;
+  const tone = c.good === null ? "text-mute" : c.good ? GOOD : BAD;
+  const short = c.dir === "flat" ? "0%" : m.unit === "pct" ? c.text : c.pct === null ? "New" : `${c.dir === "up" ? "+" : "−"}${Math.abs(c.pct) < 10 && c.pct !== 0 ? Math.abs(c.pct).toFixed(1) : Math.round(Math.abs(c.pct))}%`;
+  return (
+    <span className={"inline-flex items-center gap-0.5 text-[12px] tabular-nums " + tone} title={c.said}>
+      <RIcon name={c.dir === "up" ? "trending-up" : c.dir === "down" ? "trending-down" : "minus"} size={14} />
+      <span aria-hidden="true">{short}</span>
+      <span className="sr-only">{c.said}</span>
+    </span>
+  );
+}
+
+/** KPI card for a report metric: label with its definition, the value for the selected period, the change. */
+export function MetricKpi({ m, d, r }: { m: MetricDef; d: DatasetResult; r: Report }) {
   return (
     <div className="card min-w-0 p-4">
-      <div className="flex items-start gap-1">
-        <p className="min-w-0 flex-1 text-[13px] text-mute">
-          {m.label}
-          {m.unit === "usd" && <span className="text-faint"> (USD)</span>}
-        </p>
-        <Info label={m.label} text={m.def} align="right" />
+      <p className="flex min-w-0 items-center gap-0.5 text-[13px] text-mute">
+        <span className="truncate">{m.label}</span>
+        <Info label={m.label} text={`${m.def}${r.cmp ? ` Compared with ${r.cmp.name}: ${show(m.unit, d.compare?.[m.id])}.` : ""}`} />
+      </p>
+      <div className="mt-1 flex flex-wrap items-baseline gap-x-2">
+        <p className="text-[22px] leading-[30px] font-medium tracking-[-0.02em] tabular-nums">{show(m.unit, d.selected[m.id])}</p>
+        {r.cmp && <ChangeBadge m={m} cur={d.selected[m.id]} prev={d.compare?.[m.id]} versus={r.cmp.name} />}
       </div>
-      <p className="mt-1 text-[22px] font-medium tracking-[-0.02em] tabular-nums">{show(m.unit, d.selected[m.id])}</p>
-      <div className="mt-1 min-h-[18px]">
-        {r.cmp ? <ChangeText m={m} cur={d.selected[m.id]} prev={d.compare?.[m.id]} versus={versus} /> : <span className="text-[12px] text-faint">No comparison</span>}
-      </div>
-      {r.cmp && (
-        <p className="mt-0.5 text-[12px] text-faint tabular-nums">
-          {show(m.unit, d.compare?.[m.id])} in {r.cmp.name}
-          {r.state.partial && m.total !== "last" ? ", a full period" : ""}
-        </p>
-      )}
     </div>
   );
 }
@@ -190,29 +198,35 @@ export function BreakdownCard({ b, r }: { b: Breakdown; r: Report }) {
   );
 }
 
-export function Notes({ d }: { d: DatasetResult }) {
-  if (!d.notes.length) return null;
+/** A disclosure row: "Show table", "Show 3 more breakdowns", "Notes and definitions". */
+export function More({ label, children, className = "" }: { label: string; children: ReactNode; className?: string }) {
   return (
-    <ul className="mt-3 flex flex-col gap-1 text-[12px] text-mute">
-      {d.notes.map((n) => (
-        <li key={n} className="flex items-start gap-1.5">
-          <RIcon name="alert-circle" size={14} className="mt-px shrink-0 text-faint" />
-          <span>{n}</span>
-        </li>
-      ))}
-    </ul>
+    <details className={"group mt-3 " + className}>
+      <summary className="inline-flex cursor-pointer list-none items-center gap-1.5 rounded-[6px] px-2 py-1 text-[12px] text-mute hover:bg-tile hover:text-ink [&::-webkit-details-marker]:hidden">
+        <RIcon name="chevron-down" size={13} className="-rotate-90 transition-transform duration-150 group-open:rotate-0" />
+        {label}
+      </summary>
+      <div className="mt-2">{children}</div>
+    </details>
   );
 }
 
+/** Notes (honest limits of the data) and every metric definition, in one collapsed block. */
 export function Definitions({ d }: { d: DatasetResult }) {
   return (
-    <details className="group mt-3 rounded-[8px] px-1 text-[13px]">
-      <summary className="inline-flex cursor-pointer list-none items-center gap-1.5 rounded-[6px] px-2 py-1 text-[12px] text-mute hover:bg-tile hover:text-ink [&::-webkit-details-marker]:hidden">
-        <RIcon name="info-circle" size={14} />
-        Definitions for {d.title.toLowerCase()}
-        <RIcon name="chevron-down" size={13} className="transition-transform group-open:rotate-180" />
-      </summary>
-      <dl className="mt-2 grid gap-x-6 gap-y-2 px-2 sm:grid-cols-2">
+    <More label="Notes and definitions">
+      {d.notes.length > 0 && (
+        <ul className="mb-3 flex flex-col gap-1 px-2 text-[12px] text-mute">
+          {d.notes.map((n) => (
+            <li key={n} className="flex items-start gap-1.5">
+              <RIcon name="alert-circle" size={14} className="mt-px shrink-0 text-faint" />
+              <span>{n}</span>
+            </li>
+          ))}
+          {d.since && <li className="pl-5">First data: {dayText(d.since)}.</li>}
+        </ul>
+      )}
+      <dl className="grid gap-x-6 gap-y-2 px-2 sm:grid-cols-2">
         {d.metrics.map((m) => (
           <div key={m.id}>
             <dt className="text-[12px] font-medium">{headOf(m)}</dt>
@@ -220,39 +234,40 @@ export function Definitions({ d }: { d: DatasetResult }) {
           </div>
         ))}
       </dl>
-    </details>
+    </More>
   );
 }
 
-/** One dataset: header with CSV export, KPIs, trend, period table, breakdowns, notes and definitions. */
-export function DatasetSection({ d, r }: { d: DatasetResult; r: Report }) {
+/**
+ * One dataset, calm by default: title (definition in the info popover) with its CSV, four KPIs, the trend,
+ * the hour-by-hour chart on a single day, two breakdowns. The rest of the breakdowns, the per-period table and
+ * the notes sit behind "Show" disclosures.
+ */
+export function DatasetSection({ d, r, hourly, heading = "h2", srTitle = false }: { d: DatasetResult; r: Report; hourly?: { series: HourlySeriesView[]; tz: string } | null; heading?: "h2" | "h3"; srTitle?: boolean }) {
   const s = r.state;
   const csv = `/admin/reports/export/csv?${stateQuery(s)}&dataset=${d.id}`;
-  const kpis = d.metrics.filter((m) => m.kpi);
+  const kpis = d.metrics.filter((m) => m.kpi).slice(0, 4);
   const chart = d.metrics.filter((m) => m.chart);
   const headId = `ds-${d.id}`;
+  const H = heading;
+  const first = d.breakdowns.slice(0, 2);
+  const rest = d.breakdowns.slice(2);
   return (
-    <section className="mt-10 scroll-mt-48" aria-labelledby={headId} id={d.id}>
-      <div className="mb-3 flex flex-wrap items-start gap-x-3 gap-y-2 border-b border-hair pb-2">
-        <div className="min-w-0 flex-1 basis-[260px]">
-          <h2 id={headId} className="text-[15px] font-medium tracking-[-0.01em]">
-            {d.title}
-          </h2>
-          <p className="text-[13px] text-mute">{d.intro}</p>
-          {d.filters.length > 0 && (
-            <p className="mt-1 flex flex-wrap gap-1">
-              {d.filters.map((f) => (
-                <span key={f.label} className="inline-flex h-5 items-center gap-1 rounded-full bg-chip px-2 text-[12px]">
-                  <RIcon name="filter" size={12} />
-                  {f.label}: {f.value}
-                </span>
-              ))}
-            </p>
-          )}
-        </div>
+    <section className="mt-10 scroll-mt-32 first:mt-6" aria-labelledby={headId} id={d.id}>
+      <div className="mb-3 flex flex-wrap items-center gap-x-2 gap-y-2">
+        <H id={headId} className={srTitle ? "sr-only" : "text-[15px] font-medium tracking-[-0.01em]"}>
+          {d.title}
+        </H>
+        {d.intro && !srTitle && <Info label={d.title} text={d.intro} />}
+        {d.filters.map((f) => (
+          <span key={f.label} className="inline-flex h-5 items-center gap-1 rounded-full bg-chip px-2 text-[12px]">
+            <RIcon name="filter" size={12} />
+            {f.label}: {f.value}
+          </span>
+        ))}
         {!d.error && (
-          <a href={csv} download className="btn-line !h-7 !px-3 text-[12px]">
-            <RIcon name="file-type-csv" size={14} />
+          <a href={csv} download className="ml-auto inline-flex h-7 items-center gap-1.5 rounded-[6px] px-2 text-[12px] text-mute hover:bg-tile hover:text-ink">
+            <RIcon name="download" size={14} />
             CSV<span className="sr-only"> of {d.title}, one row per {s.gran}</span>
           </a>
         )}
@@ -263,41 +278,45 @@ export function DatasetSection({ d, r }: { d: DatasetResult; r: Report }) {
           {d.error}
         </p>
       ) : !d.since ? (
-        <div className="card p-6 text-center">
-          <p className="text-[13px] font-medium">No data yet</p>
-          <p className="mx-auto mt-1 max-w-[520px] text-[13px] text-mute">{d.notes[0] ?? "Nothing has been recorded for this dataset yet."}</p>
-          {d.notes.length > 1 && <p className="mx-auto mt-1 max-w-[520px] text-[12px] text-faint">{d.notes.slice(1).join(" ")}</p>}
-        </div>
+        <p className="card px-4 py-8 text-center text-[13px] text-mute">{d.notes[0] ?? "Nothing recorded yet."}</p>
       ) : (
         <>
           <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
             {kpis.map((m) => (
-              <Kpi key={m.id} m={m} d={d} r={r} />
+              <MetricKpi key={m.id} m={m} d={d} r={r} />
             ))}
           </div>
-          {chart.length > 0 && (
-            <div className="mt-3">
+          <div className={"mt-3 grid gap-3 " + (hourly?.series.length ? "xl:grid-cols-2" : "")}>
+            {chart.length > 0 && (
               <Trend
-                title={`Per ${s.gran}, ${r.buckets[0].name} to ${r.sel.name}`}
+                title={`${rangeLabel(s.gran, s.range)}`}
                 metrics={chart.map((m) => ({ id: m.id, label: m.label, unit: m.unit }))}
                 rows={d.rows.map((x) => ({ key: x.period.key, name: x.period.name, dates: x.period.dates, tick: x.period.tick, v: x.v }))}
                 selected={r.sel.key}
                 compare={r.cmp?.key ?? null}
               />
-            </div>
-          )}
-          <div className="mt-3">
-            <PeriodTable d={d} r={r} />
+            )}
+            {hourly && hourly.series.length > 0 && <HourlyChart series={hourly.series} day={r.sel.name} cmp={r.cmp?.name ?? null} tz={hourly.tz} />}
           </div>
-          {d.breakdowns.length > 0 && (
+          {first.length > 0 && (
             <div className="mt-3 grid gap-3 lg:grid-cols-2">
-              {d.breakdowns.map((b) => (
+              {first.map((b) => (
                 <BreakdownCard key={b.id} b={b} r={r} />
               ))}
             </div>
           )}
-          <Notes d={d} />
-          {d.since && <p className="mt-1 text-[12px] text-faint">First data: {dayText(d.since)}.</p>}
+          {rest.length > 0 && (
+            <More label={`Show ${rest.length} more breakdown${rest.length === 1 ? "" : "s"}`}>
+              <div className="grid gap-3 lg:grid-cols-2">
+                {rest.map((b) => (
+                  <BreakdownCard key={b.id} b={b} r={r} />
+                ))}
+              </div>
+            </More>
+          )}
+          <More label={`Show table, one row per ${s.gran}`}>
+            <PeriodTable d={d} r={r} />
+          </More>
           <Definitions d={d} />
         </>
       )}

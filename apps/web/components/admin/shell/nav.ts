@@ -2,82 +2,120 @@ import type { Perm } from "@/lib/admin";
 import type { AdminIconName } from "../admin-icons";
 
 /**
- * The admin sidebar, in order. To add a section: add an item to the right group with the permission that
- * guards its page (the same perm the page passes to requireStaff). Items the signed-in role can't open are
- * hidden. `badge` names a live count the panel layout computes (see BadgeKey).
+ * Admin navigation: seven areas in the sidebar, each with tabs shown in one row under the top bar
+ * (app/admin/DESIGN.md, "Information architecture"). Every tab is an existing URL guarded by the same perm its
+ * page passes to requireStaff. To add a page: add a tab to the right area. An area shows when the role can open
+ * at least one of its tabs and links to the first one it can open. `badge` names a live count the panel layout
+ * computes (see BadgeKey); badges are for queues that need action only.
  */
 export type BadgeKey = "openTickets" | "pendingActivations";
-export type NavItem = { href: string; label: string; icon: AdminIconName; perm: Perm; badge?: BadgeKey };
-export type NavGroup = { label: string; items: NavItem[] };
+export type NavTab = { href: string; label: string; perm: Perm; badge?: BadgeKey };
+export type NavArea = { id: string; label: string; icon: AdminIconName; tabs: NavTab[] };
 
-export const NAV: NavGroup[] = [
+export const AREAS: NavArea[] = [
+  { id: "home", label: "Home", icon: "home", tabs: [{ href: "/admin", label: "Home", perm: "overview" }] },
   {
-    label: "Dashboard",
-    items: [
-      { href: "/admin", label: "Overview", icon: "layout-dashboard", perm: "overview" },
-      { href: "/admin/analytics", label: "Analytics", icon: "chart-line", perm: "analytics" },
-      { href: "/admin/reports", label: "Reports", icon: "report-analytics", perm: "analytics" },
-      { href: "/admin/referrals", label: "Referral links", icon: "click", perm: "analytics" },
+    id: "insights",
+    label: "Insights",
+    icon: "chart-line",
+    tabs: [
+      { href: "/admin/analytics", label: "Overview", perm: "analytics" },
+      { href: "/admin/analytics/traffic", label: "Traffic", perm: "analytics" },
+      { href: "/admin/analytics/users", label: "Users", perm: "analytics" },
+      { href: "/admin/analytics/usage", label: "Usage", perm: "analytics" },
+      { href: "/admin/analytics/revenue", label: "Revenue", perm: "analytics" },
+      { href: "/admin/analytics/support", label: "Support", perm: "analytics" },
+      { href: "/admin/reports", label: "Reports", perm: "analytics" },
     ],
   },
   {
-    label: "Revenue",
-    items: [
-      { href: "/admin/revenue", label: "Revenue", icon: "report-money", perm: "revenue" },
-      { href: "/admin/orders", label: "Orders", icon: "receipt", perm: "orders" },
-      { href: "/admin/activations", label: "Activations", icon: "rosette-discount-check", perm: "orders", badge: "pendingActivations" },
-      { href: "/admin/contra", label: "Contra sales", icon: "plug-connected", perm: "orders" },
-      { href: "/admin/pricing", label: "Pricing & deal", icon: "tag", perm: "pricing" },
-    ],
-  },
-  {
+    id: "customers",
     label: "Customers",
-    items: [
-      { href: "/admin/users", label: "Users", icon: "users", perm: "users" },
-      { href: "/admin/waitlist", label: "Waitlist", icon: "hourglass", perm: "waitlist" },
+    icon: "users",
+    tabs: [
+      { href: "/admin/users", label: "Users", perm: "users" },
+      { href: "/admin/waitlist", label: "Waitlist", perm: "waitlist" },
+      { href: "/admin/referrals", label: "Referral links", perm: "analytics" },
     ],
   },
   {
+    id: "revenue",
+    label: "Revenue",
+    icon: "report-money",
+    tabs: [
+      { href: "/admin/revenue", label: "Overview", perm: "revenue" },
+      { href: "/admin/orders", label: "Orders", perm: "orders" },
+      { href: "/admin/activations", label: "Activations", perm: "orders", badge: "pendingActivations" },
+      { href: "/admin/contra", label: "Contra sales", perm: "orders" },
+      { href: "/admin/pricing", label: "Pricing & deal", perm: "pricing" },
+    ],
+  },
+  {
+    id: "content",
     label: "Content",
-    items: [
-      { href: "/admin/pages", label: "Pages", icon: "file-pencil", perm: "content" },
-      { href: "/admin/posts", label: "Posts", icon: "article", perm: "content" },
-      { href: "/admin/changelog", label: "Changelog", icon: "history", perm: "content" },
-      { href: "/admin/kb", label: "Knowledge base", icon: "book", perm: "kb" },
-      { href: "/admin/announcement", label: "Announcement", icon: "speakerphone", perm: "content" },
+    icon: "file-pencil",
+    tabs: [
+      { href: "/admin/pages", label: "Pages", perm: "content" },
+      { href: "/admin/posts", label: "Posts", perm: "content" },
+      { href: "/admin/changelog", label: "Changelog", perm: "content" },
+      { href: "/admin/kb", label: "Knowledge base", perm: "kb" },
+      { href: "/admin/announcement", label: "Announcement", perm: "content" },
     ],
   },
   {
+    id: "support",
     label: "Support",
-    items: [{ href: "/admin/support", label: "Inbox", icon: "inbox", perm: "support", badge: "openTickets" }],
+    icon: "lifebuoy",
+    tabs: [
+      { href: "/admin/support", label: "Inbox", perm: "support", badge: "openTickets" },
+      { href: "/admin/kb/gaps", label: "Bot questions", perm: "kb" },
+    ],
   },
   {
+    id: "settings",
     label: "Settings",
-    items: [
-      { href: "/admin/team", label: "Team", icon: "users-group", perm: "team" },
-      { href: "/admin/settings", label: "Settings", icon: "settings", perm: "settings" },
+    icon: "settings",
+    tabs: [
+      { href: "/admin/team", label: "Team", perm: "team" },
+      { href: "/admin/settings", label: "Settings", perm: "settings" },
     ],
   },
 ];
 
-/** Pages that live outside the sidebar but still get a breadcrumb. */
-const EXTRA: { href: string; label: string; group: string }[] = [{ href: "/admin/no-access", label: "No access", group: "Admin" }];
+/** Areas and tabs the role can open; areas without a tab are left out. */
+export const visibleAreas = (perms: readonly Perm[]) =>
+  AREAS.map((a) => ({ ...a, tabs: a.tabs.filter((t) => perms.includes(t.perm)) })).filter((a) => a.tabs.length);
+
+const below = (href: string, p: string) => p === href || (href !== "/admin" && p.startsWith(href + "/"));
+
+/** The tab a path belongs to: the longest tab href that is the path or a parent of it (so /admin/kb/gaps is Support). */
+export function locate(path: string, areas: NavArea[] = AREAS): { area: NavArea; tab: NavTab } | null {
+  const p = path.replace(/\/+$/, "") || "/admin";
+  let best: { area: NavArea; tab: NavTab } | null = null;
+  for (const area of areas) for (const tab of area.tabs) if (below(tab.href, p) && (!best || tab.href.length > best.tab.href.length)) best = { area, tab };
+  return best;
+}
+
+/** Pages that live outside the navigation but still get a breadcrumb. */
+const EXTRA: { href: string; label: string }[] = [{ href: "/admin/no-access", label: "No access" }];
 
 export type Crumb = { label: string; href?: string };
 
-/** Breadcrumb for a pathname: group, section, and "Details" for anything below a section. */
+/** Breadcrumb for a pathname: the area; below a tab also the tab (when the area has more than one) and "Details". */
 export function crumbsFor(path: string): Crumb[] {
   const p = path.replace(/\/+$/, "") || "/admin";
-  for (const g of NAV)
-    for (const it of g.items) {
-      const exact = p === it.href;
-      const below = it.href !== "/admin" && p.startsWith(it.href + "/");
-      if (exact) return [{ label: g.label }, { label: it.label }];
-      if (below) return [{ label: g.label }, { label: it.label, href: it.href }, { label: "Details" }];
-    }
+  const hit = locate(p);
+  if (hit) {
+    const { area, tab } = hit;
+    const deeper = p !== tab.href;
+    // On a tab page the tab row already names the tab, so the breadcrumb is the area alone.
+    if (!deeper) return [{ label: area.label }];
+    return [{ label: area.label, href: area.tabs[0].href }, ...(area.tabs.length > 1 ? [{ label: tab.label, href: tab.href }] : []), { label: "Details" }];
+  }
   const x = EXTRA.find((e) => p === e.href);
-  if (x) return [{ label: x.group }, { label: x.label }];
+  if (x) return [{ label: x.label }];
   return [{ label: "Admin" }];
 }
 
-export const isActive = (href: string, path: string) => (href === "/admin" ? path === "/admin" : path === href || path.startsWith(href + "/"));
+/** Badge count of an area: the sum of its tab badges the role can see. */
+export const areaBadge = (a: NavArea, badges: Partial<Record<BadgeKey, number>>) => a.tabs.reduce((s, t) => s + (t.badge ? (badges[t.badge] ?? 0) : 0), 0);

@@ -104,6 +104,8 @@ function seed() {
     Date.UTC(2025, 11, 29, 0, 0) / 1000, // Mon Dec 29 2025: ISO week 1 of 2026
     Date.UTC(2026, 2, 31, 23, 59) / 1000, // last minute of Q1 2026 (UTC)
     Date.UTC(2026, 3, 1, 0, 0) / 1000, // first minute of Q2 2026 (UTC)
+    Date.UTC(2026, 10, 15, 17, 59) / 1000, // Nov 15 23:59 Dhaka: last minute of the Dhaka day (daily check)
+    Date.UTC(2026, 10, 15, 18, 0) / 1000, // Nov 16 00:00 Dhaka, still Nov 15 in UTC (daily check)
   ];
   let n = 0;
   for (const t of EDGE) users.push({ id: `seed_u${n++}`, t, plan: "free" });
@@ -278,7 +280,7 @@ function isoWeekKey(day: string) {
   const wk = Math.ceil(((d.getTime() - Date.UTC(y, 0, 1)) / 86400000 + 1) / 7);
   return `${y}-W${String(wk).padStart(2, "0")}`;
 }
-const keyOf = (gran: string, day: string) => (gran === "week" ? isoWeekKey(day) : gran === "month" ? day.slice(0, 7) : gran === "quarter" ? `${day.slice(0, 4)}-Q${Math.ceil(Number(day.slice(5, 7)) / 3)}` : day.slice(0, 4));
+const keyOf = (gran: string, day: string) => (gran === "day" ? day : gran === "week" ? isoWeekKey(day) : gran === "month" ? day.slice(0, 7) : gran === "quarter" ? `${day.slice(0, 4)}-Q${Math.ceil(Number(day.slice(5, 7)) / 3)}` : day.slice(0, 4));
 
 /** Sign in as the local owner (creates the account on first run) and return the session cookie. */
 async function session(): Promise<string> {
@@ -396,6 +398,10 @@ async function main() {
     { gran: "quarter", tz: "Asia/Dhaka", p: "2026-Q4", r: 4 },
     { gran: "year", tz: "UTC", p: "2026", r: 2 },
     { gran: "year", tz: "Asia/Dhaka", p: "2026", r: 2 },
+    { gran: "day", tz: "UTC", p: "2026-11-15", r: 14 },
+    { gran: "day", tz: "Asia/Dhaka", p: "2026-11-16", r: 14 },
+    { gran: "day", tz: "Asia/Dhaka", p: "2026-11-15", r: 30 },
+    { gran: "day", tz: "UTC", p: "2026-02-28", r: 7 },
   ];
   for (const c of CASES) {
     const qs = `g=${c.gran}&p=${c.p}&r=${c.r}&tz=${encodeURIComponent(c.tz)}`;
@@ -452,6 +458,56 @@ async function main() {
   check("Sep 30 19:30 UTC is Q3 in UTC and Q4 in Dhaka", edge(q3, "UTC", "quarter") === "2026-Q3" && edge(q3, "Asia/Dhaka", "quarter") === "2026-Q4");
   check("Mon Dec 29 2025 is ISO week 1 of 2026", isoWeekKey("2025-12-29") === "2026-W01" && isoWeekKey("2025-12-28") === "2025-W52");
   // Page shows the same: a week-46 UTC report has that user, the Dhaka one has it in week 47 (checked through the CSV above).
+
+  // 2b) Daily: the Dhaka day starts at 18:00 UTC the day before.
+  const dEdgeA = Date.UTC(2026, 10, 15, 17, 59) / 1000;
+  const dEdgeB = Date.UTC(2026, 10, 15, 18, 0) / 1000;
+  check(
+    "Nov 15 17:59 UTC is Nov 15 in Dhaka, 18:00 UTC is Nov 16 in Dhaka, both Nov 15 in UTC",
+    edge(dEdgeA, "Asia/Dhaka", "day") === "2026-11-15" && edge(dEdgeB, "Asia/Dhaka", "day") === "2026-11-16" && edge(dEdgeB, "UTC", "day") === "2026-11-15",
+  );
+  const dayRows = async (tz: string, p: string) => parseCsv((await (await get(`/admin/reports/export/csv?dataset=audience&g=day&p=${p}&r=7&tz=${encodeURIComponent(tz)}`, cookie)).text()).replace(/^﻿/, ""));
+  for (const [tz, p] of [["Asia/Dhaka", "2026-11-16"], ["Asia/Dhaka", "2026-11-15"], ["UTC", "2026-11-15"]] as const) {
+    const rows = await dayRows(tz, p);
+    const si = rows[0].findIndex((h) => h.startsWith("Sign-ups (count)"));
+    const row = rows.find((r) => r[0] === p);
+    const want = users.filter((t) => localDate(t, tz) === p).length;
+    const hasEdge = users.includes(dEdgeB);
+    check(`Daily ${p} ${tz}: sign-ups equal raw rows${hasEdge ? " (edge users seeded)" : ""}`, !!row && Number(row[si]) === want, `${row?.[si]} vs ${want}`);
+    // Hourly: 24 rows in the report time zone, summing to the day total, each hour equal to the raw rows.
+    const hr = parseCsv((await (await get(`/admin/reports/export/csv?dataset=hourly&g=day&p=${p}&tz=${encodeURIComponent(tz)}`, cookie)).text()).replace(/^﻿/, ""));
+    const hi = hr[0].findIndex((h) => h.startsWith("Sign-ups (count)"));
+    const hours = hr.slice(1).filter((r) => /^\d\d:00$/.test(r[1] ?? ""));
+    const hourOf = (t: number) => Number(new Intl.DateTimeFormat("en-GB", { timeZone: tz, hour: "2-digit", hourCycle: "h23" }).format(new Date(t * 1000)));
+    const bad = hours.filter((r, i) => Number(r[hi]) !== users.filter((t) => localDate(t, tz) === p && hourOf(t) === i).length);
+    const sumH = hours.reduce((s, r) => s + Number(r[hi]), 0);
+    check(`Hourly ${p} ${tz}: 24 hours, each equal to raw rows, sum ${sumH} = day total`, hours.length === 24 && !bad.length && sumH === want, bad.map((r) => r[1]).join(" "));
+  }
+  // The Dhaka edge user (18:00 UTC) is in hour 00 of Nov 16 Dhaka and hour 18 of Nov 15 UTC.
+  {
+    const h16 = parseCsv((await (await get(`/admin/reports/export/csv?dataset=hourly&g=day&p=2026-11-16&tz=Asia%2FDhaka`, cookie)).text()).replace(/^﻿/, ""));
+    const h15 = parseCsv((await (await get(`/admin/reports/export/csv?dataset=hourly&g=day&p=2026-11-15&tz=UTC`, cookie)).text()).replace(/^﻿/, ""));
+    const si16 = h16[0].findIndex((h) => h.startsWith("Sign-ups"));
+    const si15 = h15[0].findIndex((h) => h.startsWith("Sign-ups"));
+    check("Dhaka edge sign-up lands in 00:00 Nov 16 (Dhaka) and 18:00 Nov 15 (UTC)", Number(h16.find((r) => r[1] === "00:00")?.[si16]) >= 1 && Number(h15.find((r) => r[1] === "18:00")?.[si15]) >= 1);
+  }
+  // Day labels and file names.
+  {
+    const res = await get(`/admin/reports/export/csv?dataset=traffic&g=day&p=2026-11-16&r=7&tz=Asia%2FDhaka`, cookie);
+    const cdd = res.headers.get("content-disposition") ?? "";
+    const rows = parseCsv((await res.text()).replace(/^﻿/, ""));
+    const r16 = rows.find((r) => r[0] === "2026-11-16");
+    check("Daily CSV: 7 rows, Nov 16 named Mon, Nov 16, 2026, file ingot-traffic-2026-11-16-daily-dhaka.csv", rows.length === 8 && !!r16 && r16[1] === "Mon, Nov 16, 2026" && r16[2] === "2026-11-16" && r16[3] === "2026-11-16" && cdd.includes("ingot-traffic-2026-11-16-daily-dhaka.csv"), `${rows.length} ${r16?.slice(0, 4).join(" | ")} ${cdd}`);
+    const hx = await get(`/admin/reports/export/csv?dataset=hourly&g=month&p=2026-11`, cookie);
+    check("Hourly export is 404 outside the day granularity", hx.status === 404, String(hx.status));
+    const xd = await get(`/admin/reports/export/xlsx?g=day&p=2026-11-16&r=7&tz=Asia%2FDhaka`, cookie);
+    const xcd = xd.headers.get("content-disposition") ?? "";
+    const xf = unzip(Buffer.from(await xd.arrayBuffer()));
+    check("Daily XLSX: file name, Summary says Daily", xcd.includes("ingot-report-2026-11-16-daily-dhaka.xlsx") && (xf.get("xl/worksheets/sheet1.xml") ?? "").includes("Daily"), xcd);
+    const pd = await get(`/admin/reports/print?g=day&p=2026-11-16&tz=Asia%2FDhaka`, cookie);
+    const ph = await pd.text();
+    check("Print view renders a day", pd.status === 200 && ph.includes("Nov 16, 2026"), String(pd.status));
+  }
 
   // 3) Labels: the week CSV states its explicit dates.
   const wk = parseCsv((await (await get(`/admin/reports/export/csv?dataset=traffic&g=week&p=2026-W47&r=8`, cookie)).text()).replace(/^\uFEFF/, ""));

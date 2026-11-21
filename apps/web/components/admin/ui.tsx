@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
 import { Icon } from "@/registry/components/icons";
+import { Info } from "./reports/info";
 
 /** Shared admin building blocks. Server-safe (no client JS). */
 
@@ -21,48 +22,112 @@ const PLAN_LABEL: Record<string, string> = { free: "Free", pro: "Pro", lifetime:
 export const planLabel = (p: string) => PLAN_LABEL[p] ?? p;
 
 /**
- * Page header inside the admin shell: title (the page's h1), a one-line description under it, and actions
- * (buttons, tags) on the right. Every admin page starts with one. `PageHeader` is the same component.
+ * Page header inside the admin shell: title (the page's h1), at most one line under it, and the primary
+ * action on the right. Every admin page starts with one (app/admin/DESIGN.md, "Page pattern"). `PageHeader`
+ * is the same component. Longer help goes in an Info popover (`info`), never in the body.
  */
-export function AdminHead({ title, sub, children }: { title: string; sub?: string; children?: ReactNode }) {
+export function AdminHead({ title, sub, info, children }: { title: string; sub?: string; info?: string; children?: ReactNode }) {
   return (
-    <header className="flex flex-wrap items-start gap-x-4 gap-y-3">
+    <header className="flex flex-wrap items-center gap-x-4 gap-y-3">
       <div className="min-w-0 flex-1 basis-[280px]">
-        <h1 className="text-[20px] leading-[28px] font-medium tracking-[-0.015em] text-ink">{title}</h1>
+        <h1 className="flex items-center gap-1 text-[20px] leading-[28px] font-medium tracking-[-0.015em] text-ink">
+          {title}
+          {info && <Info label={title} text={info} />}
+        </h1>
         {sub && <p className="mt-0.5 text-[13px] text-mute">{sub}</p>}
       </div>
-      {children && <div className="flex flex-wrap items-center gap-1.5">{children}</div>}
+      {children && <div className="flex flex-wrap items-center gap-2">{children}</div>}
     </header>
   );
 }
 export const PageHeader = AdminHead;
 
-export function Section({ title, sub, children, action }: { title: string; sub?: string; children: ReactNode; action?: ReactNode }) {
+/** Toolbar row under the page header: search, filter pills, period, export. Wraps on small screens. */
+export function Toolbar({ children, className = "" }: { children: ReactNode; className?: string }) {
+  return <div className={"mt-5 flex flex-wrap items-center gap-2 " + className}>{children}</div>;
+}
+
+/**
+ * A titled block on a page. `sub` is one short line; definitions go in `info` (an Info popover next to the
+ * title) instead of body text.
+ */
+export function Section({ title, sub, info, children, action }: { title: string; sub?: string; info?: string; children: ReactNode; action?: ReactNode }) {
   return (
     <section className="mt-8">
-      <div className="mb-2 flex flex-wrap items-baseline gap-x-2 gap-y-1">
-        <h2 className="text-[13px] font-medium">{title}</h2>
+      <div className="mb-3 flex flex-wrap items-center gap-x-2 gap-y-1">
+        <h2 className="text-[15px] font-medium tracking-[-0.01em]">{title}</h2>
+        {info && <Info label={title} text={info} />}
         {sub && <p className="text-[13px] text-mute">{sub}</p>}
-        {action && <div className="ml-auto">{action}</div>}
+        {action && <div className="ml-auto flex items-center gap-2">{action}</div>}
       </div>
       {children}
     </section>
   );
 }
 
-/** KPI tile: label, big number, optional change badge (see Delta) and hint line. */
+/**
+ * KPI card: label, big number, change. Nothing else on the card; a plain-text `hint` becomes the label's info
+ * popover, other hints are dropped.
+ */
 export function Kpi({ label, value, hint, delta }: { label: string; value: string; hint?: ReactNode; delta?: ReactNode }) {
   return (
-    <div className="card p-4">
-      <div className="flex items-start gap-2">
-        <p className="min-w-0 flex-1 text-[13px] text-mute">{label}</p>
+    <div className="card min-w-0 p-4">
+      <p className="flex min-w-0 items-center gap-0.5 text-[13px] text-mute">
+        <span className="truncate">{label}</span>
+        {typeof hint === "string" && <Info label={label} text={hint} />}
+      </p>
+      <div className="mt-1 flex flex-wrap items-baseline gap-x-2">
+        <p className="text-[22px] leading-[30px] font-medium tracking-[-0.02em] tabular-nums">{value}</p>
         {delta}
       </div>
-      <p className="mt-1 text-[22px] font-medium tracking-[-0.02em] tabular-nums">{value}</p>
-      {hint && <p className="mt-0.5 text-[12px] text-faint">{hint}</p>}
     </div>
   );
 }
+
+/** Empty state: one line and at most one action. */
+export function Empty({ children, action }: { children: ReactNode; action?: ReactNode }) {
+  return (
+    <div className="card flex flex-wrap items-center justify-center gap-3 px-4 py-8 text-center text-[13px] text-mute">
+      <span>{children}</span>
+      {action}
+    </div>
+  );
+}
+
+/** Previous / Next for a paged list. `href(n)` builds the link for page n (1-based). */
+export function Pager({ page, pages, total, href, unit = "rows" }: { page: number; pages: number; total: number; href: (n: number) => string; unit?: string }) {
+  if (pages <= 1) return null;
+  return (
+    <nav aria-label="Pages" className="mt-3 flex items-center gap-2 text-[13px]">
+      <p className="text-mute tabular-nums">
+        Page {num(page)} of {num(pages)}, {num(total)} {unit}
+      </p>
+      <span className="ml-auto flex gap-2">
+        {page > 1 ? (
+          <Link href={href(page - 1)} className="btn-line !h-8 !px-3" rel="prev">
+            Previous
+          </Link>
+        ) : (
+          <span className="btn-line !h-8 !px-3 opacity-40" aria-disabled="true">
+            Previous
+          </span>
+        )}
+        {page < pages ? (
+          <Link href={href(page + 1)} className="btn-line !h-8 !px-3" rel="next">
+            Next
+          </Link>
+        ) : (
+          <span className="btn-line !h-8 !px-3 opacity-40" aria-disabled="true">
+            Next
+          </span>
+        )}
+      </span>
+    </nav>
+  );
+}
+
+/** 1-based page number from a search param, clamped to at least 1. */
+export const pageOf = (v: string | string[] | undefined) => Math.max(1, Math.floor(Number(Array.isArray(v) ? v[0] : v) || 1));
 
 /** Flash line from ?ok= / ?err= after a server action redirect. */
 export function Flash({ ok, err }: { ok?: string | string[]; err?: string | string[] }) {
@@ -89,7 +154,8 @@ export function Tag({ children, tone = "plain" }: { children: ReactNode; tone?: 
     warn: "bg-[#fff4dc] text-[#8a5a00]",
     bad: "bg-[#fdecec] text-[#9b1c1c]",
   }[tone];
-  return <span className={"inline-flex h-5 items-center rounded-full px-2 text-[12px] whitespace-nowrap " + t}>{children}</span>;
+  // Status codes read as words: "partial_refund" shows as "partial refund".
+  return <span className={"inline-flex h-5 items-center rounded-[5px] px-1.5 text-[12px] whitespace-nowrap " + t}>{typeof children === "string" ? children.replace(/_/g, " ") : children}</span>;
 }
 
 export function statusTone(s: string): "plain" | "ink" | "good" | "warn" | "bad" {
@@ -99,22 +165,33 @@ export function statusTone(s: string): "plain" | "ink" | "good" | "warn" | "bad"
   return "plain";
 }
 
-/** Bordered table wrapper that scrolls sideways on small screens. */
-export function Table({ head, children, empty }: { head: string[]; children: ReactNode; empty?: string }) {
+/**
+ * Data table in a card. From md up: sticky header under the top bar, row hover, columns listed in `right`
+ * right-aligned (use `tdNum` on their cells). Below md the header hides and each row stacks its cells, so
+ * there is no sideways scroll on a phone.
+ */
+export function Table({ head, children, empty, right = [] }: { head: string[]; children: ReactNode; empty?: string; right?: number[] }) {
   const rows = Array.isArray(children) ? children.filter(Boolean) : children ? [children] : [];
   return (
-    <div className="card relative overflow-x-auto">
-      <table className="w-full min-w-[640px] border-collapse text-left text-[13px]">
-        <thead>
-          <tr className="border-b border-hair text-[12px] text-faint">
+    <div className="card relative">
+      <table className="admin-table w-full border-collapse text-left text-[13px]">
+        <thead className="max-md:sr-only">
+          <tr className="text-[12px] text-faint">
             {head.map((h, i) => (
-              <th key={i} className="px-3 py-2 font-normal whitespace-nowrap">
+              <th
+                key={i}
+                scope="col"
+                className={
+                  "sticky top-[var(--admin-top,57px)] z-[2] border-b border-hair bg-white/95 px-3 py-2 font-normal whitespace-nowrap backdrop-blur first:rounded-tl-[8px] last:rounded-tr-[8px] " +
+                  (right.includes(i) ? "text-right" : "")
+                }
+              >
                 {h}
               </th>
             ))}
           </tr>
         </thead>
-        <tbody className="[&>tr:not(:last-child)]:border-b [&>tr]:border-hair">
+        <tbody className="[&>tr:not(:last-child)]:border-b [&>tr]:border-hair md:[&>tr:hover]:bg-wash">
           {rows.length ? (
             children
           ) : (
@@ -131,6 +208,8 @@ export function Table({ head, children, empty }: { head: string[]; children: Rea
 }
 
 export const td = "px-3 py-2 align-middle";
+/** Cell for a number: right-aligned, tabular figures. Pair with `right` on Table. */
+export const tdNum = "px-3 py-2 align-middle text-right tabular-nums whitespace-nowrap";
 
 /** Field label wrapper for forms. */
 export function Field({ label, hint, children, className }: { label: string; hint?: string; children: ReactNode; className?: string }) {

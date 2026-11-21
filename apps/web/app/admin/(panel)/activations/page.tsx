@@ -60,7 +60,7 @@ export default async function AdminActivations({ searchParams }: PageProps<"/adm
 
   return (
     <div>
-      <AdminHead title="Activations" sub="Buyers who paid on Contra. Find the sale in Contra, then approve to switch their plan on." />
+      <AdminHead title="Activations" sub="Contra buyers waiting for their plan" info="Buyers who paid on Contra. Find the sale in Contra, then approve to switch their plan on." />
       <Flash ok={q.ok} err={q.err} />
 
       <div className="mt-5">
@@ -259,7 +259,7 @@ function RequestTable({ rows, signals, now, back, tab }: { rows: Activation[]; s
 
 function Renewals({ due, now, back }: { due: Sub[]; now: number; back: string }) {
   return (
-    <Section title="Renewals due" sub="Contra subscriptions renewing in the next 3 days or overdue. Check Contra for the payment, then mark it.">
+    <Section title="Renewals due" info="Contra subscriptions renewing in the next 3 days or overdue. Check Contra for the payment, then mark it.">
       {due.length === 0 ? (
         <div className="card flex items-center gap-2 p-4 text-[13px] text-mute">
           <AIcon name="calendar-repeat" size={16} className="shrink-0 text-faint" />

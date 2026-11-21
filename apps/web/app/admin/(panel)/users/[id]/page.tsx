@@ -97,7 +97,7 @@ export default async function AdminUser({ params, searchParams }: PageProps<"/ad
         </div>
       </Section>
 
-      <Section title="API keys" sub="Prefix only, keys are stored hashed.">
+      <Section title="API keys" info="Prefix only, keys are stored hashed.">
         <Table head={["Name", "Prefix", "Created", "Last used"]} empty="No API keys.">
           {keys.map((k) => (
             <tr key={k.id}>

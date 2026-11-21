@@ -5,7 +5,7 @@ import { getDb, schema } from "@/lib/db";
 import { matchArticles } from "@/lib/support/match";
 import { sp } from "@/components/admin/guard";
 import { requireStaff } from "@/lib/admin";
-import { AdminHead, Confirm, Field, Flash, LinkTabs, Section, Table, Tag, day, input, textarea, td } from "@/components/admin/ui";
+import { AdminHead, Confirm, Field, Flash, Section, Table, Tag, day, input, textarea, td } from "@/components/admin/ui";
 import { botGap } from "@/lib/support/assistant/gaps";
 import { Icon } from "@/registry/components/icons";
 import { deleteArticle, saveArticle, togglePublished } from "./actions";
@@ -51,21 +51,22 @@ export default async function AdminKb({ searchParams }: PageProps<"/admin/kb">) 
 
   return (
     <div>
-      <AdminHead title="Knowledge base" sub={`${all.length} articles, ${published.length} published. The support widget answers from these.`}>
+      <AdminHead title="Knowledge base" sub={`${all.length} articles, ${published.length} published`} info="The support widget and the help assistant answer from published articles.">
         <Link href="/admin/kb?new=1" className="btn-ink">
           <Icon name="plus" size={15} />
           New article
         </Link>
       </AdminHead>
-      <div className="mt-5">
-        <LinkTabs
-        tabs={[
-          { href: "/admin/kb", label: "Articles", count: all.length, on: true },
-          { href: "/admin/kb/gaps", label: "Unanswered", count: gapCount, on: false },
-        ]}
-        />
-      </div>
       <Flash ok={q.ok} err={q.err} />
+      {gapCount > 0 && !draft && (
+        <Link href="/admin/kb/gaps" className="card mt-5 flex items-center gap-2 px-4 py-2.5 text-[13px] transition-colors duration-150 hover:bg-wash">
+          <span className="min-w-0 flex-1">
+            <span className="font-medium tabular-nums">{gapCount}</span> questions the help assistant could not answer
+          </span>
+          <span className="text-mute">Write answers</span>
+          <Icon name="arrow-up-right" size={14} className="text-mute" />
+        </Link>
+      )}
 
       {draft && (
         <form action={saveArticle} className="card mt-5 flex flex-col gap-3 p-4">
@@ -110,7 +111,12 @@ export default async function AdminKb({ searchParams }: PageProps<"/admin/kb">) 
         </form>
       )}
 
-      <Section title="Test the matcher" sub="Runs the knowledge-base matcher over published articles. The help assistant blends it with its own search.">
+      <details className="group mt-6" open={!!test}>
+        <summary className="inline-flex cursor-pointer list-none items-center gap-1.5 rounded-[6px] px-2 py-1 text-[13px] text-mute hover:bg-tile hover:text-ink [&::-webkit-details-marker]:hidden">
+          <Icon name="search" size={14} />
+          Test the matcher
+        </summary>
+      <Section title="Test the matcher" info="Runs the knowledge-base matcher over published articles. The help assistant blends it with its own search.">
         <form method="get" className="flex gap-2">
           {cat && <input type="hidden" name="cat" value={cat} />}
           <input name="test" defaultValue={test} placeholder="Type a customer question, e.g. can I get a refund?" className={input + " max-w-[520px]"} />
@@ -140,6 +146,7 @@ export default async function AdminKb({ searchParams }: PageProps<"/admin/kb">) 
           </ol>
         )}
       </Section>
+      </details>
 
       <Section
         title="Articles"
@@ -154,7 +161,7 @@ export default async function AdminKb({ searchParams }: PageProps<"/admin/kb">) 
           </div>
         }
       >
-        <Table head={["Question", "Category", "Slug", "Updated", "Status", ""]} empty="No articles yet.">
+        <Table head={["Question", "Category", "Slug", "Updated", "Status", ""]} empty="No articles yet. Write the first one with New article.">
           {rows.map((a) => (
             <tr key={a.id} className={a.id === editId ? "bg-wash" : ""}>
               <td className={td + " max-w-[360px]"}>
@@ -173,7 +180,6 @@ export default async function AdminKb({ searchParams }: PageProps<"/admin/kb">) 
                 </form>
               </td>
               <td className={td + " text-right whitespace-nowrap"}>
-                <Link href={`/admin/kb?edit=${a.id}`} className="btn-line !h-7 !px-3">Edit</Link>{" "}
                 <Confirm label="Delete" tone="bad">
                   <form action={deleteArticle} className="flex flex-col gap-2 text-left whitespace-normal">
                     <input type="hidden" name="id" value={a.id} />

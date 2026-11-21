@@ -1,7 +1,8 @@
 import { can, getStaff } from "@/lib/admin";
-import { csvName, datasetCsv, reportXlsx, xlsxName } from "@/lib/reports/exports";
+import { csvName, datasetCsv, hourlyCsv, reportXlsx, xlsxName } from "@/lib/reports/exports";
+import { loadHourly } from "@/lib/reports/hourly";
 import { loadReport } from "@/lib/reports/load";
-import { DATASETS, MONEY_DATASETS, parseState, type DatasetId } from "@/lib/reports/period";
+import { DATASETS, MONEY_DATASETS, fileBase, parseState, type DatasetId } from "@/lib/reports/period";
 
 export const dynamic = "force-dynamic";
 
@@ -23,6 +24,14 @@ export async function GET(req: Request, ctx: RouteContext<"/admin/reports/export
 
   if (format === "csv") {
     const id = url.searchParams.get("dataset") ?? "";
+    // Hour by hour for one day (g=day only): /admin/reports/export/csv?dataset=hourly&g=day&p=2026-11-22
+    if (id === "hourly") {
+      const h = await loadHourly(s, { revenue: money });
+      if (!h) return notFound();
+      return new Response(hourlyCsv(h, s), {
+        headers: { "content-type": "text/csv; charset=utf-8", "content-disposition": `attachment; filename="${fileBase(s, "hourly")}.csv"`, "cache-control": "no-store" },
+      });
+    }
     if (!(DATASETS as readonly string[]).includes(id)) return notFound();
     if (MONEY_DATASETS.includes(id as DatasetId) && !money) return notFound();
     const r = await loadReport(s, { revenue: money }, [id as DatasetId]);

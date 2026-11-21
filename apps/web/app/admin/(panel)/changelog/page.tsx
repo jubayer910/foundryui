@@ -24,7 +24,7 @@ export default async function AdminChangelog({ searchParams }: PageProps<"/admin
 
   return (
     <div>
-      <AdminHead title="Changelog" sub={`${all.length} entries, ${shown} on /changelog. Newest first; the page updates as soon as you save.`}>
+      <AdminHead title="Changelog" sub={`${all.length} entries, ${shown} on /changelog`} info="Newest first. /changelog updates as soon as you save.">
         <a href="/changelog" target="_blank" rel="noopener" className="btn-line">
           <CIco name="external-link" size={15} />
           View on site
