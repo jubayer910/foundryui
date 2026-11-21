@@ -16,6 +16,7 @@ export const NAV: NavGroup[] = [
     items: [
       { href: "/admin", label: "Overview", icon: "layout-dashboard", perm: "overview" },
       { href: "/admin/analytics", label: "Analytics", icon: "chart-line", perm: "analytics" },
+      { href: "/admin/reports", label: "Reports", icon: "report-analytics", perm: "analytics" },
       { href: "/admin/referrals", label: "Referral links", icon: "click", perm: "analytics" },
     ],
   },

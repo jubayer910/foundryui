@@ -4,7 +4,9 @@ import { requireStaff } from "@/lib/admin";
 import { RANGES, loadAnalytics, rangeOf, type Analytics } from "@/components/admin/analytics";
 import { AdminHead, Bars, Kpi, LinkTabs, Section, money, num, planLabel } from "@/components/admin/ui";
 import { BarList, Delta, Funnel, TrafficChart, dur, fmtPct } from "@/components/admin/charts";
+import Link from "next/link";
 import { Icon } from "@/registry/components/icons";
+import { AIcon } from "@/components/admin/admin-icons";
 
 export const metadata: Metadata = { title: "Analytics" };
 
@@ -26,6 +28,10 @@ function View({ a }: { a: Analytics }) {
     <div>
       <AdminHead title="Analytics" sub={`${w.startDay} to ${w.todayDay}, UTC. Changes compare with the ${period}.`}>
         <LinkTabs tabs={Object.keys(RANGES).map((k) => ({ href: `/admin/analytics?range=${k}`, label: k.replace("d", " days"), on: k === a.range }))} />
+        <Link href="/admin/reports" className="btn-line !h-7 !px-3">
+          <AIcon name="report-analytics" size={14} />
+          Reports
+        </Link>
       </AdminHead>
 
       <Section
