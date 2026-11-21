@@ -39,6 +39,10 @@ function Overview({ k, recentP, recentT, recentU, pending }: Awaited<ReturnType<
           <AIcon name="chart-line" size={15} />
           Full analytics
         </Link>
+        <Link href="/admin/reports" className="btn-line">
+          <AIcon name="report-analytics" size={15} />
+          Reports
+        </Link>
       </AdminHead>
       <div className="mt-5 grid grid-cols-2 gap-3 lg:grid-cols-4">
         <Kpi label="Visitors today" value={num(k.visitorsToday)} hint={`Since 00:00 UTC, ${num(k.visitorsYesterday)} yesterday`} />

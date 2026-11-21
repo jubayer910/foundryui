@@ -4,6 +4,7 @@ const ICONS = {
   "trending-down": '<path d="M3 7l6 6l4 -4l8 8" /><path d="M21 10l0 7l-7 0" />',
   minus: '<path d="M5 12l14 0" />',
   "chart-line": '<path d="M4 19l16 0" /><path d="M4 15l4 -6l4 2l4 -5l4 4" />',
+  "report-analytics": '<path d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2" /><path d="M9 5a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2" /><path d="M9 17v-5" /><path d="M12 17v-1" /><path d="M15 17v-3" />',
   "chart-funnel":
     '<path d="M4.387 3h15.226a1 1 0 0 1 .948 1.316l-5.105 15.316a2 2 0 0 1 -1.898 1.368h-3.116a2 2 0 0 1 -1.898 -1.368l-5.104 -15.316a1 1 0 0 1 .947 -1.316" /><path d="M5 9h14" /><path d="M7 15h10" />',
   // Admin shell (navigation, top bar, team). Same library, same 24 grid.
