@@ -45,7 +45,7 @@ export function PeriodBar({ defaultGran = "month", compact = false, children }: 
   const path = usePathname();
   const params = useSearchParams();
   const [pending, start] = useTransition();
-  const s = parseState(params, Date.now(), { gran: defaultGran });
+  const s = parseState(params, undefined, { gran: defaultGran });
   const go = (q: string) => start(() => router.push(`${path}?${q}`, { scroll: false }));
   const href = (over: Parameters<typeof stateQuery>[1]) => `${path}?${stateQuery(s, over)}`;
 

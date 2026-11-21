@@ -26,7 +26,7 @@ const DAY = 86_400_000;
  */
 export default async function Home({ searchParams }: PageProps<"/admin">) {
   const { role } = await requireStaff("overview", "/admin");
-  const s = parseState(await searchParams, Date.now(), { gran: "day" });
+  const s = parseState(await searchParams, undefined, { gran: "day" });
   const ds: DatasetId[] = ["traffic", "audience", "revenue"];
   // Home has always shown revenue to everyone who can open it, so the revenue dataset is loaded for all staff.
   const [r, q] = await Promise.all([loadReport(s, { revenue: true }, ds), loadQueues(role)]);

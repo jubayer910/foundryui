@@ -43,13 +43,13 @@ export default async function AdminReferrals() {
 
   return (
     <div className="max-w-[1100px]">
-      <AdminHead title="Referral links" sub="One link per place you share the site. See which one brings visits, sign-ups and sales." />
+      <AdminHead title="Referral links" info="One link per place you share the site. See which one brings visits, sign-ups and sales." />
 
-      <Section title="Make a link" sub="Name it after where you post it: x-reply, x-bio, linkedin, newsletter-name, curator-name.">
+      <Section title="Make a link" info="Name it after where you post it: x-reply, x-bio, linkedin, newsletter-name, curator-name.">
         <RefLinkForm />
       </Section>
 
-      <Section title="Links" sub="All time. Visits are landing visits through the link. A sign-up counts if it happens within 30 days of clicking.">
+      <Section title="Links" sub="All time" info="Visits are landing visits through the link. A sign-up counts if it happens within 30 days of clicking.">
         {rows.length === 0 ? (
           <p className="text-[13px] text-mute">No links yet. Make the first one above.</p>
         ) : (

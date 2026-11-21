@@ -154,7 +154,8 @@ export function Tag({ children, tone = "plain" }: { children: ReactNode; tone?: 
     warn: "bg-[#fff4dc] text-[#8a5a00]",
     bad: "bg-[#fdecec] text-[#9b1c1c]",
   }[tone];
-  return <span className={"inline-flex h-5 items-center rounded-full px-2 text-[12px] whitespace-nowrap " + t}>{children}</span>;
+  // Status codes read as words: "partial_refund" shows as "partial refund".
+  return <span className={"inline-flex h-5 items-center rounded-[5px] px-1.5 text-[12px] whitespace-nowrap " + t}>{typeof children === "string" ? children.replace(/_/g, " ") : children}</span>;
 }
 
 export function statusTone(s: string): "plain" | "ink" | "good" | "warn" | "bad" {

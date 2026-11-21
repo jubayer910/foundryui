@@ -32,7 +32,7 @@ export default async function AdminPosts({ searchParams }: PageProps<"/admin/pos
 
   return (
     <div>
-      <AdminHead title="Posts" sub={`${counts.code} posts in the code and ${counts.all - counts.code} in the database, ${num(views)} page views in all. The blog lists both, newest first.`}>
+      <AdminHead title="Posts" sub={`${counts.all} posts, ${num(views)} page views`} info={`${counts.code} posts live in the code and ${counts.all - counts.code} in the database. The blog lists both, newest first.`}>
         <a href={"/admin/posts/csv" + (show ? `?show=${show}` : "")} className="btn-line" download>
           <Icon name="download" size={15} />
           CSV

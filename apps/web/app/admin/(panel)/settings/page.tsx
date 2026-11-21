@@ -31,7 +31,7 @@ export default async function AdminSettings({ searchParams }: PageProps<"/admin/
 
   return (
     <div>
-      <AdminHead title="Settings" sub="Support addresses, admins and what is configured." />
+      <AdminHead title="Settings" info="Support addresses, admins and what is configured." />
       <Flash ok={q.ok} err={q.err} />
       <div className="mt-5 grid gap-3 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
         <form action={saveSettings} className="card flex flex-col gap-3 p-4">
@@ -85,7 +85,7 @@ export default async function AdminSettings({ searchParams }: PageProps<"/admin/
         </div>
       </div>
 
-      <Section title="Audit log" sub="Last 25 admin changes.">
+      <Section title="Audit log" sub="Last 25 changes">
         <Table head={["When", "Who", "Action", "Target"]} empty="No admin changes yet.">
           {log.map((l) => (
             <tr key={l.id}>

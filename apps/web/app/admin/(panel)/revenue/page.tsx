@@ -11,6 +11,7 @@ import {
   Section,
   Table,
   Tag,
+  Toolbar,
   cap,
   day,
   money,
@@ -20,6 +21,8 @@ import {
   when,
 } from "@/components/admin/ui";
 import { Delta } from "@/components/admin/charts";
+import { AIcon } from "@/components/admin/admin-icons";
+import { More } from "@/components/admin/reports/view";
 import { Icon } from "@/registry/components/icons";
 import {
   RANGES,
@@ -55,8 +58,15 @@ export default async function AdminRevenue({
     <div>
       <AdminHead
         title="Revenue"
-        sub={`Earnings from Lemon Squeezy in ${CUR}, ${day(r.from)} to ${day(r.to)} (UTC).`}
+        sub={`${day(r.from)} to ${day(r.to)}, ${CUR}, UTC`}
+        info="Earnings from Lemon Squeezy and Contra in USD, net of refunds, by order date. Recurring numbers are a snapshot of subscriptions that still bill."
       >
+        <a href={`/admin/revenue/export?range=${range}`} className="btn-line !h-8 !px-3" download>
+          <Icon name="download" size={14} />
+          Orders CSV
+        </a>
+      </AdminHead>
+      <Toolbar>
         <LinkTabs
           tabs={(Object.keys(RANGES) as (keyof typeof RANGES)[]).map((k) => ({
             href: `/admin/revenue?range=${k}`,
@@ -64,25 +74,12 @@ export default async function AdminRevenue({
             on: k === range,
           }))}
         />
-      </AdminHead>
+      </Toolbar>
       <Flash ok={q.ok} err={q.err} />
 
       <Connection r={r} here={here} connected={connected} />
 
-      <Section
-        title="Earnings"
-        sub={`${RANGES[range]}, net of refunds.`}
-        action={
-          <a
-            href={`/admin/revenue/export?range=${range}`}
-            className="btn-line !h-7 !px-3"
-            download
-          >
-            <Icon name="download" size={14} />
-            Orders CSV
-          </a>
-        }
-      >
+      <Section title="Earnings" sub={RANGES[range]}>
         <Kpis r={r} />
         {r.orderCount === 0 && (
           <p className="mt-2 text-[12px] text-faint">
@@ -105,21 +102,13 @@ export default async function AdminRevenue({
         )}
       </Section>
 
-      <Section
-        title="Recurring"
-        sub="Right now, from subscriptions that still bill."
-      >
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
+      <Section title="Recurring" sub="Right now">
+        <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
           <Kpi
             label="MRR"
             value={money(r.mrr, CUR)}
-            hint={
-              r.mrrFromSettings
-                ? `${num(r.mrrFromSettings)} priced from settings`
-                : "Monthly plus yearly / 12, before tax"
-            }
+            hint={`Monthly plus yearly / 12, before tax. ARR ${money(r.arr, CUR)}.${r.mrrFromSettings ? ` ${num(r.mrrFromSettings)} priced from settings.` : ""}`}
           />
-          <Kpi label="ARR" value={money(r.arr, CUR)} hint="MRR × 12" />
           <Kpi
             label="Active subscribers"
             value={num(r.activeSubs)}
@@ -131,20 +120,14 @@ export default async function AdminRevenue({
             hint="Paid, not refunded"
           />
           <Kpi
-            label="Deal spots"
+            label="Deal spots sold"
             value={`${num(r.deal.sold)} / ${num(r.deal.total)}`}
-            hint={
-              <Link href="/admin/pricing" className="hover:underline">
-                {r.deal.enabled
-                  ? `${num(r.deal.left)} left${r.deal.soldOut ? ", sold out" : ""}`
-                  : "Deal is off"}
-              </Link>
-            }
+            hint={r.deal.enabled ? `${num(r.deal.left)} left${r.deal.soldOut ? ", sold out" : ""}. Set in Pricing & deal.` : "The deal is off. Set in Pricing & deal."}
           />
         </div>
       </Section>
 
-      <Section title="Revenue over time" sub="Net of refunds, by order date.">
+      <Section title="Revenue over time" info="Net of refunds, by order date.">
         <div className="grid gap-3 lg:grid-cols-2">
           <MoneyBars
             data={r.daily}
@@ -156,7 +139,8 @@ export default async function AdminRevenue({
             every={r.monthly.length > 12 ? 6 : 2}
           />
         </div>
-        <div className="mt-3 grid gap-3 lg:grid-cols-2">
+        <More label="Show plan mix and subscription flow">
+        <div className="grid gap-3 lg:grid-cols-2">
           <MoneyList
             title={`By plan, ${RANGES[range].toLowerCase()}`}
             rows={r.byPlan.map((p) => ({
@@ -168,6 +152,7 @@ export default async function AdminRevenue({
           />
           <FlowBars data={r.subsFlow} />
         </div>
+        </More>
       </Section>
 
       <Section
@@ -185,24 +170,18 @@ export default async function AdminRevenue({
         <OrdersTable orders={r.latest} />
       </Section>
 
-      <div className="grid gap-x-3 lg:grid-cols-2 [&>section]:min-w-0">
-        <Section title="Upcoming renewals" sub="Next 30 days.">
-          <SubsTable subs={r.renewals} kind="renewal" />
-        </Section>
-        <Section
-          title="Needs attention"
-          sub="Past-due or unpaid subscriptions, failed orders."
-        >
+      <div id="attention" className="grid scroll-mt-32 gap-x-3 lg:grid-cols-2 [&>section]:min-w-0">
+        <Section title="Needs attention" info="Past-due or unpaid subscriptions, and failed orders.">
           <SubsTable subs={r.trouble} kind="trouble" failed={r.failedOrders} />
+        </Section>
+        <Section title="Upcoming renewals" sub="Next 30 days">
+          <SubsTable subs={r.renewals} kind="renewal" />
         </Section>
       </div>
 
-      <Section
-        title="Lemon Squeezy store totals"
-        sub="Their numbers next to ours, all time and last 30 days, in USD."
-      >
+      <More label="Lemon Squeezy store totals next to ours" className="mt-8">
         <StoreCompare r={r} />
-      </Section>
+      </More>
     </div>
   );
 }
@@ -225,16 +204,26 @@ function Connection({
   ].filter(Boolean) as string[];
   if (!connected) {
     return (
-      <div className="card mt-5 p-4">
-        <div className="flex items-start gap-3">
+      <details className="group card mt-5 p-4">
+        <summary className="flex cursor-pointer list-none items-center gap-3 [&::-webkit-details-marker]:hidden">
+          <span className="text-mute">
+            <RIcon name="plug-connected" size={18} />
+          </span>
+          <span className="min-w-0 flex-1 text-[13px]">
+            <span className="font-medium">Lemon Squeezy is not connected.</span>{" "}
+            <span className="text-mute">Orders from it arrive once the keys are set.</span>
+          </span>
+          <span className="inline-flex items-center gap-1 text-[13px] text-mute group-open:text-ink">
+            How to connect
+            <AIcon name="chevron-down" size={14} className="transition-transform duration-150 group-open:rotate-180" />
+          </span>
+        </summary>
+        <div className="mt-3 flex items-start gap-3 border-t border-hair pt-3 pl-[30px]">
           <span className="mt-0.5 text-mute">
             <RIcon name="plug-connected" size={18} />
           </span>
           <div className="min-w-0 flex-1">
-            <p className="text-[13px] font-medium">
-              Lemon Squeezy is not connected yet
-            </p>
-            <p className="mt-1 text-[13px] text-mute">
+            <p className="text-[13px] text-mute">
               Missing {missing.length === 2 ? "both secrets" : "one secret"}:{" "}
               {missing.map((m, i) => (
                 <span key={m}>
@@ -284,7 +273,7 @@ function Connection({
             </div>
           </div>
         </div>
-      </div>
+      </details>
     );
   }
   return (
@@ -368,12 +357,12 @@ function Kpis({ r }: { r: Revenue }) {
       <Delta cur={cur} prev={prev} period={period} invert={invert} />
     ) : undefined;
   return (
-    <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
+    <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
       <Kpi
-        label="Gross revenue"
-        value={money(r.gross, CUR)}
-        delta={d(r.gross, r.prev?.gross)}
-        hint="Order totals, tax included"
+        label="Net revenue"
+        value={money(r.net, CUR)}
+        delta={d(r.net, r.prev?.net)}
+        hint={`Gross ${money(r.gross, CUR)} (order totals, tax included) minus refunds.`}
       />
       <Kpi
         label="Refunds"
@@ -383,12 +372,6 @@ function Kpis({ r }: { r: Revenue }) {
             ? `${((r.refunds / r.gross) * 100).toFixed(1).replace(/\.0$/, "")}% of gross`
             : "None"
         }
-      />
-      <Kpi
-        label="Net revenue"
-        value={money(r.net, CUR)}
-        delta={d(r.net, r.prev?.net)}
-        hint="Gross minus refunds"
       />
       <Kpi
         label="Paid orders"

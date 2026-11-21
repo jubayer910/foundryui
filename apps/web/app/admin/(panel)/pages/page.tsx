@@ -16,7 +16,7 @@ export default async function AdminPages({ searchParams }: { searchParams: Promi
   const [content, history] = await Promise.all([getContent(), recentContentEdits()]);
   return (
     <div className="max-w-[1180px]">
-      <AdminHead title="Pages" sub="Change the words on the site. Saved text is live within a minute, no deploy. Layout and pictures stay as they are." />
+      <AdminHead title="Pages" sub="The words on the site" info="Saved text is live within a minute, no deploy. Layout and pictures stay as they are." />
       <PagesEditor pages={EDITABLE_PAGES} page={page} content={content} history={history} />
     </div>
   );

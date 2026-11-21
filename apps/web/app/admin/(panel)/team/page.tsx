@@ -30,7 +30,7 @@ export default async function AdminTeam({ searchParams }: PageProps<"/admin/team
 
   return (
     <div>
-      <AdminHead title="Team" sub="Who can open the admin panel, and what each role can do.">
+      <AdminHead title="Team" info="Who can open the admin panel, and what each role can do.">
         <InviteDialog roles={roles} action={createInvite} />
       </AdminHead>
       <Flash ok={q.ok} err={q.err} />
@@ -96,7 +96,7 @@ export default async function AdminTeam({ searchParams }: PageProps<"/admin/team
         </Table>
       </Section>
 
-      <Section title="Pending invites" sub="Single use, valid for 7 days.">
+      <Section title="Pending invites" info="Single use, valid for 7 days.">
         <Table head={["Email", "Role", "Invited by", "Expires", ""]} empty="No pending invites.">
           {pending.map((i) => (
             <tr key={i.id}>
@@ -126,7 +126,7 @@ export default async function AdminTeam({ searchParams }: PageProps<"/admin/team
       </Section>
 
       {past.length > 0 && (
-        <Section title="Earlier invites" sub="Last 10.">
+        <Section title="Earlier invites" sub="Last 10">
           <Table head={["Email", "Role", "Invited by", "Created", "Status"]}>
             {past.map((i) => {
               const s = inviteState(i, now);

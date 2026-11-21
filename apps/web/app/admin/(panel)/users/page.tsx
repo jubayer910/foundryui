@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { and, count, desc, eq, inArray, like, or, type SQL } from "drizzle-orm";
+import { and, count, desc, eq, inArray, like, or, sql, type SQL } from "drizzle-orm";
 import { getDb, schema } from "@/lib/db";
 import { sp } from "@/components/admin/guard";
 import { requireStaff } from "@/lib/admin";
-import { AdminHead, Field, Table, Tag, day, input, num, td } from "@/components/admin/ui";
+import { AdminHead, Pager, Table, Tag, Toolbar, cap, day, input, money, num, statusTone, td, tdNum, when } from "@/components/admin/ui";
+import { AIcon } from "@/components/admin/admin-icons";
+import { Drawer, Facts } from "@/components/admin/drawer";
 
 export const metadata: Metadata = { title: "Users" };
 const PER = 25;
@@ -41,55 +43,116 @@ export default async function AdminUsers({ searchParams }: PageProps<"/admin/use
     : [];
   const uses = new Map(usage.map((u) => [u.userId, u.n]));
   const pages = Math.max(1, Math.ceil((total?.n ?? 0) / PER));
-  const link = (p: number) => "/admin/users?" + new URLSearchParams(Object.entries({ q: search, plan, page: String(p) }).filter(([, v]) => v)).toString();
+  const link = (p: number, view?: string) => "/admin/users?" + new URLSearchParams(Object.entries({ q: search, plan, page: p > 1 ? String(p) : "", view: view ?? "" }).filter(([, v]) => v)).toString();
+  const open = sp(q.view);
 
   return (
     <div>
       <AdminHead title="Users" sub={`${num(total?.n ?? 0)} ${search || plan ? "match" : "accounts"}`} />
-      <form method="get" className="mt-5 flex flex-wrap items-end gap-2">
-        <Field label="Email or name" className="w-full sm:w-[280px]">
-          <input name="q" defaultValue={search} placeholder="Search" className={input} />
-        </Field>
-        <Field label="Plan" className="w-[140px]">
-          <select name="plan" defaultValue={plan} className={input}>
-            <option value="">All plans</option>
-            <option value="free">Free</option>
-            <option value="pro">Pro</option>
-            <option value="lifetime">Lifetime</option>
-          </select>
-        </Field>
-        <button className="btn-ink">Search</button>
-        {(search || plan) && (
-          <Link href="/admin/users" className="btn-line">
-            Clear
-          </Link>
-        )}
-      </form>
+      <Toolbar>
+        <form method="get" className="flex w-full flex-wrap items-center gap-2" role="search">
+          <label className="relative block w-full sm:w-[280px]">
+            <span className="sr-only">Email or name</span>
+            <AIcon name="search" size={15} className="pointer-events-none absolute top-1/2 left-2.5 -translate-y-1/2 text-faint" />
+            <input name="q" defaultValue={search} placeholder="Search email or name" className={input + " pl-8"} />
+          </label>
+          <label>
+            <span className="sr-only">Plan</span>
+            <select name="plan" defaultValue={plan} className={input + " !w-auto pr-7"}>
+              <option value="">All plans</option>
+              <option value="free">Free</option>
+              <option value="pro">Pro</option>
+              <option value="lifetime">Lifetime</option>
+            </select>
+          </label>
+          <button className="btn-line !h-8 !px-3">Apply</button>
+          {(search || plan) && (
+            <Link href="/admin/users" className="text-[13px] text-mute hover:text-ink hover:underline">
+              Clear
+            </Link>
+          )}
+        </form>
+      </Toolbar>
       <div className="mt-4">
-        <Table head={["Name", "Email", "Plan", "Role", "Uses", "Joined"]} empty="No users match.">
+        <Table head={["Name", "Email", "Plan", "Role", "Uses", "Joined"]} right={[4]} empty="No users match.">
           {rows.map((u) => (
-            <tr key={u.id} className="hover:bg-wash">
+            <tr key={u.id} aria-selected={u.id === open || undefined} className="aria-selected:bg-tile">
               <td className={td}>
-                <Link href={`/admin/users/${u.id}`} className="font-medium hover:underline">
+                <Link href={link(page, u.id)} scroll={false} className="font-medium hover:underline">
                   {u.name || "No name"}
                 </Link>
               </td>
               <td className={td}>{u.email}</td>
               <td className={td}><Tag tone={u.plan === "free" ? "plain" : "good"}>{u.plan}</Tag></td>
               <td className={td}>{u.role === "admin" ? <Tag tone="ink">admin</Tag> : <span className="text-faint">user</span>}</td>
-              <td className={td + " tabular-nums"}>{num(uses.get(u.id) ?? 0)}</td>
-              <td className={td + " whitespace-nowrap text-mute"}>{day(u.createdAt)}</td>
+              <td className={tdNum}>{num(uses.get(u.id) ?? 0)}</td>
+              <td className={td + " whitespace-nowrap text-mute tabular-nums"}>{day(u.createdAt)}</td>
             </tr>
           ))}
         </Table>
+        <Pager page={page} pages={pages} total={total?.n ?? 0} href={(n) => link(n)} unit="accounts" />
       </div>
-      {pages > 1 && (
-        <nav aria-label="Pages" className="mt-3 flex items-center gap-2 text-[13px]">
-          {page > 1 ? <Link href={link(page - 1)} className="btn-line !h-7">Previous</Link> : <span className="btn-line !h-7 opacity-40">Previous</span>}
-          <span className="text-mute tabular-nums">Page {page} of {pages}</span>
-          {page < pages ? <Link href={link(page + 1)} className="btn-line !h-7">Next</Link> : <span className="btn-line !h-7 opacity-40">Next</span>}
-        </nav>
-      )}
+      {open && <UserDrawer id={open} closeHref={link(page)} />}
     </div>
+  );
+}
+
+/** Quick look at one account: plan, activity, money, tickets. Editing stays on the full page. */
+async function UserDrawer({ id, closeHref }: { id: string; closeHref: string }) {
+  const db = await getDb();
+  const [u] = await db.select().from(schema.user).where(eq(schema.user.id, id)).limit(1);
+  if (!u) return null;
+  const email = u.email.toLowerCase();
+  const P = schema.purchase;
+  const T = schema.ticket;
+  const [[uses], orders, tickets, [keys]] = await db.batch([
+    db.select({ n: count() }).from(schema.usageEvent).where(eq(schema.usageEvent.userId, id)),
+    db.select().from(P).where(or(eq(P.userId, id), sql`lower(${P.email}) = ${email}`)).orderBy(desc(P.createdAt)).limit(5),
+    db.select().from(T).where(or(eq(T.userId, id), sql`lower(${T.email}) = ${email}`)).orderBy(desc(T.updatedAt)).limit(5),
+    db.select({ n: count() }).from(schema.apiKey).where(eq(schema.apiKey.userId, id)),
+  ]);
+  return (
+    <Drawer title={u.name || u.email} sub={u.email} closeHref={closeHref} full={`/admin/users/${u.id}`}>
+      <Facts
+        rows={[
+          ["Plan", <Tag key="p" tone={u.plan === "free" ? "plain" : "good"}>{u.plan}</Tag>],
+          ["Signed up", when(u.createdAt)],
+          ["Email", u.emailVerified ? "Verified" : "Not verified"],
+          ["Actions", <span key="a" className="tabular-nums">{num(uses?.n ?? 0)} copies, downloads and installs</span>],
+          ["API keys", <span key="k" className="tabular-nums">{num(keys?.n ?? 0)}</span>],
+        ]}
+      />
+      <h3 className="mt-6 mb-2 text-[13px] font-medium">Orders</h3>
+      {orders.length ? (
+        <ul className="divide-y divide-hair text-[13px]">
+          {orders.map((o) => (
+            <li key={o.id} className="flex items-center gap-2 py-2">
+              <span className="min-w-0 flex-1 truncate">
+                {cap(o.plan)} <span className="text-mute">{when(o.createdAt)}</span>
+              </span>
+              <span className="tabular-nums">{money(o.amountCents, o.currency)}</span>
+              <Tag tone={statusTone(o.status)}>{o.status}</Tag>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p className="text-[13px] text-mute">No orders.</p>
+      )}
+      <h3 className="mt-6 mb-2 text-[13px] font-medium">Tickets</h3>
+      {tickets.length ? (
+        <ul className="divide-y divide-hair text-[13px]">
+          {tickets.map((t) => (
+            <li key={t.id}>
+              <Link href={`/admin/support/${t.id}`} className="flex items-center gap-2 py-2 hover:underline">
+                <span className="min-w-0 flex-1 truncate">{t.subject}</span>
+                <Tag tone={statusTone(t.status)}>{t.status}</Tag>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p className="text-[13px] text-mute">No tickets.</p>
+      )}
+    </Drawer>
   );
 }
