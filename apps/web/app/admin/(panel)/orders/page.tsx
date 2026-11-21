@@ -6,7 +6,8 @@ import { sp } from "@/components/admin/guard";
 import { requireStaff } from "@/lib/admin";
 import { AIcon } from "@/components/admin/admin-icons";
 import { Drawer, Facts } from "@/components/admin/drawer";
-import { AdminHead, Field, Flash, LinkTabs, Pager, Section, Table, Tag, Toolbar, cap, input, money, pageOf, statusTone, td, tdNum, when } from "@/components/admin/ui";
+import { AdminHead, Field, Flash, LinkTabs, Pager, PhoneList, PhoneRow, Section, Table, Tag, Toolbar, cap, day, input, money, pageOf, statusTone, td, tdNum, when } from "@/components/admin/ui";
+import { FilterSheet } from "@/components/admin/filter-sheet";
 import { Icon } from "@/registry/components/icons";
 import { grantPlan, revokePurchase } from "./actions";
 import { syncNow } from "../revenue/actions";
@@ -98,13 +99,14 @@ export default async function AdminOrders({ searchParams }: PageProps<"/admin/or
             { href: qs({ view: "subs", page: "" }), label: "Subscriptions", count: sc?.n ?? 0, on: view === "subs" },
           ]}
         />
-        <form method="get" className="flex flex-wrap items-center gap-2 sm:ml-auto" role="search">
+        <form method="get" className="flex w-full flex-wrap items-center gap-2 sm:ml-auto sm:w-auto" role="search">
           {view === "subs" && <input type="hidden" name="view" value="subs" />}
-          <label className="relative block w-full sm:w-[220px]">
+          <label className="relative block min-w-0 flex-1 sm:w-[220px] sm:flex-none">
             <span className="sr-only">Search by email</span>
             <AIcon name="search" size={15} className="pointer-events-none absolute top-1/2 left-2.5 -translate-y-1/2 text-faint" />
             <input name="q" defaultValue={search} placeholder="Search email" className={input + " pl-8"} />
           </label>
+          <FilterSheet active={(plan ? 1 : 0) + (status ? 1 : 0)} clearHref={view === "subs" ? "/admin/orders?view=subs" : "/admin/orders"}>
           <label>
             <span className="sr-only">Plan</span>
             <select name="plan" defaultValue={plan} className={sel}>
@@ -125,9 +127,10 @@ export default async function AdminOrders({ searchParams }: PageProps<"/admin/or
               ))}
             </select>
           </label>
-          <button className="btn-line !h-8 !px-3">Apply</button>
+          </FilterSheet>
+          <button className="btn-line !h-8 !px-3 max-md:!hidden">Apply</button>
           {(plan || status || search) && (
-            <Link href={view === "subs" ? "/admin/orders?view=subs" : "/admin/orders"} className="text-[13px] text-mute hover:text-ink hover:underline">
+            <Link href={view === "subs" ? "/admin/orders?view=subs" : "/admin/orders"} className="text-[13px] text-mute hover:text-ink hover:underline max-md:hidden">
               Clear
             </Link>
           )}
@@ -136,7 +139,33 @@ export default async function AdminOrders({ searchParams }: PageProps<"/admin/or
 
       <div className="mt-4">
         {view === "purchases" ? (
-          <Table head={["Date", "Email", "Plan", "Amount", "Status", "Source"]} right={[3]} empty="No purchases match.">
+          <Table
+            head={["Date", "Email", "Plan", "Amount", "Status", "Source"]}
+            right={[3]}
+            empty="No purchases match."
+            mobile={
+              <PhoneList label="Purchases">
+                {purchases.map((p) => (
+                  <PhoneRow
+                    key={p.id}
+                    href={qs({ order: p.id })}
+                    scroll={false}
+                    selected={p.id === open}
+                    title={p.email}
+                    meta={
+                      <>
+                        <span>{cap(p.plan)}</span>
+                        <span className="tabular-nums">{day(p.createdAt)}</span>
+                        <span>{cap(sourceOf(p))}</span>
+                      </>
+                    }
+                    value={money(p.amountCents, p.currency)}
+                    valueSub={<Tag tone={statusTone(p.status)}>{p.status.replace("_", " ")}</Tag>}
+                  />
+                ))}
+              </PhoneList>
+            }
+          >
             {purchases.map((p) => (
               <tr key={p.id} aria-selected={p.id === open || undefined} className="aria-selected:bg-tile">
                 <td className={td + " whitespace-nowrap text-mute tabular-nums"}>
@@ -161,7 +190,31 @@ export default async function AdminOrders({ searchParams }: PageProps<"/admin/or
             ))}
           </Table>
         ) : (
-          <Table head={["Updated", "Email", "Plan", "Status", "Renews", "Ends", "Subscription"]} empty="No subscriptions match.">
+          <Table
+            head={["Updated", "Email", "Plan", "Status", "Renews", "Ends", "Subscription"]}
+            empty="No subscriptions match."
+            mobile={
+              <PhoneList label="Subscriptions">
+                {subs.map((s) => (
+                  <PhoneRow
+                    key={s.id}
+                    href={s.userId ? `/admin/users/${s.userId}` : s.provider === "contra" ? "/admin/activations" : `https://app.lemonsqueezy.com/subscriptions/${encodeURIComponent(s.providerSubId)}`}
+                    external={!s.userId && s.provider !== "contra"}
+                    title={s.email}
+                    meta={
+                      <>
+                        <span>
+                          {cap(s.plan)} {s.interval}
+                        </span>
+                        <span className="tabular-nums">{s.endsAt ? `Ends ${day(s.endsAt)}` : s.renewsAt ? `Renews ${day(s.renewsAt)}` : `Updated ${day(s.updatedAt)}`}</span>
+                      </>
+                    }
+                    valueSub={<Tag tone={statusTone(s.status)}>{s.status.replace("_", " ")}</Tag>}
+                  />
+                ))}
+              </PhoneList>
+            }
+          >
             {subs.map((s) => (
               <tr key={s.id}>
                 <td className={td + " whitespace-nowrap text-mute tabular-nums"}>{when(s.updatedAt)}</td>
@@ -195,7 +248,7 @@ export default async function AdminOrders({ searchParams }: PageProps<"/admin/or
 
       <section id="grant" className="mt-10 scroll-mt-32">
         <Section title="Grant a plan" info="For press, giveaways or fixing a missed webhook. The customer needs an account. Every grant is saved in the audit log.">
-          <form action={grantPlan} className="card grid gap-3 p-4 sm:grid-cols-[minmax(0,1.2fr)_140px_minmax(0,1.5fr)_auto] sm:items-end">
+          <form action={grantPlan} className="card grid gap-4 p-4 sm:gap-3 sm:grid-cols-[minmax(0,1.2fr)_140px_minmax(0,1.5fr)_auto] sm:items-end">
             <input type="hidden" name="back" value="/admin/orders" />
             <Field label="Customer email">
               <input name="email" type="email" required placeholder="name@company.com" className={input} />
@@ -209,7 +262,7 @@ export default async function AdminOrders({ searchParams }: PageProps<"/admin/or
             <Field label="Note">
               <input name="note" required placeholder="Why, for the audit log" className={input} />
             </Field>
-            <button className="btn-ink">Grant plan</button>
+            <button className="btn-ink max-sm:mt-1">Grant plan</button>
           </form>
         </Section>
       </section>
@@ -226,7 +279,7 @@ export default async function AdminOrders({ searchParams }: PageProps<"/admin/or
               [
                 "Order",
                 o.provider === "lemonsqueezy" ? (
-                  <a key="o" href={`https://app.lemonsqueezy.com/orders/${encodeURIComponent(o.providerOrderId)}`} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 font-mono text-[12px] hover:underline">
+                  <a key="o" href={`https://app.lemonsqueezy.com/orders/${encodeURIComponent(o.providerOrderId)}`} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 font-mono text-[12px] hover:underline max-md:-my-3 max-md:min-h-11 max-md:text-[13px]">
                     {o.providerOrderId}
                     <Icon name="arrow-up-right" size={13} />
                   </a>

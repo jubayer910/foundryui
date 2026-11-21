@@ -156,9 +156,9 @@ export function PostEditor({ post, categories, systems, components, codeSlugs }:
       {post.id && <input type="hidden" name="id" value={post.id} />}
       <input type="hidden" name="related" value={related.join(",")} />
 
-      <div className="mb-3 flex gap-1.5 xl:hidden" role="tablist" aria-label="Editor view">
+      <div className="mb-3 flex gap-1.5 max-md:sticky max-md:top-[var(--admin-top-m,57px)] max-md:z-10 max-md:-mx-4 max-md:gap-0 max-md:bg-white/95 max-md:px-4 max-md:py-2 max-md:backdrop-blur xl:hidden" role="tablist" aria-label="Editor view">
         {(["write", "preview"] as const).map((v) => (
-          <button key={v} type="button" role="tab" aria-selected={view === v} data-on={view === v} onClick={() => setView(v)} className="pill">
+          <button key={v} type="button" role="tab" aria-selected={view === v} data-on={view === v} onClick={() => setView(v)} className="pill max-md:flex-1 max-md:justify-center max-md:rounded-none max-md:first:rounded-l-full max-md:last:rounded-r-full">
             <CIco name={v === "write" ? "pencil" : "eye"} size={14} />
             {v === "write" ? "Write" : "Preview"}
           </button>
@@ -169,13 +169,13 @@ export function PostEditor({ post, categories, systems, components, codeSlugs }:
         <div className={"flex min-w-0 flex-col gap-4 " + (view === "preview" ? "max-xl:hidden" : "")}>
           <section className="card flex flex-col gap-3 p-4" aria-label="Post details">
             <label className="flex flex-col gap-1">
-              <span className="text-[12px] text-mute">Title</span>
+              <span className="text-[13px] text-mute md:text-[12px]">Title</span>
               <input name="title" required value={title} onChange={(e) => setTitle(e.target.value)} placeholder="KPI card design: 9 rules that make numbers readable" className={input + " !h-10 !text-[15px] font-medium" + ring("title")} />
               {err("title") && <span className="text-[12px] text-[#9b1c1c]">{err("title")}</span>}
             </label>
             <div className="grid gap-3 sm:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
               <label className="flex flex-col gap-1">
-                <span className="text-[12px] text-mute">Slug {!slugTouched && <span className="text-faint">(from the title)</span>}</span>
+                <span className="text-[13px] text-mute md:text-[12px]">Slug {!slugTouched && <span className="text-faint">(from the title)</span>}</span>
                 <span className={"flex h-8 items-center rounded-[6px] bg-white text-[13px] shadow-[inset_0_0_0_1px_var(--color-hair-2)] focus-within:shadow-[inset_0_0_0_1px_var(--color-ink)]" + ring("slug")}>
                   <span className="pl-2.5 text-faint">/blog/</span>
                   <input
@@ -198,14 +198,14 @@ export function PostEditor({ post, categories, systems, components, codeSlugs }:
                 ) : null}
               </label>
               <label className="flex flex-col gap-1">
-                <span className="text-[12px] text-mute">Category</span>
+                <span className="text-[13px] text-mute md:text-[12px]">Category</span>
                 <select name="category" value={category} onChange={(e) => setCategory(e.target.value)} className={input + ring("category")}>
                   {categories.map((c) => <option key={c}>{c}</option>)}
                 </select>
               </label>
             </div>
             <label className="flex flex-col gap-1">
-              <span className="flex text-[12px] text-mute">
+              <span className="flex text-[13px] text-mute md:text-[12px]">
                 Description
                 <span className="ml-auto"><Counter n={description.length} max={300} ideal="ideal 120 to 158" /></span>
               </span>
@@ -214,7 +214,7 @@ export function PostEditor({ post, categories, systems, components, codeSlugs }:
             </label>
             <div className="grid gap-3 sm:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)_minmax(0,0.8fr)]">
               <label className="flex flex-col gap-1">
-                <span className="flex text-[12px] text-mute">
+                <span className="flex text-[13px] text-mute md:text-[12px]">
                   Meta title
                   <span className="ml-auto"><Counter n={metaTitle.length} max={90} ideal="ideal under 60" /></span>
                 </span>
@@ -222,11 +222,11 @@ export function PostEditor({ post, categories, systems, components, codeSlugs }:
                 {err("metaTitle") && <span className="text-[12px] text-[#9b1c1c]">{err("metaTitle")}</span>}
               </label>
               <label className="flex flex-col gap-1">
-                <span className="text-[12px] text-mute">Primary keyword</span>
+                <span className="text-[13px] text-mute md:text-[12px]">Primary keyword</span>
                 <input name="keyword" defaultValue={post.keyword} placeholder="kpi card design" className={input} />
               </label>
               <label className="flex flex-col gap-1">
-                <span className="text-[12px] text-mute">Publish date</span>
+                <span className="text-[13px] text-mute md:text-[12px]">Publish date</span>
                 <input name="date" type="date" defaultValue={post.date} className={input + ring("date")} />
               </label>
             </div>
@@ -234,13 +234,13 @@ export function PostEditor({ post, categories, systems, components, codeSlugs }:
           </section>
 
           <section className="card flex flex-col p-0" aria-label="Body">
-            <div className="flex flex-wrap items-center gap-0.5 border-b border-hair px-2 py-1.5" role="toolbar" aria-label="Formatting">
+            <div className="flex flex-wrap items-center gap-0.5 border-b border-hair px-2 py-1.5 max-md:flex-nowrap max-md:overflow-x-auto max-md:[scrollbar-width:none] [&::-webkit-scrollbar]:hidden" role="toolbar" aria-label="Formatting">
               {TOOLS.map((t) => (
-                <button key={t.label} type="button" onClick={() => apply(t)} title={t.label + (t.keys ? ` (${t.keys})` : "")} aria-label={t.label} className="flex size-8 items-center justify-center rounded-[6px] text-ink-2 hover:bg-tile hover:text-ink">
+                <button key={t.label} type="button" onClick={() => apply(t)} title={t.label + (t.keys ? ` (${t.keys})` : "")} aria-label={t.label} className="flex size-8 shrink-0 items-center justify-center rounded-[6px] text-ink-2 hover:bg-tile hover:text-ink max-md:size-11">
                   <CIco name={t.icon} size={17} />
                 </button>
               ))}
-              <span className="ml-auto flex items-center gap-1.5 pr-1 text-[12px] text-faint">
+              <span className="ml-auto flex shrink-0 items-center gap-1.5 pr-1 text-[12px] text-faint">
                 <CIco name="markdown" size={16} />
                 Markdown
               </span>
@@ -279,7 +279,7 @@ export function PostEditor({ post, categories, systems, components, codeSlugs }:
                   <li key={s} className={"flex h-7 items-center gap-1 rounded-full pl-2.5 pr-1 text-[12px] " + (compNames.has(s) ? "bg-chip" : "bg-[#fdecec] text-[#9b1c1c]")}>
                     {compNames.get(s) ?? s}
                     <span className="font-fu-mono text-[11px] text-faint">{s}</span>
-                    <button type="button" aria-label={`Remove ${s}`} onClick={() => setRelated(related.filter((x) => x !== s))} className="flex size-5 items-center justify-center rounded-full hover:bg-chip-2">
+                    <button type="button" aria-label={`Remove ${s}`} onClick={() => setRelated(related.filter((x) => x !== s))} className="flex size-5 items-center justify-center rounded-full hover:bg-chip-2 max-md:-my-2 max-md:-mr-1 max-md:size-10">
                       <CIco name="x" size={12} />
                     </button>
                   </li>
@@ -342,7 +342,7 @@ export function PostEditor({ post, categories, systems, components, codeSlugs }:
               <div key={i} className="flex flex-col gap-1.5 rounded-[8px] bg-tile p-2.5">
                 <div className="flex gap-2">
                   <input name="faq_q" value={f.q} onChange={(e) => setFaq(faq.map((x, j) => (j === i ? { ...x, q: e.target.value } : x)))} placeholder="Question" aria-label={`Question ${i + 1}`} className={input} />
-                  <button type="button" aria-label={`Remove question ${i + 1}`} title="Remove" onClick={() => setFaq(faq.filter((_, j) => j !== i))} className="flex size-8 shrink-0 items-center justify-center rounded-[6px] text-mute hover:bg-white hover:text-[#9b1c1c]">
+                  <button type="button" aria-label={`Remove question ${i + 1}`} title="Remove" onClick={() => setFaq(faq.filter((_, j) => j !== i))} className="flex size-8 max-md:size-11 shrink-0 items-center justify-center rounded-[6px] text-mute hover:bg-white hover:text-[#9b1c1c]">
                     <CIco name="trash" size={16} />
                   </button>
                 </div>
@@ -366,8 +366,8 @@ export function PostEditor({ post, categories, systems, components, codeSlugs }:
         </div>
       </div>
 
-      <div className="sticky bottom-0 z-20 -mx-4 mt-5 flex flex-wrap items-center gap-2 border-t border-hair bg-white/95 px-4 py-3 backdrop-blur sm:-mx-6 sm:px-6">
-        <p role="status" aria-live="polite" className={"mr-auto flex min-w-0 items-center gap-1.5 text-[13px] " + (state.err ? "text-[#9b1c1c]" : "text-mute")}>
+      <div className="sticky bottom-[var(--admin-bottom,0px)] z-20 -mx-4 mt-5 flex flex-wrap items-center gap-2 border-t border-hair bg-white/95 px-4 py-3 backdrop-blur sm:-mx-6 sm:px-6 max-md:[&>button]:flex-1">
+        <p role="status" aria-live="polite" className={"mr-auto flex min-w-0 items-center gap-1.5 text-[13px] max-md:basis-full " + (state.err ? "text-[#9b1c1c]" : "text-mute")}>
           {state.err ? (
             <>
               <CIco name="x" size={15} className="shrink-0" />

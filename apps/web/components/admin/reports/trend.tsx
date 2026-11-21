@@ -1,5 +1,5 @@
 "use client";
-import { useId, useState } from "react";
+import { useId, useState, type PointerEvent as RPointerEvent } from "react";
 import { show } from "@/lib/reports/format";
 import type { Unit } from "@/lib/reports/types";
 import { RIcon } from "./icons";
@@ -27,6 +27,15 @@ export function Trend({ title, metrics, rows, selected, compare }: { title: stri
   const focus = rows.find((r) => r.key === hover) ?? rows.find((r) => r.key === selected) ?? rows[rows.length - 1];
   const fv = focus ? focus.v[m.id] : null;
   const every = rows.length > 26 ? 4 : rows.length > 13 ? 2 : 1;
+  // Phones: at most five labels, counted back from the newest so the selected end is always named.
+  const everyPhone = Math.max(1, Math.ceil(rows.length / 5));
+  // Touch: tap or drag across the bars to read each value (the readout keeps the last one).
+  const scrub = (e: RPointerEvent<HTMLDivElement>) => {
+    if (e.pointerType === "mouse") return;
+    const box = e.currentTarget.getBoundingClientRect();
+    const i = Math.min(rows.length - 1, Math.max(0, Math.floor(((e.clientX - box.left) / box.width) * rows.length)));
+    setHover(rows[i]?.key ?? null);
+  };
   const empty = vals.every((v) => !v);
 
   return (
@@ -34,15 +43,15 @@ export function Trend({ title, metrics, rows, selected, compare }: { title: stri
       <figcaption className="flex flex-wrap items-center gap-x-3 gap-y-2">
         <span className="text-[13px] text-mute">{title}</span>
         {metrics.length > 1 && (
-          <div className="flex flex-wrap gap-1" role="group" aria-label="Metric shown in the chart">
+          <div className="-mx-4 flex gap-1 overflow-x-auto px-4 [scrollbar-width:none] max-md:order-last max-md:w-[calc(100%+32px)] md:mx-0 md:flex-wrap md:overflow-visible md:px-0 [&::-webkit-scrollbar]:hidden" role="group" aria-label="Metric shown in the chart">
             {metrics.map((x) => (
-              <button key={x.id} type="button" aria-pressed={x.id === m.id} onClick={() => setMid(x.id)} className="pill !h-6 !px-2.5 text-[12px]" data-on={x.id === m.id}>
+              <button key={x.id} type="button" aria-pressed={x.id === m.id} onClick={() => setMid(x.id)} className="pill shrink-0 !h-6 !px-2.5 text-[12px] max-md:!px-3.5" data-on={x.id === m.id}>
                 {x.label}
               </button>
             ))}
           </div>
         )}
-        <button type="button" onClick={() => setTable((t) => !t)} aria-expanded={table} aria-controls={tableId} className="ml-auto inline-flex h-7 items-center gap-1.5 rounded-[6px] px-2 text-[12px] text-mute hover:bg-tile hover:text-ink">
+        <button type="button" onClick={() => setTable((t) => !t)} aria-expanded={table} aria-controls={tableId} className="tap ml-auto inline-flex h-7 items-center justify-center gap-1.5 rounded-[6px] px-2 text-[12px] text-mute hover:bg-tile hover:text-ink max-md:-mr-2 max-md:text-[13px]">
           <RIcon name={table ? "chart-bar" : "table"} size={14} />
           {table ? "Hide data table" : "Show data table"}
         </button>
@@ -66,7 +75,14 @@ export function Trend({ title, metrics, rows, selected, compare }: { title: stri
           <span className="h-px flex-1 border-t border-dashed border-hair-2" />
           <span>{show(m.unit, max, { short: true })}</span>
         </div>
-        <div className="flex h-[150px] items-end gap-[3px] pt-4" role="group" aria-label={`${m.label} per period, ${rows.length} periods`} onMouseLeave={() => setHover(null)}>
+        <div
+          className="flex h-[150px] touch-pan-y items-end gap-[2px] pt-4 md:gap-[3px]"
+          role="group"
+          aria-label={`${m.label} per period, ${rows.length} periods`}
+          onMouseLeave={() => setHover(null)}
+          onPointerDown={scrub}
+          onPointerMove={(e) => e.buttons && scrub(e)}
+        >
           {rows.map((r, i) => {
             const v = vals[i];
             const h = v === null ? 0 : Math.max(v === 0 ? 1.5 : 3, ((Math.max(0, v) - Math.max(0, min)) / span) * 130);
@@ -78,7 +94,8 @@ export function Trend({ title, metrics, rows, selected, compare }: { title: stri
                 type="button"
                 onMouseEnter={() => setHover(r.key)}
                 onFocus={() => setHover(r.key)}
-                onBlur={() => setHover(null)}
+                onBlur={(e) => e.relatedTarget && setHover(null)}
+                data-tap-exempt=""
                 aria-label={`${r.name} (${r.dates}): ${show(m.unit, r.v[m.id])}${isSel ? ", selected period" : isCmp ? ", comparison period" : ""}`}
                 className="group relative flex h-full min-w-0 flex-1 items-end justify-center rounded-[3px] outline-offset-2"
               >
@@ -93,17 +110,24 @@ export function Trend({ title, metrics, rows, selected, compare }: { title: stri
             );
           })}
         </div>
-        <div className="mt-1.5 flex gap-[3px] overflow-hidden border-t border-hair-2 pt-1.5 text-[11px] text-faint tabular-nums" aria-hidden="true">
-          {rows.map((r, i) => (
-            <span key={r.key} className="min-w-0 flex-1 overflow-visible text-center whitespace-nowrap">
-              {(rows.length - 1 - i) % every === 0 ? r.tick : ""}
-            </span>
-          ))}
+        <div className="mt-1.5 flex gap-[2px] overflow-hidden border-t border-hair-2 pt-1.5 text-[12px] text-faint tabular-nums md:gap-[3px] md:text-[11px]" aria-hidden="true">
+          {rows.map((r, i) => {
+            const back = rows.length - 1 - i;
+            const desk = back % every === 0;
+            const phone = back % everyPhone === 0;
+            // The last label ends at the right edge and the first starts at the left, so neither is clipped.
+            const align = i === rows.length - 1 ? "justify-end" : i === 0 ? "justify-start" : "justify-center";
+            return (
+              <span key={r.key} className={"flex min-w-0 flex-1 whitespace-nowrap " + align + (desk && !phone ? " max-md:invisible" : !desk && phone ? " md:invisible" : "")}>
+                {desk || phone ? r.tick : ""}
+              </span>
+            );
+          })}
         </div>
         {empty && <p className="absolute inset-x-0 top-[60px] text-center text-[13px] text-mute">No {m.label.toLowerCase()} in this range.</p>}
       </div>
 
-      <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-[12px] text-mute">
+      <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-[12px] text-mute md:mt-2">
         <span className="inline-flex items-center gap-1.5">
           <span className="size-2.5 rounded-[2px] bg-ink" aria-hidden="true" />
           Selected period

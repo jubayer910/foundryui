@@ -5,7 +5,7 @@ import { FormError, authInput } from "./auth-card";
 type State = { error?: string; field?: "name" | "password" | "confirm" } | null;
 type Action = (p: State, f: FormData) => Promise<State>;
 
-const Label = ({ children }: { children: React.ReactNode }) => <span className="text-[12px] font-medium text-ink-2">{children}</span>;
+const Label = ({ children }: { children: React.ReactNode }) => <span className="text-[13px] font-medium text-ink-2 md:text-[12px]">{children}</span>;
 
 /** New account: name, password, confirm. */
 export function AcceptNewForm({ token, email, action }: { token: string; email: string; action: Action }) {

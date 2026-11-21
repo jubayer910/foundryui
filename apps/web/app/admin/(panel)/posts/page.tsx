@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { requireStaff } from "@/lib/admin";
 import { sp } from "@/components/admin/guard";
-import { AdminHead, Flash, LinkTabs, Table, Tag, input, num, td } from "@/components/admin/ui";
+import { AdminHead, Flash, LinkTabs, PhoneList, PhoneRow, Table, Tag, input, num, td } from "@/components/admin/ui";
 import { CIco } from "@/components/admin/content/icons";
 import { listAdminPosts } from "@/components/admin/content/posts-data";
 import { Icon } from "@/registry/components/icons";
@@ -46,7 +46,7 @@ export default async function AdminPosts({ searchParams }: PageProps<"/admin/pos
 
       <div className="mt-5 flex flex-wrap items-center gap-3">
         <LinkTabs tabs={[tab("", "All", counts.all), tab("published", "Published", counts.published), tab("draft", "Drafts", counts.draft), tab("code", "In code", counts.code)]} />
-        <form method="get" className="ml-auto flex w-full gap-2 sm:w-auto">
+        <form method="get" className="ml-auto flex w-full gap-2 sm:w-auto max-sm:order-first">
           {show && <input type="hidden" name="show" value={show} />}
           <input name="q" defaultValue={term} placeholder="Search title, slug or category" aria-label="Search posts" className={input + " sm:w-[260px]"} />
           <button className="btn-line shrink-0" aria-label="Search">
@@ -56,7 +56,43 @@ export default async function AdminPosts({ searchParams }: PageProps<"/admin/pos
       </div>
 
       <div className="mt-4">
-        <Table head={["Title", "Category", "Status", "Published", "Updated", "Views", ""]} empty={term ? `No post matches "${term}".` : "No posts here yet."}>
+        <Table
+          head={["Title", "Category", "Status", "Published", "Updated", "Views", ""]}
+          empty={term ? `No post matches "${term}".` : "No posts here yet."}
+          mobile={
+            <PhoneList label="Posts">
+              {rows.map((p) => (
+                <PhoneRow
+                  key={p.kind + p.slug}
+                  href={p.kind === "db" ? `/admin/posts/${p.id}` : "/blog/" + p.slug}
+                  external={p.kind !== "db"}
+                  title={p.title}
+                  meta={
+                    <>
+                      <Tag tone={p.status === "published" ? "good" : "plain"}>{p.status === "published" ? "Published" : "Draft"}</Tag>
+                      {p.kind === "code" && <Tag>code</Tag>}
+                      <span className="min-w-0 truncate">{p.category}</span>
+                      <span className="tabular-nums">{fmt(p.published ?? p.updated)}</span>
+                    </>
+                  }
+                  value={num(p.views)}
+                  valueSub="views"
+                  actions={
+                    p.kind === "code" ? (
+                      <form action={duplicateCodePost}>
+                        <input type="hidden" name="slug" value={p.slug} />
+                        <button className="btn-line">
+                          <CIco name="copy" size={15} />
+                          Duplicate to editor
+                        </button>
+                      </form>
+                    ) : undefined
+                  }
+                />
+              ))}
+            </PhoneList>
+          }
+        >
           {rows.map((p) => (
             <tr key={p.kind + p.slug}>
               <td className={td + " max-w-[420px]"}>

@@ -3,7 +3,7 @@ import { desc } from "drizzle-orm";
 import { getDb, getEnv, schema } from "@/lib/db";
 import { getSettings } from "@/lib/settings";
 import { requireStaff } from "@/lib/admin";
-import { AdminHead, Field, Flash, Section, Table, input, td, textarea, when } from "@/components/admin/ui";
+import { AdminHead, Field, Flash, Section, Table, input, saveBar, td, textarea, when } from "@/components/admin/ui";
 import { Icon } from "@/registry/components/icons";
 import { saveSettings } from "./actions";
 
@@ -52,7 +52,9 @@ export default async function AdminSettings({ searchParams }: PageProps<"/admin/
           <Field label="Admin emails" hint="One per line. They get the admin role when they sign in with this email. For moderators, use Team.">
             <textarea name="adminEmails" rows={4} defaultValue={s.adminEmails.join("\n")} placeholder="name@company.com" className={textarea + " font-fu-mono text-[12px]"} />
           </Field>
-          <button className="btn-ink self-start">Save settings</button>
+          <div className={"flex " + saveBar}>
+            <button className="btn-ink self-start max-md:flex-1">Save settings</button>
+          </div>
         </form>
 
         <div className="card p-4">

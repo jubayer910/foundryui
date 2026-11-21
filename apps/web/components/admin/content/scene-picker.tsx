@@ -37,7 +37,7 @@ export function ScenePicker({ name, value, defaultValue, onChange, auto, autoLab
                   <span className="flex h-[64px] items-center justify-center bg-tile px-2 text-center text-[12px] text-mute">{autoLabel}</span>
                 )}
               </span>
-              <span className="mt-0.5 block truncate text-center text-[11px] text-faint peer-checked:text-ink">{k ? sceneLabel(k) : "Auto"}</span>
+              <span className="mt-0.5 block truncate text-center text-[11px] text-faint peer-checked:text-ink max-md:text-[12px]">{k ? sceneLabel(k) : "Auto"}</span>
             </label>
           );
         })}

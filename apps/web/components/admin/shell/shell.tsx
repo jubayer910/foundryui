@@ -5,6 +5,7 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
 import type { Perm } from "@/lib/admin";
 import { AIcon } from "../admin-icons";
 import { AccountMenu, type ShellUser } from "./account-menu";
+import { BottomBar } from "./bottom-bar";
 import { crumbsFor, locate, visibleAreas, type BadgeKey } from "./nav";
 import { QuickSearch } from "./quick-search";
 import { AreaTabs, Sidebar } from "./sidebar";
@@ -14,12 +15,15 @@ const KEY = "ingot:admin-sidebar";
 /**
  * The admin backend frame: sidebar of areas (216px, collapsible to icons on lg, a drawer below lg), top bar with
  * breadcrumb, quick search, View site and the account menu, the current area's tab row, and the content (up to 1280px).
+ * Phones (below md) get a compact top bar (title or back link, search, avatar) and the bottom tab bar instead of
+ * the drawer; data-kb marks an open on-screen keyboard so the bar and --admin-bottom step aside.
  */
 export function AdminShell({ user, perms, badges, children }: { user: ShellUser; perms: readonly Perm[]; badges: Partial<Record<BadgeKey, number>>; children: ReactNode }) {
   const path = usePathname();
   const [collapsed, setCollapsed] = useState(false);
   const [drawer, setDrawer] = useState(false);
   const [searching, setSearching] = useState(false);
+  const [keyboard, setKeyboard] = useState(false);
   const menuBtn = useRef<HTMLButtonElement>(null);
   const drawerRef = useRef<HTMLDivElement>(null);
 
@@ -75,12 +79,34 @@ export function AdminShell({ user, perms, badges, children }: { user: ShellUser;
     };
   }, [drawer]);
 
+  // On-screen keyboard: a focused text field on a touch screen, confirmed by the visual viewport shrinking.
+  useEffect(() => {
+    const typing = (el: Element | null) =>
+      !!el && (el instanceof HTMLTextAreaElement || el instanceof HTMLSelectElement || (el instanceof HTMLInputElement && !["checkbox", "radio", "button", "submit", "range", "color", "file"].includes(el.type)) || (el as HTMLElement).isContentEditable);
+    const coarse = window.matchMedia("(pointer: coarse)");
+    const check = () => {
+      const vv = window.visualViewport;
+      const shrunk = !!vv && vv.height < window.innerHeight * 0.8;
+      setKeyboard(coarse.matches && (typing(document.activeElement) || shrunk));
+    };
+    const later = () => setTimeout(check, 50);
+    document.addEventListener("focusin", check);
+    document.addEventListener("focusout", later);
+    window.visualViewport?.addEventListener("resize", check);
+    return () => {
+      document.removeEventListener("focusin", check);
+      document.removeEventListener("focusout", later);
+      window.visualViewport?.removeEventListener("resize", check);
+    };
+  }, []);
+
   const crumbs = crumbsFor(path);
+  const up = crumbs.length > 1 ? [...crumbs].reverse().find((c, i) => i > 0 && c.href) : undefined;
   // Sticky things below the top bar (table headers) sit at --admin-top: the bar is 56px, plus 40px when the area has tabs.
   const hasTabs = (locate(path, visibleAreas(perms))?.area.tabs.length ?? 0) > 1;
 
   return (
-    <div className="min-h-dvh bg-white" style={{ ["--admin-top" as string]: hasTabs ? "97px" : "57px" }}>
+    <div data-admin="" data-kb={keyboard ? "" : undefined} className="min-h-dvh bg-white" style={{ ["--admin-top" as string]: hasTabs ? "97px" : "57px", ["--admin-top-m" as string]: hasTabs ? "101px" : "57px" }}>
       <a href="#admin-main" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[60] focus:rounded-[6px] focus:bg-ink focus:px-3 focus:py-2 focus:text-[13px] focus:text-white">
         Skip to content
       </a>
@@ -113,14 +139,14 @@ export function AdminShell({ user, perms, badges, children }: { user: ShellUser;
 
       <div className={"flex min-h-dvh min-w-0 flex-col transition-[padding] duration-200 ease-out " + (collapsed ? "lg:pl-[56px]" : "lg:pl-[216px]")}>
         <header className="sticky top-0 z-20 border-b border-hair bg-white/90 backdrop-blur">
-          <div className="flex h-14 items-center gap-2 px-4 sm:px-6">
+          <div className="flex h-14 items-center gap-2 pr-[max(12px,env(safe-area-inset-right))] pl-[max(16px,env(safe-area-inset-left))] sm:px-6">
             <button
               ref={menuBtn}
               type="button"
               onClick={() => setDrawer(true)}
               aria-label="Open navigation"
               aria-expanded={drawer}
-              className="-ml-1.5 flex size-8 items-center justify-center rounded-[6px] text-ink-2 hover:bg-tile lg:hidden"
+              className="-ml-1.5 hidden size-8 items-center justify-center rounded-[6px] text-ink-2 hover:bg-tile md:flex lg:hidden"
             >
               <AIcon name="menu-2" size={18} />
             </button>
@@ -128,7 +154,19 @@ export function AdminShell({ user, perms, badges, children }: { user: ShellUser;
             {searching ? (
               <QuickSearch className="min-w-0 flex-1 md:hidden" autoFocus onDone={() => setSearching(false)} />
             ) : (
-              <nav aria-label="Breadcrumb" className="min-w-0 flex-1 md:flex-none">
+              <>
+              {/* Phones: one title, or a back link to the list on a detail page. */}
+              <div className="flex min-w-0 flex-1 items-center md:hidden">
+                {up?.href && (
+                  <Link href={up.href} aria-label={`Back to ${up.label}`} className="-ml-3 flex size-11 shrink-0 items-center justify-center rounded-full text-ink-2 hover:bg-tile">
+                    <AIcon name="chevron-left" size={20} />
+                  </Link>
+                )}
+                <p className="min-w-0 truncate text-[17px] font-medium tracking-[-0.01em]" aria-current="page">
+                  {up ? up.label : crumbs[crumbs.length - 1].label}
+                </p>
+              </div>
+              <nav aria-label="Breadcrumb" className="hidden min-w-0 flex-1 md:block md:flex-none">
                 <ol className="flex min-w-0 items-center gap-1.5 text-[13px]">
                   {crumbs.map((c, i) => {
                     const last = i === crumbs.length - 1;
@@ -151,13 +189,14 @@ export function AdminShell({ user, perms, badges, children }: { user: ShellUser;
                   })}
                 </ol>
               </nav>
+              </>
             )}
 
             <div className="ml-auto flex shrink-0 items-center gap-1.5 md:min-w-0 md:flex-1 md:justify-end">
               <QuickSearch className="hidden w-full max-w-[340px] md:block" />
               {!searching && (
-                <button type="button" onClick={() => setSearching(true)} aria-label="Search" className="flex size-8 items-center justify-center rounded-[6px] text-ink-2 hover:bg-tile md:hidden">
-                  <AIcon name="search" size={17} />
+                <button type="button" onClick={() => setSearching(true)} aria-label="Search" className="flex size-11 items-center justify-center rounded-full text-ink-2 hover:bg-tile md:hidden">
+                  <AIcon name="search" size={20} />
                 </button>
               )}
               {/* Full page load on purpose: the public site brings its own chrome and analytics. */}
@@ -172,10 +211,15 @@ export function AdminShell({ user, perms, badges, children }: { user: ShellUser;
           <AreaTabs perms={perms} badges={badges} />
         </header>
 
-        <main id="admin-main" tabIndex={-1} className="w-full max-w-[1328px] flex-1 px-4 pt-6 pb-16 outline-none sm:px-6">
+        <main
+          id="admin-main"
+          tabIndex={-1}
+          className="w-full max-w-[1328px] flex-1 pt-5 pr-[max(16px,env(safe-area-inset-right))] pb-[calc(var(--admin-bottom,0px)+32px)] pl-[max(16px,env(safe-area-inset-left))] outline-none sm:px-6 md:pt-6 md:pb-16"
+        >
           {children}
         </main>
       </div>
+      <BottomBar perms={perms} badges={badges} user={user} />
     </div>
   );
 }

@@ -5,7 +5,7 @@ import { getDb, schema } from "@/lib/db";
 import { matchArticles } from "@/lib/support/match";
 import { sp } from "@/components/admin/guard";
 import { requireStaff } from "@/lib/admin";
-import { AdminHead, Confirm, Field, Flash, Section, Table, Tag, day, input, textarea, td } from "@/components/admin/ui";
+import { AdminHead, Confirm, Field, Flash, PhoneList, PhoneRow, Section, Table, Tag, day, input, saveBar, textarea, td } from "@/components/admin/ui";
 import { botGap } from "@/lib/support/assistant/gaps";
 import { Icon } from "@/registry/components/icons";
 import { deleteArticle, saveArticle, togglePublished } from "./actions";
@@ -69,10 +69,11 @@ export default async function AdminKb({ searchParams }: PageProps<"/admin/kb">) 
       )}
 
       {draft && (
+        <>
         <form action={saveArticle} className="card mt-5 flex flex-col gap-3 p-4">
           <div className="flex items-center gap-2">
             <p className="text-[13px] font-medium">{draft.id ? "Edit article" : fromTicket ? "New article from ticket" : "New article"}</p>
-            <Link href={here} className="ml-auto text-[12px] text-faint hover:text-ink">
+            <Link href={here} className="tap ml-auto inline-flex items-center justify-end text-[12px] text-faint hover:text-ink max-md:-my-2 max-md:text-[14px] max-md:text-mute">
               Close
             </Link>
           </div>
@@ -101,23 +102,35 @@ export default async function AdminKb({ searchParams }: PageProps<"/admin/kb">) 
               <input name="slug" defaultValue={draft.slug} placeholder="auto" className={input + " font-fu-mono text-[12px]"} />
             </Field>
           </div>
-          <div className="flex flex-wrap items-center gap-3">
-            <label className="flex cursor-pointer items-center gap-2 text-[13px]">
+          <div className={"flex flex-wrap items-center gap-3 " + saveBar}>
+            <label className="flex cursor-pointer items-center gap-2 text-[13px] max-md:min-h-11 max-md:text-[14px]">
               <input type="checkbox" name="published" defaultChecked={draft.published} className="size-4 accent-[#0b0b0b]" />
               Published
             </label>
             <button className="btn-ink ml-auto">{draft.id ? "Save article" : "Create article"}</button>
           </div>
         </form>
+        {draft.id && (
+          <div className="mt-3 md:hidden">
+            <Confirm label="Delete article" tone="bad">
+              <form action={deleteArticle} className="flex flex-col gap-2 text-left whitespace-normal">
+                <input type="hidden" name="id" value={draft.id} />
+                <p className="text-[13px] text-mute">Delete this article? The widget stops using it right away. Its text stays in the audit log.</p>
+                <button className="btn-ink">Delete article</button>
+              </form>
+            </Confirm>
+          </div>
+        )}
+        </>
       )}
 
       <details className="group mt-6" open={!!test}>
-        <summary className="inline-flex cursor-pointer list-none items-center gap-1.5 rounded-[6px] px-2 py-1 text-[13px] text-mute hover:bg-tile hover:text-ink [&::-webkit-details-marker]:hidden">
+        <summary className="inline-flex cursor-pointer list-none items-center gap-1.5 rounded-[6px] px-2 py-1 text-[13px] text-mute hover:bg-tile hover:text-ink max-md:-ml-2 [&::-webkit-details-marker]:hidden">
           <Icon name="search" size={14} />
           Test the matcher
         </summary>
       <Section title="Test the matcher" info="Runs the knowledge-base matcher over published articles. The help assistant blends it with its own search.">
-        <form method="get" className="flex gap-2">
+        <form method="get" className="flex gap-2 max-md:flex-col">
           {cat && <input type="hidden" name="cat" value={cat} />}
           <input name="test" defaultValue={test} placeholder="Type a customer question, e.g. can I get a refund?" className={input + " max-w-[520px]"} />
           <button className="btn-ink">
@@ -151,17 +164,39 @@ export default async function AdminKb({ searchParams }: PageProps<"/admin/kb">) 
       <Section
         title="Articles"
         action={
-          <div className="flex flex-wrap gap-1.5">
-            <Link href="/admin/kb" data-on={!cat} className="pill !h-7">All</Link>
+          <div className="flex flex-wrap gap-1.5 max-md:-mx-4 max-md:w-screen max-md:flex-nowrap max-md:overflow-x-auto max-md:px-4 max-md:[scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            <Link href="/admin/kb" data-on={!cat} className="pill shrink-0 !h-7">All</Link>
             {categories.map((c) => (
-              <Link key={c} href={`/admin/kb?cat=${encodeURIComponent(c)}`} data-on={cat === c} className="pill !h-7">
+              <Link key={c} href={`/admin/kb?cat=${encodeURIComponent(c)}`} data-on={cat === c} className="pill shrink-0 !h-7">
                 {c}
               </Link>
             ))}
           </div>
         }
       >
-        <Table head={["Question", "Category", "Slug", "Updated", "Status", ""]} empty="No articles yet. Write the first one with New article.">
+        <Table
+          head={["Question", "Category", "Slug", "Updated", "Status", ""]}
+          empty="No articles yet. Write the first one with New article."
+          mobile={
+            <PhoneList label="Articles">
+              {rows.map((a) => (
+                <PhoneRow
+                  key={a.id}
+                  href={`/admin/kb?edit=${a.id}${cat ? `&cat=${encodeURIComponent(cat)}` : ""}`}
+                  selected={a.id === editId}
+                  title={a.question}
+                  meta={
+                    <>
+                      <Tag tone={a.published ? "good" : "plain"}>{a.published ? "published" : "draft"}</Tag>
+                      <span className="min-w-0 truncate">{a.category}</span>
+                      <span className="tabular-nums">{day(a.updatedAt)}</span>
+                    </>
+                  }
+                />
+              ))}
+            </PhoneList>
+          }
+        >
           {rows.map((a) => (
             <tr key={a.id} className={a.id === editId ? "bg-wash" : ""}>
               <td className={td + " max-w-[360px]"}>

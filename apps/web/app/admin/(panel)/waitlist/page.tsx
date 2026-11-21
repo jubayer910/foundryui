@@ -3,7 +3,7 @@ import { count, desc, eq } from "drizzle-orm";
 import { getDb, schema } from "@/lib/db";
 import { sp } from "@/components/admin/guard";
 import { requireStaff } from "@/lib/admin";
-import { AdminHead, LinkTabs, Pager, Table, pageOf, planLabel, td, when } from "@/components/admin/ui";
+import { AdminHead, LinkTabs, Pager, PhoneList, PhoneRow, Table, day, pageOf, planLabel, td, when } from "@/components/admin/ui";
 
 const PER = 50;
 import { Icon } from "@/registry/components/icons";
@@ -39,7 +39,17 @@ export default async function AdminWaitlist({ searchParams }: PageProps<"/admin/
         />
       </div>
       <div className="mt-4">
-        <Table head={["Email", "Plan", "Joined"]} empty="Nobody on the waitlist yet.">
+        <Table
+          head={["Email", "Plan", "Joined"]}
+          empty="Nobody on the waitlist yet."
+          mobile={
+            <PhoneList label="Waitlist">
+              {rows.slice((page - 1) * PER, page * PER).map((r) => (
+                <PhoneRow key={r.email} title={r.email} meta={<span>{planLabel(r.plan)}</span>} valueSub={day(r.createdAt)} />
+              ))}
+            </PhoneList>
+          }
+        >
           {rows.slice((page - 1) * PER, page * PER).map((r) => (
             <tr key={r.email}>
               <td className={td}>{r.email}</td>

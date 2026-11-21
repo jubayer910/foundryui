@@ -106,7 +106,7 @@ Content      KPIs (max 4) -> one chart -> table
 - Charts: ink for the selected value, neutral grey for the rest, hover / focus readout, "Show data table".
 - Icons: admin-icons (Ingot stroke-rounded set), 1.5px stroke, each depicts its label.
 - No decorative dots anywhere (badges, bullets, separators, legends use squares or text).
-- Mobile 375: sidebar is a drawer, tab row scrolls sideways, tables become stacked rows, toolbars wrap.
+- Mobile: see section 5. Phones get a bottom tab bar, phone lists and bottom sheets; desktop is unchanged.
 
 ## 3. Building blocks (where they live)
 
@@ -140,3 +140,58 @@ Sticky table headers sit at `--admin-top` (set by the shell: 57px, or 97px when 
 Not yet changed: the knowledge base article list (one long table, filter by category pills), bot questions
 (up to 200 rows, not paged), the post and changelog editors, pricing form, team and settings bodies (only
 their headers follow the pattern). Activations has no drawer: approving happens inline in its short queue.
+
+## 5. Mobile (2026-11-22, phones 360 to 430 wide, quick check at 768)
+
+The owner checks the admin mostly on his phone. Below md (768px) every screen is built for one thumb: fast to
+scan, 44px targets, nothing sideways. Bar: the Stripe, Linear and Shopify admin apps. From md up nothing changes.
+
+### Navigation
+
+- Bottom tab bar (`components/admin/shell/bottom-bar.tsx`): Home, Insights, Revenue, Support, More. Only areas the
+  role can open; badges on Revenue (pending activations) and Support (open tickets), ink pill, never totals.
+  56px plus `env(safe-area-inset-bottom)`. It slides away while a sheet is open (`html[data-sheet]`) or the
+  on-screen keyboard is up (`[data-admin][data-kb]`, set by the shell from focus plus the visual viewport).
+- More is a sheet: Customers, Content, Settings (with their tabs as the second line), View site, the account
+  card (name, email, role) with Your account and Sign out.
+- Top bar on phones: area title (or a back chevron plus the list name on a detail page), search icon, avatar.
+  The hamburger drawer is md to lg only.
+- The tab row scrolls sideways, scrolls the active tab into view, fades the edge where more tabs hide; tabs are
+  44px tall.
+- `--admin-bottom` is the tab bar height (0 with the keyboard up). Sticky save bars and the reply box sit on it;
+  `--admin-top-m` is the phone header height for things that stick under it (post editor Write / Preview).
+
+### Building blocks
+
+| Need | Use |
+|---|---|
+| Bottom sheet dialog | `Sheet` (`components/admin/sheet.tsx`): handle, title, 44px close, scrolling body, sticky `footer` |
+| Sheet behaviour in custom markup | `useSheetLock`, `useFocusTrap`, `useSwipeDown`, `Handle`, `sheetPanel`, `isPhone()` |
+| A table on a phone | `Table` prop `mobile` with `PhoneList` + `PhoneRow` (`ui.tsx`): title, meta line, value on the right, chevron, whole row is the link |
+| Filters of a list | `FilterSheet` (`components/admin/filter-sheet.tsx`) inside the GET form: inline from md, "Filters" button + sheet with Clear / Apply on phones |
+| Period options | `PeriodBar`: granularity + options button on row one, previous / period / next / Today on row two; compare, range and time zone in a sheet |
+| Export and other menus | `Menu` opens as a sheet on phones (56px rows) |
+| Row detail | `Drawer` is a bottom sheet on phones: handle (swipe down closes, swipe up or the size button goes full height), Open full page at the end |
+| Save row | `saveBar` (inside a 16px-padded card) or `pageSaveBar` (page-level form): sticky above the tab bar |
+| KPI | `kpiCard` / `kpiRow` / `kpiValue`: 2 columns, fluid number size (never truncated), change under the number |
+| Definitions | `Info`: 44px hit area on phones, the popover becomes a card above the tab bar |
+
+### Rules
+
+- No sideways scroll on any admin route. The only deliberate wide tables are Reports' "Show table" period tables
+  (scroll inside their card, sticky first column) and the print view on a phone screen.
+- Tap targets: buttons, chips, selects and inputs at least 44px (chips 40px), via min-height in globals.css
+  ("Admin on phones"), so the desktop `!h-8` sizes stay. Inline links inside a sentence are the only exception.
+- Fields 16px text on phones (no iOS zoom), labels 13px; 12px only for tertiary meta, chart ticks and badges.
+- Charts: at most five x labels on phones, counted back from the newest; the first and last label align to the
+  edges so neither is clipped; tap or drag across the bars to read a value (the readout keeps it). Metric chips
+  scroll in one row; the legend stays under the chart.
+- Lists: who or what on the first line (15px), status / date / plan on the second (13px), the key number right,
+  a chevron when the row opens something. Row actions (approve, reject, dismiss, write answer) stay as cards
+  with full-width buttons at the bottom (activations, Contra sales, bot questions, referral links).
+- Support thread: chat bubbles (customer and bot left, support right, 88% max width); the reply box is pinned to
+  the bottom above the tab bar, grows on focus.
+- Login and invite: the card sits in the top third so the keyboard never covers it; safe areas respected.
+- Motion: sheets rise in 280ms (iOS curve), the bar slides; `prefers-reduced-motion` removes both.
+- Checks: `node scripts/check-admin-mobile.mts` (every route at 375: overflow and tap targets under 40px, text under
+  12px reported); screenshots with `node scripts/admin-shots.mts <label> [widths]`, sheets included.

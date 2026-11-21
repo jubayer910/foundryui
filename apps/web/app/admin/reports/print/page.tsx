@@ -21,7 +21,7 @@ export default async function PrintReport({ searchParams }: PageProps<"/admin/re
   const r = await loadReport(s, { revenue: can(role, "revenue") });
   const filters = filterLines(s);
   return (
-    <div className="report-print mx-auto max-w-[794px] bg-white px-6 py-8 text-[12px] leading-[1.45] text-ink print:max-w-none print:p-0">
+    <div data-admin="" className="report-print mx-auto max-w-[794px] bg-white px-6 py-8 text-[12px] leading-[1.45] text-ink max-md:px-4 max-md:py-5 print:max-w-none print:p-0">
       <style>{`
         @page { size: A4 portrait; margin: 14mm 12mm 16mm; }
         @media print {
@@ -32,6 +32,14 @@ export default async function PrintReport({ searchParams }: PageProps<"/admin/re
           .report-print .keep { break-inside: avoid; }
           .report-print thead { display: table-header-group; }
           .report-print tr { break-inside: avoid; }
+        }
+        /* On a phone screen (not on paper) wide tables scroll inside themselves and side-by-side blocks stack. */
+        @media screen and (max-width: 767px) {
+          .report-print table { display: block; max-width: 100%; overflow-x: auto; }
+          .report-print .grid-cols-2 { grid-template-columns: minmax(0, 1fr); }
+          .report-print dl { grid-template-columns: 110px minmax(0, 1fr); }
+          .report-print { font-size: 13px; }
+          .report-print .text-\\[11px\\], .report-print .text-\\[0\\.9em\\], .report-print dl, .report-print dl * { font-size: 12px; }
         }
       `}</style>
       <div className="mb-6 flex flex-wrap items-center gap-2 print:hidden">
