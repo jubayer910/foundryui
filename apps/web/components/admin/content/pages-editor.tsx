@@ -245,7 +245,7 @@ function Editor({ pages, page, content, history }: Props) {
                   </span>
                   <span className="text-faint">{h.actor}</span>
                   <span className="ml-auto text-[12px] text-faint">{new Date(h.at).toLocaleString("en-GB", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" })}</span>
-                  <button type="button" disabled={pending} onClick={() => undo(h.id)} className="text-[12px] text-mute underline underline-offset-2 hover:text-ink">
+                  <button type="button" disabled={pending} onClick={() => undo(h.id)} className="-my-2 inline-flex min-h-11 items-center px-2 text-[13px] text-mute underline underline-offset-2 hover:text-ink md:my-0 md:min-h-0 md:px-0 md:text-[12px]">
                     Undo
                   </button>
                 </div>
