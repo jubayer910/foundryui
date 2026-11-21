@@ -37,7 +37,7 @@
     "svg-path-bbox": "^2.1.0",
     "svgpath": "^2.6.0"
   },
-  "license": "MIT",
+  "license": "(MIT AND ISC AND Apache-2.0 AND CC-BY-4.0)",
   "sideEffects": false,
   "exports": {
     "./react": {
