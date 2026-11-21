@@ -17,7 +17,7 @@ import { readFile, writeFile, readdir, mkdir, stat, rm } from "node:fs/promises"
 import { existsSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
-import { transform } from "esbuild";
+import { transform, build } from "esbuild";
 
 const WEB = join(dirname(fileURLToPath(import.meta.url)), "..");
 const CODE = join(WEB, "public/library-code");
@@ -101,8 +101,28 @@ const page = (title, body, script = "") => `<!doctype html>
 `;
 
 const React = await import(pathToFileURL(join(WEB, "node_modules/react/index.js")).href);
-const { renderToStaticMarkup } = await import(pathToFileURL(join(WEB, "node_modules/react-dom/server.node.js")).href);
+const { renderToStaticMarkup, renderToString } = await import(pathToFileURL(join(WEB, "node_modules/react-dom/server.node.js")).href);
 await mkdir(TMP, { recursive: true });
+
+// Hand-written interactive components ("use client" + React state) run in their preview: one shared React
+// runtime (library-preview/_rt.js, a classic script, so the sandboxed iframe needs no CORS) and a small
+// per-component bundle that hydrates the server-rendered markup.
+const RT_ENTRY = join(TMP, "_rt-entry.mjs");
+await writeFile(RT_ENTRY, 'import * as react from "react"; import * as jsxr from "react/jsx-runtime"; import { hydrateRoot } from "react-dom/client"; window.FuRT = { react, jsxr, hydrateRoot };');
+await build({ entryPoints: [RT_ENTRY], bundle: true, minify: true, format: "iife", outfile: join(PREVIEW, "_rt.js"), define: { "process.env.NODE_ENV": '"production"' }, nodePaths: [join(WEB, "node_modules")], logLevel: "error" });
+const globals = {
+  name: "fu-globals",
+  setup(b) {
+    b.onResolve({ filter: /^react(\/jsx-runtime)?$/ }, (a) => ({ path: a.path, namespace: "fu-global" }));
+    b.onLoad({ filter: /.*/, namespace: "fu-global" }, (a) => ({ contents: "module.exports = window.FuRT." + (a.path === "react" ? "react" : "jsxr") + ";", loader: "js" }));
+  },
+};
+async function hydrateScript(file, fn) {
+  const entry = file.replace(/\.mjs$/, ".entry.tsx");
+  await writeFile(entry, `import { ${fn} } from ${JSON.stringify(file.replace(/\.mjs$/, ".src.tsx"))};\nwindow.FuRT.hydrateRoot(document.getElementById("c"), <${fn} />);`);
+  const r = await build({ entryPoints: [entry], bundle: true, minify: true, format: "iife", write: false, jsx: "automatic", plugins: [globals], logLevel: "error" });
+  return '<script src="../_rt.js"></script><script>' + r.outputFiles[0].text.replace(/<\/script/gi, "<\\/script") + "</script>";
+}
 
 let finalized = 0, rendered = 0, skipped = 0;
 const failed = [];
@@ -134,10 +154,15 @@ for (const sys of await readdir(CODE)) {
       const tmp = join(TMP, sys + "-" + slug + ".mjs");
       await writeFile(tmp, js);
       const mod = await import(pathToFileURL(tmp).href + "?t=" + Date.now());
-      const markup = renderToStaticMarkup(React.createElement(mod[fn]));
-      const title = code.match(/^\/\/ (.+?) \(/m)?.[1] ?? slug;
+      const live = /^"use client";/.test(code);
+      const markup = (live ? renderToString : renderToStaticMarkup)(React.createElement(mod[fn]));
+      const title = code.match(/^(?:"use client";\n)?\/\/ (.+?) \(/m)?.[1] ?? slug;
       // interactive components: the same helper the copied code runs, attached to the rendered markup
       let script = "";
+      if (live) {
+        await writeFile(tmp.replace(/\.mjs$/, ".src.tsx"), code);
+        script = await hydrateScript(tmp, fn);
+      }
       const at = code.indexOf("function fuInteract(");
       if (at >= 0) {
         const { code: helper } = await transform(code.slice(at), { loader: "ts", minifyWhitespace: true });
@@ -174,7 +199,7 @@ for (const sys of await readdir(CODE)) {
     const colors = top([...code.matchAll(/#[0-9a-fA-F]{6}\b/g)].map((m) => m[0].toLowerCase()), 6).map(([c]) => c);
     const radii = [...new Set([...code.matchAll(/borderRadius: "([\d.]+)px"/g)].map((m) => px(m[1])).filter((r) => r > 0 && r < 999))].sort((a, b) => a - b).slice(0, 5);
     const lines = code.split("\n").length;
-    specs[file.slice(0, -4)] = [fn, icons, fonts, sizes, weights, colors, radii, lines, cut > 0 ? 1 : 0];
+    specs[file.slice(0, -4)] = [fn, icons, fonts, sizes, weights, colors, radii, lines, cut > 0 || /^"use client";/.test(full) ? 1 : 0];
   }
 }
 await writeFile(join(WEB, "lib/component-specs.generated.json"), JSON.stringify(specs));

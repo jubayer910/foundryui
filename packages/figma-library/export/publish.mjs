@@ -2,6 +2,7 @@
 //   node publish.mjs [threshold=99]  -> apps/web/public/library-code/<sys>/<slug>.txt + apps/web/lib/figma-code.json
 // Only items listed in data/<sys>/review.json as rejected are held back even if they pass the score.
 import { readFile, writeFile, mkdir, copyFile, rm } from "node:fs/promises";
+import { existsSync } from "node:fs";
 const TH = Number(process.argv[2] || 99);
 const WEB = new URL("../../../apps/web/", import.meta.url).pathname;
 const out = {};
@@ -28,7 +29,9 @@ for (const sys of ["loopo", "auton", "mailpulse", "axon", "veriq", "vantage", "m
     const tree = await readFile(new URL(`./data/${sys}/${r.id}.json`, import.meta.url), "utf8");
     // ...unless publish-images.mjs rewrote the code with every picture hosted on the site
     if (tree.includes('"k":"i"') && !imagesReady.has(sys + ":" + r.id)) { held++; continue; }
-    await copyFile(new URL(`./out/${sys}/${r.slug}.tsx`, import.meta.url), WEB + `public/library-code/${sys}/${r.slug}.txt`);
+    // a hand-written interactive version (interactive/<sys>/<slug>.tsx, checked to look the same at rest) wins over the generated code
+    const hand = new URL(`./interactive/${sys}/${r.slug}.tsx`, import.meta.url);
+    await copyFile(existsSync(hand) ? hand : new URL(`./out/${sys}/${r.slug}.tsx`, import.meta.url), WEB + `public/library-code/${sys}/${r.slug}.txt`);
     out[r.slug] = { score: r.score, strict: r.strict };
     pass++;
   }
