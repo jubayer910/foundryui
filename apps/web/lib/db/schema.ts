@@ -394,3 +394,20 @@ export const emailOptout = sqliteTable("email_optout", {
   email: text("email").primaryKey(),
   createdAt: integer("createdAt", { mode: "timestamp" }).notNull(),
 });
+
+/* ---- AppSumo codes (migrations/0016_appsumo_code.sql, lib/appsumo.ts). hash = sha256 of the normalised code ---- */
+export const appsumoCode = sqliteTable(
+  "appsumo_code",
+  {
+    hash: text("hash").primaryKey(),
+    batch: text("batch").notNull(),
+    /** "available" | "redeemed" | "refunded" */
+    status: text("status").notNull().default("available"),
+    userId: text("userId"),
+    email: text("email"),
+    purchaseId: text("purchaseId"),
+    redeemedAt: ts("redeemedAt"),
+    createdAt: ts("createdAt").notNull(),
+  },
+  (t) => [index("appsumo_code_user_idx").on(t.userId)],
+);
