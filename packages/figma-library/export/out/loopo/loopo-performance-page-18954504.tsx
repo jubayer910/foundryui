@@ -1,16 +1,51 @@
-"use client";
 // Performance page (loopo, Templates) from Ingot UI (ingotui.com).
 // Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
-import { useEffect, useRef } from "react";
-import { ArrowUpRight, BuildingStore, Calendar, ChevronDown, ChevronRight, CursorPointer, DotsVertical, FileDownload, Loader, Mail, Moneybag, Search } from "ingotui-icons/react/stroke-rounded";
-import { Bell as BellBulk, Bolt as BoltBulk, Browser as BrowserBulk, ChartLine as ChartLineBulk, File as FileBulk, Filter as FilterBulk, HelpCircle as HelpCircleBulk, LayoutDashboard as LayoutDashboardBulk, License as LicenseBulk, Mail as MailBulk, Note as NoteBulk, Outlet as OutletBulk, Qrcode as QrcodeBulk, Send as SendBulk, Settings as SettingsBulk, ShoppingCart as ShoppingCartBulk, User as UserBulk, Users as UsersBulk, Wallet as WalletBulk } from "ingotui-icons/react/bulk";
-import { LayoutDashboard as LayoutDashboardSolid, TrendingUp as TrendingUpSolid } from "ingotui-icons/react/solid";
+import type { SVGProps } from "react";
+
+// Ingot Icons used here, inlined so this file needs no icon package.
+function icon(body: string) {
+  return function Icon({ size = 24, strokeWidth = 1.5, ...p }: { size?: number; strokeWidth?: number } & SVGProps<SVGSVGElement>) {
+    const html = strokeWidth == 1.5 ? body : body.replace(/stroke-width="([\d.]+)"/g, (_, w) => `stroke-width="${(Number(w) * Number(strokeWidth)) / 1.5}"`);
+    return <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden {...p} dangerouslySetInnerHTML={{ __html: html }} />;
+  };
+}
+const ArrowUpRight = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M17 7l-10 10\" /><path d=\"M8 7l9 0l0 9\" /></g>");
+const BuildingStore = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3 21l18 0\" /><path d=\"M3 7v1a3 3 0 0 0 6 0v-1m0 1a3 3 0 0 0 6 0v-1m0 1a3 3 0 0 0 6 0v-1h-18l2 -4h14l2 4\" /><path d=\"M5 21l0 -10.15\" /><path d=\"M19 21l0 -10.15\" /><path d=\"M9 21v-4a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v4\" /></g>");
+const Calendar = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12\" /><path d=\"M16 3v4\" /><path d=\"M8 3v4\" /><path d=\"M4 11h16\" /></g>");
+const ChevronDown = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M6 9l6 6l6 -6\" /></g>");
+const ChevronRight = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M9 6l6 6l-6 6\" /></g>");
+const CursorPointer = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M19.5027 9.96958C20.7073 10.4588 20.6154 12.1941 19.3658 12.5533L13.0605 14.3658L10.1807 20.2606C9.60996 21.4288 7.88499 21.218 7.6124 19.9468L4.67677 6.25646C4.44638 5.18204 5.5121 4.2878 6.53019 4.70126L19.5027 9.96958Z\"/></g>");
+const DotsVertical = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M11 12a1 1 0 1 0 2 0a1 1 0 1 0 -2 0\" /><path d=\"M11 19a1 1 0 1 0 2 0a1 1 0 1 0 -2 0\" /><path d=\"M11 5a1 1 0 1 0 2 0a1 1 0 1 0 -2 0\" /></g>");
+const FileDownload = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M14 3v4a1 1 0 0 0 1 1h4\" /><path d=\"M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2\" /><path d=\"M12 17v-6\" /><path d=\"M9.5 14.5l2.5 2.5l2.5 -2.5\" /></g>");
+const Loader = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 6l0 -3\" /><path d=\"M16.25 7.75l2.15 -2.15\" /><path d=\"M18 12l3 0\" /><path d=\"M16.25 16.25l2.15 2.15\" /><path d=\"M12 18l0 3\" /><path d=\"M7.75 16.25l-2.15 2.15\" /><path d=\"M6 12l-3 0\" /><path d=\"M7.75 7.75l-2.15 -2.15\" /></g>");
+const Mail = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10\" /><path d=\"M3 7l9 6l9 -6\" /></g>");
+const Moneybag = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M9.5 3h5a1.5 1.5 0 0 1 1.5 1.5a3.5 3.5 0 0 1 -3.5 3.5h-1a3.5 3.5 0 0 1 -3.5 -3.5a1.5 1.5 0 0 1 1.5 -1.5\" /><path d=\"M4 17v-1a8 8 0 1 1 16 0v1a4 4 0 0 1 -4 4h-8a4 4 0 0 1 -4 -4\" /></g>");
+const Search = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3 10a7 7 0 1 0 14 0a7 7 0 1 0 -14 0\" /><path d=\"M21 21l-6 -6\" /></g>");
+const BellBulk = icon("<path d=\"M10 5A2 2 0 1 1 14 5 7 7 0 0 1 18 11V14A4 4 0 0 0 20 17H4A4 4 0 0 0 6 14V11A7 7 0 0 1 10 5\" fill=\"currentColor\" fill-opacity=\"0.4\"/><g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M9 17V18A3 3 0 0 0 15 18V17\"/></g>");
+const BoltBulk = icon("<path d=\"M13 3L13 10 19 10 11 21 11 14 5 14 13 3\" fill=\"currentColor\" fill-opacity=\"0.4\"/>");
+const BrowserBulk = icon("<path d=\"M4 6A2 2 0 0 1 6 4H18A2 2 0 0 1 20 6V18A2 2 0 0 1 18 20H6A2 2 0 0 1 4 18L4 6\" fill=\"currentColor\" fill-opacity=\"0.4\"/><g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M4 8H20\"/><path d=\"M8 4V8\"/></g>");
+const ChartLineBulk = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M4 19l16 0\" /><path d=\"M4 15l4 -6l4 2l4 -5l4 4\" /></g>");
+const FileBulk = icon("<path d=\"M17 21H7A2 2 0 0 1 5 19V5A2 2 0 0 1 7 3H14L19 8V19A2 2 0 0 1 17 21\" fill=\"currentColor\" fill-opacity=\"0.4\"/><g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M14 3V7A1 1 0 0 0 15 8H19\"/></g>");
+const FilterBulk = icon("<path d=\"M4 4H20V6.172000000000001A2 2 0 0 1 19.414 7.586L15.000000000000002 12V19L9.000000000000002 21V12.5L4.520000000000001 7.572A2 2 0 0 1 4.000000000000002 6.227V4\" fill=\"currentColor\" fill-opacity=\"0.4\"/>");
+const HelpCircleBulk = icon("<path d=\"M3 12A9 9 0 1 0 21 12 9 9 0 0 0 3 12\" fill=\"currentColor\" fill-opacity=\"0.4\"/><g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 16V16.01\"/><path d=\"M12 13A2 2 0 0 0 12.914 9.218 1.98 1.98 0 0 0 10.5 9.701\"/></g>");
+const LayoutDashboardBulk = icon("<path d=\"M5 4H9A1 1 0 0 1 10 5V11A1 1 0 0 1 9 12H5A1 1 0 0 1 4 11V5A1 1 0 0 1 5 4\" fill=\"currentColor\" fill-opacity=\"0.4\"/><g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M5 16H9A1 1 0 0 1 10 17V19A1 1 0 0 1 9 20H5A1 1 0 0 1 4 19V17A1 1 0 0 1 5 16\"/><path d=\"M15 12H19A1 1 0 0 1 20 13V19A1 1 0 0 1 19 20H15A1 1 0 0 1 14 19V13A1 1 0 0 1 15 12\"/><path d=\"M15 4H19A1 1 0 0 1 20 5V7A1 1 0 0 1 19 8H15A1 1 0 0 1 14 7V5A1 1 0 0 1 15 4\"/></g>");
+const LicenseBulk = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M15 21h-9a3 3 0 0 1 -3 -3v-1h10v2a2 2 0 0 0 4 0v-14a2 2 0 1 1 2 2h-2m2 -4h-11a3 3 0 0 0 -3 3v11\" /><path d=\"M9 7l4 0\" /><path d=\"M9 11l4 0\" /></g>");
+const MailBulk = icon("<path d=\"M3 7A2 2 0 0 1 5 5H19A2 2 0 0 1 21 7V17A2 2 0 0 1 19 19H5A2 2 0 0 1 3 17V7\" fill=\"currentColor\" fill-opacity=\"0.4\"/><g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3 7L12 13 21 7\"/></g>");
+const NoteBulk = icon("<path d=\"M13 20V14A1 1 0 0 1 14 13H20V6A2 2 0 0 0 18 4H6A2 2 0 0 0 4 6V18A2 2 0 0 0 6 20H13\" fill=\"currentColor\" fill-opacity=\"0.4\"/><g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M13 20L20 13\"/></g>");
+const OutletBulk = icon("<path d=\"M4 6A2 2 0 0 1 6 4H18A2 2 0 0 1 20 6V18A2 2 0 0 1 18 20H6A2 2 0 0 1 4 18L4 6\" fill=\"currentColor\" fill-opacity=\"0.4\"/><path d=\"M8.5 12A0.5 0.5 0 1 0 9.5 12 0.5 0.5 0 1 0 8.5 12\" fill=\"currentColor\"/><path d=\"M14.5 12A0.5 0.5 0 1 0 15.5 12 0.5 0.5 0 1 0 14.5 12\" fill=\"currentColor\"/>");
+const QrcodeBulk = icon("<path d=\"M4 5A1 1 0 0 1 5 4H9A1 1 0 0 1 10 5V9A1 1 0 0 1 9 10H5A1 1 0 0 1 4 9L4 5\" fill=\"currentColor\" fill-opacity=\"0.4\"/><path d=\"M14 5A1 1 0 0 1 15 4H19A1 1 0 0 1 20 5V9A1 1 0 0 1 19 10H15A1 1 0 0 1 14 9L14 5\" fill=\"currentColor\" fill-opacity=\"0.4\"/><path d=\"M4 15A1 1 0 0 1 5 14H9A1 1 0 0 1 10 15V19A1 1 0 0 1 9 20H5A1 1 0 0 1 4 19L4 15\" fill=\"currentColor\" fill-opacity=\"0.4\"/><g fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M4 5a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -4\" /><path d=\"M7 17l0 .01\" /><path d=\"M14 5a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -4\" /><path d=\"M7 7l0 .01\" /><path d=\"M4 15a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -4\" /><path d=\"M17 7l0 .01\" /><path d=\"M14 14l3 0\" /><path d=\"M20 14l0 .01\" /><path d=\"M14 14l0 3\" /><path d=\"M14 20l3 0\" /><path d=\"M17 17l3 0\" /><path d=\"M20 17l0 3\" /></g>");
+const SendBulk = icon("<path d=\"M21 3L14.5 21A0.55 0.55 0 0 1 13.5 21L10 14 3 10.5A0.55 0.55 0 0 1 3 9.5L21 3\" fill=\"currentColor\" fill-opacity=\"0.4\"/><g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M10 14L21 3\"/></g>");
+const SettingsBulk = icon("<path d=\"M10.325 4.317C10.751 2.561 13.248999999999999 2.561 13.674999999999999 4.317A1.724 1.724 0 0 0 16.247999999999998 5.383C17.790999999999997 4.443 19.557999999999996 6.209 18.618 7.753A1.724 1.724 0 0 0 19.683 10.325C21.439 10.751 21.439 13.248999999999999 19.683 13.674999999999999A1.724 1.724 0 0 0 18.617 16.247999999999998C19.557000000000002 17.790999999999997 17.791 19.557999999999996 16.247 18.618A1.724 1.724 0 0 0 13.675 19.683C13.249 21.439 10.751000000000001 21.439 10.325000000000001 19.683A1.724 1.724 0 0 0 7.752000000000001 18.617C6.2090000000000005 19.557000000000002 4.442 17.791 5.382000000000001 16.247A1.724 1.724 0 0 0 4.317 13.675C2.561 13.249 2.561 10.751000000000001 4.317 10.325000000000001A1.724 1.724 0 0 0 5.383 7.752000000000001C4.443 6.2090000000000005 6.209 4.442 7.753 5.382000000000001 8.753 5.99 10.049 5.452000000000001 10.325 4.317\" fill=\"currentColor\" fill-opacity=\"0.4\"/><g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M9 12A3 3 0 1 0 15 12 3 3 0 0 0 9 12\"/></g>");
+const ShoppingCartBulk = icon("<path d=\"M4 19A2 2 0 1 0 8 19 2 2 0 1 0 4 19\" fill=\"currentColor\" fill-opacity=\"0.4\"/><path d=\"M15 19A2 2 0 1 0 19 19 2 2 0 1 0 15 19\" fill=\"currentColor\" fill-opacity=\"0.4\"/><g fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M4 19a2 2 0 1 0 4 0a2 2 0 1 0 -4 0\" /><path d=\"M15 19a2 2 0 1 0 4 0a2 2 0 1 0 -4 0\" /><path d=\"M17 17h-11v-14h-2\" /><path d=\"M6 5l14 1l-1 7h-13\" /></g>");
+const UserBulk = icon("<path d=\"M8 7A4 4 0 1 0 16 7 4 4 0 0 0 8 7\" fill=\"currentColor\" fill-opacity=\"0.4\"/><g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M6 21V19A4 4 0 0 1 10 15H14A4 4 0 0 1 18 19V21\"/></g>");
+const UsersBulk = icon("<path d=\"M5 7A4 4 0 1 0 13 7 4 4 0 1 0 5 7\" fill=\"currentColor\" fill-opacity=\"0.4\"/><g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3 21V19A4 4 0 0 1 7 15H11A4 4 0 0 1 15 19V21\"/><path d=\"M16 3.13A4 4 0 0 1 16 10.879999999999999\"/><path d=\"M21 21V19A4 4 0 0 0 18 15.15\"/></g>");
+const WalletBulk = icon("<path d=\"M20 12V16H16A2 2 0 0 1 16 12H20\" fill=\"currentColor\" fill-opacity=\"0.4\"/><g fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M17 8v-3a1 1 0 0 0 -1 -1h-10a2 2 0 0 0 0 4h12a1 1 0 0 1 1 1v3m0 4v3a1 1 0 0 1 -1 1h-12a2 2 0 0 1 -2 -2v-12\" /><path d=\"M20 12v4h-4a2 2 0 0 1 0 -4h4\" /></g>");
+const LayoutDashboardSolid = icon("<g fill=\"currentColor\"><path d=\"M9 3a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-4a2 2 0 0 1 -2 -2v-6a2 2 0 0 1 2 -2zm0 12a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-4a2 2 0 0 1 -2 -2v-2a2 2 0 0 1 2 -2zm10 -4a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-4a2 2 0 0 1 -2 -2v-6a2 2 0 0 1 2 -2zm0 -8a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-4a2 2 0 0 1 -2 -2v-2a2 2 0 0 1 2 -2z\" /></g>");
+const TrendingUpSolid = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.25\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3 17l6 -6l4 4l8 -8\" /><path d=\"M14 7l7 0l0 7\" /></g>");
 
 export function PerformancePage() {
-  const fuRef = useRef<any>(null);
-  useEffect(() => fuInteract(fuRef.current), []);
   return (
-    <div ref={fuRef} style={{ width: "1577.72px", height: "1180px", background: "#f5f5f5", overflow: "hidden", position: "relative" }}>
+    <div style={{ width: "1577.72px", height: "1180px", background: "#f5f5f5", overflow: "hidden", position: "relative" }}>
       <div style={{ position: "absolute", left: "0px", top: "0px", width: "269.53px", height: "1180px", background: "#f5f5f5", overflow: "hidden" }}>
         <div style={{ position: "absolute", left: "21.91px", top: "23.76px", width: "81.08px", height: "24.79px", display: "flex", flexDirection: "row", gap: "24.79px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
           <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "5.72px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
@@ -41,7 +76,7 @@ export function PerformancePage() {
             </div>
           </div>
           <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", gap: "21.91px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
-            <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+            <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
               <div style={{ alignSelf: "stretch", flexShrink: 0, overflow: "hidden", display: "flex", flexDirection: "column", padding: "3.31px 0px 3.31px 0px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
                 <div style={{ alignSelf: "stretch", height: "32.83px", flexShrink: 0, borderRadius: "8px", display: "flex", flexDirection: "row", padding: "6.41px 10.96px 6.41px 10.96px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                   <div style={{ width: "178.59px", flexShrink: 0, display: "flex", flexDirection: "row", gap: "6.57px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
@@ -83,7 +118,7 @@ export function PerformancePage() {
                 </div>
               </div>
             </div>
-            <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", gap: "4.38px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+            <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", gap: "4.38px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
               <svg style={{ width: "232.27px", height: "1px", flexShrink: 0, display: "block", lineHeight: 0, overflow: "visible", marginBottom: "-1px" }} xmlns="http://www.w3.org/2000/svg" width="232.27" height="1" viewBox="0 0 232.27 1" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M0 -0.547818 L0 0 L232.275 0 L232.275 -0.547818 L232.275 -1.09564 L0 -1.09564 L0 -0.547818 Z" fill="#e8e8e8"/></svg>
               <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
                 <div style={{ alignSelf: "stretch", height: "39.44px", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
@@ -103,7 +138,7 @@ export function PerformancePage() {
                       </div>
                     </div>
                   </div>
-                  <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+                  <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
                     <div style={{ alignSelf: "stretch", flexShrink: 0, overflow: "hidden", display: "flex", flexDirection: "column", padding: "3.31px 0px 3.31px 0px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
                       <div style={{ alignSelf: "stretch", height: "32.83px", flexShrink: 0, borderRadius: "8px", display: "flex", flexDirection: "column", padding: "6.41px 10.96px 6.41px 10.96px", justifyContent: "center", alignItems: "flex-start", boxSizing: "border-box" }}>
                         <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "4.38px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
@@ -113,7 +148,7 @@ export function PerformancePage() {
                       </div>
                     </div>
                   </div>
-                  <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+                  <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
                     <div style={{ alignSelf: "stretch", flexShrink: 0, overflow: "hidden", display: "flex", flexDirection: "column", padding: "3.31px 0px 3.31px 0px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
                       <div style={{ alignSelf: "stretch", height: "32.83px", flexShrink: 0, borderRadius: "8px", display: "flex", flexDirection: "column", padding: "6.41px 10.96px 6.41px 10.96px", justifyContent: "center", alignItems: "flex-start", boxSizing: "border-box" }}>
                         <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "4.38px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
@@ -123,7 +158,7 @@ export function PerformancePage() {
                       </div>
                     </div>
                   </div>
-                  <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+                  <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
                     <div style={{ alignSelf: "stretch", flexShrink: 0, overflow: "hidden", display: "flex", flexDirection: "column", padding: "3.31px 0px 3.31px 0px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
                       <div style={{ alignSelf: "stretch", height: "32.83px", flexShrink: 0, borderRadius: "8px", display: "flex", flexDirection: "column", padding: "6.41px 10.96px 6.41px 10.96px", justifyContent: "center", alignItems: "flex-start", boxSizing: "border-box" }}>
                         <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "4.38px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
@@ -136,7 +171,7 @@ export function PerformancePage() {
                 </div>
               </div>
             </div>
-            <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", gap: "4.38px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+            <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", gap: "4.38px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
               <svg style={{ width: "232.27px", height: "1px", flexShrink: 0, display: "block", lineHeight: 0, overflow: "visible", marginBottom: "-1px" }} xmlns="http://www.w3.org/2000/svg" width="232.27" height="1" viewBox="0 0 232.27 1" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M0 -0.547818 L0 0 L232.275 0 L232.275 -0.547818 L232.275 -1.09564 L0 -1.09564 L0 -0.547818 Z" fill="#e8e8e8"/></svg>
               <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
                 <div style={{ alignSelf: "stretch", height: "39.44px", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
@@ -174,7 +209,7 @@ export function PerformancePage() {
                 </div>
               </div>
             </div>
-            <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", gap: "4.38px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+            <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", gap: "4.38px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
               <svg style={{ width: "232.27px", height: "1px", flexShrink: 0, display: "block", lineHeight: 0, overflow: "visible", marginBottom: "-1px" }} xmlns="http://www.w3.org/2000/svg" width="232.27" height="1" viewBox="0 0 232.27 1" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M0 -0.547818 L0 0 L232.275 0 L232.275 -0.547818 L232.275 -1.09564 L0 -1.09564 L0 -0.547818 Z" fill="#e8e8e8"/></svg>
               <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
                 <div style={{ alignSelf: "stretch", height: "39.44px", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
@@ -224,13 +259,13 @@ export function PerformancePage() {
           <p style={{ flexShrink: 0, margin: 0, textAlign: "center", whiteSpace: "pre", minWidth: "109px", fontFamily: "'Geist'", fontSize: "17.53px", fontWeight: 500, color: "#666d80", lineHeight: "1.5", letterSpacing: "0.02em" }}>Performance</p>
         </div>
         <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "6.57px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-          <div data-fu="field" style={{ width: "257.47px", flexShrink: 0, borderRadius: "8.77px", background: "#ffffff", boxShadow: "inset 0 0 0 1.1px #e8e8e8", display: "flex", flexDirection: "row", padding: "8.77px 6.57px 8.77px 10.96px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+          <div style={{ width: "257.47px", flexShrink: 0, borderRadius: "8.77px", background: "#ffffff", boxShadow: "inset 0 0 0 1.1px #e8e8e8", display: "flex", flexDirection: "row", padding: "8.77px 6.57px 8.77px 10.96px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
             <div style={{ width: "76.69px", flexShrink: 0, display: "flex", flexDirection: "row", gap: "4.38px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
               <Search size={15.3} strokeWidth={1.51} style={{ width: "15.34px", height: "15.34px", flexShrink: 0, color: "#686765", display: "block" }} />
               <p style={{ flexShrink: 0, margin: 0, textAlign: "center", whiteSpace: "pre", minWidth: "51px", lineHeight: "20px", fontFamily: "'Geist'", fontSize: "15.34px", fontWeight: 500, color: "#686765" }}>Search</p>
             </div>
           </div>
-          <div data-fu="btn" style={{ width: "37.25px", height: "37.25px", flexShrink: 0, borderRadius: "7.45px", background: "#ffffff", boxShadow: "inset 0 0 0 0.93px #e8e8e8", overflow: "hidden", position: "relative" }}>
+          <div style={{ width: "37.25px", height: "37.25px", flexShrink: 0, borderRadius: "7.45px", background: "#ffffff", boxShadow: "inset 0 0 0 0.93px #e8e8e8", overflow: "hidden", position: "relative" }}>
             <BellBulk size={21.9} style={{ position: "absolute", left: "7.67px", top: "7.67px", width: "21.91px", height: "21.91px", color: "#686765", display: "block", flexShrink: 0 }} />
           </div>
         </div>
@@ -242,19 +277,19 @@ export function PerformancePage() {
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "491px", lineHeight: "23px", fontFamily: "'Geist'", fontSize: "17.53px", fontWeight: 400, color: "#747474", letterSpacing: "-0.02em" }}>How campaigns, flows and channels turn attention into revenue.</p>
           </div>
           <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "10.96px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-            <div data-fu="btn" style={{ height: "35.06px", flexShrink: 0, borderRadius: "8.77px", background: "#ffffff", boxShadow: "inset 0 0 0 1.1px #e8e8e8", display: "flex", flexDirection: "row", padding: "8.77px 8.77px 8.77px 8.77px", gap: "6.57px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
+            <div style={{ height: "35.06px", flexShrink: 0, borderRadius: "8.77px", background: "#ffffff", boxShadow: "inset 0 0 0 1.1px #e8e8e8", display: "flex", flexDirection: "row", padding: "8.77px 8.77px 8.77px 8.77px", gap: "6.57px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
               <Calendar size={19.7} style={{ width: "19.72px", height: "19.72px", flexShrink: 0, color: "#8b8b8b", display: "block" }} />
               <p style={{ flexShrink: 0, margin: 0, textAlign: "center", whiteSpace: "pre", minWidth: "79px", lineHeight: "17px", fontFamily: "'Geist'", fontSize: "13.15px", fontWeight: 400, color: "#6c6c6c" }}>Last 30 days</p>
               <ChevronDown size={15.3} strokeWidth={1.51} style={{ width: "15.34px", height: "15.34px", flexShrink: 0, color: "#6c6c6c", display: "block" }} />
             </div>
-            <div data-fu="btn" style={{ height: "39.44px", flexShrink: 0, borderRadius: "109.56px", background: "#ffffff", boxShadow: "inset 0 0 0 1.1px #e8e8e8", display: "flex", flexDirection: "row", padding: "10.96px 10.96px 10.96px 10.96px", gap: "6.57px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
+            <div style={{ height: "39.44px", flexShrink: 0, borderRadius: "109.56px", background: "#ffffff", boxShadow: "inset 0 0 0 1.1px #e8e8e8", display: "flex", flexDirection: "row", padding: "10.96px 10.96px 10.96px 10.96px", gap: "6.57px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
               <FileDownload size={17.5} strokeWidth={1.51} style={{ width: "17.53px", height: "17.53px", flexShrink: 0, color: "#8b8b8b", display: "block" }} />
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "44px", fontFamily: "'Geist'", fontSize: "14.24px", fontWeight: 500, color: "#6c6c6c", lineHeight: "17.53px" }}>Export</p>
             </div>
           </div>
         </div>
         <div style={{ position: "absolute", left: "19.72px", top: "109.56px", width: "1245.74px", height: "147.91px", display: "flex", flexDirection: "row", gap: "16.43px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-          <div data-fu="card" style={{ width: "299.11px", height: "147.91px", flexShrink: 0, borderRadius: "13.15px", background: "#ffffff", boxShadow: "inset 0 0 0 1.1px #eeeeee, 0px 1.1px 4.38px 0px rgba(0, 0, 0, 0.05)", overflow: "hidden", position: "relative" }}>
+          <div style={{ width: "299.11px", height: "147.91px", flexShrink: 0, borderRadius: "13.15px", background: "#ffffff", boxShadow: "inset 0 0 0 1.1px #eeeeee, 0px 1.1px 4.38px 0px rgba(0, 0, 0, 0.05)", overflow: "hidden", position: "relative" }}>
             <div style={{ position: "absolute", left: "-2.19px", top: "-2.19px", width: "301.3px", height: "41.91px", display: "flex", flexDirection: "column", padding: "10.96px 10.96px 10.96px 10.96px", gap: "10.96px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
               <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center", boxSizing: "border-box" }}>
                 <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "6.57px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
@@ -332,7 +367,7 @@ export function PerformancePage() {
               </div>
             </div>
           </div>
-          <div data-fu="card" style={{ width: "299.11px", height: "147.91px", flexShrink: 0, borderRadius: "13.15px", background: "#ffffff", boxShadow: "inset 0 0 0 1.1px #eeeeee, 0px 1.1px 4.38px 0px rgba(0, 0, 0, 0.05)", overflow: "hidden", position: "relative" }}>
+          <div style={{ width: "299.11px", height: "147.91px", flexShrink: 0, borderRadius: "13.15px", background: "#ffffff", boxShadow: "inset 0 0 0 1.1px #eeeeee, 0px 1.1px 4.38px 0px rgba(0, 0, 0, 0.05)", overflow: "hidden", position: "relative" }}>
             <div style={{ position: "absolute", left: "-2.19px", top: "-2.19px", width: "301.3px", height: "41.91px", display: "flex", flexDirection: "column", padding: "10.96px 10.96px 10.96px 10.96px", gap: "10.96px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
               <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center", boxSizing: "border-box" }}>
                 <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "6.57px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
@@ -410,7 +445,7 @@ export function PerformancePage() {
               </div>
             </div>
           </div>
-          <div data-fu="card" style={{ width: "299.11px", height: "147.91px", flexShrink: 0, borderRadius: "13.15px", background: "#ffffff", boxShadow: "inset 0 0 0 1.1px #eeeeee, 0px 1.1px 4.38px 0px rgba(0, 0, 0, 0.05)", overflow: "hidden", position: "relative" }}>
+          <div style={{ width: "299.11px", height: "147.91px", flexShrink: 0, borderRadius: "13.15px", background: "#ffffff", boxShadow: "inset 0 0 0 1.1px #eeeeee, 0px 1.1px 4.38px 0px rgba(0, 0, 0, 0.05)", overflow: "hidden", position: "relative" }}>
             <div style={{ position: "absolute", left: "0px", top: "0px", width: "299.11px", height: "41.91px", background: "#ffffff", display: "flex", flexDirection: "column", padding: "10.96px 10.96px 10.96px 10.96px", gap: "10.96px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
               <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center", boxSizing: "border-box" }}>
                 <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "6.57px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
@@ -488,7 +523,7 @@ export function PerformancePage() {
               </div>
             </div>
           </div>
-          <div data-fu="card" style={{ width: "299.11px", height: "147.91px", flexShrink: 0, borderRadius: "13.15px", background: "#ffffff", boxShadow: "inset 0 0 0 1.1px #eeeeee, 0px 1.1px 4.38px 0px rgba(0, 0, 0, 0.05)", overflow: "hidden", position: "relative" }}>
+          <div style={{ width: "299.11px", height: "147.91px", flexShrink: 0, borderRadius: "13.15px", background: "#ffffff", boxShadow: "inset 0 0 0 1.1px #eeeeee, 0px 1.1px 4.38px 0px rgba(0, 0, 0, 0.05)", overflow: "hidden", position: "relative" }}>
             <div style={{ position: "absolute", left: "-2.19px", top: "-2.19px", width: "301.3px", height: "41.91px", display: "flex", flexDirection: "column", padding: "10.96px 10.96px 10.96px 10.96px", gap: "10.96px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
               <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center", boxSizing: "border-box" }}>
                 <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "6.57px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
@@ -586,7 +621,7 @@ export function PerformancePage() {
                 </div>
               </div>
             </div>
-            <div data-fu="btn" style={{ flexShrink: 0, borderRadius: "8.77px", background: "#ffffff", boxShadow: "inset 0 0 0 1.1px #e0e0e3", overflow: "hidden", display: "flex", flexDirection: "row", padding: "7.67px 8.77px 7.67px 10.96px", gap: "6.57px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div style={{ flexShrink: 0, borderRadius: "8.77px", background: "#ffffff", boxShadow: "inset 0 0 0 1.1px #e0e0e3", overflow: "hidden", display: "flex", flexDirection: "row", padding: "7.67px 8.77px 7.67px 10.96px", gap: "6.57px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "61px", fontFamily: "'Geist'", fontSize: "13.15px", fontWeight: 500, color: "#4d4d52", lineHeight: "17.53px" }}>Open rate</p>
               <svg style={{ width: "13.15px", height: "13.15px", flexShrink: 0, display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="13.15" height="13.15" viewBox="0 0 13.15 13.15" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 3.286 4.931)" d="M0.542312 -0.542312 C0.242801 -0.841823 -0.242801 -0.841823 -0.542312 -0.542312 C-0.841823 -0.242801 -0.841823 0.242801 -0.542312 0.542312 L0 0 L0.542312 -0.542312 Z M3.28691 3.28691 L2.7446 3.82922 C3.04411 4.12873 3.52971 4.12873 3.82922 3.82922 L3.28691 3.28691 Z M7.11613 0.542312 C7.41564 0.242801 7.41564 -0.242801 7.11613 -0.542312 C6.81662 -0.841823 6.33101 -0.841823 6.0315 -0.542312 L6.57382 0 L7.11613 0.542312 Z M0 0 L-0.542312 0.542312 L2.7446 3.82922 L3.28691 3.28691 L3.82922 2.7446 L0.542312 -0.542312 L0 0 Z M3.28691 3.28691 L3.82922 3.82922 L7.11613 0.542312 L6.57382 0 L6.0315 -0.542312 L2.7446 2.7446 L3.28691 3.28691 Z" fill="#6b6b70"/></svg>
             </div>
@@ -672,7 +707,7 @@ export function PerformancePage() {
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "102px", fontFamily: "'Geist'", fontSize: "17.53px", fontWeight: 500, color: "#141417", lineHeight: "1.5" }}>Email funnel</p>
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "171px", lineHeight: "17px", fontFamily: "'Geist'", fontSize: "13.15px", fontWeight: 400, color: "#6b6b70" }}>Avg. campaign · last 30 days</p>
             </div>
-            <div data-fu="btn" style={{ width: "37.25px", height: "37.25px", flexShrink: 0, borderRadius: "8.77px", background: "#ffffff", boxShadow: "inset 0 0 0 1.1px #e8e8e8, 0px 1.1px 1.1px 0px rgba(13, 13, 18, 0.08)", display: "flex", flexDirection: "row", gap: "6.57px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
+            <div style={{ width: "37.25px", height: "37.25px", flexShrink: 0, borderRadius: "8.77px", background: "#ffffff", boxShadow: "inset 0 0 0 1.1px #e8e8e8, 0px 1.1px 1.1px 0px rgba(13, 13, 18, 0.08)", display: "flex", flexDirection: "row", gap: "6.57px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
               <DotsVertical size={19.7} style={{ width: "19.72px", height: "19.72px", flexShrink: 0, color: "#c4c4c4", display: "block" }} />
             </div>
           </div>
@@ -684,7 +719,7 @@ export function PerformancePage() {
               </div>
               <div style={{ flex: "1 1 0", minWidth: 0, height: "1px", flexShrink: 0 }} />
               <div style={{ width: "197.21px", height: "66px", flexShrink: 0, position: "relative" }}>
-                <svg data-fu="plot" style={{ position: "absolute", left: "0px", top: "0px", width: "197.21px", height: "66px", display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="197.21" height="66" viewBox="0 0 197.21 66" fill="none" overflow="visible"><defs><linearGradient id="g20_xaxj" gradientUnits="userSpaceOnUse" x1="98.61" y1="0.00" x2="98.61" y2="66.00"><stop offset="0" stopColor="#fd613d"/><stop offset="1" stopColor="#fd4b23"/></linearGradient></defs><path transform="matrix(1 0 0 1 0 0)" d="M4.06543 9.22056 C2.1507 4.87788 5.33098 0 10.077 0 L187.133 0 C191.879 0 195.059 4.87789 193.145 9.22057 L169.838 62.0806 C168.788 64.4627 166.43 66 163.827 66 L33.3835 66 C30.7801 66 28.4222 64.4627 27.3719 62.0806 L4.06543 9.22056 Z" fill="url(#g20_xaxj)"/><path transform="matrix(1 0 0 1 0 0)" d="M169.838 62.0806 L170.753 62.484 L169.838 62.0806 Z M193.145 9.22057 L194.06 9.62401 L193.145 9.22057 Z M10.077 0 L10.077 1 L187.133 1 L187.133 0 L187.133 -1 L10.077 -1 L10.077 0 Z M193.145 9.22057 L192.23 8.81714 L168.923 61.6771 L169.838 62.0806 L170.753 62.484 L194.06 9.62401 L193.145 9.22057 Z M163.827 66 L163.827 65 L33.3835 65 L33.3835 66 L33.3835 67 L163.827 67 L163.827 66 Z M27.3719 62.0806 L28.2869 61.6771 L4.98044 8.81713 L4.06543 9.22056 L3.15042 9.624 L26.4569 62.484 L27.3719 62.0806 Z M33.3835 66 L33.3835 65 C31.1763 65 29.1773 63.6967 28.2869 61.6771 L27.3719 62.0806 L26.4569 62.484 C27.6671 65.2288 30.3838 67 33.3835 67 L33.3835 66 Z M169.838 62.0806 L168.923 61.6771 C168.033 63.6967 166.034 65 163.827 65 L163.827 66 L163.827 67 C166.826 67 169.543 65.2288 170.753 62.484 L169.838 62.0806 Z M187.133 0 L187.133 1 C191.157 1 193.853 5.13544 192.23 8.81714 L193.145 9.22057 L194.06 9.62401 C196.266 4.62034 192.601 -1 187.133 -1 L187.133 0 Z M10.077 0 L10.077 -1 C4.6086 -1 0.944257 4.62033 3.15042 9.624 L4.06543 9.22056 L4.98044 8.81713 C3.35715 5.13543 6.05336 1 10.077 1 L10.077 0 Z" fill="#c53b1b" fillOpacity="0.38"/></svg>
+                <svg style={{ position: "absolute", left: "0px", top: "0px", width: "197.21px", height: "66px", display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="197.21" height="66" viewBox="0 0 197.21 66" fill="none" overflow="visible"><defs><linearGradient id="g20_xaxj" gradientUnits="userSpaceOnUse" x1="98.61" y1="0.00" x2="98.61" y2="66.00"><stop offset="0" stopColor="#fd613d"/><stop offset="1" stopColor="#fd4b23"/></linearGradient></defs><path transform="matrix(1 0 0 1 0 0)" d="M4.06543 9.22056 C2.1507 4.87788 5.33098 0 10.077 0 L187.133 0 C191.879 0 195.059 4.87789 193.145 9.22057 L169.838 62.0806 C168.788 64.4627 166.43 66 163.827 66 L33.3835 66 C30.7801 66 28.4222 64.4627 27.3719 62.0806 L4.06543 9.22056 Z" fill="url(#g20_xaxj)"/><path transform="matrix(1 0 0 1 0 0)" d="M169.838 62.0806 L170.753 62.484 L169.838 62.0806 Z M193.145 9.22057 L194.06 9.62401 L193.145 9.22057 Z M10.077 0 L10.077 1 L187.133 1 L187.133 0 L187.133 -1 L10.077 -1 L10.077 0 Z M193.145 9.22057 L192.23 8.81714 L168.923 61.6771 L169.838 62.0806 L170.753 62.484 L194.06 9.62401 L193.145 9.22057 Z M163.827 66 L163.827 65 L33.3835 65 L33.3835 66 L33.3835 67 L163.827 67 L163.827 66 Z M27.3719 62.0806 L28.2869 61.6771 L4.98044 8.81713 L4.06543 9.22056 L3.15042 9.624 L26.4569 62.484 L27.3719 62.0806 Z M33.3835 66 L33.3835 65 C31.1763 65 29.1773 63.6967 28.2869 61.6771 L27.3719 62.0806 L26.4569 62.484 C27.6671 65.2288 30.3838 67 33.3835 67 L33.3835 66 Z M169.838 62.0806 L168.923 61.6771 C168.033 63.6967 166.034 65 163.827 65 L163.827 66 L163.827 67 C166.826 67 169.543 65.2288 170.753 62.484 L169.838 62.0806 Z M187.133 0 L187.133 1 C191.157 1 193.853 5.13544 192.23 8.81714 L193.145 9.22057 L194.06 9.62401 C196.266 4.62034 192.601 -1 187.133 -1 L187.133 0 Z M10.077 0 L10.077 -1 C4.6086 -1 0.944257 4.62033 3.15042 9.624 L4.06543 9.22056 L4.98044 8.81713 C3.35715 5.13543 6.05336 1 10.077 1 L10.077 0 Z" fill="#c53b1b" fillOpacity="0.38"/></svg>
                 <p style={{ position: "absolute", left: "77.6px", top: "23px", margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "42px", lineHeight: "20px", fontFamily: "'Geist'", fontSize: "15.34px", fontWeight: 500, color: "#ffffff" }}>17,512</p>
               </div>
             </div>
@@ -698,7 +733,7 @@ export function PerformancePage() {
               </div>
               <div style={{ flex: "1 1 0", minWidth: 0, height: "1px", flexShrink: 0 }} />
               <div style={{ width: "197.21px", height: "66px", flexShrink: 0, position: "relative" }}>
-                <svg data-fu="plot" style={{ position: "absolute", left: "29.1px", top: "0px", width: "139px", height: "66px", display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="139" height="66" viewBox="0 0 139 66" fill="none" overflow="visible"><defs><linearGradient id="g21_xaxn" gradientUnits="userSpaceOnUse" x1="69.50" y1="0.00" x2="69.50" y2="66.00"><stop offset="0" stopColor="#fd7a5c"/><stop offset="1" stopColor="#fd6846"/></linearGradient></defs><path transform="matrix(1 0 0 1 0 0)" d="M3.53346 8.97647 C1.83662 4.66579 5.01425 0 9.64688 0 L129.353 0 C133.986 0 137.163 4.66579 135.467 8.97646 L114.659 61.8365 C113.67 64.3485 111.245 66 108.546 66 L30.4545 66 C27.7548 66 25.3299 64.3485 24.3411 61.8365 L3.53346 8.97647 Z" fill="url(#g21_xaxn)"/><path transform="matrix(1 0 0 1 0 0)" d="M24.3411 61.8365 L23.4106 62.2027 L24.3411 61.8365 Z M114.659 61.8365 L113.728 61.4702 L114.659 61.8365 Z M135.467 8.97646 L134.536 8.61018 L135.467 8.97646 Z M9.64688 0 L9.64688 1 L129.353 1 L129.353 0 L129.353 -1 L9.64688 -1 L9.64688 0 Z M135.467 8.97646 L134.536 8.61018 L113.728 61.4702 L114.659 61.8365 L115.589 62.2027 L136.397 9.34274 L135.467 8.97646 Z M108.546 66 L108.546 65 L30.4545 65 L30.4545 66 L30.4545 67 L108.546 67 L108.546 66 Z M24.3411 61.8365 L25.2716 61.4702 L4.46397 8.61019 L3.53346 8.97647 L2.60296 9.34275 L23.4106 62.2027 L24.3411 61.8365 Z M30.4545 66 L30.4545 65 C28.1657 65 26.1099 63.5999 25.2716 61.4702 L24.3411 61.8365 L23.4106 62.2027 C24.5499 65.0972 27.3439 67 30.4545 67 L30.4545 66 Z M114.659 61.8365 L113.728 61.4702 C112.89 63.5999 110.834 65 108.546 65 L108.546 66 L108.546 67 C111.656 67 114.45 65.0972 115.589 62.2027 L114.659 61.8365 Z M129.353 0 L129.353 1 C133.281 1 135.975 4.95562 134.536 8.61018 L135.467 8.97646 L136.397 9.34274 C138.352 4.37595 134.691 -1 129.353 -1 L129.353 0 Z M9.64688 0 L9.64688 -1 C4.30913 -1 0.647849 4.37596 2.60296 9.34275 L3.53346 8.97647 L4.46397 8.61019 C3.0254 4.95562 5.71937 1 9.64688 1 L9.64688 0 Z" fill="#c55137" fillOpacity="0.38"/></svg>
+                <svg style={{ position: "absolute", left: "29.1px", top: "0px", width: "139px", height: "66px", display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="139" height="66" viewBox="0 0 139 66" fill="none" overflow="visible"><defs><linearGradient id="g21_xaxn" gradientUnits="userSpaceOnUse" x1="69.50" y1="0.00" x2="69.50" y2="66.00"><stop offset="0" stopColor="#fd7a5c"/><stop offset="1" stopColor="#fd6846"/></linearGradient></defs><path transform="matrix(1 0 0 1 0 0)" d="M3.53346 8.97647 C1.83662 4.66579 5.01425 0 9.64688 0 L129.353 0 C133.986 0 137.163 4.66579 135.467 8.97646 L114.659 61.8365 C113.67 64.3485 111.245 66 108.546 66 L30.4545 66 C27.7548 66 25.3299 64.3485 24.3411 61.8365 L3.53346 8.97647 Z" fill="url(#g21_xaxn)"/><path transform="matrix(1 0 0 1 0 0)" d="M24.3411 61.8365 L23.4106 62.2027 L24.3411 61.8365 Z M114.659 61.8365 L113.728 61.4702 L114.659 61.8365 Z M135.467 8.97646 L134.536 8.61018 L135.467 8.97646 Z M9.64688 0 L9.64688 1 L129.353 1 L129.353 0 L129.353 -1 L9.64688 -1 L9.64688 0 Z M135.467 8.97646 L134.536 8.61018 L113.728 61.4702 L114.659 61.8365 L115.589 62.2027 L136.397 9.34274 L135.467 8.97646 Z M108.546 66 L108.546 65 L30.4545 65 L30.4545 66 L30.4545 67 L108.546 67 L108.546 66 Z M24.3411 61.8365 L25.2716 61.4702 L4.46397 8.61019 L3.53346 8.97647 L2.60296 9.34275 L23.4106 62.2027 L24.3411 61.8365 Z M30.4545 66 L30.4545 65 C28.1657 65 26.1099 63.5999 25.2716 61.4702 L24.3411 61.8365 L23.4106 62.2027 C24.5499 65.0972 27.3439 67 30.4545 67 L30.4545 66 Z M114.659 61.8365 L113.728 61.4702 C112.89 63.5999 110.834 65 108.546 65 L108.546 66 L108.546 67 C111.656 67 114.45 65.0972 115.589 62.2027 L114.659 61.8365 Z M129.353 0 L129.353 1 C133.281 1 135.975 4.95562 134.536 8.61018 L135.467 8.97646 L136.397 9.34274 C138.352 4.37595 134.691 -1 129.353 -1 L129.353 0 Z M9.64688 0 L9.64688 -1 C4.30913 -1 0.647849 4.37596 2.60296 9.34275 L3.53346 8.97647 L4.46397 8.61019 C3.0254 4.95562 5.71937 1 9.64688 1 L9.64688 0 Z" fill="#c55137" fillOpacity="0.38"/></svg>
                 <p style={{ position: "absolute", left: "80.6px", top: "23px", margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "36px", lineHeight: "20px", fontFamily: "'Geist'", fontSize: "15.34px", fontWeight: 500, color: "#ffffff" }}>9,175</p>
               </div>
             </div>
@@ -740,7 +775,7 @@ export function PerformancePage() {
                 <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "281px", lineHeight: "17px", fontFamily: "'Geist'", fontSize: "13.15px", fontWeight: 400, color: "#6b6b70" }}>Attributed revenue · $31,830 across 4 channels</p>
               </div>
             </div>
-            <div data-fu="btn" style={{ flexShrink: 0, borderRadius: "8.77px", background: "#ffffff", boxShadow: "inset 0 0 0 1.1px #e0e0e3", overflow: "hidden", display: "flex", flexDirection: "row", padding: "7.67px 8.77px 7.67px 10.96px", gap: "6.57px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div style={{ flexShrink: 0, borderRadius: "8.77px", background: "#ffffff", boxShadow: "inset 0 0 0 1.1px #e0e0e3", overflow: "hidden", display: "flex", flexDirection: "row", padding: "7.67px 8.77px 7.67px 10.96px", gap: "6.57px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "69px", fontFamily: "'Geist'", fontSize: "13.15px", fontWeight: 500, color: "#4d4d52", lineHeight: "17.53px" }}>By revenue</p>
               <svg style={{ width: "13.15px", height: "13.15px", flexShrink: 0, display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="13.15" height="13.15" viewBox="0 0 13.15 13.15" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 3.286 4.931)" d="M0.542312 -0.542312 C0.242801 -0.841823 -0.242801 -0.841823 -0.542312 -0.542312 C-0.841823 -0.242801 -0.841823 0.242801 -0.542312 0.542312 L0 0 L0.542312 -0.542312 Z M3.28691 3.28691 L2.7446 3.82922 C3.04411 4.12873 3.52971 4.12873 3.82922 3.82922 L3.28691 3.28691 Z M7.11613 0.542312 C7.41564 0.242801 7.41564 -0.242801 7.11613 -0.542312 C6.81662 -0.841823 6.33101 -0.841823 6.0315 -0.542312 L6.57382 0 L7.11613 0.542312 Z M0 0 L-0.542312 0.542312 L2.7446 3.82922 L3.28691 3.28691 L3.82922 2.7446 L0.542312 -0.542312 L0 0 Z M3.28691 3.28691 L3.82922 3.82922 L7.11613 0.542312 L6.57382 0 L6.0315 -0.542312 L2.7446 2.7446 L3.28691 3.28691 Z" fill="#6b6b70"/></svg>
             </div>
@@ -760,7 +795,7 @@ export function PerformancePage() {
                 <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "36px", lineHeight: "17px", fontFamily: "'Geist'", fontSize: "13.15px", fontWeight: 500, color: "#7d818c" }}>Share</p>
               </div>
             </div>
-            <div data-fu="row" style={{ width: "568.64px", height: "52.59px", flexShrink: 0, borderRadius: "8.77px", display: "flex", flexDirection: "row", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div style={{ width: "568.64px", height: "52.59px", flexShrink: 0, borderRadius: "8.77px", display: "flex", flexDirection: "row", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <div style={{ width: "232px", height: "52.59px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 13.15px 0px 13.15px", gap: "8.77px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                 <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "10.96px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                   <div style={{ width: "30.68px", height: "30.68px", flexShrink: 0, borderRadius: "8.77px", background: "rgba(253, 75, 35, 0.12)", display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
@@ -801,7 +836,7 @@ export function PerformancePage() {
             <div style={{ width: "568.64px", height: "1.1px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 13.15px 0px 13.15px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
               <div style={{ flex: "1 1 0", minWidth: 0, height: "1.1px", flexShrink: 0, background: "#eeeeee" }} />
             </div>
-            <div data-fu="row" style={{ width: "568.64px", height: "52.59px", flexShrink: 0, borderRadius: "8.77px", display: "flex", flexDirection: "row", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div style={{ width: "568.64px", height: "52.59px", flexShrink: 0, borderRadius: "8.77px", display: "flex", flexDirection: "row", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <div style={{ width: "232px", height: "52.59px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 13.15px 0px 13.15px", gap: "8.77px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                 <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "10.96px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                   <div style={{ width: "30.68px", height: "30.68px", flexShrink: 0, borderRadius: "8.77px", background: "rgba(255, 114, 171, 0.12)", display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
@@ -842,7 +877,7 @@ export function PerformancePage() {
             <div style={{ width: "568.64px", height: "1.1px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 13.15px 0px 13.15px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
               <div style={{ flex: "1 1 0", minWidth: 0, height: "1.1px", flexShrink: 0, background: "#eeeeee" }} />
             </div>
-            <div data-fu="row" style={{ width: "568.64px", height: "52.59px", flexShrink: 0, borderRadius: "8.77px", display: "flex", flexDirection: "row", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div style={{ width: "568.64px", height: "52.59px", flexShrink: 0, borderRadius: "8.77px", display: "flex", flexDirection: "row", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <div style={{ width: "232px", height: "52.59px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 13.15px 0px 13.15px", gap: "8.77px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                 <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "10.96px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                   <div style={{ width: "30.68px", height: "30.68px", flexShrink: 0, borderRadius: "8.77px", background: "rgba(77, 152, 254, 0.12)", display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
@@ -883,7 +918,7 @@ export function PerformancePage() {
             <div style={{ width: "568.64px", height: "1.1px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 13.15px 0px 13.15px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
               <div style={{ flex: "1 1 0", minWidth: 0, height: "1.1px", flexShrink: 0, background: "#eeeeee" }} />
             </div>
-            <div data-fu="row" style={{ width: "568.64px", height: "52.59px", flexShrink: 0, borderRadius: "8.77px", display: "flex", flexDirection: "row", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div style={{ width: "568.64px", height: "52.59px", flexShrink: 0, borderRadius: "8.77px", display: "flex", flexDirection: "row", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <div style={{ width: "232px", height: "52.59px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 13.15px 0px 13.15px", gap: "8.77px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                 <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "10.96px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                   <div style={{ width: "30.68px", height: "30.68px", flexShrink: 0, borderRadius: "8.77px", background: "rgba(24, 177, 112, 0.12)", display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
@@ -931,7 +966,7 @@ export function PerformancePage() {
                 <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "294px", lineHeight: "17px", fontFamily: "'Geist'", fontSize: "13.15px", fontWeight: 400, color: "#6b6b70" }}>Revenue from orders that followed an email click</p>
               </div>
             </div>
-            <div data-fu="btn" style={{ flexShrink: 0, borderRadius: "8.77px", background: "#ffffff", boxShadow: "inset 0 0 0 1.1px #e0e0e3", overflow: "hidden", display: "flex", flexDirection: "row", padding: "7.67px 8.77px 7.67px 10.96px", gap: "6.57px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div style={{ flexShrink: 0, borderRadius: "8.77px", background: "#ffffff", boxShadow: "inset 0 0 0 1.1px #e0e0e3", overflow: "hidden", display: "flex", flexDirection: "row", padding: "7.67px 8.77px 7.67px 10.96px", gap: "6.57px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "87px", fontFamily: "'Geist'", fontSize: "13.15px", fontWeight: 500, color: "#4d4d52", lineHeight: "17.53px" }}>All campaigns</p>
               <svg style={{ width: "13.15px", height: "13.15px", flexShrink: 0, display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="13.15" height="13.15" viewBox="0 0 13.15 13.15" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 3.286 4.931)" d="M0.542312 -0.542312 C0.242801 -0.841823 -0.242801 -0.841823 -0.542312 -0.542312 C-0.841823 -0.242801 -0.841823 0.242801 -0.542312 0.542312 L0 0 L0.542312 -0.542312 Z M3.28691 3.28691 L2.7446 3.82922 C3.04411 4.12873 3.52971 4.12873 3.82922 3.82922 L3.28691 3.28691 Z M7.11613 0.542312 C7.41564 0.242801 7.41564 -0.242801 7.11613 -0.542312 C6.81662 -0.841823 6.33101 -0.841823 6.0315 -0.542312 L6.57382 0 L7.11613 0.542312 Z M0 0 L-0.542312 0.542312 L2.7446 3.82922 L3.28691 3.28691 L3.82922 2.7446 L0.542312 -0.542312 L0 0 Z M3.28691 3.28691 L3.82922 3.82922 L7.11613 0.542312 L6.57382 0 L6.0315 -0.542312 L2.7446 2.7446 L3.28691 3.28691 Z" fill="#6b6b70"/></svg>
             </div>
@@ -1152,285 +1187,4 @@ export function PerformancePage() {
       </div>
     </div>
   );
-}
-
-// Interactions: hover and click states. Remove this function and the two lines above to get a static component.
-function fuInteract(root: HTMLElement | null) {
-  if (!root || root.dataset.fuOn) return;
-  root.dataset.fuOn = "1";
-  const doc = root.ownerDocument;
-  const all = (sel: string, el: Element = root): HTMLElement[] => Array.from(el.querySelectorAll(sel)) as HTMLElement[];
-  const box = (el: Element) => el.getBoundingClientRect();
-  const font = getComputedStyle(root).fontFamily;
-  const tip = doc.createElement("div");
-  tip.setAttribute("aria-hidden", "true");
-  Object.assign(tip.style, { position: "fixed", zIndex: "2147483647", pointerEvents: "none", background: "#111113", color: "#fff", font: "500 12px/16px " + font, padding: "5px 8px", borderRadius: "6px", whiteSpace: "nowrap", opacity: "0", transform: "translate(-50%, -100%)", transition: "opacity .12s", boxShadow: "0 4px 14px rgba(0,0,0,.18)" });
-  doc.body.appendChild(tip);
-  const show = (text: string, x: number, y: number) => { if (!text) return hide(); tip.textContent = text; tip.style.left = x + "px"; tip.style.top = y - 8 + "px"; tip.style.opacity = "1"; };
-  const hide = () => { tip.style.opacity = "0"; };
-  const ease = (el: HTMLElement | SVGElement, props: string) => { const s = (el as HTMLElement).style; if (!s.transition) s.transition = props; };
-  const texts = (scope: Element) => all("p, span", scope).filter((t) => t.children.length === 0 && (t.textContent || "").trim());
-  const NUM = /^([^\d\-+.]*)([-+]?[\d,]*\.?\d+)\s*([kKmMbB%]?)([^\d]*)$/;
-  // value axis: numeric labels along one edge of the chart, used to read a mark's value from its position
-  const axis = (scope: Element, vertical: boolean) => {
-    const pts: { v: number; p: number; pre: string; suf: string; dec: number }[] = [];
-    for (const t of texts(scope)) {
-      const m = (t.textContent || "").trim().match(NUM);
-      if (!m) continue;
-      const mult = { k: 1e3, K: 1e3, m: 1e6, M: 1e6, b: 1e9, B: 1e9 }[m[3] as "k"] || 1;
-      const r = box(t);
-      pts.push({ v: parseFloat(m[2].replace(/,/g, "")) * mult, p: vertical ? r.top + r.height / 2 : r.left + r.width / 2, pre: m[1], suf: m[3] + m[4], dec: (m[2].split(".")[1] || "").length });
-    }
-    const uniq = pts.filter((a, i) => pts.findIndex((b) => Math.abs(b.p - a.p) < 2) === i);
-    if (uniq.length < 2) return null;
-    uniq.sort((a, b) => a.p - b.p);
-    const a = uniq[0], b = uniq[uniq.length - 1];
-    if (a.v === b.v || Math.abs(b.p - a.p) < 10) return null;
-    return (pos: number) => {
-      const v = a.v + ((pos - a.p) * (b.v - a.v)) / (b.p - a.p);
-      const suf = a.suf || b.suf, pre = a.pre || b.pre;
-      const div = /^[kK]/.test(suf) ? 1e3 : /^[mM]/.test(suf) ? 1e6 : /^[bB]/.test(suf) ? 1e9 : 1;
-      const x = v / div;
-      const dec = Math.max(a.dec, b.dec, div > 1 && Math.abs(x) < 100 ? 1 : 0);
-      return pre + x.toLocaleString("en-US", { minimumFractionDigits: 0, maximumFractionDigits: dec }) + suf;
-    };
-  };
-  // the chart around a group of marks: the nearest ancestor that also holds text labels
-  const chartOf = (el: Element) => { let c: Element | null = el.parentElement; while (c && c !== root.parentElement) { if (texts(c).length >= 3) return c; c = c.parentElement; } return root; };
-  const labelNear = (scope: Element, x: number, y: number, below: boolean, anyText = false) => {
-    let best = "", d = 1e9;
-    for (const t of texts(scope)) {
-      const r = box(t);
-      if (below ? r.top < y - 2 : r.right > x + 2) continue;
-      if (!anyText && NUM.test((t.textContent || "").trim()) && !/[a-z]{3}/i.test(t.textContent || "")) continue;
-      const dd = below ? Math.abs(r.left + r.width / 2 - x) + (r.top - y) * 0.2 : Math.abs(r.top + r.height / 2 - y) + (x - r.right) * 0.1;
-      if (dd < d) { d = dd; best = (t.textContent || "").trim(); }
-    }
-    return d < 80 ? best : "";
-  };
-  const dim = (els: (HTMLElement | SVGElement)[], keep: (HTMLElement | SVGElement)[]) => { for (const e of els) { ease(e, "opacity .15s"); (e as HTMLElement).style.opacity = keep.includes(e) ? "" : "0.35"; } };
-  const undim = (els: (HTMLElement | SVGElement)[]) => { for (const e of els) (e as HTMLElement).style.opacity = ""; };
-
-  // vertical bars: the hovered column (all stacked segments at that x) stays, the rest fade
-  const groups = new Map<Element, HTMLElement[]>();
-  for (const b of all("[data-fu=bar],[data-fu=hbar]")) { const p = b.parentElement!; if (!groups.has(p)) groups.set(p, []); groups.get(p)!.push(b); }
-  groups.forEach((bars) => {
-    const horiz = bars[0].dataset.fu === "hbar";
-    const scope = chartOf(bars[0]);
-    const val = axis(scope, !horiz);
-    const peers = (b: HTMLElement) => { const r = box(b), c = horiz ? r.top + r.height / 2 : r.left + r.width / 2; return bars.filter((o) => { const q = box(o); return Math.abs((horiz ? q.top + q.height / 2 : q.left + q.width / 2) - c) < Math.max(2, (horiz ? r.height : r.width) / 2); }); };
-    for (const b of bars) {
-      b.addEventListener("mouseenter", () => {
-        const col = peers(b);
-        dim(bars, col);
-        const rs = col.map(box);
-        const top = Math.min(...rs.map((r) => r.top)), right = Math.max(...rs.map((r) => r.right)), r0 = rs[0];
-        const label = horiz ? labelNear(scope, r0.left, r0.top + r0.height / 2, false) : labelNear(scope, r0.left + r0.width / 2, Math.max(...rs.map((r) => r.bottom)), true);
-        const v = val ? val(horiz ? right : top) : "";
-        show([label, v].filter(Boolean).join(" · "), horiz ? right : r0.left + r0.width / 2, horiz ? r0.top : top);
-      });
-      b.addEventListener("mouseleave", () => { undim(bars); hide(); });
-    }
-  });
-
-  // line and area plots: a guide line and a dot follow the pointer along the top edge of the plotted shape
-  for (const svg of all("svg[data-fu=plot]") as unknown as SVGSVGElement[]) {
-    const paths = Array.from(svg.querySelectorAll("path, polyline")) as SVGGeometryElement[];
-    if (!paths.length) continue;
-    const line = paths.reduce((a, b) => (b.getTotalLength() > a.getTotalLength() ? b : a));
-    const len = line.getTotalLength();
-    const pts: { x: number; y: number }[] = [];
-    for (let i = 0; i <= 800; i++) { const q = line.getPointAtLength((len * i) / 800); pts.push({ x: q.x, y: q.y }); }
-    const xs = pts.map((q) => q.x), minX = Math.min(...xs), maxX = Math.max(...xs);
-    const color = (line.getAttribute("stroke") && line.getAttribute("stroke") !== "none" ? line.getAttribute("stroke") : line.getAttribute("fill")) || "#111";
-    const NS = "http://www.w3.org/2000/svg";
-    const g = doc.createElementNS(NS, "g");
-    g.setAttribute("pointer-events", "none");
-    g.style.opacity = "0";
-    const guide = doc.createElementNS(NS, "line");
-    guide.setAttribute("stroke", /^url/.test(color) ? "#111" : color);
-    guide.setAttribute("stroke-dasharray", "3 3");
-    guide.setAttribute("stroke-opacity", "0.5");
-    const dot = doc.createElementNS(NS, "circle");
-    dot.setAttribute("r", "4");
-    dot.setAttribute("fill", "#fff");
-    dot.setAttribute("stroke", /^url/.test(color) ? "#111" : color);
-    dot.setAttribute("stroke-width", "2");
-    g.append(guide, dot);
-    svg.appendChild(g);
-    const scope = chartOf(svg);
-    const val = axis(scope, true);
-    const area = svg.parentElement || svg;
-    area.addEventListener("mousemove", (ev: Event) => {
-      const e = ev as MouseEvent;
-      const m = line.getScreenCTM();
-      if (!m) return;
-      const px = new DOMPoint(e.clientX, e.clientY).matrixTransform(m.inverse()).x;
-      if (px < minX - 4 || px > maxX + 4) { g.style.opacity = "0"; hide(); return; }
-      const step = (maxX - minX) / 400 || 1;
-      let y = Infinity, x = px;
-      for (const q of pts) if (Math.abs(q.x - px) <= step && q.y < y) { y = q.y; x = q.x; }
-      if (y === Infinity) return;
-      const bb = line.getBBox();
-      guide.setAttribute("x1", String(x)); guide.setAttribute("x2", String(x));
-      guide.setAttribute("y1", String(bb.y)); guide.setAttribute("y2", String(bb.y + bb.height));
-      dot.setAttribute("cx", String(x)); dot.setAttribute("cy", String(y));
-      g.style.opacity = "1";
-      const sp = new DOMPoint(x, y).matrixTransform(m);
-      const label = labelNear(scope, sp.x, box(svg).bottom, true);
-      show([label, val ? val(sp.y) : ""].filter(Boolean).join(" · "), sp.x, sp.y);
-    });
-    area.addEventListener("mouseleave", () => { g.style.opacity = "0"; hide(); });
-  }
-
-  // cards: a small lift on hover (an extra drop shadow, the card's own shadows stay as they are)
-  for (const c of all("[data-fu=card]").concat(root.dataset.fu === "card" ? [root] : [])) {
-    c.addEventListener("mouseenter", () => { ease(c, "transform .18s ease, filter .18s ease"); c.style.transform = "translateY(-2px)"; c.style.filter = "drop-shadow(0 8px 16px rgba(17,17,19,.08))"; });
-    c.addEventListener("mouseleave", () => { c.style.transform = ""; c.style.filter = ""; });
-  }
-
-  // heatmap and calendar cells: an outline and the cell's own text
-  for (const c of all("[data-fu=cell]")) {
-    c.addEventListener("mouseenter", () => {
-      ease(c, "outline-color .12s");
-      c.style.outline = "2px solid rgba(17,17,19,.55)";
-      c.style.outlineOffset = "1px";
-      const r = box(c);
-      // its own text, or the row and column labels of the grid it sits in
-      let label = (c.textContent || "").trim();
-      if (!label) {
-        // walk outwards until a row label (left) and a column label (below) are in reach
-        let row = "", col = "";
-        for (let a: Element | null = c.parentElement; a && a !== root.parentElement && !(row && col); a = a.parentElement) {
-          if (!row) row = labelNear(a, r.left, r.top + r.height / 2, false, true);
-          if (!col) col = labelNear(a, r.left + r.width / 2, r.bottom, true, true);
-        }
-        label = [row, col].filter(Boolean).join(" · ");
-      }
-      show(label, r.left + r.width / 2, r.top);
-    });
-    c.addEventListener("mouseleave", () => { c.style.outline = ""; c.style.outlineOffset = ""; hide(); });
-  }
-
-  // fields: hover and focus states
-  for (const f of all("[data-fu=field]")) {
-    f.style.cursor = "text";
-    f.addEventListener("mouseenter", () => { ease(f, "filter .15s, outline-color .15s"); f.style.filter = "brightness(0.985)"; });
-    f.addEventListener("mouseleave", () => { f.style.filter = ""; });
-    f.addEventListener("mousedown", (ev) => {
-      ev.stopPropagation();
-      for (const o of all("[data-fu=field]")) o.style.outline = "";
-      f.style.outline = "3px solid rgba(17,17,19,.12)";
-      f.style.outlineOffset = "0px";
-    });
-  }
-  doc.addEventListener("mousedown", () => { for (const o of all("[data-fu=field]")) o.style.outline = ""; });
-
-  // donut and pie charts drawn as one vector per arc: the hovered arc stays, the others fade
-  const arcGroups = new Map<Element, HTMLElement[]>();
-  for (const a of all("[data-fu=arc]")) { const p = a.parentElement!; if (!arcGroups.has(p)) arcGroups.set(p, []); arcGroups.get(p)!.push(a); }
-  arcGroups.forEach((arcs) => {
-    const scope = chartOf(arcs[0]);
-    const hexOf = (c: string) => { const m = c.match(/\d+/g); return m && m.length >= 3 ? "#" + m.slice(0, 3).map((x) => (+x).toString(16).padStart(2, "0")).join("") : c.toLowerCase(); };
-    const legend = (color: string) => {
-      for (const el of all("*", scope)) {
-        if (el.children.length || (el.textContent || "").trim()) continue;
-        if (hexOf(getComputedStyle(el).backgroundColor) !== color.toLowerCase()) continue;
-        // climb to the legend row: the first ancestor that holds more than the swatch's label
-        let row: Element | null = el.parentElement;
-        while (row && row.parentElement && texts(row).length < 2 && row !== scope) row = row.parentElement;
-        const words = row ? texts(row).map((t) => (t.textContent || "").trim()) : [];
-        if (words.length && words.length <= 5) return words.join(" · ");
-        if (el.parentElement) return texts(el.parentElement).map((t) => (t.textContent || "").trim()).join(" · ");
-      }
-      return "";
-    };
-    // hit-test the whole stack under the pointer: labels or tracks drawn over the ring don't get in the way
-    const fills = new Map(arcs.map((a) => { const sh = a.querySelector("path"); return [a, (sh && (sh.getAttribute("fill") || sh.getAttribute("stroke"))) || ""] as [HTMLElement, string]; }));
-    let current: HTMLElement | null = null;
-    scope.addEventListener("mousemove", (ev) => {
-      const e = ev as MouseEvent;
-      // the arc whose drawn shape (not just its box) is under the pointer
-      const inside = (sh: SVGGeometryElement) => { const m = sh.getScreenCTM(); if (!m) return false; const q = new DOMPoint(e.clientX, e.clientY).matrixTransform(m.inverse()); return sh.isPointInFill(q) || sh.isPointInStroke(q); };
-      const arc = arcs.find((a) => (Array.from(a.querySelectorAll("path, circle, ellipse")) as SVGGeometryElement[]).some(inside)) || null;
-      if (!arc) { if (current) { undim(arcs); hide(); current = null; } return; }
-      if (arc !== current) { dim(arcs, [arc]); current = arc; }
-      show(legend(fills.get(arc) || ""), e.clientX, e.clientY);
-    });
-    scope.addEventListener("mouseleave", () => { undim(arcs); hide(); current = null; });
-  });
-
-  // donut and pie arcs in one drawing: the hovered arc stays, the others fade; the legend row with the same colour names it
-  for (const svg of all("svg[data-fu=donut]") as unknown as SVGSVGElement[]) {
-    const arcs = (Array.from(svg.querySelectorAll("path")) as SVGPathElement[]).filter((p) => { const f = p.getAttribute("fill"); return f && f !== "none" && !/^url/.test(f); });
-    const scope = chartOf(svg);
-    const hex = (c: string) => { const m = c.match(/\d+/g); return m && m.length >= 3 ? "#" + m.slice(0, 3).map((x) => (+x).toString(16).padStart(2, "0")).join("") : c.toLowerCase(); };
-    const legend = (color: string) => {
-      for (const el of all("*", scope)) {
-        if (el.children.length || (el.textContent || "").trim()) continue;
-        const bg = getComputedStyle(el).backgroundColor;
-        if (!bg || hex(bg) !== color.toLowerCase()) continue;
-        const row = el.parentElement;
-        const words = row ? texts(row).map((t) => (t.textContent || "").trim()) : [];
-        if (words.length) return words.join(" · ");
-      }
-      return "";
-    };
-    for (const a of arcs) {
-      a.addEventListener("mouseenter", (ev) => {
-        dim(arcs, [a]);
-        const e = ev as MouseEvent;
-        show(legend(a.getAttribute("fill") || ""), e.clientX, e.clientY);
-      });
-      a.addEventListener("mousemove", (ev) => { const e = ev as MouseEvent; tip.style.left = e.clientX + "px"; tip.style.top = e.clientY - 8 + "px"; });
-      a.addEventListener("mouseleave", () => { undim(arcs); hide(); });
-    }
-  }
-
-  // rows: a soft highlight under the pointer
-  for (const r of all("[data-fu=row]")) {
-    r.addEventListener("mouseenter", () => { ease(r, "filter .15s"); r.style.filter = "brightness(0.975)"; });
-    r.addEventListener("mouseleave", () => { r.style.filter = ""; });
-  }
-
-  // buttons: hover and press feedback
-  for (const b of all("[data-fu=btn],[data-fu=tab]")) {
-    b.style.cursor = "pointer";
-    b.addEventListener("mouseenter", () => { ease(b, "filter .15s, transform .1s"); if (!b.dataset.fuActive) b.style.filter = "brightness(0.96)"; });
-    b.addEventListener("mouseleave", () => { b.style.filter = ""; b.style.transform = ""; });
-    b.addEventListener("mousedown", () => { b.style.transform = "scale(0.98)"; });
-    b.addEventListener("mouseup", () => { b.style.transform = ""; });
-  }
-
-  // tabs and segmented controls: clicking a tab moves the selected look onto it
-  const VIS = ["background-color", "background-image", "box-shadow", "border-color", "color", "font-weight"];
-  const look = (el: HTMLElement) => VIS.map((k) => el.style.getPropertyValue(k)).join("|");
-  const tabGroups = new Map<Element, HTMLElement[]>();
-  for (const t of all("[data-fu=tab]")) { const p = t.parentElement!; if (!tabGroups.has(p)) tabGroups.set(p, []); tabGroups.get(p)!.push(t); }
-  tabGroups.forEach((tabs) => {
-    if (tabs.length < 2) return;
-    const counts = new Map<string, number>();
-    for (const t of tabs) counts.set(look(t), (counts.get(look(t)) || 0) + 1);
-    let active = tabs.find((t) => counts.get(look(t)) === 1 && counts.size > 1) || null;
-    if (!active) return;
-    active.dataset.fuActive = "1";
-    // read both looks first, then write: swapping one property at a time would let shorthands undo each other
-    const swapStyle = (a: HTMLElement, b: HTMLElement, props: string[]) => {
-      const va = props.map((k) => a.style.getPropertyValue(k)), vb = props.map((k) => b.style.getPropertyValue(k));
-      props.forEach((k, i) => { a.style.setProperty(k, vb[i]); b.style.setProperty(k, va[i]); });
-    };
-    const swap = (a: HTMLElement, b: HTMLElement) => {
-      swapStyle(a, b, VIS);
-      const ta = texts(a), tb = texts(b);
-      for (let i = 0; i < Math.min(ta.length, tb.length); i++) swapStyle(ta[i], tb[i], ["color", "font-weight"]);
-    };
-    for (const t of tabs) t.addEventListener("click", () => {
-      if (!active || t === active) return;
-      t.style.filter = "";
-      swap(active, t);
-      delete active.dataset.fuActive;
-      active = t;
-      t.dataset.fuActive = "1";
-    });
-  });
 }

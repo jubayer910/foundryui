@@ -12,7 +12,6 @@ type Action = "copy_code" | "copy_figma" | "download_png" | "download_svg" | "do
 type Gate = { error?: string; remaining?: number | null; files?: { path: string; content: string }[] };
 
 export function ComponentWorkbench({ slug, name, files, installCmd, signedIn, facts, prompt }: { slug: string; name: string; files: { path: string; content: string }[]; installCmd: string; signedIn: boolean; facts: ReactNode; prompt: string }) {
-  const [width, setWidth] = useState<"full" | "tablet" | "mobile">("full");
   const saved = useLibrary("saved").includes(slug);
   const ref = useRef<HTMLDivElement>(null);
   const [tab, setTab] = useState<"preview" | "code">("preview");
@@ -152,19 +151,10 @@ export function ComponentWorkbench({ slug, name, files, installCmd, signedIn, fa
               {t}
             </button>
           ))}
-          {tab === "preview" && (
-            <div className="ml-auto flex gap-1.5 max-sm:hidden" role="group" aria-label="Preview width">
-              {(["full", "tablet", "mobile"] as const).map((w) => (
-                <button key={w} onClick={() => setWidth(w)} data-on={width === w} className="pill capitalize">
-                  {w === "full" ? "Desktop" : w}
-                </button>
-              ))}
-            </div>
-          )}
         </div>
         <div className="overflow-hidden rounded-[8px] bg-tile shadow-[inset_0_0_0_1px_var(--color-hair)]">
           <div className={tab === "preview" ? "flex min-h-[520px] items-center justify-center p-4 sm:p-8" : "hidden"}>
-            <div className="w-full transition-[max-width] duration-300" style={{ maxWidth: width === "full" ? "100%" : width === "tablet" ? 768 : 390 }}>
+            <div className="w-full">
               <div className="overflow-hidden rounded-[8px] bg-white shadow-[0_0_0_1px_var(--color-hair)]">
                 <Preview ref={ref} slug={slug} />
               </div>

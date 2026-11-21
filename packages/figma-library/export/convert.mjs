@@ -464,9 +464,11 @@ export function assignRoles(n, depth = 0, parent = null) {
 
 const CARD_CATS = /^(cards and panels|kpi and stats|charts|tables and lists)$/i;
 export function toTSX(tree, icons, meta) {
-  let roles = assignRoles(tree);
+  // Guessed roles are off: interactions are now written per component (FU_GUESS_ROLES=1 brings the old guesser back).
+  const guess = process.env.FU_GUESS_ROLES === "1";
+  let roles = guess ? assignRoles(tree) : 0;
   // a component that is one card lifts a little on hover
-  if (!tree._fu && CARD_CATS.test(meta.category || "") && (tree.f?.length || tree.s?.length) && (typeof tree.r === "number" ? tree.r > 0 : Array.isArray(tree.r)) && (tree.w || 0) <= 900) { tree._fu = "card"; roles++; }
+  if (guess && !tree._fu && CARD_CATS.test(meta.category || "") && (tree.f?.length || tree.s?.length) && (typeof tree.r === "number" ? tree.r > 0 : Array.isArray(tree.r)) && (tree.w || 0) <= 900) { tree._fu = "card"; roles++; }
   const el = build(tree);
   const fonts = [...new Set(JSON.stringify(tree).match(/"ff":"[^"]+"/g)?.map((m) => m.slice(6, -1)) || [])];
   const name = componentName(meta.name);

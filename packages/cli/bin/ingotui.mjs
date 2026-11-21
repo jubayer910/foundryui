@@ -24,6 +24,18 @@ async function get(path) {
   return r.json();
 }
 
+// A component from the generated library: free systems need no account; Pro ones report "locked".
+async function fromLibrary(slug) {
+  const r = await fetch(SITE + "/api/code?slug=" + encodeURIComponent(slug));
+  if (!r.ok) return null;
+  const d = await r.json();
+  if (d.locked) return { locked: true };
+  if (!d.codeUrl) return null;
+  const code = await (await fetch(new URL(d.codeUrl, SITE))).text();
+  const fn = (code.match(/export function (\w+)\(/) || [])[1] || slug;
+  return { files: [{ target: "components/ingot/" + slug.split("-")[0] + "/" + fn + ".tsx", content: code }] };
+}
+
 const exists = (p) => access(p).then(() => true, () => false);
 
 async function add(slugs) {
@@ -39,8 +51,17 @@ async function add(slugs) {
     try {
       item = await get("/r/" + name + ".json");
     } catch (e) {
-      console.log(c.red("✗ " + name) + c.dim(" — " + e.message + " (Pro components need the MCP server or the website)"));
-      continue;
+      // not a hand-built registry item: try the library of components generated from the Figma systems
+      const lib = await fromLibrary(name).catch(() => null);
+      if (lib && lib.locked) {
+        console.log(c.red("✗ " + name) + c.dim(" — a Pro component: add it through the Ingot MCP with your API key, or copy it from " + SITE + "/components/" + name));
+        continue;
+      }
+      if (!lib) {
+        console.log(c.red("✗ " + name) + c.dim(" — " + e.message));
+        continue;
+      }
+      item = lib;
     }
     (item.dependencies ?? []).forEach((d) => deps.add(d));
     queue.push(...(item.registryDependencies ?? []));

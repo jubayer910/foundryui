@@ -1,7 +1,5 @@
-"use client";
 // Body modal, All (axon, Modals) from Ingot UI (ingotui.com).
 // Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
-import { useEffect, useRef } from "react";
 import type { SVGProps } from "react";
 
 // Ingot Icons used here, inlined so this file needs no icon package.
@@ -14,56 +12,54 @@ function icon(body: string) {
 const Search = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3 10a7 7 0 1 0 14 0a7 7 0 1 0 -14 0\" /><path d=\"M21 21l-6 -6\" /></g>");
 
 export function BodyModalAll() {
-  const fuRef = useRef<any>(null);
-  useEffect(() => fuInteract(fuRef.current), []);
   return (
-    <div ref={fuRef} style={{ width: "938px", height: "348px", display: "flex", flexDirection: "column", padding: "6px 20px 20px 20px", gap: "16px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+    <div style={{ width: "938px", height: "348px", display: "flex", flexDirection: "column", padding: "6px 20px 20px 20px", gap: "16px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
       <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", gap: "16px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
         <div style={{ flexShrink: 0, boxShadow: "inset -1px 0 0 0 #e9e9e9", display: "flex", flexDirection: "column", padding: "0px 13px 0px 0px", gap: "2px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
-          <div data-fu="row" style={{ width: "170px", flexShrink: 0, borderRadius: "6px", background: "#f5f5f5", display: "flex", flexDirection: "row", padding: "7px 10px 7px 10px", gap: "8px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+          <div style={{ width: "170px", flexShrink: 0, borderRadius: "6px", background: "#f5f5f5", display: "flex", flexDirection: "row", padding: "7px 10px 7px 10px", gap: "8px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
             <p style={{ flex: "1 1 0", minWidth: 0, flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre-wrap", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#15171c", lineHeight: "20px" }}>All</p>
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#b3b3b3", lineHeight: "20px" }}>140+</p>
           </div>
-          <div data-fu="row" style={{ width: "170px", flexShrink: 0, borderRadius: "6px", display: "flex", flexDirection: "row", padding: "7px 10px 7px 10px", gap: "8px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+          <div style={{ width: "170px", flexShrink: 0, borderRadius: "6px", display: "flex", flexDirection: "row", padding: "7px 10px 7px 10px", gap: "8px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
             <p style={{ flex: "1 1 0", minWidth: 0, flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre-wrap", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#384152", lineHeight: "20px" }}>Accounting</p>
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#b3b3b3", lineHeight: "20px" }}>18</p>
           </div>
-          <div data-fu="row" style={{ width: "170px", flexShrink: 0, borderRadius: "6px", display: "flex", flexDirection: "row", padding: "7px 10px 7px 10px", gap: "8px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+          <div style={{ width: "170px", flexShrink: 0, borderRadius: "6px", display: "flex", flexDirection: "row", padding: "7px 10px 7px 10px", gap: "8px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
             <p style={{ flex: "1 1 0", minWidth: 0, flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre-wrap", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#384152", lineHeight: "20px" }}>CRM</p>
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#b3b3b3", lineHeight: "20px" }}>14</p>
           </div>
-          <div data-fu="row" style={{ width: "170px", flexShrink: 0, borderRadius: "6px", display: "flex", flexDirection: "row", padding: "7px 10px 7px 10px", gap: "8px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+          <div style={{ width: "170px", flexShrink: 0, borderRadius: "6px", display: "flex", flexDirection: "row", padding: "7px 10px 7px 10px", gap: "8px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
             <p style={{ flex: "1 1 0", minWidth: 0, flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre-wrap", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#384152", lineHeight: "20px" }}>Support</p>
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#b3b3b3", lineHeight: "20px" }}>11</p>
           </div>
-          <div data-fu="row" style={{ width: "170px", flexShrink: 0, borderRadius: "6px", display: "flex", flexDirection: "row", padding: "7px 10px 7px 10px", gap: "8px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+          <div style={{ width: "170px", flexShrink: 0, borderRadius: "6px", display: "flex", flexDirection: "row", padding: "7px 10px 7px 10px", gap: "8px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
             <p style={{ flex: "1 1 0", minWidth: 0, flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre-wrap", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#384152", lineHeight: "20px" }}>Storage</p>
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#b3b3b3", lineHeight: "20px" }}>16</p>
           </div>
-          <div data-fu="row" style={{ width: "170px", flexShrink: 0, borderRadius: "6px", display: "flex", flexDirection: "row", padding: "7px 10px 7px 10px", gap: "8px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+          <div style={{ width: "170px", flexShrink: 0, borderRadius: "6px", display: "flex", flexDirection: "row", padding: "7px 10px 7px 10px", gap: "8px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
             <p style={{ flex: "1 1 0", minWidth: 0, flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre-wrap", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#384152", lineHeight: "20px" }}>Communication</p>
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#b3b3b3", lineHeight: "20px" }}>12</p>
           </div>
-          <div data-fu="row" style={{ width: "170px", flexShrink: 0, borderRadius: "6px", display: "flex", flexDirection: "row", padding: "7px 10px 7px 10px", gap: "8px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+          <div style={{ width: "170px", flexShrink: 0, borderRadius: "6px", display: "flex", flexDirection: "row", padding: "7px 10px 7px 10px", gap: "8px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
             <p style={{ flex: "1 1 0", minWidth: 0, flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre-wrap", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#384152", lineHeight: "20px" }}>Databases</p>
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#b3b3b3", lineHeight: "20px" }}>21</p>
           </div>
-          <div data-fu="row" style={{ width: "170px", flexShrink: 0, borderRadius: "6px", display: "flex", flexDirection: "row", padding: "7px 10px 7px 10px", gap: "8px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+          <div style={{ width: "170px", flexShrink: 0, borderRadius: "6px", display: "flex", flexDirection: "row", padding: "7px 10px 7px 10px", gap: "8px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
             <p style={{ flex: "1 1 0", minWidth: 0, flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre-wrap", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#384152", lineHeight: "20px" }}>Project tools</p>
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#b3b3b3", lineHeight: "20px" }}>15</p>
           </div>
-          <div data-fu="row" style={{ width: "170px", flexShrink: 0, borderRadius: "6px", display: "flex", flexDirection: "row", padding: "7px 10px 7px 10px", gap: "8px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+          <div style={{ width: "170px", flexShrink: 0, borderRadius: "6px", display: "flex", flexDirection: "row", padding: "7px 10px 7px 10px", gap: "8px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
             <p style={{ flex: "1 1 0", minWidth: 0, flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre-wrap", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#384152", lineHeight: "20px" }}>AI models</p>
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#b3b3b3", lineHeight: "20px" }}>6</p>
           </div>
         </div>
         <div style={{ flex: "1 1 0", minWidth: 0, flexShrink: 0, display: "flex", flexDirection: "column", gap: "12px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
-          <div data-fu="field" style={{ alignSelf: "stretch", height: "32px", flexShrink: 0, borderRadius: "10px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #1b8ce8, 0px 0px 0px 3px #b7dfff, 0px 1px 2px 0px rgba(79, 79, 79, 0.12)", display: "flex", flexDirection: "row", padding: "7px 7px 7px 11px", gap: "6px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+          <div style={{ alignSelf: "stretch", height: "32px", flexShrink: 0, borderRadius: "10px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #1b8ce8, 0px 0px 0px 3px #b7dfff, 0px 1px 2px 0px rgba(79, 79, 79, 0.12)", display: "flex", flexDirection: "row", padding: "7px 7px 7px 11px", gap: "6px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
             <Search size={14} style={{ width: "14px", height: "14px", flexShrink: 0, color: "#979797", display: "block" }} />
             <p style={{ flex: "1 1 0", minWidth: 0, flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre-wrap", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#979797", lineHeight: "20px" }}>Search 140+ apps</p>
           </div>
           <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", flexWrap: "wrap", rowGap: "10px", columnGap: "10px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
-            <div data-fu="card" style={{ width: "226px", height: "58px", flexShrink: 0, borderRadius: "10px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #ededed", display: "flex", flexDirection: "row", padding: "11px 11px 11px 11px", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div style={{ width: "226px", height: "58px", flexShrink: 0, borderRadius: "10px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #ededed", display: "flex", flexDirection: "row", padding: "11px 11px 11px 11px", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <div style={{ width: "36px", height: "36px", flexShrink: 0, borderRadius: "10px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #ededed, 0px 1px 2px 0px rgba(13, 13, 18, 0.06)", display: "flex", flexDirection: "row", padding: "1px 1px 1px 1px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
                 <svg style={{ width: "20px", height: "20px", flexShrink: 0, display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 1.639)" d="M9.99333 2.37805e-06 C9.63167 2.37805e-06 9.26833 0.0716691 8.92667 0.214169 L1.4825 3.2925 C1.06333 3.46584 1.07417 4.04917 1.4925 4.2225 L8.9775 7.1875 C9.63325 7.45333 10.3667 7.45333 11.0225 7.1875 L18.5075 4.2225 C18.9267 4.05917 18.9267 3.46584 18.5175 3.2925 L11.0533 0.214169 C10.718 0.0723565 10.3575 -0.000479761 9.99333 2.37805e-06 Z M19.5 5.075 C19.4365 5.07542 19.3737 5.08815 19.315 5.1125 L10.9717 8.34334 C10.8783 8.38158 10.7984 8.44664 10.742 8.5303 C10.6857 8.61396 10.6554 8.71246 10.655 8.81334 L10.655 16.2267 C10.6558 16.3078 10.6763 16.3876 10.7148 16.459 C10.7533 16.5305 10.8086 16.5915 10.876 16.6368 C10.9434 16.6821 11.0207 16.7103 11.1014 16.719 C11.1821 16.7276 11.2637 16.7166 11.3392 16.6867 L19.6833 13.445 C19.7769 13.4103 19.8575 13.3475 19.9141 13.2654 C19.9708 13.1832 20.0008 13.0856 20 12.9858 L20 5.5725 C19.9991 5.44047 19.9461 5.31415 19.8524 5.2211 C19.7587 5.12805 19.632 5.07583 19.5 5.07584 L19.5 5.075 Z M0.563333 5.1075 C0.489345 5.10488 0.415613 5.11759 0.346774 5.14483 C0.277935 5.17208 0.215479 5.21328 0.163333 5.26584 C0.0716667 5.35834 0 5.47 0 5.60334 L0 12.5658 C0 12.9342 0.429167 13.18 0.756667 13.0158 L5.98167 10.5108 L6.2375 10.3883 L8.71167 9.19167 C9.1 9.00834 9.07 8.435 8.66083 8.28167 L0.735833 5.14334 C0.681126 5.12045 0.622618 5.10802 0.563333 5.10667 L0.563333 5.1075 Z" fill="#18bfff"/></svg>
               </div>
@@ -72,7 +68,7 @@ export function BodyModalAll() {
                 <p style={{ width: "94px", flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#747474", lineHeight: "20px" }}>Bases, records</p>
               </div>
             </div>
-            <div data-fu="card" style={{ width: "226px", height: "58px", flexShrink: 0, borderRadius: "10px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #ededed", display: "flex", flexDirection: "row", padding: "11px 11px 11px 11px", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div style={{ width: "226px", height: "58px", flexShrink: 0, borderRadius: "10px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #ededed", display: "flex", flexDirection: "row", padding: "11px 11px 11px 11px", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <div style={{ width: "36px", height: "36px", flexShrink: 0, borderRadius: "10px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #ededed, 0px 1px 2px 0px rgba(13, 13, 18, 0.06)", display: "flex", flexDirection: "row", padding: "1px 1px 1px 1px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
                 <svg style={{ width: "20px", height: "20px", flexShrink: 0, display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0.756)" d="M15.65 9.7875 C13.2483 9.7875 11.3 11.7342 11.3 14.1375 C11.3 16.5408 13.2483 18.4875 15.65 18.4875 C18.0517 18.4875 20 16.5375 20 14.1375 C20 11.7375 18.0533 9.7875 15.65 9.7875 Z M4.35 9.7875 C1.95 9.7875 0 11.735 0 14.1375 C0 16.54 1.94833 18.4875 4.35 18.4875 C6.75167 18.4875 8.7 16.5392 8.7 14.1375 C8.7 11.7358 6.75333 9.7875 4.35 9.7875 Z M14.35 4.35 C14.35 6.7525 12.4025 8.7 10 8.7 C7.59833 8.7 5.65 6.7525 5.65 4.35 C5.65 1.95 7.59833 0 10 0 C12.4025 0 14.35 1.95 14.35 4.35 Z" fill="#f06a6a"/></svg>
               </div>
@@ -81,7 +77,7 @@ export function BodyModalAll() {
                 <p style={{ width: "95px", flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#747474", lineHeight: "20px" }}>Tasks, projects</p>
               </div>
             </div>
-            <div data-fu="card" style={{ width: "226px", height: "58px", flexShrink: 0, borderRadius: "10px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #ededed", display: "flex", flexDirection: "row", padding: "11px 11px 11px 11px", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div style={{ width: "226px", height: "58px", flexShrink: 0, borderRadius: "10px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #ededed", display: "flex", flexDirection: "row", padding: "11px 11px 11px 11px", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <div style={{ width: "36px", height: "36px", flexShrink: 0, borderRadius: "10px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #ededed, 0px 1px 2px 0px rgba(13, 13, 18, 0.06)", display: "flex", flexDirection: "row", padding: "1px 1px 1px 1px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
                 <svg style={{ width: "20px", height: "20px", flexShrink: 0, display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 1.506)" d="M5 0 L0 3.185 L5 6.37 L10.0008 3.185 L5 0 Z M15 0 L10 3.185 L15 6.37 L20 3.185 L15 0 Z M0 9.55583 L5 12.7408 L10.0008 9.55583 L5 6.37 L0 9.55583 Z M15 6.37 L10 9.55583 L15 12.7408 L20 9.55583 L15 6.37 Z M5 13.8033 L10.0008 16.9883 L15.0008 13.8033 L10.0008 10.6183 L5 13.8033 Z" fill="#0061ff"/></svg>
               </div>
@@ -90,7 +86,7 @@ export function BodyModalAll() {
                 <p style={{ width: "81px", flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#747474", lineHeight: "20px" }}>Files, folders</p>
               </div>
             </div>
-            <div data-fu="card" style={{ width: "226px", height: "58px", flexShrink: 0, borderRadius: "10px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #ededed", display: "flex", flexDirection: "row", padding: "11px 11px 11px 11px", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div style={{ width: "226px", height: "58px", flexShrink: 0, borderRadius: "10px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #ededed", display: "flex", flexDirection: "row", padding: "11px 11px 11px 11px", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <div style={{ width: "36px", height: "36px", flexShrink: 0, borderRadius: "10px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #ededed, 0px 1px 2px 0px rgba(13, 13, 18, 0.06)", display: "flex", flexDirection: "row", padding: "1px 1px 1px 1px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
                 <svg style={{ width: "20px", height: "20px", flexShrink: 0, display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M2.405 3.48334 C3.34332 2.38966 4.50724 1.51204 5.81683 0.910758 C7.12642 0.309475 8.55064 -0.00122317 9.99167 3.61882e-06 C15.52 3.61882e-06 20 4.48 20 10.0075 C20 13.0408 18.65 15.76 16.5167 17.595 L2.40583 3.48334 L2.405 3.48334 Z M1.51417 4.68834 L15.3108 18.485 C14.8742 18.76 14.415 19.0017 13.9358 19.2067 L0.7925 6.06417 C0.998333 5.585 1.24 5.125 1.51417 4.68834 Z M0.268333 7.63584 L12.3642 19.7317 C11.7725 19.875 11.1617 19.9667 10.535 20 L0 9.465 C0.0327706 8.8483 0.122599 8.23596 0.268333 7.63584 Z M0.126667 11.6875 L8.3125 19.8742 C6.26834 19.5249 4.38296 18.5498 2.91658 17.0834 C1.45019 15.617 0.475084 13.7317 0.125833 11.6875 L0.126667 11.6875 Z" fill="#5e6ad2"/></svg>
               </div>
@@ -99,7 +95,7 @@ export function BodyModalAll() {
                 <p style={{ width: "89px", flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#747474", lineHeight: "20px" }}>Issues, cycles</p>
               </div>
             </div>
-            <div data-fu="card" style={{ width: "226px", height: "58px", flexShrink: 0, borderRadius: "10px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #ededed", display: "flex", flexDirection: "row", padding: "11px 11px 11px 11px", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div style={{ width: "226px", height: "58px", flexShrink: 0, borderRadius: "10px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #ededed", display: "flex", flexDirection: "row", padding: "11px 11px 11px 11px", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <div style={{ width: "36px", height: "36px", flexShrink: 0, borderRadius: "10px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #ededed, 0px 1px 2px 0px rgba(13, 13, 18, 0.06)", display: "flex", flexDirection: "row", padding: "1px 1px 1px 1px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
                 <svg style={{ width: "20px", height: "20px", flexShrink: 0, display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 5.508 0)" d="M8.81964 7.9625 C7.7663 3.3125 5.2763 1.78417 5.0088 1.2 C4.77547 0.871667 4.56714 0.405 4.3963 0 C4.3663 0.4125 4.35047 0.570833 3.96047 0.986667 C3.35797 1.45833 0.262137 4.055 0.0104708 9.33667 C-0.224529 14.2633 3.5688 17.1992 4.0838 17.5733 L4.14214 17.615 C4.24938 18.4081 4.34106 19.2033 4.41714 20 L4.81797 20 C4.91297 19.14 5.05464 18.2867 5.24297 17.4417 C5.59047 17.195 5.7463 17.0558 5.9513 16.8642 C6.9221 15.9661 7.69362 14.8743 8.21599 13.6593 C8.73835 12.4443 8.99993 11.1332 8.9838 9.81083 C8.99214 9.1325 8.89797 8.42583 8.81964 7.9625 Z M4.37297 14.7917 C4.37297 14.7917 4.37297 7.8825 4.60214 7.88333 C4.77964 7.88333 5.01047 16.7958 5.01047 16.7958 C4.69297 16.7583 4.37297 15.3292 4.37297 14.7917 Z" fill="#47a248"/></svg>
               </div>
@@ -108,7 +104,7 @@ export function BodyModalAll() {
                 <p style={{ width: "72px", flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#747474", lineHeight: "20px" }}>Collections</p>
               </div>
             </div>
-            <div data-fu="card" style={{ width: "226px", height: "58px", flexShrink: 0, borderRadius: "10px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #ededed", display: "flex", flexDirection: "row", padding: "11px 11px 11px 11px", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div style={{ width: "226px", height: "58px", flexShrink: 0, borderRadius: "10px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #ededed", display: "flex", flexDirection: "row", padding: "11px 11px 11px 11px", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <div style={{ width: "36px", height: "36px", flexShrink: 0, borderRadius: "10px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #ededed, 0px 1px 2px 0px rgba(13, 13, 18, 0.06)", display: "flex", flexDirection: "row", padding: "1px 1px 1px 1px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
                 <svg style={{ width: "20px", height: "20px", flexShrink: 0, display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 3.676)" d="M13.6767 8.79764e-07 L6.32667 8.79764e-07 C4.64962 -0.000883132 3.0409 0.664475 1.85442 1.8497 C0.667939 3.03493 0.000884935 4.64295 8.7985e-07 6.32 C-0.000883175 7.99705 0.664475 9.60577 1.84971 10.7922 C3.03494 11.9787 4.64295 12.6458 6.32 12.6467 L13.6767 12.6467 C15.3537 12.6467 16.9621 11.9805 18.1479 10.7946 C19.3338 9.60875 20 8.00039 20 6.32333 C20 4.64628 19.3338 3.03792 18.1479 1.85206 C16.9621 0.666207 15.3537 8.79764e-07 13.6767 8.79764e-07 Z M13.5158 10.4183 L6.48833 10.4183 C5.41658 10.3967 4.39601 9.95577 3.6457 9.19017 C2.89538 8.42456 2.47512 7.39531 2.47512 6.32333 C2.47512 5.25136 2.89538 4.22211 3.6457 3.4565 C4.39601 2.69089 5.41658 2.24996 6.48833 2.22833 L13.5158 2.22833 C14.6019 2.22833 15.6435 2.65977 16.4114 3.42773 C17.1794 4.19569 17.6108 5.23727 17.6108 6.32333 C17.6108 7.4094 17.1794 8.45098 16.4114 9.21894 C15.6435 9.9869 14.6019 10.4183 13.5158 10.4183 Z" fill="#f80000"/></svg>
               </div>
@@ -117,7 +113,7 @@ export function BodyModalAll() {
                 <p style={{ width: "68px", flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#747474", lineHeight: "20px" }}>ERP Cloud</p>
               </div>
             </div>
-            <div data-fu="card" style={{ width: "226px", height: "58px", flexShrink: 0, borderRadius: "10px", background: "#eff8ff", boxShadow: "inset 0 0 0 1px #1b8ce8", display: "flex", flexDirection: "row", padding: "11px 11px 11px 11px", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div style={{ width: "226px", height: "58px", flexShrink: 0, borderRadius: "10px", background: "#eff8ff", boxShadow: "inset 0 0 0 1px #1b8ce8", display: "flex", flexDirection: "row", padding: "11px 11px 11px 11px", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <div style={{ width: "36px", height: "36px", flexShrink: 0, borderRadius: "10px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #ededed, 0px 1px 2px 0px rgba(13, 13, 18, 0.06)", display: "flex", flexDirection: "row", padding: "1px 1px 1px 1px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
                 <svg style={{ width: "20px", height: "20px", flexShrink: 0, display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 1.207 0)" d="M11.5742 19.9825 L17.5875 18.6817 C17.5875 18.6817 15.4175 4.00417 15.4 3.90667 C15.385 3.81 15.305 3.74667 15.2242 3.74667 C15.1433 3.74667 13.6167 3.63333 13.6167 3.63333 C13.6167 3.63333 12.5542 2.57167 12.4175 2.4575 C12.38 2.42667 12.355 2.41 12.3167 2.39583 L11.555 19.9825 L11.5742 19.9825 Z M8.55167 9.42083 C8.55167 9.42083 7.87667 9.0675 7.07333 9.0675 C5.8675 9.0675 5.82 9.8225 5.82 10.0183 C5.82 11.045 8.52 11.4475 8.52 13.8758 C8.52 15.7883 7.32 17.0092 5.68167 17.0092 C3.72 17.0092 2.73167 15.7883 2.73167 15.7883 L3.27 14.05 C3.27 14.05 4.3075 14.9383 5.17 14.9383 C5.7325 14.9383 5.9825 14.4842 5.9825 14.1617 C5.9825 12.8125 3.77083 12.75 3.77083 10.5292 C3.7425 8.665 5.08 6.84917 7.79333 6.84917 C8.84083 6.84917 9.35583 7.15 9.35583 7.15 L8.56833 9.4125 L8.55167 9.42083 Z M8.10167 0.691667 C8.215 0.691667 8.3275 0.723333 8.43917 0.804167 C7.61917 1.19167 6.71917 2.17 6.34917 4.13083 C5.8025 4.30833 5.27167 4.46833 4.775 4.6125 C5.2075 3.125 6.2525 0.7 8.10167 0.7 L8.10167 0.691667 Z M9.13083 3.14917 L9.13083 3.26167 C8.5025 3.455 7.81167 3.665 7.13583 3.875 C7.52417 2.39417 8.24667 1.67083 8.87333 1.39917 C9.03417 1.81667 9.13083 2.37917 9.13083 3.14917 Z M9.58 1.2875 C10.1583 1.34917 10.5308 2.01 10.7708 2.75 C10.48 2.845 10.1583 2.9425 9.80583 3.055 L9.80583 2.845 C9.80583 2.21833 9.72583 1.7025 9.58 1.28583 L9.58 1.2875 Z M12.0733 2.36167 C12.0567 2.36167 12.0233 2.37917 12.0083 2.37917 C11.9933 2.37917 11.7675 2.44167 11.4133 2.55417 C11.0608 1.52667 10.4333 0.579167 9.32333 0.579167 L9.2275 0.579167 C8.90583 0.174167 8.5175 0 8.18083 0 C5.5925 0 4.35583 3.23083 3.96833 4.87167 C2.97333 5.17583 2.24917 5.40167 2.16833 5.43333 C1.60583 5.61083 1.59 5.62667 1.525 6.15833 C1.4625 6.54333 0 17.8775 0 17.8775 L11.3008 20 L12.0733 2.36167 Z" fill="#7ab55c"/></svg>
               </div>
@@ -125,11 +121,11 @@ export function BodyModalAll() {
                 <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#15171c", lineHeight: "20px" }}>Shopify</p>
                 <p style={{ alignSelf: "stretch", flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#747474", lineHeight: "20px" }}>Orders, refunds</p>
               </div>
-              <div data-fu="btn" style={{ flexShrink: 0, borderRadius: "8px", background: "linear-gradient(0deg, #1b8ce8 34.7%, #4eb0ff 93.7%)", boxShadow: "0px 8px 9px 0px rgba(0, 0, 0, 0.12), inset 0.6px 0.6px 0px 0px rgba(255, 255, 255, 0.25), inset -0.6px 0.6px 0px 0px rgba(255, 255, 255, 0.25)", display: "flex", flexDirection: "row", padding: "4px 10px 4px 10px", gap: "4px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+              <div style={{ flexShrink: 0, borderRadius: "8px", background: "linear-gradient(0deg, #1b8ce8 34.7%, #4eb0ff 93.7%)", boxShadow: "0px 8px 9px 0px rgba(0, 0, 0, 0.12), inset 0.6px 0.6px 0px 0px rgba(255, 255, 255, 0.25), inset -0.6px 0.6px 0px 0px rgba(255, 255, 255, 0.25)", display: "flex", flexDirection: "row", padding: "4px 10px 4px 10px", gap: "4px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                 <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#ffffff", lineHeight: "20px" }}>Connect</p>
               </div>
             </div>
-            <div data-fu="card" style={{ width: "226px", height: "58px", flexShrink: 0, borderRadius: "10px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #ededed", display: "flex", flexDirection: "row", padding: "11px 11px 11px 11px", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div style={{ width: "226px", height: "58px", flexShrink: 0, borderRadius: "10px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #ededed", display: "flex", flexDirection: "row", padding: "11px 11px 11px 11px", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <div style={{ width: "36px", height: "36px", flexShrink: 0, borderRadius: "10px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #ededed, 0px 1px 2px 0px rgba(13, 13, 18, 0.06)", display: "flex", flexDirection: "row", padding: "1px 1px 1px 1px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
                 <svg style={{ width: "20px", height: "20px", flexShrink: 0, display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M10 7.45298e-06 C4.48417 -0.00665921 0.00666667 4.46001 0 9.97584 L0 10 C0 15.5333 4.46583 20 10 20 C15.5333 20 20 15.5333 20 10 C20 4.46584 15.5333 7.45298e-06 10 7.45298e-06 Z M10 17.3342 C5.96167 17.3467 2.67833 14.0808 2.66583 10.0425 L2.66583 10 C2.65417 5.96167 5.91917 2.67834 9.9575 2.66584 L10 2.66584 C14.0392 2.65417 17.3217 5.91917 17.3342 9.95751 L17.3342 10 C17.3467 14.0392 14.0808 17.3217 10.0425 17.3342 L10 17.3342 Z M14.5333 7.53417 C14.5333 8.66667 13.6 9.60001 12.4658 9.60001 C11.3275 9.59417 10.4058 8.67251 10.4 7.53417 C10.4 6.40001 11.3333 5.46667 12.4658 5.46667 C13.6 5.46667 14.5333 6.40001 14.5333 7.53417 Z M14.5333 12.4667 C14.5333 13.6 13.6 14.5333 12.4658 14.5333 C11.3267 14.5267 10.405 13.605 10.4 12.4667 C10.4 11.3342 11.3333 10.4008 12.4658 10.4008 C13.6 10.4 14.5333 11.3342 14.5333 12.4667 Z M9.60083 12.4667 C9.60083 13.6 8.6675 14.5333 7.535 14.5333 C6.395 14.5275 5.4725 13.6058 5.4675 12.4667 C5.4675 11.3342 6.40083 10.4008 7.535 10.4008 C8.66667 10.4 9.60083 11.3342 9.60083 12.4667 Z M9.60083 7.53417 C9.60083 8.66667 8.6675 9.60001 7.535 9.60001 C6.39583 9.59417 5.4725 8.67334 5.4675 7.53417 C5.4675 6.40001 6.40083 5.46667 7.535 5.46667 C8.66667 5.46667 9.60083 6.40001 9.60083 7.53417 Z" fill="#f22f46"/></svg>
               </div>
@@ -138,7 +134,7 @@ export function BodyModalAll() {
                 <p style={{ width: "70px", flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#747474", lineHeight: "20px" }}>SMS, voice</p>
               </div>
             </div>
-            <div data-fu="card" style={{ width: "226px", height: "58px", flexShrink: 0, borderRadius: "10px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #ededed", display: "flex", flexDirection: "row", padding: "11px 11px 11px 11px", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div style={{ width: "226px", height: "58px", flexShrink: 0, borderRadius: "10px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #ededed", display: "flex", flexDirection: "row", padding: "11px 11px 11px 11px", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <div style={{ width: "36px", height: "36px", flexShrink: 0, borderRadius: "10px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #ededed, 0px 1px 2px 0px rgba(13, 13, 18, 0.06)", display: "flex", flexDirection: "row", padding: "1px 1px 1px 1px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
                 <svg style={{ width: "20px", height: "20px", flexShrink: 0, display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M4.73 8.82917 L6.44 8.82917 L6.44 13.1992 C5.73269 12.7723 5.14454 12.1738 4.73 11.4592 L4.73 8.82917 Z M19.8792 17.8592 C19.9567 17.9378 20.0002 18.0437 20.0002 18.1542 C20.0002 18.2646 19.9567 18.3706 19.8792 18.4492 L18.4492 19.8792 C18.3706 19.9567 18.2646 20.0002 18.1542 20.0002 C18.0437 20.0002 17.9378 19.9567 17.8592 19.8792 L14.3192 16.3392 C14.3172 16.3373 14.3152 16.3353 14.3133 16.3333 C14.2967 16.3167 14.29 16.2958 14.2775 16.2783 C12.745 17.3971 10.8966 17.9998 8.99917 17.9992 C4.02917 17.9992 0 13.97 0 8.99917 C0 4.02833 4.02917 0 9 0 C13.9708 0 17.9992 4.02917 17.9992 9 C17.9992 10.9742 17.3558 12.7942 16.2775 14.2775 C16.2983 14.2917 16.3208 14.3008 16.3392 14.3192 L19.8792 17.8592 Z M15.6892 8.99917 C15.687 7.67908 15.2937 6.38923 14.559 5.2925 C13.8243 4.19578 12.781 3.34138 11.561 2.83719 C10.341 2.333 8.99893 2.20165 7.70431 2.45971 C6.40969 2.71777 5.22057 3.35368 4.28712 4.28712 C3.35368 5.22057 2.71777 6.40969 2.45971 7.70431 C2.20165 8.99893 2.333 10.341 2.83719 11.561 C3.34138 12.781 4.19578 13.8243 5.2925 14.559 C6.38923 15.2937 7.67908 15.687 8.99917 15.6892 L9.01917 15.6892 C9.8964 15.6879 10.7648 15.5138 11.5747 15.1769 C12.3847 14.8399 13.1203 14.3468 13.7397 13.7256 C14.3591 13.1043 14.85 12.3672 15.1845 11.5563 C15.519 10.7453 15.6905 9.8764 15.6892 8.99917 Z M11.6392 13.1492 C12.3502 12.6955 12.935 12.0695 13.3392 11.3292 L13.3392 9.85917 L11.6392 9.85917 L11.6392 13.1492 Z M7.88917 13.9392 C8.2575 13.9867 8.62833 14.0058 8.99917 13.9992 C9.3325 14.02 9.66583 14.02 9.99917 13.9992 L9.99917 6.41 L7.89 6.41 L7.89 13.9392 L7.88917 13.9392 Z" fill="#669df6"/></svg>
               </div>
@@ -147,7 +143,7 @@ export function BodyModalAll() {
                 <p style={{ width: "95px", flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#747474", lineHeight: "20px" }}>Tables, queries</p>
               </div>
             </div>
-            <div data-fu="card" style={{ width: "226px", height: "58px", flexShrink: 0, borderRadius: "10px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #ededed", display: "flex", flexDirection: "row", padding: "11px 11px 11px 11px", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div style={{ width: "226px", height: "58px", flexShrink: 0, borderRadius: "10px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #ededed", display: "flex", flexDirection: "row", padding: "11px 11px 11px 11px", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <div style={{ width: "36px", height: "36px", flexShrink: 0, borderRadius: "10px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #ededed, 0px 1px 2px 0px rgba(13, 13, 18, 0.06)", display: "flex", flexDirection: "row", padding: "1px 1px 1px 1px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
                 <svg style={{ width: "20px", height: "20px", flexShrink: 0, display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0.407 0)" d="M3.30833 3.50646 C3.93 4.01146 4.16333 3.97313 5.33167 3.89479 L16.3442 3.23396 C16.5775 3.23396 16.3833 3.00063 16.3058 2.96229 L14.4758 1.63979 C14.1258 1.36813 13.6583 1.05646 12.7633 1.13396 L2.10083 1.91229 C1.7125 1.95063 1.63417 2.14563 1.78917 2.30063 L3.30833 3.50646 Z M3.96917 6.07313 L3.96917 17.6598 C3.96917 18.2823 4.28 18.5156 4.98083 18.4765 L17.0833 17.7765 C17.7842 17.7381 17.8625 17.3098 17.8625 16.804 L17.8625 5.29479 C17.8625 4.78979 17.6683 4.51729 17.2392 4.55563 L4.59167 5.29479 C4.125 5.33396 3.96917 5.56813 3.96917 6.07313 Z M15.9167 6.69396 C15.9942 7.04396 15.9167 7.39396 15.5667 7.43396 L14.9833 7.55063 L14.9833 16.104 C14.4767 16.3765 14.01 16.5323 13.6208 16.5323 C12.9975 16.5323 12.8417 16.3373 12.375 15.7548 L8.56083 9.76646 L8.56083 15.5598 L9.7675 15.8331 C9.7675 15.8331 9.7675 16.5331 8.79417 16.5331 L6.10917 16.6881 C6.03167 16.5331 6.10917 16.144 6.38167 16.0665 L7.08167 15.8723 L7.08167 8.21146 L6.11083 8.13313 C6.0325 7.78313 6.2275 7.27813 6.77167 7.23896 L9.65167 7.04479 L13.6217 13.1106 L13.6217 7.74396 L12.6092 7.62813 C12.5317 7.19979 12.8425 6.88896 13.2317 6.85063 L15.9167 6.69396 Z M1.20583 0.862293 L12.2975 0.0456266 C13.6592 -0.07104 14.01 0.00645995 14.8658 0.62896 L18.4067 3.11729 C18.99 3.54479 19.185 3.66146 19.185 4.12813 L19.185 17.7765 C19.185 18.6315 18.8742 19.1381 17.785 19.2148 L4.90333 19.9931 C4.08667 20.0323 3.69667 19.9156 3.26833 19.3706 L0.660833 15.9873 C0.194167 15.3648 0 14.899 0 14.354 L0 2.22229 C0 1.52313 0.311667 0.93896 1.20583 0.862293 Z" fill="#000000"/></svg>
               </div>
@@ -156,7 +152,7 @@ export function BodyModalAll() {
                 <p style={{ width: "113px", flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#747474", lineHeight: "20px" }}>Pages, databases</p>
               </div>
             </div>
-            <div data-fu="card" style={{ width: "226px", height: "58px", flexShrink: 0, borderRadius: "10px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #ededed", display: "flex", flexDirection: "row", padding: "11px 11px 11px 11px", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div style={{ width: "226px", height: "58px", flexShrink: 0, borderRadius: "10px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #ededed", display: "flex", flexDirection: "row", padding: "11px 11px 11px 11px", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <div style={{ width: "36px", height: "36px", flexShrink: 0, borderRadius: "10px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #ededed, 0px 1px 2px 0px rgba(13, 13, 18, 0.06)", display: "flex", flexDirection: "row", padding: "1px 1px 1px 1px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
                 <svg style={{ width: "20px", height: "20px", flexShrink: 0, display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 2.951)" d="M14.4201 8.32478e-05 L11.3603 8.32478e-05 L16.9403 14.0984 L20 14.0984 L14.4201 8.32478e-05 Z M5.57992 8.32478e-05 L0 14.0984 L3.12017 14.0984 L4.26125 11.1378 L10.0989 11.1378 L11.24 14.0985 L14.3602 14.0985 L8.78025 0 L5.57992 8.32478e-05 Z M5.27058 8.51942 L7.18008 3.56475 L9.08958 8.51942 L5.27058 8.51942 Z" fill="#191919"/></svg>
               </div>
@@ -165,7 +161,7 @@ export function BodyModalAll() {
                 <p style={{ width: "123px", flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#747474", lineHeight: "20px" }}>Bring your own key</p>
               </div>
             </div>
-            <div data-fu="card" style={{ width: "226px", height: "58px", flexShrink: 0, opacity: 0.5, borderRadius: "10px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #ededed", display: "flex", flexDirection: "row", padding: "11px 11px 11px 11px", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div style={{ width: "226px", height: "58px", flexShrink: 0, opacity: 0.5, borderRadius: "10px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #ededed", display: "flex", flexDirection: "row", padding: "11px 11px 11px 11px", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <div style={{ width: "36px", height: "36px", flexShrink: 0, borderRadius: "10px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #ededed, 0px 1px 2px 0px rgba(13, 13, 18, 0.06)", display: "flex", flexDirection: "row", padding: "1px 1px 1px 1px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
                 <svg style={{ width: "20px", height: "20px", flexShrink: 0, display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 2.862 0)" d="M8.785 7.625 C6.975 6.95333 5.98833 6.43667 5.98833 5.6175 C5.98833 4.925 6.5575 4.53 7.5725 4.53 C9.42833 4.53 11.335 5.245 12.6475 5.88917 L13.3892 1.31083 C12.3483 0.8125 10.2192 0 7.27583 0 C5.19417 0 3.4625 0.545 2.225 1.56 C0.938333 2.6225 0.269167 4.16 0.269167 6.015 C0.269167 9.38083 2.325 10.815 5.66583 12.0308 C7.82 12.7975 8.53667 13.3425 8.53667 14.1833 C8.53667 15 7.83667 15.4708 6.575 15.4708 C5.0125 15.4708 2.4375 14.7033 0.75 13.7133 L0 18.3425 C1.45083 19.1583 4.12583 20 6.9 20 C9.10083 20 10.9358 19.48 12.1733 18.4892 C13.56 17.4017 14.2775 15.7925 14.2775 13.7125 C14.2775 10.2725 12.1742 8.83667 8.7825 7.625 L8.785 7.625 Z" fill="#635bff"/></svg>
               </div>
@@ -179,285 +175,4 @@ export function BodyModalAll() {
       </div>
     </div>
   );
-}
-
-// Interactions: hover and click states. Remove this function and the two lines above to get a static component.
-function fuInteract(root: HTMLElement | null) {
-  if (!root || root.dataset.fuOn) return;
-  root.dataset.fuOn = "1";
-  const doc = root.ownerDocument;
-  const all = (sel: string, el: Element = root): HTMLElement[] => Array.from(el.querySelectorAll(sel)) as HTMLElement[];
-  const box = (el: Element) => el.getBoundingClientRect();
-  const font = getComputedStyle(root).fontFamily;
-  const tip = doc.createElement("div");
-  tip.setAttribute("aria-hidden", "true");
-  Object.assign(tip.style, { position: "fixed", zIndex: "2147483647", pointerEvents: "none", background: "#111113", color: "#fff", font: "500 12px/16px " + font, padding: "5px 8px", borderRadius: "6px", whiteSpace: "nowrap", opacity: "0", transform: "translate(-50%, -100%)", transition: "opacity .12s", boxShadow: "0 4px 14px rgba(0,0,0,.18)" });
-  doc.body.appendChild(tip);
-  const show = (text: string, x: number, y: number) => { if (!text) return hide(); tip.textContent = text; tip.style.left = x + "px"; tip.style.top = y - 8 + "px"; tip.style.opacity = "1"; };
-  const hide = () => { tip.style.opacity = "0"; };
-  const ease = (el: HTMLElement | SVGElement, props: string) => { const s = (el as HTMLElement).style; if (!s.transition) s.transition = props; };
-  const texts = (scope: Element) => all("p, span", scope).filter((t) => t.children.length === 0 && (t.textContent || "").trim());
-  const NUM = /^([^\d\-+.]*)([-+]?[\d,]*\.?\d+)\s*([kKmMbB%]?)([^\d]*)$/;
-  // value axis: numeric labels along one edge of the chart, used to read a mark's value from its position
-  const axis = (scope: Element, vertical: boolean) => {
-    const pts: { v: number; p: number; pre: string; suf: string; dec: number }[] = [];
-    for (const t of texts(scope)) {
-      const m = (t.textContent || "").trim().match(NUM);
-      if (!m) continue;
-      const mult = { k: 1e3, K: 1e3, m: 1e6, M: 1e6, b: 1e9, B: 1e9 }[m[3] as "k"] || 1;
-      const r = box(t);
-      pts.push({ v: parseFloat(m[2].replace(/,/g, "")) * mult, p: vertical ? r.top + r.height / 2 : r.left + r.width / 2, pre: m[1], suf: m[3] + m[4], dec: (m[2].split(".")[1] || "").length });
-    }
-    const uniq = pts.filter((a, i) => pts.findIndex((b) => Math.abs(b.p - a.p) < 2) === i);
-    if (uniq.length < 2) return null;
-    uniq.sort((a, b) => a.p - b.p);
-    const a = uniq[0], b = uniq[uniq.length - 1];
-    if (a.v === b.v || Math.abs(b.p - a.p) < 10) return null;
-    return (pos: number) => {
-      const v = a.v + ((pos - a.p) * (b.v - a.v)) / (b.p - a.p);
-      const suf = a.suf || b.suf, pre = a.pre || b.pre;
-      const div = /^[kK]/.test(suf) ? 1e3 : /^[mM]/.test(suf) ? 1e6 : /^[bB]/.test(suf) ? 1e9 : 1;
-      const x = v / div;
-      const dec = Math.max(a.dec, b.dec, div > 1 && Math.abs(x) < 100 ? 1 : 0);
-      return pre + x.toLocaleString("en-US", { minimumFractionDigits: 0, maximumFractionDigits: dec }) + suf;
-    };
-  };
-  // the chart around a group of marks: the nearest ancestor that also holds text labels
-  const chartOf = (el: Element) => { let c: Element | null = el.parentElement; while (c && c !== root.parentElement) { if (texts(c).length >= 3) return c; c = c.parentElement; } return root; };
-  const labelNear = (scope: Element, x: number, y: number, below: boolean, anyText = false) => {
-    let best = "", d = 1e9;
-    for (const t of texts(scope)) {
-      const r = box(t);
-      if (below ? r.top < y - 2 : r.right > x + 2) continue;
-      if (!anyText && NUM.test((t.textContent || "").trim()) && !/[a-z]{3}/i.test(t.textContent || "")) continue;
-      const dd = below ? Math.abs(r.left + r.width / 2 - x) + (r.top - y) * 0.2 : Math.abs(r.top + r.height / 2 - y) + (x - r.right) * 0.1;
-      if (dd < d) { d = dd; best = (t.textContent || "").trim(); }
-    }
-    return d < 80 ? best : "";
-  };
-  const dim = (els: (HTMLElement | SVGElement)[], keep: (HTMLElement | SVGElement)[]) => { for (const e of els) { ease(e, "opacity .15s"); (e as HTMLElement).style.opacity = keep.includes(e) ? "" : "0.35"; } };
-  const undim = (els: (HTMLElement | SVGElement)[]) => { for (const e of els) (e as HTMLElement).style.opacity = ""; };
-
-  // vertical bars: the hovered column (all stacked segments at that x) stays, the rest fade
-  const groups = new Map<Element, HTMLElement[]>();
-  for (const b of all("[data-fu=bar],[data-fu=hbar]")) { const p = b.parentElement!; if (!groups.has(p)) groups.set(p, []); groups.get(p)!.push(b); }
-  groups.forEach((bars) => {
-    const horiz = bars[0].dataset.fu === "hbar";
-    const scope = chartOf(bars[0]);
-    const val = axis(scope, !horiz);
-    const peers = (b: HTMLElement) => { const r = box(b), c = horiz ? r.top + r.height / 2 : r.left + r.width / 2; return bars.filter((o) => { const q = box(o); return Math.abs((horiz ? q.top + q.height / 2 : q.left + q.width / 2) - c) < Math.max(2, (horiz ? r.height : r.width) / 2); }); };
-    for (const b of bars) {
-      b.addEventListener("mouseenter", () => {
-        const col = peers(b);
-        dim(bars, col);
-        const rs = col.map(box);
-        const top = Math.min(...rs.map((r) => r.top)), right = Math.max(...rs.map((r) => r.right)), r0 = rs[0];
-        const label = horiz ? labelNear(scope, r0.left, r0.top + r0.height / 2, false) : labelNear(scope, r0.left + r0.width / 2, Math.max(...rs.map((r) => r.bottom)), true);
-        const v = val ? val(horiz ? right : top) : "";
-        show([label, v].filter(Boolean).join(" · "), horiz ? right : r0.left + r0.width / 2, horiz ? r0.top : top);
-      });
-      b.addEventListener("mouseleave", () => { undim(bars); hide(); });
-    }
-  });
-
-  // line and area plots: a guide line and a dot follow the pointer along the top edge of the plotted shape
-  for (const svg of all("svg[data-fu=plot]") as unknown as SVGSVGElement[]) {
-    const paths = Array.from(svg.querySelectorAll("path, polyline")) as SVGGeometryElement[];
-    if (!paths.length) continue;
-    const line = paths.reduce((a, b) => (b.getTotalLength() > a.getTotalLength() ? b : a));
-    const len = line.getTotalLength();
-    const pts: { x: number; y: number }[] = [];
-    for (let i = 0; i <= 800; i++) { const q = line.getPointAtLength((len * i) / 800); pts.push({ x: q.x, y: q.y }); }
-    const xs = pts.map((q) => q.x), minX = Math.min(...xs), maxX = Math.max(...xs);
-    const color = (line.getAttribute("stroke") && line.getAttribute("stroke") !== "none" ? line.getAttribute("stroke") : line.getAttribute("fill")) || "#111";
-    const NS = "http://www.w3.org/2000/svg";
-    const g = doc.createElementNS(NS, "g");
-    g.setAttribute("pointer-events", "none");
-    g.style.opacity = "0";
-    const guide = doc.createElementNS(NS, "line");
-    guide.setAttribute("stroke", /^url/.test(color) ? "#111" : color);
-    guide.setAttribute("stroke-dasharray", "3 3");
-    guide.setAttribute("stroke-opacity", "0.5");
-    const dot = doc.createElementNS(NS, "circle");
-    dot.setAttribute("r", "4");
-    dot.setAttribute("fill", "#fff");
-    dot.setAttribute("stroke", /^url/.test(color) ? "#111" : color);
-    dot.setAttribute("stroke-width", "2");
-    g.append(guide, dot);
-    svg.appendChild(g);
-    const scope = chartOf(svg);
-    const val = axis(scope, true);
-    const area = svg.parentElement || svg;
-    area.addEventListener("mousemove", (ev: Event) => {
-      const e = ev as MouseEvent;
-      const m = line.getScreenCTM();
-      if (!m) return;
-      const px = new DOMPoint(e.clientX, e.clientY).matrixTransform(m.inverse()).x;
-      if (px < minX - 4 || px > maxX + 4) { g.style.opacity = "0"; hide(); return; }
-      const step = (maxX - minX) / 400 || 1;
-      let y = Infinity, x = px;
-      for (const q of pts) if (Math.abs(q.x - px) <= step && q.y < y) { y = q.y; x = q.x; }
-      if (y === Infinity) return;
-      const bb = line.getBBox();
-      guide.setAttribute("x1", String(x)); guide.setAttribute("x2", String(x));
-      guide.setAttribute("y1", String(bb.y)); guide.setAttribute("y2", String(bb.y + bb.height));
-      dot.setAttribute("cx", String(x)); dot.setAttribute("cy", String(y));
-      g.style.opacity = "1";
-      const sp = new DOMPoint(x, y).matrixTransform(m);
-      const label = labelNear(scope, sp.x, box(svg).bottom, true);
-      show([label, val ? val(sp.y) : ""].filter(Boolean).join(" · "), sp.x, sp.y);
-    });
-    area.addEventListener("mouseleave", () => { g.style.opacity = "0"; hide(); });
-  }
-
-  // cards: a small lift on hover (an extra drop shadow, the card's own shadows stay as they are)
-  for (const c of all("[data-fu=card]").concat(root.dataset.fu === "card" ? [root] : [])) {
-    c.addEventListener("mouseenter", () => { ease(c, "transform .18s ease, filter .18s ease"); c.style.transform = "translateY(-2px)"; c.style.filter = "drop-shadow(0 8px 16px rgba(17,17,19,.08))"; });
-    c.addEventListener("mouseleave", () => { c.style.transform = ""; c.style.filter = ""; });
-  }
-
-  // heatmap and calendar cells: an outline and the cell's own text
-  for (const c of all("[data-fu=cell]")) {
-    c.addEventListener("mouseenter", () => {
-      ease(c, "outline-color .12s");
-      c.style.outline = "2px solid rgba(17,17,19,.55)";
-      c.style.outlineOffset = "1px";
-      const r = box(c);
-      // its own text, or the row and column labels of the grid it sits in
-      let label = (c.textContent || "").trim();
-      if (!label) {
-        // walk outwards until a row label (left) and a column label (below) are in reach
-        let row = "", col = "";
-        for (let a: Element | null = c.parentElement; a && a !== root.parentElement && !(row && col); a = a.parentElement) {
-          if (!row) row = labelNear(a, r.left, r.top + r.height / 2, false, true);
-          if (!col) col = labelNear(a, r.left + r.width / 2, r.bottom, true, true);
-        }
-        label = [row, col].filter(Boolean).join(" · ");
-      }
-      show(label, r.left + r.width / 2, r.top);
-    });
-    c.addEventListener("mouseleave", () => { c.style.outline = ""; c.style.outlineOffset = ""; hide(); });
-  }
-
-  // fields: hover and focus states
-  for (const f of all("[data-fu=field]")) {
-    f.style.cursor = "text";
-    f.addEventListener("mouseenter", () => { ease(f, "filter .15s, outline-color .15s"); f.style.filter = "brightness(0.985)"; });
-    f.addEventListener("mouseleave", () => { f.style.filter = ""; });
-    f.addEventListener("mousedown", (ev) => {
-      ev.stopPropagation();
-      for (const o of all("[data-fu=field]")) o.style.outline = "";
-      f.style.outline = "3px solid rgba(17,17,19,.12)";
-      f.style.outlineOffset = "0px";
-    });
-  }
-  doc.addEventListener("mousedown", () => { for (const o of all("[data-fu=field]")) o.style.outline = ""; });
-
-  // donut and pie charts drawn as one vector per arc: the hovered arc stays, the others fade
-  const arcGroups = new Map<Element, HTMLElement[]>();
-  for (const a of all("[data-fu=arc]")) { const p = a.parentElement!; if (!arcGroups.has(p)) arcGroups.set(p, []); arcGroups.get(p)!.push(a); }
-  arcGroups.forEach((arcs) => {
-    const scope = chartOf(arcs[0]);
-    const hexOf = (c: string) => { const m = c.match(/\d+/g); return m && m.length >= 3 ? "#" + m.slice(0, 3).map((x) => (+x).toString(16).padStart(2, "0")).join("") : c.toLowerCase(); };
-    const legend = (color: string) => {
-      for (const el of all("*", scope)) {
-        if (el.children.length || (el.textContent || "").trim()) continue;
-        if (hexOf(getComputedStyle(el).backgroundColor) !== color.toLowerCase()) continue;
-        // climb to the legend row: the first ancestor that holds more than the swatch's label
-        let row: Element | null = el.parentElement;
-        while (row && row.parentElement && texts(row).length < 2 && row !== scope) row = row.parentElement;
-        const words = row ? texts(row).map((t) => (t.textContent || "").trim()) : [];
-        if (words.length && words.length <= 5) return words.join(" · ");
-        if (el.parentElement) return texts(el.parentElement).map((t) => (t.textContent || "").trim()).join(" · ");
-      }
-      return "";
-    };
-    // hit-test the whole stack under the pointer: labels or tracks drawn over the ring don't get in the way
-    const fills = new Map(arcs.map((a) => { const sh = a.querySelector("path"); return [a, (sh && (sh.getAttribute("fill") || sh.getAttribute("stroke"))) || ""] as [HTMLElement, string]; }));
-    let current: HTMLElement | null = null;
-    scope.addEventListener("mousemove", (ev) => {
-      const e = ev as MouseEvent;
-      // the arc whose drawn shape (not just its box) is under the pointer
-      const inside = (sh: SVGGeometryElement) => { const m = sh.getScreenCTM(); if (!m) return false; const q = new DOMPoint(e.clientX, e.clientY).matrixTransform(m.inverse()); return sh.isPointInFill(q) || sh.isPointInStroke(q); };
-      const arc = arcs.find((a) => (Array.from(a.querySelectorAll("path, circle, ellipse")) as SVGGeometryElement[]).some(inside)) || null;
-      if (!arc) { if (current) { undim(arcs); hide(); current = null; } return; }
-      if (arc !== current) { dim(arcs, [arc]); current = arc; }
-      show(legend(fills.get(arc) || ""), e.clientX, e.clientY);
-    });
-    scope.addEventListener("mouseleave", () => { undim(arcs); hide(); current = null; });
-  });
-
-  // donut and pie arcs in one drawing: the hovered arc stays, the others fade; the legend row with the same colour names it
-  for (const svg of all("svg[data-fu=donut]") as unknown as SVGSVGElement[]) {
-    const arcs = (Array.from(svg.querySelectorAll("path")) as SVGPathElement[]).filter((p) => { const f = p.getAttribute("fill"); return f && f !== "none" && !/^url/.test(f); });
-    const scope = chartOf(svg);
-    const hex = (c: string) => { const m = c.match(/\d+/g); return m && m.length >= 3 ? "#" + m.slice(0, 3).map((x) => (+x).toString(16).padStart(2, "0")).join("") : c.toLowerCase(); };
-    const legend = (color: string) => {
-      for (const el of all("*", scope)) {
-        if (el.children.length || (el.textContent || "").trim()) continue;
-        const bg = getComputedStyle(el).backgroundColor;
-        if (!bg || hex(bg) !== color.toLowerCase()) continue;
-        const row = el.parentElement;
-        const words = row ? texts(row).map((t) => (t.textContent || "").trim()) : [];
-        if (words.length) return words.join(" · ");
-      }
-      return "";
-    };
-    for (const a of arcs) {
-      a.addEventListener("mouseenter", (ev) => {
-        dim(arcs, [a]);
-        const e = ev as MouseEvent;
-        show(legend(a.getAttribute("fill") || ""), e.clientX, e.clientY);
-      });
-      a.addEventListener("mousemove", (ev) => { const e = ev as MouseEvent; tip.style.left = e.clientX + "px"; tip.style.top = e.clientY - 8 + "px"; });
-      a.addEventListener("mouseleave", () => { undim(arcs); hide(); });
-    }
-  }
-
-  // rows: a soft highlight under the pointer
-  for (const r of all("[data-fu=row]")) {
-    r.addEventListener("mouseenter", () => { ease(r, "filter .15s"); r.style.filter = "brightness(0.975)"; });
-    r.addEventListener("mouseleave", () => { r.style.filter = ""; });
-  }
-
-  // buttons: hover and press feedback
-  for (const b of all("[data-fu=btn],[data-fu=tab]")) {
-    b.style.cursor = "pointer";
-    b.addEventListener("mouseenter", () => { ease(b, "filter .15s, transform .1s"); if (!b.dataset.fuActive) b.style.filter = "brightness(0.96)"; });
-    b.addEventListener("mouseleave", () => { b.style.filter = ""; b.style.transform = ""; });
-    b.addEventListener("mousedown", () => { b.style.transform = "scale(0.98)"; });
-    b.addEventListener("mouseup", () => { b.style.transform = ""; });
-  }
-
-  // tabs and segmented controls: clicking a tab moves the selected look onto it
-  const VIS = ["background-color", "background-image", "box-shadow", "border-color", "color", "font-weight"];
-  const look = (el: HTMLElement) => VIS.map((k) => el.style.getPropertyValue(k)).join("|");
-  const tabGroups = new Map<Element, HTMLElement[]>();
-  for (const t of all("[data-fu=tab]")) { const p = t.parentElement!; if (!tabGroups.has(p)) tabGroups.set(p, []); tabGroups.get(p)!.push(t); }
-  tabGroups.forEach((tabs) => {
-    if (tabs.length < 2) return;
-    const counts = new Map<string, number>();
-    for (const t of tabs) counts.set(look(t), (counts.get(look(t)) || 0) + 1);
-    let active = tabs.find((t) => counts.get(look(t)) === 1 && counts.size > 1) || null;
-    if (!active) return;
-    active.dataset.fuActive = "1";
-    // read both looks first, then write: swapping one property at a time would let shorthands undo each other
-    const swapStyle = (a: HTMLElement, b: HTMLElement, props: string[]) => {
-      const va = props.map((k) => a.style.getPropertyValue(k)), vb = props.map((k) => b.style.getPropertyValue(k));
-      props.forEach((k, i) => { a.style.setProperty(k, vb[i]); b.style.setProperty(k, va[i]); });
-    };
-    const swap = (a: HTMLElement, b: HTMLElement) => {
-      swapStyle(a, b, VIS);
-      const ta = texts(a), tb = texts(b);
-      for (let i = 0; i < Math.min(ta.length, tb.length); i++) swapStyle(ta[i], tb[i], ["color", "font-weight"]);
-    };
-    for (const t of tabs) t.addEventListener("click", () => {
-      if (!active || t === active) return;
-      t.style.filter = "";
-      swap(active, t);
-      delete active.dataset.fuActive;
-      active = t;
-      t.dataset.fuActive = "1";
-    });
-  });
 }

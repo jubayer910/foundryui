@@ -1,14 +1,48 @@
-"use client";
 // Forecasts page (montra, Templates) from Ingot UI (ingotui.com).
 // Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
-import { useEffect, useRef } from "react";
-import { AlertTriangle, ArrowDataTransferHorizontal, Bell, ChartIncrease, ChartLine, ChartPie, ChevronDown, ChevronRight, Cloud, CreditCard, Currency, Dots, File, FileInvoice, HelpCircle, LayoutDashboard, Megaphone, Plus, ReceiptDollar, Repeat, Rocket, Search, Settings, Shield, Stack2, Tag, Target, TradeUp, UserPlus, Wallet } from "ingotui-icons/react/stroke-rounded";
+import type { SVGProps } from "react";
+
+// Ingot Icons used here, inlined so this file needs no icon package.
+function icon(body: string) {
+  return function Icon({ size = 24, strokeWidth = 1.5, ...p }: { size?: number; strokeWidth?: number } & SVGProps<SVGSVGElement>) {
+    const html = strokeWidth == 1.5 ? body : body.replace(/stroke-width="([\d.]+)"/g, (_, w) => `stroke-width="${(Number(w) * Number(strokeWidth)) / 1.5}"`);
+    return <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden {...p} dangerouslySetInnerHTML={{ __html: html }} />;
+  };
+}
+const AlertTriangle = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 9v4\" /><path d=\"M10.363 3.591l-8.106 13.534a1.914 1.914 0 0 0 1.636 2.871h16.214a1.914 1.914 0 0 0 1.636 -2.87l-8.106 -13.536a1.914 1.914 0 0 0 -3.274 0\" /><path d=\"M12 16h.01\" /></g>");
+const ArrowDataTransferHorizontal = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M19 9H6.659c-1.006 0-1.51 0-1.634-.309c-.125-.308.23-.672.941-1.398L8.211 5M5 15h12.341c1.006 0 1.51 0 1.634.309c.125.308-.23.672-.941 1.398L15.789 19\"/></g>");
+const Bell = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M10 5a2 2 0 1 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6\" /><path d=\"M9 17v1a3 3 0 0 0 6 0v-1\" /></g>");
+const ChartIncrease = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M21 21H10c-3.3 0-4.95 0-5.975-1.025S3 17.3 3 14V3\"/><path d=\"M7.997 16.999c3.532 0 10.915-1.464 10.7-10.566m-2.208 1.61l1.883-1.897a.497.497 0 0 1 .703-.003l1.922 1.9\"/></g>");
+const ChartLine = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M4 19l16 0\" /><path d=\"M4 15l4 -6l4 2l4 -5l4 4\" /></g>");
+const ChartPie = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M10 3.2a9 9 0 1 0 10.8 10.8a1 1 0 0 0 -1 -1h-6.8a2 2 0 0 1 -2 -2v-7a.9 .9 0 0 0 -1 -.8\" /><path d=\"M15 3.5a9 9 0 0 1 5.5 5.5h-4.5a1 1 0 0 1 -1 -1v-4.5\" /></g>");
+const ChevronDown = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M6 9l6 6l6 -6\" /></g>");
+const ChevronRight = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M9 6l6 6l-6 6\" /></g>");
+const Cloud = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M6.657 18c-2.572 0 -4.657 -2.007 -4.657 -4.483c0 -2.475 2.085 -4.482 4.657 -4.482c.393 -1.762 1.794 -3.2 3.675 -3.773c1.88 -.572 3.956 -.193 5.444 1c1.488 1.19 2.162 3.007 1.77 4.769h.99c1.913 0 3.464 1.56 3.464 3.486c0 1.927 -1.551 3.487 -3.465 3.487h-11.878\" /></g>");
+const CreditCard = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3 8a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v8a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3l0 -8\" /><path d=\"M3 10l18 0\" /><path d=\"M7 15l.01 0\" /><path d=\"M11 15l2 0\" /></g>");
+const Currency = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M5 12a7 7 0 1 0 14 0a7 7 0 1 0 -14 0\" /><path d=\"M4 4l3 3\" /><path d=\"M20 4l-3 3\" /><path d=\"M4 20l3 -3\" /><path d=\"M20 20l-3 -3\" /></g>");
+const Dots = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M4 12a1 1 0 1 0 2 0a1 1 0 1 0 -2 0\" /><path d=\"M11 12a1 1 0 1 0 2 0a1 1 0 1 0 -2 0\" /><path d=\"M18 12a1 1 0 1 0 2 0a1 1 0 1 0 -2 0\" /></g>");
+const File = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M14 3v4a1 1 0 0 0 1 1h4\" /><path d=\"M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2\" /></g>");
+const FileInvoice = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M14 3v4a1 1 0 0 0 1 1h4\" /><path d=\"M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2\" /><path d=\"M9 7l1 0\" /><path d=\"M9 13l6 0\" /><path d=\"M13 17l2 0\" /></g>");
+const HelpCircle = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0\" /><path d=\"M12 16v.01\" /><path d=\"M12 13a2 2 0 0 0 .914 -3.782a1.98 1.98 0 0 0 -2.414 .483\" /></g>");
+const LayoutDashboard = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M5 4h4a1 1 0 0 1 1 1v6a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1v-6a1 1 0 0 1 1 -1\" /><path d=\"M5 16h4a1 1 0 0 1 1 1v2a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1v-2a1 1 0 0 1 1 -1\" /><path d=\"M15 12h4a1 1 0 0 1 1 1v6a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1v-6a1 1 0 0 1 1 -1\" /><path d=\"M15 4h4a1 1 0 0 1 1 1v2a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1v-2a1 1 0 0 1 1 -1\" /></g>");
+const Megaphone = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M11 6a13 13 0 0 0 8.4-2.8A1 1 0 0 1 21 4v12a1 1 0 0 1-1.6.8A13 13 0 0 0 11 14H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z\" /><path d=\"M6 14a12 12 0 0 0 2.4 7.2 2 2 0 0 0 3.2-2.4A8 8 0 0 1 10 14\" /><path d=\"M8 6v8\" /></g>");
+const Plus = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 5l0 14\" /><path d=\"M5 12l14 0\" /></g>");
+const ReceiptDollar = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M5 21v-16a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v16l-3 -2l-2 2l-2 -2l-2 2l-2 -2l-3 2\" /><path d=\"M14.8 8a2 2 0 0 0 -1.8 -1h-2a2 2 0 1 0 0 4h2a2 2 0 1 1 0 4h-2a2 2 0 0 1 -1.8 -1\" /><path d=\"M12 6v10\" /></g>");
+const Repeat = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M4 12v-3a3 3 0 0 1 3 -3h13m-3 -3l3 3l-3 3\" /><path d=\"M20 12v3a3 3 0 0 1 -3 3h-13m3 3l-3 -3l3 -3\" /></g>");
+const Rocket = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M4 13a8 8 0 0 1 7 7a6 6 0 0 0 3 -5a9 9 0 0 0 6 -8a3 3 0 0 0 -3 -3a9 9 0 0 0 -8 6a6 6 0 0 0 -5 3\" /><path d=\"M7 14a6 6 0 0 0 -3 6a6 6 0 0 0 6 -3\" /><path d=\"M14 9a1 1 0 1 0 2 0a1 1 0 1 0 -2 0\" /></g>");
+const Search = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3 10a7 7 0 1 0 14 0a7 7 0 1 0 -14 0\" /><path d=\"M21 21l-6 -6\" /></g>");
+const Settings = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065\" /><path d=\"M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0\" /></g>");
+const Shield = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 3a12 12 0 0 0 8.5 3a12 12 0 0 1 -8.5 15a12 12 0 0 1 -8.5 -15a12 12 0 0 0 8.5 -3\" /></g>");
+const Stack2 = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 4l-8 4l8 4l8 -4l-8 -4\" /><path d=\"M4 12l8 4l8 -4\" /><path d=\"M4 16l8 4l8 -4\" /></g>");
+const Tag = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M6.5 7.5a1 1 0 1 0 2 0a1 1 0 1 0 -2 0\" /><path d=\"M3 6v5.172a2 2 0 0 0 .586 1.414l7.71 7.71a2.41 2.41 0 0 0 3.408 0l5.592 -5.592a2.41 2.41 0 0 0 0 -3.408l-7.71 -7.71a2 2 0 0 0 -1.414 -.586h-5.172a3 3 0 0 0 -3 3\" /></g>");
+const Target = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M11 12a1 1 0 1 0 2 0a1 1 0 1 0 -2 0\" /><path d=\"M7 12a5 5 0 1 0 10 0a5 5 0 1 0 -10 0\" /><path d=\"M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0\" /></g>");
+const TradeUp = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M20 13V8h-5\"/><path d=\"m20 8l-5 5c-.883.883-1.324 1.324-1.865 1.373q-.135.012-.27 0c-.541-.05-.982-.49-1.865-1.373s-1.324-1.324-1.865-1.373a1.5 1.5 0 0 0-.27 0c-.541.05-.982.49-1.865 1.373l-3 3\"/></g>");
+const UserPlus = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0\" /><path d=\"M16 19h6\" /><path d=\"M19 16v6\" /><path d=\"M6 21v-2a4 4 0 0 1 4 -4h4\" /></g>");
+const Wallet = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M17 8v-3a1 1 0 0 0 -1 -1h-10a2 2 0 0 0 0 4h12a1 1 0 0 1 1 1v3m0 4v3a1 1 0 0 1 -1 1h-12a2 2 0 0 1 -2 -2v-12\" /><path d=\"M20 12v4h-4a2 2 0 0 1 0 -4h4\" /></g>");
 
 export function ForecastsPage() {
-  const fuRef = useRef<any>(null);
-  useEffect(() => fuInteract(fuRef.current), []);
   return (
-    <div ref={fuRef} style={{ width: "1316px", height: "1003px", background: "#f9f9f9", overflow: "hidden", position: "relative" }}>
+    <div style={{ width: "1316px", height: "1003px", background: "#f9f9f9", overflow: "hidden", position: "relative" }}>
       <div style={{ position: "absolute", left: "0px", top: "0px", width: "1316px", height: "1003px", overflow: "hidden" }}>
         <svg style={{ position: "absolute", left: "224.82px", top: "0px", width: "1px", height: "968.72px", display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="1" height="968.72" viewBox="0 0 1 968.72" fill="none" overflow="visible"><path transform="matrix(0 1 -1 0 0 0)" d="M0 -0.456944 L0 0 L968.722 0 L968.722 -0.456944 L968.722 -0.913889 L0 -0.913889 L0 -0.456944 Z" fill="#e8e8e8"/></svg>
         <div style={{ position: "absolute", left: "0px", top: "0px", width: "224.82px", height: "1019.9px", background: "#ffffff", overflow: "hidden" }}>
@@ -38,7 +72,7 @@ export function ForecastsPage() {
               </div>
             </div>
             <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", gap: "12.79px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
-              <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", gap: "3.66px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+              <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", gap: "3.66px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
                 <div style={{ alignSelf: "stretch", height: "32.9px", flexShrink: 0, borderRadius: "9.14px", display: "flex", flexDirection: "column", padding: "9.14px 9.14px 9.14px 9.14px", justifyContent: "center", alignItems: "flex-start", boxSizing: "border-box" }}>
                   <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "3.66px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                     <ArrowDataTransferHorizontal size={12.8} style={{ width: "12.79px", height: "12.79px", flexShrink: 0, color: "#646871", display: "block" }} />
@@ -70,7 +104,7 @@ export function ForecastsPage() {
                   </div>
                 </div>
               </div>
-              <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", gap: "3.66px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+              <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", gap: "3.66px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
                 <svg style={{ width: "193.74px", height: "1px", flexShrink: 0, display: "block", lineHeight: 0, overflow: "visible", marginBottom: "-1px" }} xmlns="http://www.w3.org/2000/svg" width="193.74" height="1" viewBox="0 0 193.74 1" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M0 -0.456944 L0 0 L193.744 0 L193.744 -0.456944 L193.744 -0.913889 L0 -0.913889 L0 -0.456944 Z" fill="#e8e8e8"/></svg>
                 <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
                   <div style={{ alignSelf: "stretch", height: "32.9px", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
@@ -79,7 +113,7 @@ export function ForecastsPage() {
                     </div>
                   </div>
                   <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
-                    <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+                    <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
                       <div style={{ alignSelf: "stretch", height: "32.9px", flexShrink: 0, borderRadius: "9.14px", display: "flex", flexDirection: "column", padding: "9.14px 9.14px 9.14px 9.14px", justifyContent: "center", alignItems: "flex-start", boxSizing: "border-box" }}>
                         <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "3.66px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                           <File size={12.8} style={{ width: "12.79px", height: "12.79px", flexShrink: 0, color: "#646871", display: "block" }} />
@@ -87,7 +121,7 @@ export function ForecastsPage() {
                         </div>
                       </div>
                     </div>
-                    <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+                    <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
                       <div style={{ alignSelf: "stretch", height: "32.9px", flexShrink: 0, borderRadius: "9.14px", display: "flex", flexDirection: "column", padding: "9.14px 9.14px 9.14px 9.14px", justifyContent: "center", alignItems: "flex-start", boxSizing: "border-box" }}>
                         <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "3.66px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                           <Currency size={12.8} style={{ width: "12.79px", height: "12.79px", flexShrink: 0, color: "#646871", display: "block" }} />
@@ -95,7 +129,7 @@ export function ForecastsPage() {
                         </div>
                       </div>
                     </div>
-                    <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+                    <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
                       <div style={{ alignSelf: "stretch", height: "32.9px", flexShrink: 0, borderRadius: "9.14px", display: "flex", flexDirection: "column", padding: "9.14px 9.14px 9.14px 9.14px", justifyContent: "center", alignItems: "flex-start", boxSizing: "border-box" }}>
                         <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "3.66px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                           <ChartIncrease size={12.8} style={{ width: "12.79px", height: "12.79px", flexShrink: 0, color: "#646871", display: "block" }} />
@@ -103,7 +137,7 @@ export function ForecastsPage() {
                         </div>
                       </div>
                     </div>
-                    <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+                    <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
                       <div style={{ alignSelf: "stretch", height: "32.9px", flexShrink: 0, borderRadius: "9.14px", background: "#f5f5f5", boxShadow: "inset 0 0 0 0.91px #eeeeee", display: "flex", flexDirection: "column", padding: "9.14px 9.14px 9.14px 9.14px", justifyContent: "center", alignItems: "flex-start", boxSizing: "border-box" }}>
                         <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "3.66px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                           <ChartLine size={12.8} style={{ width: "12.79px", height: "12.79px", flexShrink: 0, color: "#000000", display: "block" }} />
@@ -114,7 +148,7 @@ export function ForecastsPage() {
                   </div>
                 </div>
               </div>
-              <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", gap: "3.66px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+              <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", gap: "3.66px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
                 <svg style={{ width: "193.74px", height: "1px", flexShrink: 0, display: "block", lineHeight: 0, overflow: "visible", marginBottom: "-1px" }} xmlns="http://www.w3.org/2000/svg" width="193.74" height="1" viewBox="0 0 193.74 1" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M0 -0.456944 L0 0 L193.744 0 L193.744 -0.456944 L193.744 -0.913889 L0 -0.913889 L0 -0.456944 Z" fill="#e8e8e8"/></svg>
                 <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
                   <div style={{ alignSelf: "stretch", height: "32.9px", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
@@ -123,7 +157,7 @@ export function ForecastsPage() {
                     </div>
                   </div>
                   <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
-                    <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+                    <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
                       <div style={{ alignSelf: "stretch", height: "32.9px", flexShrink: 0, borderRadius: "9.14px", display: "flex", flexDirection: "column", padding: "9.14px 9.14px 9.14px 9.14px", justifyContent: "center", alignItems: "flex-start", boxSizing: "border-box" }}>
                         <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "3.66px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                           <Target size={12.8} style={{ width: "12.79px", height: "12.79px", flexShrink: 0, color: "#646871", display: "block" }} />
@@ -131,7 +165,7 @@ export function ForecastsPage() {
                         </div>
                       </div>
                     </div>
-                    <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+                    <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
                       <div style={{ alignSelf: "stretch", height: "32.9px", flexShrink: 0, borderRadius: "9.14px", display: "flex", flexDirection: "column", padding: "9.14px 9.14px 9.14px 9.14px", justifyContent: "center", alignItems: "flex-start", boxSizing: "border-box" }}>
                         <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "3.66px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                           <Repeat size={12.8} style={{ width: "12.79px", height: "12.79px", flexShrink: 0, color: "#646871", display: "block" }} />
@@ -139,7 +173,7 @@ export function ForecastsPage() {
                         </div>
                       </div>
                     </div>
-                    <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+                    <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
                       <div style={{ alignSelf: "stretch", height: "32.9px", flexShrink: 0, borderRadius: "9.14px", display: "flex", flexDirection: "column", padding: "9.14px 9.14px 9.14px 9.14px", justifyContent: "center", alignItems: "flex-start", boxSizing: "border-box" }}>
                         <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "3.66px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                           <Tag size={12.8} style={{ width: "12.79px", height: "12.79px", flexShrink: 0, color: "#646871", display: "block" }} />
@@ -150,7 +184,7 @@ export function ForecastsPage() {
                   </div>
                 </div>
               </div>
-              <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", gap: "3.66px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+              <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", gap: "3.66px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
                 <svg style={{ width: "193.74px", height: "1px", flexShrink: 0, display: "block", lineHeight: 0, overflow: "visible", marginBottom: "-1px" }} xmlns="http://www.w3.org/2000/svg" width="193.74" height="1" viewBox="0 0 193.74 1" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M0 -0.456944 L0 0 L193.744 0 L193.744 -0.456944 L193.744 -0.913889 L0 -0.913889 L0 -0.456944 Z" fill="#e8e8e8"/></svg>
                 <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
                   <div style={{ alignSelf: "stretch", height: "32.9px", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
@@ -282,10 +316,10 @@ export function ForecastsPage() {
           <p style={{ position: "absolute", left: "18.28px", top: "18.28px", margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "108px", lineHeight: "19px", fontFamily: "'Geist'", fontSize: "14.62px", fontWeight: 500, color: "#000000" }}>Cash projection</p>
           <p style={{ position: "absolute", left: "18.28px", top: "43.87px", margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "316px", lineHeight: "17px", fontFamily: "'Geist'", fontSize: "12.79px", fontWeight: 400, color: "#6b6b6b" }}>Available cash · actuals Mar – Aug, forecast Sep – Feb</p>
           <div style={{ position: "absolute", left: "530.71px", top: "18.28px", width: "162.01px", height: "31.07px", borderRadius: "9.14px", background: "#f5f5f5", display: "flex", flexDirection: "row", padding: "2.74px 2.74px 2.74px 2.74px", gap: "1.83px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-            <div data-fu="tab" style={{ height: "25.59px", flexShrink: 0, borderRadius: "7.31px", background: "#ffffff", boxShadow: "inset 0 0 0 0.91px #eeeeee, 0px 0.91px 1.83px 0px rgba(13, 13, 18, 0.06)", display: "flex", flexDirection: "row", padding: "0.91px 11.88px 0.91px 11.88px", gap: "5.48px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
+            <div style={{ height: "25.59px", flexShrink: 0, borderRadius: "7.31px", background: "#ffffff", boxShadow: "inset 0 0 0 0.91px #eeeeee, 0px 0.91px 1.83px 0px rgba(13, 13, 18, 0.06)", display: "flex", flexDirection: "row", padding: "0.91px 11.88px 0.91px 11.88px", gap: "5.48px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "53px", lineHeight: "15px", fontFamily: "'Geist'", fontSize: "11.88px", fontWeight: 500, color: "#000000" }}>6 months</p>
             </div>
-            <div data-fu="tab" style={{ height: "25.59px", flexShrink: 0, borderRadius: "7.31px", display: "flex", flexDirection: "row", padding: "0px 10.97px 0px 10.97px", gap: "5.48px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
+            <div style={{ height: "25.59px", flexShrink: 0, borderRadius: "7.31px", display: "flex", flexDirection: "row", padding: "0px 10.97px 0px 10.97px", gap: "5.48px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "56px", lineHeight: "15px", fontFamily: "'Geist'", fontSize: "11.88px", fontWeight: 400, color: "#646871" }}>12 months</p>
             </div>
           </div>
@@ -312,7 +346,7 @@ export function ForecastsPage() {
             </div>
           </div>
           <div style={{ position: "absolute", left: "18.28px", top: "104px", width: "674.44px", height: "238px" }}>
-            <svg data-fu="plot" style={{ position: "absolute", left: "324.84px", top: "56.97px", width: "345.94px", height: "100.71px", display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="345.94" height="100.71" viewBox="0 0 345.94 100.71" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M0 92.98 L57.66 92.43 L115.31 76.22 L172.97 55.18 L230.63 33.45 L288.28 18.28 L345.94 0 L345.94 53.11 L288.28 61.04 L230.63 66.91 L172.97 80.01 L115.31 92.08 L57.66 100.71 L0 92.98 Z" fill="#4996fe" fillOpacity="0.1"/></svg>
+            <svg style={{ position: "absolute", left: "324.84px", top: "56.97px", width: "345.94px", height: "100.71px", display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="345.94" height="100.71" viewBox="0 0 345.94 100.71" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M0 92.98 L57.66 92.43 L115.31 76.22 L172.97 55.18 L230.63 33.45 L288.28 18.28 L345.94 0 L345.94 53.11 L288.28 61.04 L230.63 66.91 L172.97 80.01 L115.31 92.08 L57.66 100.71 L0 92.98 Z" fill="#4996fe" fillOpacity="0.1"/></svg>
             <svg style={{ position: "absolute", left: "324.84px", top: "110.09px", width: "345.94px", height: "47.59px", display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="345.94" height="47.59" viewBox="0 0 345.94 47.59" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M346.002 0.450757 C346.251 0.416519 346.425 0.186953 346.391 -0.0619928 C346.357 -0.310939 346.127 -0.484995 345.878 -0.450757 L345.94 0 L346.002 0.450757 Z M288.28 7.93 L288.326 8.38266 C288.331 8.38212 288.337 8.38148 288.342 8.38076 L288.28 7.93 Z M230.63 13.8 L230.584 13.3473 C230.566 13.3492 230.547 13.3522 230.529 13.3563 L230.63 13.8 Z M172.97 26.9 L173.063 27.3454 L173.071 27.3437 L172.97 26.9 Z M115.31 38.97 L115.377 39.42 C115.386 39.4187 115.395 39.4171 115.403 39.4153 L115.31 38.97 Z M57.66 47.59 L57.5996 48.041 C57.642 48.0466 57.685 48.0463 57.7273 48.04 L57.66 47.59 Z M0.0603804 39.419 C-0.188687 39.3857 -0.417629 39.5606 -0.450976 39.8096 C-0.484323 40.0587 -0.309447 40.2876 -0.0603804 40.321 L0 39.87 L0.0603804 39.419 Z M345.94 0 L345.878 -0.450757 L288.218 7.47924 L288.28 7.93 L288.342 8.38076 L346.002 0.450757 L345.94 0 Z M288.28 7.93 L288.234 7.47734 L230.584 13.3473 L230.63 13.8 L230.676 14.2527 L288.326 8.38266 L288.28 7.93 Z M230.63 13.8 L230.529 13.3563 L172.869 26.4563 L172.97 26.9 L173.071 27.3437 L230.731 14.2437 L230.63 13.8 Z M172.97 26.9 L172.877 26.4547 L115.217 38.5247 L115.31 38.97 L115.403 39.4153 L173.063 27.3453 L172.97 26.9 Z M115.31 38.97 L115.243 38.52 L57.5927 47.14 L57.66 47.59 L57.7273 48.04 L115.377 39.42 L115.31 38.97 Z M57.66 47.59 L57.7204 47.139 L0.0603804 39.419 L0 39.87 L-0.0603804 40.321 L57.5996 48.041 L57.66 47.59 Z" fill="#4996fe" fillOpacity="0.25"/></svg>
             <svg style={{ position: "absolute", left: "324.84px", top: "56.97px", width: "345.94px", height: "92.98px", display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="345.94" height="92.98" viewBox="0 0 345.94 92.98" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M-0.00433992 92.525 C-0.255618 92.5274 -0.457376 92.7331 -0.454979 92.9843 C-0.452582 93.2356 -0.246938 93.4374 0.00433992 93.435 L0 92.98 L-0.00433992 92.525 Z M57.66 92.43 L57.6643 92.885 C57.7045 92.8846 57.7445 92.8789 57.7832 92.868 L57.66 92.43 Z M115.31 76.22 L115.433 76.658 C115.444 76.6549 115.455 76.6514 115.466 76.6474 L115.31 76.22 Z M172.97 55.18 L173.126 55.6075 L173.13 55.6058 L172.97 55.18 Z M230.63 33.45 L230.514 33.01 C230.499 33.014 230.484 33.0187 230.47 33.0242 L230.63 33.45 Z M288.28 18.28 L288.396 18.72 C288.403 18.7181 288.41 18.716 288.418 18.7137 L288.28 18.28 Z M346.078 0.433725 C346.317 0.357784 346.45 0.102036 346.374 -0.137504 C346.298 -0.377044 346.042 -0.509667 345.802 -0.433725 L345.94 0 L346.078 0.433725 Z M0 92.98 L0.00433992 93.435 L57.6643 92.885 L57.66 92.43 L57.6557 91.975 L-0.00433992 92.525 L0 92.98 Z M57.66 92.43 L57.7832 92.868 L115.433 76.658 L115.31 76.22 L115.187 75.782 L57.5368 91.992 L57.66 92.43 Z M115.31 76.22 L115.466 76.6474 L173.126 55.6074 L172.97 55.18 L172.814 54.7526 L115.154 75.7926 L115.31 76.22 Z M172.97 55.18 L173.13 55.6058 L230.79 33.8758 L230.63 33.45 L230.47 33.0242 L172.81 54.7542 L172.97 55.18 Z M230.63 33.45 L230.746 33.89 L288.396 18.72 L288.28 18.28 L288.164 17.84 L230.514 33.01 L230.63 33.45 Z M288.28 18.28 L288.418 18.7137 L346.078 0.433725 L345.94 0 L345.802 -0.433725 L288.142 17.8463 L288.28 18.28 Z" fill="#4996fe" fillOpacity="0.25"/></svg>
             <svg style={{ position: "absolute", left: "32.9px", top: "7.31px", width: "641.54px", height: "1px", display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="641.54" height="1" viewBox="0 0 641.54 1" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M0 0L641.5399780273438 0" fill="none" stroke="#efeff1" strokeWidth="1" strokeDasharray="2.740000009536743 2.740000009536743" strokeLinecap="butt"/></svg>
@@ -454,24 +488,24 @@ export function ForecastsPage() {
         </div>
         <div style={{ position: "absolute", left: "0px", top: "510px", width: "1053.7px", height: "309px", borderRadius: "14.62px", background: "#fefefe", overflow: "hidden" }}>
           <p style={{ position: "absolute", left: "18.28px", top: "21.93px", margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "90px", lineHeight: "19px", fontFamily: "'Geist'", fontSize: "14.62px", fontWeight: 500, color: "#000000" }}>Assumptions</p>
-          <div data-fu="btn" style={{ position: "absolute", left: "930.56px", top: "16.45px", width: "104.86px", height: "29.24px", borderRadius: "7.31px", background: "#ffffff", boxShadow: "inset 0 0 0 0.91px #e8e8e8, 0px 0.91px 1.83px 0px rgba(13, 13, 18, 0.06)", display: "flex", flexDirection: "row", padding: "0.91px 11.88px 0.91px 11.88px", gap: "5.48px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+          <div style={{ position: "absolute", left: "930.56px", top: "16.45px", width: "104.86px", height: "29.24px", borderRadius: "7.31px", background: "#ffffff", boxShadow: "inset 0 0 0 0.91px #e8e8e8, 0px 0.91px 1.83px 0px rgba(13, 13, 18, 0.06)", display: "flex", flexDirection: "row", padding: "0.91px 11.88px 0.91px 11.88px", gap: "5.48px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
             <Plus size={14.6} style={{ width: "14.62px", height: "14.62px", flexShrink: 0, color: "#6c6c6c", display: "block" }} />
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "61px", lineHeight: "17px", fontFamily: "'Geist'", fontSize: "12.79px", fontWeight: 400, color: "#6c6c6c" }}>Add driver</p>
           </div>
           <div style={{ position: "absolute", left: "137.08px", top: "15.54px", width: "286.1px", height: "31.07px", borderRadius: "9.14px", background: "#f5f5f5", display: "flex", flexDirection: "row", padding: "2.74px 2.74px 2.74px 2.74px", gap: "1.83px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-            <div data-fu="tab" style={{ height: "25.59px", flexShrink: 0, borderRadius: "7.31px", background: "#ffffff", boxShadow: "inset 0 0 0 0.91px #eeeeee, 0px 0.91px 1.83px 0px rgba(13, 13, 18, 0.06)", display: "flex", flexDirection: "row", padding: "0.91px 11.88px 0.91px 11.88px", gap: "5.48px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
+            <div style={{ height: "25.59px", flexShrink: 0, borderRadius: "7.31px", background: "#ffffff", boxShadow: "inset 0 0 0 0.91px #eeeeee, 0px 0.91px 1.83px 0px rgba(13, 13, 18, 0.06)", display: "flex", flexDirection: "row", padding: "0.91px 11.88px 0.91px 11.88px", gap: "5.48px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "28px", lineHeight: "15px", fontFamily: "'Geist'", fontSize: "11.88px", fontWeight: 500, color: "#000000" }}>Base</p>
               <div style={{ height: "16.45px", flexShrink: 0, borderRadius: "999px", background: "#222222", display: "flex", flexDirection: "row", padding: "0px 5.48px 0px 5.48px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
                 <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "7px", lineHeight: "13px", fontFamily: "'Geist'", fontSize: "10.05px", fontWeight: 500, color: "#ffffff" }}>5</p>
               </div>
             </div>
-            <div data-fu="tab" style={{ height: "25.59px", flexShrink: 0, borderRadius: "7.31px", display: "flex", flexDirection: "row", padding: "0px 10.97px 0px 10.97px", gap: "5.48px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
+            <div style={{ height: "25.59px", flexShrink: 0, borderRadius: "7.31px", display: "flex", flexDirection: "row", padding: "0px 10.97px 0px 10.97px", gap: "5.48px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "71px", lineHeight: "15px", fontFamily: "'Geist'", fontSize: "11.88px", fontWeight: 400, color: "#646871" }}>Conservative</p>
               <div style={{ height: "16.45px", flexShrink: 0, borderRadius: "999px", background: "#f0f0f2", display: "flex", flexDirection: "row", padding: "0px 5.48px 0px 5.48px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
                 <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "7px", lineHeight: "13px", fontFamily: "'Geist'", fontSize: "10.05px", fontWeight: 500, color: "#6c6c6c" }}>4</p>
               </div>
             </div>
-            <div data-fu="tab" style={{ height: "25.59px", flexShrink: 0, borderRadius: "7.31px", display: "flex", flexDirection: "row", padding: "0px 10.97px 0px 10.97px", gap: "5.48px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
+            <div style={{ height: "25.59px", flexShrink: 0, borderRadius: "7.31px", display: "flex", flexDirection: "row", padding: "0px 10.97px 0px 10.97px", gap: "5.48px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "40px", lineHeight: "15px", fontFamily: "'Geist'", fontSize: "11.88px", fontWeight: 400, color: "#646871" }}>Growth</p>
               <div style={{ height: "16.45px", flexShrink: 0, borderRadius: "999px", background: "#f0f0f2", display: "flex", flexDirection: "row", padding: "0px 5.48px 0px 5.48px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
                 <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "7px", lineHeight: "13px", fontFamily: "'Geist'", fontSize: "10.05px", fontWeight: 500, color: "#6c6c6c" }}>5</p>
@@ -502,7 +536,7 @@ export function ForecastsPage() {
                 <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "46px", lineHeight: "17px", fontFamily: "'Geist'", fontSize: "12.79px", fontWeight: 500, color: "#818892" }}>Actions</p>
               </div>
             </div>
-            <div data-fu="row" style={{ width: "1053.7px", height: "40.21px", flexShrink: 0, boxShadow: "inset 0 -0.91px 0 0 #ededed", display: "flex", flexDirection: "row", padding: "0px 0px 0.91px 0px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div style={{ width: "1053.7px", height: "40.21px", flexShrink: 0, boxShadow: "inset 0 -0.91px 0 0 #ededed", display: "flex", flexDirection: "row", padding: "0px 0px 0.91px 0px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <div style={{ width: "250px", height: "39.3px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 0px 0px 14.62px", gap: "7.31px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                 <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "7.31px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                   <div style={{ width: "22.85px", height: "22.85px", flexShrink: 0, borderRadius: "5.48px", background: "linear-gradient(180deg, #4a96fe 0%, #adcfff 100%)", boxShadow: "0px 0.91px 1.83px 0px rgba(0, 0, 0, 0.08)", display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
@@ -537,7 +571,7 @@ export function ForecastsPage() {
                 </div>
               </div>
             </div>
-            <div data-fu="row" style={{ width: "1053.7px", height: "40.21px", flexShrink: 0, boxShadow: "inset 0 -0.91px 0 0 #ededed", display: "flex", flexDirection: "row", padding: "0px 0px 0.91px 0px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div style={{ width: "1053.7px", height: "40.21px", flexShrink: 0, boxShadow: "inset 0 -0.91px 0 0 #ededed", display: "flex", flexDirection: "row", padding: "0px 0px 0.91px 0px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <div style={{ width: "250px", height: "39.3px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 0px 0px 14.62px", gap: "7.31px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                 <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "7.31px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                   <div style={{ width: "22.85px", height: "22.85px", flexShrink: 0, borderRadius: "5.48px", background: "linear-gradient(180deg, #8e83fd 0%, #d9d4ff 100%)", boxShadow: "0px 0.91px 1.83px 0px rgba(0, 0, 0, 0.08)", display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
@@ -572,7 +606,7 @@ export function ForecastsPage() {
                 </div>
               </div>
             </div>
-            <div data-fu="row" style={{ width: "1053.7px", height: "40.21px", flexShrink: 0, boxShadow: "inset 0 -0.91px 0 0 #ededed", display: "flex", flexDirection: "row", padding: "0px 0px 0.91px 0px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div style={{ width: "1053.7px", height: "40.21px", flexShrink: 0, boxShadow: "inset 0 -0.91px 0 0 #ededed", display: "flex", flexDirection: "row", padding: "0px 0px 0.91px 0px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <div style={{ width: "250px", height: "39.3px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 0px 0px 14.62px", gap: "7.31px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                 <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "7.31px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                   <div style={{ width: "22.85px", height: "22.85px", flexShrink: 0, borderRadius: "5.48px", background: "linear-gradient(180deg, #91d02b 0%, #e2ffb3 100%)", boxShadow: "0px 0.91px 1.83px 0px rgba(0, 0, 0, 0.08)", display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
@@ -607,7 +641,7 @@ export function ForecastsPage() {
                 </div>
               </div>
             </div>
-            <div data-fu="row" style={{ width: "1053.7px", height: "40.21px", flexShrink: 0, boxShadow: "inset 0 -0.91px 0 0 #ededed", display: "flex", flexDirection: "row", padding: "0px 0px 0.91px 0px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div style={{ width: "1053.7px", height: "40.21px", flexShrink: 0, boxShadow: "inset 0 -0.91px 0 0 #ededed", display: "flex", flexDirection: "row", padding: "0px 0px 0.91px 0px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <div style={{ width: "250px", height: "39.3px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 0px 0px 14.62px", gap: "7.31px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                 <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "7.31px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                   <div style={{ width: "22.85px", height: "22.85px", flexShrink: 0, borderRadius: "5.48px", background: "linear-gradient(180deg, #fd872f 0%, #ffd3b0 100%)", boxShadow: "0px 0.91px 1.83px 0px rgba(0, 0, 0, 0.08)", display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
@@ -642,7 +676,7 @@ export function ForecastsPage() {
                 </div>
               </div>
             </div>
-            <div data-fu="row" style={{ width: "1053.7px", height: "40.21px", flexShrink: 0, boxShadow: "inset 0 0 0 0px #ededed", display: "flex", flexDirection: "row", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div style={{ width: "1053.7px", height: "40.21px", flexShrink: 0, boxShadow: "inset 0 0 0 0px #ededed", display: "flex", flexDirection: "row", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <div style={{ width: "250px", height: "39.3px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 0px 0px 14.62px", gap: "7.31px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                 <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "7.31px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                   <div style={{ width: "22.85px", height: "22.85px", flexShrink: 0, borderRadius: "5.48px", background: "linear-gradient(180deg, #ecb615 0%, #ffe9a7 100%)", boxShadow: "0px 0.91px 1.83px 0px rgba(0, 0, 0, 0.08)", display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
@@ -686,12 +720,12 @@ export function ForecastsPage() {
           <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "243px", lineHeight: "19px", fontFamily: "'Geist'", fontSize: "14.62px", fontWeight: 400, color: "#6b6b6b", letterSpacing: "-0.02em" }}>Cash projection for the next 6 months</p>
         </div>
         <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "9.14px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-          <div data-fu="btn" style={{ height: "29.24px", flexShrink: 0, borderRadius: "7.31px", background: "#ffffff", boxShadow: "inset 0 0 0 0.91px #e8e8e8, 0px 0.91px 1.83px 0px rgba(13, 13, 18, 0.06)", display: "flex", flexDirection: "row", padding: "0.91px 11.88px 0.91px 11.88px", gap: "5.48px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+          <div style={{ height: "29.24px", flexShrink: 0, borderRadius: "7.31px", background: "#ffffff", boxShadow: "inset 0 0 0 0.91px #e8e8e8, 0px 0.91px 1.83px 0px rgba(13, 13, 18, 0.06)", display: "flex", flexDirection: "row", padding: "0.91px 11.88px 0.91px 11.88px", gap: "5.48px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
             <Stack2 size={14.6} style={{ width: "14.62px", height: "14.62px", flexShrink: 0, color: "#6c6c6c", display: "block" }} />
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "83px", lineHeight: "17px", fontFamily: "'Geist'", fontSize: "12.79px", fontWeight: 400, color: "#6c6c6c" }}>Base scenario</p>
             <ChevronDown size={12.8} style={{ width: "12.79px", height: "12.79px", flexShrink: 0, color: "#6c6c6c", display: "block" }} />
           </div>
-          <div data-fu="btn" style={{ height: "29.24px", flexShrink: 0, borderRadius: "7.31px", background: "linear-gradient(90deg, #222222 0%, #3a3a3a 50%, #222222 100%)", boxShadow: "inset 0 0 0 0.91px #dfe1e6", display: "flex", flexDirection: "row", padding: "0.91px 11.88px 0.91px 11.88px", gap: "3.66px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
+          <div style={{ height: "29.24px", flexShrink: 0, borderRadius: "7.31px", background: "linear-gradient(90deg, #222222 0%, #3a3a3a 50%, #222222 100%)", boxShadow: "inset 0 0 0 0.91px #dfe1e6", display: "flex", flexDirection: "row", padding: "0.91px 11.88px 0.91px 11.88px", gap: "3.66px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
             <Plus size={14.6} style={{ width: "14.62px", height: "14.62px", flexShrink: 0, color: "#ffffff", display: "block" }} />
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "82px", fontFamily: "'Geist'", fontSize: "12.79px", fontWeight: 500, color: "#ffffff", lineHeight: "1.4500000476837158" }}>New scenario</p>
           </div>
@@ -699,285 +733,4 @@ export function ForecastsPage() {
       </div>
     </div>
   );
-}
-
-// Interactions: hover and click states. Remove this function and the two lines above to get a static component.
-function fuInteract(root: HTMLElement | null) {
-  if (!root || root.dataset.fuOn) return;
-  root.dataset.fuOn = "1";
-  const doc = root.ownerDocument;
-  const all = (sel: string, el: Element = root): HTMLElement[] => Array.from(el.querySelectorAll(sel)) as HTMLElement[];
-  const box = (el: Element) => el.getBoundingClientRect();
-  const font = getComputedStyle(root).fontFamily;
-  const tip = doc.createElement("div");
-  tip.setAttribute("aria-hidden", "true");
-  Object.assign(tip.style, { position: "fixed", zIndex: "2147483647", pointerEvents: "none", background: "#111113", color: "#fff", font: "500 12px/16px " + font, padding: "5px 8px", borderRadius: "6px", whiteSpace: "nowrap", opacity: "0", transform: "translate(-50%, -100%)", transition: "opacity .12s", boxShadow: "0 4px 14px rgba(0,0,0,.18)" });
-  doc.body.appendChild(tip);
-  const show = (text: string, x: number, y: number) => { if (!text) return hide(); tip.textContent = text; tip.style.left = x + "px"; tip.style.top = y - 8 + "px"; tip.style.opacity = "1"; };
-  const hide = () => { tip.style.opacity = "0"; };
-  const ease = (el: HTMLElement | SVGElement, props: string) => { const s = (el as HTMLElement).style; if (!s.transition) s.transition = props; };
-  const texts = (scope: Element) => all("p, span", scope).filter((t) => t.children.length === 0 && (t.textContent || "").trim());
-  const NUM = /^([^\d\-+.]*)([-+]?[\d,]*\.?\d+)\s*([kKmMbB%]?)([^\d]*)$/;
-  // value axis: numeric labels along one edge of the chart, used to read a mark's value from its position
-  const axis = (scope: Element, vertical: boolean) => {
-    const pts: { v: number; p: number; pre: string; suf: string; dec: number }[] = [];
-    for (const t of texts(scope)) {
-      const m = (t.textContent || "").trim().match(NUM);
-      if (!m) continue;
-      const mult = { k: 1e3, K: 1e3, m: 1e6, M: 1e6, b: 1e9, B: 1e9 }[m[3] as "k"] || 1;
-      const r = box(t);
-      pts.push({ v: parseFloat(m[2].replace(/,/g, "")) * mult, p: vertical ? r.top + r.height / 2 : r.left + r.width / 2, pre: m[1], suf: m[3] + m[4], dec: (m[2].split(".")[1] || "").length });
-    }
-    const uniq = pts.filter((a, i) => pts.findIndex((b) => Math.abs(b.p - a.p) < 2) === i);
-    if (uniq.length < 2) return null;
-    uniq.sort((a, b) => a.p - b.p);
-    const a = uniq[0], b = uniq[uniq.length - 1];
-    if (a.v === b.v || Math.abs(b.p - a.p) < 10) return null;
-    return (pos: number) => {
-      const v = a.v + ((pos - a.p) * (b.v - a.v)) / (b.p - a.p);
-      const suf = a.suf || b.suf, pre = a.pre || b.pre;
-      const div = /^[kK]/.test(suf) ? 1e3 : /^[mM]/.test(suf) ? 1e6 : /^[bB]/.test(suf) ? 1e9 : 1;
-      const x = v / div;
-      const dec = Math.max(a.dec, b.dec, div > 1 && Math.abs(x) < 100 ? 1 : 0);
-      return pre + x.toLocaleString("en-US", { minimumFractionDigits: 0, maximumFractionDigits: dec }) + suf;
-    };
-  };
-  // the chart around a group of marks: the nearest ancestor that also holds text labels
-  const chartOf = (el: Element) => { let c: Element | null = el.parentElement; while (c && c !== root.parentElement) { if (texts(c).length >= 3) return c; c = c.parentElement; } return root; };
-  const labelNear = (scope: Element, x: number, y: number, below: boolean, anyText = false) => {
-    let best = "", d = 1e9;
-    for (const t of texts(scope)) {
-      const r = box(t);
-      if (below ? r.top < y - 2 : r.right > x + 2) continue;
-      if (!anyText && NUM.test((t.textContent || "").trim()) && !/[a-z]{3}/i.test(t.textContent || "")) continue;
-      const dd = below ? Math.abs(r.left + r.width / 2 - x) + (r.top - y) * 0.2 : Math.abs(r.top + r.height / 2 - y) + (x - r.right) * 0.1;
-      if (dd < d) { d = dd; best = (t.textContent || "").trim(); }
-    }
-    return d < 80 ? best : "";
-  };
-  const dim = (els: (HTMLElement | SVGElement)[], keep: (HTMLElement | SVGElement)[]) => { for (const e of els) { ease(e, "opacity .15s"); (e as HTMLElement).style.opacity = keep.includes(e) ? "" : "0.35"; } };
-  const undim = (els: (HTMLElement | SVGElement)[]) => { for (const e of els) (e as HTMLElement).style.opacity = ""; };
-
-  // vertical bars: the hovered column (all stacked segments at that x) stays, the rest fade
-  const groups = new Map<Element, HTMLElement[]>();
-  for (const b of all("[data-fu=bar],[data-fu=hbar]")) { const p = b.parentElement!; if (!groups.has(p)) groups.set(p, []); groups.get(p)!.push(b); }
-  groups.forEach((bars) => {
-    const horiz = bars[0].dataset.fu === "hbar";
-    const scope = chartOf(bars[0]);
-    const val = axis(scope, !horiz);
-    const peers = (b: HTMLElement) => { const r = box(b), c = horiz ? r.top + r.height / 2 : r.left + r.width / 2; return bars.filter((o) => { const q = box(o); return Math.abs((horiz ? q.top + q.height / 2 : q.left + q.width / 2) - c) < Math.max(2, (horiz ? r.height : r.width) / 2); }); };
-    for (const b of bars) {
-      b.addEventListener("mouseenter", () => {
-        const col = peers(b);
-        dim(bars, col);
-        const rs = col.map(box);
-        const top = Math.min(...rs.map((r) => r.top)), right = Math.max(...rs.map((r) => r.right)), r0 = rs[0];
-        const label = horiz ? labelNear(scope, r0.left, r0.top + r0.height / 2, false) : labelNear(scope, r0.left + r0.width / 2, Math.max(...rs.map((r) => r.bottom)), true);
-        const v = val ? val(horiz ? right : top) : "";
-        show([label, v].filter(Boolean).join(" · "), horiz ? right : r0.left + r0.width / 2, horiz ? r0.top : top);
-      });
-      b.addEventListener("mouseleave", () => { undim(bars); hide(); });
-    }
-  });
-
-  // line and area plots: a guide line and a dot follow the pointer along the top edge of the plotted shape
-  for (const svg of all("svg[data-fu=plot]") as unknown as SVGSVGElement[]) {
-    const paths = Array.from(svg.querySelectorAll("path, polyline")) as SVGGeometryElement[];
-    if (!paths.length) continue;
-    const line = paths.reduce((a, b) => (b.getTotalLength() > a.getTotalLength() ? b : a));
-    const len = line.getTotalLength();
-    const pts: { x: number; y: number }[] = [];
-    for (let i = 0; i <= 800; i++) { const q = line.getPointAtLength((len * i) / 800); pts.push({ x: q.x, y: q.y }); }
-    const xs = pts.map((q) => q.x), minX = Math.min(...xs), maxX = Math.max(...xs);
-    const color = (line.getAttribute("stroke") && line.getAttribute("stroke") !== "none" ? line.getAttribute("stroke") : line.getAttribute("fill")) || "#111";
-    const NS = "http://www.w3.org/2000/svg";
-    const g = doc.createElementNS(NS, "g");
-    g.setAttribute("pointer-events", "none");
-    g.style.opacity = "0";
-    const guide = doc.createElementNS(NS, "line");
-    guide.setAttribute("stroke", /^url/.test(color) ? "#111" : color);
-    guide.setAttribute("stroke-dasharray", "3 3");
-    guide.setAttribute("stroke-opacity", "0.5");
-    const dot = doc.createElementNS(NS, "circle");
-    dot.setAttribute("r", "4");
-    dot.setAttribute("fill", "#fff");
-    dot.setAttribute("stroke", /^url/.test(color) ? "#111" : color);
-    dot.setAttribute("stroke-width", "2");
-    g.append(guide, dot);
-    svg.appendChild(g);
-    const scope = chartOf(svg);
-    const val = axis(scope, true);
-    const area = svg.parentElement || svg;
-    area.addEventListener("mousemove", (ev: Event) => {
-      const e = ev as MouseEvent;
-      const m = line.getScreenCTM();
-      if (!m) return;
-      const px = new DOMPoint(e.clientX, e.clientY).matrixTransform(m.inverse()).x;
-      if (px < minX - 4 || px > maxX + 4) { g.style.opacity = "0"; hide(); return; }
-      const step = (maxX - minX) / 400 || 1;
-      let y = Infinity, x = px;
-      for (const q of pts) if (Math.abs(q.x - px) <= step && q.y < y) { y = q.y; x = q.x; }
-      if (y === Infinity) return;
-      const bb = line.getBBox();
-      guide.setAttribute("x1", String(x)); guide.setAttribute("x2", String(x));
-      guide.setAttribute("y1", String(bb.y)); guide.setAttribute("y2", String(bb.y + bb.height));
-      dot.setAttribute("cx", String(x)); dot.setAttribute("cy", String(y));
-      g.style.opacity = "1";
-      const sp = new DOMPoint(x, y).matrixTransform(m);
-      const label = labelNear(scope, sp.x, box(svg).bottom, true);
-      show([label, val ? val(sp.y) : ""].filter(Boolean).join(" · "), sp.x, sp.y);
-    });
-    area.addEventListener("mouseleave", () => { g.style.opacity = "0"; hide(); });
-  }
-
-  // cards: a small lift on hover (an extra drop shadow, the card's own shadows stay as they are)
-  for (const c of all("[data-fu=card]").concat(root.dataset.fu === "card" ? [root] : [])) {
-    c.addEventListener("mouseenter", () => { ease(c, "transform .18s ease, filter .18s ease"); c.style.transform = "translateY(-2px)"; c.style.filter = "drop-shadow(0 8px 16px rgba(17,17,19,.08))"; });
-    c.addEventListener("mouseleave", () => { c.style.transform = ""; c.style.filter = ""; });
-  }
-
-  // heatmap and calendar cells: an outline and the cell's own text
-  for (const c of all("[data-fu=cell]")) {
-    c.addEventListener("mouseenter", () => {
-      ease(c, "outline-color .12s");
-      c.style.outline = "2px solid rgba(17,17,19,.55)";
-      c.style.outlineOffset = "1px";
-      const r = box(c);
-      // its own text, or the row and column labels of the grid it sits in
-      let label = (c.textContent || "").trim();
-      if (!label) {
-        // walk outwards until a row label (left) and a column label (below) are in reach
-        let row = "", col = "";
-        for (let a: Element | null = c.parentElement; a && a !== root.parentElement && !(row && col); a = a.parentElement) {
-          if (!row) row = labelNear(a, r.left, r.top + r.height / 2, false, true);
-          if (!col) col = labelNear(a, r.left + r.width / 2, r.bottom, true, true);
-        }
-        label = [row, col].filter(Boolean).join(" · ");
-      }
-      show(label, r.left + r.width / 2, r.top);
-    });
-    c.addEventListener("mouseleave", () => { c.style.outline = ""; c.style.outlineOffset = ""; hide(); });
-  }
-
-  // fields: hover and focus states
-  for (const f of all("[data-fu=field]")) {
-    f.style.cursor = "text";
-    f.addEventListener("mouseenter", () => { ease(f, "filter .15s, outline-color .15s"); f.style.filter = "brightness(0.985)"; });
-    f.addEventListener("mouseleave", () => { f.style.filter = ""; });
-    f.addEventListener("mousedown", (ev) => {
-      ev.stopPropagation();
-      for (const o of all("[data-fu=field]")) o.style.outline = "";
-      f.style.outline = "3px solid rgba(17,17,19,.12)";
-      f.style.outlineOffset = "0px";
-    });
-  }
-  doc.addEventListener("mousedown", () => { for (const o of all("[data-fu=field]")) o.style.outline = ""; });
-
-  // donut and pie charts drawn as one vector per arc: the hovered arc stays, the others fade
-  const arcGroups = new Map<Element, HTMLElement[]>();
-  for (const a of all("[data-fu=arc]")) { const p = a.parentElement!; if (!arcGroups.has(p)) arcGroups.set(p, []); arcGroups.get(p)!.push(a); }
-  arcGroups.forEach((arcs) => {
-    const scope = chartOf(arcs[0]);
-    const hexOf = (c: string) => { const m = c.match(/\d+/g); return m && m.length >= 3 ? "#" + m.slice(0, 3).map((x) => (+x).toString(16).padStart(2, "0")).join("") : c.toLowerCase(); };
-    const legend = (color: string) => {
-      for (const el of all("*", scope)) {
-        if (el.children.length || (el.textContent || "").trim()) continue;
-        if (hexOf(getComputedStyle(el).backgroundColor) !== color.toLowerCase()) continue;
-        // climb to the legend row: the first ancestor that holds more than the swatch's label
-        let row: Element | null = el.parentElement;
-        while (row && row.parentElement && texts(row).length < 2 && row !== scope) row = row.parentElement;
-        const words = row ? texts(row).map((t) => (t.textContent || "").trim()) : [];
-        if (words.length && words.length <= 5) return words.join(" · ");
-        if (el.parentElement) return texts(el.parentElement).map((t) => (t.textContent || "").trim()).join(" · ");
-      }
-      return "";
-    };
-    // hit-test the whole stack under the pointer: labels or tracks drawn over the ring don't get in the way
-    const fills = new Map(arcs.map((a) => { const sh = a.querySelector("path"); return [a, (sh && (sh.getAttribute("fill") || sh.getAttribute("stroke"))) || ""] as [HTMLElement, string]; }));
-    let current: HTMLElement | null = null;
-    scope.addEventListener("mousemove", (ev) => {
-      const e = ev as MouseEvent;
-      // the arc whose drawn shape (not just its box) is under the pointer
-      const inside = (sh: SVGGeometryElement) => { const m = sh.getScreenCTM(); if (!m) return false; const q = new DOMPoint(e.clientX, e.clientY).matrixTransform(m.inverse()); return sh.isPointInFill(q) || sh.isPointInStroke(q); };
-      const arc = arcs.find((a) => (Array.from(a.querySelectorAll("path, circle, ellipse")) as SVGGeometryElement[]).some(inside)) || null;
-      if (!arc) { if (current) { undim(arcs); hide(); current = null; } return; }
-      if (arc !== current) { dim(arcs, [arc]); current = arc; }
-      show(legend(fills.get(arc) || ""), e.clientX, e.clientY);
-    });
-    scope.addEventListener("mouseleave", () => { undim(arcs); hide(); current = null; });
-  });
-
-  // donut and pie arcs in one drawing: the hovered arc stays, the others fade; the legend row with the same colour names it
-  for (const svg of all("svg[data-fu=donut]") as unknown as SVGSVGElement[]) {
-    const arcs = (Array.from(svg.querySelectorAll("path")) as SVGPathElement[]).filter((p) => { const f = p.getAttribute("fill"); return f && f !== "none" && !/^url/.test(f); });
-    const scope = chartOf(svg);
-    const hex = (c: string) => { const m = c.match(/\d+/g); return m && m.length >= 3 ? "#" + m.slice(0, 3).map((x) => (+x).toString(16).padStart(2, "0")).join("") : c.toLowerCase(); };
-    const legend = (color: string) => {
-      for (const el of all("*", scope)) {
-        if (el.children.length || (el.textContent || "").trim()) continue;
-        const bg = getComputedStyle(el).backgroundColor;
-        if (!bg || hex(bg) !== color.toLowerCase()) continue;
-        const row = el.parentElement;
-        const words = row ? texts(row).map((t) => (t.textContent || "").trim()) : [];
-        if (words.length) return words.join(" · ");
-      }
-      return "";
-    };
-    for (const a of arcs) {
-      a.addEventListener("mouseenter", (ev) => {
-        dim(arcs, [a]);
-        const e = ev as MouseEvent;
-        show(legend(a.getAttribute("fill") || ""), e.clientX, e.clientY);
-      });
-      a.addEventListener("mousemove", (ev) => { const e = ev as MouseEvent; tip.style.left = e.clientX + "px"; tip.style.top = e.clientY - 8 + "px"; });
-      a.addEventListener("mouseleave", () => { undim(arcs); hide(); });
-    }
-  }
-
-  // rows: a soft highlight under the pointer
-  for (const r of all("[data-fu=row]")) {
-    r.addEventListener("mouseenter", () => { ease(r, "filter .15s"); r.style.filter = "brightness(0.975)"; });
-    r.addEventListener("mouseleave", () => { r.style.filter = ""; });
-  }
-
-  // buttons: hover and press feedback
-  for (const b of all("[data-fu=btn],[data-fu=tab]")) {
-    b.style.cursor = "pointer";
-    b.addEventListener("mouseenter", () => { ease(b, "filter .15s, transform .1s"); if (!b.dataset.fuActive) b.style.filter = "brightness(0.96)"; });
-    b.addEventListener("mouseleave", () => { b.style.filter = ""; b.style.transform = ""; });
-    b.addEventListener("mousedown", () => { b.style.transform = "scale(0.98)"; });
-    b.addEventListener("mouseup", () => { b.style.transform = ""; });
-  }
-
-  // tabs and segmented controls: clicking a tab moves the selected look onto it
-  const VIS = ["background-color", "background-image", "box-shadow", "border-color", "color", "font-weight"];
-  const look = (el: HTMLElement) => VIS.map((k) => el.style.getPropertyValue(k)).join("|");
-  const tabGroups = new Map<Element, HTMLElement[]>();
-  for (const t of all("[data-fu=tab]")) { const p = t.parentElement!; if (!tabGroups.has(p)) tabGroups.set(p, []); tabGroups.get(p)!.push(t); }
-  tabGroups.forEach((tabs) => {
-    if (tabs.length < 2) return;
-    const counts = new Map<string, number>();
-    for (const t of tabs) counts.set(look(t), (counts.get(look(t)) || 0) + 1);
-    let active = tabs.find((t) => counts.get(look(t)) === 1 && counts.size > 1) || null;
-    if (!active) return;
-    active.dataset.fuActive = "1";
-    // read both looks first, then write: swapping one property at a time would let shorthands undo each other
-    const swapStyle = (a: HTMLElement, b: HTMLElement, props: string[]) => {
-      const va = props.map((k) => a.style.getPropertyValue(k)), vb = props.map((k) => b.style.getPropertyValue(k));
-      props.forEach((k, i) => { a.style.setProperty(k, vb[i]); b.style.setProperty(k, va[i]); });
-    };
-    const swap = (a: HTMLElement, b: HTMLElement) => {
-      swapStyle(a, b, VIS);
-      const ta = texts(a), tb = texts(b);
-      for (let i = 0; i < Math.min(ta.length, tb.length); i++) swapStyle(ta[i], tb[i], ["color", "font-weight"]);
-    };
-    for (const t of tabs) t.addEventListener("click", () => {
-      if (!active || t === active) return;
-      t.style.filter = "";
-      swap(active, t);
-      delete active.dataset.fuActive;
-      active = t;
-      t.dataset.fuActive = "1";
-    });
-  });
 }

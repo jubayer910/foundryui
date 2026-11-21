@@ -1,15 +1,44 @@
-"use client";
 // Connectors page (axon, Templates) from Ingot UI (ingotui.com).
 // Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
-import { useEffect, useRef } from "react";
-import { Activity, AlertCircle, AlertTriangle, Bell, ChartLine, ChevronDown, ChevronRight, CircleCheck, Clock, CreditCard, Database, Dots, File, FolderSearch, GitMerge, LayoutDashboard, Link, Message, PlayerPause, PlugConnected, Plus, Search, Settings, Stack2, Users } from "ingotui-icons/react/stroke-rounded";
-import { Category as CategorySolid } from "ingotui-icons/react/solid";
+import type { SVGProps } from "react";
+
+// Ingot Icons used here, inlined so this file needs no icon package.
+function icon(body: string) {
+  return function Icon({ size = 24, strokeWidth = 1.5, ...p }: { size?: number; strokeWidth?: number } & SVGProps<SVGSVGElement>) {
+    const html = strokeWidth == 1.5 ? body : body.replace(/stroke-width="([\d.]+)"/g, (_, w) => `stroke-width="${(Number(w) * Number(strokeWidth)) / 1.5}"`);
+    return <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden {...p} dangerouslySetInnerHTML={{ __html: html }} />;
+  };
+}
+const Activity = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3 12h4l3 8l4 -16l3 8h4\" /></g>");
+const AlertCircle = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0\" /><path d=\"M12 8v4\" /><path d=\"M12 16h.01\" /></g>");
+const AlertTriangle = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 9v4\" /><path d=\"M10.363 3.591l-8.106 13.534a1.914 1.914 0 0 0 1.636 2.871h16.214a1.914 1.914 0 0 0 1.636 -2.87l-8.106 -13.536a1.914 1.914 0 0 0 -3.274 0\" /><path d=\"M12 16h.01\" /></g>");
+const Bell = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M10 5a2 2 0 1 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6\" /><path d=\"M9 17v1a3 3 0 0 0 6 0v-1\" /></g>");
+const ChartLine = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M4 19l16 0\" /><path d=\"M4 15l4 -6l4 2l4 -5l4 4\" /></g>");
+const ChevronDown = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M6 9l6 6l6 -6\" /></g>");
+const ChevronRight = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M9 6l6 6l-6 6\" /></g>");
+const CircleCheck = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0\" /><path d=\"M9 12l2 2l4 -4\" /></g>");
+const Clock = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0\" /><path d=\"M12 7v5l3 3\" /></g>");
+const CreditCard = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3 8a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v8a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3l0 -8\" /><path d=\"M3 10l18 0\" /><path d=\"M7 15l.01 0\" /><path d=\"M11 15l2 0\" /></g>");
+const Database = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M4 6a8 3 0 1 0 16 0a8 3 0 1 0 -16 0\" /><path d=\"M4 6v6a8 3 0 0 0 16 0v-6\" /><path d=\"M4 12v6a8 3 0 0 0 16 0v-6\" /></g>");
+const Dots = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M4 12a1 1 0 1 0 2 0a1 1 0 1 0 -2 0\" /><path d=\"M11 12a1 1 0 1 0 2 0a1 1 0 1 0 -2 0\" /><path d=\"M18 12a1 1 0 1 0 2 0a1 1 0 1 0 -2 0\" /></g>");
+const File = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M14 3v4a1 1 0 0 0 1 1h4\" /><path d=\"M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2\" /></g>");
+const FolderSearch = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M11 19h-6a2 2 0 0 1 -2 -2v-11a2 2 0 0 1 2 -2h4l3 3h7a2 2 0 0 1 2 2v2.5\" /><path d=\"M15 18a3 3 0 1 0 6 0a3 3 0 1 0 -6 0\" /><path d=\"M20.2 20.2l1.8 1.8\" /></g>");
+const GitMerge = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M5 18a2 2 0 1 0 4 0a2 2 0 1 0 -4 0\" /><path d=\"M5 6a2 2 0 1 0 4 0a2 2 0 1 0 -4 0\" /><path d=\"M15 12a2 2 0 1 0 4 0a2 2 0 1 0 -4 0\" /><path d=\"M7 8l0 8\" /><path d=\"M7 8a4 4 0 0 0 4 4h4\" /></g>");
+const LayoutDashboard = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M5 4h4a1 1 0 0 1 1 1v6a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1v-6a1 1 0 0 1 1 -1\" /><path d=\"M5 16h4a1 1 0 0 1 1 1v2a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1v-2a1 1 0 0 1 1 -1\" /><path d=\"M15 12h4a1 1 0 0 1 1 1v6a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1v-6a1 1 0 0 1 1 -1\" /><path d=\"M15 4h4a1 1 0 0 1 1 1v2a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1v-2a1 1 0 0 1 1 -1\" /></g>");
+const Link = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M9 15l6 -6\" /><path d=\"M11 6l.463 -.536a5 5 0 0 1 7.071 7.072l-.534 .464\" /><path d=\"M13 18l-.397 .534a5.068 5.068 0 0 1 -7.127 0a4.972 4.972 0 0 1 0 -7.071l.524 -.463\" /></g>");
+const Message = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M8 9h8\" /><path d=\"M8 13h6\" /><path d=\"M18 4a3 3 0 0 1 3 3v8a3 3 0 0 1 -3 3h-5l-5 3v-3h-2a3 3 0 0 1 -3 -3v-8a3 3 0 0 1 3 -3h12\" /></g>");
+const PlayerPause = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M6 6a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v12a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1l0 -12\" /><path d=\"M14 6a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v12a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1l0 -12\" /></g>");
+const PlugConnected = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M7 12l5 5l-1.5 1.5a3.536 3.536 0 1 1 -5 -5l1.5 -1.5\" /><path d=\"M17 12l-5 -5l1.5 -1.5a3.536 3.536 0 1 1 5 5l-1.5 1.5\" /><path d=\"M3 21l2.5 -2.5\" /><path d=\"M18.5 5.5l2.5 -2.5\" /><path d=\"M10 11l-2 2\" /><path d=\"M13 14l-2 2\" /></g>");
+const Plus = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 5l0 14\" /><path d=\"M5 12l14 0\" /></g>");
+const Search = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3 10a7 7 0 1 0 14 0a7 7 0 1 0 -14 0\" /><path d=\"M21 21l-6 -6\" /></g>");
+const Settings = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065\" /><path d=\"M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0\" /></g>");
+const Stack2 = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 4l-8 4l8 4l8 -4l-8 -4\" /><path d=\"M4 12l8 4l8 -4\" /><path d=\"M4 16l8 4l8 -4\" /></g>");
+const Users = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M5 7a4 4 0 1 0 8 0a4 4 0 1 0 -8 0\" /><path d=\"M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2\" /><path d=\"M16 3.13a4 4 0 0 1 0 7.75\" /><path d=\"M21 21v-2a4 4 0 0 0 -3 -3.85\" /></g>");
+const CategorySolid = icon("<g fill=\"currentColor\"><path d=\"M10 3h-6a1 1 0 0 0 -1 1v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1 -1v-6a1 1 0 0 0 -1 -1z\" /><path d=\"M20 3h-6a1 1 0 0 0 -1 1v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1 -1v-6a1 1 0 0 0 -1 -1z\" /><path d=\"M10 13h-6a1 1 0 0 0 -1 1v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1 -1v-6a1 1 0 0 0 -1 -1z\" /><path d=\"M17 13a4 4 0 1 1 -3.995 4.2l-.005 -.2l.005 -.2a4 4 0 0 1 3.995 -3.8z\" /></g>");
 
 export function ConnectorsPage() {
-  const fuRef = useRef<any>(null);
-  useEffect(() => fuInteract(fuRef.current), []);
   return (
-    <div ref={fuRef} style={{ width: "1440px", height: "1019px", background: "#ffffff", overflow: "hidden", position: "relative" }}>
+    <div style={{ width: "1440px", height: "1019px", background: "#ffffff", overflow: "hidden", position: "relative" }}>
       <div style={{ position: "absolute", left: "0px", top: "0px", width: "1440px", height: "1019px", background: "#ffffff", overflow: "hidden" }}>
         <div style={{ position: "absolute", left: "0px", top: "0px", width: "246px", height: "1019px", background: "#f5f5f5", overflow: "hidden" }}>
           <div style={{ position: "absolute", left: "20px", top: "21.69px", width: "82px", height: "28.63px", display: "flex", flexDirection: "row", gap: "27px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
@@ -150,7 +179,7 @@ export function ConnectorsPage() {
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "509px", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#747474", lineHeight: "20px" }}>12 connected apps · 1 needs attention · credentials encrypted with your KMS key</p>
           </div>
           <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-            <div data-fu="btn" style={{ flexShrink: 0, borderRadius: "10px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #e8e8e8", display: "flex", flexDirection: "row", padding: "7px 13px 7px 13px", gap: "6px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div style={{ flexShrink: 0, borderRadius: "10px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #e8e8e8", display: "flex", flexDirection: "row", padding: "7px 13px 7px 13px", gap: "6px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <Message size={16} strokeWidth={2.25} style={{ width: "16px", height: "16px", flexShrink: 0, color: "#6c6c6c", display: "block" }} />
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "101px", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#686765", lineHeight: "20px" }}>Request an app</p>
             </div>
@@ -171,7 +200,7 @@ export function ConnectorsPage() {
             <span style={{ fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#384152", lineHeight: "20px" }}>{" are waiting."}</span>
           </p>
           <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "138px", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#4996fe", lineHeight: "20px" }}>Why did this happen?</p>
-          <div data-fu="btn" style={{ flexShrink: 0, borderRadius: "8px", background: "linear-gradient(0deg, #1b8ce8 34.7%, #4eb0ff 93.7%)", boxShadow: "0px 8px 9px 0px rgba(0, 0, 0, 0.12), inset 0.6px 0.6px 0px 0px rgba(255, 255, 255, 0.25), inset -0.6px 0.6px 0px 0px rgba(255, 255, 255, 0.25)", display: "flex", flexDirection: "row", padding: "4px 10px 4px 10px", gap: "4px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+          <div style={{ flexShrink: 0, borderRadius: "8px", background: "linear-gradient(0deg, #1b8ce8 34.7%, #4eb0ff 93.7%)", boxShadow: "0px 8px 9px 0px rgba(0, 0, 0, 0.12), inset 0.6px 0.6px 0px 0px rgba(255, 255, 255, 0.25), inset -0.6px 0.6px 0px 0px rgba(255, 255, 255, 0.25)", display: "flex", flexDirection: "row", padding: "4px 10px 4px 10px", gap: "4px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
             <Link size={16} strokeWidth={2.25} style={{ width: "16px", height: "16px", flexShrink: 0, color: "#ffffff", display: "block" }} />
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "69px", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#ffffff", lineHeight: "20px" }}>Reconnect</p>
           </div>
@@ -192,11 +221,11 @@ export function ConnectorsPage() {
             </div>
           </div>
           <div style={{ flex: "1 1 0", minWidth: 0, height: "1px", flexShrink: 0, display: "flex", flexDirection: "row", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }} />
-          <div data-fu="field" style={{ width: "220px", height: "32px", flexShrink: 0, borderRadius: "10px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #e8e8e8", display: "flex", flexDirection: "row", padding: "7px 7px 7px 11px", gap: "6px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+          <div style={{ width: "220px", height: "32px", flexShrink: 0, borderRadius: "10px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #e8e8e8", display: "flex", flexDirection: "row", padding: "7px 7px 7px 11px", gap: "6px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
             <Search size={14} strokeWidth={2.57} style={{ width: "14px", height: "14px", flexShrink: 0, color: "#979797", display: "block" }} />
             <p style={{ flex: "1 1 0", minWidth: 0, flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre-wrap", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#979797", lineHeight: "20px" }}>Search apps</p>
           </div>
-          <div data-fu="btn" style={{ flexShrink: 0, borderRadius: "10px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #e8e8e8", display: "flex", flexDirection: "row", padding: "7px 13px 7px 13px", gap: "6px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+          <div style={{ flexShrink: 0, borderRadius: "10px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #e8e8e8", display: "flex", flexDirection: "row", padding: "7px 13px 7px 13px", gap: "6px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
             <Stack2 size={16} strokeWidth={2.25} style={{ width: "16px", height: "16px", flexShrink: 0, color: "#6c6c6c", display: "block" }} />
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "88px", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#686765", lineHeight: "20px" }}>All categories</p>
             <ChevronDown size={16} strokeWidth={2.25} style={{ width: "16px", height: "16px", flexShrink: 0, color: "#6c6c6c", display: "block" }} />
@@ -204,7 +233,7 @@ export function ConnectorsPage() {
         </div>
         <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", flexWrap: "wrap", rowGap: "16px", columnGap: "16px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
           <div style={{ width: "276.75px", flexShrink: 0, borderRadius: "12px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #f5c2c4", display: "flex", flexDirection: "column", padding: "17px 17px 17px 17px", gap: "12px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
-            <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <div style={{ width: "40px", height: "40px", flexShrink: 0, borderRadius: "11px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #ededed, 0px 1px 2px 0px rgba(13, 13, 18, 0.06)", display: "flex", flexDirection: "row", padding: "1px 1px 1px 1px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
                 <svg style={{ width: "22px", height: "22px", flexShrink: 0, display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 2.748)" d="M22 2.25457 L22 15.0045 C22 15.8332 21.329 16.5042 20.5003 16.5042 L16.9996 16.5042 L16.9996 8.00482 L11 12.5057 L5.00042 8.00482 L5.00042 16.5051 L1.49967 16.5051 C1.30265 16.5051 1.10757 16.4662 0.925558 16.3908 C0.74355 16.3154 0.578187 16.2049 0.438918 16.0655 C0.299649 15.9261 0.189204 15.7607 0.113892 15.5787 C0.038581 15.3966 -0.000120145 15.2015 2.80181e-07 15.0045 L2.80181e-07 2.25457 C2.80181e-07 0.400153 2.11658 -0.658597 3.59975 0.454237 L5.00042 1.50565 L11 6.00465 L16.9996 1.50382 L18.4002 0.454237 C19.8825 -0.65768 22 0.400153 22 2.25457 Z" fill="#ea4335"/></svg>
               </div>
@@ -216,7 +245,7 @@ export function ConnectorsPage() {
                 <Dots size={16} strokeWidth={2.25} style={{ width: "16px", height: "16px", flexShrink: 0, color: "#6c6c6c", display: "block" }} />
               </div>
             </div>
-            <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", gap: "8px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", gap: "8px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <div style={{ flexShrink: 0, borderRadius: "4.58px", background: "#fff1f1", display: "flex", flexDirection: "row", padding: "2px 8px 2px 8px", gap: "3px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                 <AlertCircle size={12} strokeWidth={3} style={{ width: "12px", height: "12px", flexShrink: 0, color: "#e5484d", display: "block" }} />
                 <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "49px", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#e5484d", lineHeight: "20px" }}>Expired</p>
@@ -224,7 +253,7 @@ export function ConnectorsPage() {
               <div style={{ flex: "1 1 0", minWidth: 0, height: "1px", flexShrink: 0, display: "flex", flexDirection: "row", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }} />
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "69px", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#b3b3b3", lineHeight: "20px" }}>14 min ago</p>
             </div>
-            <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, boxShadow: "inset 0 1px 0 0 #e9e9e9", display: "flex", flexDirection: "row", padding: "11px 0px 0px 0px", gap: "12px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div style={{ alignSelf: "stretch", flexShrink: 0, boxShadow: "inset 0 1px 0 0 #e9e9e9", display: "flex", flexDirection: "row", padding: "11px 0px 0px 0px", gap: "12px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "4px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                 <GitMerge size={14} strokeWidth={2.57} style={{ width: "14px", height: "14px", flexShrink: 0, color: "#929292", display: "block" }} />
                 <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "79px", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#747474", lineHeight: "20px" }}>3 workflows</p>
@@ -236,7 +265,7 @@ export function ConnectorsPage() {
             </div>
           </div>
           <div style={{ width: "276.75px", flexShrink: 0, borderRadius: "12px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #ededed", display: "flex", flexDirection: "column", padding: "17px 17px 17px 17px", gap: "12px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
-            <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <div style={{ width: "40px", height: "40px", flexShrink: 0, borderRadius: "11px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #ededed, 0px 1px 2px 0px rgba(13, 13, 18, 0.06)", display: "flex", flexDirection: "row", padding: "1px 1px 1px 1px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
                 <svg style={{ width: "22px", height: "22px", flexShrink: 0, display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M4.62183 13.9012 C4.62063 14.5138 4.37695 15.1009 3.94408 15.5343 C3.51121 15.9677 2.92436 16.2121 2.31183 16.214 C1.69899 16.2125 1.11167 15.9684 0.678402 15.535 C0.245137 15.1015 0.0012104 14.5141 1.52656e-16 13.9012 C0.00169534 13.2888 0.245865 12.702 0.679104 12.2691 C1.11234 11.8362 1.69939 11.5925 2.31183 11.5913 L4.62183 11.5913 L4.62183 13.9012 Z M5.78692 13.9012 C5.78861 13.289 6.03266 12.7023 6.4657 12.2694 C6.89874 11.8365 7.48554 11.5927 8.09783 11.5913 C8.71012 11.5927 9.29693 11.8365 9.72997 12.2694 C10.163 12.7023 10.4071 13.289 10.4087 13.9012 L10.4087 19.6882 C10.4073 20.3007 10.1634 20.8877 9.73035 21.321 C9.29731 21.7542 8.71036 21.9983 8.09783 22 C7.4853 21.9983 6.89836 21.7542 6.46532 21.321 C6.03228 20.8877 5.78837 20.3007 5.78692 19.6882 L5.78692 13.9012 Z M8.09783 4.62183 C7.48562 4.62014 6.89895 4.37625 6.46596 3.94344 C6.03297 3.51062 5.78885 2.92405 5.78692 2.31183 C5.78837 1.6993 6.03228 1.11226 6.46532 0.679047 C6.89836 0.245835 7.4853 0.00169438 8.09783 0 C8.71036 0.00169438 9.29731 0.245835 9.73035 0.679047 C10.1634 1.11226 10.4073 1.6993 10.4087 2.31183 L10.4087 4.62183 L8.09783 4.62183 Z M8.09783 5.78692 C8.71021 5.78861 9.29701 6.03262 9.73003 6.46564 C10.163 6.89865 10.4071 7.48546 10.4087 8.09783 C10.4071 8.71021 10.163 9.29701 9.73003 9.73003 C9.29701 10.163 8.71021 10.4071 8.09783 10.4087 L2.31183 10.4087 C1.6993 10.4073 1.11226 10.1634 0.679047 9.73035 C0.245835 9.29731 0.00169438 8.71036 0 8.09783 C0.00169438 7.4853 0.245835 6.89836 0.679047 6.46532 C1.11226 6.03228 1.6993 5.78837 2.31183 5.78692 L8.09783 5.78692 Z M17.3763 8.09783 C17.378 7.4853 17.6222 6.89836 18.0554 6.46532 C18.4886 6.03228 19.0756 5.78837 19.6882 5.78692 C20.3007 5.78837 20.8877 6.03228 21.321 6.46532 C21.7542 6.89836 21.9983 7.4853 22 8.09783 C21.9983 8.71036 21.7542 9.29731 21.321 9.73035 C20.8877 10.1634 20.3007 10.4073 19.6882 10.4087 L17.3763 10.4087 L17.3763 8.09783 Z M16.214 8.09783 C16.2123 8.71052 15.968 9.29761 15.5346 9.73067 C15.1012 10.1637 14.5139 10.4075 13.9012 10.4087 C13.289 10.4071 12.7023 10.163 12.2694 9.72997 C11.8365 9.29693 11.5927 8.71012 11.5913 8.09783 L11.5913 2.31183 C11.5925 1.69939 11.8362 1.11234 12.2691 0.679104 C12.702 0.245865 13.2888 0.00169534 13.9012 4.57967e-16 C14.5141 0.0012104 15.1015 0.245137 15.535 0.678402 C15.9684 1.11167 16.2125 1.69899 16.214 2.31183 L16.214 8.09783 Z M13.9012 17.3763 C14.5141 17.3775 15.1015 17.6215 15.535 18.0547 C15.9684 18.488 16.2125 19.0753 16.214 19.6882 C16.2125 20.301 15.9684 20.8883 15.535 21.3216 C15.1015 21.7549 14.5141 21.9988 13.9012 22 C13.2888 21.9983 12.702 21.7541 12.2691 21.3209 C11.8362 20.8877 11.5925 20.3006 11.5913 19.6882 L11.5913 17.3763 L13.9012 17.3763 Z M13.9012 16.214 C13.2886 16.2123 12.7017 15.968 12.2687 15.5346 C11.8358 15.1011 11.5922 14.5139 11.5913 13.9012 C11.5927 13.289 11.8365 12.7023 12.2694 12.2694 C12.7023 11.8365 13.289 11.5927 13.9012 11.5913 L19.6882 11.5913 C20.3006 11.5925 20.8877 11.8362 21.3209 12.2691 C21.7541 12.702 21.9983 13.2888 22 13.9012 C21.9988 14.5141 21.7549 15.1015 21.3216 15.535 C20.8883 15.9684 20.301 16.2125 19.6882 16.214 L13.9012 16.214 Z" fill="#4a154b"/></svg>
               </div>
@@ -248,7 +277,7 @@ export function ConnectorsPage() {
                 <Dots size={16} strokeWidth={2.25} style={{ width: "16px", height: "16px", flexShrink: 0, color: "#6c6c6c", display: "block" }} />
               </div>
             </div>
-            <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", gap: "8px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", gap: "8px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <div style={{ flexShrink: 0, borderRadius: "4.58px", background: "#f6fffb", display: "flex", flexDirection: "row", padding: "2px 8px 2px 8px", gap: "3px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                 <CircleCheck size={12} strokeWidth={3} style={{ width: "12px", height: "12px", flexShrink: 0, color: "#17a673", display: "block" }} />
                 <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "70px", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#17a673", lineHeight: "20px" }}>Connected</p>
@@ -256,7 +285,7 @@ export function ConnectorsPage() {
               <div style={{ flex: "1 1 0", minWidth: 0, height: "1px", flexShrink: 0, display: "flex", flexDirection: "row", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }} />
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "55px", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#b3b3b3", lineHeight: "20px" }}>just now</p>
             </div>
-            <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, boxShadow: "inset 0 1px 0 0 #e9e9e9", display: "flex", flexDirection: "row", padding: "11px 0px 0px 0px", gap: "12px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div style={{ alignSelf: "stretch", flexShrink: 0, boxShadow: "inset 0 1px 0 0 #e9e9e9", display: "flex", flexDirection: "row", padding: "11px 0px 0px 0px", gap: "12px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "4px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                 <GitMerge size={14} strokeWidth={2.57} style={{ width: "14px", height: "14px", flexShrink: 0, color: "#929292", display: "block" }} />
                 <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "78px", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#747474", lineHeight: "20px" }}>7 workflows</p>
@@ -268,7 +297,7 @@ export function ConnectorsPage() {
             </div>
           </div>
           <div style={{ width: "276.75px", flexShrink: 0, borderRadius: "12px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #ededed", display: "flex", flexDirection: "column", padding: "17px 17px 17px 17px", gap: "12px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
-            <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <div style={{ width: "40px", height: "40px", flexShrink: 0, borderRadius: "11px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #ededed, 0px 1px 2px 0px rgba(13, 13, 18, 0.06)", display: "flex", flexDirection: "row", padding: "1px 1px 1px 1px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
                 <div style={{ width: "22px", height: "22px", flexShrink: 0, borderRadius: "5px", background: "#1a3d6e", position: "relative" }}>
                   <p style={{ position: "absolute", left: "4px", top: "4px", margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "13px", lineHeight: "12px", fontFamily: "'Geist'", fontSize: "9px", fontWeight: 600, color: "#ffffff" }}>NS</p>
@@ -282,7 +311,7 @@ export function ConnectorsPage() {
                 <Dots size={16} strokeWidth={2.25} style={{ width: "16px", height: "16px", flexShrink: 0, color: "#6c6c6c", display: "block" }} />
               </div>
             </div>
-            <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", gap: "8px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", gap: "8px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <div style={{ flexShrink: 0, borderRadius: "4.58px", background: "#f6fffb", display: "flex", flexDirection: "row", padding: "2px 8px 2px 8px", gap: "3px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                 <CircleCheck size={12} strokeWidth={3} style={{ width: "12px", height: "12px", flexShrink: 0, color: "#17a673", display: "block" }} />
                 <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "70px", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#17a673", lineHeight: "20px" }}>Connected</p>
@@ -290,7 +319,7 @@ export function ConnectorsPage() {
               <div style={{ flex: "1 1 0", minWidth: 0, height: "1px", flexShrink: 0, display: "flex", flexDirection: "row", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }} />
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "61px", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#b3b3b3", lineHeight: "20px" }}>1 min ago</p>
             </div>
-            <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, boxShadow: "inset 0 1px 0 0 #e9e9e9", display: "flex", flexDirection: "row", padding: "11px 0px 0px 0px", gap: "12px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div style={{ alignSelf: "stretch", flexShrink: 0, boxShadow: "inset 0 1px 0 0 #e9e9e9", display: "flex", flexDirection: "row", padding: "11px 0px 0px 0px", gap: "12px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "4px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                 <GitMerge size={14} strokeWidth={2.57} style={{ width: "14px", height: "14px", flexShrink: 0, color: "#929292", display: "block" }} />
                 <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "79px", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#747474", lineHeight: "20px" }}>4 workflows</p>
@@ -302,7 +331,7 @@ export function ConnectorsPage() {
             </div>
           </div>
           <div style={{ width: "276.75px", flexShrink: 0, borderRadius: "12px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #ededed", display: "flex", flexDirection: "column", padding: "17px 17px 17px 17px", gap: "12px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
-            <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <div style={{ width: "40px", height: "40px", flexShrink: 0, borderRadius: "11px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #ededed, 0px 1px 2px 0px rgba(13, 13, 18, 0.06)", display: "flex", flexDirection: "row", padding: "1px 1px 1px 1px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
                 <svg style={{ width: "22px", height: "22px", flexShrink: 0, display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 3.3)" d="M9.17217 1.66375 C9.53177 1.28515 9.96471 0.983746 10.4446 0.777923 C10.9245 0.572101 11.4413 0.466168 11.9634 0.466584 C13.3934 0.466584 14.6712 1.29158 15.3459 2.48783 C15.9234 2.21283 16.5834 2.07533 17.2709 2.07533 C19.8834 2.07533 22 4.22033 22 6.86033 C22 9.50033 19.8825 11.6453 17.2553 11.6453 C16.9391 11.6453 16.6228 11.605 16.3203 11.55 C16.0235 12.0925 15.5859 12.5449 15.0535 12.8594 C14.5211 13.174 13.9137 13.3392 13.2953 13.3375 C12.7453 13.3375 12.2366 13.2 11.7828 12.9937 C11.4789 13.7081 10.9714 14.3172 10.3236 14.7451 C9.67578 15.173 8.91636 15.4008 8.14 15.4 C7.33072 15.4021 6.54037 15.1552 5.87622 14.6928 C5.21208 14.2303 4.70629 13.5747 4.4275 12.815 C4.18 12.8718 3.9325 12.8847 3.67125 12.8847 C1.65092 12.8847 0 11.2347 0 9.17217 C0 7.79717 0.743417 6.60092 1.8425 5.95467 C1.60875 5.43217 1.485 4.85467 1.485 4.2625 C1.485 1.8975 3.41 0 5.7475 0 C7.15 0 8.36 0.64625 9.1575 1.65" fill="#00a1e0"/></svg>
               </div>
@@ -314,7 +343,7 @@ export function ConnectorsPage() {
                 <Dots size={16} strokeWidth={2.25} style={{ width: "16px", height: "16px", flexShrink: 0, color: "#6c6c6c", display: "block" }} />
               </div>
             </div>
-            <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", gap: "8px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", gap: "8px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <div style={{ flexShrink: 0, borderRadius: "4.58px", background: "#f6fffb", display: "flex", flexDirection: "row", padding: "2px 8px 2px 8px", gap: "3px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                 <CircleCheck size={12} strokeWidth={3} style={{ width: "12px", height: "12px", flexShrink: 0, color: "#17a673", display: "block" }} />
                 <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "70px", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#17a673", lineHeight: "20px" }}>Connected</p>
@@ -322,7 +351,7 @@ export function ConnectorsPage() {
               <div style={{ flex: "1 1 0", minWidth: 0, height: "1px", flexShrink: 0, display: "flex", flexDirection: "row", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }} />
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "64px", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#b3b3b3", lineHeight: "20px" }}>3 min ago</p>
             </div>
-            <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, boxShadow: "inset 0 1px 0 0 #e9e9e9", display: "flex", flexDirection: "row", padding: "11px 0px 0px 0px", gap: "12px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div style={{ alignSelf: "stretch", flexShrink: 0, boxShadow: "inset 0 1px 0 0 #e9e9e9", display: "flex", flexDirection: "row", padding: "11px 0px 0px 0px", gap: "12px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "4px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                 <GitMerge size={14} strokeWidth={2.57} style={{ width: "14px", height: "14px", flexShrink: 0, color: "#929292", display: "block" }} />
                 <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "79px", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#747474", lineHeight: "20px" }}>2 workflows</p>
@@ -334,7 +363,7 @@ export function ConnectorsPage() {
             </div>
           </div>
           <div style={{ width: "276.75px", flexShrink: 0, borderRadius: "12px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #ededed", display: "flex", flexDirection: "column", padding: "17px 17px 17px 17px", gap: "12px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
-            <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <div style={{ width: "40px", height: "40px", flexShrink: 0, borderRadius: "11px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #ededed, 0px 1px 2px 0px rgba(13, 13, 18, 0.06)", display: "flex", flexDirection: "row", padding: "1px 1px 1px 1px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
                 <svg style={{ width: "22px", height: "22px", flexShrink: 0, display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0.503 0)" d="M16.1476 7.26914 L16.1476 4.66031 C16.4928 4.49888 16.7852 4.24283 16.9908 3.92189 C17.1964 3.60094 17.3067 3.22827 17.309 2.84714 L17.309 2.78573 C17.3075 2.25294 17.0953 1.74237 16.7187 1.36554 C16.342 0.988716 15.8315 0.776253 15.2987 0.77456 L15.2373 0.77456 C14.7047 0.776252 14.1944 0.988589 13.8177 1.36522 C13.4411 1.74185 13.2288 2.25218 13.2271 2.78481 L13.2271 2.84623 C13.2288 3.22515 13.3374 3.5959 13.5404 3.91584 C13.7434 4.23578 14.0326 4.49193 14.3747 4.65481 L14.3867 4.66031 L14.3867 7.27464 C13.3892 7.42704 12.45 7.84143 11.6651 8.47548 L11.6761 8.46631 L4.50041 2.87923 C4.63702 2.36741 4.59189 1.82406 4.37269 1.3418 C4.15349 0.859545 3.77381 0.468248 3.29838 0.234624 C2.82294 0.00100033 2.2812 -0.0604844 1.7655 0.0606527 C1.2498 0.18179 0.792086 0.478049 0.470392 0.898918 C0.148698 1.31979 -0.0170565 1.83921 0.00138887 2.36862 C0.0198342 2.89803 0.221338 3.40466 0.571543 3.80212 C0.921748 4.19957 1.39897 4.46326 1.92185 4.54821 C2.44473 4.63316 2.98088 4.53412 3.43891 4.26798 L3.42791 4.27348 L10.4835 9.76523 C9.85976 10.7004 9.52853 11.8 9.53199 12.9241 C9.53199 14.1551 9.92157 15.2964 10.5834 16.2305 L10.5715 16.2121 L8.42465 18.3599 C8.25279 18.3044 8.07357 18.2751 7.89299 18.2728 L7.89115 18.2728 C7.52257 18.2728 7.16227 18.3821 6.8558 18.5869 C6.54934 18.7917 6.31048 19.0827 6.16943 19.4232 C6.02838 19.7638 5.99147 20.1385 6.06338 20.5 C6.13529 20.8615 6.31278 21.1935 6.5734 21.4541 C6.83403 21.7148 7.16609 21.8923 7.52759 21.9642 C7.88909 22.0361 8.26379 21.9992 8.60432 21.8581 C8.94484 21.7171 9.23589 21.4782 9.44067 21.1717 C9.64544 20.8653 9.75474 20.505 9.75474 20.1364 C9.75225 19.951 9.72134 19.767 9.66307 19.591 L9.66765 19.6038 L11.7916 17.4799 C12.4838 18.0081 13.2875 18.3715 14.1413 18.5424 C14.9951 18.7134 15.8767 18.6873 16.719 18.4662 C17.5612 18.2452 18.342 17.835 19.0019 17.2668 C19.6617 16.6986 20.1833 15.9874 20.5269 15.1873 C20.8706 14.3872 21.0272 13.5192 20.985 12.6495 C20.9427 11.7797 20.7026 10.931 20.283 10.168 C19.8634 9.40501 19.2753 8.74773 18.5635 8.2462 C17.8516 7.74466 17.0348 7.41207 16.1751 7.27373 L16.1421 7.26914 L16.1476 7.26914 Z M15.2639 15.8656 C14.6831 15.864 14.1157 15.6903 13.6335 15.3664 C13.1513 15.0425 12.7759 14.583 12.5548 14.046 C12.3336 13.5089 12.2765 12.9183 12.3907 12.3488 C12.505 11.7793 12.7854 11.2564 13.1967 10.8462 C13.6079 10.436 14.1315 10.1568 14.7013 10.044 C15.2711 9.93114 15.8615 9.98968 16.3981 10.2122 C16.9346 10.4348 17.3932 10.8113 17.7158 11.2943 C18.0385 11.7773 18.2108 12.345 18.211 12.9259 L18.211 12.9277 C18.2111 13.3138 18.1352 13.6961 17.9875 14.0529 C17.8398 14.4096 17.6232 14.7337 17.3502 15.0067 C17.0772 15.2797 16.7531 15.4963 16.3964 15.6439 C16.0397 15.7916 15.6573 15.8676 15.2712 15.8675 L15.2639 15.8656 Z" fill="#ff7a59"/></svg>
               </div>
@@ -346,7 +375,7 @@ export function ConnectorsPage() {
                 <Dots size={16} strokeWidth={2.25} style={{ width: "16px", height: "16px", flexShrink: 0, color: "#6c6c6c", display: "block" }} />
               </div>
             </div>
-            <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", gap: "8px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", gap: "8px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <div style={{ flexShrink: 0, borderRadius: "4.58px", background: "#fffbf0", display: "flex", flexDirection: "row", padding: "2px 8px 2px 8px", gap: "3px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                 <Clock size={12} strokeWidth={3} style={{ width: "12px", height: "12px", flexShrink: 0, color: "#d99a00", display: "block" }} />
                 <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "77px", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#d99a00", lineHeight: "20px" }}>Rate limited</p>
@@ -354,7 +383,7 @@ export function ConnectorsPage() {
               <div style={{ flex: "1 1 0", minWidth: 0, height: "1px", flexShrink: 0, display: "flex", flexDirection: "row", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }} />
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "61px", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#b3b3b3", lineHeight: "20px" }}>1 min ago</p>
             </div>
-            <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, boxShadow: "inset 0 1px 0 0 #e9e9e9", display: "flex", flexDirection: "row", padding: "11px 0px 0px 0px", gap: "12px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div style={{ alignSelf: "stretch", flexShrink: 0, boxShadow: "inset 0 1px 0 0 #e9e9e9", display: "flex", flexDirection: "row", padding: "11px 0px 0px 0px", gap: "12px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "4px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                 <GitMerge size={14} strokeWidth={2.57} style={{ width: "14px", height: "14px", flexShrink: 0, color: "#929292", display: "block" }} />
                 <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "79px", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#747474", lineHeight: "20px" }}>2 workflows</p>
@@ -366,7 +395,7 @@ export function ConnectorsPage() {
             </div>
           </div>
           <div style={{ width: "276.75px", flexShrink: 0, borderRadius: "12px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #ededed", display: "flex", flexDirection: "column", padding: "17px 17px 17px 17px", gap: "12px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
-            <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <div style={{ width: "40px", height: "40px", flexShrink: 0, borderRadius: "11px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #ededed, 0px 1px 2px 0px rgba(13, 13, 18, 0.06)", display: "flex", flexDirection: "row", padding: "1px 1px 1px 1px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
                 <svg style={{ width: "22px", height: "22px", flexShrink: 0, display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 2.662)" d="M11.8378 0 L11.8378 12.2705 L22 0.0009166 L11.8378 0 Z M0 0.0018332 C0 2.80683 2.27608 5.08383 5.08108 5.08383 C7.88608 5.08383 10.1613 2.80683 10.1622 0.0018332 L0 0.0018332 Z M10.1622 4.40825 L0 16.676 L10.1622 16.676 L10.1622 4.40825 Z M16.918 11.5949 C14.1102 11.5949 11.8378 13.8683 11.8378 16.676 L22 16.676 C22 13.871 19.7267 11.5949 16.9189 11.5949 L16.918 11.5949 Z" fill="#03363d"/></svg>
               </div>
@@ -378,7 +407,7 @@ export function ConnectorsPage() {
                 <Dots size={16} strokeWidth={2.25} style={{ width: "16px", height: "16px", flexShrink: 0, color: "#6c6c6c", display: "block" }} />
               </div>
             </div>
-            <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", gap: "8px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", gap: "8px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <div style={{ flexShrink: 0, borderRadius: "4.58px", background: "#f6fffb", display: "flex", flexDirection: "row", padding: "2px 8px 2px 8px", gap: "3px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                 <CircleCheck size={12} strokeWidth={3} style={{ width: "12px", height: "12px", flexShrink: 0, color: "#17a673", display: "block" }} />
                 <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "70px", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#17a673", lineHeight: "20px" }}>Connected</p>
@@ -386,7 +415,7 @@ export function ConnectorsPage() {
               <div style={{ flex: "1 1 0", minWidth: 0, height: "1px", flexShrink: 0, display: "flex", flexDirection: "row", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }} />
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "55px", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#b3b3b3", lineHeight: "20px" }}>just now</p>
             </div>
-            <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, boxShadow: "inset 0 1px 0 0 #e9e9e9", display: "flex", flexDirection: "row", padding: "11px 0px 0px 0px", gap: "12px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div style={{ alignSelf: "stretch", flexShrink: 0, boxShadow: "inset 0 1px 0 0 #e9e9e9", display: "flex", flexDirection: "row", padding: "11px 0px 0px 0px", gap: "12px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "4px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                 <GitMerge size={14} strokeWidth={2.57} style={{ width: "14px", height: "14px", flexShrink: 0, color: "#929292", display: "block" }} />
                 <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "79px", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#747474", lineHeight: "20px" }}>3 workflows</p>
@@ -398,7 +427,7 @@ export function ConnectorsPage() {
             </div>
           </div>
           <div style={{ width: "276.75px", flexShrink: 0, borderRadius: "12px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #ededed", display: "flex", flexDirection: "column", padding: "17px 17px 17px 17px", gap: "12px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
-            <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <div style={{ width: "40px", height: "40px", flexShrink: 0, borderRadius: "11px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #ededed, 0px 1px 2px 0px rgba(13, 13, 18, 0.06)", display: "flex", flexDirection: "row", padding: "1px 1px 1px 1px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
                 <svg style={{ width: "22px", height: "22px", flexShrink: 0, display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 3.148 0)" d="M9.6635 8.3875 C7.6725 7.64867 6.58717 7.08033 6.58717 6.17925 C6.58717 5.4175 7.21325 4.983 8.32975 4.983 C10.3712 4.983 12.4685 5.7695 13.9122 6.47808 L14.7281 1.44192 C13.5832 0.89375 11.2411 0 8.00342 0 C5.71358 0 3.80875 0.5995 2.4475 1.716 C1.03217 2.88475 0.296083 4.576 0.296083 6.6165 C0.296083 10.3189 2.5575 11.8965 6.23242 13.2339 C8.602 14.0773 9.39033 14.6768 9.39033 15.6017 C9.39033 16.5 8.62033 17.0179 7.2325 17.0179 C5.51375 17.0179 2.68125 16.1737 0.825 15.0847 L0 20.1768 C1.59592 21.0742 4.53842 22 7.59 22 C10.0109 22 12.0294 21.428 13.3907 20.3381 C14.916 19.1418 15.7052 17.3717 15.7052 15.0838 C15.7052 11.2998 13.3916 9.72033 9.66075 8.3875 L9.6635 8.3875 Z" fill="#635bff"/></svg>
               </div>
@@ -410,7 +439,7 @@ export function ConnectorsPage() {
                 <Dots size={16} strokeWidth={2.25} style={{ width: "16px", height: "16px", flexShrink: 0, color: "#6c6c6c", display: "block" }} />
               </div>
             </div>
-            <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", gap: "8px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", gap: "8px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <div style={{ flexShrink: 0, borderRadius: "4.58px", background: "#f6fffb", display: "flex", flexDirection: "row", padding: "2px 8px 2px 8px", gap: "3px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                 <CircleCheck size={12} strokeWidth={3} style={{ width: "12px", height: "12px", flexShrink: 0, color: "#17a673", display: "block" }} />
                 <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "70px", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#17a673", lineHeight: "20px" }}>Connected</p>
@@ -418,7 +447,7 @@ export function ConnectorsPage() {
               <div style={{ flex: "1 1 0", minWidth: 0, height: "1px", flexShrink: 0, display: "flex", flexDirection: "row", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }} />
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "64px", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#b3b3b3", lineHeight: "20px" }}>8 min ago</p>
             </div>
-            <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, boxShadow: "inset 0 1px 0 0 #e9e9e9", display: "flex", flexDirection: "row", padding: "11px 0px 0px 0px", gap: "12px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div style={{ alignSelf: "stretch", flexShrink: 0, boxShadow: "inset 0 1px 0 0 #e9e9e9", display: "flex", flexDirection: "row", padding: "11px 0px 0px 0px", gap: "12px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "4px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                 <GitMerge size={14} strokeWidth={2.57} style={{ width: "14px", height: "14px", flexShrink: 0, color: "#929292", display: "block" }} />
                 <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "69px", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#747474", lineHeight: "20px" }}>1 workflow</p>
@@ -430,7 +459,7 @@ export function ConnectorsPage() {
             </div>
           </div>
           <div style={{ width: "276.75px", flexShrink: 0, borderRadius: "12px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #ededed", display: "flex", flexDirection: "column", padding: "17px 17px 17px 17px", gap: "12px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
-            <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <div style={{ width: "40px", height: "40px", flexShrink: 0, borderRadius: "11px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #ededed, 0px 1px 2px 0px rgba(13, 13, 18, 0.06)", display: "flex", flexDirection: "row", padding: "1px 1px 1px 1px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
                 <svg style={{ width: "22px", height: "22px", flexShrink: 0, display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M11 0 C8.08262 2.64603e-15 5.28473 1.15893 3.22183 3.22183 C1.15893 5.28473 3.05311e-15 8.08262 0 11 C3.86728e-15 13.9174 1.15893 16.7153 3.22183 18.7782 C5.28473 20.8411 8.08262 22 11 22 C13.9174 22 16.7153 20.8411 18.7782 18.7782 C20.8411 16.7153 22 13.9174 22 11 C22 8.08262 20.8411 5.28473 18.7782 3.22183 C16.7153 1.15893 13.9174 1.7301e-15 11 0 Z M11.5885 3.78904 C12.4643 3.78904 13.174 4.50038 13.174 5.37781 L13.174 13.689 L14.6406 13.689 C16.1201 13.689 17.3242 12.483 17.3242 11.0004 C17.3242 9.51784 16.12 8.31151 14.6405 8.31151 L14.0306 8.31151 L14.0306 6.72228 L14.6405 6.72228 C16.9984 6.72228 18.9101 8.63784 18.9101 11.0004 C18.9101 13.363 16.9984 15.2781 14.6405 15.2781 L11.5885 15.2781 L11.5885 3.78904 Z M7.31839 6.72192 L10.3701 6.72192 L10.3701 18.2105 C9.49419 18.2105 8.78423 17.4993 8.78423 16.6217 L8.78423 8.31068 L7.31839 8.31068 C5.83834 8.31068 4.63467 9.51702 4.63467 10.9996 C4.63467 12.4823 5.83834 13.6885 7.31839 13.6885 L7.92834 13.6885 L7.92834 15.2773 L7.31839 15.2773 C4.96027 15.2773 3.04883 13.3622 3.04883 10.9996 C3.04883 8.63729 4.96027 6.72192 7.31839 6.72192 Z" fill="#2ca01c"/></svg>
               </div>
@@ -442,7 +471,7 @@ export function ConnectorsPage() {
                 <Dots size={16} strokeWidth={2.25} style={{ width: "16px", height: "16px", flexShrink: 0, color: "#6c6c6c", display: "block" }} />
               </div>
             </div>
-            <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", gap: "8px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", gap: "8px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <div style={{ flexShrink: 0, borderRadius: "4.58px", background: "#f6fffb", display: "flex", flexDirection: "row", padding: "2px 8px 2px 8px", gap: "3px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                 <CircleCheck size={12} strokeWidth={3} style={{ width: "12px", height: "12px", flexShrink: 0, color: "#17a673", display: "block" }} />
                 <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "70px", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#17a673", lineHeight: "20px" }}>Connected</p>
@@ -450,7 +479,7 @@ export function ConnectorsPage() {
               <div style={{ flex: "1 1 0", minWidth: 0, height: "1px", flexShrink: 0, display: "flex", flexDirection: "row", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }} />
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "45px", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#b3b3b3", lineHeight: "20px" }}>1 h ago</p>
             </div>
-            <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, boxShadow: "inset 0 1px 0 0 #e9e9e9", display: "flex", flexDirection: "row", padding: "11px 0px 0px 0px", gap: "12px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div style={{ alignSelf: "stretch", flexShrink: 0, boxShadow: "inset 0 1px 0 0 #e9e9e9", display: "flex", flexDirection: "row", padding: "11px 0px 0px 0px", gap: "12px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "4px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                 <GitMerge size={14} strokeWidth={2.57} style={{ width: "14px", height: "14px", flexShrink: 0, color: "#929292", display: "block" }} />
                 <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "69px", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#747474", lineHeight: "20px" }}>1 workflow</p>
@@ -462,7 +491,7 @@ export function ConnectorsPage() {
             </div>
           </div>
           <div style={{ width: "276.75px", flexShrink: 0, borderRadius: "12px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #ededed", display: "flex", flexDirection: "column", padding: "17px 17px 17px 17px", gap: "12px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
-            <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <div style={{ width: "40px", height: "40px", flexShrink: 0, borderRadius: "11px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #ededed, 0px 1px 2px 0px rgba(13, 13, 18, 0.06)", display: "flex", flexDirection: "row", padding: "1px 1px 1px 1px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
                 <svg style={{ width: "22px", height: "22px", flexShrink: 0, display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 3 0)" d="M7.37458 11.4996 L4.25058 11.4996 L4.25058 9.74967 L7.37642 9.74967 L7.37642 11.5005 L7.37458 11.4996 Z M10.5004 0 L10.5004 5.5 L16.0004 5.5 L10.5004 0 Z M11.7498 9.74967 L8.624 9.74967 L8.624 11.5005 L11.7498 11.5005 L11.7498 9.74967 Z M11.7498 12.7499 L8.624 12.7499 L8.624 14.5008 L11.7498 14.5008 L11.7498 12.7499 Z M15.9995 5.95833 L15.9995 20.5003 C15.9995 21.329 15.3285 22 14.4998 22 L1.49967 22 C1.30273 22 1.10772 21.9612 0.925769 21.8858 C0.743821 21.8105 0.578499 21.7 0.439242 21.5608 C0.158 21.2795 0 20.8981 0 20.5003 L0 1.49967 C4.07082e-16 0.671 0.671 0 1.49967 0 L10.0412 0 L10.0412 5.95833 L15.9995 5.95833 Z M12.9993 8.50025 L2.99933 8.50025 L2.99933 15.7502 L13.0002 15.7502 L13.0002 8.49933 L12.9993 8.50025 Z M7.37458 12.7499 L4.25058 12.7499 L4.25058 14.5008 L7.37642 14.5008 L7.37642 12.7499 L7.37458 12.7499 Z" fill="#34a853"/></svg>
               </div>
@@ -474,7 +503,7 @@ export function ConnectorsPage() {
                 <Dots size={16} strokeWidth={2.25} style={{ width: "16px", height: "16px", flexShrink: 0, color: "#6c6c6c", display: "block" }} />
               </div>
             </div>
-            <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", gap: "8px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", gap: "8px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <div style={{ flexShrink: 0, borderRadius: "4.58px", background: "#f6fffb", display: "flex", flexDirection: "row", padding: "2px 8px 2px 8px", gap: "3px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                 <CircleCheck size={12} strokeWidth={3} style={{ width: "12px", height: "12px", flexShrink: 0, color: "#17a673", display: "block" }} />
                 <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "70px", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#17a673", lineHeight: "20px" }}>Connected</p>
@@ -482,7 +511,7 @@ export function ConnectorsPage() {
               <div style={{ flex: "1 1 0", minWidth: 0, height: "1px", flexShrink: 0, display: "flex", flexDirection: "row", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }} />
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "64px", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#b3b3b3", lineHeight: "20px" }}>5 min ago</p>
             </div>
-            <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, boxShadow: "inset 0 1px 0 0 #e9e9e9", display: "flex", flexDirection: "row", padding: "11px 0px 0px 0px", gap: "12px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div style={{ alignSelf: "stretch", flexShrink: 0, boxShadow: "inset 0 1px 0 0 #e9e9e9", display: "flex", flexDirection: "row", padding: "11px 0px 0px 0px", gap: "12px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "4px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                 <GitMerge size={14} strokeWidth={2.57} style={{ width: "14px", height: "14px", flexShrink: 0, color: "#929292", display: "block" }} />
                 <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "79px", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#747474", lineHeight: "20px" }}>3 workflows</p>
@@ -494,7 +523,7 @@ export function ConnectorsPage() {
             </div>
           </div>
           <div style={{ width: "276.75px", flexShrink: 0, borderRadius: "12px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #ededed", display: "flex", flexDirection: "column", padding: "17px 17px 17px 17px", gap: "12px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
-            <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <div style={{ width: "40px", height: "40px", flexShrink: 0, borderRadius: "11px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #ededed, 0px 1px 2px 0px rgba(13, 13, 18, 0.06)", display: "flex", flexDirection: "row", padding: "1px 1px 1px 1px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
                 <svg style={{ width: "22px", height: "22px", flexShrink: 0, display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 1.361)" d="M11.0092 0 C9.10067 0 7.568 0.0183333 7.57808 0.0430833 C7.58725 0.0614166 9.14375 2.794 11.0376 6.11142 L14.4843 12.1376 L17.9309 12.1376 C19.8385 12.1376 21.3712 12.1192 21.3611 12.0945 C21.3565 12.0762 19.7954 9.34358 17.9007 6.02617 L14.454 0 L11.0092 0 Z M6.64583 1.58583 C5.52777 3.51151 4.41859 5.44234 3.31833 7.37825 L0 13.1844 L1.7325 16.2076 L3.46042 19.2298 L6.77875 13.4227 L10.0953 7.62025 L8.37192 4.60717 C7.425 2.95075 6.65042 1.59133 6.64583 1.58583 Z M8.71658 13.1844 L8.5305 13.5034 C8.426 13.6849 7.6505 15.0361 6.80717 16.5165 C6.292 17.4261 5.77316 18.3336 5.25067 19.239 C5.2415 19.2628 8.22067 19.2775 11.8708 19.2775 L18.5112 19.2775 L20.1575 16.3836 C21.0668 14.7941 21.8533 13.4227 21.9047 13.3375 L22 13.1844 L15.3551 13.1844 L8.71658 13.1844 Z" fill="#4285f4"/></svg>
               </div>
@@ -506,7 +535,7 @@ export function ConnectorsPage() {
                 <Dots size={16} strokeWidth={2.25} style={{ width: "16px", height: "16px", flexShrink: 0, color: "#6c6c6c", display: "block" }} />
               </div>
             </div>
-            <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", gap: "8px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", gap: "8px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <div style={{ flexShrink: 0, borderRadius: "4.58px", background: "#f6fffb", display: "flex", flexDirection: "row", padding: "2px 8px 2px 8px", gap: "3px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                 <CircleCheck size={12} strokeWidth={3} style={{ width: "12px", height: "12px", flexShrink: 0, color: "#17a673", display: "block" }} />
                 <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "70px", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#17a673", lineHeight: "20px" }}>Connected</p>
@@ -514,7 +543,7 @@ export function ConnectorsPage() {
               <div style={{ flex: "1 1 0", minWidth: 0, height: "1px", flexShrink: 0, display: "flex", flexDirection: "row", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }} />
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "69px", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#b3b3b3", lineHeight: "20px" }}>12 min ago</p>
             </div>
-            <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, boxShadow: "inset 0 1px 0 0 #e9e9e9", display: "flex", flexDirection: "row", padding: "11px 0px 0px 0px", gap: "12px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div style={{ alignSelf: "stretch", flexShrink: 0, boxShadow: "inset 0 1px 0 0 #e9e9e9", display: "flex", flexDirection: "row", padding: "11px 0px 0px 0px", gap: "12px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "4px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                 <GitMerge size={14} strokeWidth={2.57} style={{ width: "14px", height: "14px", flexShrink: 0, color: "#929292", display: "block" }} />
                 <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "79px", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#747474", lineHeight: "20px" }}>2 workflows</p>
@@ -526,7 +555,7 @@ export function ConnectorsPage() {
             </div>
           </div>
           <div style={{ width: "276.75px", flexShrink: 0, borderRadius: "12px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #ededed", display: "flex", flexDirection: "column", padding: "17px 17px 17px 17px", gap: "12px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
-            <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <div style={{ width: "40px", height: "40px", flexShrink: 0, borderRadius: "11px", background: "#ffffff", boxShadow: "inset 0 0 0 1px #ededed, 0px 1px 2px 0px rgba(13, 13, 18, 0.06)", display: "flex", flexDirection: "row", padding: "1px 1px 1px 1px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
                 <svg style={{ width: "22px", height: "22px", flexShrink: 0, display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M10.6067 10.5536 L0 10.5536 C0.00035936 11.1826 0.12477 11.8053 0.366111 12.3861 C0.607451 12.967 0.960982 13.4945 1.40646 13.9386 C1.85195 14.3826 2.38063 14.7344 2.96226 14.9739 C3.54388 15.2133 4.16702 15.3357 4.796 15.334 L6.7485 15.334 L6.7485 17.2196 C6.7485 18.4871 7.2519 19.7028 8.148 20.5992 C9.04411 21.4957 10.2596 21.9995 11.5271 22 L11.5271 11.4748 C11.5271 11.2305 11.43 10.9962 11.2573 10.8234 C11.0845 10.6506 10.8502 10.5536 10.6058 10.5536 L10.6067 10.5536 Z M15.8528 5.27725 L5.258 5.27725 C5.25824 6.54494 5.762 7.76062 6.65848 8.65692 C7.55495 9.55323 8.77073 10.0568 10.0384 10.0568 L11.99 10.0568 L11.99 11.9433 C11.991 13.2107 12.495 14.426 13.3913 15.3221 C14.2876 16.2183 15.503 16.722 16.7704 16.7227 L16.7704 6.19483 C16.7704 5.95148 16.6737 5.71808 16.5017 5.546 C16.3296 5.37392 16.0962 5.27725 15.8528 5.27725 Z M21.0952 0 L10.5004 0 C10.5004 1.26785 11.0041 2.48376 11.9006 3.38026 C12.7971 4.27677 14.013 4.78042 15.2808 4.78042 L17.2324 4.78042 L17.2324 6.666 C17.2334 7.93099 17.7357 9.14403 18.6293 10.0394 C19.5229 10.9347 20.735 11.4394 22 11.4427 L22 0.92125 C22.001 0.679465 21.9065 0.447061 21.7371 0.274553 C21.5677 0.102046 21.337 0.00337961 21.0952 0 Z" fill="#0052cc"/></svg>
               </div>
@@ -538,7 +567,7 @@ export function ConnectorsPage() {
                 <Dots size={16} strokeWidth={2.25} style={{ width: "16px", height: "16px", flexShrink: 0, color: "#6c6c6c", display: "block" }} />
               </div>
             </div>
-            <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", gap: "8px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", gap: "8px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <div style={{ flexShrink: 0, borderRadius: "4.58px", background: "#f7f8fa", display: "flex", flexDirection: "row", padding: "2px 8px 2px 8px", gap: "3px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                 <PlayerPause size={12} strokeWidth={3} style={{ width: "12px", height: "12px", flexShrink: 0, color: "#697386", display: "block" }} />
                 <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "48px", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#697386", lineHeight: "20px" }}>Paused</p>
@@ -546,7 +575,7 @@ export function ConnectorsPage() {
               <div style={{ flex: "1 1 0", minWidth: 0, height: "1px", flexShrink: 0, display: "flex", flexDirection: "row", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }} />
               <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "48px", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#b3b3b3", lineHeight: "20px" }}>2 d ago</p>
             </div>
-            <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, boxShadow: "inset 0 1px 0 0 #e9e9e9", display: "flex", flexDirection: "row", padding: "11px 0px 0px 0px", gap: "12px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+            <div style={{ alignSelf: "stretch", flexShrink: 0, boxShadow: "inset 0 1px 0 0 #e9e9e9", display: "flex", flexDirection: "row", padding: "11px 0px 0px 0px", gap: "12px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "4px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
                 <GitMerge size={14} strokeWidth={2.57} style={{ width: "14px", height: "14px", flexShrink: 0, color: "#929292", display: "block" }} />
                 <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "69px", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#747474", lineHeight: "20px" }}>1 workflow</p>
@@ -568,285 +597,4 @@ export function ConnectorsPage() {
       </div>
     </div>
   );
-}
-
-// Interactions: hover and click states. Remove this function and the two lines above to get a static component.
-function fuInteract(root: HTMLElement | null) {
-  if (!root || root.dataset.fuOn) return;
-  root.dataset.fuOn = "1";
-  const doc = root.ownerDocument;
-  const all = (sel: string, el: Element = root): HTMLElement[] => Array.from(el.querySelectorAll(sel)) as HTMLElement[];
-  const box = (el: Element) => el.getBoundingClientRect();
-  const font = getComputedStyle(root).fontFamily;
-  const tip = doc.createElement("div");
-  tip.setAttribute("aria-hidden", "true");
-  Object.assign(tip.style, { position: "fixed", zIndex: "2147483647", pointerEvents: "none", background: "#111113", color: "#fff", font: "500 12px/16px " + font, padding: "5px 8px", borderRadius: "6px", whiteSpace: "nowrap", opacity: "0", transform: "translate(-50%, -100%)", transition: "opacity .12s", boxShadow: "0 4px 14px rgba(0,0,0,.18)" });
-  doc.body.appendChild(tip);
-  const show = (text: string, x: number, y: number) => { if (!text) return hide(); tip.textContent = text; tip.style.left = x + "px"; tip.style.top = y - 8 + "px"; tip.style.opacity = "1"; };
-  const hide = () => { tip.style.opacity = "0"; };
-  const ease = (el: HTMLElement | SVGElement, props: string) => { const s = (el as HTMLElement).style; if (!s.transition) s.transition = props; };
-  const texts = (scope: Element) => all("p, span", scope).filter((t) => t.children.length === 0 && (t.textContent || "").trim());
-  const NUM = /^([^\d\-+.]*)([-+]?[\d,]*\.?\d+)\s*([kKmMbB%]?)([^\d]*)$/;
-  // value axis: numeric labels along one edge of the chart, used to read a mark's value from its position
-  const axis = (scope: Element, vertical: boolean) => {
-    const pts: { v: number; p: number; pre: string; suf: string; dec: number }[] = [];
-    for (const t of texts(scope)) {
-      const m = (t.textContent || "").trim().match(NUM);
-      if (!m) continue;
-      const mult = { k: 1e3, K: 1e3, m: 1e6, M: 1e6, b: 1e9, B: 1e9 }[m[3] as "k"] || 1;
-      const r = box(t);
-      pts.push({ v: parseFloat(m[2].replace(/,/g, "")) * mult, p: vertical ? r.top + r.height / 2 : r.left + r.width / 2, pre: m[1], suf: m[3] + m[4], dec: (m[2].split(".")[1] || "").length });
-    }
-    const uniq = pts.filter((a, i) => pts.findIndex((b) => Math.abs(b.p - a.p) < 2) === i);
-    if (uniq.length < 2) return null;
-    uniq.sort((a, b) => a.p - b.p);
-    const a = uniq[0], b = uniq[uniq.length - 1];
-    if (a.v === b.v || Math.abs(b.p - a.p) < 10) return null;
-    return (pos: number) => {
-      const v = a.v + ((pos - a.p) * (b.v - a.v)) / (b.p - a.p);
-      const suf = a.suf || b.suf, pre = a.pre || b.pre;
-      const div = /^[kK]/.test(suf) ? 1e3 : /^[mM]/.test(suf) ? 1e6 : /^[bB]/.test(suf) ? 1e9 : 1;
-      const x = v / div;
-      const dec = Math.max(a.dec, b.dec, div > 1 && Math.abs(x) < 100 ? 1 : 0);
-      return pre + x.toLocaleString("en-US", { minimumFractionDigits: 0, maximumFractionDigits: dec }) + suf;
-    };
-  };
-  // the chart around a group of marks: the nearest ancestor that also holds text labels
-  const chartOf = (el: Element) => { let c: Element | null = el.parentElement; while (c && c !== root.parentElement) { if (texts(c).length >= 3) return c; c = c.parentElement; } return root; };
-  const labelNear = (scope: Element, x: number, y: number, below: boolean, anyText = false) => {
-    let best = "", d = 1e9;
-    for (const t of texts(scope)) {
-      const r = box(t);
-      if (below ? r.top < y - 2 : r.right > x + 2) continue;
-      if (!anyText && NUM.test((t.textContent || "").trim()) && !/[a-z]{3}/i.test(t.textContent || "")) continue;
-      const dd = below ? Math.abs(r.left + r.width / 2 - x) + (r.top - y) * 0.2 : Math.abs(r.top + r.height / 2 - y) + (x - r.right) * 0.1;
-      if (dd < d) { d = dd; best = (t.textContent || "").trim(); }
-    }
-    return d < 80 ? best : "";
-  };
-  const dim = (els: (HTMLElement | SVGElement)[], keep: (HTMLElement | SVGElement)[]) => { for (const e of els) { ease(e, "opacity .15s"); (e as HTMLElement).style.opacity = keep.includes(e) ? "" : "0.35"; } };
-  const undim = (els: (HTMLElement | SVGElement)[]) => { for (const e of els) (e as HTMLElement).style.opacity = ""; };
-
-  // vertical bars: the hovered column (all stacked segments at that x) stays, the rest fade
-  const groups = new Map<Element, HTMLElement[]>();
-  for (const b of all("[data-fu=bar],[data-fu=hbar]")) { const p = b.parentElement!; if (!groups.has(p)) groups.set(p, []); groups.get(p)!.push(b); }
-  groups.forEach((bars) => {
-    const horiz = bars[0].dataset.fu === "hbar";
-    const scope = chartOf(bars[0]);
-    const val = axis(scope, !horiz);
-    const peers = (b: HTMLElement) => { const r = box(b), c = horiz ? r.top + r.height / 2 : r.left + r.width / 2; return bars.filter((o) => { const q = box(o); return Math.abs((horiz ? q.top + q.height / 2 : q.left + q.width / 2) - c) < Math.max(2, (horiz ? r.height : r.width) / 2); }); };
-    for (const b of bars) {
-      b.addEventListener("mouseenter", () => {
-        const col = peers(b);
-        dim(bars, col);
-        const rs = col.map(box);
-        const top = Math.min(...rs.map((r) => r.top)), right = Math.max(...rs.map((r) => r.right)), r0 = rs[0];
-        const label = horiz ? labelNear(scope, r0.left, r0.top + r0.height / 2, false) : labelNear(scope, r0.left + r0.width / 2, Math.max(...rs.map((r) => r.bottom)), true);
-        const v = val ? val(horiz ? right : top) : "";
-        show([label, v].filter(Boolean).join(" · "), horiz ? right : r0.left + r0.width / 2, horiz ? r0.top : top);
-      });
-      b.addEventListener("mouseleave", () => { undim(bars); hide(); });
-    }
-  });
-
-  // line and area plots: a guide line and a dot follow the pointer along the top edge of the plotted shape
-  for (const svg of all("svg[data-fu=plot]") as unknown as SVGSVGElement[]) {
-    const paths = Array.from(svg.querySelectorAll("path, polyline")) as SVGGeometryElement[];
-    if (!paths.length) continue;
-    const line = paths.reduce((a, b) => (b.getTotalLength() > a.getTotalLength() ? b : a));
-    const len = line.getTotalLength();
-    const pts: { x: number; y: number }[] = [];
-    for (let i = 0; i <= 800; i++) { const q = line.getPointAtLength((len * i) / 800); pts.push({ x: q.x, y: q.y }); }
-    const xs = pts.map((q) => q.x), minX = Math.min(...xs), maxX = Math.max(...xs);
-    const color = (line.getAttribute("stroke") && line.getAttribute("stroke") !== "none" ? line.getAttribute("stroke") : line.getAttribute("fill")) || "#111";
-    const NS = "http://www.w3.org/2000/svg";
-    const g = doc.createElementNS(NS, "g");
-    g.setAttribute("pointer-events", "none");
-    g.style.opacity = "0";
-    const guide = doc.createElementNS(NS, "line");
-    guide.setAttribute("stroke", /^url/.test(color) ? "#111" : color);
-    guide.setAttribute("stroke-dasharray", "3 3");
-    guide.setAttribute("stroke-opacity", "0.5");
-    const dot = doc.createElementNS(NS, "circle");
-    dot.setAttribute("r", "4");
-    dot.setAttribute("fill", "#fff");
-    dot.setAttribute("stroke", /^url/.test(color) ? "#111" : color);
-    dot.setAttribute("stroke-width", "2");
-    g.append(guide, dot);
-    svg.appendChild(g);
-    const scope = chartOf(svg);
-    const val = axis(scope, true);
-    const area = svg.parentElement || svg;
-    area.addEventListener("mousemove", (ev: Event) => {
-      const e = ev as MouseEvent;
-      const m = line.getScreenCTM();
-      if (!m) return;
-      const px = new DOMPoint(e.clientX, e.clientY).matrixTransform(m.inverse()).x;
-      if (px < minX - 4 || px > maxX + 4) { g.style.opacity = "0"; hide(); return; }
-      const step = (maxX - minX) / 400 || 1;
-      let y = Infinity, x = px;
-      for (const q of pts) if (Math.abs(q.x - px) <= step && q.y < y) { y = q.y; x = q.x; }
-      if (y === Infinity) return;
-      const bb = line.getBBox();
-      guide.setAttribute("x1", String(x)); guide.setAttribute("x2", String(x));
-      guide.setAttribute("y1", String(bb.y)); guide.setAttribute("y2", String(bb.y + bb.height));
-      dot.setAttribute("cx", String(x)); dot.setAttribute("cy", String(y));
-      g.style.opacity = "1";
-      const sp = new DOMPoint(x, y).matrixTransform(m);
-      const label = labelNear(scope, sp.x, box(svg).bottom, true);
-      show([label, val ? val(sp.y) : ""].filter(Boolean).join(" · "), sp.x, sp.y);
-    });
-    area.addEventListener("mouseleave", () => { g.style.opacity = "0"; hide(); });
-  }
-
-  // cards: a small lift on hover (an extra drop shadow, the card's own shadows stay as they are)
-  for (const c of all("[data-fu=card]").concat(root.dataset.fu === "card" ? [root] : [])) {
-    c.addEventListener("mouseenter", () => { ease(c, "transform .18s ease, filter .18s ease"); c.style.transform = "translateY(-2px)"; c.style.filter = "drop-shadow(0 8px 16px rgba(17,17,19,.08))"; });
-    c.addEventListener("mouseleave", () => { c.style.transform = ""; c.style.filter = ""; });
-  }
-
-  // heatmap and calendar cells: an outline and the cell's own text
-  for (const c of all("[data-fu=cell]")) {
-    c.addEventListener("mouseenter", () => {
-      ease(c, "outline-color .12s");
-      c.style.outline = "2px solid rgba(17,17,19,.55)";
-      c.style.outlineOffset = "1px";
-      const r = box(c);
-      // its own text, or the row and column labels of the grid it sits in
-      let label = (c.textContent || "").trim();
-      if (!label) {
-        // walk outwards until a row label (left) and a column label (below) are in reach
-        let row = "", col = "";
-        for (let a: Element | null = c.parentElement; a && a !== root.parentElement && !(row && col); a = a.parentElement) {
-          if (!row) row = labelNear(a, r.left, r.top + r.height / 2, false, true);
-          if (!col) col = labelNear(a, r.left + r.width / 2, r.bottom, true, true);
-        }
-        label = [row, col].filter(Boolean).join(" · ");
-      }
-      show(label, r.left + r.width / 2, r.top);
-    });
-    c.addEventListener("mouseleave", () => { c.style.outline = ""; c.style.outlineOffset = ""; hide(); });
-  }
-
-  // fields: hover and focus states
-  for (const f of all("[data-fu=field]")) {
-    f.style.cursor = "text";
-    f.addEventListener("mouseenter", () => { ease(f, "filter .15s, outline-color .15s"); f.style.filter = "brightness(0.985)"; });
-    f.addEventListener("mouseleave", () => { f.style.filter = ""; });
-    f.addEventListener("mousedown", (ev) => {
-      ev.stopPropagation();
-      for (const o of all("[data-fu=field]")) o.style.outline = "";
-      f.style.outline = "3px solid rgba(17,17,19,.12)";
-      f.style.outlineOffset = "0px";
-    });
-  }
-  doc.addEventListener("mousedown", () => { for (const o of all("[data-fu=field]")) o.style.outline = ""; });
-
-  // donut and pie charts drawn as one vector per arc: the hovered arc stays, the others fade
-  const arcGroups = new Map<Element, HTMLElement[]>();
-  for (const a of all("[data-fu=arc]")) { const p = a.parentElement!; if (!arcGroups.has(p)) arcGroups.set(p, []); arcGroups.get(p)!.push(a); }
-  arcGroups.forEach((arcs) => {
-    const scope = chartOf(arcs[0]);
-    const hexOf = (c: string) => { const m = c.match(/\d+/g); return m && m.length >= 3 ? "#" + m.slice(0, 3).map((x) => (+x).toString(16).padStart(2, "0")).join("") : c.toLowerCase(); };
-    const legend = (color: string) => {
-      for (const el of all("*", scope)) {
-        if (el.children.length || (el.textContent || "").trim()) continue;
-        if (hexOf(getComputedStyle(el).backgroundColor) !== color.toLowerCase()) continue;
-        // climb to the legend row: the first ancestor that holds more than the swatch's label
-        let row: Element | null = el.parentElement;
-        while (row && row.parentElement && texts(row).length < 2 && row !== scope) row = row.parentElement;
-        const words = row ? texts(row).map((t) => (t.textContent || "").trim()) : [];
-        if (words.length && words.length <= 5) return words.join(" · ");
-        if (el.parentElement) return texts(el.parentElement).map((t) => (t.textContent || "").trim()).join(" · ");
-      }
-      return "";
-    };
-    // hit-test the whole stack under the pointer: labels or tracks drawn over the ring don't get in the way
-    const fills = new Map(arcs.map((a) => { const sh = a.querySelector("path"); return [a, (sh && (sh.getAttribute("fill") || sh.getAttribute("stroke"))) || ""] as [HTMLElement, string]; }));
-    let current: HTMLElement | null = null;
-    scope.addEventListener("mousemove", (ev) => {
-      const e = ev as MouseEvent;
-      // the arc whose drawn shape (not just its box) is under the pointer
-      const inside = (sh: SVGGeometryElement) => { const m = sh.getScreenCTM(); if (!m) return false; const q = new DOMPoint(e.clientX, e.clientY).matrixTransform(m.inverse()); return sh.isPointInFill(q) || sh.isPointInStroke(q); };
-      const arc = arcs.find((a) => (Array.from(a.querySelectorAll("path, circle, ellipse")) as SVGGeometryElement[]).some(inside)) || null;
-      if (!arc) { if (current) { undim(arcs); hide(); current = null; } return; }
-      if (arc !== current) { dim(arcs, [arc]); current = arc; }
-      show(legend(fills.get(arc) || ""), e.clientX, e.clientY);
-    });
-    scope.addEventListener("mouseleave", () => { undim(arcs); hide(); current = null; });
-  });
-
-  // donut and pie arcs in one drawing: the hovered arc stays, the others fade; the legend row with the same colour names it
-  for (const svg of all("svg[data-fu=donut]") as unknown as SVGSVGElement[]) {
-    const arcs = (Array.from(svg.querySelectorAll("path")) as SVGPathElement[]).filter((p) => { const f = p.getAttribute("fill"); return f && f !== "none" && !/^url/.test(f); });
-    const scope = chartOf(svg);
-    const hex = (c: string) => { const m = c.match(/\d+/g); return m && m.length >= 3 ? "#" + m.slice(0, 3).map((x) => (+x).toString(16).padStart(2, "0")).join("") : c.toLowerCase(); };
-    const legend = (color: string) => {
-      for (const el of all("*", scope)) {
-        if (el.children.length || (el.textContent || "").trim()) continue;
-        const bg = getComputedStyle(el).backgroundColor;
-        if (!bg || hex(bg) !== color.toLowerCase()) continue;
-        const row = el.parentElement;
-        const words = row ? texts(row).map((t) => (t.textContent || "").trim()) : [];
-        if (words.length) return words.join(" · ");
-      }
-      return "";
-    };
-    for (const a of arcs) {
-      a.addEventListener("mouseenter", (ev) => {
-        dim(arcs, [a]);
-        const e = ev as MouseEvent;
-        show(legend(a.getAttribute("fill") || ""), e.clientX, e.clientY);
-      });
-      a.addEventListener("mousemove", (ev) => { const e = ev as MouseEvent; tip.style.left = e.clientX + "px"; tip.style.top = e.clientY - 8 + "px"; });
-      a.addEventListener("mouseleave", () => { undim(arcs); hide(); });
-    }
-  }
-
-  // rows: a soft highlight under the pointer
-  for (const r of all("[data-fu=row]")) {
-    r.addEventListener("mouseenter", () => { ease(r, "filter .15s"); r.style.filter = "brightness(0.975)"; });
-    r.addEventListener("mouseleave", () => { r.style.filter = ""; });
-  }
-
-  // buttons: hover and press feedback
-  for (const b of all("[data-fu=btn],[data-fu=tab]")) {
-    b.style.cursor = "pointer";
-    b.addEventListener("mouseenter", () => { ease(b, "filter .15s, transform .1s"); if (!b.dataset.fuActive) b.style.filter = "brightness(0.96)"; });
-    b.addEventListener("mouseleave", () => { b.style.filter = ""; b.style.transform = ""; });
-    b.addEventListener("mousedown", () => { b.style.transform = "scale(0.98)"; });
-    b.addEventListener("mouseup", () => { b.style.transform = ""; });
-  }
-
-  // tabs and segmented controls: clicking a tab moves the selected look onto it
-  const VIS = ["background-color", "background-image", "box-shadow", "border-color", "color", "font-weight"];
-  const look = (el: HTMLElement) => VIS.map((k) => el.style.getPropertyValue(k)).join("|");
-  const tabGroups = new Map<Element, HTMLElement[]>();
-  for (const t of all("[data-fu=tab]")) { const p = t.parentElement!; if (!tabGroups.has(p)) tabGroups.set(p, []); tabGroups.get(p)!.push(t); }
-  tabGroups.forEach((tabs) => {
-    if (tabs.length < 2) return;
-    const counts = new Map<string, number>();
-    for (const t of tabs) counts.set(look(t), (counts.get(look(t)) || 0) + 1);
-    let active = tabs.find((t) => counts.get(look(t)) === 1 && counts.size > 1) || null;
-    if (!active) return;
-    active.dataset.fuActive = "1";
-    // read both looks first, then write: swapping one property at a time would let shorthands undo each other
-    const swapStyle = (a: HTMLElement, b: HTMLElement, props: string[]) => {
-      const va = props.map((k) => a.style.getPropertyValue(k)), vb = props.map((k) => b.style.getPropertyValue(k));
-      props.forEach((k, i) => { a.style.setProperty(k, vb[i]); b.style.setProperty(k, va[i]); });
-    };
-    const swap = (a: HTMLElement, b: HTMLElement) => {
-      swapStyle(a, b, VIS);
-      const ta = texts(a), tb = texts(b);
-      for (let i = 0; i < Math.min(ta.length, tb.length); i++) swapStyle(ta[i], tb[i], ["color", "font-weight"]);
-    };
-    for (const t of tabs) t.addEventListener("click", () => {
-      if (!active || t === active) return;
-      t.style.filter = "";
-      swap(active, t);
-      delete active.dataset.fuActive;
-      active = t;
-      t.dataset.fuActive = "1";
-    });
-  });
 }

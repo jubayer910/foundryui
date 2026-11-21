@@ -18,6 +18,7 @@ export function AgentPrompts({
   hasCode,
   hasFigma,
   mcpUrl,
+  menu,
 }: {
   slug: string;
   name: string;
@@ -27,6 +28,8 @@ export function AgentPrompts({
   hasCode: boolean;
   hasFigma: boolean;
   mcpUrl: string;
+  /** Sidebar version: one "Prompt for your AI agent" dropdown instead of the full-width section. */
+  menu?: boolean;
 }) {
   const [client, setClient] = useState<ClientId>("claude");
   const [target, setTarget] = useState<"code" | "figma">(hasCode ? "code" : "figma");
@@ -49,6 +52,28 @@ export function AgentPrompts({
     ? `Build ${what} in this project.\n\nUse the Ingot UI MCP: call get_component_code with slug "${slug}" and write the file to the path it returns. Add it as a new page and link it from our navigation. Keep the code as it is, use the --fu-* tokens for anything new, and run audit_ui when you're done.`
     : `Add ${what} to this project.\n\nUse the Ingot UI MCP: call get_component_code with slug "${slug}" and write the file to the path it returns. Then place it where I need it, keep my existing layout, use the --fu-* tokens for anything new, and run audit_ui when you're done.`;
   const figma = `Build ${what} in my Figma file: PASTE_YOUR_FIGMA_FILE_LINK\n\nUse the Ingot UI MCP: call get_figma_design with slug "${slug}" and step 1. Run the program it returns, unchanged, with the Figma MCP tool use_figma on my file. Then call get_figma_design again with the next step until it says done. Every step goes on the same Figma page.`;
+
+  const targetTabs =
+    hasCode && hasFigma ? (
+      <span role="tablist" aria-label="Where to build" className="inline-flex rounded-full bg-chip p-0.5">
+        {(["code", "figma"] as const).map((t) => (
+          <button key={t} type="button" role="tab" aria-selected={target === t} onClick={() => setTarget(t)} className={"h-6 rounded-full px-2.5 text-[12px] font-medium " + (target === t ? "bg-white text-ink shadow-[0_1px_2px_rgb(0_0_0/0.08)]" : "text-mute hover:text-ink")}>
+            {t === "code" ? "React" : "Figma"}
+          </button>
+        ))}
+      </span>
+    ) : null;
+
+  if (menu)
+    return (
+      <details className="card group p-3">
+        <summary className="cursor-pointer text-[13px] font-medium">Prompt for your AI agent</summary>
+        <p className="mt-2 text-[12px] leading-snug text-mute">
+          Paste into Claude Code, Cursor, VS Code or Codex. Needs the <Link href="/mcp" className="underline underline-offset-2 hover:text-ink">Ingot MCP</Link>.
+        </p>
+        <MenuPrompt title={template ? "Build this screen" : "Build this component"} text={target === "code" ? code : figma} head={targetTabs} note={target === "figma" ? "Also needs the Figma MCP and a Figma file you can edit." : undefined} />
+      </details>
+    );
 
   return (
     <section className="mt-14" aria-labelledby="agent-h">
@@ -122,6 +147,31 @@ function PromptCard({ step, title, text, head, note }: { step: string; title: st
       </div>
       <pre className="m-0 max-h-[320px] flex-1 overflow-auto whitespace-pre-wrap break-words px-4 py-3 font-fu-mono text-[12px] leading-[1.6] text-ink-2">{text}</pre>
       {note && <p className="border-t border-hair px-4 py-2 text-[12px] text-mute">{note}</p>}
+    </div>
+  );
+}
+
+function MenuPrompt({ title, text, head, note }: { title: string; text: string; head: React.ReactNode; note?: string }) {
+  const [copied, setCopied] = useState(false);
+  return (
+    <div className="mt-3">
+      <div className="flex items-center justify-between gap-2">
+        <span className="truncate text-[12px] font-medium">{title}</span>
+        {head}
+      </div>
+      <pre className="mt-2 max-h-[148px] overflow-auto whitespace-pre-wrap break-words rounded-[6px] bg-tile p-2 font-fu-mono text-[11px] leading-[1.55] text-ink-2">{text}</pre>
+      {note && <p className="mt-1.5 text-[11.5px] leading-snug text-mute">{note}</p>}
+      <button
+        type="button"
+        className="pill mt-2 !h-7"
+        onClick={async () => {
+          await navigator.clipboard.writeText(text).catch(() => {});
+          setCopied(true);
+          setTimeout(() => setCopied(false), 1800);
+        }}
+      >
+        <span aria-live="polite">{copied ? "Copied" : "Copy prompt"}</span>
+      </button>
     </div>
   );
 }

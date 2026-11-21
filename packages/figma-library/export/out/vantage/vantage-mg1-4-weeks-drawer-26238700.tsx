@@ -1,7 +1,5 @@
-"use client";
 // MG1 · 4 weeks drawer (vantage, Drawers) from Ingot UI (ingotui.com).
 // Generated from the Figma original and checked against it. Fonts: Geist. Icons: Ingot Icons.
-import { useEffect, useRef } from "react";
 import type { SVGProps } from "react";
 
 // Ingot Icons used here, inlined so this file needs no icon package.
@@ -23,10 +21,8 @@ const Users = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\
 const X = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M18 6l-12 12\" /><path d=\"M6 6l12 12\" /></g>");
 
 export function MG14WeeksDrawer() {
-  const fuRef = useRef<any>(null);
-  useEffect(() => fuInteract(fuRef.current), []);
   return (
-    <div ref={fuRef} style={{ width: "440px", height: "1059px", borderRadius: "12px", background: "#1a1a1a", boxShadow: "inset 0 0 0 1px #2e2e2e, 0px 24px 64px -12px rgba(0, 0, 0, 0.55), 0px 12px 48px 0px rgba(123, 91, 255, 0.08)", overflow: "hidden", display: "flex", flexDirection: "column", padding: "1px 1px 1px 1px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+    <div style={{ width: "440px", height: "1059px", borderRadius: "12px", background: "#1a1a1a", boxShadow: "inset 0 0 0 1px #2e2e2e, 0px 24px 64px -12px rgba(0, 0, 0, 0.55), 0px 12px 48px 0px rgba(123, 91, 255, 0.08)", overflow: "hidden", display: "flex", flexDirection: "column", padding: "1px 1px 1px 1px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
       <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", padding: "18px 18px 16px 18px", gap: "12px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
         <div style={{ width: "36px", height: "36px", flexShrink: 0, borderRadius: "8px", background: "rgba(240, 113, 120, 0.12)", boxShadow: "inset 0 0 0 1px rgba(240, 113, 120, 0.22)", display: "flex", flexDirection: "row", padding: "1px 1px 1px 1px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
           <AlertTriangle size={18} style={{ width: "18px", height: "18px", flexShrink: 0, color: "#f2868c", display: "block" }} />
@@ -108,7 +104,7 @@ export function MG14WeeksDrawer() {
           <p style={{ position: "absolute", left: "157.91px", top: "224px", margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "16px", fontFamily: "'Geist'", fontSize: "12px", fontWeight: 400, color: "#7c7c7c" }}>W24</p>
           <p style={{ position: "absolute", left: "288.32px", top: "224px", margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "16px", fontFamily: "'Geist'", fontSize: "12px", fontWeight: 400, color: "#7c7c7c" }}>W28</p>
           <p style={{ position: "absolute", left: "380px", top: "224px", margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "16px", fontFamily: "'Geist'", fontSize: "12px", fontWeight: 500, color: "#ededed" }}>W31</p>
-          <svg data-fu="plot" style={{ position: "absolute", left: "40px", top: "27.57px", width: "360px", height: "78.3px", display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="360" height="78.3" viewBox="0 0 360 78.3" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M 0 14.435744285583496 C 1.9600000381469727 13.945744276046753 28.799999475479126 5.575744032859802 32.72999954223633 6.195744037628174 C 36.64999961853027 6.815744042396545 61.52999687194824 25.045744478702545 65.44999694824219 24.73574447631836 C 69.37999701499939 24.425744473934174 94.25000023841858 2.2857439517974854 98.18000030517578 1.0457439422607422 C 102.11000037193298 -0.19425606727600098 126.98000359535217 4.195744093507528 130.91000366210938 4.135744094848633 C 134.84000372886658 4.075744096189737 159.70999932289124 -0.29425610415637493 163.63999938964844 0.01574389822781086 C 167.55999946594238 0.32574390061199665 192.44000053405762 8.11574375629425 196.36000061035156 9.285743713378906 C 200.29000067710876 10.455743670463562 225.15999627113342 17.97574293613434 229.08999633789062 19.585742950439453 C 233.01999640464783 21.195742964744568 257.89000725746155 33.775742530822754 261.82000732421875 36.06574249267578 C 265.75000739097595 38.35574245452881 290.61998772621155 56.0857435464859 294.54998779296875 57.695743560791016 C 298.4699878692627 59.30574357509613 323.34998893737793 61.60574507713318 327.2699890136719 62.84574508666992 C 331.1999890804291 64.08574509620667 358.039999961853 77.36574584245682 360 78.29574584960938" fill="none" stroke="#4b3b8d" strokeWidth="1.600000023841858" strokeDasharray="3 3" strokeLinecap="round"/></svg>
+          <svg style={{ position: "absolute", left: "40px", top: "27.57px", width: "360px", height: "78.3px", display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="360" height="78.3" viewBox="0 0 360 78.3" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M 0 14.435744285583496 C 1.9600000381469727 13.945744276046753 28.799999475479126 5.575744032859802 32.72999954223633 6.195744037628174 C 36.64999961853027 6.815744042396545 61.52999687194824 25.045744478702545 65.44999694824219 24.73574447631836 C 69.37999701499939 24.425744473934174 94.25000023841858 2.2857439517974854 98.18000030517578 1.0457439422607422 C 102.11000037193298 -0.19425606727600098 126.98000359535217 4.195744093507528 130.91000366210938 4.135744094848633 C 134.84000372886658 4.075744096189737 159.70999932289124 -0.29425610415637493 163.63999938964844 0.01574389822781086 C 167.55999946594238 0.32574390061199665 192.44000053405762 8.11574375629425 196.36000061035156 9.285743713378906 C 200.29000067710876 10.455743670463562 225.15999627113342 17.97574293613434 229.08999633789062 19.585742950439453 C 233.01999640464783 21.195742964744568 257.89000725746155 33.775742530822754 261.82000732421875 36.06574249267578 C 265.75000739097595 38.35574245452881 290.61998772621155 56.0857435464859 294.54998779296875 57.695743560791016 C 298.4699878692627 59.30574357509613 323.34998893737793 61.60574507713318 327.2699890136719 62.84574508666992 C 331.1999890804291 64.08574509620667 358.039999961853 77.36574584245682 360 78.29574584960938" fill="none" stroke="#4b3b8d" strokeWidth="1.600000023841858" strokeDasharray="3 3" strokeLinecap="round"/></svg>
           <svg style={{ position: "absolute", left: "40px", top: "36.84px", width: "360px", height: "177.18px", display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="360" height="177.18" viewBox="0 0 360 177.18" fill="none" overflow="visible"><defs><linearGradient id="g18_54db" gradientUnits="userSpaceOnUse" x1="180.00" y1="0.00" x2="180.00" y2="177.18"><stop offset="0" stopColor="#7b5bff" stopOpacity="0.13"/><stop offset="1" stopColor="#7b5bff" stopOpacity="0"/></linearGradient></defs><path transform="matrix(1 0 0 1 0 0)" d="M0 14.4357 C1.96 13.9457 28.8 5.63574 32.73 6.19574 C36.65 6.75574 61.53 24.0157 65.45 23.7057 C69.38 23.3957 94.25 2.21574 98.18 1.04574 C102.11 -0.124256 126.98 4.19574 130.91 4.13574 C134.84 4.07574 159.71 -0.294256 163.64 0.0157439 C167.56 0.325744 192.44 8.17574 196.36 9.28574 C200.29 10.3957 225.16 14.5357 229.09 18.5557 C233.02 22.5757 257.89 71.1057 261.82 76.2357 C265.75 81.3657 290.62 101.946 294.55 104.046 C298.47 106.146 323.35 110.326 327.27 111.256 C331.2 112.186 358.04 119.006 360 119.496 L360 177.176 L0 177.176 L0 14.4357 Z" fill="url(#g18_54db)"/></svg>
           <svg style={{ position: "absolute", left: "40px", top: "36.84px", width: "360px", height: "119.5px", display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="360" height="119.5" viewBox="0 0 360 119.5" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M-0.242536 13.4656 C-0.778331 13.5996 -1.10409 14.1425 -0.970142 14.6783 C-0.836194 15.2141 -0.293259 15.5398 0.242536 15.4059 L0 14.4357 L-0.242536 13.4656 Z M32.73 6.19574 L32.8714 5.20579 L32.8711 5.20574 L32.73 6.19574 Z M65.45 23.7057 L65.3714 22.7088 L65.3712 22.7089 L65.45 23.7057 Z M163.64 0.0157439 L163.719 -0.981144 L163.719 -0.98116 L163.64 0.0157439 Z M196.36 9.28574 L196.088 10.2479 L196.088 10.2481 L196.36 9.28574 Z M294.55 104.046 L295.022 103.164 L295.021 103.164 L294.55 104.046 Z M327.27 111.256 L327.039 112.229 L327.04 112.229 L327.27 111.256 Z M359.757 120.466 C360.293 120.6 360.836 120.274 360.97 119.738 C361.104 119.202 360.778 118.66 360.243 118.526 L360 119.496 L359.757 120.466 Z M0 14.4357 L0.242536 15.4059 C1.22807 15.1595 8.51432 12.9357 15.8939 10.8855 C19.6122 9.85247 23.3794 8.85577 26.4563 8.15298 C27.9958 7.80133 29.3491 7.52637 30.4305 7.35686 C31.5538 7.1808 32.2645 7.13952 32.5889 7.18574 L32.73 6.19574 L32.8711 5.20574 C32.213 5.11197 31.2253 5.20787 30.1208 5.38099 C28.9745 5.56067 27.5709 5.84687 26.0109 6.2032 C22.8887 6.91634 19.0865 7.92276 15.3586 8.95849 C7.84568 11.0457 0.731931 13.222 -0.242536 13.4656 L0 14.4357 Z M32.73 6.19574 L32.5886 7.18569 C32.897 7.22976 33.5772 7.48465 34.6579 8.01827 C35.693 8.52939 36.9806 9.2362 38.4468 10.0786 C41.3795 11.7635 44.9646 13.9548 48.5732 16.1331 C52.1712 18.305 55.7914 20.4634 58.7615 22.0601 C60.2451 22.8577 61.587 23.5264 62.6945 23.9883 C63.2479 24.2191 63.7606 24.4058 64.2146 24.5306 C64.6508 24.6505 65.1106 24.7357 65.5288 24.7026 L65.45 23.7057 L65.3712 22.7089 C65.2994 22.7145 65.1054 22.7013 64.7446 22.6021 C64.4016 22.5078 63.974 22.355 63.4643 22.1424 C62.4455 21.7175 61.1699 21.0842 59.7085 20.2986 C56.7886 18.7287 53.2088 16.5952 49.6068 14.4209 C46.0154 12.253 42.4005 10.0436 39.4432 8.34445 C37.9644 7.49482 36.6345 6.76374 35.5434 6.22497 C34.4978 5.70871 33.543 5.30173 32.8714 5.20579 L32.73 6.19574 Z M65.45 23.7057 L65.5286 24.7026 C65.9419 24.6701 66.3914 24.5157 66.8188 24.331 C67.2653 24.138 67.7718 23.874 68.3216 23.5582 C69.4221 22.926 70.7585 22.0499 72.2401 21.02 C75.206 18.9584 78.8223 16.2327 82.4206 13.494 C86.0276 10.7487 89.6155 7.99108 92.5511 5.84344 C94.0188 4.76965 95.3108 3.85776 96.3516 3.18098 C97.4331 2.47778 98.1344 2.1027 98.4653 2.00417 L98.18 1.04574 L97.8947 0.0873157 C97.2431 0.281291 96.3075 0.824021 95.2614 1.50426 C94.1746 2.21092 92.8481 3.14808 91.3702 4.22929 C88.4145 6.39166 84.8024 9.16779 81.2094 11.9025 C77.6077 14.6438 74.024 17.3443 71.0986 19.3778 C69.6347 20.3953 68.3526 21.2339 67.3254 21.8239 C66.8114 22.1192 66.3767 22.3432 66.0253 22.4951 C65.6547 22.6553 65.4494 22.7027 65.3714 22.7088 L65.45 23.7057 Z M98.18 1.04574 L98.4653 2.00417 C98.8002 1.90449 99.485 1.83901 100.548 1.84504 C101.576 1.85088 102.857 1.92128 104.318 2.04011 C107.239 2.27763 110.82 2.70349 114.417 3.16632 C116.215 3.39753 118.012 3.63745 119.731 3.86711 C121.448 4.09662 123.087 4.31603 124.563 4.50557 C127.474 4.87933 129.853 5.152 130.925 5.13563 L130.91 4.13574 L130.895 3.13586 C130.002 3.14949 127.799 2.90466 124.818 2.52186 C123.348 2.33312 121.715 2.11448 119.996 1.88473 C118.278 1.65513 116.475 1.41459 114.673 1.18267 C111.07 0.719245 107.451 0.288233 104.48 0.0466902 C102.996 -0.0740129 101.659 -0.148685 100.559 -0.154924 C99.4944 -0.160964 98.5423 -0.105499 97.8947 0.0873157 L98.18 1.04574 Z M130.91 4.13574 L130.925 5.13563 C131.985 5.11945 134.35 4.82282 137.268 4.41339 C140.219 3.99946 143.826 3.45619 147.421 2.92631 C151.021 2.39565 154.611 1.87809 157.544 1.5126 C159.011 1.32981 160.306 1.1861 161.351 1.09776 C162.417 1.00765 163.161 0.981051 163.561 1.01265 L163.64 0.0157439 L163.719 -0.98116 C163.137 -1.02706 162.244 -0.98491 161.182 -0.895135 C160.1 -0.803598 158.776 -0.65629 157.297 -0.472051 C154.339 -0.10348 150.729 0.417091 147.129 0.947683 C143.524 1.47905 139.931 2.02015 136.99 2.43279 C134.017 2.84991 131.8 3.12204 130.895 3.13586 L130.91 4.13574 Z M163.64 0.0157439 L163.561 1.01263 C164.427 1.08112 166.614 1.59782 169.594 2.40416 C172.527 3.19779 176.118 4.24002 179.715 5.3093 C186.885 7.44042 194.124 9.69182 196.088 10.2479 L196.36 9.28574 L196.632 8.32357 C194.676 7.76967 187.515 5.54107 180.285 3.39219 C176.682 2.32147 173.073 1.2737 170.116 0.473582 C167.206 -0.313833 164.813 -0.894632 163.719 -0.981144 L163.64 0.0157439 Z M196.36 9.28574 L196.088 10.2481 C197.116 10.5384 199.461 11.0155 202.378 11.6166 C205.323 12.2236 208.912 12.9685 212.498 13.8034 C216.088 14.6392 219.654 15.5604 222.558 16.5172 C224.01 16.9958 225.277 17.4773 226.291 17.9538 C227.326 18.4402 228.012 18.8834 228.375 19.2548 L229.09 18.5557 L229.805 17.8567 C229.186 17.2231 228.235 16.6576 227.142 16.1438 C226.028 15.6201 224.677 15.1099 223.184 14.6177 C220.196 13.633 216.562 12.696 212.952 11.8555 C209.338 11.0142 205.727 10.2648 202.781 9.65773 C199.807 9.04471 197.569 8.5881 196.632 8.32339 L196.36 9.28574 Z M229.09 18.5557 L228.375 19.2548 C228.774 19.6631 229.535 20.7589 230.613 22.5036 C231.667 24.2095 232.969 26.4424 234.439 29.036 C237.38 34.2218 240.976 40.8174 244.576 47.4562 C248.174 54.0909 251.777 60.7694 254.725 66.1078 C257.65 71.4041 259.986 75.4861 261.026 76.8439 L261.82 76.2357 L262.614 75.6276 C261.689 74.4204 259.442 70.5124 256.476 65.1409 C253.533 59.8114 249.936 53.1443 246.334 46.5028 C242.734 39.8654 239.13 33.254 236.179 28.0495 C234.704 25.4479 233.388 23.1898 232.314 21.4523 C231.265 19.7535 230.388 18.4534 229.805 17.8567 L229.09 18.5557 Z M261.82 76.2357 L261.026 76.8439 C262.072 78.2095 264.433 80.5169 267.366 83.1892 C270.324 85.8845 273.935 89.0128 277.542 92.0427 C281.149 95.0728 284.758 98.01 287.714 100.323 C290.635 102.609 293.003 104.353 294.079 104.928 L294.55 104.046 L295.021 103.164 C294.132 102.689 291.917 101.073 288.947 98.7483 C286.012 96.4521 282.421 93.5299 278.828 90.5113 C275.235 87.4925 271.646 84.3826 268.713 81.7107 C265.755 79.0158 263.533 76.8269 262.614 75.6276 L261.82 76.2357 Z M294.55 104.046 L294.078 104.927 C294.665 105.242 295.567 105.56 296.635 105.879 C297.723 106.203 299.052 106.547 300.533 106.9 C303.497 107.606 307.112 108.358 310.716 109.071 C317.966 110.504 325.101 111.769 327.039 112.229 L327.27 111.256 L327.501 110.283 C325.519 109.813 318.254 108.522 311.104 107.108 C307.508 106.397 303.923 105.652 300.997 104.955 C299.533 104.606 298.245 104.272 297.206 103.962 C296.148 103.646 295.415 103.375 295.022 103.164 L294.55 104.046 Z M327.27 111.256 L327.04 112.229 C330.962 113.157 357.782 119.972 359.757 120.466 L360 119.496 L360.243 118.526 C358.298 118.04 331.438 111.214 327.5 110.283 L327.27 111.256 Z" fill="#7b5bff"/></svg>
           <div style={{ position: "absolute", left: "290.36px", top: "121.06px", width: "22.91px", height: "92.94px", background: "linear-gradient(180deg, rgba(123, 91, 255, 0) 0%, rgba(123, 91, 255, 0.06) 100%)", overflow: "hidden" }}>
@@ -211,7 +207,7 @@ export function MG14WeeksDrawer() {
       <div style={{ alignSelf: "stretch", height: "1px", flexShrink: 0, background: "#000000", boxShadow: "0px 1px 0px 0px #232323" }} />
       <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", padding: "14px 18px 14px 18px", gap: "4px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
         <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "18px", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 500, color: "#ededed" }}>Suggested actions</p>
-        <div data-fu="row" style={{ alignSelf: "stretch", height: "44px", flexShrink: 0, boxShadow: "inset 0 -1px 0 0 #222222", display: "flex", flexDirection: "row", padding: "0px 0px 1px 0px", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+        <div style={{ alignSelf: "stretch", height: "44px", flexShrink: 0, boxShadow: "inset 0 -1px 0 0 #222222", display: "flex", flexDirection: "row", padding: "0px 0px 1px 0px", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
           <div style={{ width: "28px", height: "28px", flexShrink: 0, borderRadius: "7px", background: "rgba(123, 91, 255, 0.12)", boxShadow: "inset 0 0 0 1px rgba(123, 91, 255, 0.22)", display: "flex", flexDirection: "row", padding: "1px 1px 1px 1px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
             <Bell size={14} style={{ width: "14px", height: "14px", flexShrink: 0, color: "#8f74ff", display: "block" }} />
           </div>
@@ -220,7 +216,7 @@ export function MG14WeeksDrawer() {
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "17px", fontFamily: "'Geist'", fontSize: "13px", fontWeight: 400, color: "#dadada" }}>Send</p>
           </div>
         </div>
-        <div data-fu="row" style={{ alignSelf: "stretch", height: "44px", flexShrink: 0, boxShadow: "inset 0 -1px 0 0 #222222", display: "flex", flexDirection: "row", padding: "0px 0px 1px 0px", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+        <div style={{ alignSelf: "stretch", height: "44px", flexShrink: 0, boxShadow: "inset 0 -1px 0 0 #222222", display: "flex", flexDirection: "row", padding: "0px 0px 1px 0px", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
           <div style={{ width: "28px", height: "28px", flexShrink: 0, borderRadius: "7px", background: "rgba(123, 91, 255, 0.12)", boxShadow: "inset 0 0 0 1px rgba(123, 91, 255, 0.22)", display: "flex", flexDirection: "row", padding: "1px 1px 1px 1px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
             <Calendar size={14} style={{ width: "14px", height: "14px", flexShrink: 0, color: "#8f74ff", display: "block" }} />
           </div>
@@ -229,7 +225,7 @@ export function MG14WeeksDrawer() {
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", lineHeight: "17px", fontFamily: "'Geist'", fontSize: "13px", fontWeight: 400, color: "#dadada" }}>Schedule</p>
           </div>
         </div>
-        <div data-fu="row" style={{ alignSelf: "stretch", height: "44px", flexShrink: 0, display: "flex", flexDirection: "row", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+        <div style={{ alignSelf: "stretch", height: "44px", flexShrink: 0, display: "flex", flexDirection: "row", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
           <div style={{ width: "28px", height: "28px", flexShrink: 0, borderRadius: "7px", background: "rgba(123, 91, 255, 0.12)", boxShadow: "inset 0 0 0 1px rgba(123, 91, 255, 0.22)", display: "flex", flexDirection: "row", padding: "1px 1px 1px 1px", justifyContent: "center", alignItems: "center", boxSizing: "border-box" }}>
             <Share size={14} style={{ width: "14px", height: "14px", flexShrink: 0, color: "#8f74ff", display: "block" }} />
           </div>
@@ -241,298 +237,17 @@ export function MG14WeeksDrawer() {
       </div>
       <div style={{ alignSelf: "stretch", flex: "1 1 0", minHeight: 0, flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }} />
       <div style={{ alignSelf: "stretch", flexShrink: 0, background: "#191919", boxShadow: "inset 0 1px 0 0 #000000", display: "flex", flexDirection: "row", padding: "13px 18px 12px 18px", gap: "10px", justifyContent: "flex-end", alignItems: "center", boxSizing: "border-box" }}>
-        <div data-fu="btn" style={{ height: "32px", flexShrink: 0, borderRadius: "6px", background: "#232323", boxShadow: "inset 0 0 0 1px #2e2e2e, 0px 0px 4.6px 0px rgba(0, 0, 0, 0.5)", overflow: "hidden", display: "flex", flexDirection: "row", padding: "7px 11px 7px 11px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+        <div style={{ height: "32px", flexShrink: 0, borderRadius: "6px", background: "#232323", boxShadow: "inset 0 0 0 1px #2e2e2e, 0px 0px 4.6px 0px rgba(0, 0, 0, 0.5)", overflow: "hidden", display: "flex", flexDirection: "row", padding: "7px 11px 7px 11px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
           <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", gap: "4px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
             <Clock size={16} style={{ width: "16px", height: "16px", flexShrink: 0, color: "#8a8a8a", display: "block" }} />
             <p style={{ flexShrink: 0, margin: 0, textAlign: "center", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#dadada", lineHeight: "1.4500000476837158" }}>Snooze 7 days</p>
           </div>
         </div>
-        <div data-fu="btn" style={{ flexShrink: 0, borderRadius: "6px", background: "#7b5bff", boxShadow: "inset 0 0 0 1px #8f74ff, 0px 0px 4.6px 0px rgba(0, 0, 0, 0.5), inset 0px 2px 4px 0px rgba(255, 255, 255, 0.2)", display: "flex", flexDirection: "row", padding: "7px 13px 7px 11px", gap: "4px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+        <div style={{ flexShrink: 0, borderRadius: "6px", background: "#7b5bff", boxShadow: "inset 0 0 0 1px #8f74ff, 0px 0px 4.6px 0px rgba(0, 0, 0, 0.5), inset 0px 2px 4px 0px rgba(255, 255, 255, 0.2)", display: "flex", flexDirection: "row", padding: "7px 13px 7px 11px", gap: "4px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
           <Checkbox size={16} style={{ width: "16px", height: "16px", flexShrink: 0, color: "#ffffff", display: "block" }} />
           <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 500, color: "#ffffff", lineHeight: "1.4500000476837158" }}>Assign follow-up</p>
         </div>
       </div>
     </div>
   );
-}
-
-// Interactions: hover and click states. Remove this function and the two lines above to get a static component.
-function fuInteract(root: HTMLElement | null) {
-  if (!root || root.dataset.fuOn) return;
-  root.dataset.fuOn = "1";
-  const doc = root.ownerDocument;
-  const all = (sel: string, el: Element = root): HTMLElement[] => Array.from(el.querySelectorAll(sel)) as HTMLElement[];
-  const box = (el: Element) => el.getBoundingClientRect();
-  const font = getComputedStyle(root).fontFamily;
-  const tip = doc.createElement("div");
-  tip.setAttribute("aria-hidden", "true");
-  Object.assign(tip.style, { position: "fixed", zIndex: "2147483647", pointerEvents: "none", background: "#111113", color: "#fff", font: "500 12px/16px " + font, padding: "5px 8px", borderRadius: "6px", whiteSpace: "nowrap", opacity: "0", transform: "translate(-50%, -100%)", transition: "opacity .12s", boxShadow: "0 4px 14px rgba(0,0,0,.18)" });
-  doc.body.appendChild(tip);
-  const show = (text: string, x: number, y: number) => { if (!text) return hide(); tip.textContent = text; tip.style.left = x + "px"; tip.style.top = y - 8 + "px"; tip.style.opacity = "1"; };
-  const hide = () => { tip.style.opacity = "0"; };
-  const ease = (el: HTMLElement | SVGElement, props: string) => { const s = (el as HTMLElement).style; if (!s.transition) s.transition = props; };
-  const texts = (scope: Element) => all("p, span", scope).filter((t) => t.children.length === 0 && (t.textContent || "").trim());
-  const NUM = /^([^\d\-+.]*)([-+]?[\d,]*\.?\d+)\s*([kKmMbB%]?)([^\d]*)$/;
-  // value axis: numeric labels along one edge of the chart, used to read a mark's value from its position
-  const axis = (scope: Element, vertical: boolean) => {
-    const pts: { v: number; p: number; pre: string; suf: string; dec: number }[] = [];
-    for (const t of texts(scope)) {
-      const m = (t.textContent || "").trim().match(NUM);
-      if (!m) continue;
-      const mult = { k: 1e3, K: 1e3, m: 1e6, M: 1e6, b: 1e9, B: 1e9 }[m[3] as "k"] || 1;
-      const r = box(t);
-      pts.push({ v: parseFloat(m[2].replace(/,/g, "")) * mult, p: vertical ? r.top + r.height / 2 : r.left + r.width / 2, pre: m[1], suf: m[3] + m[4], dec: (m[2].split(".")[1] || "").length });
-    }
-    const uniq = pts.filter((a, i) => pts.findIndex((b) => Math.abs(b.p - a.p) < 2) === i);
-    if (uniq.length < 2) return null;
-    uniq.sort((a, b) => a.p - b.p);
-    const a = uniq[0], b = uniq[uniq.length - 1];
-    if (a.v === b.v || Math.abs(b.p - a.p) < 10) return null;
-    return (pos: number) => {
-      const v = a.v + ((pos - a.p) * (b.v - a.v)) / (b.p - a.p);
-      const suf = a.suf || b.suf, pre = a.pre || b.pre;
-      const div = /^[kK]/.test(suf) ? 1e3 : /^[mM]/.test(suf) ? 1e6 : /^[bB]/.test(suf) ? 1e9 : 1;
-      const x = v / div;
-      const dec = Math.max(a.dec, b.dec, div > 1 && Math.abs(x) < 100 ? 1 : 0);
-      return pre + x.toLocaleString("en-US", { minimumFractionDigits: 0, maximumFractionDigits: dec }) + suf;
-    };
-  };
-  // the chart around a group of marks: the nearest ancestor that also holds text labels
-  const chartOf = (el: Element) => { let c: Element | null = el.parentElement; while (c && c !== root.parentElement) { if (texts(c).length >= 3) return c; c = c.parentElement; } return root; };
-  const labelNear = (scope: Element, x: number, y: number, below: boolean, anyText = false) => {
-    let best = "", d = 1e9;
-    for (const t of texts(scope)) {
-      const r = box(t);
-      if (below ? r.top < y - 2 : r.right > x + 2) continue;
-      if (!anyText && NUM.test((t.textContent || "").trim()) && !/[a-z]{3}/i.test(t.textContent || "")) continue;
-      const dd = below ? Math.abs(r.left + r.width / 2 - x) + (r.top - y) * 0.2 : Math.abs(r.top + r.height / 2 - y) + (x - r.right) * 0.1;
-      if (dd < d) { d = dd; best = (t.textContent || "").trim(); }
-    }
-    return d < 80 ? best : "";
-  };
-  const dim = (els: (HTMLElement | SVGElement)[], keep: (HTMLElement | SVGElement)[]) => { for (const e of els) { ease(e, "opacity .15s"); (e as HTMLElement).style.opacity = keep.includes(e) ? "" : "0.35"; } };
-  const undim = (els: (HTMLElement | SVGElement)[]) => { for (const e of els) (e as HTMLElement).style.opacity = ""; };
-
-  // vertical bars: the hovered column (all stacked segments at that x) stays, the rest fade
-  const groups = new Map<Element, HTMLElement[]>();
-  for (const b of all("[data-fu=bar],[data-fu=hbar]")) { const p = b.parentElement!; if (!groups.has(p)) groups.set(p, []); groups.get(p)!.push(b); }
-  groups.forEach((bars) => {
-    const horiz = bars[0].dataset.fu === "hbar";
-    const scope = chartOf(bars[0]);
-    const val = axis(scope, !horiz);
-    const peers = (b: HTMLElement) => { const r = box(b), c = horiz ? r.top + r.height / 2 : r.left + r.width / 2; return bars.filter((o) => { const q = box(o); return Math.abs((horiz ? q.top + q.height / 2 : q.left + q.width / 2) - c) < Math.max(2, (horiz ? r.height : r.width) / 2); }); };
-    for (const b of bars) {
-      b.addEventListener("mouseenter", () => {
-        const col = peers(b);
-        dim(bars, col);
-        const rs = col.map(box);
-        const top = Math.min(...rs.map((r) => r.top)), right = Math.max(...rs.map((r) => r.right)), r0 = rs[0];
-        const label = horiz ? labelNear(scope, r0.left, r0.top + r0.height / 2, false) : labelNear(scope, r0.left + r0.width / 2, Math.max(...rs.map((r) => r.bottom)), true);
-        const v = val ? val(horiz ? right : top) : "";
-        show([label, v].filter(Boolean).join(" · "), horiz ? right : r0.left + r0.width / 2, horiz ? r0.top : top);
-      });
-      b.addEventListener("mouseleave", () => { undim(bars); hide(); });
-    }
-  });
-
-  // line and area plots: a guide line and a dot follow the pointer along the top edge of the plotted shape
-  for (const svg of all("svg[data-fu=plot]") as unknown as SVGSVGElement[]) {
-    const paths = Array.from(svg.querySelectorAll("path, polyline")) as SVGGeometryElement[];
-    if (!paths.length) continue;
-    const line = paths.reduce((a, b) => (b.getTotalLength() > a.getTotalLength() ? b : a));
-    const len = line.getTotalLength();
-    const pts: { x: number; y: number }[] = [];
-    for (let i = 0; i <= 800; i++) { const q = line.getPointAtLength((len * i) / 800); pts.push({ x: q.x, y: q.y }); }
-    const xs = pts.map((q) => q.x), minX = Math.min(...xs), maxX = Math.max(...xs);
-    const color = (line.getAttribute("stroke") && line.getAttribute("stroke") !== "none" ? line.getAttribute("stroke") : line.getAttribute("fill")) || "#111";
-    const NS = "http://www.w3.org/2000/svg";
-    const g = doc.createElementNS(NS, "g");
-    g.setAttribute("pointer-events", "none");
-    g.style.opacity = "0";
-    const guide = doc.createElementNS(NS, "line");
-    guide.setAttribute("stroke", /^url/.test(color) ? "#111" : color);
-    guide.setAttribute("stroke-dasharray", "3 3");
-    guide.setAttribute("stroke-opacity", "0.5");
-    const dot = doc.createElementNS(NS, "circle");
-    dot.setAttribute("r", "4");
-    dot.setAttribute("fill", "#fff");
-    dot.setAttribute("stroke", /^url/.test(color) ? "#111" : color);
-    dot.setAttribute("stroke-width", "2");
-    g.append(guide, dot);
-    svg.appendChild(g);
-    const scope = chartOf(svg);
-    const val = axis(scope, true);
-    const area = svg.parentElement || svg;
-    area.addEventListener("mousemove", (ev: Event) => {
-      const e = ev as MouseEvent;
-      const m = line.getScreenCTM();
-      if (!m) return;
-      const px = new DOMPoint(e.clientX, e.clientY).matrixTransform(m.inverse()).x;
-      if (px < minX - 4 || px > maxX + 4) { g.style.opacity = "0"; hide(); return; }
-      const step = (maxX - minX) / 400 || 1;
-      let y = Infinity, x = px;
-      for (const q of pts) if (Math.abs(q.x - px) <= step && q.y < y) { y = q.y; x = q.x; }
-      if (y === Infinity) return;
-      const bb = line.getBBox();
-      guide.setAttribute("x1", String(x)); guide.setAttribute("x2", String(x));
-      guide.setAttribute("y1", String(bb.y)); guide.setAttribute("y2", String(bb.y + bb.height));
-      dot.setAttribute("cx", String(x)); dot.setAttribute("cy", String(y));
-      g.style.opacity = "1";
-      const sp = new DOMPoint(x, y).matrixTransform(m);
-      const label = labelNear(scope, sp.x, box(svg).bottom, true);
-      show([label, val ? val(sp.y) : ""].filter(Boolean).join(" · "), sp.x, sp.y);
-    });
-    area.addEventListener("mouseleave", () => { g.style.opacity = "0"; hide(); });
-  }
-
-  // cards: a small lift on hover (an extra drop shadow, the card's own shadows stay as they are)
-  for (const c of all("[data-fu=card]").concat(root.dataset.fu === "card" ? [root] : [])) {
-    c.addEventListener("mouseenter", () => { ease(c, "transform .18s ease, filter .18s ease"); c.style.transform = "translateY(-2px)"; c.style.filter = "drop-shadow(0 8px 16px rgba(17,17,19,.08))"; });
-    c.addEventListener("mouseleave", () => { c.style.transform = ""; c.style.filter = ""; });
-  }
-
-  // heatmap and calendar cells: an outline and the cell's own text
-  for (const c of all("[data-fu=cell]")) {
-    c.addEventListener("mouseenter", () => {
-      ease(c, "outline-color .12s");
-      c.style.outline = "2px solid rgba(17,17,19,.55)";
-      c.style.outlineOffset = "1px";
-      const r = box(c);
-      // its own text, or the row and column labels of the grid it sits in
-      let label = (c.textContent || "").trim();
-      if (!label) {
-        // walk outwards until a row label (left) and a column label (below) are in reach
-        let row = "", col = "";
-        for (let a: Element | null = c.parentElement; a && a !== root.parentElement && !(row && col); a = a.parentElement) {
-          if (!row) row = labelNear(a, r.left, r.top + r.height / 2, false, true);
-          if (!col) col = labelNear(a, r.left + r.width / 2, r.bottom, true, true);
-        }
-        label = [row, col].filter(Boolean).join(" · ");
-      }
-      show(label, r.left + r.width / 2, r.top);
-    });
-    c.addEventListener("mouseleave", () => { c.style.outline = ""; c.style.outlineOffset = ""; hide(); });
-  }
-
-  // fields: hover and focus states
-  for (const f of all("[data-fu=field]")) {
-    f.style.cursor = "text";
-    f.addEventListener("mouseenter", () => { ease(f, "filter .15s, outline-color .15s"); f.style.filter = "brightness(0.985)"; });
-    f.addEventListener("mouseleave", () => { f.style.filter = ""; });
-    f.addEventListener("mousedown", (ev) => {
-      ev.stopPropagation();
-      for (const o of all("[data-fu=field]")) o.style.outline = "";
-      f.style.outline = "3px solid rgba(17,17,19,.12)";
-      f.style.outlineOffset = "0px";
-    });
-  }
-  doc.addEventListener("mousedown", () => { for (const o of all("[data-fu=field]")) o.style.outline = ""; });
-
-  // donut and pie charts drawn as one vector per arc: the hovered arc stays, the others fade
-  const arcGroups = new Map<Element, HTMLElement[]>();
-  for (const a of all("[data-fu=arc]")) { const p = a.parentElement!; if (!arcGroups.has(p)) arcGroups.set(p, []); arcGroups.get(p)!.push(a); }
-  arcGroups.forEach((arcs) => {
-    const scope = chartOf(arcs[0]);
-    const hexOf = (c: string) => { const m = c.match(/\d+/g); return m && m.length >= 3 ? "#" + m.slice(0, 3).map((x) => (+x).toString(16).padStart(2, "0")).join("") : c.toLowerCase(); };
-    const legend = (color: string) => {
-      for (const el of all("*", scope)) {
-        if (el.children.length || (el.textContent || "").trim()) continue;
-        if (hexOf(getComputedStyle(el).backgroundColor) !== color.toLowerCase()) continue;
-        // climb to the legend row: the first ancestor that holds more than the swatch's label
-        let row: Element | null = el.parentElement;
-        while (row && row.parentElement && texts(row).length < 2 && row !== scope) row = row.parentElement;
-        const words = row ? texts(row).map((t) => (t.textContent || "").trim()) : [];
-        if (words.length && words.length <= 5) return words.join(" · ");
-        if (el.parentElement) return texts(el.parentElement).map((t) => (t.textContent || "").trim()).join(" · ");
-      }
-      return "";
-    };
-    // hit-test the whole stack under the pointer: labels or tracks drawn over the ring don't get in the way
-    const fills = new Map(arcs.map((a) => { const sh = a.querySelector("path"); return [a, (sh && (sh.getAttribute("fill") || sh.getAttribute("stroke"))) || ""] as [HTMLElement, string]; }));
-    let current: HTMLElement | null = null;
-    scope.addEventListener("mousemove", (ev) => {
-      const e = ev as MouseEvent;
-      // the arc whose drawn shape (not just its box) is under the pointer
-      const inside = (sh: SVGGeometryElement) => { const m = sh.getScreenCTM(); if (!m) return false; const q = new DOMPoint(e.clientX, e.clientY).matrixTransform(m.inverse()); return sh.isPointInFill(q) || sh.isPointInStroke(q); };
-      const arc = arcs.find((a) => (Array.from(a.querySelectorAll("path, circle, ellipse")) as SVGGeometryElement[]).some(inside)) || null;
-      if (!arc) { if (current) { undim(arcs); hide(); current = null; } return; }
-      if (arc !== current) { dim(arcs, [arc]); current = arc; }
-      show(legend(fills.get(arc) || ""), e.clientX, e.clientY);
-    });
-    scope.addEventListener("mouseleave", () => { undim(arcs); hide(); current = null; });
-  });
-
-  // donut and pie arcs in one drawing: the hovered arc stays, the others fade; the legend row with the same colour names it
-  for (const svg of all("svg[data-fu=donut]") as unknown as SVGSVGElement[]) {
-    const arcs = (Array.from(svg.querySelectorAll("path")) as SVGPathElement[]).filter((p) => { const f = p.getAttribute("fill"); return f && f !== "none" && !/^url/.test(f); });
-    const scope = chartOf(svg);
-    const hex = (c: string) => { const m = c.match(/\d+/g); return m && m.length >= 3 ? "#" + m.slice(0, 3).map((x) => (+x).toString(16).padStart(2, "0")).join("") : c.toLowerCase(); };
-    const legend = (color: string) => {
-      for (const el of all("*", scope)) {
-        if (el.children.length || (el.textContent || "").trim()) continue;
-        const bg = getComputedStyle(el).backgroundColor;
-        if (!bg || hex(bg) !== color.toLowerCase()) continue;
-        const row = el.parentElement;
-        const words = row ? texts(row).map((t) => (t.textContent || "").trim()) : [];
-        if (words.length) return words.join(" · ");
-      }
-      return "";
-    };
-    for (const a of arcs) {
-      a.addEventListener("mouseenter", (ev) => {
-        dim(arcs, [a]);
-        const e = ev as MouseEvent;
-        show(legend(a.getAttribute("fill") || ""), e.clientX, e.clientY);
-      });
-      a.addEventListener("mousemove", (ev) => { const e = ev as MouseEvent; tip.style.left = e.clientX + "px"; tip.style.top = e.clientY - 8 + "px"; });
-      a.addEventListener("mouseleave", () => { undim(arcs); hide(); });
-    }
-  }
-
-  // rows: a soft highlight under the pointer
-  for (const r of all("[data-fu=row]")) {
-    r.addEventListener("mouseenter", () => { ease(r, "filter .15s"); r.style.filter = "brightness(0.975)"; });
-    r.addEventListener("mouseleave", () => { r.style.filter = ""; });
-  }
-
-  // buttons: hover and press feedback
-  for (const b of all("[data-fu=btn],[data-fu=tab]")) {
-    b.style.cursor = "pointer";
-    b.addEventListener("mouseenter", () => { ease(b, "filter .15s, transform .1s"); if (!b.dataset.fuActive) b.style.filter = "brightness(0.96)"; });
-    b.addEventListener("mouseleave", () => { b.style.filter = ""; b.style.transform = ""; });
-    b.addEventListener("mousedown", () => { b.style.transform = "scale(0.98)"; });
-    b.addEventListener("mouseup", () => { b.style.transform = ""; });
-  }
-
-  // tabs and segmented controls: clicking a tab moves the selected look onto it
-  const VIS = ["background-color", "background-image", "box-shadow", "border-color", "color", "font-weight"];
-  const look = (el: HTMLElement) => VIS.map((k) => el.style.getPropertyValue(k)).join("|");
-  const tabGroups = new Map<Element, HTMLElement[]>();
-  for (const t of all("[data-fu=tab]")) { const p = t.parentElement!; if (!tabGroups.has(p)) tabGroups.set(p, []); tabGroups.get(p)!.push(t); }
-  tabGroups.forEach((tabs) => {
-    if (tabs.length < 2) return;
-    const counts = new Map<string, number>();
-    for (const t of tabs) counts.set(look(t), (counts.get(look(t)) || 0) + 1);
-    let active = tabs.find((t) => counts.get(look(t)) === 1 && counts.size > 1) || null;
-    if (!active) return;
-    active.dataset.fuActive = "1";
-    // read both looks first, then write: swapping one property at a time would let shorthands undo each other
-    const swapStyle = (a: HTMLElement, b: HTMLElement, props: string[]) => {
-      const va = props.map((k) => a.style.getPropertyValue(k)), vb = props.map((k) => b.style.getPropertyValue(k));
-      props.forEach((k, i) => { a.style.setProperty(k, vb[i]); b.style.setProperty(k, va[i]); });
-    };
-    const swap = (a: HTMLElement, b: HTMLElement) => {
-      swapStyle(a, b, VIS);
-      const ta = texts(a), tb = texts(b);
-      for (let i = 0; i < Math.min(ta.length, tb.length); i++) swapStyle(ta[i], tb[i], ["color", "font-weight"]);
-    };
-    for (const t of tabs) t.addEventListener("click", () => {
-      if (!active || t === active) return;
-      t.style.filter = "";
-      swap(active, t);
-      delete active.dataset.fuActive;
-      active = t;
-      t.dataset.fuActive = "1";
-    });
-  });
 }

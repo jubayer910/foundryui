@@ -5,12 +5,11 @@ import { LivePreview } from "./live-preview";
 
 /**
  * Preview and code for a component generated from Figma, laid out like the hand-built workbench:
- * Preview / Code tabs, Desktop / Tablet / Mobile widths, and a stage that fills the column.
+ * Preview / Code tabs and a stage that fills the column.
  * The preview is the real code's output and reacts to the pointer (hover, tooltips, tabs).
  */
 export function GeneratedStage({ slug, src, w, h, thumb, alt, hasCode, interactive, surface }: { slug: string; src: string | null; w: number; h: number; thumb: string; alt: string; hasCode: boolean; interactive?: boolean; surface?: CSSProperties }) {
   const [tab, setTab] = useState<"preview" | "code">("preview");
-  const [width, setWidth] = useState<"full" | "tablet" | "mobile">("full");
   const [code, setCode] = useState<string | null>(null);
   const [locked, setLocked] = useState<null | "login_required" | "upgrade_required">(null);
   useEffect(() => {
@@ -33,20 +32,11 @@ export function GeneratedStage({ slug, src, w, h, thumb, alt, hasCode, interacti
             {t}
           </button>
         ))}
-        {tab === "preview" && (
-          <div className="ml-auto flex gap-1.5 max-sm:hidden" role="group" aria-label="Preview width">
-            {(["full", "tablet", "mobile"] as const).map((x) => (
-              <button key={x} onClick={() => setWidth(x)} data-on={width === x} className="pill capitalize">
-                {x === "full" ? "Desktop" : x}
-              </button>
-            ))}
-          </div>
-        )}
       </div>
       <div className="flex min-h-[520px] flex-1 flex-col overflow-hidden rounded-[8px] bg-tile shadow-[inset_0_0_0_1px_var(--color-hair)]" style={tab === "preview" ? surface : undefined}>
         {tab === "preview" ? (
           <div className="flex flex-1 items-center justify-center p-4 sm:p-8">
-            <div className="w-full transition-[max-width] duration-300" style={{ maxWidth: width === "full" ? "100%" : width === "tablet" ? 768 : 390 }}>
+            <div className="w-full">
               {src ? (
                 <LivePreview src={src} w={w} h={h} thumb={thumb} alt={alt} />
               ) : (

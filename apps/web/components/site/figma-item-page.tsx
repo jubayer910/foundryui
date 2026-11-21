@@ -15,6 +15,7 @@ import { QaBadge } from "./qa-badge";
 import { A11yNotes } from "./a11y-notes";
 import { PlanCta } from "./plan-cta";
 import { AgentPrompts } from "./agent-prompts";
+import { InstallLine } from "./install-line";
 import { mcpUrlFor } from "./connect-agent-config";
 import { SITE_URL } from "@/lib/catalog";
 import figmaSteps from "@/lib/figma-steps.generated.json";
@@ -65,11 +66,11 @@ export function FigmaItemPage({ item }: { item: FigmaItem }) {
             {qa && <FigmaCodePanel slug={item.slug} score={qa.score} compact />}
             {figmaPath(item.slug) && <FigmaCopy slug={item.slug} label={item.name} variant="wide" next={"/components/" + item.slug} />}
             <SaveButton slug={item.slug} quiet={!!qa} />
-            <PlanCta pro={!free} href={free ? "/sign-up?next=/components/" + item.slug : "/pricing?from=" + item.slug} label={isFreeTemplate(item.slug) ? "Create a free account" : free ? "Get the free Loopo Figma kit" : "Unlock with Pro"} />
+            {!free && <PlanCta pro href={"/pricing?from=" + item.slug} label="Unlock with Pro" />}
           </div>
-          <p className="text-[12px] leading-snug text-mute">
-            {qa ? <>Uses <Link href="/icons" className="underline underline-offset-2">Ingot Icons</Link>. Figma kit downloads open at launch.</> : "Figma kit downloads open at launch. React code for this component is being converted and checked against the Figma original; save it to see it first when it lands."}
-          </p>
+          {qa && free && <InstallLine cmd={"npx ingotui add " + item.slug} />}
+          <AgentPrompts menu slug={item.slug} name={item.name} systemName={sys?.name ?? item.system} category={item.category} template={item.category === "Templates"} hasCode={!!qa} hasFigma={item.slug in (figmaSteps as Record<string, number>)} mcpUrl={mcpUrlFor(SITE_URL)} />
+          {!qa && <p className="text-[12px] leading-snug text-mute">React code for this component is being converted and checked against the Figma original; save it to see it first when it lands.</p>}
         </aside>
         <GeneratedStage
           slug={item.slug}
@@ -83,7 +84,6 @@ export function FigmaItemPage({ item }: { item: FigmaItem }) {
           surface={surfaceStyle(item.system)}
         />
       </div>
-      <AgentPrompts slug={item.slug} name={item.name} systemName={sys?.name ?? item.system} category={item.category} template={item.category === "Templates"} hasCode={!!qa} hasFigma={item.slug in (figmaSteps as Record<string, number>)} mcpUrl={mcpUrlFor(SITE_URL)} />
       {specs && <ComponentSpecs s={specs} name={item.name} w={item.w} h={item.h} system={sys?.name ?? item.system} />}
       <A11yNotes slug={item.slug} category={item.category} handBuilt={false} />
       {related.length > 0 && (

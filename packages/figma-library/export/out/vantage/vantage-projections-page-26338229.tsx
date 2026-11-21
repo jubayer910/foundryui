@@ -1,14 +1,40 @@
-"use client";
 // Projections page (vantage, Templates) from Ingot UI (ingotui.com).
 // Generated from the Figma original and checked against it. Fonts: Geist, Geist Mono. Icons: Ingot Icons.
-import { useEffect, useRef } from "react";
-import { Bell, Briefcase, Bulb, Calendar, ChartLine, ChevronRight, Crown, FileInvoice, Flag, GitBranch, GitMerge, Home, InfoCircle, Rocket, Share, Shield, Stack2, Target, TrendingUp, UserPlus, UserSearch, Users } from "ingotui-icons/react/stroke-rounded";
+import type { SVGProps } from "react";
+
+// Ingot Icons used here, inlined so this file needs no icon package.
+function icon(body: string) {
+  return function Icon({ size = 24, strokeWidth = 1.5, ...p }: { size?: number; strokeWidth?: number } & SVGProps<SVGSVGElement>) {
+    const html = strokeWidth == 1.5 ? body : body.replace(/stroke-width="([\d.]+)"/g, (_, w) => `stroke-width="${(Number(w) * Number(strokeWidth)) / 1.5}"`);
+    return <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden {...p} dangerouslySetInnerHTML={{ __html: html }} />;
+  };
+}
+const Bell = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M10 5a2 2 0 1 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6\" /><path d=\"M9 17v1a3 3 0 0 0 6 0v-1\" /></g>");
+const Briefcase = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3 9a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v9a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2l0 -9\" /><path d=\"M8 7v-2a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2v2\" /><path d=\"M12 12l0 .01\" /><path d=\"M3 13a20 20 0 0 0 18 0\" /></g>");
+const Bulb = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3 12h1m8 -9v1m8 8h1m-15.4 -6.4l.7 .7m12.1 -.7l-.7 .7\" /><path d=\"M9 16a5 5 0 1 1 6 0a3.5 3.5 0 0 0 -1 3a2 2 0 0 1 -4 0a3.5 3.5 0 0 0 -1 -3\" /><path d=\"M9.7 17l4.6 0\" /></g>");
+const Calendar = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12\" /><path d=\"M16 3v4\" /><path d=\"M8 3v4\" /><path d=\"M4 11h16\" /></g>");
+const ChartLine = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M4 19l16 0\" /><path d=\"M4 15l4 -6l4 2l4 -5l4 4\" /></g>");
+const ChevronRight = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M9 6l6 6l-6 6\" /></g>");
+const Crown = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 6l4 6l5 -4l-2 10h-14l-2 -10l5 4l4 -6\" /></g>");
+const FileInvoice = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M14 3v4a1 1 0 0 0 1 1h4\" /><path d=\"M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2\" /><path d=\"M9 7l1 0\" /><path d=\"M9 13l6 0\" /><path d=\"M13 17l2 0\" /></g>");
+const Flag = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M5 5a5 5 0 0 1 7 0a5 5 0 0 0 7 0v9a5 5 0 0 1 -7 0a5 5 0 0 0 -7 0v-9\" /><path d=\"M5 21v-7\" /></g>");
+const GitBranch = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M5 18a2 2 0 1 0 4 0a2 2 0 1 0 -4 0\" /><path d=\"M5 6a2 2 0 1 0 4 0a2 2 0 1 0 -4 0\" /><path d=\"M15 6a2 2 0 1 0 4 0a2 2 0 1 0 -4 0\" /><path d=\"M7 8l0 8\" /><path d=\"M9 18h6a2 2 0 0 0 2 -2v-5\" /><path d=\"M14 14l3 -3l3 3\" /></g>");
+const GitMerge = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M5 18a2 2 0 1 0 4 0a2 2 0 1 0 -4 0\" /><path d=\"M5 6a2 2 0 1 0 4 0a2 2 0 1 0 -4 0\" /><path d=\"M15 12a2 2 0 1 0 4 0a2 2 0 1 0 -4 0\" /><path d=\"M7 8l0 8\" /><path d=\"M7 8a4 4 0 0 0 4 4h4\" /></g>");
+const Home = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M5 12l-2 0l9 -9l9 9l-2 0\" /><path d=\"M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7\" /><path d=\"M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6\" /></g>");
+const InfoCircle = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0\" /><path d=\"M12 9h.01\" /><path d=\"M11 12h1v4h1\" /></g>");
+const Rocket = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M4 13a8 8 0 0 1 7 7a6 6 0 0 0 3 -5a9 9 0 0 0 6 -8a3 3 0 0 0 -3 -3a9 9 0 0 0 -8 6a6 6 0 0 0 -5 3\" /><path d=\"M7 14a6 6 0 0 0 -3 6a6 6 0 0 0 6 -3\" /><path d=\"M14 9a1 1 0 1 0 2 0a1 1 0 1 0 -2 0\" /></g>");
+const Share = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3 12a3 3 0 1 0 6 0a3 3 0 1 0 -6 0\" /><path d=\"M15 6a3 3 0 1 0 6 0a3 3 0 1 0 -6 0\" /><path d=\"M15 18a3 3 0 1 0 6 0a3 3 0 1 0 -6 0\" /><path d=\"M8.7 10.7l6.6 -3.4\" /><path d=\"M8.7 13.3l6.6 3.4\" /></g>");
+const Shield = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 3a12 12 0 0 0 8.5 3a12 12 0 0 1 -8.5 15a12 12 0 0 1 -8.5 -15a12 12 0 0 0 8.5 -3\" /></g>");
+const Stack2 = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 4l-8 4l8 4l8 -4l-8 -4\" /><path d=\"M4 12l8 4l8 -4\" /><path d=\"M4 16l8 4l8 -4\" /></g>");
+const Target = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M11 12a1 1 0 1 0 2 0a1 1 0 1 0 -2 0\" /><path d=\"M7 12a5 5 0 1 0 10 0a5 5 0 1 0 -10 0\" /><path d=\"M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0\" /></g>");
+const TrendingUp = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3 17l6 -6l4 4l8 -8\" /><path d=\"M14 7l7 0l0 7\" /></g>");
+const UserPlus = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0\" /><path d=\"M16 19h6\" /><path d=\"M19 16v6\" /><path d=\"M6 21v-2a4 4 0 0 1 4 -4h4\" /></g>");
+const UserSearch = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0\" /><path d=\"M6 21v-2a4 4 0 0 1 4 -4h1.5\" /><path d=\"M15 18a3 3 0 1 0 6 0a3 3 0 1 0 -6 0\" /><path d=\"M20.2 20.2l1.8 1.8\" /></g>");
+const Users = icon("<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M5 7a4 4 0 1 0 8 0a4 4 0 1 0 -8 0\" /><path d=\"M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2\" /><path d=\"M16 3.13a4 4 0 0 1 0 7.75\" /><path d=\"M21 21v-2a4 4 0 0 0 -3 -3.85\" /></g>");
 
 export function ProjectionsPage() {
-  const fuRef = useRef<any>(null);
-  useEffect(() => fuInteract(fuRef.current), []);
   return (
-    <div ref={fuRef} style={{ width: "1440px", height: "1083px", background: "#1a1a1a", overflow: "hidden", position: "relative" }}>
+    <div style={{ width: "1440px", height: "1083px", background: "#1a1a1a", overflow: "hidden", position: "relative" }}>
       <div style={{ position: "absolute", left: "0px", top: "0px", width: "238px", height: "1083px", boxShadow: "inset -1px 0 0 0 #000000, 1px 0px 0px 0px #232323", overflow: "hidden" }}>
         <div style={{ position: "absolute", left: "12px", top: "11px", width: "161px", height: "40px", display: "flex", flexDirection: "row", gap: "48px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
           <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
@@ -24,7 +50,7 @@ export function ProjectionsPage() {
           </div>
         </div>
         <div style={{ position: "absolute", left: "0px", top: "63px", width: "238px", height: "720px", display: "flex", flexDirection: "column", gap: "16px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
-          <div data-fu="row" style={{ alignSelf: "stretch", height: "210px", flexShrink: 0, position: "relative" }}>
+          <div style={{ alignSelf: "stretch", height: "210px", flexShrink: 0, position: "relative" }}>
             <div style={{ position: "absolute", left: "0px", top: "0px", width: "238px", height: "210px", display: "flex", flexDirection: "column", gap: "16px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
               <svg style={{ width: "238px", height: "1px", flexShrink: 0, display: "block", lineHeight: 0, overflow: "visible", marginBottom: "-1px" }} xmlns="http://www.w3.org/2000/svg" width="238" height="1" viewBox="0 0 238 1" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M0 -0.5 L0 0 L238 0 L238 -0.5 L238 -1 L0 -1 L0 -0.5 Z" fill="#000000"/></svg>
               <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
@@ -85,7 +111,7 @@ export function ProjectionsPage() {
               <svg style={{ width: "238px", height: "1px", flexShrink: 0, display: "block", lineHeight: 0, overflow: "visible", marginBottom: "-1px" }} xmlns="http://www.w3.org/2000/svg" width="238" height="1" viewBox="0 0 238 1" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M0 -0.5 L0 0 L238 0 L238 -0.5 L238 -1 L0 -1 L0 -0.5 Z" fill="#000000"/></svg>
             </div>
           </div>
-          <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", gap: "16px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+          <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", gap: "16px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
             <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
               <div style={{ alignSelf: "stretch", flexShrink: 0, borderRadius: "10px", display: "flex", flexDirection: "column", padding: "6px 10px 6px 10px", justifyContent: "center", alignItems: "flex-start", boxSizing: "border-box" }}>
                 <p style={{ flexShrink: 0, margin: 0, textAlign: "center", whiteSpace: "pre", minWidth: "34px", lineHeight: "16px", fontFamily: "'Geist'", fontSize: "12px", fontWeight: 400, color: "#5f5f5f", letterSpacing: "0.04em" }}>TEAM</p>
@@ -140,7 +166,7 @@ export function ProjectionsPage() {
             </div>
             <svg style={{ width: "238px", height: "1px", flexShrink: 0, display: "block", lineHeight: 0, overflow: "visible", marginBottom: "-1px" }} xmlns="http://www.w3.org/2000/svg" width="238" height="1" viewBox="0 0 238 1" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M0 -0.5 L0 0 L238 0 L238 -0.5 L238 -1 L0 -1 L0 -0.5 Z" fill="#000000"/></svg>
           </div>
-          <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", gap: "16px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+          <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", gap: "16px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
             <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
               <div style={{ alignSelf: "stretch", flexShrink: 0, borderRadius: "10px", display: "flex", flexDirection: "column", padding: "6px 10px 6px 10px", justifyContent: "center", alignItems: "flex-start", boxSizing: "border-box" }}>
                 <p style={{ flexShrink: 0, margin: 0, textAlign: "center", whiteSpace: "pre", minWidth: "95px", lineHeight: "16px", fontFamily: "'Geist'", fontSize: "12px", fontWeight: 400, color: "#5f5f5f", letterSpacing: "0.04em" }}>PERFORMANCE</p>
@@ -186,7 +212,7 @@ export function ProjectionsPage() {
             </div>
             <svg style={{ width: "238px", height: "1px", flexShrink: 0, display: "block", lineHeight: 0, overflow: "visible", marginBottom: "-1px" }} xmlns="http://www.w3.org/2000/svg" width="238" height="1" viewBox="0 0 238 1" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M0 -0.5 L0 0 L238 0 L238 -0.5 L238 -1 L0 -1 L0 -0.5 Z" fill="#000000"/></svg>
           </div>
-          <div data-fu="row" style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", gap: "16px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+          <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", gap: "16px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
             <div style={{ alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
               <div style={{ alignSelf: "stretch", flexShrink: 0, borderRadius: "10px", display: "flex", flexDirection: "column", padding: "6px 10px 6px 10px", justifyContent: "center", alignItems: "flex-start", boxSizing: "border-box" }}>
                 <p style={{ flexShrink: 0, margin: 0, textAlign: "center", whiteSpace: "pre", minWidth: "61px", lineHeight: "16px", fontFamily: "'Geist'", fontSize: "12px", fontWeight: 400, color: "#5f5f5f", letterSpacing: "0.04em" }}>NETWORK</p>
@@ -239,7 +265,7 @@ export function ProjectionsPage() {
           <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "454px", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#8a8a8a", lineHeight: "1.2999999523162842" }}>Where the network lands by quarter end · Sep 30, 2026 · base scenario</p>
         </div>
         <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "10px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-          <div data-fu="btn" style={{ height: "32px", flexShrink: 0, borderRadius: "6px", background: "#232323", boxShadow: "inset 0 0 0 1px #2e2e2e, 0px 0px 4.6px 0px rgba(0, 0, 0, 0.5)", overflow: "hidden", display: "flex", flexDirection: "row", padding: "7px 11px 7px 11px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+          <div style={{ height: "32px", flexShrink: 0, borderRadius: "6px", background: "#232323", boxShadow: "inset 0 0 0 1px #2e2e2e, 0px 0px 4.6px 0px rgba(0, 0, 0, 0.5)", overflow: "hidden", display: "flex", flexDirection: "row", padding: "7px 11px 7px 11px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
             <div style={{ width: "98px", alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", gap: "4px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <Calendar size={16} style={{ width: "16px", height: "16px", flexShrink: 0, color: "#8a8a8a", display: "block" }} />
               <p style={{ flexShrink: 0, margin: 0, textAlign: "center", whiteSpace: "pre", minWidth: "58px", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#dadada", lineHeight: "1.4500000476837158" }}>Q3 2026</p>
@@ -248,7 +274,7 @@ export function ProjectionsPage() {
               </div>
             </div>
           </div>
-          <div data-fu="btn" style={{ height: "32px", flexShrink: 0, borderRadius: "6px", background: "#232323", boxShadow: "inset 0 0 0 1px #2e2e2e, 0px 0px 4.6px 0px rgba(0, 0, 0, 0.5)", overflow: "hidden", display: "flex", flexDirection: "row", padding: "7px 11px 7px 11px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+          <div style={{ height: "32px", flexShrink: 0, borderRadius: "6px", background: "#232323", boxShadow: "inset 0 0 0 1px #2e2e2e, 0px 0px 4.6px 0px rgba(0, 0, 0, 0.5)", overflow: "hidden", display: "flex", flexDirection: "row", padding: "7px 11px 7px 11px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
             <div style={{ width: "104px", alignSelf: "stretch", flexShrink: 0, display: "flex", flexDirection: "row", gap: "4px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
               <GitBranch size={16} style={{ width: "16px", height: "16px", flexShrink: 0, color: "#8a8a8a", display: "block" }} />
               <p style={{ flexShrink: 0, margin: 0, textAlign: "center", whiteSpace: "pre", minWidth: "64px", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#dadada", lineHeight: "1.4500000476837158" }}>Scenarios</p>
@@ -257,7 +283,7 @@ export function ProjectionsPage() {
               </div>
             </div>
           </div>
-          <div data-fu="btn" style={{ flexShrink: 0, borderRadius: "6px", background: "#7b5bff", boxShadow: "inset 0 0 0 1px #8f74ff, 0px 0px 4.6px 0px rgba(0, 0, 0, 0.5), inset 0px 2px 4px 0px rgba(255, 255, 255, 0.2)", display: "flex", flexDirection: "row", padding: "7px 13px 7px 11px", gap: "4px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+          <div style={{ flexShrink: 0, borderRadius: "6px", background: "#7b5bff", boxShadow: "inset 0 0 0 1px #8f74ff, 0px 0px 4.6px 0px rgba(0, 0, 0, 0.5), inset 0px 2px 4px 0px rgba(255, 255, 255, 0.2)", display: "flex", flexDirection: "row", padding: "7px 13px 7px 11px", gap: "4px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
             <Target size={16} style={{ width: "16px", height: "16px", flexShrink: 0, color: "#ffffff", display: "block" }} />
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "67px", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 500, color: "#ffffff", lineHeight: "1.4500000476837158" }}>Set target</p>
           </div>
@@ -265,15 +291,15 @@ export function ProjectionsPage() {
       </div>
       <div style={{ position: "absolute", left: "238px", top: "144px", width: "1202px", height: "1px", background: "#000000", boxShadow: "0px 1px 0px 0px #232323" }} />
       <div style={{ position: "absolute", left: "250px", top: "156px", width: "291px", height: "38px", borderRadius: "8px", background: "#191919", boxShadow: "inset 0px 2px 8px 0px rgba(0, 0, 0, 0.25)", display: "flex", flexDirection: "row", padding: "2px 2px 2px 2px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-        <div data-fu="tab" style={{ flexShrink: 0, borderRadius: "6px", background: "#232323", boxShadow: "inset 0 0 0 1px #191919, 0px 0px 4.6px 0px rgba(0, 0, 0, 0.5), inset 0px 2px 4px 0px rgba(255, 255, 255, 0.2)", display: "flex", flexDirection: "row", padding: "7px 11px 7px 11px", gap: "4px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+        <div style={{ flexShrink: 0, borderRadius: "6px", background: "#232323", boxShadow: "inset 0 0 0 1px #191919, 0px 0px 4.6px 0px rgba(0, 0, 0, 0.5), inset 0px 2px 4px 0px rgba(255, 255, 255, 0.2)", display: "flex", flexDirection: "row", padding: "7px 11px 7px 11px", gap: "4px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
           <ChartLine size={16} style={{ width: "16px", height: "16px", flexShrink: 0, color: "#ededed", display: "block" }} />
           <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "33px", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#dadada", lineHeight: "1.4500000476837158" }}>Base</p>
         </div>
-        <div data-fu="tab" style={{ flexShrink: 0, borderRadius: "6px", display: "flex", flexDirection: "row", padding: "6px 10px 6px 10px", gap: "4px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+        <div style={{ flexShrink: 0, borderRadius: "6px", display: "flex", flexDirection: "row", padding: "6px 10px 6px 10px", gap: "4px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
           <Rocket size={16} style={{ width: "16px", height: "16px", flexShrink: 0, color: "#8a8a8a", display: "block" }} />
           <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "48px", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#8a8a8a", lineHeight: "1.4500000476837158" }}>Stretch</p>
         </div>
-        <div data-fu="tab" style={{ flexShrink: 0, borderRadius: "6px", display: "flex", flexDirection: "row", padding: "6px 10px 6px 10px", gap: "4px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+        <div style={{ flexShrink: 0, borderRadius: "6px", display: "flex", flexDirection: "row", padding: "6px 10px 6px 10px", gap: "4px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
           <Shield size={16} style={{ width: "16px", height: "16px", flexShrink: 0, color: "#8a8a8a", display: "block" }} />
           <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "84px", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#8a8a8a", lineHeight: "1.4500000476837158" }}>Conservative</p>
         </div>
@@ -395,10 +421,10 @@ export function ProjectionsPage() {
         </div>
       </div>
       <div style={{ position: "absolute", left: "883px", top: "332px", width: "143px", height: "30px", display: "flex", flexDirection: "row", gap: "2px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
-        <div data-fu="tab" style={{ flexShrink: 0, borderRadius: "6px", display: "flex", flexDirection: "row", padding: "5px 10px 5px 10px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+        <div style={{ flexShrink: 0, borderRadius: "6px", display: "flex", flexDirection: "row", padding: "5px 10px 5px 10px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
           <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "52px", lineHeight: "18px", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#dadada" }}>Monthly</p>
         </div>
-        <div data-fu="tab" style={{ flexShrink: 0, borderRadius: "6px", background: "#232323", boxShadow: "inset 0 0 0 1px #2e2e2e, 0px 0px 4.6px 0px rgba(0, 0, 0, 0.5)", display: "flex", flexDirection: "row", padding: "6px 11px 6px 11px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
+        <div style={{ flexShrink: 0, borderRadius: "6px", background: "#232323", boxShadow: "inset 0 0 0 1px #2e2e2e, 0px 0px 4.6px 0px rgba(0, 0, 0, 0.5)", display: "flex", flexDirection: "row", padding: "6px 11px 6px 11px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
           <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "47px", lineHeight: "18px", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#ededed" }}>Weekly</p>
         </div>
       </div>
@@ -430,7 +456,7 @@ export function ProjectionsPage() {
         <p style={{ position: "absolute", left: "668.18px", top: "246px", margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "22px", lineHeight: "16px", fontFamily: "'Geist'", fontSize: "12px", fontWeight: 400, color: "#7c7c7c" }}>Aug</p>
         <p style={{ position: "absolute", left: "736px", top: "246px", margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "40px", lineHeight: "16px", fontFamily: "'Geist'", fontSize: "12px", fontWeight: 400, color: "#7c7c7c" }}>Sep 30</p>
         <svg style={{ position: "absolute", left: "48px", top: "100.42px", width: "556.92px", height: "135.58px", display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="556.92" height="135.58" viewBox="0 0 556.92 135.58" fill="none" overflow="visible"><defs><linearGradient id="g16_gcy7" gradientUnits="userSpaceOnUse" x1="278.46" y1="0.00" x2="278.46" y2="135.58"><stop offset="0" stopColor="#7b5bff" stopOpacity="0.22"/><stop offset="1" stopColor="#7b5bff" stopOpacity="0.05"/></linearGradient></defs><path transform="matrix(1 0 0 1 0 0)" d="M0 105.94 L18.56 104.2 L37.13 104.07 L55.69 101.82 L74.26 100.01 L92.82 100.16 L111.38 99.85 L129.95 96.38 L148.51 98.83 L167.08 93.3 L185.64 86.94 L204.21 86.59 L222.77 79.22 L241.33 75.34 L259.9 73.26 L278.46 67.58 L297.03 63.93 L315.59 60.67 L334.15 58 L352.72 53.01 L371.28 52.62 L389.85 49.04 L408.41 43.58 L426.97 44.58 L445.54 38.53 L464.1 35.3 L482.67 33.28 L501.23 22.81 L519.79 15.68 L538.36 8.39 L556.92 0 L556.92 135.58 L0 135.58 L0 105.94 Z" fill="url(#g16_gcy7)"/></svg>
-        <svg data-fu="plot" style={{ position: "absolute", left: "48px", top: "100.42px", width: "556.92px", height: "105.94px", display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="556.92" height="105.94" viewBox="0 0 556.92 105.94" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M-0.0746728 105.143 C-0.514572 105.185 -0.837748 105.575 -0.796507 106.015 C-0.755267 106.455 -0.365226 106.778 0.0746728 106.737 L0 105.94 L-0.0746728 105.143 Z M18.56 104.2 L18.5544 103.4 C18.5313 103.4 18.5083 103.401 18.4853 103.403 L18.56 104.2 Z M37.13 104.07 L37.1356 104.87 C37.1659 104.87 37.1962 104.868 37.2263 104.864 L37.13 104.07 Z M55.69 101.82 L55.6124 101.024 C55.6062 101.024 55.5999 101.025 55.5937 101.026 L55.69 101.82 Z M74.26 100.01 L74.2665 99.21 C74.2384 99.2098 74.2103 99.2111 74.1824 99.2138 L74.26 100.01 Z M92.82 100.16 L92.8135 100.96 C92.8201 100.96 92.8268 100.96 92.8334 100.96 L92.82 100.16 Z M111.38 99.85 L111.393 100.65 C111.438 100.649 111.483 100.645 111.527 100.636 L111.38 99.85 Z M129.95 96.38 L130.055 95.5869 C129.971 95.5758 129.886 95.5781 129.803 95.5936 L129.95 96.38 Z M148.51 98.83 L148.405 99.6231 C148.517 99.6379 148.63 99.6289 148.738 99.5967 L148.51 98.83 Z M167.08 93.3 L167.308 94.0667 C167.319 94.0636 167.329 94.0603 167.339 94.0568 L167.08 93.3 Z M185.64 86.94 L185.625 86.1401 C185.542 86.1417 185.459 86.1562 185.381 86.1832 L185.64 86.94 Z M204.21 86.59 L204.225 87.3899 C204.321 87.388 204.416 87.369 204.505 87.3335 L204.21 86.59 Z M222.77 79.22 L222.606 78.4369 C222.561 78.4463 222.517 78.4595 222.475 78.4765 L222.77 79.22 Z M241.33 75.34 L241.241 74.545 C241.216 74.5478 241.191 74.5518 241.166 74.5569 L241.33 75.34 Z M259.9 73.26 L259.989 74.055 C260.038 74.0495 260.087 74.0395 260.134 74.025 L259.9 73.26 Z M278.46 67.58 L278.306 66.795 C278.279 66.8003 278.252 66.807 278.226 66.815 L278.46 67.58 Z M297.03 63.93 L296.892 63.1421 C296.886 63.143 296.881 63.144 296.876 63.145 L297.03 63.93 Z M315.59 60.67 L315.476 59.8782 C315.468 59.8793 315.46 59.8806 315.452 59.8821 L315.59 60.67 Z M334.15 58 L334.264 58.7918 C334.296 58.7873 334.327 58.7809 334.358 58.7726 L334.15 58 Z M352.72 53.01 L352.703 52.2102 C352.639 52.2115 352.575 52.2207 352.512 52.2374 L352.72 53.01 Z M371.28 52.62 L371.297 53.4198 C371.342 53.4189 371.387 53.4141 371.431 53.4055 L371.28 52.62 Z M389.85 49.04 L390.001 49.8255 C390.026 49.8207 390.051 49.8147 390.076 49.8075 L389.85 49.04 Z M408.41 43.58 L408.453 42.7812 C408.362 42.7763 408.271 42.7869 408.184 42.8125 L408.41 43.58 Z M426.97 44.58 L426.927 45.3788 C427.025 45.3841 427.124 45.3712 427.218 45.3407 L426.97 44.58 Z M445.54 38.53 L445.403 37.7418 C445.365 37.7484 445.328 37.7576 445.292 37.7693 L445.54 38.53 Z M464.1 35.3 L464.013 34.5047 C463.997 34.5065 463.98 34.5089 463.963 34.5118 L464.1 35.3 Z M482.67 33.28 L482.757 34.0753 C482.864 34.0636 482.969 34.0301 483.063 33.9768 L482.67 33.28 Z M501.23 22.81 L500.943 22.0632 C500.907 22.0773 500.871 22.094 500.837 22.1132 L501.23 22.81 Z M519.79 15.68 L520.077 16.4268 L520.082 16.4247 L519.79 15.68 Z M538.36 8.39 L538.652 9.13468 C538.665 9.12976 538.677 9.12452 538.69 9.11898 L538.36 8.39 Z M557.25 0.728978 C557.652 0.546982 557.831 0.0730707 557.649 -0.329533 C557.467 -0.732136 556.993 -0.910973 556.59 -0.728978 L556.92 0 L557.25 0.728978 Z M0 105.94 L0.0746728 106.737 L18.6347 104.997 L18.56 104.2 L18.4853 103.403 L-0.0746728 105.143 L0 105.94 Z M18.56 104.2 L18.5656 105 L37.1356 104.87 L37.13 104.07 L37.1244 103.27 L18.5544 103.4 L18.56 104.2 Z M37.13 104.07 L37.2263 104.864 L55.7863 102.614 L55.69 101.82 L55.5937 101.026 L37.0337 103.276 L37.13 104.07 Z M55.69 101.82 L55.7676 102.616 L74.3376 100.806 L74.26 100.01 L74.1824 99.2138 L55.6124 101.024 L55.69 101.82 Z M74.26 100.01 L74.2535 100.81 L92.8135 100.96 L92.82 100.16 L92.8265 99.36 L74.2665 99.21 L74.26 100.01 Z M92.82 100.16 L92.8334 100.96 L111.393 100.65 L111.38 99.85 L111.367 99.0501 L92.8066 99.3601 L92.82 100.16 Z M111.38 99.85 L111.527 100.636 L130.097 97.1664 L129.95 96.38 L129.803 95.5936 L111.233 99.0636 L111.38 99.85 Z M129.95 96.38 L129.845 97.1731 L148.405 99.6231 L148.51 98.83 L148.615 98.0369 L130.055 95.5869 L129.95 96.38 Z M148.51 98.83 L148.738 99.5967 L167.308 94.0667 L167.08 93.3 L166.852 92.5333 L148.282 98.0633 L148.51 98.83 Z M167.08 93.3 L167.339 94.0568 L185.899 87.6968 L185.64 86.94 L185.381 86.1832 L166.821 92.5432 L167.08 93.3 Z M185.64 86.94 L185.655 87.7399 L204.225 87.3899 L204.21 86.59 L204.195 85.7901 L185.625 86.1401 L185.64 86.94 Z M204.21 86.59 L204.505 87.3335 L223.065 79.9635 L222.77 79.22 L222.475 78.4765 L203.915 85.8465 L204.21 86.59 Z M222.77 79.22 L222.934 80.0031 L241.494 76.1231 L241.33 75.34 L241.166 74.5569 L222.606 78.4369 L222.77 79.22 Z M241.33 75.34 L241.419 76.135 L259.989 74.055 L259.9 73.26 L259.811 72.465 L241.241 74.545 L241.33 75.34 Z M259.9 73.26 L260.134 74.025 L278.694 68.345 L278.46 67.58 L278.226 66.815 L259.666 72.495 L259.9 73.26 Z M278.46 67.58 L278.614 68.365 L297.184 64.715 L297.03 63.93 L296.876 63.145 L278.306 66.795 L278.46 67.58 Z M297.03 63.93 L297.168 64.7179 L315.728 61.4579 L315.59 60.67 L315.452 59.8821 L296.892 63.1421 L297.03 63.93 Z M315.59 60.67 L315.704 61.4618 L334.264 58.7918 L334.15 58 L334.036 57.2082 L315.476 59.8782 L315.59 60.67 Z M334.15 58 L334.358 58.7726 L352.928 53.7826 L352.72 53.01 L352.512 52.2374 L333.942 57.2274 L334.15 58 Z M352.72 53.01 L352.737 53.8098 L371.297 53.4198 L371.28 52.62 L371.263 51.8202 L352.703 52.2102 L352.72 53.01 Z M371.28 52.62 L371.431 53.4055 L390.001 49.8255 L389.85 49.04 L389.699 48.2545 L371.129 51.8345 L371.28 52.62 Z M389.85 49.04 L390.076 49.8075 L408.636 44.3475 L408.41 43.58 L408.184 42.8125 L389.624 48.2725 L389.85 49.04 Z M408.41 43.58 L408.367 44.3788 L426.927 45.3788 L426.97 44.58 L427.013 43.7812 L408.453 42.7812 L408.41 43.58 Z M426.97 44.58 L427.218 45.3407 L445.788 39.2906 L445.54 38.53 L445.292 37.7693 L426.722 43.8194 L426.97 44.58 Z M445.54 38.53 L445.677 39.3182 L464.237 36.0882 L464.1 35.3 L463.963 34.5118 L445.403 37.7418 L445.54 38.53 Z M464.1 35.3 L464.187 36.0953 L482.757 34.0753 L482.67 33.28 L482.583 32.4847 L464.013 34.5047 L464.1 35.3 Z M482.67 33.28 L483.063 33.9768 L501.623 23.5068 L501.23 22.81 L500.837 22.1132 L482.277 32.5832 L482.67 33.28 Z M501.23 22.81 L501.517 23.5568 L520.077 16.4268 L519.79 15.68 L519.503 14.9332 L500.943 22.0632 L501.23 22.81 Z M519.79 15.68 L520.082 16.4247 L538.652 9.13468 L538.36 8.39 L538.068 7.64533 L519.498 14.9353 L519.79 15.68 Z M538.36 8.39 L538.69 9.11898 L557.25 0.728978 L556.92 0 L556.59 -0.728978 L538.03 7.66102 L538.36 8.39 Z" fill="#7b5bff"/></svg>
+        <svg style={{ position: "absolute", left: "48px", top: "100.42px", width: "556.92px", height: "105.94px", display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="556.92" height="105.94" viewBox="0 0 556.92 105.94" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M-0.0746728 105.143 C-0.514572 105.185 -0.837748 105.575 -0.796507 106.015 C-0.755267 106.455 -0.365226 106.778 0.0746728 106.737 L0 105.94 L-0.0746728 105.143 Z M18.56 104.2 L18.5544 103.4 C18.5313 103.4 18.5083 103.401 18.4853 103.403 L18.56 104.2 Z M37.13 104.07 L37.1356 104.87 C37.1659 104.87 37.1962 104.868 37.2263 104.864 L37.13 104.07 Z M55.69 101.82 L55.6124 101.024 C55.6062 101.024 55.5999 101.025 55.5937 101.026 L55.69 101.82 Z M74.26 100.01 L74.2665 99.21 C74.2384 99.2098 74.2103 99.2111 74.1824 99.2138 L74.26 100.01 Z M92.82 100.16 L92.8135 100.96 C92.8201 100.96 92.8268 100.96 92.8334 100.96 L92.82 100.16 Z M111.38 99.85 L111.393 100.65 C111.438 100.649 111.483 100.645 111.527 100.636 L111.38 99.85 Z M129.95 96.38 L130.055 95.5869 C129.971 95.5758 129.886 95.5781 129.803 95.5936 L129.95 96.38 Z M148.51 98.83 L148.405 99.6231 C148.517 99.6379 148.63 99.6289 148.738 99.5967 L148.51 98.83 Z M167.08 93.3 L167.308 94.0667 C167.319 94.0636 167.329 94.0603 167.339 94.0568 L167.08 93.3 Z M185.64 86.94 L185.625 86.1401 C185.542 86.1417 185.459 86.1562 185.381 86.1832 L185.64 86.94 Z M204.21 86.59 L204.225 87.3899 C204.321 87.388 204.416 87.369 204.505 87.3335 L204.21 86.59 Z M222.77 79.22 L222.606 78.4369 C222.561 78.4463 222.517 78.4595 222.475 78.4765 L222.77 79.22 Z M241.33 75.34 L241.241 74.545 C241.216 74.5478 241.191 74.5518 241.166 74.5569 L241.33 75.34 Z M259.9 73.26 L259.989 74.055 C260.038 74.0495 260.087 74.0395 260.134 74.025 L259.9 73.26 Z M278.46 67.58 L278.306 66.795 C278.279 66.8003 278.252 66.807 278.226 66.815 L278.46 67.58 Z M297.03 63.93 L296.892 63.1421 C296.886 63.143 296.881 63.144 296.876 63.145 L297.03 63.93 Z M315.59 60.67 L315.476 59.8782 C315.468 59.8793 315.46 59.8806 315.452 59.8821 L315.59 60.67 Z M334.15 58 L334.264 58.7918 C334.296 58.7873 334.327 58.7809 334.358 58.7726 L334.15 58 Z M352.72 53.01 L352.703 52.2102 C352.639 52.2115 352.575 52.2207 352.512 52.2374 L352.72 53.01 Z M371.28 52.62 L371.297 53.4198 C371.342 53.4189 371.387 53.4141 371.431 53.4055 L371.28 52.62 Z M389.85 49.04 L390.001 49.8255 C390.026 49.8207 390.051 49.8147 390.076 49.8075 L389.85 49.04 Z M408.41 43.58 L408.453 42.7812 C408.362 42.7763 408.271 42.7869 408.184 42.8125 L408.41 43.58 Z M426.97 44.58 L426.927 45.3788 C427.025 45.3841 427.124 45.3712 427.218 45.3407 L426.97 44.58 Z M445.54 38.53 L445.403 37.7418 C445.365 37.7484 445.328 37.7576 445.292 37.7693 L445.54 38.53 Z M464.1 35.3 L464.013 34.5047 C463.997 34.5065 463.98 34.5089 463.963 34.5118 L464.1 35.3 Z M482.67 33.28 L482.757 34.0753 C482.864 34.0636 482.969 34.0301 483.063 33.9768 L482.67 33.28 Z M501.23 22.81 L500.943 22.0632 C500.907 22.0773 500.871 22.094 500.837 22.1132 L501.23 22.81 Z M519.79 15.68 L520.077 16.4268 L520.082 16.4247 L519.79 15.68 Z M538.36 8.39 L538.652 9.13468 C538.665 9.12976 538.677 9.12452 538.69 9.11898 L538.36 8.39 Z M557.25 0.728978 C557.652 0.546982 557.831 0.0730707 557.649 -0.329533 C557.467 -0.732136 556.993 -0.910973 556.59 -0.728978 L556.92 0 L557.25 0.728978 Z M0 105.94 L0.0746728 106.737 L18.6347 104.997 L18.56 104.2 L18.4853 103.403 L-0.0746728 105.143 L0 105.94 Z M18.56 104.2 L18.5656 105 L37.1356 104.87 L37.13 104.07 L37.1244 103.27 L18.5544 103.4 L18.56 104.2 Z M37.13 104.07 L37.2263 104.864 L55.7863 102.614 L55.69 101.82 L55.5937 101.026 L37.0337 103.276 L37.13 104.07 Z M55.69 101.82 L55.7676 102.616 L74.3376 100.806 L74.26 100.01 L74.1824 99.2138 L55.6124 101.024 L55.69 101.82 Z M74.26 100.01 L74.2535 100.81 L92.8135 100.96 L92.82 100.16 L92.8265 99.36 L74.2665 99.21 L74.26 100.01 Z M92.82 100.16 L92.8334 100.96 L111.393 100.65 L111.38 99.85 L111.367 99.0501 L92.8066 99.3601 L92.82 100.16 Z M111.38 99.85 L111.527 100.636 L130.097 97.1664 L129.95 96.38 L129.803 95.5936 L111.233 99.0636 L111.38 99.85 Z M129.95 96.38 L129.845 97.1731 L148.405 99.6231 L148.51 98.83 L148.615 98.0369 L130.055 95.5869 L129.95 96.38 Z M148.51 98.83 L148.738 99.5967 L167.308 94.0667 L167.08 93.3 L166.852 92.5333 L148.282 98.0633 L148.51 98.83 Z M167.08 93.3 L167.339 94.0568 L185.899 87.6968 L185.64 86.94 L185.381 86.1832 L166.821 92.5432 L167.08 93.3 Z M185.64 86.94 L185.655 87.7399 L204.225 87.3899 L204.21 86.59 L204.195 85.7901 L185.625 86.1401 L185.64 86.94 Z M204.21 86.59 L204.505 87.3335 L223.065 79.9635 L222.77 79.22 L222.475 78.4765 L203.915 85.8465 L204.21 86.59 Z M222.77 79.22 L222.934 80.0031 L241.494 76.1231 L241.33 75.34 L241.166 74.5569 L222.606 78.4369 L222.77 79.22 Z M241.33 75.34 L241.419 76.135 L259.989 74.055 L259.9 73.26 L259.811 72.465 L241.241 74.545 L241.33 75.34 Z M259.9 73.26 L260.134 74.025 L278.694 68.345 L278.46 67.58 L278.226 66.815 L259.666 72.495 L259.9 73.26 Z M278.46 67.58 L278.614 68.365 L297.184 64.715 L297.03 63.93 L296.876 63.145 L278.306 66.795 L278.46 67.58 Z M297.03 63.93 L297.168 64.7179 L315.728 61.4579 L315.59 60.67 L315.452 59.8821 L296.892 63.1421 L297.03 63.93 Z M315.59 60.67 L315.704 61.4618 L334.264 58.7918 L334.15 58 L334.036 57.2082 L315.476 59.8782 L315.59 60.67 Z M334.15 58 L334.358 58.7726 L352.928 53.7826 L352.72 53.01 L352.512 52.2374 L333.942 57.2274 L334.15 58 Z M352.72 53.01 L352.737 53.8098 L371.297 53.4198 L371.28 52.62 L371.263 51.8202 L352.703 52.2102 L352.72 53.01 Z M371.28 52.62 L371.431 53.4055 L390.001 49.8255 L389.85 49.04 L389.699 48.2545 L371.129 51.8345 L371.28 52.62 Z M389.85 49.04 L390.076 49.8075 L408.636 44.3475 L408.41 43.58 L408.184 42.8125 L389.624 48.2725 L389.85 49.04 Z M408.41 43.58 L408.367 44.3788 L426.927 45.3788 L426.97 44.58 L427.013 43.7812 L408.453 42.7812 L408.41 43.58 Z M426.97 44.58 L427.218 45.3407 L445.788 39.2906 L445.54 38.53 L445.292 37.7693 L426.722 43.8194 L426.97 44.58 Z M445.54 38.53 L445.677 39.3182 L464.237 36.0882 L464.1 35.3 L463.963 34.5118 L445.403 37.7418 L445.54 38.53 Z M464.1 35.3 L464.187 36.0953 L482.757 34.0753 L482.67 33.28 L482.583 32.4847 L464.013 34.5047 L464.1 35.3 Z M482.67 33.28 L483.063 33.9768 L501.623 23.5068 L501.23 22.81 L500.837 22.1132 L482.277 32.5832 L482.67 33.28 Z M501.23 22.81 L501.517 23.5568 L520.077 16.4268 L519.79 15.68 L519.503 14.9332 L500.943 22.0632 L501.23 22.81 Z M519.79 15.68 L520.082 16.4247 L538.652 9.13468 L538.36 8.39 L538.068 7.64533 L519.498 14.9353 L519.79 15.68 Z M538.36 8.39 L538.69 9.11898 L557.25 0.728978 L556.92 0 L556.59 -0.728978 L538.03 7.66102 L538.36 8.39 Z" fill="#7b5bff"/></svg>
         <svg style={{ position: "absolute", left: "604.92px", top: "32.32px", width: "167.08px", height: "68.1px", display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="167.08" height="68.1" viewBox="0 0 167.08 68.1" fill="none" overflow="visible"><defs><linearGradient id="g17_gcy8" gradientUnits="userSpaceOnUse" x1="83.54" y1="0.00" x2="83.54" y2="68.10"><stop offset="0" stopColor="#7b5bff" stopOpacity="0.16"/><stop offset="1" stopColor="#7b5bff" stopOpacity="0.05"/></linearGradient></defs><path transform="matrix(1 0 0 1 0 0)" d="M0 68.1 L18.56 59.14 L37.13 51.3 L55.69 43.69 L74.26 36.24 L92.82 28.87 L111.38 21.58 L129.95 14.34 L148.51 7.15 L167.08 0 L167.08 39.52 L148.51 42.69 L129.95 45.86 L111.38 49.01 L92.82 52.16 L74.26 55.28 L55.69 58.39 L37.13 61.5 L18.56 64.61 L0 68.1 Z" fill="url(#g17_gcy8)"/></svg>
         <svg style={{ position: "absolute", left: "604.92px", top: "52.08px", width: "167.08px", height: "48.34px", display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="167.08" height="48.34" viewBox="0 0 167.08 48.34" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M-0.254575 47.5816 C-0.673436 47.7222 -0.899012 48.1757 -0.758414 48.5946 C-0.617816 49.0134 -0.164285 49.239 0.254575 49.0984 L0 48.34 L-0.254575 47.5816 Z M18.56 42.11 L18.334 41.3426 C18.3244 41.3454 18.3149 41.3484 18.3054 41.3516 L18.56 42.11 Z M37.13 36.64 L36.908 35.8714 L36.904 35.8726 L37.13 36.64 Z M55.69 31.28 L55.4712 30.5105 L55.468 30.5114 L55.69 31.28 Z M74.26 26 L74.0426 25.2301 L74.0412 25.2305 L74.26 26 Z M92.82 20.76 L92.603 19.99 L92.6026 19.9901 L92.82 20.76 Z M111.38 15.53 L111.165 14.7595 L111.163 14.76 L111.38 15.53 Z M129.95 10.34 L129.735 9.56945 L129.735 9.56953 L129.95 10.34 Z M148.51 5.16 L148.296 4.3892 L148.295 4.38945 L148.51 5.16 Z M167.294 0.770797 C167.72 0.652509 167.969 0.21152 167.851 -0.214179 C167.733 -0.639878 167.292 -0.889084 166.866 -0.770797 L167.08 0 L167.294 0.770797 Z M2.02219 48.5051 C2.44105 48.3645 2.66663 47.911 2.52603 47.4921 C2.38543 47.0732 1.9319 46.8477 1.51304 46.9883 L1.76762 47.7467 L2.02219 48.5051 Z M4.16447 46.0983 C3.74561 46.2388 3.52004 46.6924 3.66063 47.1112 C3.80123 47.5301 4.25476 47.7557 4.67362 47.6151 L4.41905 46.8567 L4.16447 46.0983 Z M8.20886 46.4284 C8.62772 46.2878 8.8533 45.8343 8.7127 45.4154 C8.5721 44.9966 8.11857 44.771 7.69971 44.9116 L7.95429 45.67 L8.20886 46.4284 Z M10.3511 44.0216 C9.93228 44.1622 9.7067 44.6157 9.8473 45.0346 C9.9879 45.4534 10.4414 45.679 10.8603 45.5384 L10.6057 44.78 L10.3511 44.0216 Z M14.3955 44.3517 C14.8144 44.2112 15.04 43.7576 14.8994 43.3388 C14.7588 42.9199 14.3052 42.6943 13.8864 42.8349 L14.141 43.5933 L14.3955 44.3517 Z M16.5378 41.9449 C16.1189 42.0855 15.8934 42.5391 16.034 42.9579 C16.1746 43.3768 16.6281 43.6023 17.047 43.4617 L16.7924 42.7033 L16.5378 41.9449 Z M20.5546 42.3564 C20.9784 42.2316 21.2208 41.7868 21.096 41.363 C20.9711 40.9392 20.5263 40.6968 20.1025 40.8216 L20.3286 41.589 L20.5546 42.3564 Z M22.7554 40.0402 C22.3316 40.1651 22.0892 40.6098 22.214 41.0337 C22.3389 41.4575 22.7837 41.6999 23.2075 41.575 L22.9814 40.8076 L22.7554 40.0402 Z M26.7446 40.5331 C27.1684 40.4083 27.4108 39.9635 27.286 39.5397 C27.1611 39.1158 26.7163 38.8735 26.2925 38.9983 L26.5186 39.7657 L26.7446 40.5331 Z M28.9454 38.2169 C28.5216 38.3417 28.2792 38.7865 28.404 39.2103 C28.5289 39.6342 28.9737 39.8765 29.3975 39.7517 L29.1714 38.9843 L28.9454 38.2169 Z M32.9346 38.7098 C33.3584 38.5849 33.6008 38.1402 33.476 37.7163 C33.3511 37.2925 32.9063 37.0501 32.4825 37.175 L32.7086 37.9424 L32.9346 38.7098 Z M35.1354 36.3936 C34.7116 36.5184 34.4692 36.9632 34.594 37.387 C34.7189 37.8108 35.1637 38.0532 35.5875 37.9284 L35.3614 37.161 L35.1354 36.3936 Z M39.1196 36.8981 C39.5441 36.7755 39.7888 36.332 39.6662 35.9076 C39.5436 35.4831 39.1001 35.2383 38.6757 35.3609 L38.8976 36.1295 L39.1196 36.8981 Z M41.3271 34.5952 C40.9026 34.7178 40.6579 35.1613 40.7805 35.5858 C40.903 36.0103 41.3465 36.255 41.771 36.1324 L41.549 35.3638 L41.3271 34.5952 Z M45.3062 35.1114 C45.7307 34.9889 45.9755 34.5454 45.8529 34.1209 C45.7303 33.6964 45.2868 33.4517 44.8623 33.5743 L45.0843 34.3429 L45.3062 35.1114 Z M47.5138 32.8086 C47.0893 32.9311 46.8445 33.3746 46.9671 33.7991 C47.0897 34.2236 47.5332 34.4683 47.9577 34.3457 L47.7357 33.5771 L47.5138 32.8086 Z M51.4929 33.3248 C51.9174 33.2022 52.1621 32.7587 52.0395 32.3342 C51.917 31.9097 51.4735 31.665 51.049 31.7876 L51.271 32.5562 L51.4929 33.3248 Z M53.7004 31.0219 C53.2759 31.1445 53.0312 31.588 53.1538 32.0124 C53.2764 32.4369 53.7199 32.6817 54.1443 32.5591 L53.9224 31.7905 L53.7004 31.0219 Z M57.6774 31.5466 C58.1023 31.4258 58.3489 30.9833 58.2281 30.5584 C58.1072 30.1334 57.6648 29.8868 57.2398 30.0076 L57.4586 30.7771 L57.6774 31.5466 Z M59.8926 29.2534 C59.4677 29.3742 59.2211 29.8167 59.3419 30.2416 C59.4628 30.6666 59.9052 30.9132 60.3302 30.7924 L60.1114 30.0229 L59.8926 29.2534 Z M63.8674 29.7866 C64.2923 29.6658 64.5389 29.2233 64.4181 28.7984 C64.2972 28.3734 63.8548 28.1268 63.4298 28.2476 L63.6486 29.0171 L63.8674 29.7866 Z M66.0826 27.4934 C65.6577 27.6142 65.4111 28.0567 65.5319 28.4816 C65.6528 28.9066 66.0952 29.1532 66.5202 29.0324 L66.3014 28.2629 L66.0826 27.4934 Z M70.0574 28.0266 C70.4823 27.9058 70.7289 27.4633 70.6081 27.0384 C70.4872 26.6134 70.0448 26.3668 69.6198 26.4876 L69.8386 27.2571 L70.0574 28.0266 Z M72.2726 25.7334 C71.8477 25.8542 71.6011 26.2967 71.7219 26.7216 C71.8428 27.1466 72.2852 27.3932 72.7102 27.2724 L72.4914 26.5029 L72.2726 25.7334 Z M76.245 26.2709 C76.6702 26.1508 76.9176 25.7088 76.7975 25.2836 C76.6775 24.8584 76.2355 24.611 75.8103 24.731 L76.0276 25.501 L76.245 26.2709 Z M78.4617 23.9825 C78.0365 24.1025 77.7891 24.5445 77.9091 24.9697 C78.0292 25.395 78.4712 25.6423 78.8964 25.5223 L78.679 24.7524 L78.4617 23.9825 Z M82.4317 24.5242 C82.8569 24.4041 83.1042 23.9621 82.9842 23.5369 C82.8641 23.1117 82.4221 22.8643 81.9969 22.9844 L82.2143 23.7543 L82.4317 24.5242 Z M84.6484 22.2358 C84.2231 22.3559 83.9758 22.7979 84.0958 23.2231 C84.2159 23.6483 84.6579 23.8957 85.0831 23.7756 L84.8657 23.0057 L84.6484 22.2358 Z M88.6183 22.7775 C89.0435 22.6575 89.2909 22.2155 89.1709 21.7903 C89.0508 21.365 88.6088 21.1177 88.1836 21.2377 L88.401 22.0076 L88.6183 22.7775 Z M90.835 20.4891 C90.4098 20.6092 90.1624 21.0512 90.2825 21.4764 C90.4025 21.9016 90.8445 22.149 91.2697 22.029 L91.0524 21.259 L90.835 20.4891 Z M94.8046 21.0319 C95.2299 20.9121 95.4775 20.4702 95.3576 20.0449 C95.2378 19.6197 94.7959 19.3721 94.3706 19.4919 L94.5876 20.2619 L94.8046 21.0319 Z M97.0221 18.7447 C96.5968 18.8646 96.3492 19.3065 96.469 19.7317 C96.5889 20.157 97.0308 20.4046 97.456 20.2848 L97.239 19.5148 L97.0221 18.7447 Z M100.991 19.2886 C101.417 19.1687 101.664 18.7269 101.544 18.3016 C101.424 17.8763 100.983 17.6287 100.557 17.7486 L100.774 18.5186 L100.991 19.2886 Z M103.209 17.0014 C102.783 17.1213 102.536 17.5631 102.656 17.9884 C102.776 18.4137 103.217 18.6613 103.643 18.5414 L103.426 17.7714 L103.209 17.0014 Z M107.178 17.5452 C107.603 17.4254 107.851 16.9835 107.731 16.5583 C107.611 16.133 107.169 15.8854 106.744 16.0052 L106.961 16.7752 L107.178 17.5452 Z M109.395 15.2581 C108.97 15.3779 108.723 15.8198 108.842 16.2451 C108.962 16.6703 109.404 16.9179 109.829 16.7981 L109.612 16.0281 L109.395 15.2581 Z M113.364 15.8062 C113.789 15.6873 114.038 15.2459 113.919 14.8204 C113.8 14.3949 113.359 14.1463 112.933 14.2652 L113.149 15.0357 L113.364 15.8062 Z M115.586 13.5238 C115.161 13.6427 114.912 14.0841 115.031 14.5096 C115.15 14.9351 115.591 15.1837 116.017 15.0648 L115.801 14.2943 L115.586 13.5238 Z M119.554 14.0762 C119.979 13.9573 120.228 13.5159 120.109 13.0904 C119.99 12.6649 119.549 12.4163 119.123 12.5352 L119.339 13.3057 L119.554 14.0762 Z M121.776 11.7938 C121.351 11.9127 121.102 12.3541 121.221 12.7796 C121.34 13.2051 121.781 13.4537 122.207 13.3348 L121.991 12.5643 L121.776 11.7938 Z M125.744 12.3462 C126.169 12.2273 126.418 11.7859 126.299 11.3604 C126.18 10.9349 125.739 10.6863 125.313 10.8052 L125.529 11.5757 L125.744 12.3462 Z M127.966 10.0638 C127.541 10.1827 127.292 10.6241 127.411 11.0496 C127.53 11.4751 127.971 11.7237 128.397 11.6048 L128.181 10.8343 L127.966 10.0638 Z M131.933 10.6172 C132.358 10.4984 132.607 10.0572 132.488 9.63161 C132.369 9.20605 131.928 8.95734 131.503 9.07611 L131.718 9.84667 L131.933 10.6172 Z M134.154 8.33611 C133.728 8.45489 133.48 8.89616 133.598 9.32172 C133.717 9.74729 134.159 9.99599 134.584 9.87722 L134.369 9.10667 L134.154 8.33611 Z M138.119 8.89055 C138.545 8.77178 138.794 8.33051 138.675 7.90494 C138.556 7.47938 138.115 7.23068 137.689 7.34945 L137.904 8.12 L138.119 8.89055 Z M140.341 6.60945 C139.915 6.72822 139.666 7.16949 139.785 7.59506 C139.904 8.02062 140.345 8.26932 140.771 8.15055 L140.556 7.38 L140.341 6.60945 Z M144.306 7.16389 C144.732 7.04511 144.98 6.60384 144.861 6.17828 C144.743 5.75271 144.301 5.50401 143.876 5.62278 L144.091 6.39333 L144.306 7.16389 Z M146.527 4.88278 C146.102 5.00155 145.853 5.44283 145.972 5.86839 C146.091 6.29395 146.532 6.54266 146.957 6.42388 L146.742 5.65333 L146.527 4.88278 Z M150.493 5.43937 C150.918 5.32108 151.168 4.88009 151.049 4.45439 C150.931 4.02869 150.49 3.77949 150.064 3.89777 L150.279 4.66857 L150.493 5.43937 Z M152.717 3.16063 C152.292 3.27892 152.042 3.71991 152.161 4.14561 C152.279 4.57131 152.72 4.82051 153.146 4.70223 L152.931 3.93143 L152.717 3.16063 Z M156.683 3.71937 C157.108 3.60108 157.358 3.16009 157.239 2.73439 C157.121 2.30869 156.68 2.05949 156.254 2.17777 L156.469 2.94857 L156.683 3.71937 Z M158.907 1.44063 C158.482 1.55892 158.232 1.99991 158.351 2.42561 C158.469 2.85131 158.91 3.10051 159.336 2.98222 L159.121 2.21143 L158.907 1.44063 Z M162.873 1.99937 C163.298 1.88108 163.548 1.44009 163.429 1.01439 C163.311 0.588693 162.87 0.339487 162.444 0.457775 L162.659 1.22857 L162.873 1.99937 Z M165.097 -0.279368 C164.672 -0.16108 164.422 0.279909 164.541 0.705608 C164.659 1.13131 165.1 1.38051 165.526 1.26223 L165.311 0.491429 L165.097 -0.279368 Z M0 48.34 L0.254575 49.0984 L2.02219 48.5051 L1.76762 47.7467 L1.51304 46.9883 L-0.254575 47.5816 L0 48.34 Z M4.41905 46.8567 L4.67362 47.6151 L8.20886 46.4284 L7.95429 45.67 L7.69971 44.9116 L4.16447 46.0983 L4.41905 46.8567 Z M10.6057 44.78 L10.8603 45.5384 L14.3955 44.3517 L14.141 43.5933 L13.8864 42.8349 L10.3511 44.0216 L10.6057 44.78 Z M16.7924 42.7033 L17.047 43.4617 L18.8146 42.8684 L18.56 42.11 L18.3054 41.3516 L16.5378 41.9449 L16.7924 42.7033 Z M18.56 42.11 L18.786 42.8774 L20.5546 42.3564 L20.3286 41.589 L20.1025 40.8216 L18.334 41.3426 L18.56 42.11 Z M22.9814 40.8076 L23.2075 41.575 L26.7446 40.5331 L26.5186 39.7657 L26.2925 38.9983 L22.7554 40.0402 L22.9814 40.8076 Z M29.1714 38.9843 L29.3975 39.7517 L32.9346 38.7098 L32.7086 37.9424 L32.4825 37.175 L28.9454 38.2169 L29.1714 38.9843 Z M35.3614 37.161 L35.5875 37.9284 L37.356 37.4074 L37.13 36.64 L36.904 35.8726 L35.1354 36.3936 L35.3614 37.161 Z M37.13 36.64 L37.352 37.4086 L39.1196 36.8981 L38.8976 36.1295 L38.6757 35.3609 L36.908 35.8714 L37.13 36.64 Z M41.549 35.3638 L41.771 36.1324 L45.3062 35.1114 L45.0843 34.3429 L44.8623 33.5743 L41.3271 34.5952 L41.549 35.3638 Z M47.7357 33.5771 L47.9577 34.3457 L51.4929 33.3248 L51.271 32.5562 L51.049 31.7876 L47.5138 32.8086 L47.7357 33.5771 Z M53.9224 31.7905 L54.1443 32.5591 L55.912 32.0486 L55.69 31.28 L55.468 30.5114 L53.7004 31.0219 L53.9224 31.7905 Z M55.69 31.28 L55.9088 32.0495 L57.6774 31.5466 L57.4586 30.7771 L57.2398 30.0076 L55.4712 30.5105 L55.69 31.28 Z M60.1114 30.0229 L60.3302 30.7924 L63.8674 29.7866 L63.6486 29.0171 L63.4298 28.2476 L59.8926 29.2534 L60.1114 30.0229 Z M66.3014 28.2629 L66.5202 29.0324 L70.0574 28.0266 L69.8386 27.2571 L69.6198 26.4876 L66.0826 27.4934 L66.3014 28.2629 Z M72.4914 26.5029 L72.7102 27.2724 L74.4788 26.7695 L74.26 26 L74.0412 25.2305 L72.2726 25.7334 L72.4914 26.5029 Z M74.26 26 L74.4774 26.7699 L76.245 26.2709 L76.0276 25.501 L75.8103 24.731 L74.0426 25.2301 L74.26 26 Z M78.679 24.7524 L78.8964 25.5223 L82.4317 24.5242 L82.2143 23.7543 L81.9969 22.9844 L78.4617 23.9825 L78.679 24.7524 Z M84.8657 23.0057 L85.0831 23.7756 L88.6183 22.7775 L88.401 22.0076 L88.1836 21.2377 L84.6484 22.2358 L84.8657 23.0057 Z M91.0524 21.259 L91.2697 22.029 L93.0374 21.5299 L92.82 20.76 L92.6026 19.9901 L90.835 20.4891 L91.0524 21.259 Z M92.82 20.76 L93.037 21.53 L94.8046 21.0319 L94.5876 20.2619 L94.3706 19.4919 L92.603 19.99 L92.82 20.76 Z M97.239 19.5148 L97.456 20.2848 L100.991 19.2886 L100.774 18.5186 L100.557 17.7486 L97.0221 18.7447 L97.239 19.5148 Z M103.426 17.7714 L103.643 18.5414 L107.178 17.5452 L106.961 16.7752 L106.744 16.0052 L103.209 17.0014 L103.426 17.7714 Z M109.612 16.0281 L109.829 16.7981 L111.597 16.3 L111.38 15.53 L111.163 14.76 L109.395 15.2581 L109.612 16.0281 Z M111.38 15.53 L111.595 16.3005 L113.364 15.8062 L113.149 15.0357 L112.933 14.2652 L111.165 14.7595 L111.38 15.53 Z M115.801 14.2943 L116.017 15.0648 L119.554 14.0762 L119.339 13.3057 L119.123 12.5352 L115.586 13.5238 L115.801 14.2943 Z M121.991 12.5643 L122.207 13.3348 L125.744 12.3462 L125.529 11.5757 L125.313 10.8052 L121.776 11.7938 L121.991 12.5643 Z M128.181 10.8343 L128.397 11.6048 L130.165 11.1105 L129.95 10.34 L129.735 9.56953 L127.966 10.0638 L128.181 10.8343 Z M129.95 10.34 L130.165 11.1106 L131.933 10.6172 L131.718 9.84667 L131.503 9.07611 L129.735 9.56945 L129.95 10.34 Z M134.369 9.10667 L134.584 9.87722 L138.119 8.89055 L137.904 8.12 L137.689 7.34945 L134.154 8.33611 L134.369 9.10667 Z M140.556 7.38 L140.771 8.15055 L144.306 7.16389 L144.091 6.39333 L143.876 5.62278 L140.341 6.60945 L140.556 7.38 Z M146.742 5.65333 L146.957 6.42388 L148.725 5.93055 L148.51 5.16 L148.295 4.38945 L146.527 4.88278 L146.742 5.65333 Z M148.51 5.16 L148.724 5.9308 L150.493 5.43937 L150.279 4.66857 L150.064 3.89777 L148.296 4.3892 L148.51 5.16 Z M152.931 3.93143 L153.146 4.70223 L156.683 3.71937 L156.469 2.94857 L156.254 2.17777 L152.717 3.16063 L152.931 3.93143 Z M159.121 2.21143 L159.336 2.98222 L162.873 1.99937 L162.659 1.22857 L162.444 0.457775 L158.907 1.44063 L159.121 2.21143 Z M165.311 0.491429 L165.526 1.26223 L167.294 0.770797 L167.08 0 L166.866 -0.770797 L165.097 -0.279368 L165.311 0.491429 Z" fill="#7b5bff"/></svg>
         <svg style={{ position: "absolute", left: "619.49px", top: "90.19px", width: "8px", height: "8px", display: "block", lineHeight: 0, overflow: "visible" }} xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8" fill="none" overflow="visible"><path transform="matrix(1 0 0 1 0 0)" d="M8 4 C8 6.20914 6.20914 8 4 8 C1.79086 8 0 6.20914 0 4 C0 1.79086 1.79086 0 4 0 C6.20914 0 8 1.79086 8 4 Z" fill="#1a1a1a"/><path transform="matrix(1 0 0 1 0 0)" d="M8 4 L6.5 4 C6.5 5.38071 5.38071 6.5 4 6.5 L4 8 L4 9.5 C7.03757 9.5 9.5 7.03757 9.5 4 L8 4 Z M4 8 L4 6.5 C2.61929 6.5 1.5 5.38071 1.5 4 L0 4 L-1.5 4 C-1.5 7.03757 0.962434 9.5 4 9.5 L4 8 Z M0 4 L1.5 4 C1.5 2.61929 2.61929 1.5 4 1.5 L4 0 L4 -1.5 C0.962434 -1.5 -1.5 0.962434 -1.5 4 L0 4 Z M4 0 L4 1.5 C5.38071 1.5 6.5 2.61929 6.5 4 L8 4 L9.5 4 C9.5 0.962434 7.03757 -1.5 4 -1.5 L4 0 Z" fill="#7b5bff"/></svg>
@@ -487,7 +513,7 @@ export function ProjectionsPage() {
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "93px", lineHeight: "18px", fontFamily: "'Geist'", fontSize: "14px", fontWeight: 400, color: "#7c7c7c" }}>Tier by Sep 30</p>
           </div>
         </div>
-        <div data-fu="row" style={{ width: "787px", height: "64px", flexShrink: 0, boxShadow: "inset 0 -1px 0 0 #222222", display: "flex", flexDirection: "row", padding: "0px 0px 1px 0px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+        <div style={{ width: "787px", height: "64px", flexShrink: 0, boxShadow: "inset 0 -1px 0 0 #222222", display: "flex", flexDirection: "row", padding: "0px 0px 1px 0px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
           <div style={{ width: "214px", height: "63px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 12px 0px 12px", gap: "8px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
             <div style={{ flexShrink: 0, display: "flex", flexDirection: "column", gap: "2px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
               <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "4px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
@@ -524,7 +550,7 @@ export function ProjectionsPage() {
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "31px", lineHeight: "16px", fontFamily: "'Geist'", fontSize: "12px", fontWeight: 400, color: "#8a8a8a" }}>holds</p>
           </div>
         </div>
-        <div data-fu="row" style={{ width: "787px", height: "64px", flexShrink: 0, boxShadow: "inset 0 -1px 0 0 #222222", display: "flex", flexDirection: "row", padding: "0px 0px 1px 0px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+        <div style={{ width: "787px", height: "64px", flexShrink: 0, boxShadow: "inset 0 -1px 0 0 #222222", display: "flex", flexDirection: "row", padding: "0px 0px 1px 0px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
           <div style={{ width: "214px", height: "63px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 12px 0px 12px", gap: "8px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
             <div style={{ flexShrink: 0, display: "flex", flexDirection: "column", gap: "2px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
               <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "4px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
@@ -561,7 +587,7 @@ export function ProjectionsPage() {
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "31px", lineHeight: "16px", fontFamily: "'Geist'", fontSize: "12px", fontWeight: 400, color: "#8a8a8a" }}>holds</p>
           </div>
         </div>
-        <div data-fu="row" style={{ width: "787px", height: "64px", flexShrink: 0, background: "#262626", boxShadow: "inset 0 0 0 1px #323232", display: "flex", flexDirection: "row", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+        <div style={{ width: "787px", height: "64px", flexShrink: 0, background: "#262626", boxShadow: "inset 0 0 0 1px #323232", display: "flex", flexDirection: "row", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
           <div style={{ width: "214px", height: "63px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 12px 0px 12px", gap: "8px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
             <div style={{ flexShrink: 0, display: "flex", flexDirection: "column", gap: "2px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
               <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "4px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
@@ -601,7 +627,7 @@ export function ProjectionsPage() {
             </div>
           </div>
         </div>
-        <div data-fu="row" style={{ width: "787px", height: "64px", flexShrink: 0, boxShadow: "inset 0 -1px 0 0 #222222", display: "flex", flexDirection: "row", padding: "0px 0px 1px 0px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+        <div style={{ width: "787px", height: "64px", flexShrink: 0, boxShadow: "inset 0 -1px 0 0 #222222", display: "flex", flexDirection: "row", padding: "0px 0px 1px 0px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
           <div style={{ width: "214px", height: "63px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 12px 0px 12px", gap: "8px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
             <div style={{ flexShrink: 0, display: "flex", flexDirection: "column", gap: "2px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
               <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "4px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
@@ -638,7 +664,7 @@ export function ProjectionsPage() {
             <p style={{ flexShrink: 0, margin: 0, textAlign: "left", whiteSpace: "pre", minWidth: "31px", lineHeight: "16px", fontFamily: "'Geist'", fontSize: "12px", fontWeight: 400, color: "#8a8a8a" }}>holds</p>
           </div>
         </div>
-        <div data-fu="row" style={{ width: "787px", height: "64px", flexShrink: 0, boxShadow: "inset 0 -1px 0 0 #222222", display: "flex", flexDirection: "row", padding: "0px 0px 1px 0px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
+        <div style={{ width: "787px", height: "64px", flexShrink: 0, boxShadow: "inset 0 -1px 0 0 #222222", display: "flex", flexDirection: "row", padding: "0px 0px 1px 0px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
           <div style={{ width: "214px", height: "63px", flexShrink: 0, display: "flex", flexDirection: "row", padding: "0px 12px 0px 12px", gap: "8px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
             <div style={{ flexShrink: 0, display: "flex", flexDirection: "column", gap: "2px", justifyContent: "flex-start", alignItems: "flex-start", boxSizing: "border-box" }}>
               <div style={{ flexShrink: 0, display: "flex", flexDirection: "row", gap: "4px", justifyContent: "flex-start", alignItems: "center", boxSizing: "border-box" }}>
@@ -795,285 +821,4 @@ export function ProjectionsPage() {
       </div>
     </div>
   );
-}
-
-// Interactions: hover and click states. Remove this function and the two lines above to get a static component.
-function fuInteract(root: HTMLElement | null) {
-  if (!root || root.dataset.fuOn) return;
-  root.dataset.fuOn = "1";
-  const doc = root.ownerDocument;
-  const all = (sel: string, el: Element = root): HTMLElement[] => Array.from(el.querySelectorAll(sel)) as HTMLElement[];
-  const box = (el: Element) => el.getBoundingClientRect();
-  const font = getComputedStyle(root).fontFamily;
-  const tip = doc.createElement("div");
-  tip.setAttribute("aria-hidden", "true");
-  Object.assign(tip.style, { position: "fixed", zIndex: "2147483647", pointerEvents: "none", background: "#111113", color: "#fff", font: "500 12px/16px " + font, padding: "5px 8px", borderRadius: "6px", whiteSpace: "nowrap", opacity: "0", transform: "translate(-50%, -100%)", transition: "opacity .12s", boxShadow: "0 4px 14px rgba(0,0,0,.18)" });
-  doc.body.appendChild(tip);
-  const show = (text: string, x: number, y: number) => { if (!text) return hide(); tip.textContent = text; tip.style.left = x + "px"; tip.style.top = y - 8 + "px"; tip.style.opacity = "1"; };
-  const hide = () => { tip.style.opacity = "0"; };
-  const ease = (el: HTMLElement | SVGElement, props: string) => { const s = (el as HTMLElement).style; if (!s.transition) s.transition = props; };
-  const texts = (scope: Element) => all("p, span", scope).filter((t) => t.children.length === 0 && (t.textContent || "").trim());
-  const NUM = /^([^\d\-+.]*)([-+]?[\d,]*\.?\d+)\s*([kKmMbB%]?)([^\d]*)$/;
-  // value axis: numeric labels along one edge of the chart, used to read a mark's value from its position
-  const axis = (scope: Element, vertical: boolean) => {
-    const pts: { v: number; p: number; pre: string; suf: string; dec: number }[] = [];
-    for (const t of texts(scope)) {
-      const m = (t.textContent || "").trim().match(NUM);
-      if (!m) continue;
-      const mult = { k: 1e3, K: 1e3, m: 1e6, M: 1e6, b: 1e9, B: 1e9 }[m[3] as "k"] || 1;
-      const r = box(t);
-      pts.push({ v: parseFloat(m[2].replace(/,/g, "")) * mult, p: vertical ? r.top + r.height / 2 : r.left + r.width / 2, pre: m[1], suf: m[3] + m[4], dec: (m[2].split(".")[1] || "").length });
-    }
-    const uniq = pts.filter((a, i) => pts.findIndex((b) => Math.abs(b.p - a.p) < 2) === i);
-    if (uniq.length < 2) return null;
-    uniq.sort((a, b) => a.p - b.p);
-    const a = uniq[0], b = uniq[uniq.length - 1];
-    if (a.v === b.v || Math.abs(b.p - a.p) < 10) return null;
-    return (pos: number) => {
-      const v = a.v + ((pos - a.p) * (b.v - a.v)) / (b.p - a.p);
-      const suf = a.suf || b.suf, pre = a.pre || b.pre;
-      const div = /^[kK]/.test(suf) ? 1e3 : /^[mM]/.test(suf) ? 1e6 : /^[bB]/.test(suf) ? 1e9 : 1;
-      const x = v / div;
-      const dec = Math.max(a.dec, b.dec, div > 1 && Math.abs(x) < 100 ? 1 : 0);
-      return pre + x.toLocaleString("en-US", { minimumFractionDigits: 0, maximumFractionDigits: dec }) + suf;
-    };
-  };
-  // the chart around a group of marks: the nearest ancestor that also holds text labels
-  const chartOf = (el: Element) => { let c: Element | null = el.parentElement; while (c && c !== root.parentElement) { if (texts(c).length >= 3) return c; c = c.parentElement; } return root; };
-  const labelNear = (scope: Element, x: number, y: number, below: boolean, anyText = false) => {
-    let best = "", d = 1e9;
-    for (const t of texts(scope)) {
-      const r = box(t);
-      if (below ? r.top < y - 2 : r.right > x + 2) continue;
-      if (!anyText && NUM.test((t.textContent || "").trim()) && !/[a-z]{3}/i.test(t.textContent || "")) continue;
-      const dd = below ? Math.abs(r.left + r.width / 2 - x) + (r.top - y) * 0.2 : Math.abs(r.top + r.height / 2 - y) + (x - r.right) * 0.1;
-      if (dd < d) { d = dd; best = (t.textContent || "").trim(); }
-    }
-    return d < 80 ? best : "";
-  };
-  const dim = (els: (HTMLElement | SVGElement)[], keep: (HTMLElement | SVGElement)[]) => { for (const e of els) { ease(e, "opacity .15s"); (e as HTMLElement).style.opacity = keep.includes(e) ? "" : "0.35"; } };
-  const undim = (els: (HTMLElement | SVGElement)[]) => { for (const e of els) (e as HTMLElement).style.opacity = ""; };
-
-  // vertical bars: the hovered column (all stacked segments at that x) stays, the rest fade
-  const groups = new Map<Element, HTMLElement[]>();
-  for (const b of all("[data-fu=bar],[data-fu=hbar]")) { const p = b.parentElement!; if (!groups.has(p)) groups.set(p, []); groups.get(p)!.push(b); }
-  groups.forEach((bars) => {
-    const horiz = bars[0].dataset.fu === "hbar";
-    const scope = chartOf(bars[0]);
-    const val = axis(scope, !horiz);
-    const peers = (b: HTMLElement) => { const r = box(b), c = horiz ? r.top + r.height / 2 : r.left + r.width / 2; return bars.filter((o) => { const q = box(o); return Math.abs((horiz ? q.top + q.height / 2 : q.left + q.width / 2) - c) < Math.max(2, (horiz ? r.height : r.width) / 2); }); };
-    for (const b of bars) {
-      b.addEventListener("mouseenter", () => {
-        const col = peers(b);
-        dim(bars, col);
-        const rs = col.map(box);
-        const top = Math.min(...rs.map((r) => r.top)), right = Math.max(...rs.map((r) => r.right)), r0 = rs[0];
-        const label = horiz ? labelNear(scope, r0.left, r0.top + r0.height / 2, false) : labelNear(scope, r0.left + r0.width / 2, Math.max(...rs.map((r) => r.bottom)), true);
-        const v = val ? val(horiz ? right : top) : "";
-        show([label, v].filter(Boolean).join(" · "), horiz ? right : r0.left + r0.width / 2, horiz ? r0.top : top);
-      });
-      b.addEventListener("mouseleave", () => { undim(bars); hide(); });
-    }
-  });
-
-  // line and area plots: a guide line and a dot follow the pointer along the top edge of the plotted shape
-  for (const svg of all("svg[data-fu=plot]") as unknown as SVGSVGElement[]) {
-    const paths = Array.from(svg.querySelectorAll("path, polyline")) as SVGGeometryElement[];
-    if (!paths.length) continue;
-    const line = paths.reduce((a, b) => (b.getTotalLength() > a.getTotalLength() ? b : a));
-    const len = line.getTotalLength();
-    const pts: { x: number; y: number }[] = [];
-    for (let i = 0; i <= 800; i++) { const q = line.getPointAtLength((len * i) / 800); pts.push({ x: q.x, y: q.y }); }
-    const xs = pts.map((q) => q.x), minX = Math.min(...xs), maxX = Math.max(...xs);
-    const color = (line.getAttribute("stroke") && line.getAttribute("stroke") !== "none" ? line.getAttribute("stroke") : line.getAttribute("fill")) || "#111";
-    const NS = "http://www.w3.org/2000/svg";
-    const g = doc.createElementNS(NS, "g");
-    g.setAttribute("pointer-events", "none");
-    g.style.opacity = "0";
-    const guide = doc.createElementNS(NS, "line");
-    guide.setAttribute("stroke", /^url/.test(color) ? "#111" : color);
-    guide.setAttribute("stroke-dasharray", "3 3");
-    guide.setAttribute("stroke-opacity", "0.5");
-    const dot = doc.createElementNS(NS, "circle");
-    dot.setAttribute("r", "4");
-    dot.setAttribute("fill", "#fff");
-    dot.setAttribute("stroke", /^url/.test(color) ? "#111" : color);
-    dot.setAttribute("stroke-width", "2");
-    g.append(guide, dot);
-    svg.appendChild(g);
-    const scope = chartOf(svg);
-    const val = axis(scope, true);
-    const area = svg.parentElement || svg;
-    area.addEventListener("mousemove", (ev: Event) => {
-      const e = ev as MouseEvent;
-      const m = line.getScreenCTM();
-      if (!m) return;
-      const px = new DOMPoint(e.clientX, e.clientY).matrixTransform(m.inverse()).x;
-      if (px < minX - 4 || px > maxX + 4) { g.style.opacity = "0"; hide(); return; }
-      const step = (maxX - minX) / 400 || 1;
-      let y = Infinity, x = px;
-      for (const q of pts) if (Math.abs(q.x - px) <= step && q.y < y) { y = q.y; x = q.x; }
-      if (y === Infinity) return;
-      const bb = line.getBBox();
-      guide.setAttribute("x1", String(x)); guide.setAttribute("x2", String(x));
-      guide.setAttribute("y1", String(bb.y)); guide.setAttribute("y2", String(bb.y + bb.height));
-      dot.setAttribute("cx", String(x)); dot.setAttribute("cy", String(y));
-      g.style.opacity = "1";
-      const sp = new DOMPoint(x, y).matrixTransform(m);
-      const label = labelNear(scope, sp.x, box(svg).bottom, true);
-      show([label, val ? val(sp.y) : ""].filter(Boolean).join(" · "), sp.x, sp.y);
-    });
-    area.addEventListener("mouseleave", () => { g.style.opacity = "0"; hide(); });
-  }
-
-  // cards: a small lift on hover (an extra drop shadow, the card's own shadows stay as they are)
-  for (const c of all("[data-fu=card]").concat(root.dataset.fu === "card" ? [root] : [])) {
-    c.addEventListener("mouseenter", () => { ease(c, "transform .18s ease, filter .18s ease"); c.style.transform = "translateY(-2px)"; c.style.filter = "drop-shadow(0 8px 16px rgba(17,17,19,.08))"; });
-    c.addEventListener("mouseleave", () => { c.style.transform = ""; c.style.filter = ""; });
-  }
-
-  // heatmap and calendar cells: an outline and the cell's own text
-  for (const c of all("[data-fu=cell]")) {
-    c.addEventListener("mouseenter", () => {
-      ease(c, "outline-color .12s");
-      c.style.outline = "2px solid rgba(17,17,19,.55)";
-      c.style.outlineOffset = "1px";
-      const r = box(c);
-      // its own text, or the row and column labels of the grid it sits in
-      let label = (c.textContent || "").trim();
-      if (!label) {
-        // walk outwards until a row label (left) and a column label (below) are in reach
-        let row = "", col = "";
-        for (let a: Element | null = c.parentElement; a && a !== root.parentElement && !(row && col); a = a.parentElement) {
-          if (!row) row = labelNear(a, r.left, r.top + r.height / 2, false, true);
-          if (!col) col = labelNear(a, r.left + r.width / 2, r.bottom, true, true);
-        }
-        label = [row, col].filter(Boolean).join(" · ");
-      }
-      show(label, r.left + r.width / 2, r.top);
-    });
-    c.addEventListener("mouseleave", () => { c.style.outline = ""; c.style.outlineOffset = ""; hide(); });
-  }
-
-  // fields: hover and focus states
-  for (const f of all("[data-fu=field]")) {
-    f.style.cursor = "text";
-    f.addEventListener("mouseenter", () => { ease(f, "filter .15s, outline-color .15s"); f.style.filter = "brightness(0.985)"; });
-    f.addEventListener("mouseleave", () => { f.style.filter = ""; });
-    f.addEventListener("mousedown", (ev) => {
-      ev.stopPropagation();
-      for (const o of all("[data-fu=field]")) o.style.outline = "";
-      f.style.outline = "3px solid rgba(17,17,19,.12)";
-      f.style.outlineOffset = "0px";
-    });
-  }
-  doc.addEventListener("mousedown", () => { for (const o of all("[data-fu=field]")) o.style.outline = ""; });
-
-  // donut and pie charts drawn as one vector per arc: the hovered arc stays, the others fade
-  const arcGroups = new Map<Element, HTMLElement[]>();
-  for (const a of all("[data-fu=arc]")) { const p = a.parentElement!; if (!arcGroups.has(p)) arcGroups.set(p, []); arcGroups.get(p)!.push(a); }
-  arcGroups.forEach((arcs) => {
-    const scope = chartOf(arcs[0]);
-    const hexOf = (c: string) => { const m = c.match(/\d+/g); return m && m.length >= 3 ? "#" + m.slice(0, 3).map((x) => (+x).toString(16).padStart(2, "0")).join("") : c.toLowerCase(); };
-    const legend = (color: string) => {
-      for (const el of all("*", scope)) {
-        if (el.children.length || (el.textContent || "").trim()) continue;
-        if (hexOf(getComputedStyle(el).backgroundColor) !== color.toLowerCase()) continue;
-        // climb to the legend row: the first ancestor that holds more than the swatch's label
-        let row: Element | null = el.parentElement;
-        while (row && row.parentElement && texts(row).length < 2 && row !== scope) row = row.parentElement;
-        const words = row ? texts(row).map((t) => (t.textContent || "").trim()) : [];
-        if (words.length && words.length <= 5) return words.join(" · ");
-        if (el.parentElement) return texts(el.parentElement).map((t) => (t.textContent || "").trim()).join(" · ");
-      }
-      return "";
-    };
-    // hit-test the whole stack under the pointer: labels or tracks drawn over the ring don't get in the way
-    const fills = new Map(arcs.map((a) => { const sh = a.querySelector("path"); return [a, (sh && (sh.getAttribute("fill") || sh.getAttribute("stroke"))) || ""] as [HTMLElement, string]; }));
-    let current: HTMLElement | null = null;
-    scope.addEventListener("mousemove", (ev) => {
-      const e = ev as MouseEvent;
-      // the arc whose drawn shape (not just its box) is under the pointer
-      const inside = (sh: SVGGeometryElement) => { const m = sh.getScreenCTM(); if (!m) return false; const q = new DOMPoint(e.clientX, e.clientY).matrixTransform(m.inverse()); return sh.isPointInFill(q) || sh.isPointInStroke(q); };
-      const arc = arcs.find((a) => (Array.from(a.querySelectorAll("path, circle, ellipse")) as SVGGeometryElement[]).some(inside)) || null;
-      if (!arc) { if (current) { undim(arcs); hide(); current = null; } return; }
-      if (arc !== current) { dim(arcs, [arc]); current = arc; }
-      show(legend(fills.get(arc) || ""), e.clientX, e.clientY);
-    });
-    scope.addEventListener("mouseleave", () => { undim(arcs); hide(); current = null; });
-  });
-
-  // donut and pie arcs in one drawing: the hovered arc stays, the others fade; the legend row with the same colour names it
-  for (const svg of all("svg[data-fu=donut]") as unknown as SVGSVGElement[]) {
-    const arcs = (Array.from(svg.querySelectorAll("path")) as SVGPathElement[]).filter((p) => { const f = p.getAttribute("fill"); return f && f !== "none" && !/^url/.test(f); });
-    const scope = chartOf(svg);
-    const hex = (c: string) => { const m = c.match(/\d+/g); return m && m.length >= 3 ? "#" + m.slice(0, 3).map((x) => (+x).toString(16).padStart(2, "0")).join("") : c.toLowerCase(); };
-    const legend = (color: string) => {
-      for (const el of all("*", scope)) {
-        if (el.children.length || (el.textContent || "").trim()) continue;
-        const bg = getComputedStyle(el).backgroundColor;
-        if (!bg || hex(bg) !== color.toLowerCase()) continue;
-        const row = el.parentElement;
-        const words = row ? texts(row).map((t) => (t.textContent || "").trim()) : [];
-        if (words.length) return words.join(" · ");
-      }
-      return "";
-    };
-    for (const a of arcs) {
-      a.addEventListener("mouseenter", (ev) => {
-        dim(arcs, [a]);
-        const e = ev as MouseEvent;
-        show(legend(a.getAttribute("fill") || ""), e.clientX, e.clientY);
-      });
-      a.addEventListener("mousemove", (ev) => { const e = ev as MouseEvent; tip.style.left = e.clientX + "px"; tip.style.top = e.clientY - 8 + "px"; });
-      a.addEventListener("mouseleave", () => { undim(arcs); hide(); });
-    }
-  }
-
-  // rows: a soft highlight under the pointer
-  for (const r of all("[data-fu=row]")) {
-    r.addEventListener("mouseenter", () => { ease(r, "filter .15s"); r.style.filter = "brightness(0.975)"; });
-    r.addEventListener("mouseleave", () => { r.style.filter = ""; });
-  }
-
-  // buttons: hover and press feedback
-  for (const b of all("[data-fu=btn],[data-fu=tab]")) {
-    b.style.cursor = "pointer";
-    b.addEventListener("mouseenter", () => { ease(b, "filter .15s, transform .1s"); if (!b.dataset.fuActive) b.style.filter = "brightness(0.96)"; });
-    b.addEventListener("mouseleave", () => { b.style.filter = ""; b.style.transform = ""; });
-    b.addEventListener("mousedown", () => { b.style.transform = "scale(0.98)"; });
-    b.addEventListener("mouseup", () => { b.style.transform = ""; });
-  }
-
-  // tabs and segmented controls: clicking a tab moves the selected look onto it
-  const VIS = ["background-color", "background-image", "box-shadow", "border-color", "color", "font-weight"];
-  const look = (el: HTMLElement) => VIS.map((k) => el.style.getPropertyValue(k)).join("|");
-  const tabGroups = new Map<Element, HTMLElement[]>();
-  for (const t of all("[data-fu=tab]")) { const p = t.parentElement!; if (!tabGroups.has(p)) tabGroups.set(p, []); tabGroups.get(p)!.push(t); }
-  tabGroups.forEach((tabs) => {
-    if (tabs.length < 2) return;
-    const counts = new Map<string, number>();
-    for (const t of tabs) counts.set(look(t), (counts.get(look(t)) || 0) + 1);
-    let active = tabs.find((t) => counts.get(look(t)) === 1 && counts.size > 1) || null;
-    if (!active) return;
-    active.dataset.fuActive = "1";
-    // read both looks first, then write: swapping one property at a time would let shorthands undo each other
-    const swapStyle = (a: HTMLElement, b: HTMLElement, props: string[]) => {
-      const va = props.map((k) => a.style.getPropertyValue(k)), vb = props.map((k) => b.style.getPropertyValue(k));
-      props.forEach((k, i) => { a.style.setProperty(k, vb[i]); b.style.setProperty(k, va[i]); });
-    };
-    const swap = (a: HTMLElement, b: HTMLElement) => {
-      swapStyle(a, b, VIS);
-      const ta = texts(a), tb = texts(b);
-      for (let i = 0; i < Math.min(ta.length, tb.length); i++) swapStyle(ta[i], tb[i], ["color", "font-weight"]);
-    };
-    for (const t of tabs) t.addEventListener("click", () => {
-      if (!active || t === active) return;
-      t.style.filter = "";
-      swap(active, t);
-      delete active.dataset.fuActive;
-      active = t;
-      t.dataset.fuActive = "1";
-    });
-  });
 }
