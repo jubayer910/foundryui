@@ -25,7 +25,7 @@ export function HourlyChart({ series, day, cmp, tz }: { series: HourlySeriesView
   const focus = hover ?? (m.total ? peak : null);
 
   return (
-    <figure className="card p-4">
+    <figure className="card min-w-0 p-4">
       <figcaption className="flex flex-wrap items-center gap-x-3 gap-y-2">
         <span className="inline-flex items-center gap-0.5 text-[13px] font-medium">
           By hour
