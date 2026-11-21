@@ -20,3 +20,6 @@ any `"use client"` component in its preview with the shared React runtime (`libr
 | # | Component | Behaviour | Rest | Types | UX | Data | Chrome |
 |---|-----------|-----------|------|-------|----|------|--------|
 | 1 | loopo/loopo-new-contacts-card-18845391 | Column hover tooltip (both series + total, other columns dim, date label darkens); legend hover isolates a series; Daily / Weekly / Monthly menu redraws bars, axis, labels and subtitle (Escape / outside click close) | PASS (max 28) | PASS | PASS | PASS | PASS |
+| 2 | axon/axon-range-menu-73237914 | Highlight follows pointer and ↑/↓ (starts on "Quarter" as drawn); click / Enter picks a range and moves the check; C picks Custom range; "Previous period" toggles a check | PASS (max 35) | PASS | PASS | PASS | PASS |
+| 3 | mailpulse/mailpulse-date-range-menu-13937967 | Highlight follows pointer and ↑/↓; picking a range swaps its dates for the check; the compare switch slides on/off | PASS (exact) | PASS | PASS | PASS | PASS |
+| 4 | montra/montra-all-recurring-card-3831814 | 18 real subscriptions behind the table: All / Software / Bills / Price up filter with live counts, search by name/plan/category with an empty state, Filter popover by cadence, row hover, row menu pauses/resumes or cancels (counts update, lower rows open the menu upward) | PASS (exact) | PASS | PASS | PASS | PASS |
