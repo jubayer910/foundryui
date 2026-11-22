@@ -214,7 +214,8 @@ async function invoiceFromSentList(call: ToolCaller, invoiceId: string, detail: 
   const number = typeof d?.invoice?.invoiceNumber === "string" ? d.invoice.invoiceNumber : null;
   const own = new Set<string>(["mhjubayer910@gmail.com"]);
   let shape = "";
-  for (let page = 0; page < 4; page++) {
+  for (let page = 1; page <= 4; page++) {
+    // pageIndex is 1-based (Contra rejects 0); newest first.
     const data = await call("list_invoices_sent", { pageIndex: page, pageSize: 50 });
     if (!shape) shape = shapeOf(data);
     const items = findInvoiceItems(data);
