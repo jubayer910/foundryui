@@ -5,3 +5,6 @@
   X-Robots-Tag: noindex
 /r/*
   X-Robots-Tag: noindex
+# Hashed build files never change under the same name: cache them for a year.
+/_next/static/*
+  Cache-Control: public, max-age=31536000, immutable

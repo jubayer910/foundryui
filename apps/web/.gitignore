@@ -46,3 +46,6 @@ next-env.d.ts
 # OG visuals generated before each build (scripts/og-visuals.mjs)
 /.og-cache/
 .dev.vars.admin-test
+
+# CSS and fonts of earlier deploys, kept online for Clarity replays (scripts/keep-old-css.mjs)
+/.static-archive/
