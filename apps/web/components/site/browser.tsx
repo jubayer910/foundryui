@@ -24,8 +24,32 @@ const SHOWCASE_ROUNDS: { cats: string[]; name: RegExp }[] = [
   { cats: ["KPI and stats", "Cards and panels"], name: /kpi|metric|stat|summary|overview|insight|leaderboard|pipeline/i },
   { cats: ["Modals", "Drawers"], name: /modal|drawer|dialog|detail|new|create|invite|connect/i },
 ];
-/** Shown low in the unfiltered library: Vantage is a dark-only product, so its blocks wait below the mix. */
+/** Vantage is a dark-only product: it is in every round of the mix, but last in each round, so a dark card never leads. */
 const LOW_SYSTEMS = new Set(["vantage"]);
+
+/** How finished a block looks: its drawn size (bigger = more detail), with checked code ranked up. */
+const area = (e: Entry) => (e.w && e.h ? e.w * e.h : 640 * 360);
+const quality = (e: Entry) => Math.sqrt(area(e)) * (coded(e) ? 1.25 : 1);
+
+/**
+ * Every system mixed, best first: each system's blocks sorted by `weight` (higher first), then taken in rounds,
+ * one per system per round, so the first screens of any filter show all nine looks instead of one system's list.
+ * Part-only pieces (a modal header, a card footer) go after everything else.
+ */
+function mixSystems(list: Entry[], part: RegExp, weight: (e: Entry) => number): Entry[] {
+  const parts = list.filter((e) => part.test(e.name));
+  const by = new Map<string, Entry[]>();
+  for (const e of list) if (!part.test(e.name)) by.set(e.system, [...(by.get(e.system) ?? []), e]);
+  for (const xs of by.values()) xs.sort((a, b) => weight(b) - weight(a));
+  const out: Entry[] = [];
+  for (let i = 0; ; i++) {
+    const round = [...by.values()].map((xs) => xs[i]).filter((e): e is Entry => !!e);
+    if (!round.length) break;
+    round.sort((a, b) => Number(LOW_SYSTEMS.has(a.system)) - Number(LOW_SYSTEMS.has(b.system)) || weight(b) - weight(a));
+    out.push(...round);
+  }
+  return [...out, ...parts];
+}
 
 /**
  * The opening of the unfiltered library: for every design system, its most detailed blocks (largest
@@ -33,14 +57,15 @@ const LOW_SYSTEMS = new Set(["vantage"]);
  * system so the first screens show all nine looks, free and Pro together.
  */
 function showcase(list: Entry[], part: RegExp): Entry[] {
-  const area = (e: Entry) => (e.w ?? 0) * (e.h ?? 0);
-  const score = (e: Entry) => area(e) * (coded(e) ? 1.6 : 1);
-  const order = [...new Set(list.map((e) => e.system))].filter((x) => !LOW_SYSTEMS.has(x));
+  const drawn = (e: Entry) => (e.w ?? 0) * (e.h ?? 0);
+  const score = (e: Entry) => drawn(e) * (coded(e) ? 1.6 : 1);
+  const all = [...new Set(list.map((e) => e.system))];
+  const order = [...all.filter((x) => !LOW_SYSTEMS.has(x)), ...all.filter((x) => LOW_SYSTEMS.has(x))];
   const used = new Set<string>();
   const out: Entry[] = [];
   for (const round of SHOWCASE_ROUNDS) {
     for (const system of order) {
-      const pool = list.filter((e) => e.system === system && round.cats.includes(e.category) && !used.has(e.slug) && !part.test(e.name) && area(e) > 0);
+      const pool = list.filter((e) => e.system === system && round.cats.includes(e.category) && !used.has(e.slug) && !part.test(e.name) && drawn(e) > 0);
       const best = (xs: Entry[]) => [...xs].sort((a, b) => score(b) - score(a))[0];
       // only blocks that are what the round promises; a system without one sits that round out
       const pick = best(pool.filter((e) => round.name.test(e.name) && !/\bform\b|settings/i.test(e.name)));
@@ -101,14 +126,14 @@ export function Browser({ entries, categories, systems, initialCategory = "all",
     // Featured: what sells first (charts, KPIs, tables, overlays), parts and utilities last
     const part = /^(header|body|footer) (modal|drawer|card)\b/i;
     const W: Record<string, number> = { Charts: 0, "KPI and stats": 1, "Tables and lists": 2, Modals: 3, Drawers: 4, "Cards and panels": 5, Templates: 6, Menus: 7, Popovers: 8, Editors: 9, Navigation: 10, Forms: 11, Headers: 12, Feedback: 13, Atoms: 14, Foundations: 15 };
-    const rank = (e: Entry) => (part.test(e.name) ? 100 : 0) + (W[e.category] ?? 9) - (coded(e) ? 0.5 : 0);
-    const ranked = [...list].sort((a, b) => rank(a) - rank(b));
-    // "All" with no filters: open with the richest work of every system, mixed, instead of one system's list
-    if (sys !== "all" || cat !== "all" || words.length) return ranked;
+    // across categories the ones that sell lead (charts before atoms); inside one category it is detail alone
+    const weight = (e: Entry) => quality(e) / (1 + 0.15 * (W[e.category] ?? 9));
+    // a filter (Templates, Headers, a search…) still mixes all nine systems, best first
+    if (sys !== "all" || cat !== "all" || words.length) return mixSystems(list, part, weight);
+    // "All" with no filters: open with the richest chart, KPI, table and overlay of every system, then the same mix
     const head = showcase(list, part);
     const taken = new Set(head.map((e) => e.slug));
-    const rest = ranked.filter((e) => !taken.has(e.slug));
-    return [...head, ...rest.filter((e) => !LOW_SYSTEMS.has(e.system)), ...rest.filter((e) => LOW_SYSTEMS.has(e.system))];
+    return [...head, ...mixSystems(list.filter((e) => !taken.has(e.slug)), part, weight)];
   }, [base, cat, sort, sys, words.length]);
   const count = (c: string) => (c === "all" ? base.length : base.filter((e) => e.category === c).length);
   const cats = ["all", ...categories.filter((c) => base.some((e) => e.category === c))];
