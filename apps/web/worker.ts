@@ -19,6 +19,12 @@ type ScheduledController = { scheduledTime: number; cron: string };
 type Handler = { fetch(req: Request, env: Env, ctx: ExecutionContext): Promise<Response> };
 const worker = {
   fetch: async (req: Request, env: Env, ctx: ExecutionContext) => {
+    // One canonical scheme: http://ingotui.com/... answered 200 and Google indexed both versions, splitting rank.
+    const url = new URL(req.url);
+    if (url.protocol === "http:" && url.hostname === "ingotui.com") {
+      url.protocol = "https:";
+      return Response.redirect(url.toString(), 301);
+    }
     // Page loads always get a full body, so an old browser copy (from before an edit) can't win with a 304.
     if (req.method === "GET" && (req.headers.get("accept") || "").includes("text/html") && (req.headers.has("if-none-match") || req.headers.has("if-modified-since"))) {
       req = new Request(req);

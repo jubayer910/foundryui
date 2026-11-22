@@ -24,6 +24,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: abs("/"), lastModified: CATALOG_UPDATED, changeFrequency: "weekly", priority: 1 },
     { url: abs("/categories"), lastModified: CATALOG_UPDATED, changeFrequency: "weekly", priority: 0.9 },
     { url: abs("/systems"), lastModified: CATALOG_UPDATED, changeFrequency: "weekly", priority: 0.9 },
+    { url: abs("/dashboard-ui-kit"), lastModified: CATALOG_UPDATED, changeFrequency: "weekly", priority: 0.9 },
     { url: abs("/templates"), lastModified: CATALOG_UPDATED, changeFrequency: "weekly", priority: 0.9 },
     { url: abs("/charts"),lastModified: CATALOG_UPDATED, changeFrequency: "weekly", priority: 0.8 },
     { url: abs("/icons"), lastModified: CATALOG_UPDATED, changeFrequency: "monthly", priority: 0.7 },

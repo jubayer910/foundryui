@@ -14,7 +14,7 @@ import { ed } from "@/lib/content/edit";
 
 const MORE = [
   { href: "/mcp", scene: "server", h: "Connect your AI agent", b: "One line in Claude Code or Cursor, and your agent builds with the system." },
-  { href: "/systems", scene: "six", h: "Nine design systems", b: "Each one complete: tokens, components, charts and screens in one look." },
+  { href: "/dashboard-ui-kit", scene: "six", h: "Nine dashboard UI kits", b: "Each one complete in Figma and code: tokens, components, charts and screens in one look." },
   { href: "/pricing", scene: "ingots", h: "Free, Pro or Lifetime", b: "Start free with Loopo, or get the Lifetime launch deal while it lasts." },
 ];
 

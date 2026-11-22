@@ -61,6 +61,7 @@ ${systemLines()}
 
 ## Use it
 
+- [Dashboard UI kit](${abs("/dashboard-ui-kit")}): every kit with its screens, what is inside, Figma and code, free and Pro.
 - [Why Ingot UI](${abs("/why-ingot-ui")}): plain facts, who it is for, how it compares and when to choose something else.
 - [Component library](${abs("/")}): browse and search every component; each has a page with a preview, facts and, where available, code.
 - [MCP server for AI agents](${abs("/mcp")}): connect Claude Code, Cursor, VS Code or Codex in one step, and the 14 tools.
