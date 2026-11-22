@@ -815,10 +815,43 @@ export async function matchSale(sale: Sale, now = new Date()): Promise<MatchOutc
     await setNote(sale.id, "One request gives this name, but it was sent before the sale; check by hand", now);
     return { status: "unmatched" };
   }
+  // d) email hidden and no request: the account with the same name. Contra never gives a hidden email (not in
+  //    the sales list, the invoice, or the sent-invoices list), but nearly every buyer signs up with the same
+  //    name they paid with, usually the same day. Taken only when it is unambiguous: exactly one account with
+  //    that exact name, created within NAME_MATCH_DAYS of the sale, and no other open sale with that name.
+  if (!hits.length) {
+    const r = await matchByAccountName(sale, name, now);
+    if (r) return r;
+  }
   const inv = saleInvoice.get(sale.id);
   const miss = inv ? invoiceMisses.get(inv) : undefined;
-  await setNote(sale.id, (hits.length ? `${hits.length} requests give this name; match by hand` : "Email not shared and no request gives this name yet") + (miss ? `. Invoice check: ${miss}` : ""), now);
+  await setNote(sale.id, (hits.length ? `${hits.length} requests give this name; match by hand` : "Email not shared and no request or new account has this name yet") + (miss ? `. Invoice check: ${miss}` : ""), now);
   return { status: "unmatched" };
+}
+
+/** How far an account's sign-up may be from the sale day for the same-name match (either side). */
+export const NAME_MATCH_DAYS = 3;
+
+async function matchByAccountName(sale: Sale, name: string, now: Date): Promise<MatchOutcome | null> {
+  const db = await getDb();
+  const U = schema.user;
+  const users = (await db.select({ id: U.id, email: U.email, name: U.name, plan: U.plan, createdAt: U.createdAt }).from(U).where(sql`lower(trim(${U.name})) = ${name}`).limit(5)).filter((u) => normName(u.name) === name);
+  if (users.length !== 1) return null;
+  const u = users[0];
+  const day = saleStart(sale);
+  if (Math.abs(u.createdAt.getTime() - day) > (NAME_MATCH_DAYS + 1) * 86_400_000) return null;
+  const S = schema.contraSale;
+  const open = await db.select({ id: S.id, f: S.firstName, l: S.lastName }).from(S).where(and(eq(S.status, "unmatched"), inArray(S.variantKey, familyOf(sale.variantKey) as string[])));
+  if (open.filter((o) => normName([o.f, o.l].filter(Boolean).join(" ")) === name).length !== 1) return null;
+  if (await alreadyHas({ id: u.id, plan: u.plan } as Parameters<typeof alreadyHas>[0], sale.option as CheckoutOption)) {
+    if (!(await claim(sale.id, { userId: u.id, activationId: null, matchedBy: "name", note: `Account with the same name already had ${grantOf(sale.option).plan}` }, now))) return { status: "skipped" };
+    await audit(ACTOR, "contra.match", sale.id, { userId: u.id, how: "account-name", approved: false, already: true });
+    return { status: "matched", how: "name" };
+  }
+  const a = await activationFor(u, sale, u.email, now);
+  const r = await claimAndApprove(sale, a, "name", ACTOR, now);
+  if (r.status === "matched") await setNote(sale.id, "Email hidden on Contra; matched to the one account with the same name", now);
+  return r;
 }
 
 /** Sales paid on or after this many days ago get the account invite; older ones (bought before the sync existed) stay silent. */
