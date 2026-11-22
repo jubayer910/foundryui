@@ -74,6 +74,12 @@ await mkUser("gus");
 await mkAct("gus", { option: "proYearly", variantKey: "proYearly", amountCents: 3900, payerEmail: "gus-x" + T, contraName: "Gus Guess", createdAt: YESTERDAY }); // c) name, sent before the sale
 await mkUser("eve");
 await mkAct("eve", { payerEmail: "eve" + T }); // old link at its old $29 price
+// d) hidden email, matched to the one account with the same name (signed up around the sale)
+const mkNamed = async (id: string, name: string, createdAt: Date) => db.insert(schema.user).values({ id, name, email: id + T, emailVerified: false, plan: "free", role: "user", createdAt, updatedAt: now });
+await mkNamed("hana", "Hana Hidden", now);
+await mkNamed("twin1", "Twin Same", now);
+await mkNamed("twin2", "Twin Same", now);
+await mkNamed("olds", "Old Signup", OLD);
 
 const tx = (id: string, amount: string, email: string | null, first = "", last = "", date = today) => ({
   id,
@@ -94,6 +100,9 @@ const sales: Record<string, unknown[]> = {
     tx("test_cheap", "USD:10.00", "bob2" + T),
     tx("test_newbie", "USD:49.00", "newbie" + T, "New", "Bie"),
     tx("test_old_nobody", "USD:49.00", "old-nobody" + T, "Old", "Nobody", "2026-10-01"),
+    tx("test_hana", "USD:49.00", null, "hana", "HIDDEN"),
+    tx("test_twin", "USD:49.00", null, "Twin", "Same"),
+    tx("test_olds", "USD:49.00", null, "Old", "Signup"),
     { ...tx("test_unpaid", "USD:49.00", "bob" + T), invoice: { status: "PENDING" } },
   ],
   "OLDLIFE-test": [tx("test_eve", "USD:29.00", "eve" + T)],
@@ -146,6 +155,9 @@ const sd = await saleRow("test_dana");
 check("c) name match, request sent on the sale's day → approved", sd?.status === "matched" && sd.matchedBy === "name" && (await planOf("dana")) === "pro" && active("dana") === 1);
 check("c) name match, request sent before the sale → left for staff", (await saleRow("test_gus"))?.status === "unmatched" && (await actRow("act_test_gus"))?.status === "pending");
 check("c) unknown name stays unmatched", (await saleRow("test_ghost"))?.status === "unmatched");
+check("d) hidden email, one new account with the same name → activated", (await saleRow("test_hana"))?.status === "matched" && (await planOf("hana")) === "lifetime" && active("hana") === 1);
+check("d) two accounts share the name → left for staff", (await saleRow("test_twin"))?.status === "unmatched" && (await planOf("twin1")) === "free" && (await planOf("twin2")) === "free");
+check("d) same name but account made months before → left for staff", (await saleRow("test_olds"))?.status === "unmatched" && (await planOf("olds")) === "free");
 
 // prices
 const sx = await saleRow("test_cheap");
@@ -185,7 +197,7 @@ check("existing new account: opening the inbox link while signed in with that em
 const mm = await manualMatch("test_ghost", "dana" + T, "owner" + T);
 check("manual match to an account that already has Pro → linked, no email", mm.ok && (await saleRow("test_ghost"))?.matchedBy === "manual" && mailsTo("dana").length === 1, mm.message);
 
-check("mail count: 7 active + 3 claim links", dryRunLog.length === 10, String(dryRunLog.length));
+check("mail count: 8 active (incl. same-name match) + 3 claim links", dryRunLog.length === 11, String(dryRunLog.length));
 await proxy.dispose();
 console.log(failed ? `\n${failed} FAILED` : "\nAll passed");
 process.exit(failed ? 1 : 0);
