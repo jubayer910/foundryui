@@ -2,7 +2,7 @@ import Link from "next/link";
 import { desc } from "drizzle-orm";
 import { getDb, schema } from "@/lib/db";
 import { Drawer } from "@/components/admin/drawer";
-import { Field, PhoneList, PhoneRow, Table, Tag, input, td, when } from "@/components/admin/ui";
+import { Field, PhoneList, Table, Tag, input, td, when } from "@/components/admin/ui";
 import { giftLifetime, resendGiftAction, revokeGiftAction } from "./actions";
 
 const TONE = { pending: "warn", claimed: "good", revoked: "plain" } as const;
