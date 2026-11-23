@@ -25,6 +25,7 @@ export function prepare(p: Post): Post {
       case "components": return { ...b, slugs: live(b.slugs), caption: b.caption && f(b.caption) };
       case "pack": return { ...b, bestFor: f(b.bestFor), strengths: b.strengths.map(f), examples: live(b.examples) };
       case "cta": return { ...b, h: b.h && f(b.h), x: b.x && f(b.x) };
+      case "pick": return { ...b, title: f(b.title), why: b.why.map(f), use: f(b.use) };
       case "shot": case "systems": return { ...b, caption: b.caption && f(b.caption) };
       default: return b;
     }
@@ -43,6 +44,7 @@ const textOf = (b: Block): string => {
     case "ul": case "ol": return b.items.join(" ");
     case "table": return [...b.head, ...b.rows.flat()].join(" ");
     case "pack": return [b.bestFor, ...b.strengths].join(" ");
+    case "pick": return [b.title, ...b.why, b.use].join(" ");
     default: return "";
   }
 };
@@ -59,6 +61,6 @@ export function relatedPosts(p: Post, n = 3, pool: Post[] = posts) {
 
 /** Posts that mention a component or its system, for component and system pages. */
 export const postsFor = ({ slug, system }: { slug?: string; system?: string }, n = 3) =>
-  posts.filter((p) => (slug && (p.related.includes(slug) || p.body.some((b) => (b.t === "components" && b.slugs.includes(slug)) || (b.t === "pack" && b.examples.includes(slug))))) || (system && p.systems.includes(system))).slice(0, n);
+  posts.filter((p) => (slug && (p.related.includes(slug) || p.body.some((b) => (b.t === "components" && b.slugs.includes(slug)) || (b.t === "pack" && b.examples.includes(slug)) || (b.t === "pick" && b.slug === slug)))) || (system && p.systems.includes(system))).slice(0, n);
 
 export const fmtDate = (d: string) => new Date(d + "T00:00:00Z").toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" });

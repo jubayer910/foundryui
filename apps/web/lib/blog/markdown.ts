@@ -173,6 +173,9 @@ export function blocksToMarkdown(lede: string, blocks: Block[]): string {
       case "pack":
         parts.push(`### ${b.rank}. ${b.system}`, `**Best for:** ${b.bestFor}`, b.strengths.map((x) => "- " + x).join("\n"));
         break;
+      case "pick":
+        parts.push(`### ${b.rank}. ${b.title}`, `[Open the component](/components/${b.slug})`, b.why.map((x) => "- " + x).join("\n"), `**Use it when:** ${b.use}`);
+        break;
       case "shot":
         parts.push(`[${b.system} dashboard UI kit](/systems/${b.system})` + (b.caption ? " " + b.caption : ""));
         break;

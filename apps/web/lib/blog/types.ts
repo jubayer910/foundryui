@@ -14,6 +14,8 @@ export type Block =
   | { t: "shot"; system: string; caption?: string }
   /** a grid of system cards (screenshot, fit, counts), linked to their pages */
   | { t: "systems"; slugs: string[]; caption?: string }
+  /** one ranked component in a "best examples" list: a large preview, why it works and when to use it */
+  | { t: "pick"; slug: string; rank: number; title: string; why: string[]; use: string }
   | { t: "cta"; h?: string; x?: string; href?: string; label?: string };
 
 export type Post = {

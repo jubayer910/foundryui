@@ -71,6 +71,38 @@ function Pack({ b }: { b: Extract<Block, { t: "pack" }> }) {
   );
 }
 
+/** One ranked component: big preview (the real Figma export, or the live React preview), why it works, when to use it. */
+function Pick({ b }: { b: Extract<Block, { t: "pick" }> }) {
+  const e = bySlug.get(b.slug);
+  if (!e) return null;
+  const s = getSystem(e.system);
+  const coded = e.kind === "code" || !!e.qa;
+  return (
+    <section className="not-prose mt-10" aria-labelledby={"pick-" + b.rank}>
+      <h3 id={"pick-" + b.rank} className="text-[17px] font-medium leading-snug tracking-[-0.01em]">{b.rank}. {b.title}</h3>
+      <p className="mt-1 text-[13px] text-mute">
+        {e.name} from {s ? <Link href={"/systems/" + s.slug} className="underline decoration-hair-2 underline-offset-4 hover:decoration-ink">{s.name}</Link> : e.system}, {coded ? "Figma and React" : "Figma"}{e.tier === "free" ? ", free" : ", Pro"}
+      </p>
+      {e.kind === "code" ? (
+        <div className="mt-3"><ItemCard item={e} /></div>
+      ) : (
+        <Link href={"/components/" + e.slug} className="mt-3 flex items-center justify-center overflow-hidden rounded-[8px] bg-tile p-4 shadow-[inset_0_0_0_1px_var(--color-hair)] transition-opacity hover:opacity-95 sm:p-6">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={e.thumb} width={e.w} height={e.h} alt={`${b.title}: ${e.name} from the ${s?.name ?? e.system} dashboard design system`} loading="lazy" decoding="async" className="h-auto max-h-[440px] w-auto max-w-full rounded-[4px] object-contain shadow-[0_1px_3px_rgb(0_0_0/0.08)]" />
+        </Link>
+      )}
+      <ul className="mt-3 border-t border-hair">
+        {b.why.map((x) => <li key={x} className="border-b border-hair py-2 text-[14px] leading-relaxed text-ink-2"><Rich x={x} /></li>)}
+      </ul>
+      <p className="mt-3 text-[14px] leading-relaxed text-ink-2"><strong className="font-medium text-ink">Use it when:</strong> <Rich x={b.use} /></p>
+      <p className="mt-3 flex flex-wrap gap-2">
+        <Link href={"/components/" + e.slug} className="btn-line">Open the {coded ? "code and Figma" : "Figma component"}</Link>
+        {s && <Link href={"/systems/" + s.slug} className="btn-line">More from {s.name}</Link>}
+      </p>
+    </section>
+  );
+}
+
 /** A system's real dashboard screen, linked to its page. */
 function Shot({ slug, name, caption, className = "" }: { slug: string; name: string; caption?: string; className?: string }) {
   const f = fitFor(slug);
@@ -149,6 +181,8 @@ export function PostBody({ blocks }: { blocks: Block[] }) {
           }
           case "systems":
             return <Systems key={i} b={b} />;
+          case "pick":
+            return <Pick key={i} b={b} />;
           case "cta":
             return (
               <aside key={i} className="mt-8 flex flex-col gap-3 rounded-[8px] bg-ink p-5 text-white sm:flex-row sm:items-center">

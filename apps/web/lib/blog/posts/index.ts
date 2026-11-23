@@ -26,6 +26,16 @@ import { post as analyticsDash } from "./analytics-dashboard-design";
 import { post as saasMetrics } from "./saas-metrics-dashboard";
 import { post as securityDash } from "./security-dashboard-design";
 import { post as workflowUi } from "./workflow-automation-ui-design";
+import { post as sidebarEx } from "./sidebar-design-examples";
+import { post as headerEx } from "./dashboard-header-design";
+import { post as navEx } from "./dashboard-navigation-design";
+import { post as kpiEx } from "./kpi-card-examples";
+import { post as chartEx } from "./chart-design-examples";
+import { post as dashEx } from "./dashboard-design-examples";
+import { post as modalEx } from "./modal-design-examples";
+import { post as dropdownEx } from "./dropdown-menu-design";
+import { post as cardEx } from "./card-ui-design";
+import { post as mcpServers } from "./mcp-servers-for-ui-design";
 
 /** Display order for posts that share a date. */
-export const POSTS: Post[] = [uiKits, admin, shadcn, mcp, figma, aiDesign, saas, kpi, charts, tokens, shadcnDash, chartLibs, freeFigma, tailwindComps, untitledAlt, tables, modalDrawer, empty, claudeCode, cursorRules, agentDash, emailDash, bestPractices, analyticsDash, saasMetrics, securityDash, workflowUi];
+export const POSTS: Post[] = [dashEx, sidebarEx, kpiEx, chartEx, mcpServers, headerEx, navEx, modalEx, dropdownEx, cardEx, uiKits, admin, shadcn, mcp, figma, aiDesign, saas, kpi, charts, tokens, shadcnDash, chartLibs, freeFigma, tailwindComps, untitledAlt, tables, modalDrawer, empty, claudeCode, cursorRules, agentDash, emailDash, bestPractices, analyticsDash, saasMetrics, securityDash, workflowUi];
