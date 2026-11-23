@@ -89,15 +89,46 @@ export function Browser({ entries, categories, systems, initialCategory = "all",
   const input = useRef<HTMLInputElement>(null);
   const more = useRef<HTMLDivElement>(null);
 
-  // the page is prerendered once (static HTML), so a filtered link (?q= ?c= ?s=) is applied after load
+  // the page is prerendered once (static HTML), so a filtered link is applied after load:
+  // ?q= search, ?c= category, ?s= system, ?plan= free|pro, ?format= code|figma, ?sort= code|az
+  const [fromUrl, setFromUrl] = useState(false);
   useEffect(() => {
     const p = new URLSearchParams(window.location.search);
+    const one = <T extends string>(v: string | null, ok: readonly T[]) => (v && (ok as readonly string[]).includes(v) ? (v as T) : null);
     /* eslint-disable react-hooks/set-state-in-effect -- one-time sync from the URL of a static page */
     if (p.get("q")) setQ(p.get("q")!);
     if (p.get("c")) setCat(p.get("c")!);
     if (p.get("s")) setSys(p.get("s")!);
+    const pl = one(p.get("plan"), ["free", "pro"] as const);
+    if (pl) setPlan(pl);
+    const f = one(p.get("format"), ["code", "figma"] as const);
+    if (f) setKind(f);
+    const so = one(p.get("sort"), ["code", "az"] as const);
+    if (so) setSort(so);
+    setFromUrl(true);
     /* eslint-enable react-hooks/set-state-in-effect */
   }, []);
+
+  // and every filter change is written back to the address bar, so the link can be shared as is.
+  // replaceState: no history entry per keystroke and no navigation; the page still canonicalises
+  // to its clean path, so search engines keep indexing one URL.
+  useEffect(() => {
+    if (!fromUrl) return;
+    const t = setTimeout(() => {
+      const p = new URLSearchParams(window.location.search);
+      const put = (k: string, v: string, off: string) => (v && v !== off ? p.set(k, v) : p.delete(k));
+      put("q", q.trim(), "");
+      put("c", cat, initialCategory);
+      put("s", sys, initialSystem);
+      put("plan", plan, "all");
+      put("format", kind, "all");
+      put("sort", sort, "featured");
+      const s = p.toString();
+      const next = window.location.pathname + (s ? "?" + s : "") + window.location.hash;
+      if (next !== window.location.pathname + window.location.search + window.location.hash) window.history.replaceState(window.history.state, "", next);
+    }, 250);
+    return () => clearTimeout(t);
+  }, [fromUrl, q, cat, sys, plan, kind, sort, initialCategory, initialSystem]);
 
   // "/" and Cmd/Ctrl+K focus search from anywhere on the page
   useEffect(() => {
