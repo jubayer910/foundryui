@@ -93,7 +93,7 @@ export const NOINDEX = { index: false, follow: true } as const;
  * Complete metadata for one page. Next merges openGraph/twitter shallowly, so each page
  * sets the whole object; this keeps siteName, card type and canonical consistent.
  */
-export function pageMeta({ title, description, path, absoluteTitle, noindex, type = "website", published, modified, image = "/opengraph-image" }: { title: string; description: string; path: string; absoluteTitle?: boolean; noindex?: boolean; type?: "website" | "article"; published?: string; modified?: string; /** route of the segment's opengraph-image, or the site card */ image?: string }) {
+export function pageMeta({ title, description, path, absoluteTitle, noindex, type = "website", published, modified, image = "/opengraph-image.jpg" }: { title: string; description: string; path: string; absoluteTitle?: boolean; noindex?: boolean; type?: "website" | "article"; published?: string; modified?: string; /** route of the segment's opengraph-image, or the site card */ image?: string }) {
   // Google shows about 60 characters of a title: add the brand only when it still fits.
   const branded = title + " | " + SITE_NAME;
   const full = absoluteTitle || branded.length > 60 ? title : branded;

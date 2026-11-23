@@ -1,0 +1,1 @@
+Ingot UI: your design should look like enterprise products. Nine dashboard design systems in React and Figma, with an MCP server for AI agents.
