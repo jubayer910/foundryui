@@ -6,7 +6,7 @@ export const post: Post = {
   metaTitle: "10 best dashboard UI kits for 2027 (React, Tailwind and Figma)",
   description: "An honest list of the 10 best dashboard UI kits for founders and developers: six Ingot UI design systems with real component counts, plus shadcn/ui, Untitled UI, TailAdmin and Flowbite.",
   date: "2026-11-10",
-  updated: "2026-11-23",
+  updated: "2026-11-24",
   category: "Lists",
   keyword: "best dashboard ui kits",
   intent: "commercial",
@@ -14,6 +14,7 @@ export const post: Post = {
   body: [
     { t: "p", x: "This guide is published by Ingot UI, and the Ingot systems were built from real SaaS product screens. That makes us biased, so we will say it plainly: six of the ten picks below are ours. The other Ingot kits (Montra for finance, Spendix for team spend and Abotix for AI security) are on the [dashboard UI kit page](/dashboard-ui-kit). Each one gets the same treatment as the other four: what it is good at, who it is for, and where something else fits better." },
     { t: "p", x: "Every number in this post is read from the live library at build time, so it is never a marketing round-up. Today the library holds **{components} components** across **{systems} systems**, and **{coded}** of them ship with React code that passed a visual check against the Figma original." },
+    { t: "systems", slugs: ["loopo", "mailpulse", "auton", "axon", "veriq", "vantage", "montra", "spendix", "abotix"], caption: "The {systems} Ingot UI dashboard kits, each shown with one of its real screens. Open any kit to see every screen and component." },
     { t: "h2", x: "How we chose these kits" },
     { t: "p", x: "Most “best UI kit” lists rank by screenshots. Screenshots tell you nothing about what happens on day three, when a developer has to rebuild the card from the Figma file. We weighed four things, in this order:" },
     { t: "ol", items: [
@@ -68,7 +69,16 @@ export const post: Post = {
     { t: "p", x: "**Best for:** teams that want a free, complete admin template to fork today. [TailAdmin](https://tailadmin.com) ships page templates for React, Next.js and other stacks on Tailwind, with a Figma file. It is a template rather than a system: great for an internal tool, less suited if you need your product to look like your own." },
     { t: "h3", x: "10. Flowbite" },
     { t: "p", x: "**Best for:** Tailwind projects that want an open-source component set plus a Figma library that follows Tailwind’s own scale. [Flowbite](https://flowbite.com) is broad and framework-flexible; its dashboard pieces are general rather than built from one product." },
-    { t: "cta", h: "See every component before you choose", x: "Browse all {components} components free. Filter by system, see which have React code, and copy five without an account.", href: "/", label: "Browse the library" },
+    { t: "h2", x: "Three more Ingot UI kits for finance, spend and AI security" },
+    { t: "p", x: "Three newer Ingot systems did not fit in a top ten, but they are often the closest match for a product. Each is a full design system with its own tokens, components and page templates, like the six above." },
+    { t: "ul", items: [
+      "[Montra](/systems/montra) for business finance: cash flow, funds, receivables, payments and accounting screens. It has the most KPI components of any system ({cat:montra:KPI and stats}).",
+      "[Spendix](/systems/spendix) for company spend: corporate cards, approvals, budgets and policy checks, with {cat:spendix:KPI and stats} KPI components.",
+      "[Abotix](/systems/abotix) for AI security operations: findings, controls, blocked actions and investigation drawers.",
+    ] },
+    { t: "systems", slugs: ["montra", "spendix", "abotix"] },
+    { t: "components", slugs: ["montra-send-payment-modal-3830687", "montra-net-cash-flow-kpi-3842267", "spendix-card-total-spend-kpi-3620226", "spendix-slack-drawer-3628791", "abotix-open-findings-kpi-814802", "abotix-body-drawer-overview-819425"], caption: "Components from Montra, Spendix and Abotix. Each opens with a live preview, the Figma layers and the React code." },
+    { t: "cta", h: "Start with the free Loopo kit", x: "Loopo is free in Figma and React. Browse all {components} components, see which have React code, and copy five without an account.", href: "/systems/loopo", label: "Get Loopo free" },
     { t: "h2", x: "Quick comparison" },
     { t: "table", head: ["Kit", "What you get", "Code checked against Figma", "Price"], rows: [
       ["[Loopo](/systems/loopo)", "{figma:loopo} Figma components, {code:loopo} in React", "Yes for generated code; {hand} hand-built", "Free"],
@@ -77,6 +87,9 @@ export const post: Post = {
       ["[Axon](/systems/axon)", "{figma:axon} Figma, {code:axon} React", "Yes", "Pro"],
       ["[Veriq](/systems/veriq)", "{figma:veriq} Figma, {code:veriq} React", "Yes", "Pro"],
       ["[Vantage](/systems/vantage)", "{figma:vantage} Figma, {code:vantage} React", "Yes", "Pro"],
+      ["[Montra](/systems/montra)", "{figma:montra} Figma, {code:montra} React", "Yes", "Pro"],
+      ["[Spendix](/systems/spendix)", "{figma:spendix} Figma, {code:spendix} React", "Yes", "Pro"],
+      ["[Abotix](/systems/abotix)", "{figma:abotix} Figma, {code:abotix} React", "Yes", "Pro"],
       ["shadcn/ui", "Open-source React primitives and blocks", "Not applicable (code first)", "Free"],
       ["Untitled UI", "Large Figma kit plus React components", "Check per component", "Free and paid"],
       ["TailAdmin", "Admin templates in several frameworks", "Check per template", "Free and paid"],
@@ -97,6 +110,7 @@ export const post: Post = {
       "Choosing by component count. A kit with fewer pieces that match your screens beats a kit with thousands you will never use.",
       "Skipping states. Check empty, loading and error states before you commit; many kits only draw the happy path.",
     ] },
+    { t: "cta", h: "Compare all {systems} kits side by side", x: "See each kit's screens, component counts and what it is built for, then start free with Loopo or unlock every system with Pro.", href: "/dashboard-ui-kit", label: "Compare the kits" },
   ],
   faq: [
     { q: "What is a dashboard UI kit?", a: "A dashboard UI kit is a set of ready-made interface pieces for data products: navigation, KPI cards, charts, tables, filters, modals and full page templates, usually as a Figma file, code, or both. A good kit also includes design tokens so every piece shares the same colours, type and spacing." },
@@ -106,5 +120,5 @@ export const post: Post = {
     { q: "Can I use a dashboard UI kit in a commercial product?", a: "Usually yes, but read the licence. Ingot UI components can be used in unlimited personal and commercial projects; you may not resell the library itself as a UI kit." },
   ],
   related: ["kpi-card", "capsule-bars", "vantage-kpi-strip-26230470", "auton-agents-table-16931973"],
-  systems: ["loopo", "mailpulse", "auton", "axon", "veriq", "vantage"],
+  systems: ["loopo", "mailpulse", "auton", "axon", "veriq", "vantage", "montra", "spendix", "abotix"],
 };

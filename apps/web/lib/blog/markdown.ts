@@ -173,6 +173,12 @@ export function blocksToMarkdown(lede: string, blocks: Block[]): string {
       case "pack":
         parts.push(`### ${b.rank}. ${b.system}`, `**Best for:** ${b.bestFor}`, b.strengths.map((x) => "- " + x).join("\n"));
         break;
+      case "shot":
+        parts.push(`[${b.system} dashboard UI kit](/systems/${b.system})` + (b.caption ? " " + b.caption : ""));
+        break;
+      case "systems":
+        if (b.slugs.length) parts.push(b.slugs.map((s) => `- [${s}](/systems/${s})`).join("\n") + (b.caption ? "\n\n" + b.caption : ""));
+        break;
       case "cta":
         parts.push(`**${b.h ?? "Build your dashboard from a finished system"}** ${b.x ?? ""} [${b.label ?? "Browse components"}](${b.href ?? "/"})`.replace(/\s+/g, " ").trim());
         break;

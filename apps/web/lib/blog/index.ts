@@ -25,6 +25,7 @@ export function prepare(p: Post): Post {
       case "components": return { ...b, slugs: live(b.slugs), caption: b.caption && f(b.caption) };
       case "pack": return { ...b, bestFor: f(b.bestFor), strengths: b.strengths.map(f), examples: live(b.examples) };
       case "cta": return { ...b, h: b.h && f(b.h), x: b.x && f(b.x) };
+      case "shot": case "systems": return { ...b, caption: b.caption && f(b.caption) };
       default: return b;
     }
   });

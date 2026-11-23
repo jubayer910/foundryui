@@ -7,6 +7,7 @@ import { fmt } from "@/lib/seo";
 import { ItemCard } from "../item-card";
 import { Rich } from "./rich";
 import { basicBlock } from "./basic-blocks";
+import { CARD, cardSrc, fitFor, midSrc, shotAlt } from "@/app/systems/fit";
 
 const bySlug = new Map(entries.map((e) => [e.slug, e]));
 
@@ -31,6 +32,7 @@ function Pack({ b }: { b: Extract<Block, { t: "pack" }> }) {
         </div>
         <Link href={"/systems/" + s.slug} className="btn-line ml-auto shrink-0 max-sm:hidden">Open {s.name}</Link>
       </div>
+      <Shot slug={s.slug} name={s.name} className="mx-5 mt-4" />
       <dl className="mt-4 grid grid-cols-2 border-y border-hair sm:grid-cols-5">
         {facts.map(([k, v]) => (
           <div key={k} className="border-hair px-5 py-2.5 sm:border-r sm:last:border-r-0">
@@ -47,16 +49,78 @@ function Pack({ b }: { b: Extract<Block, { t: "pack" }> }) {
           ))}
         </ul>
         {ex.length > 0 && (
-          <p className="mt-3 flex flex-wrap items-center gap-1.5 text-[13px]">
-            <span className="text-mute">Try:</span>
-            {ex.map((e) => (
+          <div className="mt-4 grid grid-cols-1 gap-x-3 gap-y-5 sm:grid-cols-2">
+            {ex.slice(0, 2).map((e) => <ItemCard key={e!.slug} item={e!} />)}
+          </div>
+        )}
+        {ex.length > 2 && (
+          <p className="mt-4 flex flex-wrap items-center gap-1.5 text-[13px]">
+            <span className="text-mute">More from {s.name}:</span>
+            {ex.slice(2).map((e) => (
               <Link key={e!.slug} href={"/components/" + e!.slug} className="rounded-full bg-chip px-2.5 py-0.5 hover:bg-chip-2">{e!.name}</Link>
             ))}
           </p>
         )}
         <Link href={"/systems/" + s.slug} className="btn-line mt-4 w-full sm:hidden">Open {s.name}</Link>
+        <p className="mt-4 text-[13px] max-sm:hidden">
+          <Link href={"/systems/" + s.slug} className="font-medium underline decoration-hair-2 underline-offset-4 hover:decoration-ink">See every {s.name} screen and component</Link>
+          <span className="text-mute"> ({s.tier === "free" ? "free in Figma and React" : "included in Pro"})</span>
+        </p>
       </div>
     </section>
+  );
+}
+
+/** A system's real dashboard screen, linked to its page. */
+function Shot({ slug, name, caption, className = "" }: { slug: string; name: string; caption?: string; className?: string }) {
+  const f = fitFor(slug);
+  if (!f) return null;
+  return (
+    <figure className={className}>
+      <Link href={"/systems/" + slug} className="block overflow-hidden rounded-[8px] border border-hair bg-tile transition-opacity hover:opacity-95">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={midSrc(slug)} width={1200} height={Math.round((1200 * f.h) / f.w)} alt={`${name} dashboard UI kit: ${shotAlt(name, f)}`} loading="lazy" decoding="async" className="block h-auto w-full" />
+      </Link>
+      <figcaption className="mt-2 text-[12px] text-mute">{caption ? <Rich x={caption} /> : <>{name} {f.screen} screen, from the {name} Figma file and React code.</>}</figcaption>
+    </figure>
+  );
+}
+
+function Systems({ b }: { b: Extract<Block, { t: "systems" }> }) {
+  const list = b.slugs.map((x) => getSystem(x)).filter((x): x is NonNullable<typeof x> => !!x);
+  if (!list.length) return null;
+  return (
+    <figure className="not-prose mt-6">
+      <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        {list.map((s) => {
+          const f = fitFor(s.slug);
+          return (
+            <li key={s.slug} className="min-w-0">
+              <Link href={"/systems/" + s.slug} className="card group block h-full overflow-hidden transition-colors hover:bg-tile">
+                <div className="relative aspect-[16/10] overflow-hidden border-b border-hair bg-tile">
+                  {f ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={cardSrc(s.slug)} width={CARD.w} height={CARD.h} alt={`${s.name} dashboard UI kit: ${shotAlt(s.name, f)}`} loading="lazy" decoding="async" className="absolute inset-0 size-full object-cover transition-transform duration-300 group-hover:scale-[1.02]" />
+                  ) : (
+                    <span className="absolute inset-0" style={{ background: s.accent + "14" }} aria-hidden="true" />
+                  )}
+                </div>
+                <div className="p-3.5">
+                  <div className="flex items-center gap-2">
+                    <span className="size-3 shrink-0 rounded-[3px]" style={{ background: s.accent }} aria-hidden="true" />
+                    <span className="text-[14px] font-medium">{s.name}</span>
+                    <span className="ml-auto text-[12px] text-mute">{s.tier === "free" ? "Free" : "Pro"}</span>
+                  </div>
+                  {f && <p className="mt-1 text-[13px] leading-snug text-ink-2">{f.goodFor}</p>}
+                  <p className="mt-1 text-[12px] tabular-nums text-mute">{fmt(stat("figma:" + s.slug) ?? 0)} components, {fmt(stat("code:" + s.slug) ?? 0)} in React</p>
+                </div>
+              </Link>
+            </li>
+          );
+        })}
+      </ul>
+      {b.caption && <figcaption className="mt-2 text-[12px] text-mute"><Rich x={b.caption} /></figcaption>}
+    </figure>
   );
 }
 
@@ -79,6 +143,12 @@ export function PostBody({ blocks }: { blocks: Block[] }) {
           }
           case "pack":
             return <Pack key={i} b={b} />;
+          case "shot": {
+            const sys = getSystem(b.system);
+            return sys ? <Shot key={i} slug={sys.slug} name={sys.name} caption={b.caption} className="not-prose mt-6" /> : null;
+          }
+          case "systems":
+            return <Systems key={i} b={b} />;
           case "cta":
             return (
               <aside key={i} className="mt-8 flex flex-col gap-3 rounded-[8px] bg-ink p-5 text-white sm:flex-row sm:items-center">

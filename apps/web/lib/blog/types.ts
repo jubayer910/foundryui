@@ -10,6 +10,10 @@ export type Block =
   | { t: "code"; x: string; label?: string }
   | { t: "components"; slugs: string[]; caption?: string }
   | { t: "pack"; system: string; rank: number; bestFor: string; strengths: string[]; examples: string[] }
+  /** one system's full dashboard screenshot, linked to its page */
+  | { t: "shot"; system: string; caption?: string }
+  /** a grid of system cards (screenshot, fit, counts), linked to their pages */
+  | { t: "systems"; slugs: string[]; caption?: string }
   | { t: "cta"; h?: string; x?: string; href?: string; label?: string };
 
 export type Post = {
