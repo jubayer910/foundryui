@@ -59,6 +59,8 @@ export async function revokePurchase(f: FormData) {
     .update(schema.purchase)
     .set({ status: "revoked", note: [p.note, `Revoked by ${me.email}: ${note}`].filter(Boolean).join("\n"), updatedAt: now })
     .where(eq(schema.purchase.id, id));
+  // a gifted Lifetime revoked here: mark the gift cancelled too, so the Gifts list matches
+  if (p.provider === "gift") await db.update(schema.gift).set({ status: "revoked", revokedAt: now }).where(eq(schema.gift.purchaseId, id));
   let planAfter: string | null = null;
   if (p.userId) {
     planAfter = await syncPlan(p.userId, now);

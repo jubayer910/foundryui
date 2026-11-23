@@ -41,8 +41,10 @@ const parse = (raw: string | null): { attrs: Attrs; source: "webhook" | "sync" |
 const int = (v: unknown): number | null => (typeof v === "number" && Number.isFinite(v) ? Math.round(v) : typeof v === "string" && /^-?\d+$/.test(v) ? Number(v) : null);
 
 /** Where a purchase row came from, for the orders table. */
-export function sourceOf(p: { provider: string; raw: string | null }): "webhook" | "sync" | "manual" | "contra" | "unknown" {
+export function sourceOf(p: { provider: string; raw: string | null }): "webhook" | "sync" | "manual" | "contra" | "gift" | "appsumo" | "unknown" {
   if (p.provider === "contra") return "contra";
+  if (p.provider === "gift") return "gift";
+  if (p.provider === "appsumo") return "appsumo";
   if (p.provider !== "lemonsqueezy") return "manual";
   return parse(p.raw).source ?? "unknown";
 }

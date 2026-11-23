@@ -411,3 +411,26 @@ export const appsumoCode = sqliteTable(
   },
   (t) => [index("appsumo_code_user_idx").on(t.userId)],
 );
+
+/* ---- Gifted Lifetime (migrations/0017_gift.sql, lib/gift.ts). Not a sale: kept out of revenue, buyers and deal spots ---- */
+export const gift = sqliteTable(
+  "gift",
+  {
+    id: text("id").primaryKey(),
+    /** sha256 of the token in the invite link */
+    tokenHash: text("tokenHash").notNull(),
+    email: text("email").notNull(),
+    plan: text("plan").notNull().default("lifetime"),
+    note: text("note"),
+    invitedBy: text("invitedBy").notNull(),
+    /** "pending" | "claimed" | "revoked" */
+    status: text("status").notNull().default("pending"),
+    userId: text("userId"),
+    purchaseId: text("purchaseId"),
+    sentAt: ts("sentAt"),
+    claimedAt: ts("claimedAt"),
+    revokedAt: ts("revokedAt"),
+    createdAt: ts("createdAt").notNull(),
+  },
+  (t) => [uniqueIndex("gift_token_idx").on(t.tokenHash), index("gift_email_idx").on(t.email, t.status)],
+);

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { and, count, desc, eq, like, type SQL } from "drizzle-orm";
+import { and, count, desc, eq, inArray, like, notInArray, type SQL } from "drizzle-orm";
 import { getDb, schema } from "@/lib/db";
 import { sp } from "@/components/admin/guard";
 import { requireStaff } from "@/lib/admin";
@@ -20,7 +20,8 @@ import { getEnv } from "@/lib/db";
 export const metadata: Metadata = { title: "Orders" };
 
 const PURCHASE_STATUS = ["paid", "pending", "granted", "refunded", "revoked"];
-const SOURCE_HINT = { webhook: "Written by a Lemon Squeezy webhook", sync: "Written by Sync now (Lemon Squeezy API)", manual: "Granted by hand in admin", contra: "Paid on Contra, approved in Activations", unknown: "Source not recorded" } as const;
+const GIVEN = ["manual", "gift"];
+const SOURCE_HINT = { webhook: "Written by a Lemon Squeezy webhook", sync: "Written by Sync now (Lemon Squeezy API)", manual: "Granted by hand in admin", gift: "Gifted Lifetime from Users, not a sale", appsumo: "AppSumo code redeemed at /redeem", contra: "Paid on Contra, approved in Activations", unknown: "Source not recorded" } as const;
 const SUB_STATUS = ["active", "on_trial", "past_due", "paused", "unpaid", "cancelled", "expired"];
 const PER_PAGE = 50;
 const sel = input + " !w-auto appearance-none pr-7";
@@ -31,7 +32,7 @@ export default async function AdminOrders({ searchParams }: PageProps<"/admin/or
   const plan = sp(q.plan);
   const status = sp(q.status);
   const search = sp(q.q).trim().toLowerCase();
-  const view = sp(q.view) === "subs" ? "subs" : "purchases";
+  const view = sp(q.view) === "subs" ? "subs" : sp(q.view) === "given" ? "given" : "purchases";
   const page = pageOf(q.page);
   const open = sp(q.order);
   const db = await getDb();
@@ -47,24 +48,27 @@ export default async function AdminOrders({ searchParams }: PageProps<"/admin/or
   else if (plan) sw.push(eq(S.plan, plan));
   if (status) sw.push(eq(S.status, status));
   if (search) sw.push(like(S.email, `%${search}%`));
-  const pWhere = pw.length ? and(...pw) : undefined;
+  // Purchases = money (Lemon Squeezy, Contra, AppSumo); staff grants and gifts have their own tab.
+  const pWhere = and(notInArray(P.provider, GIVEN), ...pw);
+  const gWhere = and(inArray(P.provider, GIVEN), ...pw);
   const sWhere = sw.length ? and(...sw) : undefined;
   const off = (page - 1) * PER_PAGE;
 
-  const [[pc], [sc], purchases, subs, picked, sync, env] = await Promise.all([
+  const [[pc], [gc], [sc], purchases, subs, picked, sync, env] = await Promise.all([
     db.select({ n: count() }).from(P).where(pWhere),
+    db.select({ n: count() }).from(P).where(gWhere),
     db.select({ n: count() }).from(S).where(sWhere),
-    view === "purchases" ? db.select().from(P).where(pWhere).orderBy(desc(P.createdAt)).limit(PER_PAGE).offset(off) : Promise.resolve([]),
+    view !== "subs" ? db.select().from(P).where(view === "given" ? gWhere : pWhere).orderBy(desc(P.createdAt)).limit(PER_PAGE).offset(off) : Promise.resolve([]),
     view === "subs" ? db.select().from(S).where(sWhere).orderBy(desc(S.updatedAt)).limit(PER_PAGE).offset(off) : Promise.resolve([]),
     open ? db.select().from(P).where(eq(P.id, open)).limit(1) : Promise.resolve([]),
     getSyncState(db),
     getEnv(),
   ]);
   const canSync = !!checkoutKeys(env);
-  const total = view === "subs" ? (sc?.n ?? 0) : (pc?.n ?? 0);
+  const total = view === "subs" ? (sc?.n ?? 0) : view === "given" ? (gc?.n ?? 0) : (pc?.n ?? 0);
   const pages = Math.max(1, Math.ceil(total / PER_PAGE));
   const qs = (over: Record<string, string | undefined>) => {
-    const o = { q: search, plan, status, view: view === "subs" ? "subs" : "", page: page > 1 ? String(page) : "", ...over };
+    const o = { q: search, plan, status, view: view === "purchases" ? "" : view, page: page > 1 ? String(page) : "", ...over };
     const u = new URLSearchParams(Object.entries(o).filter(([, v]) => v !== undefined && v !== "") as [string, string][]);
     return "/admin/orders" + (u.size ? "?" + u.toString() : "");
   };
@@ -73,7 +77,7 @@ export default async function AdminOrders({ searchParams }: PageProps<"/admin/or
 
   return (
     <div>
-      <AdminHead title="Orders" sub={sync ? `Last synced ${when(new Date(sync.at))}` : "Never synced with Lemon Squeezy"} info="Purchases and subscriptions from Lemon Squeezy and Contra, plus plans granted by staff.">
+      <AdminHead title="Orders" sub={sync ? `Last synced ${when(new Date(sync.at))}` : "Never synced with Lemon Squeezy"} info="Purchases are money taken (Lemon Squeezy, Contra, AppSumo). Plans granted by staff and gifted Lifetime sit apart under Grants and gifts, and never count as sales.">
         <a href="#grant" className="btn-line !h-8 !px-3">
           <AIcon name="user-plus" size={15} />
           Grant a plan
@@ -97,10 +101,11 @@ export default async function AdminOrders({ searchParams }: PageProps<"/admin/or
           tabs={[
             { href: qs({ view: "", page: "" }), label: "Purchases", count: pc?.n ?? 0, on: view === "purchases" },
             { href: qs({ view: "subs", page: "" }), label: "Subscriptions", count: sc?.n ?? 0, on: view === "subs" },
+            { href: qs({ view: "given", page: "" }), label: "Grants and gifts", count: gc?.n ?? 0, on: view === "given" },
           ]}
         />
         <form method="get" className="flex w-full flex-wrap items-center gap-2 sm:ml-auto sm:w-auto" role="search">
-          {view === "subs" && <input type="hidden" name="view" value="subs" />}
+          {view !== "purchases" && <input type="hidden" name="view" value={view} />}
           <label className="relative block min-w-0 flex-1 sm:w-[220px] sm:flex-none">
             <span className="sr-only">Search by email</span>
             <AIcon name="search" size={15} className="pointer-events-none absolute top-1/2 left-2.5 -translate-y-1/2 text-faint" />
@@ -138,11 +143,11 @@ export default async function AdminOrders({ searchParams }: PageProps<"/admin/or
       </Toolbar>
 
       <div className="mt-4">
-        {view === "purchases" ? (
+        {view !== "subs" ? (
           <Table
             head={["Date", "Email", "Plan", "Amount", "Status", "Source"]}
             right={[3]}
-            empty="No purchases match."
+            empty={view === "given" ? "No grants or gifts match." : "No purchases match."}
             mobile={
               <PhoneList label="Purchases">
                 {purchases.map((p) => (

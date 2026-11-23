@@ -3,6 +3,7 @@ import { describeTarget } from "@/components/admin/analytics";
 import { posts as codePosts } from "@/lib/blog";
 import { systems } from "@/lib/catalog";
 import { getSettings } from "@/lib/settings";
+import { PAYING_IDS_SQL } from "@/lib/paying";
 import { DATASET_LABEL, keyOfDay, type DatasetId } from "./period";
 import { Q, unions, assemble, breakdownRows, collect, date, int, pctOf, ratio, running, selOrCmp, sinceOf, startNote, sumIn, type Built, type Ctx, type Row } from "./engine";
 import type { Breakdown, DatasetResult, MetricDef } from "./types";
@@ -96,7 +97,7 @@ function traffic(c: Ctx): Built {
 
 const AUDIENCE: MetricDef[] = [
   { id: "signups", label: "Sign-ups", unit: "count", total: "sum", kpi: true, chart: true, def: "Accounts created in the period (user.createdAt). Staff accounts are included." },
-  { id: "paidNow", label: "Sign-ups now paying", unit: "count", total: "sum", def: "Sign-ups from the period whose plan today is Pro, Team or Lifetime. It is today's plan, not the plan at the time." },
+  { id: "paidNow", label: "Sign-ups now paying", unit: "count", total: "sum", def: "Sign-ups from the period on Pro, Team or Lifetime today because they paid (Lemon Squeezy, Contra or AppSumo). Gifted Lifetime and staff grants are left out. It is today's plan, not the plan at the time." },
   { id: "users", label: "Users in total", unit: "count", total: "last", kpi: true, chart: true, def: "All accounts created up to the end of the period. Deleted accounts are not counted, because they are gone from the table." },
   { id: "active", label: "Active users", unit: "count", total: "range", kpi: true, chart: true, def: "Signed-in accounts with at least one copy, download or install in the period, counted once each. The total is counted once over the whole range." },
   { id: "activeRate", label: "Active share", unit: "pct", total: "derived", def: "Active users as a share of users in total at the end of the period.", derive: (v) => pctOf(v.active, v.users) },
@@ -110,7 +111,7 @@ function audience(c: Ctx): Built {
   const uSub = (q: Q) => (plan || ref ? ` and e.userId in (select id from user where 1 = 1${uf(q)})` : "");
   const series = unions([
     (q) => `select 'signups' m, ${c.tb("createdAt")} k, count(*) v from user where ${c.inTs("createdAt", c.span)}${uf(q)} group by 2`,
-    (q) => `select 'paidNow', ${c.tb("createdAt")}, count(*) from user where ${c.inTs("createdAt", c.span)} and plan != 'free'${uf(q)} group by 2`,
+    (q) => `select 'paidNow', ${c.tb("createdAt")}, count(*) from user where ${c.inTs("createdAt", c.span)} and plan != 'free' and id in (${PAYING_IDS_SQL})${uf(q)} group by 2`,
     (q) => `select 'active', ${c.tb("e.createdAt")}, count(distinct e.userId) from usage_event e where e.userId is not null and ${c.inTs("e.createdAt", c.span)}${uSub(q)} group by 2`,
     (q) => `select 'active', '__range', count(distinct e.userId) from usage_event e where e.userId is not null and ${c.inTs("e.createdAt", c.range)}${uSub(q)}`,
     (q) => `select 'users', '__before', count(*) from user where createdAt < ${int(c.span.start)}${uf(q)}`,
@@ -297,7 +298,7 @@ const REVENUE: MetricDef[] = [
   { id: "endedSubs", label: "Ended subscriptions", unit: "count", total: "sum", invert: true, def: "Cancelled or expired subscriptions whose end date fell in the period (and has passed)." },
   { id: "mrr", label: "MRR at period end", unit: "usd", total: "last", kpi: true, chart: true, def: "Monthly recurring revenue at the end of the period (or now, for a period still running): monthly subscriptions at their price plus yearly ones divided by 12. Same rule as the Revenue page: active and past-due subscriptions count; ones that have ended count from their start until their end date; cancelled ones still in their last paid period are left out. Rebuilt from today's subscription rows, so past pauses or failed payments are not visible." },
   { id: "arr", label: "ARR at period end", unit: "usd", total: "last", def: "MRR at period end times 12.", derive: (v) => (v.mrr === null ? null : Number(v.mrr) * 12) },
-  { id: "grants", label: "Plans granted by staff", unit: "count", total: "sum", def: "Manual grants in the period (no money taken), by grant date, including grants revoked later. Not affected by the plan or provider filters." },
+  { id: "grants", label: "Plans granted by staff", unit: "count", total: "sum", def: "Manual grants and gifted Lifetime in the period (no money taken), by grant date, including ones revoked later. Not affected by the plan or provider filters." },
 ];
 
 /** Charged orders with USD amounts and refunds, mirroring the Revenue page (app/admin/(panel)/revenue/data.ts). */
@@ -348,7 +349,7 @@ async function revenue(c: Ctx): Promise<Built> {
        from ends left join priced p on p.c <= ends.t and (p.st in ('active', 'past_due') or (p.st in ('cancelled', 'expired') and p.e is not null and p.e > ends.t and p.e <= ${int(c.nowS)})) group by ends.k
      union all select 'newSubs', ${c.tb("c")}, count(*) from priced where ${c.inTs("c", c.span)} group by 2
      union all select 'endedSubs', ${c.tb("e")}, count(*) from priced where st in ('cancelled', 'expired') and e <= ${int(c.nowS)} and ${c.inTs("e", c.span)} group by 2
-     union all select 'grants', ${c.tb("createdAt")}, count(*) from purchase where provider = 'manual' and status in ('granted', 'revoked') and ${c.inTs("createdAt", c.span)} group by 2`,
+     union all select 'grants', ${c.tb("createdAt")}, count(*) from purchase where provider in ('manual', 'gift') and status in ('granted', 'revoked') and ${c.inTs("createdAt", c.span)} group by 2`,
   );
   const q3 = new Q();
   const inP = (w: { start: number; end: number }) => c.inTs("t", w);

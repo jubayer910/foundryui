@@ -9,8 +9,17 @@ const day = (iso: string | null) => (iso ? new Date(iso).toLocaleDateString("en-
 const STATUS: Record<string, string> = { paid: "Paid", refunded: "Refunded", pending: "Pending", granted: "Granted", revoked: "Revoked", failed: "Failed" };
 
 /** Thank-you banner after checkout (?welcome=1). The webhook can land a few seconds after the redirect. */
-export function WelcomeBanner({ plan }: { plan: string }) {
+export function WelcomeBanner({ plan, gift }: { plan: string; gift?: boolean }) {
   const done = plan === "pro" || plan === "team" || plan === "lifetime";
+  if (gift && plan === "lifetime")
+    return (
+      <div role="status" className="mt-5 flex items-start gap-3 rounded-[8px] bg-ink p-4 text-white">
+        <Icon name="sparkle" size={18} className="mt-0.5 shrink-0" />
+        <p className="text-[13px]">
+          <span className="font-medium">Your Lifetime gift is on.</span> <span className="text-white/70">Every system, every component and every future update is unlocked on this account.</span>
+        </p>
+      </div>
+    );
   return (
     <div role="status" className="mt-5 flex items-start gap-3 rounded-[8px] bg-ink p-4 text-white">
       <Icon name="sparkle" size={18} className="mt-0.5 shrink-0" />

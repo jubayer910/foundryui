@@ -74,7 +74,7 @@ export default async function AccountPage({ searchParams }: PageProps<"/account"
       <PageHead title="Account" sub={user.email}>
         <SignOut />
       </PageHead>
-      {sp.welcome === "1" && <WelcomeBanner plan={user.plan} />}
+      {(sp.welcome === "1" || sp.gift === "1") && <WelcomeBanner plan={user.plan} gift={sp.gift === "1"} />}
       {sp.already === "1" && (
         <div role="status" className="mt-5 rounded-[8px] bg-tile p-4 text-[13px]">
           <span className="font-medium">You already have {planLabel(user.plan)}.</span> <span className="text-mute">Nothing new to buy; everything it covers is unlocked.</span>

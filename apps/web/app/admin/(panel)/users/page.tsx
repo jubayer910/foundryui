@@ -1,20 +1,24 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { and, count, desc, eq, inArray, like, or, sql, type SQL } from "drizzle-orm";
+import { and, count, desc, eq, inArray, like, ne, or, sql, type SQL } from "drizzle-orm";
 import { getDb, schema } from "@/lib/db";
 import { sp } from "@/components/admin/guard";
-import { requireStaff } from "@/lib/admin";
-import { AdminHead, Pager, PhoneList, PhoneRow, Table, Tag, Toolbar, cap, day, input, money, num, statusTone, td, tdNum, when } from "@/components/admin/ui";
+import { can, requireStaff } from "@/lib/admin";
+import { AdminHead, Flash, LinkTabs, Pager, PhoneList, PhoneRow, Table, Tag, Toolbar, cap, day, input, money, num, statusTone, td, tdNum, when } from "@/components/admin/ui";
 import { FilterSheet } from "@/components/admin/filter-sheet";
 import { AIcon } from "@/components/admin/admin-icons";
 import { Drawer, Facts } from "@/components/admin/drawer";
+import { GiftDrawer, GiftList } from "./gifts";
 
 export const metadata: Metadata = { title: "Users" };
 const PER = 25;
 
 export default async function AdminUsers({ searchParams }: PageProps<"/admin/users">) {
-  await requireStaff("users", "/admin/users");
+  const { role } = await requireStaff("users", "/admin/users");
+  const canGift = can(role, "orders");
   const q = await searchParams;
+  const tab = sp(q.tab) === "gifts" ? "gifts" : "accounts";
+  const giftOpen = canGift && sp(q.gift) === "new";
   const search = sp(q.q).trim();
   const plan = sp(q.plan);
   const page = Math.max(1, Number(sp(q.page)) || 1);
@@ -24,7 +28,7 @@ export default async function AdminUsers({ searchParams }: PageProps<"/admin/use
   if (search) w.push(or(like(U.email, `%${search}%`), like(U.name, `%${search}%`))!);
   if (plan) w.push(eq(U.plan, plan));
   const where = w.length ? and(...w) : undefined;
-  const [[total], rows] = await Promise.all([
+  const [[total], rows, [gifts]] = await Promise.all([
     db.select({ n: count() }).from(U).where(where),
     db
       .select({ id: U.id, name: U.name, email: U.email, plan: U.plan, role: U.role, createdAt: U.createdAt })
@@ -33,6 +37,7 @@ export default async function AdminUsers({ searchParams }: PageProps<"/admin/use
       .orderBy(desc(U.createdAt))
       .limit(PER)
       .offset((page - 1) * PER),
+    db.select({ n: count() }).from(schema.gift).where(ne(schema.gift.status, "revoked")),
   ]);
   const ids = rows.map((r) => r.id);
   const usage = ids.length
@@ -43,13 +48,39 @@ export default async function AdminUsers({ searchParams }: PageProps<"/admin/use
         .groupBy(schema.usageEvent.userId)
     : [];
   const uses = new Map(usage.map((u) => [u.userId, u.n]));
+  // accounts whose plan comes from a live gift (shown with a "gift" tag: not a paying customer)
+  const gifted = new Set(
+    ids.length
+      ? (await db.select({ userId: schema.purchase.userId }).from(schema.purchase).where(and(inArray(schema.purchase.userId, ids), eq(schema.purchase.provider, "gift"), eq(schema.purchase.status, "granted")))).map((r) => r.userId)
+      : [],
+  );
   const pages = Math.max(1, Math.ceil((total?.n ?? 0) / PER));
   const link = (p: number, view?: string) => "/admin/users?" + new URLSearchParams(Object.entries({ q: search, plan, page: p > 1 ? String(p) : "", view: view ?? "" }).filter(([, v]) => v)).toString();
   const open = sp(q.view);
 
   return (
     <div>
-      <AdminHead title="Users" sub={`${num(total?.n ?? 0)} ${search || plan ? "match" : "accounts"}`} />
+      <AdminHead title="Users" sub={`${num(total?.n ?? 0)} ${search || plan ? "match" : "accounts"}`}>
+        {canGift && (
+          <Link href="/admin/users?tab=gifts&gift=new" scroll={false} className="btn-ink !h-8 !px-3 max-md:!h-11 max-md:!px-4">
+            <AIcon name="gift" size={15} />
+            Gift Lifetime
+          </Link>
+        )}
+      </AdminHead>
+      {!giftOpen && <Flash ok={q.ok} err={q.err} />}
+      <div className="mt-4">
+        <LinkTabs
+          tabs={[
+            { href: "/admin/users", label: "Accounts", count: total?.n ?? 0, on: tab === "accounts" },
+            { href: "/admin/users?tab=gifts", label: "Gifts", count: gifts?.n ?? 0, on: tab === "gifts" },
+          ]}
+        />
+      </div>
+      {tab === "gifts" ? (
+        <GiftList canGift={canGift} />
+      ) : (
+      <>
       <Toolbar>
         <form method="get" className="flex w-full flex-wrap items-center gap-2" role="search">
           <label className="relative block min-w-0 flex-1 sm:w-[280px] sm:flex-none">
@@ -93,6 +124,7 @@ export default async function AdminUsers({ searchParams }: PageProps<"/admin/use
                   meta={
                     <>
                       <Tag tone={u.plan === "free" ? "plain" : "good"}>{u.plan}</Tag>
+                      {gifted.has(u.id) && <Tag>gift</Tag>}
                       {u.role === "admin" && <Tag tone="ink">admin</Tag>}
                       <span className="min-w-0 truncate">{u.name ? u.email : `Joined ${day(u.createdAt)}`}</span>
                     </>
@@ -112,7 +144,12 @@ export default async function AdminUsers({ searchParams }: PageProps<"/admin/use
                 </Link>
               </td>
               <td className={td}>{u.email}</td>
-              <td className={td}><Tag tone={u.plan === "free" ? "plain" : "good"}>{u.plan}</Tag></td>
+              <td className={td}>
+                <span className="inline-flex gap-1">
+                  <Tag tone={u.plan === "free" ? "plain" : "good"}>{u.plan}</Tag>
+                  {gifted.has(u.id) && <Tag>gift</Tag>}
+                </span>
+              </td>
               <td className={td}>{u.role === "admin" ? <Tag tone="ink">admin</Tag> : <span className="text-faint">user</span>}</td>
               <td className={tdNum}>{num(uses.get(u.id) ?? 0)}</td>
               <td className={td + " whitespace-nowrap text-mute tabular-nums"}>{day(u.createdAt)}</td>
@@ -121,7 +158,10 @@ export default async function AdminUsers({ searchParams }: PageProps<"/admin/use
         </Table>
         <Pager page={page} pages={pages} total={total?.n ?? 0} href={(n) => link(n)} unit="accounts" />
       </div>
-      {open && <UserDrawer id={open} closeHref={link(page)} />}
+      </>
+      )}
+      {open && tab === "accounts" && <UserDrawer id={open} closeHref={link(page)} />}
+      {giftOpen && <GiftDrawer closeHref={tab === "gifts" ? "/admin/users?tab=gifts" : "/admin/users"} err={typeof q.err === "string" ? q.err : undefined} />}
     </div>
   );
 }

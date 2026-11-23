@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
-import { and, count, desc, eq, gte, inArray } from "drizzle-orm";
+import { and, count, desc, eq, gte, inArray, sql } from "drizzle-orm";
+import { PAYING_IDS } from "@/lib/paying";
 import { getDb, schema } from "@/lib/db";
 import { can, requireStaff, type Role } from "@/lib/admin";
 import { pendingCount } from "@/lib/activation";
@@ -51,7 +52,7 @@ export default async function Home({ searchParams }: PageProps<"/admin">) {
         {kpis.map((k) => (
           <MetricKpi key={k.m.id} m={k.m} d={k.d} r={r} />
         ))}
-        <Kpi label="Paying customers" value={num(q.paying)} hint="Accounts on Pro or Lifetime right now. A level, so it has no change." />
+        <Kpi label="Paying customers" value={num(q.paying)} hint="Accounts on Pro, Team or Lifetime right now because they paid (Lemon Squeezy, Contra or AppSumo). Gifts and staff grants are left out. A level, so it has no change." />
       </div>
 
       <div className="mt-3 grid gap-3 xl:grid-cols-[minmax(0,1fr)_380px]">
@@ -95,7 +96,9 @@ async function loadQueues(role: Role) {
     db.select({ n: count() }).from(schema.contraSale).where(eq(schema.contraSale.status, "unmatched")),
     db.select({ n: count() }).from(schema.subscription).where(inArray(schema.subscription.status, ["past_due", "unpaid"])),
     db.select({ n: count() }).from(P).where(and(inArray(P.status, ["failed", "fraudulent"]), gte(P.createdAt, since))),
-    db.select({ n: count() }).from(U).where(inArray(U.plan, ["pro", "lifetime"])),
+    // paying = on a paid plan because of money: a paid order (Lemon Squeezy, Contra), an AppSumo code or a live paid
+    // subscription. Staff grants and gifted Lifetime are not customers who paid, so they are left out.
+    db.select({ n: count() }).from(U).where(and(inArray(U.plan, ["pro", "team", "lifetime"]), sql`${U.id} in (${PAYING_IDS})`)),
     db.select().from(P).orderBy(desc(P.createdAt)).limit(6),
     db.select({ id: U.id, name: U.name, email: U.email, plan: U.plan, createdAt: U.createdAt }).from(U).orderBy(desc(U.createdAt)).limit(6),
     db.select().from(T).orderBy(desc(T.updatedAt)).limit(6),
