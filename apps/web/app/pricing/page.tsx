@@ -4,7 +4,7 @@ import Link from "next/link";
 import { JsonLd, ORG_ID, abs, faqLd, pageMeta } from "@/lib/seo";
 import { items, systems } from "@/lib/catalog";
 import { FIGMA_TOTAL } from "@/lib/figma-library";
-import { dealAudience, dealBadge, dealEndText, dealRule, getPriceBook, teamYearlySaving, usd, yearlySaving, type CheckoutOption, type PriceBook } from "@/lib/plans";
+import { dealAudience, dealEndText, dealRule, getPriceBook, usd, yearlySaving, type CheckoutOption, type PriceBook } from "@/lib/plans";
 import { PageHead } from "@/components/site/page-head";
 import { IlloTile } from "@/components/site/illo";
 import { Icon } from "@/registry/components/icons";
@@ -26,10 +26,9 @@ export async function generateMetadata(): Promise<Metadata> {
   const pb = await getPriceBook();
   const life = pb.lifetime === null ? "" : " Lifetime is " + usd(pb.lifetime) + " once" + (pb.dealActive ? " for " + dealAudience(pb) : "") + ".";
   const pro = pb.monthly ? usd(pb.proMonthly) + "/mo" : usd(pb.proYearly) + "/yr";
-  const teamP = pb.monthly ? usd(pb.teamMonthly) + "/mo" : usd(pb.teamYearly) + "/yr";
   return pageMeta({
-    title: "Pricing: Free, Pro " + pro + ", Team " + teamP,
-    description: "Start free. Pro is " + (pb.monthly ? usd(pb.proMonthly) + " a month" : usd(pb.proYearly) + " a year") + " for one founder, Team is " + (pb.monthly ? usd(pb.teamMonthly) + " a month" : usd(pb.teamYearly) + " a year") + " for " + pb.teamSeats + " people." + life + " All nine systems, React + Figma.",
+    title: "Pricing: Free, Pro " + pro + (pb.lifetime === null ? "" : ", Lifetime " + usd(pb.lifetime) + " once"),
+    description: "Start free. Pro is " + (pb.monthly ? usd(pb.proMonthly) + " a month" : usd(pb.proYearly) + " a year") + " for one founder." + life + " Buying for a team? Talk to us. All nine systems, React + Figma.",
     path: "/pricing", image: "/pricing/opengraph-image",
   });
 }
@@ -37,7 +36,7 @@ export async function generateMetadata(): Promise<Metadata> {
 /** One price as the card shows it, monthly or yearly. */
 type Price = { option: CheckoutOption | null; price: string; per: string; note: string; badge?: string; cta: string };
 type Card = {
-  key: "free" | "pro" | "team";
+  key: "free" | "pro";
   scene: string;
   name: string;
   fits: string;
@@ -48,18 +47,9 @@ type Card = {
 
 function cards(pb: PriceBook): Card[] {
   const save = yearlySaving(pb);
-  const teamSave = teamYearlySaving(pb);
   // Monthly switched off in admin (price 0): each card shows its yearly price only.
   const m = (monthly: Price, yearly: Price) => (pb.monthly ? monthly : yearly);
   const PRO_Y: Price = { option: "proYearly", price: usd(pb.proYearly), per: "a year", note: "1 person. About " + cents(pb.proYearly / 12) + " a month.", badge: save > 0 ? "Save " + save + "%" : undefined, cta: pb.monthly ? "Get Pro yearly" : "Get Pro" };
-  const TEAM_Y: Price = {
-    option: "teamYearly",
-    price: usd(pb.teamYearly),
-    per: "a year",
-    note: pb.teamSeats + " people. About " + cents(pb.teamYearly / pb.teamSeats) + " per person a year.",
-    badge: teamSave > 0 ? "Save " + teamSave + "%" : undefined,
-    cta: pb.monthly ? "Get Team yearly" : "Get Team",
-  };
   const freeP: Price = { option: null, price: "$0", per: "forever", note: "No card needed", cta: "Create free account" };
   return [
     {
@@ -80,38 +70,25 @@ function cards(pb: PriceBook): Card[] {
       yearly: PRO_Y,
       points: ["All " + systems.length + " design systems", "Every component in code and Figma (" + fmt(FIGMA_TOTAL) + " in Figma today)", "Full Figma kit per system", "Unlimited MCP and CLI", "New components every week"],
     },
-    {
-      key: "team",
-      scene: "founders",
-      name: "Team",
-      fits: "A founding team: you, a co-founder and your first hires.",
-      monthly: m({ option: "teamMonthly", price: usd(pb.teamMonthly), per: "a month", note: pb.teamSeats + " people. About " + cents(pb.teamMonthly / pb.teamSeats) + " per person.", cta: "Get Team monthly" }, TEAM_Y),
-      yearly: TEAM_Y,
-      points: ["Everything in Pro, for " + pb.teamSeats + " people", "One bill, paid by the owner", "Invite by link from your account", "Each person has their own login, API keys and MCP", "Remove someone and the seat frees up at once"],
-    },
   ];
 }
 
 function faq(pb: PriceBook): [string, string][] {
   const save = yearlySaving(pb);
-  const others = pb.teamSeats - 1;
   const out: [string, string][] = [
-    ["Which plan should I pick?", "Building alone: Pro, or Lifetime if you would rather pay once. Building with a co-founder or first hires: Team, which covers " + pb.teamSeats + " people on one bill. An agency or a larger company: talk to us and we will set up the right seats and terms."],
-    ["How does the Team plan work?", "One person, the owner, buys Team and invites up to " + others + " teammates from their account, " + pb.teamSeats + " people in total. Each person signs in with their own account and gets everything in Pro. The owner pays one bill of " + (pb.monthly ? usd(pb.teamMonthly) + " a month or " : "") + usd(pb.teamYearly) + " a year."],
-    ["How do I invite my co-founder?", "Open Account, type their email under Team and copy the invite link. Send it however you like. They sign in or create a free account with that email and click Join team. Each link works once, for that email."],
-    ["What happens when someone leaves the team?", "Their Pro access ends straight away and the seat is free for someone new. Anything they already copied stays theirs to ship. If the owner cancels Team, members keep access until the end of the paid period."],
-    ["I already have Pro or Lifetime. Can I add my team?", "Yes. Buy Team to add seats for your teammates. If you are on Pro, cancel it in your Contra purchases so you don't pay twice; Team already includes you. If you have Lifetime, you keep it, and Team covers the others."],
+    ["Which plan should I pick?", "Building alone: Pro, or Lifetime if you would rather pay once. Buying for a team, an agency or a larger company: talk to us, tell us how many people, and we will set up seats and a price for you."],
+    ["Do you have a team plan?", "Yes, set up for you. Write to us from the support page with how many people need access and we will send you an offer. Each person gets their own login, API keys and MCP, on one bill."],
   ];
   out.push(["What does Lifetime include?", "Everything in Pro for one person: all " + systems.length + " design systems, every component in React and Figma, the Figma kits, unlimited MCP and CLI, and every future update and new system. Forever, for one payment."]);
   if (pb.deal.enabled)
     out.push([
-      "How does the launch deal work?",
+      "How does the Lifetime deal work?",
       "Lifetime costs " + usd(pb.settings.prices.lifetimeDeal) + " for " + dealAudience(pb) + (pb.deal.endsAt ? ", until " + dealEndText(pb.deal.endsAt) : "") + ". " + (pb.deal.showSpots ? "The spots counter on this page counts real paid orders" + (pb.deal.endsAt ? " and the countdown runs to that real end date; it never resets" : "") + ". " : pb.deal.endsAt ? "The countdown runs to that real end date and never resets. Seats are limited, so we may close it earlier once they are filled. " : "Seats are limited, so we may close it once they are filled. ") + dealRule(pb),
     ]);
   out.push(
-    pb.monthly ? ["Monthly or yearly?", "Same plan either way. Pro yearly is " + usd(pb.proYearly) + " instead of " + usd(pb.proMonthly * 12) + (save > 0 ? ", " + save + "% less" : "") + "; Team yearly is " + usd(pb.teamYearly) + " instead of " + usd(pb.teamMonthly * 12) + ". Cancel either any time from your account; the plan stays on until the end of the period you paid for."]
+    pb.monthly ? ["Monthly or yearly?", "Same plan either way. Pro yearly is " + usd(pb.proYearly) + " instead of " + usd(pb.proMonthly * 12) + (save > 0 ? ", " + save + "% less" : "") + ". Cancel any time from your account; the plan stays on until the end of the period you paid for."]
       : ["Why yearly and not monthly?", "One payment a year keeps the price low: Pro is " + usd(pb.proYearly) + " a year, about " + cents(pb.proYearly / 12) + " a month, and card fees on small monthly charges would push it up. Cancel any time; the plan stays on until the end of the year you paid for. Would rather pay once? Lifetime covers everything, forever."],
-    ["Do you have an agency or enterprise plan?", "Not as a checkout plan yet. If you need more than " + pb.teamSeats + " seats, terms for client work, custom invoices or SSO, write to us from the support page and we will set it up."],
+    ["Do you have an agency or enterprise plan?", "Not as a checkout plan. If you need seats for a team, terms for client work, custom invoices or SSO, write to us from the support page and we will set it up."],
     ["Is there a refund?", "Yes. 7 days on every paid plan, no questions asked. Write to " + pb.settings.support.email + "."],
     ["Can I try before paying?", "Yes. Browse and preview everything, copy 5 items without an account, then a free account gives unlimited copies of free components and the Loopo system."],
     ["What happens to my code if I stop paying?", "Everything you already copied stays yours to ship. You just can’t copy new Pro items."],
@@ -123,20 +100,18 @@ function faq(pb: PriceBook): [string, string][] {
 /** Stable key for a question: its first words, so the edit stays on the same question when others are added. */
 const faqId = (q: string) => q.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").split("-").slice(0, 6).join("-");
 
-const TABLE = (pb: PriceBook): [string, string, string, string, string][] => [
-  ["Price", "$0", (pb.monthly ? usd(pb.proMonthly) + " a month or " : "") + usd(pb.proYearly) + " a year", (pb.monthly ? usd(pb.teamMonthly) + " a month or " : "") + usd(pb.teamYearly) + " a year", pb.lifetime === null ? "Closed" : usd(pb.lifetime) + " once"],
-  ["People", "1", "1", "Up to " + pb.teamSeats, "1"],
-  ["Design systems", "Loopo", "All " + systems.length, "All " + systems.length, "All " + systems.length + ", plus future ones"],
-  ["Components in code", fmt(free) + " free", "All", "All", "All"],
-  ["Figma library", "Loopo free items", fmt(FIGMA_TOTAL) + "+", fmt(FIGMA_TOTAL) + "+", fmt(FIGMA_TOTAL) + "+"],
-  ["Icons", fmt(iconStats.line), fmt(iconStats.line), fmt(iconStats.line), fmt(iconStats.line)],
-  ["MCP calls", "50 a day", "Unlimited", "Unlimited, per person", "Unlimited"],
-  ["Invite and remove teammates", "", "", "Yes", ""],
-  ["One bill for everyone", "", "", "Yes", ""],
-  ["Copies before you need an account", "5", "Unlimited", "Unlimited", "Unlimited"],
-  ["Updates and new systems", "Loopo updates", "While subscribed", "While subscribed", "Forever"],
-  ["Dark mode (first update after launch)", "", "Yes", "Yes", "Yes"],
-  ["Commercial use", "Yes", "Yes", "Yes", "Yes"],
+const TABLE = (pb: PriceBook): [string, string, string, string][] => [
+  ["Price", "$0", (pb.monthly ? usd(pb.proMonthly) + " a month or " : "") + usd(pb.proYearly) + " a year", pb.lifetime === null ? "Closed" : usd(pb.lifetime) + " once"],
+  ["People", "1", "1", "1"],
+  ["Design systems", "Loopo", "All " + systems.length, "All " + systems.length + ", plus future ones"],
+  ["Components in code", fmt(free) + " free", "All", "All"],
+  ["Figma library", "Loopo free items", fmt(FIGMA_TOTAL) + "+", fmt(FIGMA_TOTAL) + "+"],
+  ["Icons", fmt(iconStats.line), fmt(iconStats.line), fmt(iconStats.line)],
+  ["MCP calls", "50 a day", "Unlimited", "Unlimited"],
+  ["Copies before you need an account", "5", "Unlimited", "Unlimited"],
+  ["Updates and new systems", "Loopo updates", "While subscribed", "Forever"],
+  ["Dark mode (first update after launch)", "", "Yes", "Yes"],
+  ["Commercial use", "Yes", "Yes", "Yes"],
 ];
 
 /** Shown only for the billing period that is switched on. Monthly is the no-JS default. */
@@ -147,16 +122,12 @@ export default async function PricingPage() {
   const pb = await getPriceBook();
   const list = cards(pb);
   const questions = faq(pb);
-  const { deal } = pb;
-  const pct = deal.total > 0 ? Math.round((deal.left / deal.total) * 100) : 0;
   const lifeClosed = pb.lifetime === null;
   const unit = (price: number, d: "P1M" | "P1Y") => ({ "@type": "UnitPriceSpecification", price: String(price), priceCurrency: "USD", billingDuration: d, unitText: d === "P1M" ? "month" : "year" });
   const offers = [
     { "@type": "Offer", name: "Free", price: "0", priceCurrency: "USD", url: abs("/pricing"), description: "The Loopo system, free components in code, every icon, 50 MCP calls a day." },
     ...(pb.monthly ? [{ "@type": "Offer", name: "Pro monthly", price: String(pb.proMonthly), priceCurrency: "USD", url: abs("/pricing"), description: "One person. All systems, unlimited MCP.", priceSpecification: unit(pb.proMonthly, "P1M") }] : []),
     { "@type": "Offer", name: "Pro yearly", price: String(pb.proYearly), priceCurrency: "USD", url: abs("/pricing"), description: "One person. All systems, unlimited MCP.", priceSpecification: unit(pb.proYearly, "P1Y") },
-    ...(pb.monthly ? [{ "@type": "Offer", name: "Team monthly", price: String(pb.teamMonthly), priceCurrency: "USD", url: abs("/pricing"), description: "Everything in Pro for " + pb.teamSeats + " people on one bill.", priceSpecification: unit(pb.teamMonthly, "P1M") }] : []),
-    { "@type": "Offer", name: "Team yearly", price: String(pb.teamYearly), priceCurrency: "USD", url: abs("/pricing"), description: "Everything in Pro for " + pb.teamSeats + " people on one bill.", priceSpecification: unit(pb.teamYearly, "P1Y") },
     ...(lifeClosed
       ? []
       : [{ "@type": "Offer", name: pb.dealActive ? "Lifetime deal" : "Lifetime", price: String(pb.lifetime), priceCurrency: "USD", url: abs("/pricing"), availability: "https://schema.org/LimitedAvailability", description: "One person, one payment. Every system and every future update, forever." + (pb.dealActive ? " Launch price for " + dealAudience(pb) + "." : "") }]),
@@ -168,7 +139,7 @@ export default async function PricingPage() {
     teamYearly: { name: "Team yearly", price: usd(pb.teamYearly) + " a year" },
     lifetime: { name: "Lifetime", price: lifeClosed ? "the launch price" : usd(pb.lifetime!) + " once" },
   };
-  const maxSave = Math.max(yearlySaving(pb), teamYearlySaving(pb));
+  const maxSave = yearlySaving(pb);
 
   return (
     <div className="max-w-[1180px]">
@@ -188,7 +159,7 @@ export default async function PricingPage() {
           faqLd(questions.map(([q, a]) => ({ q, a }))),
         ]}
       />
-      <PageHead edit="pricing" title="Pricing" sub="Start free. Pro for one founder, Team for up to 5 people, or pay once with Lifetime." />
+      <PageHead edit="pricing" title="Pricing" sub="Start free, go Pro for one founder, or pay once with Lifetime. Buying for a team? Talk to us." />
       <Suspense fallback={null}>
         <PricingNotice labels={labels} />
       </Suspense>
@@ -238,7 +209,7 @@ export default async function PricingPage() {
                 (c.monthly === c.yearly ? [c.yearly] : [c.monthly, c.yearly]).map((p, i, all) => (
                   <form key={p.option} action="/api/checkout" method="post" className={"mt-6 " + (all.length === 1 ? "" : i ? Y : M)}>
                     <input type="hidden" name="option" value={p.option!} />
-                    <button type="submit" className={(c.key === "team" ? "btn-ink" : "btn-line") + " w-full"}>
+                    <button type="submit" className="btn-line w-full">
                       {p.cta}
                     </button>
                   </form>
@@ -246,65 +217,26 @@ export default async function PricingPage() {
               )}
             </div>
           ))}
+          <LifetimeCard pb={pb} />
         </div>
       </div>
       <p className="mt-3 text-[12px] text-mute"><Link href="/refund" className="underline underline-offset-2 hover:text-ink">7-day refund</Link> on every paid plan. Prices in USD; tax is added at checkout where it applies. Payments through Contra: after paying, click Activate in your Account. <Link href="/terms" className="underline underline-offset-2 hover:text-ink">Terms</Link></p>
 
-      <section id="lifetime" aria-labelledby="lifetime-h" className="mt-3 grid scroll-mt-6 gap-5 rounded-[8px] bg-ink p-5 text-white md:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)_auto] md:items-center">
-        <div className="flex items-center gap-4">
-          <IlloTile scene="ingots" label="Lifetime plan" dark className="hidden h-[88px] w-[120px] shrink-0 sm:block" />
-          <div>
-            <div className="flex flex-wrap items-center gap-2">
-              <h2 id="lifetime-h" className="text-[13px] font-medium">
-                {pb.dealActive ? "Lifetime launch deal" : "Lifetime"}
-              </h2>
-              {!lifeClosed && pb.dealActive && <span className="rounded-full bg-white/15 px-2 py-0.5 text-[11px] font-medium">{dealBadge(pb)}</span>}
-            </div>
-            <p className="mt-2 flex items-baseline gap-1.5">
-              <span className="text-[32px] font-medium tracking-[-0.03em] tabular-nums">{lifeClosed ? usd(pb.settings.prices.lifetimeAfter) : usd(pb.lifetime!)}</span>
-              <span className="text-[13px] text-white/60">once</span>
-            </p>
-            <p className="text-[12px] text-white/60">{lifeClosed ? "Closed for now." : "1 person. Fits a solo founder who would rather pay once."}</p>
-          </div>
-        </div>
-        <div>
-          <p className="text-[13px] text-white/80">Everything in Pro for one person, forever: all {systems.length} systems, every future update and new system, unlimited MCP and CLI, dark mode when it ships.</p>
-          {deal.enabled && pb.dealActive && deal.showTimer && deal.endsAt ? <LifetimeCountdown endsAt={deal.endsAt} /> : null}
-          {deal.enabled && pb.dealActive && deal.showSpots && (
-            <div className="mt-3">
-              <div className="flex items-baseline justify-between text-[12px]">
-                <span className="font-medium tabular-nums">
-                  {fmt(deal.left)} of {fmt(deal.total)} left
-                </span>
-                <span className="text-white/60 tabular-nums">{fmt(deal.sold)} taken</span>
-              </div>
-              <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-white/15" role="progressbar" aria-label="Launch deal spots left" aria-valuemin={0} aria-valuemax={deal.total} aria-valuenow={deal.left}>
-                <div className="h-full rounded-full bg-white" style={{ width: pct + "%" }} />
-              </div>
-            </div>
-          )}
-          {deal.enabled && <p className="mt-2 text-[12px] leading-snug text-white/60">{dealRule(pb)}</p>}
-        </div>
-        <form action="/api/checkout" method="post">
-          <input type="hidden" name="option" value="lifetime" />
-          <button type="submit" disabled={lifeClosed} className="btn-line w-full !bg-white hover:!bg-white/90 disabled:cursor-not-allowed disabled:opacity-50 md:w-auto">
-            {lifeClosed ? "Lifetime is closed" : pb.dealActive ? "Get Lifetime for " + usd(pb.lifetime!) : "Get Lifetime"}
-          </button>
-        </form>
-      </section>
-
-      <div className="card mt-3 flex flex-wrap items-center gap-4 p-4">
-        <span className="grid size-10 shrink-0 place-items-center rounded-[8px] bg-tile">
-          <Icon name="layers" size={18} />
-        </span>
+      <section id="team" aria-labelledby="team-h" className="card mt-3 flex scroll-mt-6 flex-wrap items-center gap-4 p-5">
+        <IlloTile scene="founders" label="Team plan" className="hidden h-[88px] w-[120px] shrink-0 sm:block" />
         <div className="min-w-[220px] flex-1">
-          <p className="text-[13px] font-medium">Agency or larger company?</p>
-          <p className="text-[13px] text-mute">More than {pb.teamSeats} seats, client-work terms, custom invoices or SSO. Tell us what you need and we will set it up.</p>
+          <h2 id="team-h" className="text-[13px] font-medium" {...ed("pricing.team.h")}>
+            Buying for a team?
+          </h2>
+          <p className="mt-1 text-[13px] text-mute" {...ed("pricing.team.p")}>
+            Tell us how many people need access and we will send you an offer. Each person gets their own login, API keys and MCP, on one bill. Agencies and larger companies too: client-work terms, custom invoices or SSO.
+          </p>
         </div>
-        <Link href="/support" className="btn-line">
+        <Link href="/support?topic=team" className="btn-ink">
+          <Icon name="mail" size={15} />
           Talk to us
         </Link>
-      </div>
+      </section>
       <p className="mt-3 text-[12px] text-mute">Tax is added at checkout where it applies. Payments through Contra.</p>
 
       <section className="mt-12" aria-labelledby="compare-h">
@@ -312,13 +244,13 @@ export default async function PricingPage() {
           Compare plans
         </h2>
         <div className="card mt-3 overflow-x-auto">
-          <table className="w-full min-w-[760px] text-[13px]">
+          <table className="w-full min-w-[620px] text-[13px]">
             <thead>
               <tr className="text-left text-mute">
                 <th className="px-4 py-2.5 font-normal" scope="col">
                   <span className="sr-only">Feature</span>
                 </th>
-                {["Free", "Pro", "Team", "Lifetime"].map((h) => (
+                {["Free", "Pro", "Lifetime"].map((h) => (
                   <th key={h} scope="col" className="px-4 py-2.5 font-medium text-ink">
                     {h}
                   </th>
@@ -362,6 +294,64 @@ export default async function PricingPage() {
           More questions? <Link href="/docs" className="font-medium text-ink underline underline-offset-2">Read the docs</Link> or <Link href="/support" className="font-medium text-ink underline underline-offset-2">ask support</Link>.
         </p>
       </section>
+    </div>
+  );
+}
+
+/** The third plan card: Lifetime, highlighted and recommended, with the deal and the same live countdown as the top bar. */
+function LifetimeCard({ pb }: { pb: PriceBook }) {
+  const { deal } = pb;
+  const closed = pb.lifetime === null;
+  const after = usd(pb.settings.prices.lifetimeAfter);
+  const running = !closed && pb.dealActive;
+  return (
+    <div id="lifetime" className="relative flex scroll-mt-6 flex-col rounded-[8px] bg-ink p-5 text-white shadow-[0_0_0_1px_var(--color-ink),0_12px_32px_rgb(0_0_0/0.18)]">
+      <IlloTile scene="ingots" label="Lifetime plan" dark className="-mx-2 -mt-2 mb-5 h-[120px]" />
+      <div className="flex min-h-[22px] flex-wrap items-center justify-between gap-2">
+        <h2 id="lifetime-h" className="text-[13px] font-medium">
+          Lifetime
+        </h2>
+        <div className="flex flex-wrap items-center gap-1.5">
+          {running && (
+            <span className="rounded-full bg-[#4b55e6] px-2 py-0.5 text-[11px] font-medium" {...ed("pricing.lifetime.deal")}>
+              Black Friday deal
+            </span>
+          )}
+          <span className="inline-flex items-center gap-1 rounded-full bg-white px-2 py-0.5 text-[11px] font-medium text-ink">
+            <Icon name="sparkle" size={12} />
+            Recommended
+          </span>
+        </div>
+      </div>
+      <p className="mt-4 flex items-baseline gap-1.5">
+        <span className="text-[32px] font-medium tracking-[-0.03em] tabular-nums">{closed ? after : usd(pb.lifetime!)}</span>
+        {running && <span className="text-[15px] text-white/45 tabular-nums line-through">{after}</span>}
+        <span className="text-[13px] text-white/60">once</span>
+      </p>
+      <p className="text-[12px] text-white/60">{closed ? "Closed for now." : "1 person. Pay once, keep it forever."}</p>
+      {running && deal.showTimer && deal.endsAt ? <LifetimeCountdown endsAt={deal.endsAt} /> : null}
+      {running && deal.showSpots && <p className="mt-2 text-[12px] font-medium tabular-nums">{deal.left.toLocaleString("en-US")} of {deal.total.toLocaleString("en-US")} spots left</p>}
+
+      <p className="mt-4 rounded-[6px] bg-white/10 px-3 py-2 text-[12px] leading-snug">
+        <span className="font-medium">Fits: </span>
+        <span className="text-white/75">A founder who would rather pay once than every year.</span>
+      </p>
+
+      <ul className="mt-5 flex flex-1 flex-col gap-2">
+        {["Everything in Pro, forever", "All " + systems.length + " systems, plus every future one", "Every future update, no renewals", "Unlimited MCP and CLI", "Dark mode when it ships"].map((pt) => (
+          <li key={pt} className="flex items-start gap-2 text-[13px]">
+            <Icon name="check" size={15} className="mt-0.5 shrink-0" />
+            {pt}
+          </li>
+        ))}
+      </ul>
+      <form action="/api/checkout" method="post" className="mt-6">
+        <input type="hidden" name="option" value="lifetime" />
+        <button type="submit" disabled={closed} className="btn-line w-full !bg-white !text-ink hover:!bg-white/90 disabled:cursor-not-allowed disabled:opacity-50">
+          {closed ? "Lifetime is closed" : running ? "Get Lifetime for " + usd(pb.lifetime!) : "Get Lifetime"}
+        </button>
+      </form>
+      {deal.enabled && <p className="mt-2 text-[11px] leading-snug text-white/55">{dealRule(pb)}</p>}
     </div>
   );
 }
