@@ -12,7 +12,7 @@ import { SITE, abs } from "@/lib/seo";
  * duplicates, login redirects with ?next= and the shadcn registry JSON. Those are kept out so the crawl goes to
  * components, systems and guides. Share images stay open to the link-preview bots, which need them.
  */
-const NOT_PAGES = ["/api/", "/library-preview/", "/library-code/", "/r/", "/*?from=", "/*?next=", "/*&next=", "/*/opengraph-image", "/*/twitter-image"];
+const NOT_PAGES = ["/api/", "/blog-db/", "/library-preview/", "/library-code/", "/r/", "/*?from=", "/*?next=", "/*&next=", "/*/opengraph-image", "/*/twitter-image"];
 const PREVIEW_BOTS = ["Twitterbot", "facebookexternalhit", "Facebot", "LinkedInBot", "Slackbot", "Slackbot-LinkExpanding", "WhatsApp", "TelegramBot", "Discordbot", "Pinterestbot", "redditbot", "Applebot"];
 
 const AI_BOTS = ["OAI-SearchBot", "ChatGPT-User", "GPTBot", "Claude-SearchBot", "Claude-User", "ClaudeBot", "PerplexityBot", "Perplexity-User", "Google-Extended", "Applebot-Extended", "bingbot", "DuckAssistBot", "meta-externalagent", "MistralAI-User"];
