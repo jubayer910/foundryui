@@ -80,6 +80,10 @@ await mkNamed("hana", "Hana Hidden", now);
 await mkNamed("twin1", "Twin Same", now);
 await mkNamed("twin2", "Twin Same", now);
 await mkNamed("olds", "Old Signup", OLD);
+// e) short names: "Matt" for "Matt Reid"; two "Sam" accounts → ambiguous
+await mkNamed("mattr", "Matt", now);
+await mkNamed("sam1", "Sam", now);
+await mkNamed("sam2", "Sam", now);
 
 const tx = (id: string, amount: string, email: string | null, first = "", last = "", date = today) => ({
   id,
@@ -103,6 +107,8 @@ const sales: Record<string, unknown[]> = {
     tx("test_hana", "USD:49.00", null, "hana", "HIDDEN"),
     tx("test_twin", "USD:49.00", null, "Twin", "Same"),
     tx("test_olds", "USD:49.00", null, "Old", "Signup"),
+    tx("test_mattr", "USD:49.00", null, "Matt", "Reid"),
+    tx("test_sam", "USD:49.00", null, "Sam", "Lee"),
     { ...tx("test_unpaid", "USD:49.00", "bob" + T), invoice: { status: "PENDING" } },
   ],
   "OLDLIFE-test": [tx("test_eve", "USD:29.00", "eve" + T)],
@@ -157,6 +163,15 @@ check("c) name match, request sent before the sale → left for staff", (await s
 check("c) unknown name stays unmatched", (await saleRow("test_ghost"))?.status === "unmatched");
 check("d) hidden email, one new account with the same name → activated", (await saleRow("test_hana"))?.status === "matched" && (await planOf("hana")) === "lifetime" && active("hana") === 1);
 check("d) two accounts share the name → left for staff", (await saleRow("test_twin"))?.status === "unmatched" && (await planOf("twin1")) === "free" && (await planOf("twin2")) === "free");
+check("e) short name: account \"Matt\" for Contra \"Matt Reid\" → activated", (await saleRow("test_mattr"))?.status === "matched" && (await planOf("mattr")) === "lifetime" && active("mattr") === 1);
+check("e) two accounts called \"Sam\" → left for staff", (await saleRow("test_sam"))?.status === "unmatched" && (await planOf("sam1")) === "free" && (await planOf("sam2")) === "free");
+{
+  const { shortNameOf } = await import("../lib/contra/sync");
+  const yes: [string, string][] = [["Matt", "Matt Reid"], ["Ray", "Ray Yap"], ["Rahul S", "Rahul Shelar"], ["X1thix", "Keziah X1thix"], ["rahul s.", "Rahul Shelar"]];
+  const no: [string, string][] = [["Matthew", "Matt Reid"], ["S", "Rahul Shelar"], ["Al", "Alan Smith"], ["John Smith", "Jane Smith"], ["sakamoto", "takashi sakamoto x"], ["", "Matt Reid"]];
+  check("e) short-name rule accepts the four real cases", yes.every(([a, c]) => shortNameOf(a, c)));
+  check("e) short-name rule rejects near misses", no.filter(([a]) => a !== "sakamoto").every(([a, c]) => !shortNameOf(a, c)));
+}
 check("d) same name but account made months before → left for staff", (await saleRow("test_olds"))?.status === "unmatched" && (await planOf("olds")) === "free");
 
 // prices
@@ -197,7 +212,7 @@ check("existing new account: opening the inbox link while signed in with that em
 const mm = await manualMatch("test_ghost", "dana" + T, "owner" + T);
 check("manual match to an account that already has Pro → linked, no email", mm.ok && (await saleRow("test_ghost"))?.matchedBy === "manual" && mailsTo("dana").length === 1, mm.message);
 
-check("mail count: 8 active (incl. same-name match) + 3 claim links", dryRunLog.length === 11, String(dryRunLog.length));
+check("mail count: 9 active (incl. name matches) + 3 claim links", dryRunLog.length === 12, String(dryRunLog.length));
 await proxy.dispose();
 console.log(failed ? `\n${failed} FAILED` : "\nAll passed");
 process.exit(failed ? 1 : 0);

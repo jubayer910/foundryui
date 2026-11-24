@@ -820,7 +820,7 @@ export async function matchSale(sale: Sale, now = new Date()): Promise<MatchOutc
   //    name they paid with, usually the same day. Taken only when it is unambiguous: exactly one account with
   //    that exact name, created within NAME_MATCH_DAYS of the sale, and no other open sale with that name.
   if (!hits.length) {
-    const r = await matchByAccountName(sale, name, now);
+    const r = (await matchByAccountName(sale, name, now)) ?? (await matchByPartialName(sale, name, now));
     if (r) return r;
   }
   const inv = saleInvoice.get(sale.id);
@@ -851,6 +851,64 @@ async function matchByAccountName(sale: Sale, name: string, now: Date): Promise<
   const a = await activationFor(u, sale, u.email, now);
   const r = await claimAndApprove(sale, a, "name", ACTOR, now);
   if (r.status === "matched") await setNote(sale.id, "Email hidden on Contra; matched to the one account with the same name", now);
+  return r;
+}
+
+/** Name words, lowercased, letters and digits only ("Rahul S." -> ["rahul", "s"]). */
+const nameWords = (s: string | null | undefined) => normName(s).split(/[^\p{L}\p{N}]+/u).filter(Boolean);
+
+/**
+ * True when an account name is a shortened form of the name on Contra: every word of the account name is a
+ * word of the Contra name, or (one or two letters) the start of one, and at least one full word of 3+ letters
+ * matches. "Matt" ~ "Matt Reid", "Rahul S" ~ "Rahul Shelar", "X1thix" ~ "Keziah X1thix"; "Matthew" !~ "Matt Reid".
+ */
+export function shortNameOf(account: string | null | undefined, contra: string): boolean {
+  const a = nameWords(account);
+  const c = nameWords(contra);
+  if (!a.length || !c.length) return false;
+  let full = false;
+  for (const w of a) {
+    if (c.includes(w)) {
+      if (w.length >= 3) full = true;
+      continue;
+    }
+    if (w.length <= 2 && c.some((x) => x.startsWith(w))) continue;
+    return false;
+  }
+  return full;
+}
+
+/** Sign-up window around the sale for the short-name match: up to this many hours before, and after. */
+export const SHORT_NAME_BEFORE_H = 72;
+export const SHORT_NAME_AFTER_H = 24;
+
+/**
+ * e) email hidden, no exact-name account: an account whose name is a short form of the Contra name (see
+ * shortNameOf), signed up around the sale. Taken only when exactly one account in that window fits and no
+ * other open sale fits that account; otherwise staff decide.
+ */
+async function matchByPartialName(sale: Sale, name: string, now: Date): Promise<MatchOutcome | null> {
+  const db = await getDb();
+  const U = schema.user;
+  const seen = sale.createdAt.getTime();
+  const from = new Date(seen - SHORT_NAME_BEFORE_H * 3_600_000);
+  const to = new Date(seen + SHORT_NAME_AFTER_H * 3_600_000);
+  const around = await db.select({ id: U.id, email: U.email, name: U.name, plan: U.plan, createdAt: U.createdAt }).from(U).where(and(sql`${U.createdAt} >= ${Math.floor(from.getTime() / 1000)}`, sql`${U.createdAt} <= ${Math.floor(to.getTime() / 1000)}`)).limit(3000);
+  const fits = around.filter((u) => normName(u.name) !== name && shortNameOf(u.name, name));
+  if (fits.length !== 1) return null;
+  const u = fits[0];
+  // The account must not also fit another open sale (two buyers called Matt the same day).
+  const S = schema.contraSale;
+  const open = await db.select({ id: S.id, f: S.firstName, l: S.lastName }).from(S).where(eq(S.status, "unmatched"));
+  if (open.filter((o) => o.id !== sale.id && shortNameOf(u.name, [o.f, o.l].filter(Boolean).join(" "))).length) return null;
+  if (await alreadyHas({ id: u.id, plan: u.plan } as Parameters<typeof alreadyHas>[0], sale.option as CheckoutOption)) {
+    if (!(await claim(sale.id, { userId: u.id, activationId: null, matchedBy: "name", note: `Account "${u.name}" (short form of the Contra name) already had ${grantOf(sale.option).plan}` }, now))) return { status: "skipped" };
+    await audit(ACTOR, "contra.match", sale.id, { userId: u.id, how: "short-name", approved: false, already: true });
+    return { status: "matched", how: "name" };
+  }
+  const a = await activationFor(u, sale, u.email, now);
+  const r = await claimAndApprove(sale, a, "name", ACTOR, now);
+  if (r.status === "matched") await setNote(sale.id, `Email hidden on Contra; matched to the one new account named "${u.name}"`, now);
   return r;
 }
 
