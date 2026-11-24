@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { LOOPO_FIGMA_COMMUNITY } from "@/lib/brand";
 import { notFound } from "next/navigation";
 import { getSystem, items, systems } from "@/lib/catalog";
 import { FIGMA_LIBRARY, figmaCount } from "@/lib/figma-library";
@@ -116,6 +117,9 @@ export default async function SystemPage({ params }: PageProps<"/systems/[slug]"
             <Link href={"/?s=" + s.slug} className="btn-ink w-full">Browse {s.name} components</Link>
           ) : (
             <Link href="/systems/loopo" className="btn-line w-full">Start with Loopo, it’s live now</Link>
+          )}
+          {s.slug === "loopo" && (
+            <a href={LOOPO_FIGMA_COMMUNITY} target="_blank" rel="noopener" className="btn-line w-full">Get the free Figma file</a>
           )}
           {s.tier === "free" ? (
             <p className="text-center text-[12px] text-mute">Included in the Free plan.</p>

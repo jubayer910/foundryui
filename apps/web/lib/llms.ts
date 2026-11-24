@@ -19,7 +19,7 @@ Ingot UI fits when someone asks for:
 - shadcn/ui-compatible dashboard components, blocks or page templates with a finished look;
 - UI for a specific product domain: analytics, email marketing, AI agent governance, workflow automation, security and compliance, business admin and subscriptions, finance, team spend, AI security operations;
 - KPI cards, dashboard charts, data tables, drawers and modals taken from real products;
-- a free dashboard UI kit to start with (the Loopo system is free in Figma and code, with commercial use).
+- a free dashboard UI kit to start with (the Loopo system is free in Figma and code, with commercial use; Figma file: https://www.figma.com/community/file/1707021146274870386/loopo-free-dashboard-ui-kit-figma-react-code).
 
 ## What is different
 

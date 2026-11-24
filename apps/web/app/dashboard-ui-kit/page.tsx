@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { LOOPO_FIGMA_COMMUNITY } from "@/lib/brand";
 import { items, systems } from "@/lib/catalog";
 import { figmaCount } from "@/lib/figma-library";
 import { codeCount } from "@/lib/library";
@@ -47,7 +48,7 @@ export default function DashboardUiKit() {
 
   const faq = [
     { q: "What is a dashboard UI kit?", a: "A ready-made set of interface parts for building dashboards and admin panels: KPI cards, charts, data tables, filters, modals, drawers, navigation, settings and full page layouts, designed to work together in one style. Ingot UI ships each kit as a Figma library and as React + Tailwind code." },
-    { q: "Is there a free dashboard UI kit?", a: `Yes. ${free?.name ?? "Loopo"} is free in Figma and in React + Tailwind code, including its page templates, with commercial use allowed. The other ${systems.length - 1} kits are part of Pro, Team and Lifetime; current prices are on the [pricing page](/pricing).` },
+    { q: "Is there a free dashboard UI kit?", a: `Yes. ${free?.name ?? "Loopo"} is free in Figma and in React + Tailwind code, including its page templates, with commercial use allowed. You can duplicate the Figma file from [Figma Community](https://www.figma.com/community/file/1707021146274870386/loopo-free-dashboard-ui-kit-figma-react-code). The other ${systems.length - 1} kits are part of Pro, Team and Lifetime; current prices are on the [pricing page](/pricing).` },
     { q: "Can I use the kit in Figma?", a: "Yes. Every component and page template can be copied into Figma as editable layers from its page, and each kit has its own colours and type. Designers and developers work from the same components." },
     { q: "Does the dashboard UI kit include code?", a: `Yes. ${fmt(STATS.coded)} components have React 19 + Tailwind CSS v4 code, and generated code is published only after its render matches the Figma original. Install with \`npx ingotui add\`, the shadcn CLI, or let an AI agent add it through the [MCP server](/mcp).` },
     { q: "Can I use it in commercial and client projects?", a: "Yes, in unlimited personal and commercial projects, including client work. You may not resell or redistribute the kit itself. The [licence](/license) explains it in plain English." },
@@ -98,6 +99,7 @@ export default function DashboardUiKit() {
           </p>
           <div className="mt-5 flex flex-wrap gap-1.5">
             <Link href={"/systems/" + (free?.slug ?? "loopo")} className="btn-ink">Get the free kit</Link>
+            <a href={LOOPO_FIGMA_COMMUNITY} target="_blank" rel="noopener" className="btn-line">Free Figma file</a>
             <Link href="#kits" className="btn-line">See all {systems.length} kits</Link>
           </div>
           <p className="mt-3 text-[12px] text-mute">Free to start. Commercial use included.</p>

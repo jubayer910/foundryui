@@ -30,6 +30,7 @@ export const post: Post = {
       "{figma:loopo} components harvested from {screens:loopo} real product screens; {gen:loopo} of them also have generated React code that passed visual QA.",
       "Seven chart components in code, including capsule bars, a donut and a line with a highlight band. {cat:loopo:Charts} charts in the Figma library.",
       "Works with `npx ingotui add` and the shadcn CLI, so it drops into an existing Tailwind v4 project.",
+      "The Figma file is free to duplicate from [Figma Community](https://www.figma.com/community/file/1707021146274870386/loopo-free-dashboard-ui-kit-figma-react-code).",
     ], examples: ["kpi-card", "capsule-bars", "data-table", "loopo-audience-growth-card-18844909", "loopo-add-funds-modal-18843352"] },
     { t: "pack", system: "mailpulse", rank: 2, bestFor: "newsletter, creator and email-marketing products that need audience growth, campaign and revenue screens.", strengths: [
       "{figma:mailpulse} components from {screens:mailpulse} screens, {code:mailpulse} with React code.",
