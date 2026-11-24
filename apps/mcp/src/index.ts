@@ -461,15 +461,25 @@ function buildServer(env: Env, user: User) {
   return server;
 }
 
+/** JSON-RPC methods answered without an API key: the handshake and the tool list, never a tool call. */
+const DISCOVERY = new Set(["initialize", "notifications/initialized", "tools/list", "ping"]);
+
 const CORS = { "access-control-allow-origin": "*", "access-control-allow-headers": "authorization, content-type, mcp-session-id, mcp-protocol-version, x-api-key", "access-control-allow-methods": "GET, POST, DELETE, OPTIONS" };
 
 export default {
   async fetch(req: Request, env: Env): Promise<Response> {
     const url = new URL(req.url);
     if (req.method === "OPTIONS") return new Response(null, { headers: CORS });
-    if (url.pathname === "/" || url.pathname === "/health") return Response.json({ name: "ingot-ui-mcp", ok: true, endpoint: "/mcp", tools: 14, docs: env.SITE_URL + "/mcp" });
+    if (url.pathname === "/" || url.pathname === "/health") return Response.json({ name: "ingot-ui-mcp", ok: true, endpoint: "/mcp", tools: 15, docs: env.SITE_URL + "/mcp" });
     if (url.pathname !== "/mcp") return new Response("Not found", { status: 404 });
-    const user = await authenticate(req, env);
+    let user = await authenticate(req, env);
+    // Discovery without a key: agents and directories may initialize and read tools/list (names and descriptions are
+    // public on /mcp anyway). Every tools/call still needs a key, so nothing in the library is served anonymously.
+    if (!user && req.method === "POST") {
+      const body = await req.clone().json().catch(() => null) as { method?: string } | { method?: string }[] | null;
+      const calls = Array.isArray(body) ? body : body ? [body] : [];
+      if (calls.length && calls.every((c) => DISCOVERY.has(c?.method ?? ""))) user = { id: "", email: "", plan: "anonymous" };
+    }
     if (!user)
       return Response.json(
         { jsonrpc: "2.0", error: { code: -32001, message: "Missing or invalid API key. Create one at " + env.SITE_URL + "/account and send it as 'Authorization: Bearer fu_…'." }, id: null },

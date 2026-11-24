@@ -1,0 +1,310 @@
+[
+ {
+  "name": "list_design_systems",
+  "description": "List the Ingot UI design systems with status (live / in-progress), tier, accent colour and font.",
+  "inputSchema": {
+   "type": "object",
+   "properties": {}
+  }
+ },
+ {
+  "name": "get_design_system",
+  "description": "Foundations of one design system: token CSS, theme bridge, typography, icon rules and usage rules for agents.",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "system": {
+     "type": "string",
+     "description": "system slug, e.g. loopo"
+    }
+   },
+   "required": [
+    "system"
+   ]
+  }
+ },
+ {
+  "name": "get_tokens",
+  "description": "Design tokens for a system in a chosen format.",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "system": {
+     "default": "loopo",
+     "type": "string"
+    },
+    "format": {
+     "default": "css",
+     "type": "string",
+     "enum": [
+      "css",
+      "tailwind",
+      "json"
+     ]
+    }
+   }
+  }
+ },
+ {
+  "name": "search_components",
+  "description": "Search components by meaning across all six systems, e.g. 'card that shows MRR with a trend', 'transactions table', 'agents list page'. Filter by system to keep a product in one look.",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "query": {
+     "type": "string"
+    },
+    "system": {
+     "description": "system slug: loopo, mailpulse, auton, axon, veriq, vantage, montra, spendix or abotix",
+     "type": "string"
+    },
+    "category": {
+     "type": "string"
+    },
+    "limit": {
+     "default": 8,
+     "type": "integer",
+     "minimum": 1,
+     "maximum": 30
+    }
+   },
+   "required": [
+    "query"
+   ]
+  }
+ },
+ {
+  "name": "get_component",
+  "description": "Metadata, dependencies and usage notes for one component.",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "slug": {
+     "type": "string"
+    }
+   },
+   "required": [
+    "slug"
+   ]
+  }
+ },
+ {
+  "name": "get_component_code",
+  "description": "All source files a component needs (registry dependencies included), with the target path to write each file to.",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "slug": {
+     "type": "string"
+    }
+   },
+   "required": [
+    "slug"
+   ]
+  }
+ },
+ {
+  "name": "get_figma_design",
+  "description": "Build a component or a whole dashboard template in Figma as real, editable layers (auto layout, text, colours, Ingot icons). Returns one JavaScript program per step: run each, in order, with the Figma MCP tool use_figma (pass the user's fileKey), all on the same Figma page. Small designs are one step; full dashboards take several. Call with step = 1, then step = 2, and so on until done is true.",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "slug": {
+     "type": "string",
+     "description": "component or template slug, from search_components"
+    },
+    "step": {
+     "description": "1-based step, default 1",
+     "type": "integer",
+     "minimum": 1,
+     "maximum": 9007199254740991
+    }
+   },
+   "required": [
+    "slug"
+   ]
+  }
+ },
+ {
+  "name": "add_components",
+  "description": "Everything needed to add several components: deduped files with target paths plus the npm install command. Write every file, then run the command.",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "slugs": {
+     "minItems": 1,
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    }
+   },
+   "required": [
+    "slugs"
+   ]
+  }
+ },
+ {
+  "name": "init_project",
+  "description": "Set up a project for an Ingot system: token files, the globals.css imports, required packages and agent rules files (CLAUDE.md, AGENTS.md, .cursor/rules/ingot.mdc, plus INGOT.md) so every later session keeps using the system. Write every file; for files with mode 'merge', keep the existing content and replace or append only the block between the ingot-ui markers.",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "system": {
+     "default": "loopo",
+     "type": "string"
+    },
+    "framework": {
+     "default": "next",
+     "type": "string",
+     "enum": [
+      "next",
+      "vite",
+      "remix",
+      "other"
+     ]
+    },
+    "agents": {
+     "description": "which agent rules files to return; default all three",
+     "type": "array",
+     "items": {
+      "type": "string",
+      "enum": [
+       "claude",
+       "codex",
+       "cursor"
+      ]
+     }
+    }
+   }
+  }
+ },
+ {
+  "name": "scaffold_screen",
+  "description": "Turn a screen description into a page component assembled from Ingot components. Returns the page file plus the components it needs.",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "description": {
+     "type": "string"
+    },
+    "name": {
+     "default": "Dashboard",
+     "type": "string"
+    }
+   },
+   "required": [
+    "description"
+   ]
+  }
+ },
+ {
+  "name": "get_chart",
+  "description": "Pick the right Ingot chart for a question and return its code plus how to pass data.",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "question": {
+     "type": "string",
+     "description": "what the reader should learn, e.g. 'monthly revenue', 'share of traffic sources'"
+    },
+    "series": {
+     "default": 1,
+     "type": "integer",
+     "minimum": 1,
+     "maximum": 3
+    }
+   },
+   "required": [
+    "question"
+   ]
+  }
+ },
+ {
+  "name": "search_icons",
+  "description": "Search the Ingot icon library (16,000+ icons, AI icons included, on a 24px grid, each in six styles: stroke-rounded, stroke-sharp, solid, duotone, twotone, bulk) by name or meaning. Returns names, JSX from ingotui-icons/react/<style>, and the SVG.",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "query": {
+     "type": "string"
+    },
+    "style": {
+     "type": "string",
+     "enum": [
+      "stroke-rounded",
+      "stroke-sharp",
+      "solid",
+      "duotone",
+      "twotone",
+      "bulk"
+     ]
+    },
+    "limit": {
+     "type": "integer",
+     "minimum": 1,
+     "maximum": 50
+    }
+   },
+   "required": [
+    "query"
+   ]
+  }
+ },
+ {
+  "name": "audit_ui",
+  "description": "Check UI code for off-system patterns: hard-coded colours, arbitrary values, decorative dots, plain chart libraries.",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "code": {
+     "type": "string"
+    },
+    "path": {
+     "type": "string"
+    }
+   },
+   "required": [
+    "code"
+   ]
+  }
+ },
+ {
+  "name": "get_usage",
+  "description": "Your plan, today's MCP calls and limits.",
+  "inputSchema": {
+   "type": "object",
+   "properties": {}
+  }
+ },
+ {
+  "name": "send_feedback",
+  "description": "Request a component or report a problem to the Ingot team.",
+  "inputSchema": {
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+    "message": {
+     "type": "string",
+     "minLength": 3,
+     "maxLength": 2000
+    }
+   },
+   "required": [
+    "message"
+   ]
+  }
+ }
+]
