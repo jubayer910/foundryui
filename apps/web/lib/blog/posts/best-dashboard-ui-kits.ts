@@ -118,7 +118,7 @@ export const post: Post = {
     { q: "Is there a free dashboard UI kit with React code and Figma?", a: "Yes. The Loopo system in Ingot UI is free and includes {hand} hand-built React components plus its Figma library of {figma:loopo} components, {gen:loopo} of which also have generated React code checked against Figma. TailAdmin and Flowbite also have free tiers." },
     { q: "Are Ingot UI components compatible with shadcn/ui?", a: "Yes. Free components are published as shadcn registry items, so `npx shadcn add` works, and they use Tailwind CSS v4 and Base UI for interactive parts." },
     { q: "How many components should a dashboard UI kit have?", a: "Enough to cover your real screens, not a target number. Check for the five screens your users open most (overview, table, detail drawer, settings, create modal) and their empty, loading and error states." },
-    { q: "Can I use a dashboard UI kit in a commercial product?", a: "Usually yes, but read the licence. Ingot UI components can be used in unlimited personal and commercial projects; you may not resell the library itself as a UI kit." },
+    { q: "Can I use a dashboard UI kit in a commercial product?", a: "Usually yes, but read the licence. Ingot UI's Free plan is for personal and non-commercial projects, and Pro, Lifetime and team deals cover unlimited commercial projects; you may not resell the library itself as a UI kit." },
   ],
   related: ["kpi-card", "capsule-bars", "vantage-kpi-strip-26230470", "auton-agents-table-16931973"],
   systems: ["loopo", "mailpulse", "auton", "axon", "veriq", "vantage", "montra", "spendix", "abotix"],

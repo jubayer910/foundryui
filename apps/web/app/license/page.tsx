@@ -11,14 +11,14 @@ import { Icon } from "@/registry/components/icons";
 
 export const metadata: Metadata = pageMeta({
   title: "Ingot UI licence: use in SaaS and client projects",
-  description: "Use Ingot UI in your own SaaS, paid products and unlimited client projects. What Free, Pro, Lifetime and Team cover, what you can't do, and the full terms.",
+  description: "Use Ingot UI in your own SaaS, paid products and unlimited client projects with Pro, Lifetime or a team deal. Free is for personal and non-commercial projects. What each plan covers, what you can't do, and the full terms.",
   path: "/license",
   absoluteTitle: true,
 });
 
-const VERSION = "1.0";
-const EFFECTIVE = "15 November 2026";
-const EFFECTIVE_ISO = "2026-11-15";
+const VERSION = "1.1";
+const EFFECTIVE = "25 November 2026";
+const EFFECTIVE_ISO = "2026-11-25";
 const SUPPORT = "support@ingotui.com";
 const MAILTO = "mailto:" + SUPPORT + "?subject=" + encodeURIComponent("Licence question");
 
@@ -30,28 +30,28 @@ const ROWS: Row[] = [
   {
     use: "Your own SaaS product",
     detail: "An app, dashboard or site you build and run.",
-    free: { v: "yes", note: "With free components" },
+    free: { v: "yes", note: "Personal and non-commercial only" },
     pro: { v: "yes", note: "With every component" },
     team: { v: "yes", note: "For every seat" },
   },
   {
     use: "A paid SaaS with paying users",
     detail: "No fee per end user, per sale or by revenue.",
-    free: { v: "yes", note: "With free components" },
+    free: { v: "no", note: "Needs Pro or Lifetime" },
     pro: { v: "yes", note: "No user or revenue limit" },
     team: { v: "yes", note: "No user or revenue limit" },
   },
   {
     use: "Client projects as a freelancer or agency",
     detail: "You build the product, the client owns it.",
-    free: { v: "yes", note: "Unlimited clients" },
+    free: { v: "no", note: "Needs Pro or Lifetime" },
     pro: { v: "yes", note: "Unlimited clients, by the person on the plan" },
     team: { v: "yes", note: "Unlimited clients, by each seat" },
   },
   {
     use: "Open-source project",
     detail: "Your app's source code is public.",
-    free: { v: "yes", note: "Free components inside your app" },
+    free: { v: "yes", note: "Free components in a non-commercial app" },
     pro: { v: "ask", note: "Write to us before publishing Pro code" },
     team: { v: "ask", note: "Write to us before publishing Pro code" },
   },
@@ -86,14 +86,15 @@ const ROWS: Row[] = [
 ];
 
 const PLANS: { key: "free" | "pro" | "team"; name: string; sub: string }[] = [
-  { key: "free", name: "Free", sub: "Free components" },
+  { key: "free", name: "Free", sub: "Non-commercial" },
   { key: "pro", name: "Pro or Lifetime", sub: "1 seat" },
   { key: "team", name: "Team plan", sub: "Per seat" },
 ];
 
 const FAQ: [string, string][] = [
-  ["Can I use Ingot UI in my SaaS?", "Yes. Use the components in unlimited personal and commercial products, including paid SaaS with paying users. There is no fee per end user, per sale or by revenue. Free components need only a free account; Pro components need an active Pro or Lifetime plan when you copy them."],
-  ["Can I use it for client projects?", "Yes, for as many clients as you like. You build the product, hand it over, and the client owns it and can change it. The client doesn't get a licence to the library itself: to copy new items they need their own plan. If several people at your agency copy from the library, each needs a plan. For an agency setup, write to " + SUPPORT + "."],
+  ["Can I use Ingot UI in my SaaS?", "Yes, with Pro, Lifetime or a team deal. Those plans cover unlimited commercial products, including paid SaaS with paying users, with no fee per end user, per sale or by revenue. The Free plan is for personal, learning and non-commercial projects only."],
+  ["What can I do with the Free plan?", "Use the free components, the Loopo system, the dashboard templates and the stroke icons in personal, learning and non-commercial projects. For commercial work, such as a paid SaaS, client work or a product you sell, you need Pro, Lifetime or a team deal."],
+  ["Can I use it for client projects?", "Yes, on Pro, Lifetime or a team deal, for as many clients as you like. You build the product, hand it over, and the client owns it and can change it. The client doesn't get a licence to the library itself: to copy new items they need their own plan. If several people at your agency copy from the library, each needs a plan. For an agency setup, write to " + SUPPORT + "."],
   ["What happens to my code if I stop paying?", "Everything you already copied or shipped stays yours to use. You only lose the ability to copy new Pro items. Free components stay free forever."],
   ["Can my teammates work on the code?", "Yes. Teammates can read, change and deploy the code in your product's repository. A plan is for one person, though: anyone who copies Pro items from the site, CLI or MCP needs their own plan or a Team seat. Don't share your account or API key."],
   ["Is code my AI agent writes with the MCP covered?", "Yes. Components your agent adds through the MCP server, CLI or registry are covered exactly like components you copy by hand. Pro components come through only on a Pro or Lifetime plan."],
@@ -115,13 +116,17 @@ const TERMS: { h: string; body: string[] }[] = [
   {
     h: "What you may do",
     body: [
-      "You may use, change and include the library in an unlimited number of end products, personal or commercial, for yourself, your employer or your clients.",
+      "With an active Pro plan, a Lifetime plan or a Team seat, you may use, change and include the library in an unlimited number of end products, personal or commercial, for yourself, your employer or your clients.",
+      "On the Free plan, you may use the free items only in personal, learning and non-commercial end products. Commercial use needs Pro, Lifetime or a team deal arranged with us.",
       "End products may be sold, rented or offered as a paid service with any number of users. There is no royalty, per-user fee or revenue limit.",
     ],
   },
   {
     h: "Free components",
-    body: ["Components marked Free can be used by anyone with an account under these terms, for commercial work too. They stay free forever."],
+    body: [
+      "Components, templates and icons marked Free can be used by anyone with an account under these terms, in personal, learning and non-commercial projects. They stay free forever.",
+      "Using free items in commercial work, such as a paid SaaS, client work or a product you sell, is included with Pro, Lifetime and team deals.",
+    ],
   },
   {
     h: "Pro components",
@@ -140,7 +145,7 @@ const TERMS: { h: string; body: string[] }[] = [
   {
     h: "Client work",
     body: [
-      "You may build end products for clients and hand them over, including the source code. The client may own, run and change that end product.",
+      "With Pro, Lifetime or a Team seat, you may build end products for clients and hand them over, including the source code. The client may own, run and change that end product.",
       "Handing over an end product doesn't give the client a licence to the library itself. To copy new items, the client needs their own plan.",
     ],
   },
@@ -159,7 +164,11 @@ const TERMS: { h: string; body: string[] }[] = [
   },
   {
     h: "Ownership",
-    body: ["We keep the copyright in the library. You own your end products and everything you add to them. The licence in these terms is what lets you use our part inside them."],
+    body: [
+      "We keep the copyright in the library. You own your end products and everything you add to them. The licence in these terms is what lets you use our part inside them.",
+      "Some icons are redrawn from open-source sets, such as Tabler (MIT) and Lucide (ISC). Their own licences and notices still apply to those parts and are listed at ingotui.com/icons/LICENSES.md. Nothing in these terms limits what those licences allow for the original sets.",
+      "The Loopo file we share on Figma Community is under Figma's Community licence, which applies to that copy.",
+    ],
   },
   {
     h: "No warranty",
@@ -227,8 +236,8 @@ export default function LicensePage() {
         <h2 id="short" className="text-[15px] font-medium">The short version</h2>
         <ul className="mt-3 grid gap-x-8 gap-y-2.5 sm:grid-cols-2">
           {[
-            ["check", "Use it in unlimited personal and commercial projects: your SaaS, paid products and client work."],
-            ["check", "Free components are free forever, for commercial work too."],
+            ["check", "With Pro, Lifetime or a team deal: unlimited commercial projects, your SaaS, paid products and client work."],
+            ["check", "Free is free forever, for personal, learning and non-commercial projects."],
             ["check", "Pro components need an active Pro or Lifetime plan when you copy them."],
             ["check", "What you copied and shipped stays yours, even if you stop paying."],
             ["x", "Don't resell or redistribute the library itself as a UI kit, template or theme."],

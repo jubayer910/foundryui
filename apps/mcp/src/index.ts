@@ -399,11 +399,17 @@ function buildServer(env: Env, user: User) {
   server.registerTool(
     "search_icons",
     {
-      description: "Search the Ingot icon library (16,000+ icons, AI icons included, on a 24px grid, each in six styles: stroke-rounded, stroke-sharp, solid, duotone, twotone, bulk) by name or meaning. Returns names, JSX from ingotui-icons/react/<style>, and the SVG.",
+      description: "Search the Ingot icon library (16,000+ icons, AI icons included, on a 24px grid, each in six styles: stroke-rounded, stroke-sharp, solid, duotone, twotone, bulk) by name or meaning. Returns names, JSX from ingotui-icons/react/<style>, and the SVG. stroke-rounded and stroke-sharp work on every plan; solid, duotone, twotone and bulk need Pro, Team or Lifetime.",
       inputSchema: { query: z.string(), style: z.enum(["stroke-rounded", "stroke-sharp", "solid", "duotone", "twotone", "bulk"]).optional(), limit: z.number().int().min(1).max(50).optional() },
     },
     guard("search_icons", async ({ query, style = "stroke-rounded", limit = 12 }: { query: string; style?: string; limit?: number }) => {
-      const [index, bodies] = (await Promise.all([env.SITE.fetch(site + "/icons/index.json").then((r) => r.json()), env.SITE.fetch(site + "/icons/" + style + ".json").then((r) => r.json())])) as [
+      // Free plans get the stroke styles (public files); the other styles sit behind a token (apps/web/scripts/code-gate.mjs).
+      const freeStyle = style === "stroke-rounded" || style === "stroke-sharp";
+      if (!freeStyle && !isPaid(user.plan)) return text("The " + style + " icon style needs Pro, Team or Lifetime. stroke-rounded and stroke-sharp work on every plan. Upgrade: " + site + "/pricing#lifetime");
+      const styleToken = freeStyle ? null : (codePaths as Record<string, string>)["icons:" + style];
+      if (!freeStyle && !styleToken) return text("The " + style + " icons are not available right now. Try stroke-rounded.");
+      const styleUrl = freeStyle ? site + "/icons/" + style + ".json" : site + "/c/" + styleToken + ".json";
+      const [index, bodies] = (await Promise.all([env.SITE.fetch(site + "/icons/index.json").then((r) => r.json()), env.SITE.fetch(styleUrl).then((r) => r.json())])) as [
         { n: string; c: string; t: string[] }[],
         Record<string, string>,
       ];

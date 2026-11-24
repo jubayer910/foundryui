@@ -56,10 +56,10 @@ function cards(pb: PriceBook): Card[] {
       key: "free",
       scene: "seed",
       name: "Free",
-      fits: "Trying the system on a side project before you commit.",
+      fits: "Personal, learning and non-commercial projects.",
       monthly: freeP,
       yearly: freeP,
-      points: ["The Loopo system", fmt(free) + " free components in code", "Every icon (" + fmt(iconStats.line) + ")", "MCP server, 50 calls a day", "Commercial use"],
+      points: ["The Loopo system", fmt(free) + " free components in code", "15 dashboard templates", fmt(iconStats.line) + " stroke icons", "MCP server, 50 calls a day"],
     },
     {
       key: "pro",
@@ -91,6 +91,8 @@ function faq(pb: PriceBook): [string, string][] {
     ["Do you have an agency or enterprise plan?", "Not as a checkout plan. If you need seats for a team, terms for client work, custom invoices or SSO, write to us from the support page and we will set it up."],
     ["Is there a refund?", "Yes. 7 days on every paid plan, no questions asked. Write to " + pb.settings.support.email + "."],
     ["Can I try before paying?", "Yes. Browse and preview everything, copy 5 items without an account, then a free account gives unlimited copies of free components and the Loopo system."],
+    ["Can I use the Free plan for commercial work?", "No. Free is for personal, learning and non-commercial projects. Commercial use, such as a paid SaaS, client work or a product you sell, needs Pro or Lifetime. Buying for a team? Write to us and we will set up a deal that covers it."],
+    ["Which icons come with Free?", "All " + fmt(iconStats.line) + " icons in the stroke styles (rounded and sharp). Solid, bulk, duotone and twotone come with Pro and Lifetime, " + fmt(iconStats.total) + " icons in all " + iconStats.styles + " styles."],
     ["What happens to my code if I stop paying?", "Everything you already copied stays yours to ship. You just can’t copy new Pro items."],
     ["Who handles the payment?", "Contra, the payments platform for independents. It takes cards, Google Pay and Cash App Pay and emails your receipt. Pay with the same email you use on ingotui.com, then open Account and click Activate; we switch your plan on, usually within an hour. Prices are in USD."],
   );
@@ -106,12 +108,12 @@ const TABLE = (pb: PriceBook): [string, string, string, string][] => [
   ["Design systems", "Loopo", "All " + systems.length, "All " + systems.length + ", plus future ones"],
   ["Components in code", fmt(free) + " free", "All", "All"],
   ["Figma library", "Loopo free items", fmt(FIGMA_TOTAL) + "+", fmt(FIGMA_TOTAL) + "+"],
-  ["Icons", fmt(iconStats.line), fmt(iconStats.line), fmt(iconStats.line)],
+  ["Icons", fmt(iconStats.line) + " stroke icons", "All " + iconStats.styles + " styles (" + fmt(iconStats.total) + ")", "All " + iconStats.styles + " styles (" + fmt(iconStats.total) + ")"],
   ["MCP calls", "50 a day", "Unlimited", "Unlimited"],
   ["Copies before you need an account", "5", "Unlimited", "Unlimited"],
   ["Updates and new systems", "Loopo updates", "While subscribed", "Forever"],
   ["Dark mode (first update after launch)", "", "Yes", "Yes"],
-  ["Commercial use", "Yes", "Yes", "Yes"],
+  ["Commercial use", "", "Yes", "Yes"],
 ];
 
 /** Shown only for the billing period that is switched on. Monthly is the no-JS default. */
@@ -125,7 +127,7 @@ export default async function PricingPage() {
   const lifeClosed = pb.lifetime === null;
   const unit = (price: number, d: "P1M" | "P1Y") => ({ "@type": "UnitPriceSpecification", price: String(price), priceCurrency: "USD", billingDuration: d, unitText: d === "P1M" ? "month" : "year" });
   const offers = [
-    { "@type": "Offer", name: "Free", price: "0", priceCurrency: "USD", url: abs("/pricing"), description: "The Loopo system, free components in code, every icon, 50 MCP calls a day." },
+    { "@type": "Offer", name: "Free", price: "0", priceCurrency: "USD", url: abs("/pricing"), description: "For personal and non-commercial projects. The Loopo system, free components in code, 15 dashboard templates, " + fmt(iconStats.line) + " stroke icons, 50 MCP calls a day." },
     ...(pb.monthly ? [{ "@type": "Offer", name: "Pro monthly", price: String(pb.proMonthly), priceCurrency: "USD", url: abs("/pricing"), description: "One person. All systems, unlimited MCP.", priceSpecification: unit(pb.proMonthly, "P1M") }] : []),
     { "@type": "Offer", name: "Pro yearly", price: String(pb.proYearly), priceCurrency: "USD", url: abs("/pricing"), description: "One person. All systems, unlimited MCP.", priceSpecification: unit(pb.proYearly, "P1Y") },
     ...(lifeClosed

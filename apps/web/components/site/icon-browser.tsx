@@ -7,6 +7,9 @@ type Meta = { n: string; c: string; t: string[] };
 const STYLES = ["stroke-rounded", "stroke-sharp", "solid", "duotone", "twotone", "bulk"] as const;
 type Style = (typeof STYLES)[number];
 const LABEL: Record<Style, string> = { "stroke-rounded": "Stroke", "stroke-sharp": "Sharp", solid: "Solid", duotone: "Duotone", twotone: "Twotone", bulk: "Bulk" };
+/** Free plans get the stroke styles; the others need Pro, Team or Lifetime and load through /api/icons/<style>. */
+const FREE = new Set<Style>(["stroke-rounded", "stroke-sharp"]);
+const isPro = (s: Style) => !FREE.has(s);
 const PAGE = 240;
 
 function svgOf(body: string, stroke: number) {
@@ -25,6 +28,9 @@ export function IconBrowser({ initialQuery = "" }: { initialQuery?: string }) {
   const [limit, setLimit] = useState(PAGE);
   const [sel, setSel] = useState<string | null>(null);
   const [note, setNote] = useState<{ text: string; login?: boolean } | null>(null);
+  // null while the plan check runs; paid = Pro, Team member or Lifetime
+  const [paid, setPaid] = useState<boolean | null>(null);
+  const locked = isPro(style) && paid === false;
 
   // static page: apply a ?q= link after load
   useEffect(() => {
@@ -36,8 +42,23 @@ export function IconBrowser({ initialQuery = "" }: { initialQuery?: string }) {
     fetch("/icons/index.json").then((r) => r.json()).then(setMeta);
   }, []);
   useEffect(() => {
-    if (!bodies[style]) fetch("/icons/" + style + ".json").then((r) => r.json()).then((f) => setBodies((b) => ({ ...b, [style]: f })));
-  }, [style, bodies]);
+    fetch("/api/usage")
+      .then((r) => r.json())
+      .then((u: { paid?: boolean }) => setPaid(!!u.paid))
+      .catch(() => setPaid(false));
+  }, []);
+  useEffect(() => {
+    if (bodies[style] || (isPro(style) && !paid)) return;
+    fetch(isPro(style) ? "/api/icons/" + style : "/icons/" + style + ".json")
+      .then((r) => {
+        if (r.status === 401 || r.status === 403) throw Object.assign(new Error("locked"), { locked: true });
+        return r.json();
+      })
+      .then((f) => setBodies((b) => ({ ...b, [style]: f })))
+      .catch((e: { locked?: boolean }) => {
+        if (e.locked) setPaid(false);
+      });
+  }, [style, bodies, paid]);
   const cur = bodies[style] ?? {};
   useEffect(() => setLimit(PAGE), [q, cat, style]);
 
@@ -56,7 +77,7 @@ export function IconBrowser({ initialQuery = "" }: { initialQuery?: string }) {
   const current = sel ? meta?.find((i) => i.n === sel) : null;
 
   async function act(action: "copy_code" | "download_svg", kind: "svg" | "jsx") {
-    if (!current) return;
+    if (!current || locked) return;
     const body = cur[current.n];
     if (!body) return;
     const r = await fetch("/api/actions", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ slug: "icon:" + current.n, action }) });
@@ -101,12 +122,17 @@ export function IconBrowser({ initialQuery = "" }: { initialQuery?: string }) {
           </label>
           <div className="no-scrollbar flex h-11 max-w-full items-center gap-0.5 overflow-x-auto rounded-[12px] bg-card p-1 shadow-[inset_0_0_0_1px_var(--color-hair-2)]">
             {STYLES.map((s) => (
-              <button key={s} onClick={() => setStyle(s)} className={"h-9 shrink-0 rounded-[9px] px-2.5 text-[13px] " + (style === s ? "bg-ink text-white" : "text-ink-2 hover:bg-wash")}>
+              <button key={s} onClick={() => setStyle(s)} aria-label={isPro(s) && paid === false ? LABEL[s] + ", needs Pro" : undefined} className={"inline-flex h-9 shrink-0 items-center gap-1.5 rounded-[9px] px-2.5 text-[13px] " + (style === s ? "bg-ink text-white" : "text-ink-2 hover:bg-wash")}>
                 {LABEL[s]}
+                {isPro(s) && paid === false && (
+                  <span className={"inline-flex items-center gap-0.5 font-fu-mono text-[10px] " + (style === s ? "text-white/80" : "text-mute")}>
+                    <Icon name="lock" size={11} /> Pro
+                  </span>
+                )}
               </button>
             ))}
           </div>
-          {style !== "solid" && (
+          {style !== "solid" && !locked && (
             <label className="flex h-11 items-center gap-2 rounded-[12px] bg-card px-3 shadow-[inset_0_0_0_1px_var(--color-hair-2)]">
               <span className="font-fu-mono text-[11px] text-mute">Stroke</span>
               <input type="range" min={1} max={2.5} step={0.25} value={stroke} onChange={(e) => setStroke(Number(e.target.value))} className="w-20 accent-[var(--color-ink)]" aria-label="Stroke width" />
@@ -115,6 +141,22 @@ export function IconBrowser({ initialQuery = "" }: { initialQuery?: string }) {
           )}
         </div>
 
+        {locked ? (
+          <div className="card flex flex-col items-start gap-3 p-6">
+            <span className="flex size-9 items-center justify-center rounded-[10px] bg-chip text-ink">
+              <Icon name="lock" size={18} />
+            </span>
+            <div>
+              <p className="text-[15px] font-medium text-ink">{LABEL[style]} icons come with Pro</p>
+              <p className="mt-1 max-w-[460px] text-[13px] leading-relaxed text-mute">Free includes every icon in Stroke and Sharp. Pro and Lifetime add Solid, Duotone, Twotone and Bulk, and cover commercial use.</p>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              <Link href="/pricing#lifetime" className="btn-ink">See Pro and Lifetime</Link>
+              <button onClick={() => setStyle("stroke-rounded")} className="btn-line">Back to Stroke</button>
+            </div>
+          </div>
+        ) : (
+        <>
         <p className="mb-3 font-fu-mono text-[11px] text-mute">{meta ? `${shown.length.toLocaleString("en-US")} icons` : "Loading the library…"}</p>
 
         <div className="hairgrid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 xl:grid-cols-10">
@@ -135,12 +177,14 @@ export function IconBrowser({ initialQuery = "" }: { initialQuery?: string }) {
             </button>
           </div>
         )}
+        </>
+        )}
         <p className="mt-8 text-[12px] leading-relaxed text-mute">
-          Drawn to one spec from open-licence icon sets, free for commercial use. <Link href="/icons/LICENSES.md" className="underline underline-offset-2">Licences</Link>
+          Drawn to one spec from open-licence icon sets. <Link href="/icons/LICENSES.md" className="underline underline-offset-2">Licences</Link>
         </p>
       </div>
 
-      {current && (
+      {current && !locked && (
         <div className="fixed inset-x-3 bottom-3 z-40 rounded-[16px] bg-card p-4 shadow-[0_0_0_1px_var(--color-hair-2),0_24px_48px_-12px_rgb(14_16_20/0.25)] sm:inset-x-auto sm:right-6 sm:bottom-6 sm:w-[340px]">
           <div className="flex items-start justify-between">
             <div>

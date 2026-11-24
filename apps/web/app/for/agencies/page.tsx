@@ -25,7 +25,7 @@ export default function ForAgencies() {
   const code = stat("code") ?? 0;
 
   const faq = [
-    { q: "Can I use Ingot UI in client projects?", a: "The licence covers unlimited personal and commercial projects. The [licence page](/license) sets out client work, teams and agencies in plain English, so check it before you quote a project." },
+    { q: "Can I use Ingot UI in client projects?", a: "Yes, with Pro, Lifetime or a team deal. Those plans cover unlimited commercial projects, client work included; the Free plan is for personal and non-commercial projects only. The [licence page](/license) sets out client work, teams and agencies in plain English, so check it before you quote a project." },
     { q: "How do I rebrand a system for a client?", a: "Each system is a set of --fu-* CSS variables. Change the colour, radius and type tokens in one file and every component follows. [Docs](/docs#tokens) shows the setup." },
     { q: "Can my whole team use one account?", a: "Team seats are set out on the [pricing page](/pricing)." },
     { q: "Can clients review in Figma?", a: "Yes. Every component is in its system's Figma library, and “Copy to Figma” works from any component page, so design reviews use the same parts you ship." },
@@ -85,7 +85,7 @@ export default function ForAgencies() {
         <div className="mt-3 grid gap-3 md:grid-cols-2">
           <Link href="/license" className="card block p-4 transition-colors hover:bg-tile">
             <h3 className="text-[13px] font-medium">Client work licence</h3>
-            <p className="mt-1 text-[13px] leading-relaxed text-mute">Unlimited personal and commercial projects. What is covered for client work, teams and agencies, in plain English.</p>
+            <p className="mt-1 text-[13px] leading-relaxed text-mute">Client work needs Pro, Lifetime or a team deal. What is covered for client work, teams and agencies, in plain English.</p>
           </Link>
           <Link href="/pricing" className="card block p-4 transition-colors hover:bg-tile">
             <h3 className="text-[13px] font-medium">Team plan</h3>

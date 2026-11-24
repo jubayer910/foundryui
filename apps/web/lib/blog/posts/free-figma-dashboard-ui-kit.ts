@@ -50,7 +50,7 @@ export const post: Post = {
   ],
   faq: [
     { q: "Is there a free Figma dashboard UI kit with React code?", a: "Yes. The Loopo system in Ingot UI is free, with {figma:loopo} Figma components and {code:loopo} React components. TailAdmin and Flowbite also pair free Figma files with code." },
-    { q: "Can I use free Figma UI kits commercially?", a: "Usually, but licences differ. Ingot UI allows unlimited personal and commercial projects; check each kit’s licence." },
+    { q: "Can I use free Figma UI kits commercially?", a: "Usually, but licences differ. Ingot UI's Free plan is for personal and non-commercial projects, and commercial use comes with Pro or Lifetime; check each kit’s licence." },
     { q: "How do I copy an Ingot UI component into Figma?", a: "Open the component page and use Copy to Figma, then paste into your file." },
   ],
   related: ["kpi-card", "loopo-audience-growth-card-18844909", "loopo-transactions-card-18958554", "data-table"],

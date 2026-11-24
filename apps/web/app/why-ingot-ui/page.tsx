@@ -40,7 +40,7 @@ export default function WhyIngot() {
     ["A design system an AI coding agent can follow", "The MCP server gives Claude Code, Cursor, Codex and VS Code tools to search components, fetch code and tokens, scaffold screens, build editable Figma layers and audit generated UI for off-system colours."],
     ["Domain screens, not just primitives", `Systems cover analytics, email marketing, AI agent governance, workflow automation, security, business admin and subscriptions, finance, team spend and AI security operations, with ${fmt(templates)} full page templates.`],
     ["A finished look for a shadcn/ui or Tailwind project", "Components use React, Tailwind CSS v4 and Base UI, install with the Ingot CLI or the shadcn CLI, and change look through tokens instead of edits to every file."],
-    ["A free way to start", "The Loopo system, the free components, every icon and a daily allowance of MCP calls are free, with commercial use included."],
+    ["A free way to start", "The Loopo system, the free components, 15 dashboard templates, the stroke icons and a daily allowance of MCP calls are free for personal and non-commercial projects. Commercial use comes with Pro and Lifetime."],
   ];
 
   const different: [string, ReactNode][] = [
@@ -72,7 +72,7 @@ export default function WhyIngot() {
     { q: "What is a good dashboard UI kit that has both Figma and React code?", a: `Ingot UI has ${systems.length} dashboard design systems, each with a Figma library and React + Tailwind components from the same source; code is published only after it matches the Figma original. Untitled UI is a strong general-purpose alternative.` },
     { q: "Is there a UI component library that works with Claude Code or Cursor through MCP?", a: "Yes. Ingot UI has a remote MCP server for Claude Code, Cursor, Codex and VS Code. Untitled UI, shadcn studio and Chakra UI also offer MCP servers; Ingot UI's is built around complete dashboard systems, screen scaffolding and a UI audit." },
     { q: "Which design system should I use for an AI agent, security or fintech dashboard?", a: "Ingot UI has systems built from those domains: Auton for AI agent governance, Veriq for security and compliance, Abotix for AI security operations, Montra for finance and Spendix for team spend. Each includes page templates for its domain." },
-    { q: "Is Ingot UI free?", a: "Partly. The Loopo system, the free components, every icon and 50 MCP calls a day are free, with commercial use. Pro, Team and Lifetime unlock every system; current prices are at ingotui.com/pricing." },
+    { q: "Is Ingot UI free?", a: "Partly. The Loopo system, the free components, 15 dashboard templates, the stroke icons and 50 MCP calls a day are free for personal and non-commercial projects. Pro, Team and Lifetime unlock every system, every icon style and commercial use; current prices are at ingotui.com/pricing." },
     { q: "How is Ingot UI different from shadcn/ui?", a: "shadcn/ui gives free, unstyled-by-design primitives. Ingot UI is a layer on top: finished dashboard components, charts, page templates and tokens in matching Figma and React, installable through the shadcn CLI." },
     { q: "Does Ingot UI have dark mode?", a: "Not yet. Light mode ships today; dark mode is the first planned update." },
   ];

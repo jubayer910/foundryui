@@ -57,7 +57,7 @@ export default function DocsPage() {
 
         <h2 id="license" className={H}>License</h2>
         <IlloTile scene="docs" label="Licence terms" className="mt-3 h-[130px]" />
-        <p className={P}>Use components in unlimited personal and commercial projects, including your SaaS and client work. Free components are free forever. Pro components need an active Pro or Lifetime plan when you copy them; what you shipped stays yours. You may not resell or redistribute the library itself as a UI kit.</p>
+        <p className={P}>With Pro, Lifetime or a team deal, use components in unlimited personal and commercial projects, including your SaaS and client work. The Free plan is for personal, learning and non-commercial projects, and its free components stay free forever. Pro components need an active Pro or Lifetime plan when you copy them; what you shipped stays yours. You may not resell or redistribute the library itself as a UI kit.</p>
         <p className={P}>
           The <Link href="/license" className="font-medium text-ink underline underline-offset-2">full licence</Link> has a plan-by-plan table for SaaS, client, open-source and team use, answers to common questions and the numbered terms.
         </p>

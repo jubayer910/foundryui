@@ -37,8 +37,9 @@ export default function TermsPage() {
           body: (
             <List
               items={[
-                "You may use components, Figma files and icons in unlimited personal and commercial projects, including client work and products you sell.",
-                "Free components are free forever. Pro components need an active Pro or Lifetime plan at the time you copy them; what you already shipped stays licensed to you.",
+                "On the Free plan, you may use the free components, templates and stroke icons in personal, learning and non-commercial projects only. The Loopo file on Figma Community is shared under Figma's Community licence, which applies to that copy.",
+                "With Pro, Lifetime or a team deal, you may use components, Figma files and icons in unlimited personal and commercial projects, including client work and products you sell.",
+                "Free items are free forever. Pro items need an active Pro or Lifetime plan at the time you copy them; what you already shipped stays licensed to you.",
                 "You may not resell, sublicense or redistribute the library itself, or a substantial part of it, as a UI kit, template pack, component library or similar product, and you may not build a competing library or dataset from it.",
                 "Ingot UI and its design systems stay ours. Some icons and logos come from open-source sets under their own licences, listed in the package licence files.",
               ]}

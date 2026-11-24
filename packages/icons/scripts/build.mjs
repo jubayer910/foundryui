@@ -15,6 +15,9 @@
  *   apps/web/public/icons/index.json   [{n,c,t,s}]  name, category, tags, styles
  *   apps/web/public/icons/line.json    {name: inner svg}
  *   apps/web/public/icons/fill.json    {name: inner svg}
+ *   (current) apps/web/public/icons/<stroke-rounded|stroke-sharp>.json: free styles, public
+ *             apps/web/icons-pro/<solid|duotone|twotone|bulk>.json: paid styles, NOT public; served by
+ *             /api/icons/<style> after the plan check (apps/web/scripts/code-gate.mjs puts them behind a token)
  *   packages/icons/coverage.json       Hugeicons concept coverage report
  */
 import { readFileSync, readdirSync, writeFileSync, mkdirSync, rmSync, existsSync } from "node:fs";
@@ -29,6 +32,9 @@ import { SETS, isBrandName, fixName } from "./extra-sets.mjs";
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const nm = join(root, "node_modules");
 const webOut = join(root, "../../apps/web/public/icons");
+// Paid icon styles stay out of public/ (Free = stroke styles only).
+const proOut = join(root, "../../apps/web/icons-pro");
+const FREE_STYLES = new Set(["stroke-rounded", "stroke-sharp"]);
 const read = (p) => readFileSync(p, "utf8");
 
 /** Inner elements of an svg, with styling attributes stripped (root svg carries them). */
@@ -197,10 +203,14 @@ for (const st of STYLES) {
 
 // Site / MCP data
 mkdirSync(webOut, { recursive: true });
+mkdirSync(proOut, { recursive: true });
 writeFileSync(join(root, "../../apps/web/lib/icon-stats.json"), JSON.stringify({ line: line.size, styles: STYLES.length, total: line.size * STYLES.length, handSolid: fill.size }));
 const index = [...line].map(([n, v]) => ({ n, c: v.c, t: v.t.slice(0, 8) }));
 writeFileSync(join(webOut, "index.json"), JSON.stringify(index));
-for (const st of STYLES) writeFileSync(join(webOut, st + ".json"), JSON.stringify(Object.fromEntries(styled[st])));
+for (const st of STYLES) {
+  writeFileSync(join(FREE_STYLES.has(st) ? webOut : proOut, st + ".json"), JSON.stringify(Object.fromEntries(styled[st])));
+  if (!FREE_STYLES.has(st)) rmSync(join(webOut, st + ".json"), { force: true });
+}
 for (const old of ["line.json", "fill.json"]) rmSync(join(webOut, old), { force: true });
 console.log(`styles ${STYLES.join(", ")} · ${containers} icons with a container shape`);
 

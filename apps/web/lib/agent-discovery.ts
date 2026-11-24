@@ -33,7 +33,7 @@ const TOOLS = tools as Tool[];
 export async function pricingDoc(pb?: PriceBook) {
   pb ??= await getPriceBook();
   const plans: { id: string; name: string; amount: number; currency: "USD"; interval: "month" | "year" | "once" | "forever"; includes: string }[] = [
-    { id: "free", name: "Free", amount: 0, currency: "USD", interval: "forever", includes: "Loopo system, free components, every icon, 50 MCP calls a day" },
+    { id: "free", name: "Free", amount: 0, currency: "USD", interval: "forever", includes: "Personal and non-commercial use: Loopo system, free components, 15 dashboard templates, stroke icons, 50 MCP calls a day" },
   ];
   if (pb.monthly) plans.push({ id: "pro-monthly", name: "Pro", amount: pb.proMonthly, currency: "USD", interval: "month", includes: "All systems, unlimited MCP" });
   plans.push({ id: "pro-yearly", name: "Pro", amount: pb.proYearly, currency: "USD", interval: "year", includes: "All systems, unlimited MCP" });

@@ -181,7 +181,7 @@ export const COMPARISONS: Comparison[] = [
     faq: [
       { q: "Is Untitled UI free?", a: "Untitled UI says a large part of its React library is free and open source, and PRO adds more components and page examples. See untitledui.com for current plans." },
       { q: "Does Ingot UI have dark mode?", a: "Not yet. Light mode ships today and dark mode for all nine systems is the first update." },
-      { q: "Can I use Ingot UI for client projects?", a: "Ingot UI's licence covers unlimited personal and commercial projects. The licence page sets out client work, teams and agencies in plain English." },
+      { q: "Can I use Ingot UI for client projects?", a: "Yes, with Pro, Lifetime or a team deal: Ingot UI's licence then covers unlimited commercial projects. The Free plan is for personal and non-commercial projects. The licence page sets out client work, teams and agencies in plain English." },
       { q: "Which one works better with Claude Code or Cursor?", a: "Both have an MCP server. Ingot UI's server also scaffolds complete screens from one system and audits agent output for off-system values." },
     ],
     guides: ["untitled-ui-alternatives", "best-dashboard-ui-kits", "free-figma-dashboard-ui-kit"],

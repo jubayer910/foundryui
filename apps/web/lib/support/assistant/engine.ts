@@ -552,7 +552,7 @@ export class Assistant<A extends KbLike = KbLike> {
     if (!items.length) return run({ text: `That’s all ${res.total} icons for “${words.join(" ")}”.`, actions: [{ label: "Open the icon library", href: "/icons?q=" + encodeURIComponent(words.join(" ")) }], intent: "find_icon", confidence: 1 }, { ...next, page: page - 1 });
     return run(
       {
-        text: `${res.total.toLocaleString("en-US")} icon${res.total === 1 ? "" : "s"} for “${words.join(" ")}”. Every icon is free, in ${ICON_STYLES} styles:`,
+        text: `${res.total.toLocaleString("en-US")} icon${res.total === 1 ? "" : "s"} for “${words.join(" ")}”. The stroke styles are free; all ${ICON_STYLES} styles come with Pro and Lifetime:`,
         cards: [{ type: "icons", query: words.join(" "), items, total: res.total }],
         chips: (res.total > (page + 1) * limit ? ["Show more"] : []).concat(["Install code", "Find a component"]),
         actions: [{ label: "Open in the icon library", href: "/icons?q=" + encodeURIComponent(words.join(" ")) }],
@@ -608,7 +608,7 @@ function pricingText(p: PricingInfo, intent: string, focus?: "lifetime" | "team"
   }
   if (focus === "team") return `**Team** is ${team}, on one bill: everything in Pro for each person.` + ` **Pro** for one person is ${pro}.`;
   const lead = intent === "buy" ? "Pick a plan on [Pricing](/pricing) and pay with the same email you use here, so the plan lands on your account. Live prices:" : "Live prices:";
-  return `${lead} **Free** is $0 with the Loopo system and every icon. **Pro** is ${pro}. **Team** is ${team}. ${life}${deal} Paid plans have a 7-day refund.`;
+  return `${lead} **Free** is $0 for personal and non-commercial projects, with the Loopo system and the stroke icons. **Pro** is ${pro}. **Team** is ${team}. ${life}${deal} Paid plans have a 7-day refund.`;
 }
 
 let classifierSingleton: IntentClassifier | null = null;

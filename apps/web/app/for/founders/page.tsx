@@ -157,11 +157,11 @@ export default function ForFounders() {
         <div className="mt-3 grid gap-3 md:grid-cols-2">
           <div className="card p-4">
             <h3 className="text-[13px] font-medium">Free</h3>
-            <p className="mt-1 text-[13px] leading-relaxed text-mute">The Loopo system, the free components in code, every icon and the MCP server with a daily call limit. Commercial use included.</p>
+            <p className="mt-1 text-[13px] leading-relaxed text-mute">For personal and non-commercial projects: the Loopo system, the free components in code, 15 dashboard templates, the stroke icons and the MCP server with a daily call limit.</p>
           </div>
           <div className="card p-4">
             <h3 className="text-[13px] font-medium">Pro</h3>
-            <p className="mt-1 text-[13px] leading-relaxed text-mute">All {systems.length} systems, every component in React and Figma and unlimited MCP. Pay monthly, yearly or once.</p>
+            <p className="mt-1 text-[13px] leading-relaxed text-mute">All {systems.length} systems, every component in React and Figma, every icon style, unlimited MCP and commercial use. Pay monthly, yearly or once.</p>
           </div>
         </div>
         <p className="mt-3 flex flex-wrap items-center gap-1.5">

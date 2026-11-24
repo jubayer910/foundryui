@@ -126,7 +126,7 @@ function SystemsCard({ systems }: { systems: SystemInfo[] }) {
 
 function PricingCard({ p, focus }: { p: PricingInfo; focus?: string }) {
   const rows: { id: string; name: string; price: string; note: string }[] = [
-    { id: "free", name: "Free", price: "$0", note: "Loopo system, free components, every icon" },
+    { id: "free", name: "Free", price: "$0", note: "Non-commercial: Loopo, free components, stroke icons" },
     { id: "pro", name: "Pro", price: p.monthly ? `${usd(p.proMonthly)}/mo` : `${usd(p.proYearly)}/yr`, note: p.monthly ? `or ${usd(p.proYearly)} a year` : "billed yearly" },
     { id: "team", name: "Team", price: p.monthly ? `${usd(p.teamMonthly)}/mo` : `${usd(p.teamYearly)}/yr`, note: `${p.teamSeats} people${p.monthly ? `, or ${usd(p.teamYearly)} a year` : ""}` },
   ];

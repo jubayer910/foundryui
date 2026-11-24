@@ -48,10 +48,10 @@ export default function DashboardUiKit() {
 
   const faq = [
     { q: "What is a dashboard UI kit?", a: "A ready-made set of interface parts for building dashboards and admin panels: KPI cards, charts, data tables, filters, modals, drawers, navigation, settings and full page layouts, designed to work together in one style. Ingot UI ships each kit as a Figma library and as React + Tailwind code." },
-    { q: "Is there a free dashboard UI kit?", a: `Yes. ${free?.name ?? "Loopo"} is free in Figma and in React + Tailwind code, including its page templates, with commercial use allowed. You can duplicate the Figma file from [Figma Community](https://www.figma.com/community/file/1707021146274870386/loopo-free-dashboard-ui-kit-figma-react-code). The other ${systems.length - 1} kits are part of Pro, Team and Lifetime; current prices are on the [pricing page](/pricing).` },
+    { q: "Is there a free dashboard UI kit?", a: `Yes. ${free?.name ?? "Loopo"} is free in Figma and in React + Tailwind code, including its page templates, for personal, learning and non-commercial projects. You can duplicate the Figma file from [Figma Community](https://www.figma.com/community/file/1707021146274870386/loopo-free-dashboard-ui-kit-figma-react-code), where Figma's Community licence applies to that copy. The other ${systems.length - 1} kits are part of Pro, Team and Lifetime; current prices are on the [pricing page](/pricing).` },
     { q: "Can I use the kit in Figma?", a: "Yes. Every component and page template can be copied into Figma as editable layers from its page, and each kit has its own colours and type. Designers and developers work from the same components." },
     { q: "Does the dashboard UI kit include code?", a: `Yes. ${fmt(STATS.coded)} components have React 19 + Tailwind CSS v4 code, and generated code is published only after its render matches the Figma original. Install with \`npx ingotui add\`, the shadcn CLI, or let an AI agent add it through the [MCP server](/mcp).` },
-    { q: "Can I use it in commercial and client projects?", a: "Yes, in unlimited personal and commercial projects, including client work. You may not resell or redistribute the kit itself. The [licence](/license) explains it in plain English." },
+    { q: "Can I use it in commercial and client projects?", a: "Yes, with Pro, Lifetime or a team deal: unlimited commercial projects, including client work. The Free plan is for personal and non-commercial projects. You may not resell or redistribute the kit itself. The [licence](/license) explains it in plain English." },
     { q: "How is it different from a Figma-only dashboard kit?", a: "Figma-only kits stop at the design, so the code is still yours to write and to keep in sync. Ingot UI gives the Figma file and matching code for the same components, plus tools so AI coding agents build with them." },
   ];
 
@@ -102,7 +102,7 @@ export default function DashboardUiKit() {
             <a href={LOOPO_FIGMA_COMMUNITY} target="_blank" rel="noopener" className="btn-line">Free Figma file</a>
             <Link href="#kits" className="btn-line">See all {systems.length} kits</Link>
           </div>
-          <p className="mt-3 text-[12px] text-mute">Free to start. Commercial use included.</p>
+          <p className="mt-3 text-[12px] text-mute">Free for personal and non-commercial projects. Commercial use comes with Pro and Lifetime.</p>
         </div>
         {free && freeFit && (
           <div className="card overflow-hidden">
@@ -200,11 +200,11 @@ export default function DashboardUiKit() {
         <div className="mt-3 grid gap-3 md:grid-cols-2">
           <div className="card p-4">
             <h3 className="text-[13px] font-medium">Free</h3>
-            <p className="mt-1 text-[13px] leading-relaxed text-mute">The {free?.name ?? "Loopo"} dashboard UI kit in Figma and code, the free components, every icon and the MCP server with a daily limit. Commercial use included.</p>
+            <p className="mt-1 text-[13px] leading-relaxed text-mute">The {free?.name ?? "Loopo"} dashboard UI kit in Figma and code, the free components, 15 dashboard templates, the stroke icons and the MCP server with a daily limit. For personal and non-commercial projects.</p>
           </div>
           <div className="card p-4">
             <h3 className="text-[13px] font-medium">Pro, Team and Lifetime</h3>
-            <p className="mt-1 text-[13px] leading-relaxed text-mute">All {systems.length} kits, every component in Figma and React, and unlimited MCP. Pay yearly, for a team, or once.</p>
+            <p className="mt-1 text-[13px] leading-relaxed text-mute">All {systems.length} kits, every component in Figma and React, every icon style, unlimited MCP and commercial use. Pay yearly, for a team, or once.</p>
           </div>
         </div>
         <p className="mt-3 flex flex-wrap items-center gap-1.5">

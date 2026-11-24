@@ -242,10 +242,10 @@ export function pricingSentence(pb: PriceBook) {
         ? "Lifetime (" + usd(pb.lifetime) + " once for " + dealAudience(pb) + (pb.deal.endsAt ? " until " + dealEndText(pb.deal.endsAt) : "") + (pb.deal.after === "price" ? ", then " + usd(pb.settings.prices.lifetimeAfter) : "") + "; every system and every future update, forever)"
         : "Lifetime (" + usd(pb.lifetime) + " once; every system and every future update, forever)";
   return (
-    "Free (Loopo system, free components, every icon, 50 MCP calls a day), Pro (" +
+    "Free (personal and non-commercial: Loopo system, free components, 15 dashboard templates, stroke icons, 50 MCP calls a day), Pro (" +
     (pb.monthly ? usd(pb.proMonthly) + " a month or " : "") +
     usd(pb.proYearly) +
-    " a year, all systems, unlimited MCP), Team (" +
+    " a year, all systems, every icon style, unlimited MCP, commercial use), Team (" +
     (pb.monthly ? usd(pb.teamMonthly) + " a month or " : "") +
     usd(pb.teamYearly) +
     " a year, everything in Pro for " +
