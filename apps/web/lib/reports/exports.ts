@@ -104,7 +104,7 @@ function summarySheet(r: Report): Sheet {
     }
     for (const m of d.metrics.filter((x) => x.kpi)) {
       const ch = r.cmp ? changeOf(m, d.selected[m.id], d.compare?.[m.id], r.cmp.name) : null;
-      const unitName = m.unit === "usd" ? "USD" : m.unit === "pct" ? "%" : m.unit === "hours" ? "hours" : m.unit === "ratio" ? "ratio" : "count";
+      const unitName = m.unit === "usd" ? "USD" : m.unit === "pct" ? "%" : m.unit === "hours" ? "hours" : m.unit === "secs" ? "seconds" : m.unit === "ratio" ? "ratio" : "count";
       rows.push([
         txt(d.title),
         txt(m.label),

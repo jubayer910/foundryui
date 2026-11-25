@@ -8,6 +8,7 @@ export const ROUTES: AdminRoute[] = [
   { name: "home", path: "/admin" },
   { name: "insights", path: "/admin/analytics" },
   { name: "insights-traffic", path: "/admin/analytics/traffic" },
+  { name: "insights-behavior", path: "/admin/analytics/behavior" },
   { name: "insights-users", path: "/admin/analytics/users" },
   { name: "insights-usage", path: "/admin/analytics/usage?g=day" },
   { name: "insights-revenue", path: "/admin/analytics/revenue" },

@@ -5,9 +5,9 @@ import type { DatasetId, Period, ReportState } from "./period";
  * Money is integer USD cents; durations are hours; percentages are 0..100.
  */
 
-export type Unit = "count" | "usd" | "pct" | "ratio" | "hours" | "text";
+export type Unit = "count" | "usd" | "pct" | "ratio" | "hours" | "secs" | "text";
 
-export const UNIT_LABEL: Record<Unit, string> = { count: "count", usd: "USD", pct: "%", ratio: "ratio", hours: "hours", text: "text" };
+export const UNIT_LABEL: Record<Unit, string> = { count: "count", usd: "USD", pct: "%", ratio: "ratio", hours: "hours", secs: "seconds", text: "text" };
 
 export type Values = Record<string, number | string | null>;
 

@@ -18,7 +18,6 @@ import { AdminHead, Kpi, Section, money, num } from "@/components/admin/ui";
  * are the same ones Reports and the exports show.
  */
 const TABS: Record<string, { title: string; ds: DatasetId[]; info: string }> = {
-  traffic: { title: "Traffic", ds: ["traffic", "content"], info: "First-party, cookieless page views from the site beacon, plus the blog and changelog. Page views and visitors are stored per UTC day, so they have no hourly view." },
   users: { title: "Users", ds: ["audience"], info: "Accounts, plans, ref links and the waitlist." },
   usage: { title: "Usage", ds: ["usage", "agents"], info: "Copies, downloads and installs from the website, the MCP server and the CLI." },
   revenue: { title: "Revenue", ds: ["revenue", "activations"], info: "Orders by order date in USD, subscriptions, and Contra activations." },

@@ -36,7 +36,7 @@ there), tables without sticky header or row hover, numbers left-aligned in some 
 | Area | Tabs (route) | Perm |
 |---|---|---|
 | Home | `/admin` | overview |
-| Insights | Overview `/admin/analytics`, Traffic `/admin/analytics/traffic`, Users `/admin/analytics/users`, Usage `/admin/analytics/usage`, Revenue `/admin/analytics/revenue`, Support `/admin/analytics/support`, Reports `/admin/reports` | analytics |
+| Insights | Overview `/admin/analytics`, Traffic `/admin/analytics/traffic`, Behavior `/admin/analytics/behavior`, Users `/admin/analytics/users`, Usage `/admin/analytics/usage`, Revenue `/admin/analytics/revenue`, Support `/admin/analytics/support`, Reports `/admin/reports` | analytics |
 | Customers | Users `/admin/users`, Waitlist `/admin/waitlist`, Referral links `/admin/referrals` | users, waitlist, analytics |
 | Revenue | Overview `/admin/revenue`, Orders `/admin/orders`, Activations `/admin/activations`, Contra sales `/admin/contra`, Pricing & deal `/admin/pricing` | revenue, orders, pricing |
 | Content | Pages, Posts, Changelog, Knowledge base, Announcement | content, kb |

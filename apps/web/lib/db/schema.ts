@@ -211,6 +211,13 @@ export const referrerDaily = sqliteTable(
 );
 
 /** Estimated unique visitors per UTC day. A daily-salted hash in KV decides "first visit today"; the hash never reaches D1. */
+/** Behaviour counters per UTC day (migrations/0020_stat_daily.sql lists the kinds). Aggregates only. */
+export const statDaily = sqliteTable(
+  "stat_daily",
+  { day: text("day").notNull(), kind: text("kind").notNull(), key: text("key").notNull(), n: integer("n").notNull().default(0) },
+  (t) => [primaryKey({ columns: [t.day, t.kind, t.key] }), index("stat_daily_kind_day").on(t.kind, t.day)],
+);
+
 export const visitorDaily = sqliteTable("visitor_daily", { day: text("day").primaryKey(), visitors: integer("visitors").notNull().default(0) });
 
 export const auditLog = sqliteTable("audit_log", {

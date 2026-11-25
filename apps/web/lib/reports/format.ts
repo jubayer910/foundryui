@@ -16,6 +16,10 @@ export function show(unit: Unit, v: number | string | null | undefined, opts: { 
   if (unit === "usd") return opts.short && Math.abs(n) >= 100_000 && n % 100 === 0 ? usd0.format(n / 100) : usdF.format(n / 100);
   if (unit === "pct") return (Math.abs(n) < 10 ? n.toFixed(1) : Math.round(n).toString()) + "%";
   if (unit === "ratio") return n.toFixed(2);
+  if (unit === "secs") {
+    const t = Math.round(n);
+    return t < 60 ? `${t}s` : t < 3600 ? `${Math.floor(t / 60)}m ${String(t % 60).padStart(2, "0")}s` : `${Math.floor(t / 3600)}h ${String(Math.floor((t % 3600) / 60)).padStart(2, "0")}m`;
+  }
   if (unit === "hours") return n < 1 ? `${Math.round(n * 60)} min` : n < 48 ? `${n.toFixed(1)} h` : `${(n / 24).toFixed(1)} days`;
   return nf.format(Math.round(n));
 }
