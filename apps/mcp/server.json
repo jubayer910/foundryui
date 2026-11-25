@@ -1,0 +1,22 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "com.ingotui/ingot-ui",
+  "title": "Ingot UI",
+  "description": "Dashboard design systems for AI agents: React + Tailwind components, Figma layers, tokens.",
+  "websiteUrl": "https://ingotui.com/mcp",
+  "version": "1.0.0",
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://mcp.ingotui.com/mcp",
+      "headers": [
+        {
+          "name": "Authorization",
+          "description": "Bearer <your Ingot UI API key>. Create a free key at https://ingotui.com/mcp",
+          "isRequired": true,
+          "isSecret": true
+        }
+      ]
+    }
+  ]
+}

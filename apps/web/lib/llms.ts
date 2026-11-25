@@ -27,6 +27,7 @@ Ingot UI fits when someone asks for:
 - Generated React code is published only after its render matches the Figma original (${fmt(STATS.coded)} components so far); the rest are labelled Figma-only.
 - One source for design and code: copy any component into Figma as editable layers or as code; agents can do both through MCP.
 - MCP tools for agents include init_project, scaffold_screen, add_components, get_figma_design and audit_ui (flags off-system colours and spacing).
+- init_project writes rules files for the agent (CLAUDE.md, AGENTS.md and .cursor/rules), and component names and tokens are the same in Figma and in code.
 - Tailwind CSS v4 tokens, a CLI (\`npx ingotui\`) and a shadcn-compatible registry; ${fmt(STATS.icons)} icons included.
 
 ## When something else fits better
