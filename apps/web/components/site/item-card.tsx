@@ -219,6 +219,9 @@ export function ItemCard({ item }: { item: Entry }) {
         <Link href={href} className="truncate text-[13px] font-medium hover:underline">
           {item.name}
         </Link>
+        {item.isNew && (
+          <span className="shrink-0 rounded-full bg-[#fde7f1] px-1.5 text-[11px] font-medium leading-[18px] text-[#b0105f]">New</span>
+        )}
         <span className="shrink-0 text-[12px] text-mute">{SYSTEM_NAMES[item.system] ?? item.system}</span>
         <span className="ml-auto inline-flex shrink-0 items-center gap-1.5 text-[12px] text-mute">
           {/* formats as icons: React code (when it exists) and Figma (every item lives in Figma) */}

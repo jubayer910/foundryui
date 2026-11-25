@@ -727,3 +727,4 @@ html[data-ingot-cursor] :is(:disabled, [aria-disabled=true], :is([class^="cursor
     animation: none;
   }
 }
+

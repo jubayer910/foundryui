@@ -13,6 +13,8 @@ const GROUPS: { h: string; links: L[] }[] = [
       { href: "/categories", label: "Categories", icon: "template" },
       { href: "/charts", label: "Charts", icon: "chart" },
       { href: "/icons", label: "Icons", icon: "shapes" },
+      // quiet entry at the end of Browse; its count is how many components the latest drop added
+      { href: "/new", label: "New drops", icon: "rocket" },
     ],
   },
   {
@@ -51,7 +53,12 @@ export type RailSystem = { slug: string; name: string; accent: string; live: boo
 /** How many items each Browse page holds, keyed by href (computed on the server in rail.tsx). */
 export type RailCounts = Record<string, number>;
 
-export function RailNav({ systems, counts, onNavigate }: { systems: RailSystem[]; counts?: RailCounts; onNavigate?: () => void }) {
+/** One release of new components, as the sidebar needs it (from lib/drops.ts). */
+export type RailDrop = { id: string; date: string; n: number };
+export const DROPS_SEEN_KEY = "fu-drops-seen";
+
+
+export function RailNav({ systems, counts, onNavigate }: { systems: RailSystem[]; counts?: RailCounts; drops?: RailDrop[]; onNavigate?: () => void }) {
   const path = usePathname();
   const on = (href: string) => (href === "/" ? path === "/" || path.startsWith("/components") : path.startsWith(href));
   const link = (l: L) => (

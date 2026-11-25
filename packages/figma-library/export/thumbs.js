@@ -5,7 +5,7 @@ await figma.setCurrentPageAsync(P);
 const L = [];
 for (const s of P.children) if (s.type === "SECTION") for (const c of s.children) if (c.type === "COMPONENT" || c.type === "COMPONENT_SET") L.push(c);
 let ok = 0; const err = []; const t0 = Date.now();
-for (const c of L.slice(args.off || 0)) {
+for (const c of (args.ids ? L.filter((x) => args.ids.includes(x.id)) : L).slice(args.off || 0)) {
   if (Date.now() - t0 > (args.budget || 45000)) break;
   try {
     const sc = Math.min(1, 1400 / Math.max(c.width, c.height));

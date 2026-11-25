@@ -2,11 +2,11 @@
 import Link from "next/link";
 import { useState } from "react";
 import { CIcon } from "./chrome-icon";
-import { RailNav, type RailCounts, type RailSystem } from "./rail-nav";
+import { RailNav, type RailCounts, type RailDrop, type RailSystem } from "./rail-nav";
 import { Logo } from "./logo";
 import { AccountLink } from "./account-link";
 
-export function MobileBar({ systems, counts }: { systems: RailSystem[]; counts?: RailCounts }) {
+export function MobileBar({ systems, counts, drops }: { systems: RailSystem[]; counts?: RailCounts; drops?: RailDrop[] }) {
   const [open, setOpen] = useState(false);
   return (
     <div className="sticky top-0 z-30 border-b border-hair bg-white/90 backdrop-blur lg:hidden">
@@ -23,7 +23,7 @@ export function MobileBar({ systems, counts }: { systems: RailSystem[]; counts?:
       </div>
       {open && (
         <div id="mobile-menu" className="absolute inset-x-0 top-full max-h-[calc(100dvh-48px)] overflow-y-auto border-y border-hair bg-white px-2 py-4 shadow-[0_16px_32px_-16px_rgb(0_0_0/0.18)]">
-          <RailNav systems={systems} counts={counts} onNavigate={() => setOpen(false)} />
+          <RailNav systems={systems} counts={counts} drops={drops} onNavigate={() => setOpen(false)} />
           <p className="mt-4 flex flex-wrap gap-x-4 gap-y-1 border-t border-hair px-2 pt-4 text-[12px] text-mute">
             <Link href="/about" onClick={() => setOpen(false)} className="inline-flex min-h-6 items-center hover:text-ink">About</Link>
             <Link href="/changelog" onClick={() => setOpen(false)} className="inline-flex min-h-6 items-center hover:text-ink">Changelog</Link>

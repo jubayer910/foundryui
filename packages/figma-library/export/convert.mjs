@@ -9,7 +9,10 @@ const INDEX = JSON.parse(readFileSync(new URL("index.json", ICON_DIR), "utf8"));
 const NAMES = new Set(INDEX.map((i) => i.n));
 const BODIES = {};
 const brandPath = (name) => { const slug = name.replace(/^brand-/, ""); const k = Object.keys(SI).find((x) => SI[x] && SI[x].slug === slug); return k ? SI[k].path : ""; };
-const body = (style, name) => (style === "brand" ? `<path d="${brandPath(name)}" fill="currentColor"/>` : (BODIES[style] ||= JSON.parse(readFileSync(new URL(style + ".json", ICON_DIR), "utf8")))[name] || "");
+// paid styles (solid, duotone, twotone, bulk) live in apps/web/icons-pro since the free/paid icon split
+const PRO_DIR = new URL("../../../apps/web/icons-pro/", import.meta.url);
+const styleFile = (style) => { try { return readFileSync(new URL(style + ".json", ICON_DIR), "utf8"); } catch { return readFileSync(new URL(style + ".json", PRO_DIR), "utf8"); } };
+const body = (style, name) => (style === "brand" ? `<path d="${brandPath(name)}" fill="currentColor"/>` : (BODIES[style] ||= JSON.parse(styleFile(style)))[name] || "");
 const swBody = (b, sw) => (sw ? b.replace(/stroke-width="([\d.]+)"/g, (_, w) => `stroke-width="${Math.round((Number(w) * sw) / 1.5 * 100) / 100}"`) : b);
 // common dashboard icon names -> Foundry names
 const ALIAS = {
@@ -338,7 +341,14 @@ function buildNode(n, parentLm = null, root = true) {
   }
   // a FILL child of a parent that hugs on that axis has nothing to fill: it keeps its content size (Figma), so its
   // flex basis must be auto, not 0 (a 0 basis collapses it, e.g. a truncated title becoming invisible)
-  for (const k of n.k || []) el.kids.push(build(n.psm === "AUTO" ? { ...k, _hugMain: 1 } : k, n.lm || null, false, n));
+  // serialize.js records child x/y as the world-space offset from this node; inside a rotated node CSS positions
+  // children in its rotated local frame, so turn the offset back by the node's rotation
+  const local = (k) => {
+    if (!n.rot || k.rot || k.x === undefined || k.y === undefined) return k;
+    const a = (n.rot * Math.PI) / 180, c = Math.cos(a), s = Math.sin(a);
+    return { ...k, x: Math.round((c * k.x - s * k.y) * 100) / 100, y: Math.round((s * k.x + c * k.y) * 100) / 100 };
+  };
+  for (const k0 of n.k || []) { const k = local(k0); el.kids.push(build(n.psm === "AUTO" ? { ...k, _hugMain: 1 } : k, n.lm || null, false, n)); }
   // negative spacing (overlapping items) is not valid CSS gap: pull every later item back with a negative margin
   if (n.lm && n.gap < 0 && n.pa !== "SPACE_BETWEEN" && !n.wrap) {
     let first = true;

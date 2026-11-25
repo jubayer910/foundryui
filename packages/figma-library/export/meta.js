@@ -12,8 +12,11 @@ for (const s of P.children) {
   let category = s.name.split(" / ").slice(1).join(" / ").replace("Overlays/", "");
   for (const c of s.children) {
     if (c.type !== "COMPONENT" && c.type !== "COMPONENT_SET") continue;
+    if (/^Foundry\//.test(c.name)) continue;
     const name = c.name.split("/").pop();
     let cat = category;
+    // the "Auth and payments" set mixes categories: take each from its name (<System>/<Category>/<Name>)
+    if (category === "Auth and payments") { const own = c.name.split("/").slice(1, -1).join("/").trim(); cat = /modal/i.test(own) ? "Modals" : own || "Cards and panels"; }
     if (cat === "Charts" && NOT_CHART.test(name) && !/chart|trend|graph/i.test(name)) cat = /modal/i.test(name) ? "Modals" : /drawer/i.test(name) ? "Drawers" : /menu/i.test(name) ? "Menus" : /popover/i.test(name) ? "Popovers" : /form|settings|search|filter/i.test(name) ? "Forms" : /nav/i.test(name) ? "Navigation" : "Headers";
     const d = c.description || "";
     const src = (d.match(/screen "([^"]+)"/) || [])[1] || "";

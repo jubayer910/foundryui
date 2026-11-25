@@ -150,7 +150,7 @@ export function Browser({ entries, categories, systems, initialCategory = "all",
     [entries, sys, kind, plan, q],
   );
   const shown = useMemo(() => {
-    const list = base.filter((e) => cat === "all" || e.category === cat);
+    const list = base.filter((e) => cat === "all" || (cat === "new" ? e.isNew : e.category === cat));
     if (sort === "az") return [...list].sort((a, b) => a.name.localeCompare(b.name));
     if (sort === "code") return [...list].sort((a, b) => Number(coded(b)) - Number(coded(a)));
     // Featured: lead with finished blocks, utilities last
@@ -166,8 +166,9 @@ export function Browser({ entries, categories, systems, initialCategory = "all",
     const taken = new Set(head.map((e) => e.slug));
     return [...head, ...mixSystems(list.filter((e) => !taken.has(e.slug)), part, weight)];
   }, [base, cat, sort, sys, words.length]);
-  const count = (c: string) => (c === "all" ? base.length : base.filter((e) => e.category === c).length);
-  const cats = ["all", ...categories.filter((c) => base.some((e) => e.category === c))];
+  const count = (c: string) => (c === "all" ? base.length : c === "new" ? base.filter((e) => e.isNew).length : base.filter((e) => e.category === c).length);
+  // "New" (items from recent drops) sits right after All while there are any
+  const cats = ["all", ...(base.some((e) => e.isNew) ? ["new"] : []), ...categories.filter((c) => base.some((e) => e.category === c))];
 
   // load the next page when the sentinel scrolls into view, for the first few pages only;
   // after that the "Show more" button takes over so the sections below the grid stay reachable
@@ -204,7 +205,7 @@ export function Browser({ entries, categories, systems, initialCategory = "all",
         <Scroller label="Category" className="mt-2">
           {cats.map((c) => (
             <button key={c} aria-pressed={cat === c} data-on={cat === c} onClick={reset(() => setCat(c))} className="pill shrink-0">
-              {c === "all" ? "All" : c}
+              {c === "all" ? "All" : c === "new" ? "New" : c}
               <span className="pill-count">{count(c).toLocaleString("en-US")}</span>
             </button>
           ))}

@@ -43,11 +43,15 @@ for (const [system, key] of Object.entries(FILES)) {
   const items = [];
   for (const sec of doc.document.children.filter((n) => n.type === "SECTION")) {
     const category = sec.name.split(" / ").slice(1).join(" / ").replace(/^Overlays\//, "");
-    for (const c of sec.children.filter((n) => n.type === "COMPONENT" || n.type === "COMPONENT_SET")) {
+    for (const c of sec.children.filter((n) => (n.type === "COMPONENT" || n.type === "COMPONENT_SET") && !/^Foundry\//.test(n.name))) {
+      // the "Auth and payments" set mixes categories: take each one from its name (<System>/<Category>/<Name>)
+      const mixed = category === "Auth and payments";
+      const own = mixed ? c.name.split("/").slice(1, -1).join("/").trim() : "";
+      const itemCategory = !mixed ? category : /modal/i.test(own) ? "Modals" : own || "Cards and panels";
       const bb = c.absoluteBoundingBox || { width: 0, height: 0 };
       const name = c.name.split("/").pop().trim();
       const desc = meta[c.id]?.description || "";
-      items.push({ id: c.id, system, category, name, slug: system + "-" + slugify(name) + "-" + c.id.replace(/[^0-9]/g, ""), w: Math.round(bb.width), h: Math.round(bb.height), keywords: (desc.split("Content: ")[1] || "").slice(0, 200), source: (desc.match(/screen "([^"]+)"/) || [])[1] || "", thumb: `/library/${system}/${c.id.replace(/[:;]/g, "-")}.webp` });
+      items.push({ id: c.id, system, category: itemCategory, name, slug: system + "-" + slugify(name) + "-" + c.id.replace(/[^0-9]/g, ""), w: Math.round(bb.width), h: Math.round(bb.height), keywords: (desc.split("Content: ")[1] || "").slice(0, 200), source: (desc.match(/screen "([^"]+)"/) || [])[1] || "", thumb: `/library/${system}/${c.id.replace(/[:;]/g, "-")}.webp` });
     }
   }
   console.log(system, items.length, "components");
