@@ -43,6 +43,11 @@ export function AuthForm({ mode, next = "/account", email }: { mode: "sign-in" |
         Password
         <input name="password" type="password" required minLength={8} autoComplete={mode === "sign-up" ? "new-password" : "current-password"} className={field} placeholder="At least 8 characters" />
       </label>
+      {mode === "sign-in" && (
+        <Link href={"/forgot-password" + (next && next !== "/account" && next !== "/" ? "?next=" + encodeURIComponent(next) : "")} className="-my-2 inline-flex min-h-11 items-center self-end text-[13px] text-mute underline underline-offset-2 hover:text-ink md:my-0 md:min-h-0 md:text-[12px]">
+          Forgot password?
+        </Link>
+      )}
       {error && <p role="alert" className="rounded-[8px] bg-[#fdecea] px-3 py-2 text-[13px] text-[#a3261a]">{error}</p>}
       <button disabled={pending} className="btn-ink mt-1 !h-9 w-full disabled:opacity-60">
         {pending ? "Please wait…" : mode === "sign-up" ? "Create free account" : "Log in"}

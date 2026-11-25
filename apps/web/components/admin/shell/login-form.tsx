@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { useState } from "react";
 import { authClient } from "@/lib/auth-client";
 import { FormError, authInput } from "./auth-card";
@@ -58,6 +59,9 @@ export function LoginForm({ next }: { next: string }) {
         <span className="text-[13px] font-medium text-ink-2 md:text-[12px]">Password</span>
         <input name="password" type="password" autoComplete="current-password" required aria-invalid={!!err} className={authInput} />
       </label>
+      <Link href="/forgot-password?next=%2Fadmin%2Flogin" className="-my-2 inline-flex min-h-11 items-center self-end text-[13px] text-mute underline underline-offset-2 hover:text-ink md:my-0 md:min-h-0 md:text-[12px]">
+        Forgot password?
+      </Link>
       {err && <FormError>{err}</FormError>}
       <button disabled={busy} className="btn-ink mt-1 w-full !h-9 disabled:opacity-60">
         {busy ? "Signing in…" : "Sign in"}

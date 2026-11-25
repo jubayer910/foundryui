@@ -24,7 +24,17 @@ export async function getAuth() {
       provider: "sqlite",
       schema: { user: schema.user, session: schema.session, account: schema.account, verification: schema.verification },
     }),
-    emailAndPassword: { enabled: true, minPasswordLength: 8 },
+    emailAndPassword: {
+      enabled: true,
+      minPasswordLength: 8,
+      // Forgot password (/forgot-password → email → /reset-password). One-hour link; a reset signs out every other device.
+      resetPasswordTokenExpiresIn: 3600,
+      revokeSessionsOnPasswordReset: true,
+      sendResetPassword: async ({ user, url }) => {
+        const { sendResetPasswordEmail } = await import("./emails/reset-password");
+        await sendResetPasswordEmail(user, url);
+      },
+    },
     user: { additionalFields: { plan: { type: "string", defaultValue: "free", input: false }, role: { type: "string", defaultValue: "user", input: false } } },
     plugins: [nextCookies()],
     // Contra sales paid with this email switch the plan on as soon as the buyer signs up or signs in
