@@ -22,7 +22,7 @@ export default function PrivacyPage() {
           body: (
             <List
               items={[
-                <><strong className="font-medium text-ink">Account:</strong> your name, email and a password (stored only as a one-way hash), your plan, and the API keys you create (stored as hashes; we show the full key once).</>,
+                <><strong className="font-medium text-ink">Account:</strong> your name, email and a password (stored only as a one-way hash), your plan, and the API keys you create (stored as hashes; we show the full key once). If creating your account fails because of an error on our side, we keep the name and email you typed (never the password) so we can tell you once it works.</>,
                 <><strong className="font-medium text-ink">Usage:</strong> which components or icons you copy, download or install, and whether it was from the website, the CLI or the MCP server. Without an account we keep a counter for the 5 free copies, tied to a random browser ID and a short-lived count per network address.</>,
                 <><strong className="font-medium text-ink">Support:</strong> the name, email and messages you send through the help widget, the support page or email.</>,
                 <><strong className="font-medium text-ink">Purchases:</strong> when you pay on Contra we see the email you paid with, the plan, the amount and the order status, and you tell us that email when you click Activate. Card and billing details stay with Contra.</>,
@@ -86,7 +86,7 @@ export default function PrivacyPage() {
         {
           id: "keep",
           h: "How long we keep it",
-          body: <p className={LP}>Account, usage and purchase records are kept while your account is open and for as long as tax and accounting rules require after that. Support conversations are kept while they are useful for helping you. Visitor hashes for the page counter are deleted after 48 hours.</p>,
+          body: <p className={LP}>Account, usage and purchase records are kept while your account is open and for as long as tax and accounting rules require after that. Support conversations are kept while they are useful for helping you. Name and email from a failed sign-up are deleted within 90 days. Visitor hashes for the page counter are deleted after 48 hours.</p>,
         },
         {
           id: "rights",

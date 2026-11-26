@@ -445,3 +445,22 @@ export const gift = sqliteTable(
   },
   (t) => [uniqueIndex("gift_token_idx").on(t.tokenHash), index("gift_email_idx").on(t.email, t.status)],
 );
+
+/* ---- Failed sign-ups (migrations/0022_signup_failure.sql, lib/signup-failures.ts) ---- */
+/** A sign-up the server failed, kept so the person can be contacted once it is fixed. Never the password. */
+export const signupFailure = sqliteTable(
+  "signup_failure",
+  {
+    id: text("id").primaryKey(),
+    email: text("email").notNull(),
+    name: text("name"),
+    /** better-auth error code, e.g. FAILED_TO_CREATE_USER, or EXCEPTION when the handler threw */
+    code: text("code").notNull(),
+    message: text("message"),
+    status: integer("status").notNull(),
+    createdAt: ts("createdAt").notNull(),
+    /** set on the row that triggered the alert email to support */
+    alertedAt: ts("alertedAt"),
+  },
+  (t) => [index("signup_failure_created_idx").on(t.createdAt), index("signup_failure_email_idx").on(t.email)],
+);

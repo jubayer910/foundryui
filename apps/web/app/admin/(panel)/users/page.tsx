@@ -9,6 +9,7 @@ import { FilterSheet } from "@/components/admin/filter-sheet";
 import { AIcon } from "@/components/admin/admin-icons";
 import { Drawer, Facts } from "@/components/admin/drawer";
 import { GiftDrawer, GiftList } from "./gifts";
+import { FailedSignups, loadFailedSignups } from "./failed";
 
 export const metadata: Metadata = { title: "Users" };
 const PER = 25;
@@ -17,7 +18,7 @@ export default async function AdminUsers({ searchParams }: PageProps<"/admin/use
   const { role } = await requireStaff("users", "/admin/users");
   const canGift = can(role, "orders");
   const q = await searchParams;
-  const tab = sp(q.tab) === "gifts" ? "gifts" : "accounts";
+  const tab = sp(q.tab) === "gifts" ? "gifts" : sp(q.tab) === "failed" ? "failed" : "accounts";
   const giftOpen = canGift && sp(q.gift) === "new";
   const search = sp(q.q).trim();
   const plan = sp(q.plan);
@@ -28,7 +29,7 @@ export default async function AdminUsers({ searchParams }: PageProps<"/admin/use
   if (search) w.push(or(like(U.email, `%${search}%`), like(U.name, `%${search}%`))!);
   if (plan) w.push(eq(U.plan, plan));
   const where = w.length ? and(...w) : undefined;
-  const [[total], rows, [gifts]] = await Promise.all([
+  const [[total], rows, [gifts], failed] = await Promise.all([
     db.select({ n: count() }).from(U).where(where),
     db
       .select({ id: U.id, name: U.name, email: U.email, plan: U.plan, role: U.role, createdAt: U.createdAt })
@@ -38,6 +39,7 @@ export default async function AdminUsers({ searchParams }: PageProps<"/admin/use
       .limit(PER)
       .offset((page - 1) * PER),
     db.select({ n: count() }).from(schema.gift).where(ne(schema.gift.status, "revoked")),
+    loadFailedSignups(),
   ]);
   const ids = rows.map((r) => r.id);
   const usage = ids.length
@@ -74,11 +76,14 @@ export default async function AdminUsers({ searchParams }: PageProps<"/admin/use
           tabs={[
             { href: "/admin/users", label: "Accounts", count: total?.n ?? 0, on: tab === "accounts" },
             { href: "/admin/users?tab=gifts", label: "Gifts", count: gifts?.n ?? 0, on: tab === "gifts" },
+            { href: "/admin/users?tab=failed", label: "Failed sign-ups", count: failed.filter((f) => !f.userId).length, on: tab === "failed" },
           ]}
         />
       </div>
       {tab === "gifts" ? (
         <GiftList canGift={canGift} />
+      ) : tab === "failed" ? (
+        <FailedSignups rows={failed} />
       ) : (
       <>
       <Toolbar>
