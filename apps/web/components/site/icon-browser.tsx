@@ -7,7 +7,7 @@ type Meta = { n: string; c: string; t: string[] };
 const STYLES = ["stroke-rounded", "stroke-sharp", "solid", "duotone", "twotone", "bulk"] as const;
 type Style = (typeof STYLES)[number];
 const LABEL: Record<Style, string> = { "stroke-rounded": "Stroke", "stroke-sharp": "Sharp", solid: "Solid", duotone: "Duotone", twotone: "Twotone", bulk: "Bulk" };
-/** Free plans get the stroke styles; the others need Pro, Team or Lifetime and load through /api/icons/<style>. */
+/** Everyone can view every style. Free plans can copy and download the stroke styles; the others need Pro, Team or Lifetime. */
 const FREE = new Set<Style>(["stroke-rounded", "stroke-sharp"]);
 const isPro = (s: Style) => !FREE.has(s);
 const PAGE = 240;
@@ -30,7 +30,7 @@ export function IconBrowser({ initialQuery = "" }: { initialQuery?: string }) {
   const [note, setNote] = useState<{ text: string; login?: boolean } | null>(null);
   // null while the plan check runs; paid = Pro, Team member or Lifetime
   const [paid, setPaid] = useState<boolean | null>(null);
-  const locked = isPro(style) && paid === false;
+  const locked = isPro(style) && paid !== true;
 
   // static page: apply a ?q= link after load
   useEffect(() => {
@@ -48,17 +48,12 @@ export function IconBrowser({ initialQuery = "" }: { initialQuery?: string }) {
       .catch(() => setPaid(false));
   }, []);
   useEffect(() => {
-    if (bodies[style] || (isPro(style) && !paid)) return;
+    if (bodies[style]) return;
     fetch(isPro(style) ? "/api/icons/" + style : "/icons/" + style + ".json")
-      .then((r) => {
-        if (r.status === 401 || r.status === 403) throw Object.assign(new Error("locked"), { locked: true });
-        return r.json();
-      })
+      .then((r) => r.json())
       .then((f) => setBodies((b) => ({ ...b, [style]: f })))
-      .catch((e: { locked?: boolean }) => {
-        if (e.locked) setPaid(false);
-      });
-  }, [style, bodies, paid]);
+      .catch(() => {});
+  }, [style, bodies]);
   const cur = bodies[style] ?? {};
   useEffect(() => setLimit(PAGE), [q, cat, style]);
 
@@ -132,7 +127,7 @@ export function IconBrowser({ initialQuery = "" }: { initialQuery?: string }) {
               </button>
             ))}
           </div>
-          {style !== "solid" && !locked && (
+          {style !== "solid" && (
             <label className="flex h-11 items-center gap-2 rounded-[12px] bg-card px-3 shadow-[inset_0_0_0_1px_var(--color-hair-2)]">
               <span className="font-fu-mono text-[11px] text-mute">Stroke</span>
               <input type="range" min={1} max={2.5} step={0.25} value={stroke} onChange={(e) => setStroke(Number(e.target.value))} className="w-20 accent-[var(--color-ink)]" aria-label="Stroke width" />
@@ -141,22 +136,12 @@ export function IconBrowser({ initialQuery = "" }: { initialQuery?: string }) {
           )}
         </div>
 
-        {locked ? (
-          <div className="card flex flex-col items-start gap-3 p-6">
-            <span className="flex size-9 items-center justify-center rounded-[10px] bg-chip text-ink">
-              <Icon name="lock" size={18} />
-            </span>
-            <div>
-              <p className="text-[15px] font-medium text-ink">{LABEL[style]} icons come with Pro</p>
-              <p className="mt-1 max-w-[460px] text-[13px] leading-relaxed text-mute">Free includes every icon in Stroke and Sharp. Pro and Lifetime add Solid, Duotone, Twotone and Bulk, and cover commercial use.</p>
-            </div>
-            <div className="flex flex-wrap gap-2">
-              <Link href="/pricing#lifetime" className="btn-ink">See Pro and Lifetime</Link>
-              <button onClick={() => setStyle("stroke-rounded")} className="btn-line">Back to Stroke</button>
-            </div>
-          </div>
-        ) : (
-        <>
+        {locked && (
+          <p className="mb-3 flex items-center gap-1.5 text-[13px] text-ink-2">
+            <Icon name="lock" size={14} className="text-mute" />
+            {LABEL[style]} icons are for viewing on Free. Copy and download come with <Link href="/pricing#lifetime" className="font-medium text-ink underline underline-offset-2">Pro or Lifetime</Link>.
+          </p>
+        )}
         <p className="mb-3 font-fu-mono text-[11px] text-mute">{meta ? `${shown.length.toLocaleString("en-US")} icons` : "Loading the library…"}</p>
 
         <div className="hairgrid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 xl:grid-cols-10">
@@ -177,14 +162,12 @@ export function IconBrowser({ initialQuery = "" }: { initialQuery?: string }) {
             </button>
           </div>
         )}
-        </>
-        )}
         <p className="mt-8 text-[12px] leading-relaxed text-mute">
           Drawn to one spec from open-licence icon sets. <Link href="/icons/LICENSES.md" className="underline underline-offset-2">Licences</Link>
         </p>
       </div>
 
-      {current && !locked && (
+      {current && (
         <div className="fixed inset-x-3 bottom-3 z-40 rounded-[16px] bg-card p-4 shadow-[0_0_0_1px_var(--color-hair-2),0_24px_48px_-12px_rgb(14_16_20/0.25)] sm:inset-x-auto sm:right-6 sm:bottom-6 sm:w-[340px]">
           <div className="flex items-start justify-between">
             <div>
@@ -200,6 +183,18 @@ export function IconBrowser({ initialQuery = "" }: { initialQuery?: string }) {
           <div className="paper-grid my-4 flex h-36 items-center justify-center rounded-[12px] bg-paper shadow-[inset_0_0_0_1px_var(--color-hair)]">
             {cur[current.n] && <span className="size-16 text-ink [&>svg]:size-16" dangerouslySetInnerHTML={{ __html: svgOf(cur[current.n], stroke) }} />}
           </div>
+          {locked ? (
+            <div className="rounded-[12px] bg-wash p-3">
+              <p className="flex items-center gap-1.5 text-[13px] font-medium text-ink">
+                <Icon name="lock" size={14} /> {LABEL[style]} needs Pro
+              </p>
+              <p className="mt-1 text-[12px] leading-relaxed text-mute">Free covers copy and download in Stroke and Sharp. Pro and Lifetime unlock SVG, JSX and files in every style.</p>
+              <div className="mt-3 flex gap-2">
+                <Link href="/pricing#lifetime" className="btn-ink !h-9 !px-3 !text-[13px]">Get Pro or Lifetime</Link>
+                <button onClick={() => setStyle("stroke-rounded")} className="btn-line !h-9 !px-3 !text-[13px]">Use Stroke</button>
+              </div>
+            </div>
+          ) : (
           <div className="grid grid-cols-3 gap-2">
             <button onClick={() => act("copy_code", "svg")} className="btn-ink !h-9 !px-2 !text-[13px]">
               <Icon name="copy" size={14} /> SVG
@@ -211,6 +206,7 @@ export function IconBrowser({ initialQuery = "" }: { initialQuery?: string }) {
               <Icon name="download" size={14} /> File
             </button>
           </div>
+          )}
           {note && (
             <p className="mt-3 text-[12px] text-ink-2">
               {note.text}{" "}
