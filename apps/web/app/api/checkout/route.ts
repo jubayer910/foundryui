@@ -26,6 +26,14 @@ export async function POST(req: Request) {
   if (!isCheckoutOption(raw)) return isJson ? Response.json({ error: "unknown_option" }, { status: 400 }) : go("/pricing");
   const option: CheckoutOption = raw;
 
+  // Team is sold by talking to us (pricing "Buying for a team?"): without a Creem Team product, never fall back
+  // to an old external (Contra) Team link.
+  if (isTeamOption(option)) {
+    const pbTeam = await getPriceBook();
+    const teamKey = variantKeyFor(pbTeam, option);
+    if (!teamKey || pickCheckout(await getEnv(), pbTeam.settings, teamKey).kind !== "creem") return go("/support?topic=team");
+  }
+
   /** A Creem hosted checkout; the webhook grants the plan. */
   const creem = async (keys: CreemKeys, productId: string, key: VariantKey, buyer: { email: string; id: string } | null) => {
     try {
