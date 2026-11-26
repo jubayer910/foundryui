@@ -6,8 +6,7 @@ import { TEMPLATES } from "./templates/data";
 import iconStats from "@/lib/icon-stats.json";
 import { AccountLink } from "./account-link";
 import { SignupCard } from "./signup-card";
-import { RailNav, type RailCounts, type RailDrop } from "./rail-nav";
-import { dropSummary } from "@/lib/drops";
+import { RailNav, type RailCounts } from "./rail-nav";
 import { Logo } from "./logo";
 import { XFooterLink } from "./follow-x";
 
@@ -20,11 +19,7 @@ export const railCounts: RailCounts = {
   "/categories": HUBS.length + 1,
   "/charts": entries.filter((e) => e.category === "Charts").length,
   "/icons": iconStats.line,
-  "/new": dropSummary[0]?.n ?? 0,
 };
-
-/** Drop dates and sizes for the sidebar's "New drops" badge. */
-export const railDrops: RailDrop[] = dropSummary;
 
 export function Rail() {
   return (
@@ -36,7 +31,7 @@ export function Rail() {
         <AccountLink />
       </div>
       <div className="min-h-0 flex-1 overflow-y-auto">
-        <RailNav systems={railSystems} counts={railCounts} drops={railDrops} />
+        <RailNav systems={railSystems} counts={railCounts} />
       </div>
       <div className="mt-4 flex flex-col gap-3">
         <SignupCard />

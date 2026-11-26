@@ -27,6 +27,7 @@ const nextConfig: NextConfig = {
       // One canonical host: www and the old workers.dev URL go to https://ingotui.com, path kept.
       { source: "/:path*", has: [{ type: "host", value: "www.ingotui.com" }], destination: "https://ingotui.com/:path*", permanent: true },
       { source: "/:path*", has: [{ type: "host", value: "foundry-ui.mitaly-website.workers.dev" }], destination: "https://ingotui.com/:path*", permanent: true },
+      { source: "/new", destination: "/categories/auth-and-payments", permanent: false },
       { source: "/blogs", destination: "/blog", permanent: true },
       { source: "/blogs/:slug", destination: "/blog/:slug", permanent: true },
       { source: "/resources", destination: "/blog", permanent: true },

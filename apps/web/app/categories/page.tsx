@@ -4,7 +4,8 @@ import { PageHead } from "@/components/site/page-head";
 import { IlloTile } from "@/components/site/illo";
 import { LIBRARY_CATEGORY_SCENE } from "@/components/site/illo/scenes";
 import { entries, hasCode } from "@/lib/library";
-import { HUBS } from "@/lib/hubs";
+import { HUBS, type Hub } from "@/lib/hubs";
+import { NewMark } from "@/components/site/new-mark";
 import { JsonLd, breadcrumbLd, fmt, isPart, pageMeta } from "@/lib/seo";
 
 export const metadata: Metadata = pageMeta({
@@ -15,8 +16,11 @@ export const metadata: Metadata = pageMeta({
 
 export default function Categories() {
   const count = (c: string) => entries.filter((e) => e.category === c && !isPart(e.name));
+  const listOf = (h: Hub) => (h.slugs ? entries.filter((e) => h.slugs!.includes(e.slug)) : count(h.category));
   const charts = count("Charts");
-  const rows = [...HUBS.map((h) => ({ href: "/categories/" + h.slug, name: h.h1, intro: h.intro, list: count(h.category), scene: LIBRARY_CATEGORY_SCENE[h.category] })), { href: "/charts", name: "Charts", intro: "Bars, lines, donuts, funnels, heatmaps and retention grids with real-looking data and hover states.", list: charts, scene: LIBRARY_CATEGORY_SCENE.Charts }].sort((a, b) => b.list.length - a.list.length);
+  const rows = [...HUBS.map((h) => ({ href: "/categories/" + h.slug, name: h.h1, intro: h.card, list: listOf(h), scene: LIBRARY_CATEGORY_SCENE[h.category], newUntil: h.newUntil })), { href: "/charts", name: "Charts", intro: "Bars, lines, donuts and funnels.", list: charts, scene: LIBRARY_CATEGORY_SCENE.Charts, newUntil: undefined as string | undefined }]
+    // biggest first; a set that is still marked new leads while its mark lasts
+    .sort((a, b) => Number(!!b.newUntil && Date.parse(b.newUntil) > Date.now()) - Number(!!a.newUntil && Date.parse(a.newUntil) > Date.now()) || b.list.length - a.list.length);
   return (
     <div className="max-w-[1100px]">
       <JsonLd data={breadcrumbLd([["Components", "/"], ["Categories", "/categories"]])} />
@@ -28,7 +32,10 @@ export default function Categories() {
               <IlloTile scene={r.scene ?? "grid"} label="" className="illo-live h-[148px]" />
               <span className="flex flex-col px-2 pb-2 pt-3">
                 <span className="flex items-baseline justify-between gap-2">
-                  <span className="text-[14px] font-medium">{r.name}</span>
+                  <span className="flex items-baseline text-[14px] font-medium">
+                    {r.name}
+                    {r.newUntil && <NewMark until={r.newUntil} />}
+                  </span>
                   <span className="shrink-0 text-[12px] tabular-nums text-mute">{fmt(r.list.length)}, {fmt(r.list.filter(hasCode).length)} with code</span>
                 </span>
                 <span className="mt-1 text-[13px] leading-snug text-mute">{r.intro}</span>

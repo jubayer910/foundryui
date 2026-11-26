@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Geist_Mono } from "next/font/google";
-import { Rail, railCounts, railDrops, railSystems } from "@/components/site/rail";
+import { Rail, railCounts, railSystems } from "@/components/site/rail";
 import { MobileBar } from "@/components/site/mobile-bar";
 import { SiteChrome } from "@/components/site/site-chrome";
 import { CustomCursor } from "@/components/site/cursor/custom-cursor";
@@ -38,7 +38,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <JsonLd data={[organizationLd(), websiteLd()]} />
         <CustomCursor />
         {/* Public chrome, GA and Clarity live in SiteChrome; /admin renders without them. */}
-        <SiteChrome rail={<Rail />} mobileBar={<MobileBar systems={railSystems} counts={railCounts} drops={railDrops} />}>
+        <SiteChrome rail={<Rail />} mobileBar={<MobileBar systems={railSystems} counts={railCounts} />}>
           {children}
         </SiteChrome>
       </body>

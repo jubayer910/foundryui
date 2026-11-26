@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { systems } from "@/lib/catalog";
-import { entries, hasCode } from "@/lib/library";
+import { entries, hasCode, type Entry } from "@/lib/library";
 import { HUBS, getHub } from "@/lib/hubs";
 import { getPost, posts } from "@/lib/blog";
 import { ItemCard } from "@/components/site/item-card";
@@ -13,12 +13,13 @@ export function generateStaticParams() {
   return HUBS.map((h) => ({ slug: h.slug }));
 }
 
-const listFor = (category: string) => entries.filter((e) => e.category === category && !isPart(e.name));
+const listFor = (h: { category: string; slugs?: string[] }) =>
+  h.slugs ? entries.filter((e) => h.slugs!.includes(e.slug)) : entries.filter((e) => e.category === h.category && !isPart(e.name));
 
 export async function generateMetadata({ params }: PageProps<"/categories/[slug]">): Promise<Metadata> {
   const h = getHub((await params).slug);
   if (!h) return {};
-  const list = listFor(h.category);
+  const list = listFor(h);
   return pageMeta({
     title: h.title,
     description: `${fmt(list.length)} ${h.h1.toLowerCase()} components from nine dashboard design systems, ${fmt(list.filter(hasCode).length)} with React + Tailwind code checked against Figma. ${h.intro.split(". ")[0]}.`,
@@ -26,13 +27,31 @@ export async function generateMetadata({ params }: PageProps<"/categories/[slug]
   });
 }
 
+/**
+ * Order for the first screen of a hub: free and Pro mixed, not all free first (owner, 2026-11-27).
+ * Coded items lead inside each group. Pro items go round the systems so no system runs in a row.
+ * Rhythm: free, Pro, free, then Pro, Pro, free over and over until the free ones run out, then the rest of Pro.
+ */
+function mixFreePro(list: Entry[]) {
+  const coded = (xs: Entry[]) => [...xs.filter(hasCode), ...xs.filter((e) => !hasCode(e))];
+  const free = coded(list.filter((e) => e.tier === "free"));
+  const by = new Map<string, Entry[]>();
+  for (const e of coded(list.filter((e) => e.tier !== "free"))) (by.get(e.system) ?? by.set(e.system, []).get(e.system)!).push(e);
+  const pro: Entry[] = [];
+  for (let i = 0; pro.length < list.length - free.length; i++) for (const xs of by.values()) if (xs[i]) pro.push(xs[i]);
+  const out: Entry[] = [];
+  const take = (xs: Entry[], n: number) => out.push(...xs.splice(0, n));
+  take(free, 1); take(pro, 1); take(free, 1);
+  while (free.length || pro.length) { take(pro, 2); take(free, 1); }
+  return out;
+}
+
 export default async function HubPage({ params }: PageProps<"/categories/[slug]">) {
   const h = getHub((await params).slug);
   if (!h) notFound();
-  const list = listFor(h.category);
+  const list = listFor(h);
   const coded = list.filter(hasCode);
-  // Coded first, then the rest, so the first screen shows copyable components.
-  const featured = [...coded, ...list.filter((e) => !hasCode(e))].slice(0, 24);
+  const featured = mixFreePro(list).slice(0, 24);
   const bySystem = systems.map((s) => [s, list.filter((e) => e.system === s.slug).sort((a, b) => a.name.localeCompare(b.name))] as const).filter(([, l]) => l.length);
   const guide = h.guide ? getPost(h.guide) : undefined;
   const more = posts.filter((p) => p.slug !== h.guide).slice(0, 2);
@@ -75,7 +94,7 @@ export default async function HubPage({ params }: PageProps<"/categories/[slug]"
         <div className="grid grid-cols-1 gap-x-3 gap-y-5 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
           {featured.map((e) => <ItemCard key={e.slug} item={e} />)}
         </div>
-        <Link href={"/?c=" + encodeURIComponent(h.category)} className="btn-line mt-6">Browse and filter all {fmt(list.length)}</Link>
+        {!h.slugs && <Link href={"/?c=" + encodeURIComponent(h.category)} className="btn-line mt-6">Browse and filter all {fmt(list.length)}</Link>}
       </section>
 
       <section className="mt-12" aria-labelledby="by-system">

@@ -546,4 +546,6 @@ export const LIBRARY_CATEGORY_SCENE: Record<string, string> = {
   Editors: "cat-editors",
   Feedback: "cat-empty",
   Atoms: "cat-atoms",
+  // sign in pages and card widgets: the form scene (fields and a primary action) fits best
+  "Auth and payments": "cat-forms",
 };

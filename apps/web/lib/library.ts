@@ -5,11 +5,12 @@ import templateCode from "./template-code.json";
 import figmaPaste from "./figma-paste.generated.json";
 import dropsData from "./drops.json";
 
-/** Items from drops of the last 21 days carry a New tag (see lib/drops.ts; computed at build time). */
-const NEW_SLUGS = new Set(
-  (dropsData as { date: string; slugs: string[] }[]).filter((d) => Date.now() - Date.parse(d.date + "T00:00:00Z") < 21 * 864e5).flatMap((d) => d.slugs),
+/** Items from a drop carry a hand-drawn "new" mark until the drop's newUntil date (checked again in the browser). */
+const NEW_UNTIL = new Map(
+  (dropsData as { slugs: string[]; newUntil?: string }[])
+    .filter((d) => d.newUntil && Date.parse(d.newUntil) > Date.now())
+    .flatMap((d) => d.slugs.map((s) => [s, d.newUntil!] as const)),
 );
-
 /** slugs that can be copied to Figma as editable layers (written by scripts/code-gate.mjs) */
 const figmaPasteSet = new Set<string>(figmaPaste as string[]);
 
@@ -33,8 +34,8 @@ export type Entry = {
   qa?: { score: number; strict: number };
   /** true when a Copy to Figma payload (editable layers) exists */
   figma?: boolean;
-  /** true for items from a recent drop (shown with a New tag) */
-  isNew?: boolean;
+  /** items from a recent drop show the "new" mark until this ISO date */
+  newUntil?: string;
 };
 
 export type FigmaItem = { id: string; system: string; category: string; name: string; slug: string; w: number; h: number; keywords: string; source: string; thumb: string };
@@ -77,7 +78,7 @@ const figmaEntries: Entry[] = figma.map((f) => ({
   source: f.source,
   qa: (figmaCode as Record<string, { score: number; strict: number }>)[f.slug],
   figma: figmaPasteSet.has(f.slug) || undefined,
-  isNew: NEW_SLUGS.has(f.slug) || undefined,
+  newUntil: NEW_UNTIL.get(f.slug),
 }));
 
 /** Code first inside each category (they are fully usable), then Figma components. */
