@@ -3,6 +3,7 @@ import { sql } from "drizzle-orm";
 import { getCloudflareContext } from "@opennextjs/cloudflare";
 import { getDb, getEnv, schema } from "@/lib/db";
 import { browserOf, countryOf, deviceOf, osOf } from "@/lib/analytics/ua";
+import { cleanSource } from "@/lib/analytics/source";
 
 /**
  * First-party page-view counter for components/site/track-beacon.tsx.
@@ -19,21 +20,6 @@ import { browserOf, countryOf, deviceOf, osOf } from "@/lib/analytics/ua";
 const BOT = /bot|crawl|spider|slurp|bingpreview|facebookexternalhit|embedly|quora link|whatsapp|telegram|discord|preview|headless|phantom|puppeteer|playwright|selenium|lighthouse|pagespeed|gtmetrix|pingdom|uptime|monitor|curl|wget|python|httpclient|axios|node-fetch|go-http|java\/|okhttp|libwww|scrapy|ahrefs|semrush|mj12|dotbot|petal|yandex|baidu|bytespider|gptbot|claude|anthropic|perplexity|ccbot/i;
 const DAY_S = 86_400;
 
-const ALIAS: [RegExp, string][] = [
-  [/(^|\.)google\.[a-z.]+$/, "google"],
-  [/(^|\.)bing\.com$/, "bing"],
-  [/(^|\.)duckduckgo\.com$/, "duckduckgo"],
-  [/(^|\.)(t\.co|twitter\.com|x\.com)$/, "x.com"],
-  [/(^|\.)facebook\.com$/, "facebook"],
-  [/(^|\.)instagram\.com$/, "instagram"],
-  [/(^|\.)linkedin\.com$|^lnkd\.in$/, "linkedin"],
-  [/(^|\.)reddit\.com$/, "reddit"],
-  [/(^|\.)youtube\.com$/, "youtube"],
-  [/(^|\.)(chatgpt\.com|openai\.com)$/, "chatgpt"],
-  [/(^|\.)perplexity\.ai$/, "perplexity"],
-  [/(^|\.)github\.com$/, "github"],
-];
-
 function cleanPath(p: unknown): string | null {
   if (typeof p !== "string" || !p.startsWith("/") || p.length > 200) return null;
   let path = p.split(/[?#]/)[0];
@@ -41,22 +27,6 @@ function cleanPath(p: unknown): string | null {
   if (path.length > 1) path = path.replace(/\/+$/, "") || "/";
   if (/^\/(admin|api|_next)(\/|$)/.test(path)) return null;
   return path;
-}
-
-function cleanSource(ref: unknown, utm: unknown, ownHost: string): string {
-  if (typeof utm === "string") {
-    const u = utm.toLowerCase().replace(/[^a-z0-9._-]/g, "").slice(0, 40);
-    if (u) return u;
-  }
-  if (typeof ref === "string" && ref) {
-    const h = ref.toLowerCase().replace(/^www\./, "");
-    if (h.length <= 80 && /^[a-z0-9.-]+$/.test(h) && h.includes(".")) {
-      if (h === ownHost.replace(/^www\./, "")) return "direct";
-      for (const [re, name] of ALIAS) if (re.test(h)) return name;
-      return h;
-    }
-  }
-  return "direct";
 }
 
 /** HMAC-SHA256(secret, text) as hex. The key rotates daily (secret + day), so hashes can't be linked across days. */

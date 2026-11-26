@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
+import { FIRST_TOUCH, LAST_TOUCH, TOUCH_DAYS } from "@/lib/analytics/source";
 import { REF_COOKIE, REF_DAYS, cleanRef } from "@/lib/ref";
 
 /**
@@ -9,8 +10,10 @@ import { REF_COOKIE, REF_DAYS, cleanRef } from "@/lib/ref";
  *   - engagement ({ t: "e" }) when a page is left or hidden: engaged seconds, deepest scroll, whether it was the
  *     last page of the visit, and clicks on buttons and links (their label and target, nothing typed).
  * A "visit" is this tab's session (sessionStorage holds only a page count and the last path, never sent as an id).
- * The one cookie: a visit through a referral link (?ref=name) keeps that name for 30 days so a sign-up can be
- * credited to the link (lib/ref.ts). Skips bots, admin/API paths, the account area for clicks, and visitors who
+ * Cookies: a visit through a referral link (?ref=name) keeps that name for 30 days so a sign-up can be
+ * credited to the link (lib/ref.ts); and two touch cookies keep where visits came from (first visit, latest
+ * visit with a source: source, utm medium and campaign, landing path, date; no identifier) for 90 days, so a
+ * purchase can be credited to its source (lib/analytics/source.ts). Skips bots, admin/API paths, the account area for clicks, and visitors who
  * ask not to be tracked (Do Not Track / Global Privacy Control).
  */
 
@@ -186,6 +189,13 @@ export function TrackBeacon() {
     const utm = landing ? refLink || (qs.get("utm_source") ?? "").slice(0, 64) : "";
     const med = landing ? (qs.get("utm_medium") ?? "").slice(0, 40) : "";
     const cmp = landing ? (qs.get("utm_campaign") ?? "").slice(0, 60) : "";
+    if (landing) {
+      const secure = location.protocol === "https:" ? "; Secure" : "";
+      const touch = encodeURIComponent(JSON.stringify({ r: ref, u: utm, m: med, c: cmp, p: path, d: new Date().toISOString().slice(0, 10) }));
+      const set = (name: string) => (document.cookie = `${name}=${touch}; Max-Age=${TOUCH_DAYS * 86400}; Path=/; SameSite=Lax${secure}`);
+      if (!document.cookie.split("; ").some((c) => c.startsWith(FIRST_TOUCH + "="))) set(FIRST_TOUCH);
+      if (ref || utm) set(LAST_TOUCH);
+    }
     // l = 1 marks the landing view, the only one that carries a source; v2 = 1 marks a visit's second page.
     send({ path, ref, utm, med, cmp, l: landing ? 1 : 0, from, v2: visit.n === 2 ? 1 : 0 });
   }, [path]);

@@ -37,7 +37,7 @@ export default function PrivacyPage() {
           body: (
             <List
               items={[
-                <><strong className="font-medium text-ink">Our own page counter:</strong> no cookies. We store only daily totals per page and per referring site. To estimate unique visitors we keep a one-way, daily-changing hash of your network address and browser for at most 48 hours; it is never linked to your account. We don’t count you if your browser sends Do Not Track or Global Privacy Control.</>,
+                <><strong className="font-medium text-ink">Our own page counter:</strong> no cookies for counting. We store only daily totals: pages, referring sites, countries, device types, time on page, scroll depth and clicks on buttons and links (never anything you type). To estimate unique visitors we keep a one-way, daily-changing hash of your network address and browser for at most 48 hours; it is never linked to your account. We don’t count you if your browser sends Do Not Track or Global Privacy Control.</>,
                 <><strong className="font-medium text-ink">Google Analytics 4:</strong> measures visits and where they come from. It uses cookies, loads only if you accept them, and is run by Google.</>,
                 <><strong className="font-medium text-ink">Microsoft Clarity:</strong> heatmaps and session recordings that show how pages are used. Clarity masks typed text and other sensitive content by default. It uses cookies, loads only if you accept them, and is run by Microsoft.</>,
               ]}
@@ -54,6 +54,7 @@ export default function PrivacyPage() {
                 "A sign-in session cookie, so you stay logged in.",
                 "A random anonymous ID cookie for the free-copy counter (one year).",
                 "A referral cookie (30 days), set only when you open a link with ?ref= in it. It holds just the link's name, such as x-reply. If you create an account in that time, we save that name on your account to learn which link worked. It is not set if Do Not Track or Global Privacy Control is on.",
+                "Two source cookies (90 days): where your first visit came from, and your latest visit that came from a link or search. Each holds only the site or campaign name (such as google or a utm_campaign), the page you landed on and the date, never an ID. If you create an account or start a checkout, we save them on your account so we know which channels bring customers. Not set if Do Not Track or Global Privacy Control is on.",
                 "Google Analytics and Microsoft Clarity cookies, described above. These load only after you accept them in the cookie banner, and you can change your choice any time.",
                 "Local storage in your browser for saved and recently copied items and for dismissing the announcement bar. These stay on your device.",
               ]}

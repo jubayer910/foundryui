@@ -14,6 +14,10 @@ export const user = sqliteTable("user", {
   role: text("role").notNull().default("user"),
   /** ?ref= link name that brought them before sign-up (migrations/0015_user_ref.sql) */
   ref: text("ref"),
+  /** first visit's source, JSON (lib/analytics/source.ts Touch), set at sign-up (migrations/0021_user_source.sql) */
+  src: text("src"),
+  /** latest visit with a source before sign-up or checkout, JSON Touch */
+  srcLast: text("srcLast"),
   createdAt: ts("createdAt").notNull(),
   updatedAt: ts("updatedAt").notNull(),
 }, (t) => [index("user_role_idx").on(t.role), index("user_ref_idx").on(t.ref)]);

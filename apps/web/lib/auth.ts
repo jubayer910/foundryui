@@ -45,6 +45,7 @@ export async function getAuth() {
         create: {
           after: async (u) => {
             await creditRef(u.id);
+            try { const { saveTouch } = await import("./analytics/attribution"); await saveTouch(u.id, "signup"); } catch {}
             await contraMatch(u.email);
             try { const { sendWelcome } = await import("./emails/welcome"); await sendWelcome(u); } catch {}
           },

@@ -1,4 +1,5 @@
 import { getSessionUser } from "@/lib/auth";
+import { saveTouch } from "@/lib/analytics/attribution";
 import { getDb, getEnv, schema } from "@/lib/db";
 import { audit } from "@/lib/admin";
 import { checkoutKeys, createCheckout } from "@/lib/lemonsqueezy";
@@ -25,6 +26,8 @@ export async function POST(req: Request) {
   const option: CheckoutOption = raw;
 
   const user = await getSessionUser();
+  // where this buyer came from: refresh the account's touch and count the checkout per source
+  await saveTouch(user?.id ?? null, "checkout", option);
   if (!user) {
     // Signed out: when this option sells through an external checkout (Contra) and not Lemon Squeezy,
     // go straight there. No account needed to pay: the Contra sale is matched to an account later by
