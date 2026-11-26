@@ -5,6 +5,7 @@ import { CIcon } from "./chrome-icon";
 import { RailNav, type RailCounts, type RailDrop, type RailSystem } from "./rail-nav";
 import { Logo } from "./logo";
 import { AccountLink } from "./account-link";
+import { XFooterLink } from "./follow-x";
 
 export function MobileBar({ systems, counts, drops }: { systems: RailSystem[]; counts?: RailCounts; drops?: RailDrop[] }) {
   const [open, setOpen] = useState(false);
@@ -27,12 +28,8 @@ export function MobileBar({ systems, counts, drops }: { systems: RailSystem[]; c
           <p className="mt-4 flex flex-wrap gap-x-4 gap-y-1 border-t border-hair px-2 pt-4 text-[12px] text-mute">
             <Link href="/about" onClick={() => setOpen(false)} className="inline-flex min-h-6 items-center hover:text-ink">About</Link>
             <Link href="/changelog" onClick={() => setOpen(false)} className="inline-flex min-h-6 items-center hover:text-ink">Changelog</Link>
-            <Link href="/roadmap" onClick={() => setOpen(false)} className="inline-flex min-h-6 items-center hover:text-ink">Roadmap</Link>
             <Link href="/support" onClick={() => setOpen(false)} className="inline-flex min-h-6 items-center hover:text-ink">Support</Link>
-            <Link href="/license" onClick={() => setOpen(false)} className="inline-flex min-h-6 items-center hover:text-ink">License</Link>
-            <Link href="/accessibility" onClick={() => setOpen(false)} className="inline-flex min-h-6 items-center hover:text-ink">Accessibility</Link>
-            <Link href="/terms" onClick={() => setOpen(false)} className="inline-flex min-h-6 items-center hover:text-ink">Terms</Link>
-            <Link href="/privacy" onClick={() => setOpen(false)} className="inline-flex min-h-6 items-center hover:text-ink">Privacy</Link>
+            <XFooterLink onClick={() => setOpen(false)} />
           </p>
         </div>
       )}

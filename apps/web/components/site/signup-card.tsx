@@ -1,11 +1,11 @@
 "use client";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { FreeMeter } from "./free-meter";
 
 type Card = { title: string; note: string; button: string; avatars: string[] };
 // placeholder faces (Unsplash portraits) until the owner sets their own in admin → Announcement
 const FACES = ["/avatars/1.jpg", "/avatars/2.jpg", "/avatars/3.jpg", "/avatars/4.jpg", "/avatars/5.jpg"];
-const NOTE = "Join 2,000+ members, including 30+ who signed up today";
 
 /**
  * Sidebar sign-up card for signed-out visitors. Every word and picture comes from admin → Announcement
@@ -29,7 +29,6 @@ export function SignupCard() {
   }, []);
   if (!card) return null;
   const faces = (card.avatars.length ? card.avatars : FACES).slice(0, 5);
-  const note = card.note || NOTE;
   return (
     <div className="px-2">
       {card.title && <p className="mb-3 text-[15px] leading-[1.35] text-ink">{card.title}</p>}
@@ -44,7 +43,7 @@ export function SignupCard() {
           ))}
         </span>
       </div>
-      <p className="mt-3 text-[13px] leading-snug text-mute">{note}</p>
+      <FreeMeter />
     </div>
   );
 }

@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { CIcon, type ChromeIconName } from "./chrome-icon";
+import { DISCORD_URL, DiscordMark } from "./join-discord";
 
 type L = { href: string; label: string; icon: ChromeIconName; badge?: string };
 const GROUPS: { h: string; links: L[] }[] = [
@@ -86,7 +87,24 @@ export function RailNav({ systems, counts, onNavigate }: { systems: RailSystem[]
       ))}
       <div>
         <p className="eyebrow mb-1 px-2">{GROUPS[2].h}</p>
-        <ul className="flex flex-col">{GROUPS[2].links.map(link)}</ul>
+        <ul className="flex flex-col">
+          {GROUPS[2].links.map(link)}
+          {/* community: an outside link, so a plain <a>; black and white like the other rows (no Discord blurple) */}
+          <li>
+            <a
+              href={DISCORD_URL}
+              target="_blank"
+              rel="noopener"
+              onClick={onNavigate}
+              aria-label="Join the Ingot UI Discord, request any widget or icon (opens in a new tab)"
+              className="flex h-7 items-center gap-2 rounded-[6px] px-2 text-[13px] text-mute transition-colors hover:text-ink"
+            >
+              <DiscordMark size={15} />
+              Discord
+              <span className="ml-auto text-[11px] text-mute/60">Requests</span>
+            </a>
+          </li>
+        </ul>
       </div>
     </nav>
   );

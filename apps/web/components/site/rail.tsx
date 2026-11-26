@@ -5,12 +5,11 @@ import { HUBS } from "@/lib/hubs";
 import { TEMPLATES } from "./templates/data";
 import iconStats from "@/lib/icon-stats.json";
 import { AccountLink } from "./account-link";
-import { FreeMeter } from "./free-meter";
 import { SignupCard } from "./signup-card";
 import { RailNav, type RailCounts, type RailDrop } from "./rail-nav";
 import { dropSummary } from "@/lib/drops";
 import { Logo } from "./logo";
-import { FollowX } from "./follow-x";
+import { XFooterLink } from "./follow-x";
 
 export const railSystems = systems.map((s) => ({ slug: s.slug, name: s.name, accent: s.accent, live: s.status === "live" || codeCount(s.slug) > 0 }));
 
@@ -41,20 +40,12 @@ export function Rail() {
       </div>
       <div className="mt-4 flex flex-col gap-3">
         <SignupCard />
-        <div className="flex items-center gap-3 border-t border-hair px-2 pt-3">
-          <FollowX />
-          <FreeMeter />
-        </div>
-        <p className="flex flex-wrap gap-x-3 px-2 text-[12px] text-mute">
+        <p className="flex flex-wrap gap-x-3 border-t border-hair px-2 pt-3 text-[12px] text-mute">
+          {/* four links only; Roadmap, License, Accessibility, Terms and Privacy live at the end of /about */}
           <Link href="/about" className="inline-flex min-h-6 items-center hover:text-ink">About</Link>
           <Link href="/changelog" className="inline-flex min-h-6 items-center hover:text-ink">Changelog</Link>
-          <Link href="/roadmap" className="inline-flex min-h-6 items-center hover:text-ink">Roadmap</Link>
           <Link href="/support" className="inline-flex min-h-6 items-center hover:text-ink">Support</Link>
-          <Link href="/license" className="inline-flex min-h-6 items-center hover:text-ink">License</Link>
-          <Link href="/accessibility" className="inline-flex min-h-6 items-center hover:text-ink">Accessibility</Link>
-          <Link href="/terms" className="inline-flex min-h-6 items-center hover:text-ink">Terms</Link>
-          <Link href="/privacy" className="inline-flex min-h-6 items-center hover:text-ink">Privacy</Link>
-          <span className="inline-flex min-h-6 items-center whitespace-nowrap">© 2026</span>
+          <XFooterLink />
         </p>
       </div>
     </aside>

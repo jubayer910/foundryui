@@ -88,6 +88,15 @@ export default function About() {
             <Link href="/blog" className="btn-line">Read the guides</Link>
             <Link href="/why-ingot-ui" className="btn-line">Why Ingot UI</Link>
           </p>
+
+          {/* the links that left the sidebar footer (owner, 2026-11-27) */}
+          <nav aria-label="More about Ingot UI" className="mt-10 border-t border-hair pt-5">
+            <ul className="flex flex-wrap gap-x-5 gap-y-2 text-[13px] text-mute">
+              {[["Roadmap", "/roadmap"], ["License", "/license"], ["Accessibility", "/accessibility"], ["Terms", "/terms"], ["Privacy", "/privacy"], ["Refund policy", "/refund"]].map(([l, h]) => (
+                <li key={h}><Link href={h} className="hover:text-ink">{l}</Link></li>
+              ))}
+            </ul>
+          </nav>
         </article>
       </div>
     </div>
