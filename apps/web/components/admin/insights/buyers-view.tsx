@@ -6,7 +6,7 @@ import { AIcon } from "../admin-icons";
 import { Info } from "../reports/info";
 import { RankCard, Seg, Tiles, fmt, sourceName } from "./parts";
 
-const PROVIDER: Record<string, string> = { lemonsqueezy: "Lemon Squeezy", contra: "Contra", appsumo: "AppSumo" };
+const PROVIDER: Record<string, string> = { lemonsqueezy: "Lemon Squeezy", contra: "Contra", creem: "Creem", appsumo: "AppSumo" };
 const EVIDENCE: Record<Evidence, { label: string; tone: string; info: string }> = {
   tracked: { label: "Tracked", tone: "bg-[#e7f4ec] text-[#17663a]", info: "From the visitor's source cookies, saved on the account at sign-up and checkout." },
   ref: { label: "Ref link", tone: "bg-chip text-ink", info: "The ?ref= link the account signed up through." },

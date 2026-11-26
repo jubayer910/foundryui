@@ -20,7 +20,7 @@ const PLAN_NAME: Record<string, string> = { free: "Free", pro: "Pro", lifetime: 
 const ACTION_NAME: Record<string, string> = { copy_code: "Copy React code", copy_figma: "Copy Figma layers", download_png: "Download PNG", download_svg: "Download SVG", download_jpeg: "Download JPEG", install: "Install (CLI)" };
 const CLIENT_NAME: Record<string, string> = { web: "Website", mcp: "MCP server", cli: "CLI" };
 export const REV_PLAN_NAME: Record<string, string> = { proMonthly: "Pro monthly", proYearly: "Pro yearly", lifetimeDeal: "Lifetime deal", lifetimeAfter: "Lifetime", teamMonthly: "Team monthly", teamYearly: "Team yearly", other: "Other or unknown" };
-export const PROVIDER_NAME: Record<string, string> = { lemonsqueezy: "Lemon Squeezy", contra: "Contra" };
+export const PROVIDER_NAME: Record<string, string> = { lemonsqueezy: "Lemon Squeezy", contra: "Contra", creem: "Creem" };
 const OPTION_NAME: Record<string, string> = { proMonthly: "Pro monthly", proYearly: "Pro yearly", teamMonthly: "Team monthly", teamYearly: "Team yearly", lifetime: "Lifetime" };
 
 /** Filter choices the controls offer (values are validated against these before they reach SQL). */
@@ -311,7 +311,7 @@ export function ordersCte(c: Ctx, q: Q, w: string) {
         case when variant in ('monthly', 'proMonthly') then 'proMonthly' when variant in ('yearly', 'proYearly') then 'proYearly' when variant in ('lifetimeDeal', 'lifetimeAfter', 'teamMonthly', 'teamYearly') then variant else 'other' end pk,
         ${intOf(j("$.attributes.total_usd"))} tu, ${intOf(j("$.attributes.refunded_amount_usd"))} rau, ${intOf(j("$.attributes.refunded_amount"))} ra,
         (case when json_valid(raw) and (json_extract(raw, '$.test_mode') = 1 or json_extract(raw, '$.attributes.test_mode') = 1) then 1 else 0 end) test
-      from purchase where provider in ('lemonsqueezy', 'contra') and status in ('paid', 'refunded', 'partial_refund') and ${w}${provider ? ` and provider = ${q.p(provider)}` : ""}
+      from purchase where provider in ('lemonsqueezy', 'contra', 'creem') and status in ('paid', 'refunded', 'partial_refund') and ${w}${provider ? ` and provider = ${q.p(provider)}` : ""}
     ), u as (select *, coalesce(tu, case when ccy = 'USD' then amt end) usd, coalesce(rau, case when ccy = 'USD' then ra end) refAmt from o),
     r as (select *, case when usd is null then null when st = 'refunded' then min(usd, case when coalesce(refAmt, 0) > 0 then refAmt else usd end) when st = 'partial_refund' then min(usd, coalesce(refAmt, 0)) else 0 end refund from u)`;
 }
@@ -340,8 +340,8 @@ async function revenue(c: Ctx): Promise<Built> {
   const subs = `subs as (
       select s.createdAt c, s.endsAt e, s.status st, s.interval iv,
         coalesce((select case when ${pj("$.attributes.subtotal_usd")} is not null then max(0, ${pj("$.attributes.subtotal_usd")} - coalesce(${pj("$.attributes.discount_total_usd")}, 0)) else coalesce(${pj("$.attributes.total_usd")}, case when upper(p.currency) = 'USD' then p.amountCents end) end
-          from purchase p where p.provider in ('lemonsqueezy', 'contra') and p.providerOrderId = (case when json_valid(s.raw) then cast(json_extract(s.raw, '$.attributes.order_id') as text) end) limit 1), 0) b
-      from subscription s where s.provider in ('lemonsqueezy', 'contra')${subPlan}${subProv}
+          from purchase p where p.provider in ('lemonsqueezy', 'contra', 'creem') and p.providerOrderId = (case when json_valid(s.raw) then cast(json_extract(s.raw, '$.attributes.order_id') as text) end) limit 1), 0) b
+      from subscription s where s.provider in ('lemonsqueezy', 'contra', 'creem')${subPlan}${subProv}
     ), priced as (select *, case when b > 0 then b when iv = 'yearly' then ${int(yearlyFallback)} else ${int(monthlyFallback)} end price from subs)`;
   const long = q2.stmt(
     `with ends(k, t) as (values ${c.ends()}), ${subs}
@@ -364,7 +364,7 @@ async function revenue(c: Ctx): Promise<Built> {
      union all select 'provOrders', pr, ${sumIn(c, "cur", inP)}, ${sumIn(c, "prev", inP)} from r where usd is not null${pkF3()} group by pr
      union all select 'unconverted', ccy, ${sumIn(c, "cur", inP)}, ${sumIn(c, "prev", inP)} from r where usd is null${pkF3()} group by ccy`,
   );
-  const since = { sql: `select min(createdAt) a from purchase where provider in ('lemonsqueezy', 'contra') and status in ('paid', 'refunded', 'partial_refund')`, params: [] };
+  const since = { sql: `select min(createdAt) a from purchase where provider in ('lemonsqueezy', 'contra', 'creem') and status in ('paid', 'refunded', 'partial_refund')`, params: [] };
   return {
     statements: [wide, long, bd, since],
     finish: ([w, l, b, s]) => {

@@ -274,7 +274,7 @@ export type Filters = {
   system: string;
   /** Revenue: plan key */
   rplan: string;
-  /** Revenue: lemonsqueezy | contra */
+  /** Revenue: lemonsqueezy | contra | creem */
   provider: string;
 };
 export const FILTER_KEYS: (keyof Filters)[] = ["source", "uplan", "ref", "client", "system", "rplan", "provider"];

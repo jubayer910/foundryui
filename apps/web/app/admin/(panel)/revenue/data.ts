@@ -18,8 +18,8 @@ export const rangeOf = (v: string): RangeKey => (v in RANGES ? (v as RangeKey) :
 
 /** Order statuses that took money (a refund later gives some or all of it back). */
 const CHARGED = ["paid", "refunded", "partial_refund"];
-/** Providers whose orders took real money. Contra sales are approved by hand in /admin/activations. */
-const PAID_PROVIDERS = ["lemonsqueezy", "contra"];
+/** Providers whose orders took real money. Contra sales are matched in /admin/activations; Creem rows come from its webhook. */
+const PAID_PROVIDERS = ["lemonsqueezy", "contra", "creem"];
 /** Subscription statuses that still bill. */
 const BILLING = ["active", "past_due"];
 const LIVE = ["active", "on_trial", "past_due"];
@@ -41,8 +41,9 @@ const parse = (raw: string | null): { attrs: Attrs; source: "webhook" | "sync" |
 const int = (v: unknown): number | null => (typeof v === "number" && Number.isFinite(v) ? Math.round(v) : typeof v === "string" && /^-?\d+$/.test(v) ? Number(v) : null);
 
 /** Where a purchase row came from, for the orders table. */
-export function sourceOf(p: { provider: string; raw: string | null }): "webhook" | "sync" | "manual" | "contra" | "gift" | "appsumo" | "unknown" {
+export function sourceOf(p: { provider: string; raw: string | null }): "webhook" | "sync" | "manual" | "contra" | "creem" | "gift" | "appsumo" | "unknown" {
   if (p.provider === "contra") return "contra";
+  if (p.provider === "creem") return "creem";
   if (p.provider === "gift") return "gift";
   if (p.provider === "appsumo") return "appsumo";
   if (p.provider !== "lemonsqueezy") return "manual";

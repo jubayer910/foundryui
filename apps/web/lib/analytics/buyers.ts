@@ -45,7 +45,7 @@ select p.id pid, p.userId uid, p.email email, p.provider provider, p.plan plan, 
   (select min(cs.paidOn) from contra_sale cs where cs.userId = coalesce(p.userId, u.id)) paidOn
 from purchase p
 left join user u on u.id = p.userId or (p.userId is null and lower(u.email) = lower(p.email))
-where ((p.provider in ('lemonsqueezy','contra') and p.status in ('paid','partial_refund')) or (p.provider = 'appsumo' and p.status = 'granted'))
+where ((p.provider in ('lemonsqueezy','contra','creem') and p.status in ('paid','partial_refund')) or (p.provider = 'appsumo' and p.status = 'granted'))
   and p.createdAt >= ?
 order by p.createdAt desc
 limit 2000`;
@@ -55,6 +55,7 @@ const ts = (v: unknown) => (v === null || v === undefined ? null : Number(v) > 1
 function channelOf(provider: string, paidBeforeAccount: boolean): string | null {
   if (provider === "appsumo") return "AppSumo";
   if (provider === "contra" && paidBeforeAccount) return "Contra (bought on Contra)";
+  if (provider === "creem" && paidBeforeAccount) return "Creem (paid before signing up)";
   return null;
 }
 
@@ -73,7 +74,10 @@ export async function loadBuyers(days: number | null): Promise<{ buyers: Buyer[]
     const last = readTouch(r.srcLast as string | null);
     const signedUpAt = ts(r.signedUpAt);
     const paidOn = r.paidOn ? Date.parse(String(r.paidOn) + "T23:59:59Z") : null;
-    const paidBeforeAccount = String(r.provider) === "contra" && (!signedUpAt || (paidOn !== null && paidOn < signedUpAt));
+    const boughtAt = ts(r.boughtAt);
+    // Contra and signed-out Creem buyers can pay before they have an account.
+    const paidBeforeAccount =
+      String(r.provider) === "contra" ? !signedUpAt || (paidOn !== null && paidOn < signedUpAt) : String(r.provider) === "creem" ? !signedUpAt || (boughtAt !== null && boughtAt < signedUpAt) : false;
     const ref = (r.ref as string | null) || null;
     const channel = channelOf(String(r.provider), paidBeforeAccount);
     const trackedFirst = first?.source ?? last?.source ?? null;

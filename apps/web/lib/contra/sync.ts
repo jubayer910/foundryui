@@ -8,6 +8,7 @@ import { alreadyHas, approveActivation, findPendingByPayer, grantOf, mailBuyer, 
 import { getConnection, isConnected, setConnectionStatus } from "./oauth";
 import { contraToolCaller, type ToolCaller } from "./mcp";
 import { claimToken, verifyClaimToken } from "./claim-token";
+import { provenAt } from "../billing";
 
 const SITE = "https://ingotui.com";
 
@@ -728,7 +729,7 @@ export function saleStart(sale: Pick<Sale, "paidOn" | "createdAt">): number {
  * auth provider (e.g. Google), or the account existed before the sale (nobody can predict a future buyer's
  * email). A newer email+password account must prove inbox access with the claim link instead.
  */
-export const provenFor = (u: Pick<Account, "emailVerified" | "createdAt">, sale: Pick<Sale, "paidOn" | "createdAt">) => !!u.emailVerified || u.createdAt.getTime() < saleStart(sale);
+export const provenFor = (u: Pick<Account, "emailVerified" | "createdAt">, sale: Pick<Sale, "paidOn" | "createdAt">) => provenAt(u, saleStart(sale));
 
 const accountCols = () => ({ id: schema.user.id, email: schema.user.email, plan: schema.user.plan, emailVerified: schema.user.emailVerified, createdAt: schema.user.createdAt });
 

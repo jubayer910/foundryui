@@ -1,7 +1,7 @@
 import "server-only";
 import { eq } from "drizzle-orm";
 import { getDb, schema } from "@/lib/db";
-import { entitlement } from "@/lib/lemonsqueezy";
+import { entitlement } from "@/lib/billing";
 import type { PlanId } from "@/lib/plans";
 
 export const PLANS = ["free", "pro", "lifetime"] as const;

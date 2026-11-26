@@ -12,6 +12,12 @@ interface CloudflareEnv {
   LEMONSQUEEZY_WEBHOOK_SECRET?: string;
   /** "1" lets test-mode webhook events grant plans (local testing only; never set on the live site). */
   LEMONSQUEEZY_ALLOW_TEST?: string;
+  /** Creem (lib/creem.ts), set with `wrangler secret put`. creem_test_ keys use the test API. Product ids live in admin → Pricing. */
+  CREEM_API_KEY?: string;
+  /** Creem webhook signing secret (Developers → Webhooks), checks the creem-signature header. */
+  CREEM_WEBHOOK_SECRET?: string;
+  /** "1" lets test-mode Creem events grant plans (local testing only; never set on the live site). */
+  CREEM_ALLOW_TEST?: string;
   /** Resend API key: lib/mail.ts sends every email through Resend when set. */
   RESEND_API_KEY?: string;
   /** Local testing only: point the revenue sync at a mock API on localhost. Ignored in production. */

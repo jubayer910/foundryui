@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 import { NOINDEX } from "@/lib/seo";
 import { getSessionUser } from "@/lib/auth";
 import { productName } from "@/lib/activation";
-import { checkClaim, claimSale } from "@/lib/contra/sync";
+import { checkAnyClaim, claimAny } from "@/lib/claim";
 import { PageHead } from "@/components/site/page-head";
 import { AIcon } from "@/components/admin/admin-icons";
 
@@ -19,7 +19,7 @@ export const dynamic = "force-dynamic";
 export default async function ClaimPage({ searchParams }: PageProps<"/claim">) {
   const sp = await searchParams;
   const t = typeof sp.t === "string" ? sp.t.slice(0, 600) : "";
-  const check = await checkClaim(t);
+  const check = await checkAnyClaim(t);
   if (!check.ok)
     return (
       <Shell>
@@ -34,9 +34,8 @@ export default async function ClaimPage({ searchParams }: PageProps<"/claim">) {
       </Shell>
     );
 
-  const sale = check.sale;
-  const payer = sale.payerEmail ?? "";
-  const product = productName(sale.variantKey);
+  const payer = check.payerEmail;
+  const product = productName(check.variantKey);
   const here = "/claim?t=" + encodeURIComponent(t);
   const user = await getSessionUser().catch(() => null);
 
@@ -57,7 +56,7 @@ export default async function ClaimPage({ searchParams }: PageProps<"/claim">) {
       </Shell>
     );
 
-  const r = await claimSale(t, user);
+  const r = await claimAny(t, user);
   if (r.ok) redirect("/account?welcome=1");
   return (
     <Shell>
@@ -87,7 +86,7 @@ export default async function ClaimPage({ searchParams }: PageProps<"/claim">) {
 function Shell({ children }: { children: React.ReactNode }) {
   return (
     <div className="mx-auto max-w-[560px]">
-      <PageHead title="Activate your purchase" sub="Thanks for buying Ingot UI on Contra." />
+      <PageHead title="Activate your purchase" sub="Thanks for buying Ingot UI." />
       {children}
     </div>
   );

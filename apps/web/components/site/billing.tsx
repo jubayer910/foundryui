@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Icon } from "@/registry/components/icons";
 
-export type BillingSub = { interval: string; status: string; renewsAt: string | null; endsAt: string | null; portalUrl: string | null };
+export type BillingSub = { interval: string; status: string; renewsAt: string | null; endsAt: string | null; portalUrl: string | null; /** Creem: Manage billing posts to /api/billing/portal for a fresh portal link */ portal?: boolean };
 export type Receipt = { id: string; date: string; label: string; amount: string; status: string; url: string | null };
 
 const day = (iso: string | null) => (iso ? new Date(iso).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }) : null);
@@ -78,7 +78,14 @@ export function Billing({ plan, sub, receipts }: { plan: string; sub: BillingSub
           <p className="text-[13px] font-medium">{title.trim()}</p>
           <p className="text-[13px] text-mute">{line}</p>
         </div>
-        {sub?.portalUrl && sub.status !== "expired" ? (
+        {sub?.portal && sub.status !== "expired" ? (
+          <form action="/api/billing/portal" method="post" target="_blank">
+            <button type="submit" className="btn-line">
+              Manage billing
+              <Icon name="arrow-up-right" size={14} />
+            </button>
+          </form>
+        ) : sub?.portalUrl && sub.status !== "expired" ? (
           <a href={sub.portalUrl} target="_blank" rel="noopener noreferrer" className="btn-line">
             Manage billing
             <Icon name="arrow-up-right" size={14} />

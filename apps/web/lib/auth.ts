@@ -7,10 +7,11 @@ import { eq } from "drizzle-orm";
 import { getDb, getEnv, schema } from "./db";
 import { getEffectivePlan } from "./plans";
 
+/** Contra and Creem sales paid with this email (lib/claim.ts matchPaidSales). Never throws. */
 async function contraMatch(email: string) {
   try {
-    const { matchForEmail } = await import("./contra/sync");
-    await matchForEmail(email);
+    const { matchPaidSales } = await import("./claim");
+    await matchPaidSales(email);
   } catch {}
 }
 
@@ -37,8 +38,8 @@ export async function getAuth() {
     },
     user: { additionalFields: { plan: { type: "string", defaultValue: "free", input: false }, role: { type: "string", defaultValue: "user", input: false } } },
     plugins: [nextCookies()],
-    // Contra sales paid with this email switch the plan on as soon as the buyer signs up or signs in
-    // (lib/contra/sync.ts matchForEmail: local D1 only, never throws, never blocks the sign-up).
+    // Contra and Creem sales paid with this email switch the plan on as soon as the buyer signs up or signs in
+    // with a proven email (lib/claim.ts matchPaidSales: local D1 only, never throws, never blocks the sign-up).
     databaseHooks: {
       // new account: match a Contra sale, then the welcome email (never blocks or fails the sign-up)
       user: {

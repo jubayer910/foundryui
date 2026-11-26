@@ -3,6 +3,7 @@ import { revalidatePath } from "next/cache";
 import { audit, requireStaff } from "@/lib/admin";
 import { dealEndMs, getDeal } from "@/lib/plans";
 import { getSettings, setSetting, type Settings } from "@/lib/settings";
+import { PRODUCT_ID_RE } from "@/lib/creem";
 
 export type PricingState = { ok?: string; errors?: Record<string, string> };
 
@@ -36,6 +37,14 @@ export async function savePricing(_prev: PricingState, f: FormData): Promise<Pri
     else if (v.length > 500) errors["ext_" + k] = "That link is too long";
     externalCheckout[k] = v;
   }
+
+  const creemProducts = {} as Settings["creem"]["products"];
+  for (const k of PRICE_KEYS) {
+    const v = str("creem_" + k);
+    if (v && !PRODUCT_ID_RE.test(v)) errors["creem_" + k] = "Creem product IDs look like prod_…";
+    creemProducts[k] = v;
+  }
+  const creem: Settings["creem"] = { products: creemProducts, preferContra: f.get("creem_preferContra") === "on" };
 
   const deal = await getDeal();
   const spots = Number(str("spotsTotal"));
@@ -75,10 +84,11 @@ export async function savePricing(_prev: PricingState, f: FormData): Promise<Pri
   await setSetting("prices", prices);
   await setSetting("variants", variants);
   await setSetting("externalCheckout", externalCheckout);
+  await setSetting("creem", creem);
   await setSetting("deal", dealNext);
-  await audit(me.email, "settings.pricing", "prices,variants,deal", {
-    before: { prices: before.prices, variants: before.variants, externalCheckout: before.externalCheckout, deal: before.deal },
-    after: { prices, variants, externalCheckout, deal: dealNext },
+  await audit(me.email, "settings.pricing", "prices,variants,creem,deal", {
+    before: { prices: before.prices, variants: before.variants, externalCheckout: before.externalCheckout, creem: before.creem, deal: before.deal },
+    after: { prices, variants, externalCheckout, creem, deal: dealNext },
   });
   revalidatePath("/pricing");
   revalidatePath("/", "layout");

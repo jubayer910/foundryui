@@ -21,7 +21,7 @@ export const metadata: Metadata = { title: "Orders" };
 
 const PURCHASE_STATUS = ["paid", "pending", "granted", "refunded", "revoked"];
 const GIVEN = ["manual", "gift"];
-const SOURCE_HINT = { webhook: "Written by a Lemon Squeezy webhook", sync: "Written by Sync now (Lemon Squeezy API)", manual: "Granted by hand in admin", gift: "Gifted Lifetime from Users, not a sale", appsumo: "AppSumo code redeemed at /redeem", contra: "Paid on Contra, approved in Activations", unknown: "Source not recorded" } as const;
+const SOURCE_HINT = { webhook: "Written by a Lemon Squeezy webhook", sync: "Written by Sync now (Lemon Squeezy API)", manual: "Granted by hand in admin", gift: "Gifted Lifetime from Users, not a sale", appsumo: "AppSumo code redeemed at /redeem", contra: "Paid on Contra, approved in Activations", creem: "Paid on Creem, written by its webhook", unknown: "Source not recorded" } as const;
 const SUB_STATUS = ["active", "on_trial", "past_due", "paused", "unpaid", "cancelled", "expired"];
 const PER_PAGE = 50;
 const sel = input + " !w-auto appearance-none pr-7";
@@ -203,7 +203,7 @@ export default async function AdminOrders({ searchParams }: PageProps<"/admin/or
                 {subs.map((s) => (
                   <PhoneRow
                     key={s.id}
-                    href={s.userId ? `/admin/users/${s.userId}` : s.provider === "contra" ? "/admin/activations" : `https://app.lemonsqueezy.com/subscriptions/${encodeURIComponent(s.providerSubId)}`}
+                    href={s.userId ? `/admin/users/${s.userId}` : s.provider === "contra" ? "/admin/activations" : s.provider === "creem" ? "https://www.creem.io/dashboard" : `https://app.lemonsqueezy.com/subscriptions/${encodeURIComponent(s.providerSubId)}`}
                     external={!s.userId && s.provider !== "contra"}
                     title={s.email}
                     meta={
@@ -237,6 +237,10 @@ export default async function AdminOrders({ searchParams }: PageProps<"/admin/or
                     <Link href="/admin/activations" className="text-mute hover:underline" title="Renewals are checked by hand in Activations">
                       Contra
                     </Link>
+                  ) : s.provider === "creem" ? (
+                    <span className="font-mono text-[12px] text-mute" title="Creem subscription; manage it in the Creem dashboard">
+                      {s.providerSubId}
+                    </span>
                   ) : (
                     <a href={`https://app.lemonsqueezy.com/subscriptions/${encodeURIComponent(s.providerSubId)}`} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 font-mono text-[12px] hover:underline">
                       {s.providerSubId}
@@ -290,6 +294,8 @@ export default async function AdminOrders({ searchParams }: PageProps<"/admin/or
                   </a>
                 ) : o.provider === "contra" ? (
                   <Link key="o" href="/admin/activations?tab=approved" className="hover:underline">Contra, see Activations</Link>
+                ) : o.provider === "creem" ? (
+                  <span key="o" className="font-mono text-[12px]">Creem {o.providerOrderId}</span>
                 ) : (
                   "Manual grant"
                 ),

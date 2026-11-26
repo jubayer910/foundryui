@@ -464,3 +464,22 @@ export const signupFailure = sqliteTable(
   },
   (t) => [index("signup_failure_created_idx").on(t.createdAt), index("signup_failure_email_idx").on(t.email)],
 );
+
+/* ---- Creem webhook ledger (migrations/0023_creem.sql, lib/creem.ts) ---- */
+/**
+ * kind "event": one row per processed Creem webhook event (id = evt_...), so a retry with the same id is skipped.
+ * kind "mail": one row per buyer / support email already sent (id = "mail:<what>:<order or dispute id>"), claimed
+ * before sending, so a webhook retry or a duplicate event never mails twice.
+ */
+export const creemEvent = sqliteTable(
+  "creem_event",
+  {
+    id: text("id").primaryKey(),
+    kind: text("kind").notNull().default("event"),
+    eventType: text("eventType"),
+    /** short outcome, e.g. "purchase_paid", "invited", "subscription_expired" */
+    result: text("result"),
+    createdAt: ts("createdAt").notNull(),
+  },
+  (t) => [index("creem_event_kind_idx").on(t.kind, t.createdAt)],
+);

@@ -15,6 +15,13 @@ export type Settings = {
   variants: { proMonthly: string; proYearly: string; lifetimeDeal: string; lifetimeAfter: string; teamMonthly: string; teamYearly: string };
   /** External checkout page per option (e.g. a Contra product link), used when Lemon Squeezy checkout is not set up. Empty = waitlist. */
   externalCheckout: { proMonthly: string; proYearly: string; lifetimeDeal: string; lifetimeAfter: string; teamMonthly: string; teamYearly: string };
+  /**
+   * Creem (creem.io, Merchant of Record) product IDs per paid option ("prod_..."), lib/creem.ts. Not secret: the
+   * API key and webhook secret are Worker secrets (CREEM_API_KEY, CREEM_WEBHOOK_SECRET). Empty product = that
+   * option falls back to Lemon Squeezy, then the Contra link, then the waitlist. preferContra: send buyers to the
+   * Contra link (when the option has one) even while Creem is set up, to fall back fast.
+   */
+  creem: { products: { proMonthly: string; proYearly: string; lifetimeDeal: string; lifetimeAfter: string; teamMonthly: string; teamYearly: string }; preferContra: boolean };
   deal: {
     enabled: boolean;
     spotsTotal: number; // "first N buyers"
@@ -43,6 +50,7 @@ export const DEFAULT_SETTINGS: Settings = {
   prices: { proMonthly: 0, proYearly: 39, lifetimeDeal: 49, lifetimeAfter: 99, teamMonthly: 0, teamYearly: 129 },
   variants: { proMonthly: "", proYearly: "", lifetimeDeal: "", lifetimeAfter: "", teamMonthly: "", teamYearly: "" },
   externalCheckout: { proMonthly: "", proYearly: "", lifetimeDeal: "", lifetimeAfter: "", teamMonthly: "", teamYearly: "" },
+  creem: { products: { proMonthly: "", proYearly: "", lifetimeDeal: "", lifetimeAfter: "", teamMonthly: "", teamYearly: "" }, preferContra: false },
   deal: { enabled: true, spotsTotal: 100, after: "price", endsAt: "", showSpots: true, showTimer: true },
   support: { email: "support@ingotui.com", contactEmail: "support@ingotui.com", notify: true },
   announcement: { enabled: true, text: "Launch deal: Lifetime for $49 instead of $99, every future update included", href: "/pricing" },

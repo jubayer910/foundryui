@@ -1,0 +1,10 @@
+# Copy to .dev.vars for `next dev` / `wrangler dev` (never commit .dev.vars). On the live Worker set secrets
+# with `npx wrangler secret put NAME` instead. Placeholders only: never put real values in this file.
+
+# --- Creem (lib/creem.ts). Product IDs are not secrets: set them in Admin > Pricing & deal, Creem product IDs.
+# API key from Creem > Developers > API keys. A creem_test_ key uses https://test-api.creem.io.
+CREEM_API_KEY=creem_test_xxxxxxxxxxxxxxxxxxxxxxxx
+# Signing secret of the webhook https://<host>/api/webhooks/creem (Creem > Developers > Webhooks).
+CREEM_WEBHOOK_SECRET=whsec_xxxxxxxxxxxxxxxxxxxxxxxx
+# 1 = test-mode events grant plans. Local testing only; never set this on the live site.
+CREEM_ALLOW_TEST=1

@@ -56,10 +56,10 @@ export default async function AccountPage({ searchParams }: PageProps<"/account"
   // The live subscription first (active / trial / past due / cancelled-but-running), else the latest one.
   const live = subs.find((s) => ["active", "on_trial", "past_due"].includes(s.status)) ?? subs.find((s) => s.status === "cancelled" && (!s.endsAt || s.endsAt > new Date())) ?? subs[0];
   const sub: BillingSub | null = live
-    ? { interval: live.interval, status: live.status, renewsAt: live.renewsAt?.toISOString() ?? null, endsAt: live.endsAt?.toISOString() ?? null, portalUrl: live.portalUrl }
+    ? { interval: live.interval, status: live.status, renewsAt: live.renewsAt?.toISOString() ?? null, endsAt: live.endsAt?.toISOString() ?? null, portalUrl: live.portalUrl, portal: live.provider === "creem" }
     : null;
   const receipts: Receipt[] = purchases
-    .filter((p) => p.provider === "lemonsqueezy" || p.provider === "contra")
+    .filter((p) => p.provider === "lemonsqueezy" || p.provider === "contra" || p.provider === "creem")
     .map((p) => ({
       id: p.id,
       date: p.createdAt.toISOString(),
@@ -116,6 +116,11 @@ export default async function AccountPage({ searchParams }: PageProps<"/account"
           </div>
         ))}
       </div>
+      {(sp.billing === "error" || sp.billing === "unavailable") && (
+        <div role="alert" className="mt-5 rounded-[8px] bg-tile p-4 text-[13px]">
+          <span className="font-medium">We could not open billing right now.</span> <span className="text-mute">Try again in a minute, or use the link in your Creem receipt email.</span>
+        </div>
+      )}
       <Billing plan={user.plan} sub={sub} receipts={receipts} />
       <TeamSeats invite={typeof sp.invite === "string" ? sp.invite : null} />
       <section className="mt-10">

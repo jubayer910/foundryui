@@ -26,6 +26,13 @@ type Values = {
   ext_teamYearly: string;
   ext_lifetimeDeal: string;
   ext_lifetimeAfter: string;
+  creem_proMonthly: string;
+  creem_proYearly: string;
+  creem_teamMonthly: string;
+  creem_teamYearly: string;
+  creem_lifetimeDeal: string;
+  creem_lifetimeAfter: string;
+  creem_preferContra: boolean;
   deal_enabled: boolean;
   spotsTotal: string;
   after: "price" | "closed";
@@ -82,7 +89,10 @@ const usd = (s: string) => {
   return "$" + (Number.isInteger(n) ? n : n.toFixed(2));
 };
 
-export function PricingForm({ initial, sold, action }: { initial: Values; sold: number; action: (s: PricingState, f: FormData) => Promise<PricingState> }) {
+/** What is set up for Creem (lib/creem.ts creemStatus). Booleans only: secrets never reach the page. */
+export type CreemSetup = { apiKey: boolean; mode: "test" | "live" | null; webhookSecret: boolean; allowTest: boolean };
+
+export function PricingForm({ initial, sold, action, creem }: { initial: Values; sold: number; action: (s: PricingState, f: FormData) => Promise<PricingState>; creem: CreemSetup }) {
   const [v, setV] = useState<Values>(initial);
   const [state, formAction, pending] = useActionState(action, {});
   const set = <K extends keyof Values>(k: K, val: Values[K]) => setV((p) => ({ ...p, [k]: val }));
@@ -119,6 +129,14 @@ export function PricingForm({ initial, sold, action }: { initial: Values; sold: 
         aria-invalid={!!err(k)}
         className={inputCls}
       />
+      {err(k) && <span className="text-[12px] text-[#c62828]">{err(k)}</span>}
+    </label>
+  );
+
+  const pid = (k: keyof Values, label: string) => (
+    <label className="flex flex-col gap-1">
+      <span className="text-[12px] text-mute">{label}</span>
+      <input name={k} placeholder="prod_…" spellCheck={false} autoComplete="off" value={v[k] as string} onChange={(e) => set(k, e.target.value as never)} aria-invalid={!!err(k)} className={inputCls + " font-mono"} />
       {err(k) && <span className="text-[12px] text-[#c62828]">{err(k)}</span>}
     </label>
   );
@@ -250,6 +268,29 @@ export function PricingForm({ initial, sold, action }: { initial: Values; sold: 
         </fieldset>
 
         <fieldset className="card p-4">
+          <legend className="sr-only">Creem</legend>
+          <p className="text-[13px] font-medium">Creem product IDs</p>
+          <p className="mt-0.5 text-[12px] text-faint">Creem sells an option once its product ID is here and the API key is set. Buyers pay without an account; the webhook switches the plan on.</p>
+          <ul className="mt-3 grid gap-1 text-[12px]" aria-label="Creem setup">
+            <SetupRow ok={creem.apiKey} label={creem.apiKey ? "API key set (" + (creem.mode === "test" ? "test mode, test-api.creem.io" : "live") + ")" : "API key missing: wrangler secret put CREEM_API_KEY"} />
+            <SetupRow ok={creem.webhookSecret} label={creem.webhookSecret ? "Webhook secret set" : "Webhook secret missing: wrangler secret put CREEM_WEBHOOK_SECRET"} />
+            {creem.allowTest && <SetupRow ok={false} label="CREEM_ALLOW_TEST=1: test payments grant plans. Remove it on the live site." />}
+          </ul>
+          <div className="mt-3 grid grid-cols-2 gap-3">
+            {pid("creem_proMonthly", "Pro monthly")}
+            {pid("creem_proYearly", "Pro yearly")}
+            {pid("creem_teamMonthly", "Team monthly")}
+            {pid("creem_teamYearly", "Team yearly")}
+            {pid("creem_lifetimeDeal", "Lifetime deal")}
+            {pid("creem_lifetimeAfter", "Lifetime after deal")}
+          </div>
+          <label className={toggleCls + " mt-3"}>
+            <input type="checkbox" name="creem_preferContra" checked={v.creem_preferContra} onChange={(e) => set("creem_preferContra", e.target.checked)} className="size-4 accent-[#0b0b0b]" />
+            Prefer Contra: send buyers to the Contra link when an option has one
+          </label>
+        </fieldset>
+
+        <fieldset className="card p-4">
           <legend className="sr-only">Lemon Squeezy variant IDs</legend>
           <p className="text-[13px] font-medium">Lemon Squeezy variant IDs</p>
           <p className="mt-0.5 text-[12px] text-faint">Empty means that option collects waitlist emails instead of opening checkout.</p>
@@ -266,7 +307,7 @@ export function PricingForm({ initial, sold, action }: { initial: Values; sold: 
         <fieldset className="card p-4">
           <legend className="sr-only">External checkout links</legend>
           <p className="text-[13px] font-medium">External checkout links (Contra)</p>
-          <p className="mt-0.5 text-[12px] text-faint">Used only when an option has no Lemon Squeezy variant. The buy button opens this link; you activate the plan by hand in Orders, Grant plan. Empty means waitlist.</p>
+          <p className="mt-0.5 text-[12px] text-faint">Used when an option has no Creem product or Lemon Squeezy variant, or when Prefer Contra is on. The buy button opens this link; you activate the plan by hand in Orders, Grant plan. Empty means waitlist.</p>
           <div className="mt-3 grid grid-cols-2 gap-3">
             {link("ext_proMonthly", "Pro monthly")}
             {link("ext_proYearly", "Pro yearly")}
@@ -322,13 +363,13 @@ export function PricingForm({ initial, sold, action }: { initial: Values; sold: 
         )}
         <div className="grid grid-cols-2 gap-3">
           <PreviewCard name="Free" price="$0" per="forever" note="5 free copies, every system to browse" />
-          <PreviewCard name="Pro" price={usd(v.price_proMonthly)} per="per month" note="Every component in code and Figma" missing={!v.variant_proMonthly} />
+          <PreviewCard name="Pro" price={usd(v.price_proMonthly)} per="per month" note="Every component in code and Figma" missing={!v.variant_proMonthly && !v.creem_proMonthly && !v.ext_proMonthly} />
           <PreviewCard
             name="Pro yearly"
             price={usd(v.price_proYearly)}
             per="per year"
             note={Number.isFinite(yearlyMonthly) && yearlyMonthly > 0 ? `${usd(yearlyMonthly.toFixed(2))} a month${saving > 0 ? `, save ${saving}%` : ""}` : "Billed yearly"}
-            missing={!v.variant_proYearly}
+            missing={!v.variant_proYearly && !v.creem_proYearly && !v.ext_proYearly}
           />
           {closed ? (
             <PreviewCard name="Lifetime" price="Closed" per="" note={ended ? "The launch deal has ended" : "All launch spots are taken"} muted />
@@ -342,10 +383,10 @@ export function PricingForm({ initial, sold, action }: { initial: Values; sold: 
               meter={v.deal_showSpots && total ? left / total : undefined}
               timer={v.deal_showTimer && hasEnd && mounted ? v.deal_endsAt : undefined}
               highlight
-              missing={!v.variant_lifetimeDeal}
+              missing={!v.variant_lifetimeDeal && !v.creem_lifetimeDeal && !v.ext_lifetimeDeal}
             />
           ) : (
-            <PreviewCard name="Lifetime" price={usd(v.price_lifetimeAfter)} per="once" note={ended ? "The launch deal has ended" : v.deal_enabled ? "Launch spots are gone" : "Pay once, keep every update"} missing={!v.variant_lifetimeAfter} />
+            <PreviewCard name="Lifetime" price={usd(v.price_lifetimeAfter)} per="once" note={ended ? "The launch deal has ended" : v.deal_enabled ? "Launch spots are gone" : "Pay once, keep every update"} missing={!v.variant_lifetimeAfter && !v.creem_lifetimeAfter && !v.ext_lifetimeAfter} />
           )}
         </div>
         <p className="mt-2 text-[12px] text-faint">
@@ -363,6 +404,15 @@ export function PricingForm({ initial, sold, action }: { initial: Values; sold: 
         </p>
       </div>
     </form>
+  );
+}
+
+function SetupRow({ ok, label }: { ok: boolean; label: string }) {
+  return (
+    <li className={"flex items-center gap-1.5 " + (ok ? "text-mute" : "text-[#c62828]")}>
+      <Icon name={ok ? "check" : "x"} size={13} className="shrink-0" />
+      {label}
+    </li>
   );
 }
 
@@ -387,7 +437,7 @@ function PreviewCard({ name, price, per, note, strike, meter, timer, highlight, 
         </div>
       )}
       <p className={"mt-2 text-[12px] " + (highlight ? "text-white/70" : "text-mute")}>{note}</p>
-      {missing && <p className={"mt-auto pt-2 text-[11px] max-md:text-[12px] " + (highlight ? "text-white/50" : "text-faint")}>No variant ID: shows the waitlist</p>}
+      {missing && <p className={"mt-auto pt-2 text-[11px] max-md:text-[12px] " + (highlight ? "text-white/50" : "text-faint")}>No checkout set: shows the waitlist</p>}
     </div>
   );
 }

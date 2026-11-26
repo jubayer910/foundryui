@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { getDeal } from "@/lib/plans";
 import { getSettings } from "@/lib/settings";
 import { requireStaff } from "@/lib/admin";
+import { getEnv } from "@/lib/db";
+import { creemStatus } from "@/lib/creem";
 import { AdminHead } from "@/components/admin/ui";
 import { PricingForm } from "@/components/admin/pricing-form";
 import { savePricing } from "./actions";
@@ -12,12 +14,14 @@ export default async function AdminPricing() {
   await requireStaff("pricing", "/admin/pricing");
   const s = await getSettings();
   const deal = await getDeal(s);
+  const creem = creemStatus(await getEnv().catch(() => ({}) as CloudflareEnv), s);
   const str = (n: number) => String(n);
   return (
     <div>
       <AdminHead title="Pricing & deal" info="Prices and the Lifetime launch deal with its spots and end date." />
       <PricingForm
         sold={deal.sold}
+        creem={creem}
         action={savePricing}
         initial={{
           price_proMonthly: str(s.prices.proMonthly),
@@ -38,6 +42,13 @@ export default async function AdminPricing() {
           ext_teamYearly: s.externalCheckout?.teamYearly ?? "",
           ext_lifetimeDeal: s.externalCheckout?.lifetimeDeal ?? "",
           ext_lifetimeAfter: s.externalCheckout?.lifetimeAfter ?? "",
+          creem_proMonthly: s.creem?.products?.proMonthly ?? "",
+          creem_proYearly: s.creem?.products?.proYearly ?? "",
+          creem_teamMonthly: s.creem?.products?.teamMonthly ?? "",
+          creem_teamYearly: s.creem?.products?.teamYearly ?? "",
+          creem_lifetimeDeal: s.creem?.products?.lifetimeDeal ?? "",
+          creem_lifetimeAfter: s.creem?.products?.lifetimeAfter ?? "",
+          creem_preferContra: !!s.creem?.preferContra,
           deal_enabled: s.deal.enabled,
           spotsTotal: str(s.deal.spotsTotal),
           after: s.deal.after,

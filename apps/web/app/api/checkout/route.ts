@@ -3,15 +3,16 @@ import { saveTouch } from "@/lib/analytics/attribution";
 import { getDb, getEnv, schema } from "@/lib/db";
 import { audit } from "@/lib/admin";
 import { checkoutKeys, createCheckout } from "@/lib/lemonsqueezy";
-import { getEffectivePlan, getPriceBook, isCheckoutOption, isPaid, isTeamActive, isTeamOption, variantKeyFor, type CheckoutOption, isMonthlyOff } from "@/lib/plans";
+import { checkoutBody, createCheckout as createCreemCheckout, pickCheckout, type CreemKeys } from "@/lib/creem";
+import { getEffectivePlan, getPriceBook, isCheckoutOption, isPaid, isTeamActive, isTeamOption, variantKeyFor, type CheckoutOption, type VariantKey, isMonthlyOff } from "@/lib/plans";
 
 /**
  * POST /api/checkout  (form field or JSON body: option = proMonthly | proYearly | teamMonthly | teamYearly | lifetime)
- * Signed out → straight to the external checkout (Contra) when that is how the option sells; otherwise
- * sign up first, then back to /pricing?buy=<option>.
- * Keys or variant missing → the admin's external checkout link for that option (e.g. Contra) if set,
- * otherwise a waitlist row and /pricing?waitlist=<option>.
- * Otherwise → a Lemon Squeezy hosted checkout (303).
+ * Provider order per variant (lib/creem.ts pickCheckout): Creem (API key + product id) > Lemon Squeezy (keys +
+ * variant id) > the admin's external link (Contra) > waitlist. "Prefer Contra" in admin puts the Contra link first.
+ * Signed out: Creem and Contra take payment without an account (the sale is matched to an account by the payer's
+ * email later: lib/creem.ts, lib/contra); Lemon Squeezy and the waitlist ask to sign up first, then back to
+ * /pricing?buy=<option>.
  * JSON callers get { url } instead of a redirect.
  */
 export async function POST(req: Request) {
@@ -25,23 +26,46 @@ export async function POST(req: Request) {
   if (!isCheckoutOption(raw)) return isJson ? Response.json({ error: "unknown_option" }, { status: 400 }) : go("/pricing");
   const option: CheckoutOption = raw;
 
+  /** A Creem hosted checkout; the webhook grants the plan. */
+  const creem = async (keys: CreemKeys, productId: string, key: VariantKey, buyer: { email: string; id: string } | null) => {
+    try {
+      const body = checkoutBody({
+        productId,
+        variantKey: key,
+        option,
+        // Signed out: a thank-you page that says to check the inbox (the account is matched by email).
+        successUrl: origin + (buyer ? "/account?welcome=1" : "/thanks?paid=" + option),
+        email: buyer?.email,
+        userId: buyer?.id,
+      });
+      const { url } = await createCreemCheckout(keys, body);
+      try {
+        await audit(buyer?.email ?? "guest", "checkout.creem", key, { option, userId: buyer?.id ?? null, requestId: body.request_id });
+      } catch {}
+      return go(url);
+    } catch (e) {
+      console.error("creem checkout", e instanceof Error ? e.message : e);
+      return go("/pricing?error=checkout");
+    }
+  };
+
   const user = await getSessionUser();
   // where this buyer came from: refresh the account's touch and count the checkout per source
   await saveTouch(user?.id ?? null, "checkout", option);
   if (!user) {
-    // Signed out: when this option sells through an external checkout (Contra) and not Lemon Squeezy,
-    // go straight there. No account needed to pay: the Contra sale is matched to an account later by
-    // the payer's email (lib/contra), and the buyer gets an email telling them what happens next.
+    // Signed out: Creem and Contra need no account to pay. The webhook (Creem) or the sync (Contra) matches the
+    // sale to an account by the payer's email, and the buyer gets an email telling them what happens next.
     const pb = await getPriceBook();
     if (isMonthlyOff(pb, option)) return go("/pricing#plans");
     const key = variantKeyFor(pb, option);
-    const external = key ? pb.settings.externalCheckout?.[key]?.trim() : "";
-    const lsReady = !!(key && checkoutKeys(await getEnv()) && pb.settings.variants[key]?.trim());
-    if (key && !lsReady && external && /^https:\/\//.test(external)) {
+    if (!key) return go("/pricing?closed=1");
+    const pick = pickCheckout(await getEnv(), pb.settings, key);
+    if (pick.kind === "creem") return creem(pick.keys, pick.productId, key, null);
+    if (pick.kind === "external") {
       try {
-        await audit("guest", "checkout.external", key, { option, userId: null, url: external });
+        await audit("guest", "checkout.external", key, { option, userId: null, url: pick.url });
       } catch {}
-      return go(external);
+      return go(pick.url);
     }
     return go("/sign-up?next=" + encodeURIComponent("/pricing?buy=" + option));
   }
@@ -57,23 +81,25 @@ export async function POST(req: Request) {
 
   const pb = await getPriceBook();
   if (isMonthlyOff(pb, option)) return go("/pricing#plans");
+  // Lifetime resolves to the deal product only while the deal runs, else the after-deal product.
   const key = variantKeyFor(pb, option);
   if (!key) return go("/pricing?closed=1");
 
   const env = await getEnv();
-  const keys = checkoutKeys(env);
-  const variantId = pb.settings.variants[key]?.trim();
+  const pick = pickCheckout(env, pb.settings, key);
+  if (pick.kind === "creem") return creem(pick.keys, pick.productId, key, { email: user.email, id: user.id });
 
-  if (!keys || !variantId) {
-    // No Lemon Squeezy checkout: an external checkout link (e.g. a Contra product) wins over the waitlist.
-    // The plan is then granted by hand in admin; the audit row lets the owner match the buyer.
-    const external = pb.settings.externalCheckout?.[key]?.trim();
-    if (external && /^https:\/\//.test(external)) {
-      try {
-        await audit(user.email, "checkout.external", key, { option, userId: user.id, url: external });
-      } catch {}
-      return go(external);
-    }
+  if (pick.kind === "external") {
+    // An external checkout link (e.g. a Contra product). The Contra sync matches the sale; the audit row also
+    // lets the owner match the buyer by hand.
+    try {
+      await audit(user.email, "checkout.external", key, { option, userId: user.id, url: pick.url });
+    } catch {}
+    return go(pick.url);
+  }
+
+  const keys = checkoutKeys(env);
+  if (pick.kind === "waitlist" || !keys) {
     const db = await getDb();
     // Keep the price they saw: the variant key records deal vs after-deal for Lifetime.
     await db
@@ -84,7 +110,7 @@ export async function POST(req: Request) {
   }
 
   try {
-    const url = await createCheckout(keys, { variantId, email: user.email, userId: user.id, name: user.name, redirectUrl: origin + "/account?welcome=1", expiresAt: key === "lifetimeDeal" && pb.deal.endsAt ? new Date(pb.deal.endsAt).toISOString() : undefined });
+    const url = await createCheckout(keys, { variantId: pick.variantId, email: user.email, userId: user.id, name: user.name, redirectUrl: origin + "/account?welcome=1", expiresAt: key === "lifetimeDeal" && pb.deal.endsAt ? new Date(pb.deal.endsAt).toISOString() : undefined });
     return go(url);
   } catch (e) {
     console.error("checkout", e instanceof Error ? e.message : e);
