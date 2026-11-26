@@ -90,17 +90,14 @@ export default async function AccountPage({ searchParams }: PageProps<"/account"
           <AIcon name="chevron-right" size={16} className="shrink-0 text-faint" />
         </Link>
       ) : (
-        click &&
         user.plan === "free" &&
         !activation && (
-          <Link href={`/activate?plan=${click.option}`} className="mt-5 flex items-center gap-3 rounded-[8px] bg-tile p-4 text-[13px] hover:bg-chip">
-            <AIcon name="rosette-discount-check" size={18} className="shrink-0" />
-            <span className="min-w-0 flex-1">
-              <span className="block font-medium">Paid on Contra?</span>
-              <span className="block text-mute">Activate your plan in one step.</span>
-            </span>
-            <AIcon name="chevron-right" size={16} className="shrink-0 text-faint" />
-          </Link>
+          <p className="mt-5 text-[12px] text-mute">
+            Paid on Contra earlier?{" "}
+            <Link href={click ? `/activate?plan=${click.option}` : "/activate"} className="underline underline-offset-2 hover:text-ink">
+              Switch that plan on
+            </Link>
+          </p>
         )
       )}
       <OnboardingChecklist user={user} />

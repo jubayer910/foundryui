@@ -15,7 +15,7 @@ export default function PrivacyPage() {
       title="Privacy Policy"
       sub="What we collect, why, and how to get it deleted."
       sections={[
-        { id: "short", h: "The short version", body: <p className={LP}>We collect what we need to run Ingot UI: your account details, what you copy, and support messages. We don’t sell personal data or show ads. Payments are handled by Contra, so we never see your card number.</p> },
+        { id: "short", h: "The short version", body: <p className={LP}>We collect what we need to run Ingot UI: your account details, what you copy, and support messages. We don’t sell personal data or show ads. Payments are handled by Creem, so we never see your card number.</p> },
         {
           id: "collect",
           h: "What we collect",
@@ -25,7 +25,7 @@ export default function PrivacyPage() {
                 <><strong className="font-medium text-ink">Account:</strong> your name, email and a password (stored only as a one-way hash), your plan, and the API keys you create (stored as hashes; we show the full key once). If creating your account fails because of an error on our side, we keep the name and email you typed (never the password) so we can tell you once it works.</>,
                 <><strong className="font-medium text-ink">Usage:</strong> which components or icons you copy, download or install, and whether it was from the website, the CLI or the MCP server. Without an account we keep a counter for the 5 free copies, tied to a random browser ID and a short-lived count per network address.</>,
                 <><strong className="font-medium text-ink">Support:</strong> the name, email and messages you send through the help widget, the support page or email.</>,
-                <><strong className="font-medium text-ink">Purchases:</strong> when you pay on Contra we see the email you paid with, the plan, the amount and the order status, and you tell us that email when you click Activate. Card and billing details stay with Contra.</>,
+                <><strong className="font-medium text-ink">Purchases:</strong> when you pay, Creem tells us the email you paid with, your name, the plan, the amount and the order status, so we can switch your plan on. Card and billing details stay with Creem. Earlier purchases were processed by Contra, which shared the same kind of order details.</>,
                 <><strong className="font-medium text-ink">Waitlist:</strong> your email and the plan you chose, if you join it before checkout opens.</>,
               ]}
             />
@@ -66,7 +66,7 @@ export default function PrivacyPage() {
         {
           id: "why",
           h: "Why we use it",
-          body: <p className={LP}>To provide the service you asked for (your account, plan limits, the MCP server and CLI, support), to process payments through Contra, to prevent abuse of the free tier, and to understand which pages and components help people so we can improve them.</p>,
+          body: <p className={LP}>To provide the service you asked for (your account, plan limits, the MCP server and CLI, support), to process payments through Creem, to prevent abuse of the free tier, and to understand which pages and components help people so we can improve them.</p>,
         },
         {
           id: "processors",
@@ -75,7 +75,7 @@ export default function PrivacyPage() {
             <List
               items={[
                 "Cloudflare hosts the site, the database and the MCP server.",
-                "Contra processes payments, with its own privacy policy.",
+                <>Creem processes payments as our Merchant of Record, with its own <a href="https://www.creem.io/privacy" target="_blank" rel="noopener noreferrer" className="font-medium text-ink underline underline-offset-2">privacy policy</a>. Earlier purchases were processed by Contra.</>,
                 "Google (Analytics) and Microsoft (Clarity) process analytics data.",
                 "Cloudflare Email Routing delivers support email.",
                 "We share data with nobody else, except when the law requires it.",

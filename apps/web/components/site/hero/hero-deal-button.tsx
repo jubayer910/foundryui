@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 /**
  * Secondary hero CTA. The home page is prerendered, so the live deal price comes from /api/site (admin-controlled).
  * While the Lifetime deal runs it goes straight to checkout (POST /api/checkout, option lifetime), the same as the
- * Lifetime button on /pricing: signed-out visitors land on the Contra payment page, no sign-up first.
+ * Lifetime button on /pricing: signed-out visitors land on the Creem checkout, no sign-up first.
  * With no deal it links to pricing.
  */
 export function HeroDealButton({ fallbackPrice }: { fallbackPrice: number }) {

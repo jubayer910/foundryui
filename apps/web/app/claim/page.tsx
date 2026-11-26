@@ -8,7 +8,7 @@ import { checkAnyClaim, claimAny } from "@/lib/claim";
 import { PageHead } from "@/components/site/page-head";
 import { AIcon } from "@/components/admin/admin-icons";
 
-export const metadata: Metadata = { title: "Activate your purchase", robots: { ...NOINDEX, follow: false } };
+export const metadata: Metadata = { title: "Switch on your plan", robots: { ...NOINDEX, follow: false } };
 export const dynamic = "force-dynamic";
 
 /**
@@ -86,7 +86,7 @@ export default async function ClaimPage({ searchParams }: PageProps<"/claim">) {
 function Shell({ children }: { children: React.ReactNode }) {
   return (
     <div className="mx-auto max-w-[560px]">
-      <PageHead title="Activate your purchase" sub="Thanks for buying Ingot UI." />
+      <PageHead title="Switch on your plan" sub="Thanks for buying Ingot UI." />
       {children}
     </div>
   );

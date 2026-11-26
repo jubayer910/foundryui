@@ -94,7 +94,7 @@ function faq(pb: PriceBook): [string, string][] {
     ["Can I use the Free plan for commercial work?", "No. Free is for personal, learning and non-commercial projects. Commercial use, such as a paid SaaS, client work or a product you sell, needs Pro or Lifetime. Buying for a team? Write to us and we will set up a deal that covers it."],
     ["Which icons come with Free?", "All " + fmt(iconStats.line) + " icons in the stroke styles (rounded and sharp). Solid, bulk, duotone and twotone come with Pro and Lifetime, " + fmt(iconStats.total) + " icons in all " + iconStats.styles + " styles."],
     ["What happens to my code if I stop paying?", "Everything you already copied stays yours to ship. You just can’t copy new Pro items."],
-    ["Who handles the payment?", "Contra, the payments platform for independents. It takes cards, Google Pay and Cash App Pay and emails your receipt. Pay with the same email you use on ingotui.com, then open Account and click Activate; we switch your plan on, usually within an hour. Prices are in USD."],
+    ["Who handles the payment?", "Creem, our Merchant of Record. It charges your card (or Apple Pay and Google Pay where offered), handles sales tax and VAT, and emails your receipt. You don’t need an account to pay. Your plan switches on within seconds: if you have an ingotui.com account with the same email it is upgraded, otherwise we email you a link to create one and the plan is on when you sign up. Prices are in USD; tax is added at checkout where it applies."],
   );
   return out;
 }
@@ -222,7 +222,7 @@ export default async function PricingPage() {
           <LifetimeCard pb={pb} />
         </div>
       </div>
-      <p className="mt-3 text-[12px] text-mute"><Link href="/refund" className="underline underline-offset-2 hover:text-ink">7-day refund</Link> on every paid plan. Prices in USD; tax is added at checkout where it applies. Payments through Contra: after paying, click Activate in your Account. <Link href="/terms" className="underline underline-offset-2 hover:text-ink">Terms</Link></p>
+      <p className="mt-3 text-[12px] text-mute"><Link href="/refund" className="underline underline-offset-2 hover:text-ink">7-day refund</Link> on every paid plan. Prices in USD; tax is added at checkout where it applies. Payments through Creem, our Merchant of Record; your plan switches on automatically. <Link href="/terms" className="underline underline-offset-2 hover:text-ink">Terms</Link></p>
 
       <section id="team" aria-labelledby="team-h" className="card mt-3 flex scroll-mt-6 flex-wrap items-center gap-4 p-5">
         <IlloTile scene="founders" label="Team plan" className="hidden h-[88px] w-[120px] shrink-0 sm:block" />
@@ -239,7 +239,7 @@ export default async function PricingPage() {
           Talk to us
         </Link>
       </section>
-      <p className="mt-3 text-[12px] text-mute">Tax is added at checkout where it applies. Payments through Contra.</p>
+      <p className="mt-3 text-[12px] text-mute">Tax is added at checkout where it applies. Payments through Creem.</p>
 
       <section className="mt-12" aria-labelledby="compare-h">
         <h2 id="compare-h" className="text-[13px] font-medium" {...ed("pricing.compare.h")}>

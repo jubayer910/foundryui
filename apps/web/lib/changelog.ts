@@ -30,6 +30,19 @@ export const CHANGE_TYPES: { type: ChangeType; label: string }[] = [
 
 export const RELEASES: Release[] = [
   {
+    version: "1.3.0",
+    date: "2026-11-27",
+    title: "Checkout moved to Creem: pay without an account, plan switches on automatically",
+    scene: "key",
+    summary: "Buy a plan in one step. No account needed to pay, and your plan is on within seconds.",
+    items: [
+      { type: "new", text: "Checkout moved to Creem, our Merchant of Record: cards, plus Apple Pay and Google Pay where offered, with sales tax and VAT handled at checkout" },
+      { type: "new", text: "Pay without an account. Your plan switches on automatically: an account with the same email is upgraded, or we email you a link to create one" },
+      { type: "improved", text: "Manage billing in your account opens the Creem customer portal to cancel Pro or see your billing history" },
+      { type: "improved", text: "No more Activate step for new purchases. Bought on Contra earlier? A small link on Account still switches that plan on" },
+    ],
+  },
+  {
     version: "1.2.0",
     date: "2026-11-15",
     title: "Built for founders: Team plan, one-click agent connect, theme generator",

@@ -62,7 +62,8 @@ export const SYNONYMS: string[][] = [
   ["trial", "free trial", "try", "test drive", "evaluate", "demo account"],
   // Payments and activation
   ["payment", "payments", "paid", "transaction", "charge", "payment korbo", "taka dibo", "paymnt"],
-  ["contra", "contra.com", "payment provider", "payment platform"],
+  ["creem", "creem.io", "payment provider", "payment platform", "merchant of record"],
+  ["contra", "contra.com", "paid on contra"],
   ["lemon squeezy", "lemonsqueezy", "lemon", "stripe", "paddle", "gumroad"],
   ["card", "credit card", "debit card", "visa", "mastercard", "amex", "google pay", "cash app", "apple pay"],
   ["paypal", "bkash", "nagad", "rocket", "bank transfer", "wire", "crypto", "usdt", "payoneer", "wise"],
@@ -155,14 +156,14 @@ export const INTENT_PHRASES: Record<string, string[]> = {
     "can I pay by bank transfer", "crypto payment", "nagad diye pay kora jabe", "apple pay", "debit card works?",
   ],
   payment_status: [
-    "I paid but my plan is not active", "activation pending", "how long does activation take", "I paid on contra what now",
+    "I paid but my plan is not active", "activation pending", "how long does activation take", "I paid on contra what now", "I paid on creem what now", "paid but no email",
     "my payment is done but still free", "activate my plan", "still waiting for activation", "payment korsi kintu active hoy nai",
     "where do I activate", "I bought lifetime but it shows free", "plan not unlocked after payment", "did you get my payment",
     "activation status",
   ],
   payment_failed: [
     "payment failed", "card declined", "checkout error", "payment fail hocche", "transaction didn't go through",
-    "money deducted but no receipt", "contra payment not working", "cannot pay", "charged twice", "double charge",
+    "money deducted but no receipt", "contra payment not working", "creem payment not working", "creem checkout error", "cannot pay", "charged twice", "double charge",
   ],
   refund: [
     "I want a refund", "money back please", "refund policy", "can I get my money back", "how to request a refund",

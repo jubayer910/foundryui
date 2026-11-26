@@ -21,7 +21,7 @@ export default function RefundPage() {
               items={[
                 <>Write to <a href="mailto:support@ingotui.com" className="font-medium text-ink underline underline-offset-2">support@ingotui.com</a> from the email you paid with, or reply to your receipt email. Include the order number if you have it.</>,
                 "We refund the full amount to the original payment method, usually within 2 business days. Your bank may take 5 to 10 business days to show it.",
-                "Payments are processed by Contra, so the refund is issued through Contra to the card or wallet you paid with.",
+                "Payments are processed by Creem, our Merchant of Record, so the refund goes back through Creem to the card or wallet you paid with.",
               ]}
             />
           ),
@@ -31,7 +31,7 @@ export default function RefundPage() {
           h: "Cancelling a subscription",
           body: (
             <p className={LP}>
-              You can cancel Pro or Team any time from your purchases on Contra, or write to support@ingotui.com and we cancel it for you. Cancelling stops the next renewal; Pro stays active until the end of the period you paid for. Renewal payments after the first 7 days are not refunded automatically, but write to us if you were charged by mistake and we will look at it.
+              You can cancel Pro or Team any time from Manage billing in your Account, which opens the Creem customer portal, or write to support@ingotui.com and we cancel it for you. Cancelling stops the next renewal; Pro stays active until the end of the period you paid for. Renewal payments after the first 7 days are not refunded automatically, but write to us if you were charged by mistake and we will look at it.
             </p>
           ),
         },
