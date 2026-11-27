@@ -37,6 +37,7 @@ import { post as dropdownEx } from "./dropdown-menu-design";
 import { post as cardEx } from "./card-ui-design";
 import { post as mcpServers } from "./mcp-servers-for-ui-design";
 import { post as aiKits } from "./ui-kits-for-ai-coding-agents";
+import { post as loginPage } from "./login-page-design";
 
 /** Display order for posts that share a date. */
-export const POSTS: Post[] = [aiKits, dashEx, sidebarEx, kpiEx, chartEx, mcpServers, headerEx, navEx, modalEx, dropdownEx, cardEx, uiKits, admin, shadcn, mcp, figma, aiDesign, saas, kpi, charts, tokens, shadcnDash, chartLibs, freeFigma, tailwindComps, untitledAlt, tables, modalDrawer, empty, claudeCode, cursorRules, agentDash, emailDash, bestPractices, analyticsDash, saasMetrics, securityDash, workflowUi];
+export const POSTS: Post[] = [loginPage, aiKits, dashEx, sidebarEx, kpiEx, chartEx, mcpServers, headerEx, navEx, modalEx, dropdownEx, cardEx, uiKits, admin, shadcn, mcp, figma, aiDesign, saas, kpi, charts, tokens, shadcnDash, chartLibs, freeFigma, tailwindComps, untitledAlt, tables, modalDrawer, empty, claudeCode, cursorRules, agentDash, emailDash, bestPractices, analyticsDash, saasMetrics, securityDash, workflowUi];

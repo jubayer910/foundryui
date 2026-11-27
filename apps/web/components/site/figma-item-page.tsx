@@ -35,7 +35,15 @@ export function FigmaItemPage({ item }: { item: FigmaItem }) {
     ["Figma", "In the " + (sys?.name ?? "") + " Figma kit"],
     ["Code", qa ? "React (TSX), checked" : "In progress"],
   ];
-  const related = entries.filter((e) => e.slug !== item.slug && e.system === item.system && e.category === item.category).slice(0, 4);
+  // Related items walk the category list from this item onwards (wrapping round), so every component is linked from
+  // the ones just before it. Taking the first four of the category made all pages link to the same four and left the
+  // rest reachable only from the category page, which kept most of them out of Google's index.
+  const pool = entries.filter((e) => e.system === item.system && e.category === item.category);
+  const at = pool.findIndex((e) => e.slug === item.slug);
+  const ring = at < 0 ? pool : [...pool.slice(at + 1), ...pool.slice(0, at)];
+  const related = ring.slice(0, 4);
+  const sameScreen = item.source ? entries.filter((e) => e.slug !== item.slug && e.system === item.system && e.source === item.source && !related.includes(e)).slice(0, 8) : [];
+  const moreLinks = ring.slice(4, 12);
   return (
     <div className="max-w-[1400px]">
       <div className="grid gap-6 lg:grid-cols-[300px_1fr]">
@@ -94,6 +102,19 @@ export function FigmaItemPage({ item }: { item: FigmaItem }) {
               <ItemCard key={r.slug} item={r} />
             ))}
           </div>
+          {moreLinks.length > 0 && (
+            <ul className="mt-4 flex flex-wrap gap-1.5" aria-label={"More " + item.category.toLowerCase()}>
+              {moreLinks.map((r) => <li key={r.slug}><Link href={"/components/" + r.slug} className="pill">{r.name}</Link></li>)}
+            </ul>
+          )}
+        </section>
+      )}
+      {sameScreen.length > 0 && (
+        <section className="mt-8">
+          <h2 className="text-[13px] font-medium">From the same {sys?.name} screen</h2>
+          <ul className="mt-3 flex flex-wrap gap-1.5">
+            {sameScreen.map((r) => <li key={r.slug}><Link href={"/components/" + r.slug} className="pill">{r.name}</Link></li>)}
+          </ul>
         </section>
       )}
     </div>

@@ -12,6 +12,24 @@ import { clientEntries } from "@/lib/seo-entries";
 import { HUBS } from "@/lib/hubs";
 import { ed } from "@/lib/content/edit";
 
+/**
+ * Guides that already rank on Google (Search Console, Nov 2026) and get a link from the home page, which carries
+ * the most weight on the site. Update the list from Search Console's pages report when rankings move.
+ */
+const POPULAR = [
+  "best-dashboard-ui-kits",
+  "dashboard-design-examples",
+  "kpi-card-examples",
+  "sidebar-design-examples",
+  "card-ui-design",
+  "dashboard-design-best-practices",
+  "ai-agent-dashboard-design",
+  "admin-dashboard-templates-nextjs",
+  "email-marketing-dashboard",
+  "login-page-design",
+  "ui-kits-for-ai-coding-agents",
+];
+
 const MORE = [
   { href: "/mcp", scene: "server", h: "Connect your AI agent", b: "One line in Claude Code or Cursor, and your agent builds with the system." },
   { href: "/dashboard-ui-kit", scene: "six", h: "Nine dashboard UI kits", b: "Each one complete in Figma and code: tokens, components, charts and screens in one look." },
@@ -83,6 +101,11 @@ export function LibraryPage({ q = "", c = "all", s = "all", intro = true, home =
                   </span>
                 </Link>
               </li>
+            ))}
+          </ul>
+          <ul className="mt-3 flex flex-wrap gap-1.5" aria-label="Popular guides">
+            {POPULAR.map((slug) => posts.find((p) => p.slug === slug)).filter((p): p is NonNullable<typeof p> => !!p).map((p) => (
+              <li key={p.slug}><Link href={"/blog/" + p.slug} className="pill">{p.metaTitle?.split(/[:(]/)[0].trim() ?? p.title}</Link></li>
             ))}
           </ul>
         </section>
