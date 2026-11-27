@@ -9,9 +9,9 @@ import { entries } from "@/lib/library";
 import { JsonLd, ORG_ID, abs, breadcrumbLd, faqLd, plain, PUBLISHER } from "@/lib/seo";
 
 const SUMMARIZE = [
-  ["ChatGPT", (q: string) => "https://chatgpt.com/?q=" + q],
-  ["Claude", (q: string) => "https://claude.ai/new?q=" + q],
-  ["Perplexity", (q: string) => "https://www.perplexity.ai/search?q=" + q],
+  ["ChatGPT", "/logos/chatgpt.svg", (q: string) => "https://chatgpt.com/?q=" + q],
+  ["Claude", "/logos/claude.svg", (q: string) => "https://claude.ai/new?q=" + q],
+  ["Perplexity", "/logos/perplexity.svg", (q: string) => "https://www.perplexity.ai/search?q=" + q],
 ] as const;
 
 /** The post page. Shared by the static code-post route (app/blog/[slug]) and the per-request database route (app/blog-db/[slug]). */
@@ -83,8 +83,12 @@ export function PostArticle({ p, more }: { p: Post; more: Post[] }) {
 
           <p className="mt-5 flex flex-wrap items-center gap-1.5 text-[12px] text-mute">
             Summarize with
-            {SUMMARIZE.map(([name, href]) => (
-              <a key={name} href={href(prompt)} target="_blank" rel="noopener nofollow" className="rounded-full bg-chip px-2.5 py-0.5 text-ink hover:bg-chip-2">{name}</a>
+            {SUMMARIZE.map(([name, logo, href]) => (
+              <a key={name} href={href(prompt)} target="_blank" rel="noopener nofollow" className="inline-flex items-center gap-1.5 rounded-full bg-chip py-0.5 pl-2 pr-2.5 text-ink hover:bg-chip-2">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={logo} alt="" width={13} height={13} className="size-[13px] shrink-0" />
+                {name}
+              </a>
             ))}
           </p>
 
