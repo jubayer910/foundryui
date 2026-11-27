@@ -10,6 +10,7 @@ export const ROUTES: AdminRoute[] = [
   { name: "insights-traffic", path: "/admin/analytics/traffic" },
   { name: "insights-behavior", path: "/admin/analytics/behavior" },
   { name: "insights-buyers", path: "/admin/analytics/buyers" },
+  { name: "insights-heard", path: "/admin/analytics/heard" },
   { name: "insights-users", path: "/admin/analytics/users" },
   { name: "insights-usage", path: "/admin/analytics/usage?g=day" },
   { name: "insights-revenue", path: "/admin/analytics/revenue" },

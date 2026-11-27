@@ -728,3 +728,7 @@ html[data-ingot-cursor] :is(:disabled, [aria-disabled=true], :is([class^="cursor
   }
 }
 
+
+/* onboarding steps on /welcome: each new question rises in softly; none with reduced motion */
+@keyframes fade-up { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { [class*="animate-[fade-up"] { animation: none !important; } }

@@ -2,7 +2,7 @@ import { z } from "zod";
 import { getSessionUser } from "@/lib/auth";
 import { getDb, schema } from "@/lib/db";
 import { systems } from "@/lib/catalog";
-import { SEGMENTS, saveProfile, takeLimit } from "../store";
+import { HEARD_FROM, SEGMENTS, saveProfile, takeLimit } from "../store";
 
 const Body = z
   .object({
@@ -13,13 +13,20 @@ const Body = z
       .max(80)
       .optional()
       .transform((s) => s?.replace(/\s+/g, " ").trim() || undefined),
+    /** "How did you hear about Ingot UI?" (optional last step of /welcome) */
+    heardFrom: z.enum(HEARD_FROM.map((h) => h.id) as [string, ...string[]]).optional(),
+    heardFromOther: z
+      .string()
+      .max(80)
+      .optional()
+      .transform((s) => s?.replace(/\s+/g, " ").trim() || undefined),
     /** the system picked on /welcome (kept in this browser until now) */
     system: z.enum(systems.map((s) => s.slug) as [string, ...string[]]).optional(),
     /** items saved in this browser's library, copied into the account */
     saved: z.array(z.string().regex(/^[a-z0-9][a-z0-9:_./-]{0,119}$/i)).max(50).optional(),
     dismiss: z.enum(["survey", "feedback"]).optional(),
   })
-  .refine((b) => b.segment || b.system || b.saved?.length || b.dismiss, { message: "empty" });
+  .refine((b) => b.segment || b.heardFrom || b.system || b.saved?.length || b.dismiss, { message: "empty" });
 
 /** POST /api/feedback/profile: onboarding answers and dismissals for the signed-in user. */
 export async function POST(req: Request) {
@@ -34,6 +41,7 @@ export async function POST(req: Request) {
   await saveProfile(user.id, {
     ...(b.segment ? { segment: b.segment, segmentOther: b.segment === "other" ? b.segmentOther ?? null : null, segmentAt: now } : {}),
     ...(b.system ? { system: b.system, systemAt: now } : {}),
+    ...(b.heardFrom ? { heardFrom: b.heardFrom, heardFromOther: b.heardFrom === "other" ? b.heardFromOther ?? null : null, heardAt: now } : {}),
     ...(b.dismiss === "survey" ? { surveyDismissedAt: now } : {}),
     ...(b.dismiss === "feedback" ? { feedbackDismissedAt: now } : {}),
   });

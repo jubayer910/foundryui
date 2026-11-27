@@ -23,6 +23,7 @@ export const AREAS: NavArea[] = [
       { href: "/admin/analytics/traffic", label: "Traffic", perm: "analytics" },
       { href: "/admin/analytics/behavior", label: "Behavior", perm: "analytics" },
       { href: "/admin/analytics/buyers", label: "Buyers", perm: "revenue" },
+      { href: "/admin/analytics/heard", label: "How they heard", perm: "analytics" },
       { href: "/admin/analytics/users", label: "Users", perm: "analytics" },
       { href: "/admin/analytics/usage", label: "Usage", perm: "analytics" },
       { href: "/admin/analytics/revenue", label: "Revenue", perm: "analytics" },

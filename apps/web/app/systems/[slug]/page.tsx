@@ -1,3 +1,4 @@
+import { WelcomeBanner } from "@/components/site/welcome-banner";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { LOOPO_FIGMA_COMMUNITY } from "@/lib/brand";
@@ -133,6 +134,7 @@ export default async function SystemPage({ params }: PageProps<"/systems/[slug]"
       </aside>
 
       <div className="min-w-0">
+        <WelcomeBanner system={s.slug} name={s.name} />
         <SystemShowcase system={s.slug} name={s.name} />
         {s.status === "live" && (
           <section>

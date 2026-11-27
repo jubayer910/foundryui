@@ -16,6 +16,10 @@ export const userProfile = sqliteTable("user_profile", {
   system: text("system"),
   systemAt: ts("systemAt"),
   surveyDismissedAt: ts("surveyDismissedAt"),
+  /** "How did you hear about Ingot UI?" (migrations/0025_heard_from.sql) */
+  heardFrom: text("heardFrom"),
+  heardFromOther: text("heardFromOther"),
+  heardAt: ts("heardAt"),
   feedbackDismissedAt: ts("feedbackDismissedAt"),
   updatedAt: ts("updatedAt").notNull(),
 });
@@ -42,6 +46,24 @@ export const SEGMENTS = [
   { id: "other", label: "Something else" },
 ] as const;
 export type Segment = (typeof SEGMENTS)[number]["id"];
+
+/** Answers to "How did you hear about Ingot UI?" on /welcome, in the order they are shown. */
+export const HEARD_FROM = [
+  { id: "ai", label: "ChatGPT, Claude or another AI" },
+  { id: "google", label: "Google search" },
+  { id: "x", label: "X (Twitter)" },
+  { id: "youtube", label: "YouTube" },
+  { id: "reddit", label: "Reddit" },
+  { id: "linkedin", label: "LinkedIn" },
+  { id: "producthunt", label: "Product Hunt" },
+  { id: "figma", label: "Figma Community" },
+  { id: "appsumo", label: "AppSumo" },
+  { id: "discord", label: "Discord" },
+  { id: "friend", label: "A friend or colleague" },
+  { id: "blog", label: "A blog or newsletter" },
+  { id: "other", label: "Other" },
+] as const;
+export type HeardFrom = (typeof HEARD_FROM)[number]["id"];
 
 /** Usage actions that count as "built something": a code copy, a Figma copy or a CLI install. */
 export const BUILD_ACTIONS = ["copy_code", "copy_figma", "install"] as const;
