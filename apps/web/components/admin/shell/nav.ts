@@ -39,6 +39,7 @@ export const AREAS: NavArea[] = [
       { href: "/admin/users", label: "Users", perm: "users" },
       { href: "/admin/waitlist", label: "Waitlist", perm: "waitlist" },
       { href: "/admin/referrals", label: "Referral links", perm: "analytics" },
+      { href: "/admin/reviews", label: "Reviews", perm: "users" },
     ],
   },
   {

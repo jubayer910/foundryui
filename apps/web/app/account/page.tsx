@@ -9,11 +9,27 @@ import { planLabel, usd } from "@/lib/plans";
 import { ApiKeys } from "@/components/site/api-keys";
 import { TeamSeats } from "@/components/site/team-seats";
 import { SignOut } from "@/components/site/sign-out";
-import { PageHead } from "@/components/site/page-head";
 import { Billing, WelcomeBanner, type BillingSub, type Receipt } from "@/components/site/billing";
 import { OnboardingChecklist } from "@/components/site/onboarding-checklist";
 import { latestClick, latestForUser, productName } from "@/lib/activation";
 import { AIcon } from "@/components/admin/admin-icons";
+import { Avatar, ProfileForm } from "@/components/site/account/profile-form";
+import { AffiliatePanel } from "@/components/site/account/affiliate-panel";
+import { ReviewForm } from "@/components/site/account/review-form";
+import { AFFILIATE_TERMS, affiliateState } from "@/lib/affiliate";
+import { feedback } from "@/app/api/feedback/store";
+
+/** Account sections, one per tab (?tab=). Overview keeps onboarding and usage up front. */
+const TABS = [
+  ["overview", "Overview"],
+  ["profile", "Profile"],
+  ["billing", "Plan and billing"],
+  ["keys", "API keys"],
+  ["team", "Team"],
+  ["affiliate", "Affiliate"],
+  ["feedback", "Feedback"],
+] as const;
+type Tab = (typeof TABS)[number][0];
 
 export const metadata: Metadata = { title: "Account", robots: NOINDEX };
 
@@ -33,8 +49,9 @@ export default async function AccountPage({ searchParams }: PageProps<"/account"
   const sp = await searchParams;
   // Keep an invite token through sign-in so invitees land back on their invite.
   if (!user) redirect("/sign-in?next=" + encodeURIComponent("/account" + (typeof sp.invite === "string" ? "?invite=" + sp.invite : "")));
+  const tab: Tab = typeof sp.invite === "string" ? "team" : (TABS.find(([id]) => id === sp.tab)?.[0] ?? "overview");
   const db = await getDb();
-  const [keys, usage, subs, purchases, activation, click] = await Promise.all([
+  const [keys, usage, subs, purchases, activation, click, myReview, aff] = await Promise.all([
     db
       .select({ id: schema.apiKey.id, name: schema.apiKey.name, prefix: schema.apiKey.prefix, createdAt: schema.apiKey.createdAt, lastUsedAt: schema.apiKey.lastUsedAt })
       .from(schema.apiKey)
@@ -49,6 +66,8 @@ export default async function AccountPage({ searchParams }: PageProps<"/account"
     db.select().from(schema.purchase).where(eq(schema.purchase.userId, user.id)).orderBy(desc(schema.purchase.createdAt)),
     latestForUser(user.id).catch(() => null),
     latestClick(user).catch(() => null),
+    tab === "feedback" ? db.select().from(feedback).where(eq(feedback.userId, user.id)).get().catch(() => undefined) : Promise.resolve(undefined),
+    tab === "affiliate" ? affiliateState(user) : Promise.resolve(null),
   ]);
   const total = usage.reduce((s, u) => s + Number(u.n), 0);
   const mcp = usage.filter((u) => u.client === "mcp").reduce((s, u) => s + Number(u.n), 0);
@@ -69,62 +88,120 @@ export default async function AccountPage({ searchParams }: PageProps<"/account"
       url: receiptUrl(p.raw),
     }));
 
+  const since = user.createdAt ? user.createdAt.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" }) : null;
   return (
     <div className="max-w-4xl">
-      <PageHead title="Account" sub={user.email}>
+      {/* who you are, at a glance */}
+      <header className="flex flex-wrap items-center gap-3">
+        <Avatar name={user.name} image={user.image} size={48} />
+        <div className="min-w-0 flex-1">
+          <h1 className="flex flex-wrap items-center gap-2 text-[20px] font-medium tracking-[-0.02em]">
+            {user.name || "Your account"}
+            <span className="rounded-full bg-tile px-2 py-px text-[11px] font-medium text-mute">{planLabel(user.plan)}</span>
+          </h1>
+          <p className="truncate text-[13px] text-mute">{user.email}</p>
+        </div>
         <SignOut />
-      </PageHead>
-      {(sp.welcome === "1" || sp.gift === "1") && <WelcomeBanner plan={user.plan} gift={sp.gift === "1"} />}
-      {sp.already === "1" && (
-        <div role="status" className="mt-5 rounded-[8px] bg-tile p-4 text-[13px]">
-          <span className="font-medium">You already have {planLabel(user.plan)}.</span> <span className="text-mute">Nothing new to buy; everything it covers is unlocked.</span>
-        </div>
-      )}
-      {activation?.status === "pending" ? (
-        <Link href="/activate" className="mt-5 flex items-center gap-3 rounded-[8px] bg-tile p-4 text-[13px] hover:bg-chip">
-          <AIcon name="clock-hour-4" size={18} className="shrink-0" />
-          <span className="min-w-0 flex-1">
-            <span className="block font-medium">We&apos;re confirming your {productName(activation.variantKey)} payment</span>
-            <span className="block text-mute">We usually confirm it within an hour. See the status</span>
-          </span>
-          <AIcon name="chevron-right" size={16} className="shrink-0 text-faint" />
-        </Link>
-      ) : (
-        user.plan === "free" &&
-        !activation && (
-          <p className="mt-5 text-[12px] text-mute">
-            Paid on Contra earlier?{" "}
-            <Link href={click ? `/activate?plan=${click.option}` : "/activate"} className="underline underline-offset-2 hover:text-ink">
-              Switch that plan on
-            </Link>
-          </p>
-        )
-      )}
-      <OnboardingChecklist user={user} />
-      <div className="mt-5 grid gap-3 sm:grid-cols-3">
-        {[
-          ["Plan", planLabel(user.plan)],
-          ["Copies & downloads", String(total - mcp)],
-          ["MCP calls", String(mcp)],
-        ].map(([k, v]) => (
-          <div key={k} className="card p-4">
-            <p className="text-[13px] text-mute">{k}</p>
-            <p className="mt-1 text-[22px] font-medium tracking-[-0.02em] tabular-nums">{v}</p>
-          </div>
+      </header>
+      <nav aria-label="Account sections" className="-mx-1 mt-5 flex gap-1 overflow-x-auto border-b border-hair px-1 [scrollbar-width:none]">
+        {TABS.map(([id, label]) => (
+          <Link
+            key={id}
+            href={id === "overview" ? "/account" : "/account?tab=" + id}
+            aria-current={tab === id ? "page" : undefined}
+            className={"-mb-px shrink-0 border-b-2 px-2.5 pb-2.5 pt-1 text-[13px] transition-colors " + (tab === id ? "border-ink text-ink" : "border-transparent text-mute hover:text-ink")}
+          >
+            {label}
+          </Link>
         ))}
-      </div>
-      {(sp.billing === "error" || sp.billing === "unavailable") && (
-        <div role="alert" className="mt-5 rounded-[8px] bg-tile p-4 text-[13px]">
-          <span className="font-medium">We could not open billing right now.</span> <span className="text-mute">Try again in a minute, or use the link in your Creem receipt email.</span>
-        </div>
+      </nav>
+
+      {tab === "overview" && (
+        <>
+          {(sp.welcome === "1" || sp.gift === "1") && <WelcomeBanner plan={user.plan} gift={sp.gift === "1"} />}
+          {sp.already === "1" && (
+            <div role="status" className="mt-5 rounded-[8px] bg-tile p-4 text-[13px]">
+              <span className="font-medium">You already have {planLabel(user.plan)}.</span> <span className="text-mute">Nothing new to buy; everything it covers is unlocked.</span>
+            </div>
+          )}
+          {activation?.status === "pending" ? (
+            <Link href="/activate" className="mt-5 flex items-center gap-3 rounded-[8px] bg-tile p-4 text-[13px] hover:bg-chip">
+              <AIcon name="clock-hour-4" size={18} className="shrink-0" />
+              <span className="min-w-0 flex-1">
+                <span className="block font-medium">We&apos;re confirming your {productName(activation.variantKey)} payment</span>
+                <span className="block text-mute">We usually confirm it within an hour. See the status</span>
+              </span>
+              <AIcon name="chevron-right" size={16} className="shrink-0 text-faint" />
+            </Link>
+          ) : (
+            user.plan === "free" &&
+            !activation && (
+              <p className="mt-5 text-[12px] text-mute">
+                Paid on Contra earlier?{" "}
+                <Link href={click ? `/activate?plan=${click.option}` : "/activate"} className="underline underline-offset-2 hover:text-ink">
+                  Switch that plan on
+                </Link>
+              </p>
+            )
+          )}
+          <OnboardingChecklist user={user} />
+          <div className="mt-5 grid gap-3 sm:grid-cols-3">
+            {[
+              ["Plan", planLabel(user.plan)],
+              ["Copies & downloads", String(total - mcp)],
+              ["MCP calls", String(mcp)],
+            ].map(([k, v]) => (
+              <div key={k} className="card p-4">
+                <p className="text-[13px] text-mute">{k}</p>
+                <p className="mt-1 text-[22px] font-medium tracking-[-0.02em] tabular-nums">{v}</p>
+              </div>
+            ))}
+          </div>
+        </>
       )}
-      <Billing plan={user.plan} sub={sub} receipts={receipts} />
-      <TeamSeats invite={typeof sp.invite === "string" ? sp.invite : null} />
-      <section className="mt-10">
-        <h2 className="text-[13px] font-medium">API keys</h2>
-        <p className="mt-1 text-[13px] text-mute">Use a key to connect the MCP server or the CLI. Keys are shown once and stored hashed.</p>
-        <ApiKeys initial={keys.map((k) => ({ ...k, createdAt: k.createdAt.toISOString(), lastUsedAt: k.lastUsedAt?.toISOString() ?? null }))} />
-      </section>
+
+      {tab === "profile" && (
+        <section className="mt-6" aria-label="Profile">
+          <ProfileForm name={user.name} image={user.image ?? null} email={user.email} since={since} />
+        </section>
+      )}
+
+      {tab === "billing" && (
+        <>
+          {(sp.billing === "error" || sp.billing === "unavailable") && (
+            <div role="alert" className="mt-5 rounded-[8px] bg-tile p-4 text-[13px]">
+              <span className="font-medium">We could not open billing right now.</span> <span className="text-mute">Try again in a minute, or use the link in your Creem receipt email.</span>
+            </div>
+          )}
+          <Billing plan={user.plan} sub={sub} receipts={receipts} />
+        </>
+      )}
+
+      {tab === "team" && <TeamSeats invite={typeof sp.invite === "string" ? sp.invite : null} />}
+
+      {tab === "keys" && (
+        <section className="mt-6">
+          <h2 className="text-[13px] font-medium">API keys</h2>
+          <p className="mt-1 text-[13px] text-mute">Use a key to connect the MCP server or the CLI. Keys are shown once and stored hashed.</p>
+          <ApiKeys initial={keys.map((k) => ({ ...k, createdAt: k.createdAt.toISOString(), lastUsedAt: k.lastUsedAt?.toISOString() ?? null }))} />
+        </section>
+      )}
+
+      {tab === "affiliate" && aff && (
+        <section className="mt-6" aria-label="Affiliate">
+          {/* localhost preview of the first-visit state: /account?tab=affiliate&aff=none (sample mode only) */}
+          <AffiliatePanel state={aff.stage === "joined" && aff.sample && sp.aff === "none" ? { stage: "none" } : aff} terms={AFFILIATE_TERMS} />
+        </section>
+      )}
+
+      {tab === "feedback" && (
+        <section className="mt-6" aria-label="Feedback">
+          <ReviewForm
+            defaultName={user.name}
+            prev={myReview ? { nps: myReview.nps, quote: myReview.quote, name: myReview.name, company: myReview.company, consent: myReview.consent, approved: myReview.approved, at: myReview.createdAt.toISOString() } : null}
+          />
+        </section>
+      )}
     </div>
   );
 }

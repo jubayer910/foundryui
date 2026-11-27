@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-type State = { name: string } | null | undefined;
+type State = { name: string; image?: string | null } | null | undefined;
 
 /**
  * Account button in the rail. Reads the session in the browser so the shared layout
@@ -17,7 +17,7 @@ export function AccountLink() {
   useEffect(() => {
     fetch("/api/auth/get-session", { credentials: "include" })
       .then((r) => (r.ok ? r.json() : null))
-      .then((d: { user?: { name?: string } } | null) => setUser(d?.user ? { name: d.user.name || "?" } : null))
+      .then((d: { user?: { name?: string; image?: string | null } } | null) => setUser(d?.user ? { name: d.user.name || "?", image: d.user.image ?? null } : null))
       .catch(() => setUser(null));
   }, []);
   if (user === undefined) return <span className="h-7 w-16" aria-hidden="true" />;
@@ -29,8 +29,13 @@ export function AccountLink() {
             Admin
           </Link>
         )}
-        <Link href="/account" aria-label="Your account" className="flex size-7 items-center justify-center rounded-full bg-ink text-[12px] font-medium text-white">
-          {user.name.slice(0, 1).toUpperCase()}
+        <Link href="/account" aria-label="Your account" className="flex size-7 items-center justify-center overflow-hidden rounded-full bg-ink text-[12px] font-medium text-white">
+          {user.image ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={user.image} alt="" width={28} height={28} className="size-7 object-cover" />
+          ) : (
+            user.name.slice(0, 1).toUpperCase()
+          )}
         </Link>
       </span>
     );

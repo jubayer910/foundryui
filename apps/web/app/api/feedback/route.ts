@@ -2,7 +2,7 @@ import { eq } from "drizzle-orm";
 import { z } from "zod";
 import { getSessionUser } from "@/lib/auth";
 import { getDb } from "@/lib/db";
-import { feedback, getOnboarding, takeLimit, userProfile } from "./store";
+import { feedback, takeLimit, userProfile } from "./store";
 
 const text = (max: number) =>
   z
@@ -24,7 +24,7 @@ const Body = z
 
 /**
  * POST /api/feedback {nps 0–10, quote?, name?, company?, consent}
- * One answer per user, only for active users (3+ copies or a paid plan).
+ * One answer per user, editable from Account → Feedback (any signed-in member; the automatic ask still waits for 3+ copies).
  * Nothing is public until the owner approves a quote that has consent = true.
  */
 export async function POST(req: Request) {
@@ -40,25 +40,22 @@ export async function POST(req: Request) {
     return Response.json({ error: "invalid", field, message }, { status: 400 });
   }
 
-  const state = await getOnboarding(user);
-  if (state.answered) return Response.json({ error: "already_answered", message: "You already sent feedback. Thank you." }, { status: 409 });
-  if (!state.eligible) return Response.json({ error: "not_eligible" }, { status: 403 });
-
   const b = parsed.data;
   const db = await getDb();
   const profile = await db.select({ segment: userProfile.segment }).from(userProfile).where(eq(userProfile.userId, user.id)).get();
-  await db.insert(feedback).values({
-    id: crypto.randomUUID(),
-    userId: user.id,
+  const fields = {
     nps: b.nps,
     quote: b.quote ?? null,
     name: b.name ?? null,
     company: b.company ?? null,
     consent: b.consent,
-    approved: false,
+    approved: false, // a new or edited answer waits for the owner again before anything is public
     segment: profile?.segment ?? null,
     plan: user.plan,
-    createdAt: new Date(),
-  });
+  };
+  // one answer per member: Account → Feedback edits it in place
+  const prev = await db.select({ id: feedback.id }).from(feedback).where(eq(feedback.userId, user.id)).get();
+  if (prev) await db.update(feedback).set({ ...fields, createdAt: new Date() }).where(eq(feedback.id, prev.id));
+  else await db.insert(feedback).values({ id: crypto.randomUUID(), userId: user.id, ...fields, createdAt: new Date() });
   return Response.json({ ok: true });
 }

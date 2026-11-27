@@ -28,6 +28,7 @@ export const ROUTES: AdminRoute[] = [
   { name: "user-detail", path: "/admin/users/seed_u0" },
   { name: "waitlist", path: "/admin/waitlist" },
   { name: "referrals", path: "/admin/referrals" },
+  { name: "reviews", path: "/admin/reviews" },
   { name: "pages", path: "/admin/pages" },
   { name: "posts", path: "/admin/posts" },
   { name: "post-editor", path: "/admin/posts/seed_post0" },

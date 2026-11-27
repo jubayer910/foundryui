@@ -76,7 +76,7 @@ async function creditRef(userId: string) {
   } catch {}
 }
 
-export type SessionUser = { id: string; name: string; email: string; plan: string; role: string };
+export type SessionUser = { id: string; name: string; email: string; plan: string; role: string; image?: string | null; createdAt?: Date };
 
 export async function getSessionUser(): Promise<SessionUser | null> {
   const auth = await getAuth();
@@ -85,5 +85,5 @@ export async function getSessionUser(): Promise<SessionUser | null> {
   const u = s.user as typeof s.user & { plan?: string; role?: string };
   // Team members inherit "team" from their owner's live Team plan (one D1 lookup, free users only).
   const plan = await getEffectivePlan({ id: u.id, plan: u.plan ?? "free" });
-  return { id: u.id, name: u.name, email: u.email, plan, role: u.role ?? "user" };
+  return { id: u.id, name: u.name, email: u.email, plan, role: u.role ?? "user", image: u.image ?? null, createdAt: u.createdAt };
 }
