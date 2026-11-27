@@ -73,7 +73,16 @@ export async function joinAffiliates(user: { id: string; email: string; name: st
   const r = await creem("/v1/affiliates/invites", { method: "POST", body: JSON.stringify({ email: user.email, name: user.name || user.email.split("@")[0] }) });
   if (!r) return { ok: false, message: "The affiliate program is not open yet." };
   if (!r.ok && r.status !== 409) {
-    const why = r.status === 400 ? "We could not invite this email. Write to support@ingotui.com and we will add you." : "Creem did not answer. Please try again in a minute.";
+    // Creem says why in the body (e.g. the email belongs to a store team member, or 100 invites are pending)
+    const body = await r.text().catch(() => "");
+    console.error("creem affiliate invite failed", r.status, body.slice(0, 300));
+    const said = (() => { try { const j = JSON.parse(body) as { message?: string | string[]; error?: string }; return [j.message, j.error].flat().filter(Boolean).join(" "); } catch { return body; } })().toLowerCase();
+    const why =
+      /team|member|owner/.test(said)
+        ? "This email belongs to the Ingot UI team on Creem, and Creem does not let a store’s own team be its affiliates. Use a different account."
+        : r.status === 400
+          ? "We could not invite this email. Write to support@ingotui.com and we will add you."
+          : "Creem did not answer. Please try again in a minute.";
     return { ok: false, message: why };
   }
   const d = r.ok ? ((await r.json()) as { id?: string }) : {};

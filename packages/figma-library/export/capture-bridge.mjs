@@ -17,7 +17,8 @@ const run = (cmd, args) => new Promise((ok, no) => execFile(cmd, args, { maxBuff
 const osa = (...lines) => run("osascript", lines.flatMap((l) => ["-e", l]));
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const log = (s) => { console.log(s); appendFileSync(LOG, new Date().toISOString() + " [bridge] " + s + "\n"); };
-const key = (k) => osa('tell application "System Events" to tell process "Figma" to ' + k);
+// keystrokes go to the frontmost app: bring Figma forward first every time, so an Escape never lands in another app
+const key = (k) => osa('tell application "Figma" to activate', "delay 0.15", 'tell application "System Events" to tell process "Figma" to ' + k);
 
 async function clipboardHtml() {
   const raw = await osa("try", "the clipboard as «class HTML»", "on error", 'return ""', "end try").catch(() => "");
